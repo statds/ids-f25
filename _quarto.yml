@@ -1,0 +1,43 @@
+project:
+  type: book
+
+book:
+  title: "Introduction to Data Science"
+  subtitle: "STAT 3255/5255 @ UConn, Spring 2025"
+  author:
+    - name: "[Jun Yan](https://statcomp.org) and Students in Fall 2025"
+  date: today
+
+#  sidebar:
+#    logo: images/ids-f24.png
+  
+  chapters:
+    - index.qmd
+    - intro.qmd
+    - git.qmd
+    - quarto.qmd
+    - python.qmd
+#    - manipulation.qmd
+#    - visualization.qmd
+#    - stats.qmd
+#    - machinelearning.qmd
+#    - supervised.qmd
+#    - unsupervised.qmd
+#    - advanced.qmd
+    - exercises.qmd
+    - references.qmd
+
+bibliography: references.bib
+csl: apa.csl
+
+
+format:
+  html:
+    theme: cosmo
+#  pdf:
+#    documentclass: scrbook
+#    include-in-header: preamble.tex
+#    prefer-html: true
+
+execute:
+  freeze: auto

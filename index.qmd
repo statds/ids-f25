@@ -1,0 +1,469 @@
+# Preliminaries {.unnumbered}
+
+The notes were developed with Quarto; for details about Quarto, visit
+<https://quarto.org/docs/books>.
+
+
+This book is free and is licensed under a [Creative Commons
+Attribution-NonCommercial-NoDerivs 3.0 United States License](http://creativecommons.org/licenses/by-nc-nd/3.0/us/).
+
+## Sources at GitHub
+These lecture notes for STAT 3255/5255 in Spring 2025 represent a
+collaborative effort between Professor Jun Yan and the students
+enrolled in the course. This cooperative approach to education was
+facilitated through the use of GitHub, a platform that encourages
+collaborative coding and content development. To view
+these contributions and the lecture notes in their entirety, please
+visit our GitHub repository at <https://github.com/statds/ids-s25>.
+
+
+Students contributed to the lecture notes by submitting pull requests
+to our GitHub repository. This method not only enriched the
+course material but also provided students with practical experience
+in collaborative software development and version control. 
+
+
+For those interested, class notes from
+[Fall 2024](https://statds.github.io/ids-f24),
+[Spring 2024](https://statds.github.io/ids-s24),
+[Spring 2023](https://statds.github.io/ids-s23), and
+[Spring 2022](https://statds.github.io/ids-s22/)
+are also publicly accessible. These archives offer
+insights into the evolution of the course content and the
+different perspectives brought by successive student cohorts.
+
+
+## Compiling the Classnotes
+To reproduce the classnotes output on your own computer, here are the
+necessary steps. See Section @sec-buildnotes for details. 
+
++ Clone the classnotes repository to an appropriate location on your
+  computer; see Chapter @sec-git for using Git.
++ Set up a Python virtual environment in the root folder of the
+  source; see Section @sec-python-venv.
++ Activate your virtual environment.
++ Install all the packages specified in `requirements.txt` in your
+  virtual environment:
+ ```
+ pip install -r requirements.txt
+ ```
++ For some chapters that need to interact with certain sites that
+  require account information. For example, for Google map services,
+  you need to save your API key in a file named `api_key.txt` in the
+  root folder of the source.
++ Render the book with `quarto render` from the root folder on a
+  terminal; the rendered book will be stored under `_book`.
+
+
+## Midterm Project
+
+Reproduce NYC street flood research [@agonafir2022machine;
+@agonafir2022understanding].
+
+
+Four students will be selected to present their work in a workshop at
+the [2025 NYC Open Data Week](https://2025.open-data.nyc). You are
+welcome to invite your family and friends to join the workshop.
+
+
+## Final Project
+
+Students are encouraged to start designing their final projects from
+the beginning of the semester. There are many open data that can be
+used. Here is a list of useful data challenges:
+
++ [ASA Data Challenge
+  Expo](https://community.amstat.org/dataexpo/home): big data in 2025
++ [Kaggle](https://www.kaggle.com).
++ [DrivenData](https://www.drivendata.org).
++ [15 Data Science Hackathons to Test Your Skills in 2025](https://www.fynd.academy/blog/data-science-hackathons)
++ If you work on sports analytics, you are welcome to submit a
+poster to [Connecticut Sports Analytics Symposium
+(CSAS) 2025](https://statds.org/events/csas2025/).
++ A good resource for sports analytics is [ScoreNetwork](https://scorenetwork.org).
++ [Paleobiology Database](https://paleobiodb.org/#/).
+
+## Adapting to Rapid Skill Acquisition
+
+In this course, students are expected to rapidly acquire new skills, a
+critical aspect of data science. To emphasize this, consider this
+insightful quote from @vanderplas2016python:
+
+> When a technologically-minded person is asked to help a friend, family member,
+> or colleague with a computer problem, most of the time it's less a matter of
+> knowing the answer as much as knowing how to quickly find an unknown
+> answer. In data science it's the same: searchable web resources such as online
+> documentation, mailing-list threads, and StackOverflow answers contain a
+> wealth of information, even (especially?) if it is a topic you've found
+> yourself searching before. Being an effective practitioner of data science is
+> less about memorizing the tool or command you should use for every possible
+> situation, and more about learning to effectively find the information you
+> don't know, whether through a web search engine or another means.
+
+This quote captures the essence of what we aim to develop in our
+students: the ability to swiftly navigate and utilize the vast
+resources available to solve complex problems in data science.
+Examples tasks are: install needed software (or even hardware);
+search and find solutions to encountered problems. 
+
+## Wishlist
+
+This is a wish list from all members of the class (alphabetical
+order, last name first, comma, then first name). Here is an example.
+
+
++ Yan, Jun
+    - Make practical data science tools accessible to undergraduates.
+    - Pass real-world data science project experience to students.
+    - Co-develop a Quarto book in collaboration with the students.
+    - Train students to participate in real data science competitions.
+
+
+Add yours through a pull request; note the syntax of nested list in
+Markdown. 
+
+
+### Students in 3255
++ Ackerman, John
+    - Get comfortable with command line interface
+    - Hands-on experience with AI
+    - Learn practical tools & tricks for professional data scientist
++ Alsadadi, Ammar Shaker
+    - Learn about the applications of Data Science in Finance
+    - Learn more about time series and random walk
++ Chen, Yifei
+    - Learn more advanced Python programming skills.
+    - Learn to use github for future projects
+    - Get a good grade in this class. 
++ El Zein, Amer Hani
+  - To gain a deeper understanding of data preparation. 
+  - To develop intution on what the best tool for a given project is.
++ Febles, Xavier Milan
+    - Further develop skills with git
+    - Learn more about specific tools used for data science
+    - Become more comfortable with sql
++ Horn, Alyssa Noelle
+    - Be confident in using Git and Github
+    - Learn how to collaborate with others on projects through Github
++ Jun, Joann
+    - Become proficient in using GitHub
+    - Learn more about the applications of data science
++ Kline, Daniel Esteban
++ Lagutin, Vladislav
+    - Learn how to do data science projects in python and interact with them using git
+    - Learn how to do good visualizations of the data; explore appropriate libraries
++ Lang, Lang
+    - Become more proficient with python
+    - Learn about the applications of Data Science
+    - Learn how to make collaborative project by using GitHub
+    - Have a good grade in this course
++ Li, Shiyi
+    - Learn to visualize the plots and results using the ggplot package.
+    - Learn to use the common functions of the SciPy, scikit-learn, and statsmodels libraries in Python
+    - Learn how to query, extract, and manipulate structured and unstructured data in a large database.
+    - Learn the basics of artificial neural networks, CNNs for image data, NLP techniques.
+    - Learn some of the data analysis models that will be commonly used in the workplace.
+    - Learn some common applications of optimization techniques in data analysis. 
+    - Pass this course with an A grade.
++ Lin, Selena
+  - Get a good grade in this class.
+  - Learn and get familiar with using GitHub.
+  - Hands on experience with the data science skills learned in this class.
++ Long, Ethan Kenneth
+    - Become more comfortable using Git commands and CLI
+    - Learn more about the data science field
+    - Understand proper coding grammar
+    - Develop good learning habits
++ Nasejje, Ruth Nicole
+    - Develop an organized coding style in python, quarto, & git
+    - Learn various packages in python related to data science
+    - Deepen knowledge in statistical modeling and data analysis
++ Pfeifer, Nicholas Theodore
+    - Learn about data science techniques in python
+    - Learn and thoroughly practice using git and github
+    - Get more comfortable with decision trees and random forests
++ Reed, Kyle Daniel
+    - Gain full confidence using Git/GitHub and corresponding applications.
+    - Understand the workflow in professional data science projects.
+    - Build on existing python skills.
++ Roy, Luke William
+    - Have fun
+    - Develop skills in financial data analysis using python and relevant libraries like pandas and numpy.
+    - Learn advanced data visualization techniques with a focus on the grammar of graphics.
+    - Get an introduction to machine learning via scikit-learn, and explore applications in financial analysis and forensic accounting.
++ Schittina, Thomas
+    - Become more comfortable using git and GitHub
+    - Become more familiar with popular data science packages in Python
++ Symula, Sebastian
+    - Learn SQL
+    - Become better at working through each step in the data science 
+      pipeline to make better, cleaner looking projects
++ Tamhane, Shubhan
+    - Learn intersection between SQL and Python for a data science project
+    - Learn machine learning algorithms like random forest and clustering
++ Tomaino, Mario Anthony
++ Xu, Peiwen
+    - Learn some data analysis techniques
+    - Learn how to use git and other essential tools for data science
+
+### Students in 5255
++ Edo, Mezmur Wossenu
+  - I hope to become adept working with github.
+  - I hope to work on real-World data science projects.
+  - I hope to learn about the different machine learning techniques.
+
++ Mundiwala, Mohammad Moiz
+  - Become more familiar with collaboration process of programming
+    so that I can be more orderly while working with others.
+  - I hope to become more efficient processing data 
+    that is messy, unstructured, or unlabeled.
+  - Present engaging, intuitive, and interactive figures and animations for 
+    complex math and stat concepts. 
++ Vellore, Ajeeth Krishna
+  - Understand the utility provided by GitHub and practice using its tools
+  - Learn how to participate in a large-scale development project like how they
+    are done in industry
+  - Learn how to code properly and professionally instead of using "backyard"
+    computer science techniques and formatting
+  - Understand principles of coding documentation and readability while
+    practicing their application
++ Zhang, Gaofei
+  - Gain confidence in using Git and GitHub for version control and collaboration.
+  - Develop a structured approach to data cleaning and preprocessing for 
+   complex datasets.
+  - Enhance skills in statistical modeling and machine learning techniques 
+   relevant to public health research.
+  - Improve efficiency in working with large-scale data using Python and SQL.
++ Kravette, Noah
+  - Become better at program collaboration.
+  - Become adept with git and github. 
+  - Be able to quickly and efficiently process and analyze any data.
+  - Gain better skills at data prep, organization, and visualization. 
+  - Learn new helpful statistical tools for data.
+
+## Course Logistics
+### Presentation Orders
+
+The topic presentation order is set up in class.
+```{python}
+#| eval: true
+
+with open('rosters/3255.txt', 'r') as file:
+    ug = [line.strip() for line in file]
+with open('rosters/5255.txt', 'r') as file:
+    gr = [line.strip() for line in file]
+presenters = ug + gr
+
+import random
+## seed jointly set by the class
+random.seed(6895 + 283 + 3184 + 3078 + 5901 + 36)
+random.sample(presenters, len(presenters))
+## random.shuffle(presenters) # This would shuffle the list in place
+```
+
+Switching slots is allowed as long as you find someone who
+is willing to switch with you. In this case, make a pull request
+to switch the order and let me know.
+
+
+You are welcome to choose a topic that you are interested the 
+most, subject to some order restrictions. For example, decision
+tree should be presented before random forest or extreme gradient
+boosting. This justifies certain requests for switching slots.
+
+
+
+### Presentation Task Board
+
+Talk to the professor about your topics at least one week prior to
+your scheduled presentation. Here are some example tasks:
+
++ Making presentations with Quarto
++ Markdown jumpstart
++ Effective data science communication
++ Import/Export data
++ Data manipulation with `Pandas`
++ Accessing US census data
++ Arrow as a cross-platform data format
++ Statistical analysis for proportions and rates
++ Database operation with Structured query language (SQL)
++ Grammar of graphics
++ Handling spatial data
++ Spatial data with `GeoPandas`
++ Visualize spatial data in a Google map
++ Animation
++ Support vector machine
++ Random forest
++ Gradient boosting machine
++ Naive Bayes
++ Neural networks basics
++ MLP/ANN/CNN/RNN/LSTM
++ Uniform manifold approximation and projection 
++ Automatic differentiation
++ Deep learning
++ TensorFlow
++ Autoencoders
++ K-means clustering
++ Principal component analysis
++ Reinforcement learning
++ Developing a Python package
++ Web scraping
++ Personal webpage on GitHub
+
+### Topic Presentation Schedule
+
+The topic presentation is 20 points. It includes:
+
++ Topic selection consultation on week in advance (4 points).
++ Delivering the presentation in class (10 points).
++ Contribute to the class notes within two weeks following the
+  presentation (6 points).
+  
+Tips on topic contribution:
+
++ No plagiarism (see instructions on Contributing to Class Notes).
++ Avoid external graphics.
++ Use simulated data.
++ Use data from homework assignments.
++ Cite article/book references (learn how from our sources).
++ Include a subsection of Further Readings.
++ Test on your own computer before making a pull request.
++ Send me your presentation two days in advance for feedbacks.
+
+Please use the following table to sign up.
+
+   Date  | Presenter              | Topic
+  ----- | ------------- | -------------------------
+   02/10 |  Li, Shiyi     | A Primer of Markdown
+   02/12 |  Jun, Joann     | Making Presentations with Quarto
+   02/17 |  Roy, Luke William     | Grammar of Graphics with Plotnine
+   02/19 |  Lang, Lang     | Data manipulation with Pandas
+   02/24 |  Ackerman, John     | Performing Statistical Tests (SciPy)
+   02/26 |  Horn, Alyssa Noelle     | Database operation with Structured query language (SQL)
+   03/03 |  El Zein, Amer Hani     | Effective Communication in Data Science
+   03/05 |  Schittina, Thomas     | Spatial Data With Geopandas & Google Maps
+   03/10 |  Kline, Daniel Esteban     |
+   03/12 |  Edo, Mezmur Wossenu      | Principal Component Analysis (PCA)
+   03/26 |  Alsadadi, Ammar Shaker     | Sentiment Analysis with Python 
+   03/26 |  Fables, Xavier Milan     | Variable Importance Metrics in Supervised Learning
+   03/31 |  Tamhane, Shubhan     | Support Vector Machine
+   03/31 |  Nasejje, Ruth Nicole     | Personal webpage on GitHub
+   04/02 |  Lagutin, Vladislav     | Google Maps visualizations using Folium library
+   04/02 |  Zhang, Gaofei    | Random forest
+   04/07 |  Long, Ethan Kenneth     | Synthetic Minority Oversampling Technique (SMOTE)
+   04/07 |  Xu, Peiwen   | Developing a Python package
+   04/09 |  Kravette, Noah   | Working with NetCDF Data 
+   04/09 |  Symula, Sebastian   | Imputation Methods for Missing Data
+   04/09 |  Tomaino, Mario Anthony   | K-Prototypes Clustering
+   04/14 |  Reed, Kyle Daniel   | Autoencoders
+   04/14 |  Chen, Yifei   | Explaining XGBoost Predictions with SHAP
+   04/14 |  Mundiwala, Mohammad Moiz   | Math animations with manim
+   04/16 |  Lin, Selena   | Naive Bayes
+   04/16 |  Pfeifer, Nicholas Theodore | Choosing the number of clusters in clustering
+   04/16 |  Vellore, Ajeeth Krishna | Neural Network Basics
+
+
+### Final Project Presentation Schedule
+
+We use the same order as the topic presentation for undergraduate
+final presentation. An [introduction on how to use Quarto to prepare
+presentation slides](https://github.com/statds/ids-f24/blob/main/templates/presentation.qmd)
+is available under the `templates` directory in
+the classnotes source tree, thank to Zachary Blanchard, which can
+be used as a template to start with.
+
+   Date  | Presenter
+  ------ | ---------------------- 
+   04/21 | Shiyi Li; Joann Jun; Ammar Alsadadi; Lang Lang
+   04/23 | John Ackerman; Alyssa Horn; Peiwen Xu; Thomas Schittina
+   04/28 | Daniel Kline; Luke Roy; Xavier Fables; Shubhan Tamhane
+   04/30 | Ruth Nasejje; Vladislav Lagutin; Ethan Long; Amer El Zein
+   05/05 (10:30-12:30)  | Sebastian Symula; Mario Tomiano; Kyle Reed; Yifei Chen; Selena Lin; Nick Pfeifer
+
+### Contributing to the Class Notes
+
+Contribution to the class notes is through a `pull request'.
+
++ Start a new branch and switch to the new branch.
++ On the new branch, add a `qmd` file for your presentation
++ If using Python, create and activate a virtual environment with `requirements.txt` 
++ Edit `_quarto.yml` add a line for your `qmd` file to include it in the notes.
++ Work on your qmd file, test with `quarto render`.
++ When satisfied, commit and make a pull request with your quarto files and an updated `requirements.txt`.
+
+I have added a template file `mysection.qmd` and a new line to `_quarto.yml`
+as an example.
+
+For more detailed style guidance, please see my notes on [statistical
+writing](https://statds.github.io/stat-writing/using-the-right-tools-for-writing.html#latex-for-typesetting).
+
+
+Plagiarism is to be prevented. Remember that these class notes are publicly
+available online with your names attached.  Here are some resources on [how to
+avoid plagiarism](https://usingsources.fas.harvard.edu/how-avoid-plagiarism). 
+In particular, in our course, one convenient way to avoid plagiarism is to use
+our own data (e.g., NYC Open Data). Combined with your own explanation of the
+code chunks, it would be hard to plagiarize.
+
+
+### Homework Logistics
+
+
+#### Workflow of Submitting Homework Assisngment
+
++ Click the GitHub classroom assignment link in HuskCT announcement.
++ Accept the assignment and follow the instructions to an empty
+  repository.
++ Make a clone of the repo at an appropriate folder on your own
+  computer with `git clone`.
++ Go to this folder, add your qmd source, work on it, and group your
+  changes to different commits.
++ Push your work to your GitHub repo with `git push`.
++ Create a new release and put the generated pdf file in it for ease
+  of grading.
+
+
+#### Requirements
++ Use the repo from Git Classroom to submit your work. See Chapter @sec-git.
+    - Keep the repo clean (no tracking generated files).
+        - Never "Upload" your files; use the git command lines.
+        - Make commit message informative (think about the readers).
+    - Make at least 10 commits and form a style of frequent small commits.
++ Track `quarto` sources only in your repo. See Chapter @sec-quarto.
++ For the convenience of grading, add your standalone html or pdf
+  output to a release in your repo.
++ For standalone pdf output, you will need to have
+  [LaTeX](https://www.latex-project.org/get/) installed.
+
+### Quizzes about Syllabus
+
++ Do I accept late homework?
++ Could you list a few examples of email etiquette?
++ How would you lose style points?
++ Would you use CLI and GUI?
++ How many students will present at 2025 NYC ODW and when will the
+  presentations be?
++ What's the first date on which you have to complete something about
+  your final project?
++ Can you use AI for any task in this course? 
++ Anybody needs a reference letter? How could you help me to help you?
+
+## Practical Tips
+
+### Data analysis
+
++ Use an IDE so you can play with the data interactively
++ Collect codes that have tested out into a script for batch processing
++ During data cleaning, keep in mind how each variable will be used later
++ No keeping large data files in a repo; assume a reasonable location with your collaborators
+
+### Presentation
+
++ Don't forget to introduce yourself if there is no moderator.
++ Highlight your research questions and results, not code.
++ Give an outline, carry it out, and summarize.
++ Use your own examples to reduce the risk of plagiarism.
+
+
+<!-- Topic presentation template -->
+{{< include templates/_mysection.qmd >}}

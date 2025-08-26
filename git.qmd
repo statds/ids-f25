@@ -1,0 +1,129 @@
+# Project Management {#sec-git}
+
+Many tutorials are available in different formats. Here is a [YouTube video
+``Git and GitHub for Beginners --- Crash
+Course''](https://www.youtube.com/watch?v=RGOj5yH7evk).
+The video also covers GitHub, a cloud service for Git which provides a cloud
+back up of your work and makes collaboration with co-workers easy. Similar
+services are, for example, [bitbucket](bitbucket.org) and [GitLab](gitlab.com).
+
+
+There are tools that make learning Git easy. 
+
++ Here is a collection of
+  [online Git exersices](https://gitexercises.fracz.com)
+  that I used for Git training in other courses that I taught.
++ Here is a game called [`Oh My Git`](https://ohmygit.org), an open
+  source game about learning Git!
+
+
+
+## Set Up Git/GitHub
+
+Download [Git](https://git-scm.com/downloads) if you don't have it already.
+
+To set up GitHub (other services like Bitbucket or GitLab are similar),
+you need to
+
++ Generate an SSH key if you don't have one already.
++ Sign up an GitHub account.
++ Add the SSH key to your GitHub account
+
+See [how to get started with GitHub account](https://docs.github.com/en/get-started/onboarding/getting-started-with-your-github-account).
+
+## Most Frequently Used Git Commands
+
+The following seven commands will get you started and they may be all
+that you need most of the time.
+
++ `git clone`:
+    + Used to clone a repository to a local folder.
+    + Requires either HTTPS link or SSH key to authenticate. 
++ `git pull`:
+    + Downloads any updates made to the remote repository and automatically updates the local repository.
++ `git status`: 
+    + Returns the state of the working directory. 
+    + Lists the files that have been modified, and are yet to be or have been staged and/or committed. 
+    + Shows if the local repository is begind or ahead a remote branch.
++ `git add`:
+    + Adds new or modified files to the Git staging area. 
+    + Gives the option to select which files are to be sent to the remote repository
++ `git rm`: 
+    + Used to remove files from the staging index or the local repository. 
++ `git commit`: 
+    + Commits changes made to the local repository and saves it like a snapshot. 
+    + A message is recommended with every commit to keep track of changes made.
++ `git push`:
+    + Used to send commits made on local repository to the remote repository. 
+
+
+For more advanced usages:
+
++ `git diff`
++ `git branch`
++ `git reset`
+
+
+## Tips on using Git:
+
++ Use the command line interface instead of the web interface 
+  (e.g., upload on GitHub)
++ Make frequent small commits instead of rare large commits.
++ Make commit messages informative and meaningful.
++ Name your files/folders by some reasonable convention. 
+    - Lower cases are better than upper cases.
+    - No blanks in file/folder names.
++ Keep the repo clean by not tracking generated files.
++ Creat a `.gitignore` file for better output from `git status`.
++ Keep the linewidth of sources to under 80 for better `git diff` view.
+
+
+## Pull Request
+To contribute to an open source project (e.g., our classnotes), use pull
+requests. [Pull requests](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests)
+"let you tell others about changes you've pushed to a branch in a repository on
+GitHub. Once a pull request is opened, you can discuss and review the potential
+changes with collaborators and add follow-up commits before your changes are
+merged into the base branch."
+
+Watch this YouTube video: [GitHub pull requests in 100 seconds](https://youtu.be/8lGpZkjnkt4).
+
+The following are step-by-step instructions on how to make a pull
+request to the class notes contributed by **Nick Pfeifer**..
+
++ Create a fork of the class repository on the GitHub website.
+    + Make sure your fork is up to date by clicking **Sync fork** if necessary.
++ Clone your fork into a folder on your computer.
+    + `git clone https://github.com/GitHub_Username/ids-s25.git`
+    + Replace **GitHub_Username** with your personal GitHub Username.
++ Check to see if you can access the folder/cloned repository in your code editor.
+    + The class notes home page is located in the index.qmd file.
++ Make a branch and give it a good name.
+    + Move into the directory with the cloned repository.
+    + Create a branch using:
+        + `git checkout -b branch_name`
+        + Replace **branch_name** with a more descriptive name.
+    + You can check your branches using:
+        + `git branch`
+        + The branch in use will have an asterisk to the left of it.
+    + If you are not in the right branch you can use the following command:
+        + `git checkout existing-branch`
+        + Replace **existing-branch** with the name of the branch you want to use.
++ Run `git status` to verify that no changes have been made.
++ Make changes to a file in the class notes repository.
+    + For example: add your wishes to the Wishlist in index.qmd using nested list syntax in markdown.
+    + Remember to save your changes.
++ Run `git status` again to see that changes have been made.
++ Use the add command.
+    + `git add filename`
+    + Example usage: `git add index.qmd`
++ Make a commit.
+    + `git commit -m "Informative Message"`
+    + Be clear about what you changed and perhaps include your name in the message.
++ Push the files to GitHub.
+    + `git push origin branch-name`
+    + Replace **branch-name** with the name of your current branch.
++ Go to your forked repository on GitHub and refresh the page, 
+you should see a button that says **Compare and Pull Request**.
+    + Describe the changes you made in the pull request.
+    + Click **Create pull request**.
