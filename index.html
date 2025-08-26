@@ -1,0 +1,1377 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.33">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Jun Yan and Students in Fall 2025">
+<meta name="dcterms.date" content="2025-08-26">
+
+<title>Introduction to Data Science</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./intro.html" rel="next">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-485d01fc63b59abcd3ee1bf1e8e2748d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Preliminaries</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Introduction to Data Science</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Preliminaries</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./git.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Project Management</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Reproducible Data Science</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./python.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Python Refreshment</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./exercises.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Exercises</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#preliminaries" id="toc-preliminaries" class="nav-link active" data-scroll-target="#preliminaries">Preliminaries</a>
+  <ul class="collapse">
+  <li><a href="#sources-at-github" id="toc-sources-at-github" class="nav-link" data-scroll-target="#sources-at-github">Sources at GitHub</a></li>
+  <li><a href="#compiling-the-classnotes" id="toc-compiling-the-classnotes" class="nav-link" data-scroll-target="#compiling-the-classnotes">Compiling the Classnotes</a></li>
+  <li><a href="#midterm-project" id="toc-midterm-project" class="nav-link" data-scroll-target="#midterm-project">Midterm Project</a></li>
+  <li><a href="#final-project" id="toc-final-project" class="nav-link" data-scroll-target="#final-project">Final Project</a></li>
+  <li><a href="#adapting-to-rapid-skill-acquisition" id="toc-adapting-to-rapid-skill-acquisition" class="nav-link" data-scroll-target="#adapting-to-rapid-skill-acquisition">Adapting to Rapid Skill Acquisition</a></li>
+  <li><a href="#wishlist" id="toc-wishlist" class="nav-link" data-scroll-target="#wishlist">Wishlist</a>
+  <ul class="collapse">
+  <li><a href="#students-in-3255" id="toc-students-in-3255" class="nav-link" data-scroll-target="#students-in-3255">Students in 3255</a></li>
+  <li><a href="#students-in-5255" id="toc-students-in-5255" class="nav-link" data-scroll-target="#students-in-5255">Students in 5255</a></li>
+  </ul></li>
+  <li><a href="#course-logistics" id="toc-course-logistics" class="nav-link" data-scroll-target="#course-logistics">Course Logistics</a>
+  <ul class="collapse">
+  <li><a href="#presentation-orders" id="toc-presentation-orders" class="nav-link" data-scroll-target="#presentation-orders">Presentation Orders</a></li>
+  <li><a href="#presentation-task-board" id="toc-presentation-task-board" class="nav-link" data-scroll-target="#presentation-task-board">Presentation Task Board</a></li>
+  <li><a href="#topic-presentation-schedule" id="toc-topic-presentation-schedule" class="nav-link" data-scroll-target="#topic-presentation-schedule">Topic Presentation Schedule</a></li>
+  <li><a href="#final-project-presentation-schedule" id="toc-final-project-presentation-schedule" class="nav-link" data-scroll-target="#final-project-presentation-schedule">Final Project Presentation Schedule</a></li>
+  <li><a href="#contributing-to-the-class-notes" id="toc-contributing-to-the-class-notes" class="nav-link" data-scroll-target="#contributing-to-the-class-notes">Contributing to the Class Notes</a></li>
+  <li><a href="#homework-logistics" id="toc-homework-logistics" class="nav-link" data-scroll-target="#homework-logistics">Homework Logistics</a></li>
+  <li><a href="#quizzes-about-syllabus" id="toc-quizzes-about-syllabus" class="nav-link" data-scroll-target="#quizzes-about-syllabus">Quizzes about Syllabus</a></li>
+  </ul></li>
+  <li><a href="#practical-tips" id="toc-practical-tips" class="nav-link" data-scroll-target="#practical-tips">Practical Tips</a>
+  <ul class="collapse">
+  <li><a href="#data-analysis" id="toc-data-analysis" class="nav-link" data-scroll-target="#data-analysis">Data analysis</a></li>
+  <li><a href="#presentation" id="toc-presentation" class="nav-link" data-scroll-target="#presentation">Presentation</a></li>
+  </ul></li>
+  <li><a href="#my-presentation-topic-template" id="toc-my-presentation-topic-template" class="nav-link" data-scroll-target="#my-presentation-topic-template">My Presentation Topic (Template)</a>
+  <ul class="collapse">
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#sub-topic-1" id="toc-sub-topic-1" class="nav-link" data-scroll-target="#sub-topic-1">Sub Topic 1</a></li>
+  <li><a href="#sub-topic-2" id="toc-sub-topic-2" class="nav-link" data-scroll-target="#sub-topic-2">Sub Topic 2</a></li>
+  <li><a href="#sub-topic-3" id="toc-sub-topic-3" class="nav-link" data-scroll-target="#sub-topic-3">Sub Topic 3</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  <li><a href="#further-readings" id="toc-further-readings" class="nav-link" data-scroll-target="#further-readings">Further Readings</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Introduction to Data Science</h1>
+<p class="subtitle lead">STAT 3255/5255 @ UConn, Spring 2025</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p><a href="https://statcomp.org">Jun Yan</a> and Students in Fall 2025 </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">August 26, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="preliminaries" class="level1 unnumbered">
+<h1 class="unnumbered">Preliminaries</h1>
+<p>The notes were developed with Quarto; for details about Quarto, visit <a href="https://quarto.org/docs/books" class="uri">https://quarto.org/docs/books</a>.</p>
+<p>This book is free and is licensed under a <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/us/">Creative Commons Attribution-NonCommercial-NoDerivs 3.0 United States License</a>.</p>
+<section id="sources-at-github" class="level2">
+<h2 class="anchored" data-anchor-id="sources-at-github">Sources at GitHub</h2>
+<p>These lecture notes for STAT 3255/5255 in Spring 2025 represent a collaborative effort between Professor Jun Yan and the students enrolled in the course. This cooperative approach to education was facilitated through the use of GitHub, a platform that encourages collaborative coding and content development. To view these contributions and the lecture notes in their entirety, please visit our GitHub repository at <a href="https://github.com/statds/ids-s25" class="uri">https://github.com/statds/ids-s25</a>.</p>
+<p>Students contributed to the lecture notes by submitting pull requests to our GitHub repository. This method not only enriched the course material but also provided students with practical experience in collaborative software development and version control.</p>
+<p>For those interested, class notes from <a href="https://statds.github.io/ids-f24">Fall 2024</a>, <a href="https://statds.github.io/ids-s24">Spring 2024</a>, <a href="https://statds.github.io/ids-s23">Spring 2023</a>, and <a href="https://statds.github.io/ids-s22/">Spring 2022</a> are also publicly accessible. These archives offer insights into the evolution of the course content and the different perspectives brought by successive student cohorts.</p>
+</section>
+<section id="compiling-the-classnotes" class="level2">
+<h2 class="anchored" data-anchor-id="compiling-the-classnotes">Compiling the Classnotes</h2>
+<p>To reproduce the classnotes output on your own computer, here are the necessary steps. See Section <a href="quarto.html#sec-buildnotes" class="quarto-xref"><span>Compiling the Classnotes</span></a> for details.</p>
+<ul>
+<li>Clone the classnotes repository to an appropriate location on your computer; see Chapter <a href="git.html" class="quarto-xref"><span>2&nbsp; Project Management</span></a> for using Git.</li>
+<li>Set up a Python virtual environment in the root folder of the source; see Section <a href="python.html#sec-python-venv" class="quarto-xref"><span>Virtual Environment</span></a>.</li>
+<li>Activate your virtual environment.</li>
+<li>Install all the packages specified in <code>requirements.txt</code> in your virtual environment:</li>
+</ul>
+<pre><code>pip install -r requirements.txt</code></pre>
+<ul>
+<li>For some chapters that need to interact with certain sites that require account information. For example, for Google map services, you need to save your API key in a file named <code>api_key.txt</code> in the root folder of the source.</li>
+<li>Render the book with <code>quarto render</code> from the root folder on a terminal; the rendered book will be stored under <code>_book</code>.</li>
+</ul>
+</section>
+<section id="midterm-project" class="level2">
+<h2 class="anchored" data-anchor-id="midterm-project">Midterm Project</h2>
+<p>Reproduce NYC street flood research <span class="citation" data-cites="agonafir2022machine agonafir2022understanding">(<a href="references.html#ref-agonafir2022machine" role="doc-biblioref">Agonafir, Lakhankar, et al., 2022</a>; <a href="references.html#ref-agonafir2022understanding" role="doc-biblioref">Agonafir, Pabon, et al., 2022</a>)</span>.</p>
+<p>Four students will be selected to present their work in a workshop at the <a href="https://2025.open-data.nyc">2025 NYC Open Data Week</a>. You are welcome to invite your family and friends to join the workshop.</p>
+</section>
+<section id="final-project" class="level2">
+<h2 class="anchored" data-anchor-id="final-project">Final Project</h2>
+<p>Students are encouraged to start designing their final projects from the beginning of the semester. There are many open data that can be used. Here is a list of useful data challenges:</p>
+<ul>
+<li><a href="https://community.amstat.org/dataexpo/home">ASA Data Challenge Expo</a>: big data in 2025</li>
+<li><a href="https://www.kaggle.com">Kaggle</a>.</li>
+<li><a href="https://www.drivendata.org">DrivenData</a>.</li>
+<li><a href="https://www.fynd.academy/blog/data-science-hackathons">15 Data Science Hackathons to Test Your Skills in 2025</a></li>
+<li>If you work on sports analytics, you are welcome to submit a poster to <a href="https://statds.org/events/csas2025/">Connecticut Sports Analytics Symposium (CSAS) 2025</a>.</li>
+<li>A good resource for sports analytics is <a href="https://scorenetwork.org">ScoreNetwork</a>.</li>
+<li><a href="https://paleobiodb.org/#/">Paleobiology Database</a>.</li>
+</ul>
+</section>
+<section id="adapting-to-rapid-skill-acquisition" class="level2">
+<h2 class="anchored" data-anchor-id="adapting-to-rapid-skill-acquisition">Adapting to Rapid Skill Acquisition</h2>
+<p>In this course, students are expected to rapidly acquire new skills, a critical aspect of data science. To emphasize this, consider this insightful quote from <span class="citation" data-cites="vanderplas2016python">VanderPlas (<a href="references.html#ref-vanderplas2016python" role="doc-biblioref">2016</a>)</span>:</p>
+<blockquote class="blockquote">
+<p>When a technologically-minded person is asked to help a friend, family member, or colleague with a computer problem, most of the time it’s less a matter of knowing the answer as much as knowing how to quickly find an unknown answer. In data science it’s the same: searchable web resources such as online documentation, mailing-list threads, and StackOverflow answers contain a wealth of information, even (especially?) if it is a topic you’ve found yourself searching before. Being an effective practitioner of data science is less about memorizing the tool or command you should use for every possible situation, and more about learning to effectively find the information you don’t know, whether through a web search engine or another means.</p>
+</blockquote>
+<p>This quote captures the essence of what we aim to develop in our students: the ability to swiftly navigate and utilize the vast resources available to solve complex problems in data science. Examples tasks are: install needed software (or even hardware); search and find solutions to encountered problems.</p>
+</section>
+<section id="wishlist" class="level2">
+<h2 class="anchored" data-anchor-id="wishlist">Wishlist</h2>
+<p>This is a wish list from all members of the class (alphabetical order, last name first, comma, then first name). Here is an example.</p>
+<ul>
+<li>Yan, Jun
+<ul>
+<li>Make practical data science tools accessible to undergraduates.</li>
+<li>Pass real-world data science project experience to students.</li>
+<li>Co-develop a Quarto book in collaboration with the students.</li>
+<li>Train students to participate in real data science competitions.</li>
+</ul></li>
+</ul>
+<p>Add yours through a pull request; note the syntax of nested list in Markdown.</p>
+<section id="students-in-3255" class="level3">
+<h3 class="anchored" data-anchor-id="students-in-3255">Students in 3255</h3>
+<ul>
+<li>Ackerman, John
+<ul>
+<li>Get comfortable with command line interface</li>
+<li>Hands-on experience with AI</li>
+<li>Learn practical tools &amp; tricks for professional data scientist</li>
+</ul></li>
+<li>Alsadadi, Ammar Shaker
+<ul>
+<li>Learn about the applications of Data Science in Finance</li>
+<li>Learn more about time series and random walk</li>
+</ul></li>
+<li>Chen, Yifei
+<ul>
+<li>Learn more advanced Python programming skills.</li>
+<li>Learn to use github for future projects</li>
+<li>Get a good grade in this class.</li>
+</ul></li>
+<li>El Zein, Amer Hani
+<ul>
+<li>To gain a deeper understanding of data preparation.</li>
+<li>To develop intution on what the best tool for a given project is.</li>
+</ul></li>
+<li>Febles, Xavier Milan
+<ul>
+<li>Further develop skills with git</li>
+<li>Learn more about specific tools used for data science</li>
+<li>Become more comfortable with sql</li>
+</ul></li>
+<li>Horn, Alyssa Noelle
+<ul>
+<li>Be confident in using Git and Github</li>
+<li>Learn how to collaborate with others on projects through Github</li>
+</ul></li>
+<li>Jun, Joann
+<ul>
+<li>Become proficient in using GitHub</li>
+<li>Learn more about the applications of data science</li>
+</ul></li>
+<li>Kline, Daniel Esteban</li>
+<li>Lagutin, Vladislav
+<ul>
+<li>Learn how to do data science projects in python and interact with them using git</li>
+<li>Learn how to do good visualizations of the data; explore appropriate libraries</li>
+</ul></li>
+<li>Lang, Lang
+<ul>
+<li>Become more proficient with python</li>
+<li>Learn about the applications of Data Science</li>
+<li>Learn how to make collaborative project by using GitHub</li>
+<li>Have a good grade in this course</li>
+</ul></li>
+<li>Li, Shiyi
+<ul>
+<li>Learn to visualize the plots and results using the ggplot package.</li>
+<li>Learn to use the common functions of the SciPy, scikit-learn, and statsmodels libraries in Python</li>
+<li>Learn how to query, extract, and manipulate structured and unstructured data in a large database.</li>
+<li>Learn the basics of artificial neural networks, CNNs for image data, NLP techniques.</li>
+<li>Learn some of the data analysis models that will be commonly used in the workplace.</li>
+<li>Learn some common applications of optimization techniques in data analysis.</li>
+<li>Pass this course with an A grade.</li>
+</ul></li>
+<li>Lin, Selena
+<ul>
+<li>Get a good grade in this class.</li>
+<li>Learn and get familiar with using GitHub.</li>
+<li>Hands on experience with the data science skills learned in this class.</li>
+</ul></li>
+<li>Long, Ethan Kenneth
+<ul>
+<li>Become more comfortable using Git commands and CLI</li>
+<li>Learn more about the data science field</li>
+<li>Understand proper coding grammar</li>
+<li>Develop good learning habits</li>
+</ul></li>
+<li>Nasejje, Ruth Nicole
+<ul>
+<li>Develop an organized coding style in python, quarto, &amp; git</li>
+<li>Learn various packages in python related to data science</li>
+<li>Deepen knowledge in statistical modeling and data analysis</li>
+</ul></li>
+<li>Pfeifer, Nicholas Theodore
+<ul>
+<li>Learn about data science techniques in python</li>
+<li>Learn and thoroughly practice using git and github</li>
+<li>Get more comfortable with decision trees and random forests</li>
+</ul></li>
+<li>Reed, Kyle Daniel
+<ul>
+<li>Gain full confidence using Git/GitHub and corresponding applications.</li>
+<li>Understand the workflow in professional data science projects.</li>
+<li>Build on existing python skills.</li>
+</ul></li>
+<li>Roy, Luke William
+<ul>
+<li>Have fun</li>
+<li>Develop skills in financial data analysis using python and relevant libraries like pandas and numpy.</li>
+<li>Learn advanced data visualization techniques with a focus on the grammar of graphics.</li>
+<li>Get an introduction to machine learning via scikit-learn, and explore applications in financial analysis and forensic accounting.</li>
+</ul></li>
+<li>Schittina, Thomas
+<ul>
+<li>Become more comfortable using git and GitHub</li>
+<li>Become more familiar with popular data science packages in Python</li>
+</ul></li>
+<li>Symula, Sebastian
+<ul>
+<li>Learn SQL</li>
+<li>Become better at working through each step in the data science pipeline to make better, cleaner looking projects</li>
+</ul></li>
+<li>Tamhane, Shubhan
+<ul>
+<li>Learn intersection between SQL and Python for a data science project</li>
+<li>Learn machine learning algorithms like random forest and clustering</li>
+</ul></li>
+<li>Tomaino, Mario Anthony</li>
+<li>Xu, Peiwen
+<ul>
+<li>Learn some data analysis techniques</li>
+<li>Learn how to use git and other essential tools for data science</li>
+</ul></li>
+</ul>
+</section>
+<section id="students-in-5255" class="level3">
+<h3 class="anchored" data-anchor-id="students-in-5255">Students in 5255</h3>
+<ul>
+<li>Edo, Mezmur Wossenu
+<ul>
+<li>I hope to become adept working with github.</li>
+<li>I hope to work on real-World data science projects.</li>
+<li>I hope to learn about the different machine learning techniques.</li>
+</ul></li>
+<li>Mundiwala, Mohammad Moiz
+<ul>
+<li>Become more familiar with collaboration process of programming so that I can be more orderly while working with others.</li>
+<li>I hope to become more efficient processing data that is messy, unstructured, or unlabeled.</li>
+<li>Present engaging, intuitive, and interactive figures and animations for complex math and stat concepts.</li>
+</ul></li>
+<li>Vellore, Ajeeth Krishna
+<ul>
+<li>Understand the utility provided by GitHub and practice using its tools</li>
+<li>Learn how to participate in a large-scale development project like how they are done in industry</li>
+<li>Learn how to code properly and professionally instead of using “backyard” computer science techniques and formatting</li>
+<li>Understand principles of coding documentation and readability while practicing their application</li>
+</ul></li>
+<li>Zhang, Gaofei
+<ul>
+<li>Gain confidence in using Git and GitHub for version control and collaboration.</li>
+<li>Develop a structured approach to data cleaning and preprocessing for complex datasets.</li>
+<li>Enhance skills in statistical modeling and machine learning techniques relevant to public health research.</li>
+<li>Improve efficiency in working with large-scale data using Python and SQL.</li>
+</ul></li>
+<li>Kravette, Noah
+<ul>
+<li>Become better at program collaboration.</li>
+<li>Become adept with git and github.</li>
+<li>Be able to quickly and efficiently process and analyze any data.</li>
+<li>Gain better skills at data prep, organization, and visualization.</li>
+<li>Learn new helpful statistical tools for data.</li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="course-logistics" class="level2">
+<h2 class="anchored" data-anchor-id="course-logistics">Course Logistics</h2>
+<section id="presentation-orders" class="level3">
+<h3 class="anchored" data-anchor-id="presentation-orders">Presentation Orders</h3>
+<p>The topic presentation order is set up in class.</p>
+<div id="cced1d40" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'rosters/3255.txt'</span>, <span class="st">'r'</span>) <span class="im">as</span> <span class="bu">file</span>:</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    ug <span class="op">=</span> [line.strip() <span class="cf">for</span> line <span class="kw">in</span> <span class="bu">file</span>]</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'rosters/5255.txt'</span>, <span class="st">'r'</span>) <span class="im">as</span> <span class="bu">file</span>:</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    gr <span class="op">=</span> [line.strip() <span class="cf">for</span> line <span class="kw">in</span> <span class="bu">file</span>]</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>presenters <span class="op">=</span> ug <span class="op">+</span> gr</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">## seed jointly set by the class</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>random.seed(<span class="dv">6895</span> <span class="op">+</span> <span class="dv">283</span> <span class="op">+</span> <span class="dv">3184</span> <span class="op">+</span> <span class="dv">3078</span> <span class="op">+</span> <span class="dv">5901</span> <span class="op">+</span> <span class="dv">36</span>)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>random.sample(presenters, <span class="bu">len</span>(presenters))</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">## random.shuffle(presenters) # This would shuffle the list in place</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="1">
+<pre><code>['Schlessel,Jacob E',
+ 'Fazzina,Sophia Carmen',
+ 'Blake,Roger Cooley',
+ 'Lawrence,Claire Elise',
+ 'Agostino,Michael Angelo',
+ 'Chen,Jingang Calvin',
+ 'Tang,Wilson Chen',
+ 'Yoon,Jessica Nari',
+ 'Perkins,Jack Thomas',
+ 'Fu,Wenwei',
+ 'Zhang,Mark Justin',
+ 'Patel,Tulsi Manankumar',
+ 'Tran,Justin',
+ 'Chen,Irene',
+ 'Sgro,Owen Bentley',
+ 'Plotnikov,Alexander',
+ 'Hu,Youshuang',
+ 'Cao,Enshuo',
+ 'Milun,Lewis Aaron',
+ 'Mayer-Costa,Jaden Paulo',
+ 'Haerter,Alejandro Erik',
+ 'Wishneski,Emma Irene',
+ 'Anzalone,Matthew James',
+ 'Saltus,Quinn Lloyd Turner',
+ 'Montalvo,Victor Samuel',
+ 'Bone,Dylan Jason',
+ 'Gomez-Haibach,Konrad',
+ 'Lucey,Sonia Niamh',
+ 'White,Abigail Lynn',
+ 'Patel,Sahil Sanjay',
+ 'Levine,Hannah Maya',
+ 'Saxena,Aanya']</code></pre>
+</div>
+</div>
+<p>Switching slots is allowed as long as you find someone who is willing to switch with you. In this case, make a pull request to switch the order and let me know.</p>
+<p>You are welcome to choose a topic that you are interested the most, subject to some order restrictions. For example, decision tree should be presented before random forest or extreme gradient boosting. This justifies certain requests for switching slots.</p>
+</section>
+<section id="presentation-task-board" class="level3">
+<h3 class="anchored" data-anchor-id="presentation-task-board">Presentation Task Board</h3>
+<p>Talk to the professor about your topics at least one week prior to your scheduled presentation. Here are some example tasks:</p>
+<ul>
+<li>Making presentations with Quarto</li>
+<li>Markdown jumpstart</li>
+<li>Effective data science communication</li>
+<li>Import/Export data</li>
+<li>Data manipulation with <code>Pandas</code></li>
+<li>Accessing US census data</li>
+<li>Arrow as a cross-platform data format</li>
+<li>Statistical analysis for proportions and rates</li>
+<li>Database operation with Structured query language (SQL)</li>
+<li>Grammar of graphics</li>
+<li>Handling spatial data</li>
+<li>Spatial data with <code>GeoPandas</code></li>
+<li>Visualize spatial data in a Google map</li>
+<li>Animation</li>
+<li>Support vector machine</li>
+<li>Random forest</li>
+<li>Gradient boosting machine</li>
+<li>Naive Bayes</li>
+<li>Neural networks basics</li>
+<li>MLP/ANN/CNN/RNN/LSTM</li>
+<li>Uniform manifold approximation and projection</li>
+<li>Automatic differentiation</li>
+<li>Deep learning</li>
+<li>TensorFlow</li>
+<li>Autoencoders</li>
+<li>K-means clustering</li>
+<li>Principal component analysis</li>
+<li>Reinforcement learning</li>
+<li>Developing a Python package</li>
+<li>Web scraping</li>
+<li>Personal webpage on GitHub</li>
+</ul>
+</section>
+<section id="topic-presentation-schedule" class="level3">
+<h3 class="anchored" data-anchor-id="topic-presentation-schedule">Topic Presentation Schedule</h3>
+<p>The topic presentation is 20 points. It includes:</p>
+<ul>
+<li>Topic selection consultation on week in advance (4 points).</li>
+<li>Delivering the presentation in class (10 points).</li>
+<li>Contribute to the class notes within two weeks following the presentation (6 points).</li>
+</ul>
+<p>Tips on topic contribution:</p>
+<ul>
+<li>No plagiarism (see instructions on Contributing to Class Notes).</li>
+<li>Avoid external graphics.</li>
+<li>Use simulated data.</li>
+<li>Use data from homework assignments.</li>
+<li>Cite article/book references (learn how from our sources).</li>
+<li>Include a subsection of Further Readings.</li>
+<li>Test on your own computer before making a pull request.</li>
+<li>Send me your presentation two days in advance for feedbacks.</li>
+</ul>
+<p>Please use the following table to sign up.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 30%">
+<col style="width: 58%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Date</th>
+<th>Presenter</th>
+<th>Topic</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>02/10</td>
+<td>Li, Shiyi</td>
+<td>A Primer of Markdown</td>
+</tr>
+<tr class="even">
+<td>02/12</td>
+<td>Jun, Joann</td>
+<td>Making Presentations with Quarto</td>
+</tr>
+<tr class="odd">
+<td>02/17</td>
+<td>Roy, Luke William</td>
+<td>Grammar of Graphics with Plotnine</td>
+</tr>
+<tr class="even">
+<td>02/19</td>
+<td>Lang, Lang</td>
+<td>Data manipulation with Pandas</td>
+</tr>
+<tr class="odd">
+<td>02/24</td>
+<td>Ackerman, John</td>
+<td>Performing Statistical Tests (SciPy)</td>
+</tr>
+<tr class="even">
+<td>02/26</td>
+<td>Horn, Alyssa Noelle</td>
+<td>Database operation with Structured query language (SQL)</td>
+</tr>
+<tr class="odd">
+<td>03/03</td>
+<td>El Zein, Amer Hani</td>
+<td>Effective Communication in Data Science</td>
+</tr>
+<tr class="even">
+<td>03/05</td>
+<td>Schittina, Thomas</td>
+<td>Spatial Data With Geopandas &amp; Google Maps</td>
+</tr>
+<tr class="odd">
+<td>03/10</td>
+<td>Kline, Daniel Esteban</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>03/12</td>
+<td>Edo, Mezmur Wossenu</td>
+<td>Principal Component Analysis (PCA)</td>
+</tr>
+<tr class="odd">
+<td>03/26</td>
+<td>Alsadadi, Ammar Shaker</td>
+<td>Sentiment Analysis with Python</td>
+</tr>
+<tr class="even">
+<td>03/26</td>
+<td>Fables, Xavier Milan</td>
+<td>Variable Importance Metrics in Supervised Learning</td>
+</tr>
+<tr class="odd">
+<td>03/31</td>
+<td>Tamhane, Shubhan</td>
+<td>Support Vector Machine</td>
+</tr>
+<tr class="even">
+<td>03/31</td>
+<td>Nasejje, Ruth Nicole</td>
+<td>Personal webpage on GitHub</td>
+</tr>
+<tr class="odd">
+<td>04/02</td>
+<td>Lagutin, Vladislav</td>
+<td>Google Maps visualizations using Folium library</td>
+</tr>
+<tr class="even">
+<td>04/02</td>
+<td>Zhang, Gaofei</td>
+<td>Random forest</td>
+</tr>
+<tr class="odd">
+<td>04/07</td>
+<td>Long, Ethan Kenneth</td>
+<td>Synthetic Minority Oversampling Technique (SMOTE)</td>
+</tr>
+<tr class="even">
+<td>04/07</td>
+<td>Xu, Peiwen</td>
+<td>Developing a Python package</td>
+</tr>
+<tr class="odd">
+<td>04/09</td>
+<td>Kravette, Noah</td>
+<td>Working with NetCDF Data</td>
+</tr>
+<tr class="even">
+<td>04/09</td>
+<td>Symula, Sebastian</td>
+<td>Imputation Methods for Missing Data</td>
+</tr>
+<tr class="odd">
+<td>04/09</td>
+<td>Tomaino, Mario Anthony</td>
+<td>K-Prototypes Clustering</td>
+</tr>
+<tr class="even">
+<td>04/14</td>
+<td>Reed, Kyle Daniel</td>
+<td>Autoencoders</td>
+</tr>
+<tr class="odd">
+<td>04/14</td>
+<td>Chen, Yifei</td>
+<td>Explaining XGBoost Predictions with SHAP</td>
+</tr>
+<tr class="even">
+<td>04/14</td>
+<td>Mundiwala, Mohammad Moiz</td>
+<td>Math animations with manim</td>
+</tr>
+<tr class="odd">
+<td>04/16</td>
+<td>Lin, Selena</td>
+<td>Naive Bayes</td>
+</tr>
+<tr class="even">
+<td>04/16</td>
+<td>Pfeifer, Nicholas Theodore</td>
+<td>Choosing the number of clusters in clustering</td>
+</tr>
+<tr class="odd">
+<td>04/16</td>
+<td>Vellore, Ajeeth Krishna</td>
+<td>Neural Network Basics</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="final-project-presentation-schedule" class="level3">
+<h3 class="anchored" data-anchor-id="final-project-presentation-schedule">Final Project Presentation Schedule</h3>
+<p>We use the same order as the topic presentation for undergraduate final presentation. An <a href="https://github.com/statds/ids-f24/blob/main/templates/presentation.qmd">introduction on how to use Quarto to prepare presentation slides</a> is available under the <code>templates</code> directory in the classnotes source tree, thank to Zachary Blanchard, which can be used as a template to start with.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 78%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Date</th>
+<th>Presenter</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>04/21</td>
+<td>Shiyi Li; Joann Jun; Ammar Alsadadi; Lang Lang</td>
+</tr>
+<tr class="even">
+<td>04/23</td>
+<td>John Ackerman; Alyssa Horn; Peiwen Xu; Thomas Schittina</td>
+</tr>
+<tr class="odd">
+<td>04/28</td>
+<td>Daniel Kline; Luke Roy; Xavier Fables; Shubhan Tamhane</td>
+</tr>
+<tr class="even">
+<td>04/30</td>
+<td>Ruth Nasejje; Vladislav Lagutin; Ethan Long; Amer El Zein</td>
+</tr>
+<tr class="odd">
+<td>05/05 (10:30-12:30)</td>
+<td>Sebastian Symula; Mario Tomiano; Kyle Reed; Yifei Chen; Selena Lin; Nick Pfeifer</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="contributing-to-the-class-notes" class="level3">
+<h3 class="anchored" data-anchor-id="contributing-to-the-class-notes">Contributing to the Class Notes</h3>
+<p>Contribution to the class notes is through a `pull request’.</p>
+<ul>
+<li>Start a new branch and switch to the new branch.</li>
+<li>On the new branch, add a <code>qmd</code> file for your presentation</li>
+<li>If using Python, create and activate a virtual environment with <code>requirements.txt</code></li>
+<li>Edit <code>_quarto.yml</code> add a line for your <code>qmd</code> file to include it in the notes.</li>
+<li>Work on your qmd file, test with <code>quarto render</code>.</li>
+<li>When satisfied, commit and make a pull request with your quarto files and an updated <code>requirements.txt</code>.</li>
+</ul>
+<p>I have added a template file <code>mysection.qmd</code> and a new line to <code>_quarto.yml</code> as an example.</p>
+<p>For more detailed style guidance, please see my notes on <a href="https://statds.github.io/stat-writing/using-the-right-tools-for-writing.html#latex-for-typesetting">statistical writing</a>.</p>
+<p>Plagiarism is to be prevented. Remember that these class notes are publicly available online with your names attached. Here are some resources on <a href="https://usingsources.fas.harvard.edu/how-avoid-plagiarism">how to avoid plagiarism</a>. In particular, in our course, one convenient way to avoid plagiarism is to use our own data (e.g., NYC Open Data). Combined with your own explanation of the code chunks, it would be hard to plagiarize.</p>
+</section>
+<section id="homework-logistics" class="level3">
+<h3 class="anchored" data-anchor-id="homework-logistics">Homework Logistics</h3>
+<section id="workflow-of-submitting-homework-assisngment" class="level4">
+<h4 class="anchored" data-anchor-id="workflow-of-submitting-homework-assisngment">Workflow of Submitting Homework Assisngment</h4>
+<ul>
+<li>Click the GitHub classroom assignment link in HuskCT announcement.</li>
+<li>Accept the assignment and follow the instructions to an empty repository.</li>
+<li>Make a clone of the repo at an appropriate folder on your own computer with <code>git clone</code>.</li>
+<li>Go to this folder, add your qmd source, work on it, and group your changes to different commits.</li>
+<li>Push your work to your GitHub repo with <code>git push</code>.</li>
+<li>Create a new release and put the generated pdf file in it for ease of grading.</li>
+</ul>
+</section>
+<section id="requirements" class="level4">
+<h4 class="anchored" data-anchor-id="requirements">Requirements</h4>
+<ul>
+<li>Use the repo from Git Classroom to submit your work. See Chapter <a href="git.html" class="quarto-xref"><span>2&nbsp; Project Management</span></a>.
+<ul>
+<li>Keep the repo clean (no tracking generated files).
+<ul>
+<li>Never “Upload” your files; use the git command lines.</li>
+<li>Make commit message informative (think about the readers).</li>
+</ul></li>
+<li>Make at least 10 commits and form a style of frequent small commits.</li>
+</ul></li>
+<li>Track <code>quarto</code> sources only in your repo. See Chapter <a href="quarto.html" class="quarto-xref"><span>3&nbsp; Reproducible Data Science</span></a>.</li>
+<li>For the convenience of grading, add your standalone html or pdf output to a release in your repo.</li>
+<li>For standalone pdf output, you will need to have <a href="https://www.latex-project.org/get/">LaTeX</a> installed.</li>
+</ul>
+</section>
+</section>
+<section id="quizzes-about-syllabus" class="level3">
+<h3 class="anchored" data-anchor-id="quizzes-about-syllabus">Quizzes about Syllabus</h3>
+<ul>
+<li>Do I accept late homework?</li>
+<li>Could you list a few examples of email etiquette?</li>
+<li>How would you lose style points?</li>
+<li>Would you use CLI and GUI?</li>
+<li>How many students will present at 2025 NYC ODW and when will the presentations be?</li>
+<li>What’s the first date on which you have to complete something about your final project?</li>
+<li>Can you use AI for any task in this course?</li>
+<li>Anybody needs a reference letter? How could you help me to help you?</li>
+</ul>
+</section>
+</section>
+<section id="practical-tips" class="level2">
+<h2 class="anchored" data-anchor-id="practical-tips">Practical Tips</h2>
+<section id="data-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="data-analysis">Data analysis</h3>
+<ul>
+<li>Use an IDE so you can play with the data interactively</li>
+<li>Collect codes that have tested out into a script for batch processing</li>
+<li>During data cleaning, keep in mind how each variable will be used later</li>
+<li>No keeping large data files in a repo; assume a reasonable location with your collaborators</li>
+</ul>
+</section>
+<section id="presentation" class="level3">
+<h3 class="anchored" data-anchor-id="presentation">Presentation</h3>
+<ul>
+<li>Don’t forget to introduce yourself if there is no moderator.</li>
+<li>Highlight your research questions and results, not code.</li>
+<li>Give an outline, carry it out, and summarize.</li>
+<li>Use your own examples to reduce the risk of plagiarism.</li>
+</ul>
+<!-- Topic presentation template -->
+</section>
+</section>
+<section id="my-presentation-topic-template" class="level2">
+<h2 class="anchored" data-anchor-id="my-presentation-topic-template">My Presentation Topic (Template)</h2>
+<p>This section was prepared by John Smith.</p>
+<p>Use Markdown syntax. If not clear on what to do, learn from the class notes sources.</p>
+<ul>
+<li>Pay attention to the sectioning levels.</li>
+<li>Cite references with their bib key.</li>
+<li>In examples, maximize usage of data set that the class is familiar with.</li>
+<li>Could use datasets in Python packages or downloadable on the fly.</li>
+<li>Test your section by <code>quarto render &lt;filename.qmd&gt;</code>.</li>
+</ul>
+<section id="introduction" class="level3">
+<h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
+<p>Here is an overview.</p>
+</section>
+<section id="sub-topic-1" class="level3">
+<h3 class="anchored" data-anchor-id="sub-topic-1">Sub Topic 1</h3>
+<p>Put materials on topic 1 here</p>
+<p>Python examples can be put into <code>python</code> code chunks:</p>
+<div id="7c11cfc8" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># import pandas as pd</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># do something</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="sub-topic-2" class="level3">
+<h3 class="anchored" data-anchor-id="sub-topic-2">Sub Topic 2</h3>
+<p>Put materials on topic 2 here.</p>
+</section>
+<section id="sub-topic-3" class="level3">
+<h3 class="anchored" data-anchor-id="sub-topic-3">Sub Topic 3</h3>
+<p>Put matreials on topic 3 here.</p>
+</section>
+<section id="conclusion" class="level3">
+<h3 class="anchored" data-anchor-id="conclusion">Conclusion</h3>
+<p>Put sumaries here.</p>
+</section>
+<section id="further-readings" class="level3">
+<h3 class="anchored" data-anchor-id="further-readings">Further Readings</h3>
+<p>Put links to further materials.</p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list" style="display: none">
+<div id="ref-agonafir2022machine" class="csl-entry" role="listitem">
+Agonafir, C., Lakhankar, T., Khanbilvardi, R., Krakauer, N., Radell, D., &amp; Devineni, N. (2022). A machine learning approach to evaluate the spatial variability of <span>N</span>ew <span>Y</span>ork <span>C</span>ity’s 311 street flooding complaints. <em>Computers, Environment and Urban Systems</em>, <em>97</em>, 101854.
+</div>
+<div id="ref-agonafir2022understanding" class="csl-entry" role="listitem">
+Agonafir, C., Pabon, A. R., Lakhankar, T., Khanbilvardi, R., &amp; Devineni, N. (2022). Understanding <span>N</span>ew <span>Y</span>ork <span>C</span>ity street flooding through 311 complaints. <em>Journal of Hydrology</em>, <em>605</em>, 127300.
+</div>
+<div id="ref-vanderplas2016python" class="csl-entry" role="listitem">
+VanderPlas, J. (2016). <em>Python data science handbook: <span>E</span>ssential tools for working with data</em>. O’Reilly Media, Inc.
+</div>
+</div>
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./intro.html" class="pagination-link" aria-label="Introduction">
+        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
