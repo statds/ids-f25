@@ -3,7 +3,7 @@ project:
 
 book:
   title: "Introduction to Data Science"
-  subtitle: "STAT 3255/5255 @ UConn, Spring 2025"
+  subtitle: "STAT 3255/5255 @ UConn, Fall 2025"
   author:
     - name: "[Jun Yan](https://statcomp.org) and Students in Fall 2025"
   date: today
