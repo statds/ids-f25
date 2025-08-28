@@ -14,7 +14,7 @@ enrolled in the course. This cooperative approach to education was
 facilitated through the use of GitHub, a platform that encourages
 collaborative coding and content development. To view
 these contributions and the lecture notes in their entirety, please
-visit our GitHub repository at <https://github.com/statds/ids-s25>.
+visit our GitHub repository at <https://github.com/statds/ids-f25>.
 
 
 Students contributed to the lecture notes by submitting pull requests
@@ -24,6 +24,7 @@ in collaborative software development and version control.
 
 
 For those interested, class notes from
+[Spring 2025](https://statds.github.io/ids-s25),
 [Fall 2024](https://statds.github.io/ids-f24),
 [Spring 2024](https://statds.github.io/ids-s24),
 [Spring 2023](https://statds.github.io/ids-s23), and
@@ -79,7 +80,7 @@ used. Here is a list of useful data challenges:
 + [15 Data Science Hackathons to Test Your Skills in 2025](https://www.fynd.academy/blog/data-science-hackathons)
 + If you work on sports analytics, you are welcome to submit a
 poster to [Connecticut Sports Analytics Symposium
-(CSAS) 2025](https://statds.org/events/csas2025/).
+(CSAS) 2026](https://statds.org/events/csas2026/).
 + A good resource for sports analytics is [ScoreNetwork](https://scorenetwork.org).
 + [Paleobiology Database](https://paleobiodb.org/#/).
 
@@ -441,12 +442,12 @@ code chunks, it would be hard to plagiarize.
 + Could you list a few examples of email etiquette?
 + How would you lose style points?
 + Would you use CLI and GUI?
-+ How many students will present at 2025 NYC ODW and when will the
-  presentations be?
+<!-- + How many students will present at 2025 NYC ODW and when will the -->
+<!--   presentations be? -->
 + What's the first date on which you have to complete something about
   your final project?
 + Can you use AI for any task in this course? 
-+ Anybody needs a reference letter? How could you help me to help you?
++ If you need a reference letter, how could you help me to help you?
 
 ## Practical Tips
 
