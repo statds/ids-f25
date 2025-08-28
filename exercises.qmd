@@ -13,9 +13,10 @@
     a.  Install Quarto onto your computer following the instructions
     of [Get Started](https://quarto.org/docs/get-started/). 
     a.  Pick a tool of your choice (e.g., VS Code, Jupyter Notebook,
-    Emacs, etc.), follow the instructions to reproduce the example
+    Positron, Emacs, etc.), follow the instructions to reproduce the example
     of line plot on polar axis.
-    a.  Render the homework into a pdf file and put the file into
+    a.  Render the homework into a HTML.
+	a.  Print the HTML file to a pdf file and put the file into
     a release in your GitHub repo.
     
 1. **Working on Homework Problems**
