@@ -1,0 +1,17 @@
+## Data Science Ethics
+
+### Privacy
+In data science, the principle of privacy emphasizes safeguarding
+individuals’ personal information by ensuring it is collected, stored,
+and used responsibly. It requires that data scientists practice
+transparency about what data is being gathered and why, obtain
+informed consent, and limit collection to only what is
+necessary. Protecting privacy also involves securing data against
+unauthorized access, applying methods like anonymization to reduce
+risks of re-identification, and ensuring that information is not
+repurposed beyond its intended use without permission. By upholding
+privacy, data scientists respect individual autonomy, build trust, and
+reduce the risk of harm or exploitation, making it a cornerstone of
+ethical and responsible data practice.
+
+
