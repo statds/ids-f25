@@ -127,8 +127,9 @@ Markdown.
 ### Students in 3255
 + Agostino, Michael Angelo
 + Blake, Roger Cooley
-    - This is a test
-    - this is a second test
+    - Gain experience using git and github
+    - Complete a project that transforms real-world data into valuable insights
+    - Master control over my computer and its file system
 + Bone, Dylan Jason
 + Cao, Enshuo
 + Chen, Irene
