@@ -20,7 +20,7 @@ format:
 # Approximating $\pi$
 
 Let $(X_i, Y_i)$, $i = 1, \ldots, n$, be a random sample drawn form
-the bivarate uniform distribution over the unit square. 
+the bivariate uniform distribution over the unit square. 
 The probability that this point falls into the
 first quardrant of the unit circle is $\pi / 4$. Based on this, we
 can approximate $\pi$ by
@@ -121,9 +121,9 @@ time_original, time_vectorized
 ```
 
 
-# Problme 2
+# Problem 2
 
-Here is your text desctiption.
+Here is your text description.
 
 You can add some code chunks.
 
