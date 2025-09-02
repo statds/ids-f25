@@ -22,6 +22,9 @@
 1. **Working on Homework Problems**
   All the requirements on homework styles have reasons. Reviewing
   these questions help you to understand them.
+    a.  Why is the command line interface if preferred among the
+  professionals?
+    a.  What are the advantages of Linux over Windows?
     a.  What are the differences between binary and source files?
     a.  Why do we not want to track binary files in a repo?
     a.  Why do I require pdf output via release?
