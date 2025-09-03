@@ -152,6 +152,7 @@ Markdown.
 + Tang, Wilson Chen
 + Tran, Justin
 + White, Abigail Lynn
+   - Become more comfortable working with GitHub.
 + Wishneski, Emma Irene
 + Yoon, Jessica Nari
 + Zhang, Mark Justin
