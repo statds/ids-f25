@@ -153,6 +153,7 @@ Markdown.
 + Tran, Justin
 + White, Abigail Lynn
    - Become more comfortable working with GitHub.
+   - Learn more commands used in the Terminal.
 + Wishneski, Emma Irene
 + Yoon, Jessica Nari
 + Zhang, Mark Justin
