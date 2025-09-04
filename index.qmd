@@ -139,6 +139,9 @@ Markdown.
 + Lawrence, Claire Elise
 + Levine, Hannah Maya
 + Lucey, Sonia Niamh
+    - Learn practical applications of Data Science and Economics
+    - Learn how to use Git/GitHub
+    - Improve Python/coding skills
 + Mayer-Costa, Jaden Paulo
 + Milun, Lewis Aaron
 + Montalvo, Victor Samuel
