@@ -153,6 +153,9 @@ Markdown.
 + Schlessel, Jacob E
 + Sgro, Owen Bentley
 + Tang, Wilson Chen
+    - I want to be very comfortable with using GitHub and GitBash
+    - I want to learn how to have a clear style
+    - I want to use programming tools in a professional way
 + Tran, Justin
 + White, Abigail Lynn
 + Wishneski, Emma Irene
