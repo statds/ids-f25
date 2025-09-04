@@ -126,8 +126,10 @@ Markdown.
 
 ### Students in 3255
 + Agostino, Michael Angelo
-    - Further my understanding of git and github to improve my workflow.
-    - Build a project to gain real world data science experience.
+    - Further undrstanding of github and improve my workflow. 
+    - Build a project in order to gain real world data science experience.
++ Blake, Roger Cooley
++ Bone, Dylan Jason
 + Cao, Enshuo
 + Chen, Irene
 + Chen, Jingang Calvin
