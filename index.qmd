@@ -153,7 +153,7 @@ Markdown.
 + Tran, Justin
 + White, Abigail Lynn
    - Become more comfortable working with GitHub.
-   - Learn more commands used in the Terminal.
+   - Learn and memorize more commands used in the Terminal.
    - Advance my statistical skills through a data science project.
 + Wishneski, Emma Irene
 + Yoon, Jessica Nari
