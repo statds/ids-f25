@@ -129,6 +129,9 @@ Markdown.
     - Further understanding of github and improve my workflow. 
     - Build a project in order to gain real world data science experience.
 + Blake, Roger Cooley
+    - Gain experience using git and github
+    - Complete a project that transforms real-world data into valuable insights
+    - Master control over my computer and its file system
 + Bone, Dylan Jason
 + Cao, Enshuo
 + Chen, Irene
