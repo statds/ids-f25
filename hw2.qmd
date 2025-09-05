@@ -64,3 +64,5 @@ I was working in. When I did "git status" to check if the file was now in the
 correct location, it verified that I had successful moved the file. I was then able
 to add the file and commit my changes. I had to close the file I had open in VS Code 
 and reopen it in VS Code in the repo folder. I am now adding my wishes to the index.qmd file.
+I was able to stage the index.qmd file after adding my changes and commit it. I then
+pushed the branch "wishlist-update" with my updated wishes to the main branch of my fork.
