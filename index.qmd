@@ -141,6 +141,9 @@ Markdown.
 + Haerter, Alejandro Erik
 + Lawrence, Claire Elise
 + Levine, Hannah Maya
+    - Become more comfortable using Git/GitHub
+    - Improve style and Python skills
+    - Learn how to apply skills to real world
 + Lucey, Sonia Niamh
     - Learn practical applications of Data Science and Economics
     - Learn how to use Git/GitHub
