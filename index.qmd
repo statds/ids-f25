@@ -132,9 +132,9 @@ Markdown.
 + Chen, Irene
 + Chen, Jingang Calvin
 + Fazzina, Sophia Carmen
-  - Get comfortable using Git and GitHub
-  - Learn about the applications of Data Science
-  - Get a good grade in this class
+    - Get comfortable using Git and GitHub
+    - Work on a data science project from start to finish
+    - Get a good grade in this class
 + Fu, Wenwei
 + Haerter, Alejandro Erik
 + Lawrence, Claire Elise
