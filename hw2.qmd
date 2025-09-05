@@ -52,3 +52,15 @@ downloaded and installed requirements.txt. I then tried to render the folder aga
 and was successful this time. It created an output, _book/index.html.
 ## d.
 I created a new branch titled "wishlist-update" and switched into it.
+## e.
+I tried to commit this file with my documented steps up until now.
+I have been making sure to make many small commits after each step. However,
+when I tried to add the file to stage, it gave me" fatal: pathspec 'hw2.qmd' 
+did not match any files". The file I had been working on was inside the 
+"2-contributing-to-class-notes-hlevine105" folder, and in Git Bash I was in
+"2-contributing-to-class-notes-hlevine105/ids-f25 (wishlist-update)". I fixed
+this by doing the command mv ../hw2.qmd ." to move the file to the repo folder
+I was working in. When I did "git status" to check if the file was now in the
+correct location, it verified that I had successful moved the file. I was then able
+to add the file and commit my changes. I had to close the file I had open in VS Code 
+and reopen it in VS Code in the repo folder. I am now adding my wishes to the index.qmd file.
