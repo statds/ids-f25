@@ -66,3 +66,5 @@ to add the file and commit my changes. I had to close the file I had open in VS 
 and reopen it in VS Code in the repo folder. I am now adding my wishes to the index.qmd file.
 I was able to stage the index.qmd file after adding my changes and commit it. I then
 pushed the branch "wishlist-update" with my updated wishes to the main branch of my fork.
+My wishes were: Become more comfortable using Git/GitHub; Improve style and Python skills; 
+Learn how to apply skills to real world.
