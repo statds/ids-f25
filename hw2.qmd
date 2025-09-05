@@ -1,0 +1,54 @@
+---
+title: "Homework Assignment 2"
+author: "Hannah Levine"
+toc: true
+number-sections: true
+highlight-style: pygments
+format: 
+  html: 
+    code-fold: true
+    html-math-method: katex
+    embed-resources: true
+    self-contained-math: true	
+  pdf: 
+    geometry: 
+      - top=30mm
+      - left=20mm
+##  docx: Never, unless to accommodate a collaborator
+---
+
+# Working on Homework Problems
+
+## Part a.
+
+## Part b.
+
+## Part c.
+
+## Part d.
+
+## Part e.
+
+## Part f.
+
+## Part g.
+
+## Part h.
+
+## Part i.
+
+# Contributing to Class Notes
+## a.
+First I went to the class GitHub and created a new fork in my own 
+GitHub account.
+## b.
+Then, I copied the SSH link and cloned the fork into the "2-contributing-
+to-class-notes-hlevine105" folder on my computer. I now have a new folder 
+inside that one, titled "ids-f25". I went into this folder on Git Bash.
+## c.
+Next, I tried to render the folder, but ran into ModuleNotFoundError:
+no module named scipy. To fix this, I created a virtual environment, and
+downloaded and installed requirements.txt. I then tried to render the folder again,
+and was successful this time. It created an output, _book/index.html.
+## d.
+I created a new branch titled "wishlist-update" and switched into it.
