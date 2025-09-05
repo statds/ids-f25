@@ -161,6 +161,9 @@ Markdown.
 + Wishneski, Emma Irene
 + Yoon, Jessica Nari
 + Zhang, Mark Justin
+    - Get comfortable with command line and Git
+    - Learn to make my own data science projects
+    - learn theory and application of ML algorithms
 
 ### Students in 5255
 + Anzalone, Matthew James
