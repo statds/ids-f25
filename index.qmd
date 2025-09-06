@@ -169,7 +169,10 @@ Markdown.
     - learn theory and application of ML algorithms
 
 ### Students in 5255
-+ Anzalone, Matthew James
++ Anzalone, Matthew James  
+    - Build professional workflow habits for a data-science career  
+    - Increase my Python knowledge enough that I could eventually create usable packages  
+    - Improve my data-driven thinking outside of the bounds of economics
 + Gomez-Haibach, Konrad
 + Hu, Youshuang
 + Plotnikov, Alexander
