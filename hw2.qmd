@@ -20,22 +20,34 @@ format:
 # Working on Homework Problems
 
 ## Part a.
-
+The command line interface is fast and efficient once learned properly.
 ## Part b.
-
+Linux is better over Windows because it is open-source. This means it is free,
+customizable, and transparent. Linux is also more secure, and has more developer
+tools built in.
 ## Part c.
-
+Source files are legible code that can be modified, like files ending in .py or .qmd.
+Binary files are more meant for machines to read and aren't easily modified, like files
+ending in .exe or .pdf.
 ## Part d.
-
+Binary files take up a lot of space in Git history. This causes the repo to become more full
+and slows down cloning.
 ## Part e.
-
+Releasing the pdf output keeps the repo clean, and keeps the output seperate from the source code.
 ## Part f.
-
+Using 'upload' loses the history of how the file was developed, and doesn't teach you
+Git workflows (like add, commit, push, etc).
 ## Part g.
-
+Linewidth under 80 improves readability on screens and termials, and makes
+it easier to review side by side.
 ## Part h.
-
+It's not a good idea to have spaces in file and folder names because it breaks up the 
+command line operations if you don't carefully quote them everytime. It can also cause issues
+accross platforms. Using underscores instead of spaces is safer and easier.
 ## Part i.
+Many small commits provides a more clear history of your progress. It makes it easier to debug later on,
+and allows you to work in increments instead of one big upload.
+
 
 # Contributing to Class Notes
 ## a.
@@ -68,3 +80,10 @@ I was able to stage the index.qmd file after adding my changes and commit it. I 
 pushed the branch "wishlist-update" with my updated wishes to the main branch of my fork.
 My wishes were: Become more comfortable using Git/GitHub; Improve style and Python skills; 
 Learn how to apply skills to real world.
+
+I also tried to upload this but my commits have gotten all messed up. I made a bunch of commits
+with this file in one folder, then copied it to another folder, and made more commits. I think
+thats why it's only showing the last few commits on GitHub but I promise I actually did make 
+more commits. I've been working on this homework for days now though and I'm starting to 
+go a little crazy and in circles and more confused than I probably should be. ChatGPT helped,
+but there's only so many circles I can do before I stop comprehending what I'm doing.
