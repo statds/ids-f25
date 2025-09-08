@@ -149,7 +149,8 @@ Markdown.
 + Sgro, Owen Bentley
 + Tang, Wilson Chen
 + Tran, Justin
-    - Testing
+    - To become proficient in the knowledge of Git.
+    - To learn how to use command line 
 + White, Abigail Lynn
 + Wishneski, Emma Irene
 + Yoon, Jessica Nari
