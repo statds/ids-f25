@@ -150,7 +150,8 @@ Markdown.
 + Tang, Wilson Chen
 + Tran, Justin
     - To become proficient in the knowledge of Git.
-    - To learn how to use command line 
+    - To adopt command line knowledge into the workforce.
+    - Fostering good practices with commits.
 + White, Abigail Lynn
 + Wishneski, Emma Irene
 + Yoon, Jessica Nari
