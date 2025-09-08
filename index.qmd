@@ -152,6 +152,10 @@ Markdown.
 + Patel, Tulsi Manankumar
 + Perkins, Jack Thomas
 + Saltus, Quinn Lloyd Turner
+    - Gain proficiency in data visualization with Python
+    - Build experience using version control to expand the scope of my projects
+    - Learn when and how to apply libraries (such as numpy & pytorch) to improve my code's performance
+    - Become familiar with machine learning tools and techniques
 + Saxena, Aanya
 + Schlessel, Jacob E
 + Sgro, Owen Bentley
