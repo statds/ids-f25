@@ -135,6 +135,8 @@ Markdown.
 + Bone, Dylan Jason
 + Cao, Enshuo
 + Chen, Irene
+    - Become proficient in using Git and Python
+    - Deepen machine learning and data science skills
 + Chen, Jingang Calvin
 + Fazzina, Sophia Carmen
 + Fu, Wenwei
