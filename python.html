@@ -281,7 +281,7 @@ window.Quarto = {
 </blockquote>
 <p>Question: How to get the constant <span class="math inline">\(e\)</span> to an arbitary precision?</p>
 <p>The constant is only represented by a given double precision.</p>
-<div id="759c197b" class="cell" data-execution_count="1">
+<div id="08a99238" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="sc">%0.20f</span><span class="st">"</span> <span class="op">%</span> math.e)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="sc">%0.80f</span><span class="st">"</span> <span class="op">%</span> math.e)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -291,7 +291,7 @@ window.Quarto = {
 </div>
 </div>
 <p>Now use package <code>decimal</code> to export with an arbitary precision.</p>
-<div id="2ba4364f" class="cell" data-execution_count="2">
+<div id="50b20f4f" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> decimal  <span class="co"># for what?</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">## set the required number digits to 150</span></span>
@@ -315,7 +315,7 @@ window.Quarto = {
 <li>statsmodels</li>
 </ul>
 <p>Question: how to draw a random sample from a normal distribution and evaluate the density and distributions at these points?</p>
-<div id="b8581fdf" class="cell" data-execution_count="3">
+<div id="e7a66e5f" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> norm</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>mu, sigma <span class="op">=</span> <span class="dv">2</span>, <span class="dv">4</span></span>
@@ -327,16 +327,16 @@ window.Quarto = {
 <pre><code>2.0 16.0 0.0 0.0</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="3">
-<pre><code>array([ 1.07452005, -2.00220575, -3.94282071,  3.2743901 , -0.80235224,
-       12.62935821, -2.36576501,  5.25598975,  2.36995451,  0.35247467])</code></pre>
+<pre><code>array([-1.44616235,  0.53956162, -3.77276217,  2.63830387,  0.33691112,
+        1.84759178,  9.14954051,  6.0527046 ,  6.52055826,  3.42488741])</code></pre>
 </div>
 </div>
 <p>The pdf and cdf can be evaluated:</p>
-<div id="c592ae77" class="cell" data-execution_count="4">
+<div id="c09b3030" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>norm.pdf(x, loc <span class="op">=</span> mu, scale <span class="op">=</span> sigma)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
-<pre><code>array([0.09710145, 0.06045932, 0.0330778 , 0.09480007, 0.07803134,
-       0.00292062, 0.0549762 , 0.07160941, 0.0993099 , 0.09162455])</code></pre>
+<pre><code>array([0.06881325, 0.09330464, 0.0352027 , 0.09847376, 0.09147714,
+       0.0996632 , 0.02018924, 0.05969567, 0.05266308, 0.09360421])</code></pre>
 </div>
 </div>
 </section>
@@ -344,7 +344,7 @@ window.Quarto = {
 <h2 data-number="4.4" class="anchored" data-anchor-id="writing-a-function"><span class="header-section-number">4.4</span> Writing a Function</h2>
 <p>Consider the Fibonacci Sequence <span class="math inline">\(1, 1, 2, 3, 5, 8, 13, 21, 34, ...\)</span>. The next number is found by adding up the two numbers before it. We are going to use 3 ways to solve the problems.</p>
 <p>The first is a recursive solution.</p>
-<div id="f56e2d04" class="cell" data-execution_count="5">
+<div id="b2925483" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fib_rs(n):</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (n<span class="op">==</span><span class="dv">1</span> <span class="kw">or</span> n<span class="op">==</span><span class="dv">2</span>):</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">1</span></span>
@@ -353,11 +353,11 @@ window.Quarto = {
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>timeit fib_rs(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>9.11 μs ± 221 ns per loop (mean ± std. dev. of 7 runs, 100,000 loops each)</code></pre>
+<pre><code>25 μs ± 6.25 μs per loop (mean ± std. dev. of 7 runs, 10,000 loops each)</code></pre>
 </div>
 </div>
 <p>The second uses dynamic programming memoization.</p>
-<div id="4d92fef7" class="cell" data-execution_count="6">
+<div id="3acea180" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fib_dm_helper(n, mem):</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> mem[n] <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> mem[n]</span>
@@ -374,11 +374,11 @@ window.Quarto = {
 <span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>timeit fib_dm(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>2.1 μs ± 111 ns per loop (mean ± std. dev. of 7 runs, 1,000,000 loops each)</code></pre>
+<pre><code>5.22 μs ± 1.05 μs per loop (mean ± std. dev. of 7 runs, 100,000 loops each)</code></pre>
 </div>
 </div>
 <p>The third is still dynamic programming but bottom-up.</p>
-<div id="b0c5b5b0" class="cell" data-execution_count="7">
+<div id="db1ff85d" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fib_dbu(n):</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    mem <span class="op">=</span> [<span class="va">None</span>] <span class="op">*</span> (n <span class="op">+</span> <span class="dv">1</span>)</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    mem[<span class="dv">1</span>] <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></span>
@@ -390,18 +390,18 @@ window.Quarto = {
 <span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>timeit fib_dbu(<span class="dv">500</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>72.8 μs ± 4.74 μs per loop (mean ± std. dev. of 7 runs, 10,000 loops each)</code></pre>
+<pre><code>276 μs ± 147 μs per loop (mean ± std. dev. of 7 runs, 1,000 loops each)</code></pre>
 </div>
 </div>
 <p>Apparently, the three solutions have very different performance for larger <code>n</code>.</p>
 <section id="monty-hall" class="level3" data-number="4.4.1">
 <h3 data-number="4.4.1" class="anchored" data-anchor-id="monty-hall"><span class="header-section-number">4.4.1</span> Monty Hall</h3>
 <p>Here is a function that performs the Monty Hall experiments. In this version, the host opens only one empty door.</p>
-<div id="aab304c4" class="cell" data-execution_count="8">
+<div id="0221e472" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> montyhall(ndoors, ntrials):</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    doors <span class="op">=</span> np.arange(<span class="dv">1</span>, ndoors <span class="op">+</span> <span class="dv">1</span>) <span class="op">/</span> <span class="dv">10</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    doors <span class="op">=</span> np.arange(<span class="dv">1</span>, ndoors <span class="op">+</span> <span class="dv">1</span>)</span>
 <span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    prize <span class="op">=</span> np.random.choice(doors, size<span class="op">=</span>ntrials)</span>
 <span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    player <span class="op">=</span> np.random.choice(doors, size<span class="op">=</span>ntrials)</span>
 <span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    host <span class="op">=</span> np.array([np.random.choice([d <span class="cf">for</span> d <span class="kw">in</span> doors</span>
@@ -412,56 +412,162 @@ window.Quarto = {
 <span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>                        <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(ntrials)])</span>
 <span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {<span class="st">'noswitch'</span>: np.<span class="bu">sum</span>(prize <span class="op">==</span> player), <span class="st">'switch'</span>: np.<span class="bu">sum</span>(prize <span class="op">==</span> player2)}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Test it out:</p>
-<div id="6c6feb48" class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>montyhall(<span class="dv">3</span>, <span class="dv">1000</span>)</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>montyhall(<span class="dv">4</span>, <span class="dv">1000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Test it out with 3 doors.</p>
+<div id="45ece9b9" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>montyhall(<span class="dv">3</span>, <span class="dv">1000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
-<pre><code>{'noswitch': np.int64(247), 'switch': np.int64(397)}</code></pre>
+<pre><code>{'noswitch': np.int64(347), 'switch': np.int64(653)}</code></pre>
+</div>
+</div>
+<p>Then with 4 doors</p>
+<div id="1e618ec9" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>montyhall(<span class="dv">4</span>, <span class="dv">1000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<pre><code>{'noswitch': np.int64(254), 'switch': np.int64(380)}</code></pre>
 </div>
 </div>
 <p>The true value for the two strategies with <span class="math inline">\(n\)</span> doors are, respectively, <span class="math inline">\(1 / n\)</span> and <span class="math inline">\(\frac{n - 1}{n (n - 2)}\)</span>.</p>
 <p>In the homework exercise, the host opens <span class="math inline">\(m\)</span> doors that are empty. An argument <code>nempty</code> could be added to the function.</p>
+<section id="faster-version" class="level4" data-number="4.4.1.1">
+<h4 data-number="4.4.1.1" class="anchored" data-anchor-id="faster-version"><span class="header-section-number">4.4.1.1</span> Faster version</h4>
+<p>This one avoid loops.</p>
+<div id="c2051ae2" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> typing <span class="im">import</span> Dict, Optional</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> montyhall_fast(</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    n_doors: <span class="bu">int</span>,</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    n_trials: <span class="bu">int</span>,</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>    seed: Optional[<span class="bu">int</span>] <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>) <span class="op">-&gt;</span> Dict[<span class="bu">str</span>, <span class="bu">int</span>]:</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="co">    Run a Monty Hall simulation with `n_doors` doors and `n_trials` repetitions.</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="co">    The host always opens exactly one empty door that is neither the prize door</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a><span class="co">    nor the player's initial choice.</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a><span class="co">    Parameters</span></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a><span class="co">    ----------</span></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a><span class="co">    n_doors : int</span></span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a><span class="co">        Total number of doors in the game (must be &gt;= 3).</span></span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a><span class="co">    n_trials : int</span></span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a><span class="co">        Number of independent trials to simulate.</span></span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a><span class="co">    seed : int, optional</span></span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a><span class="co">        Random seed for reproducibility.</span></span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a><span class="co">    Returns</span></span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a><span class="co">    -------</span></span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a><span class="co">    Dict[str, int]</span></span>
+<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a><span class="co">        A dictionary with counts of wins under two strategies:</span></span>
+<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a><span class="co">        - 'noswitch': staying with the initial choice</span></span>
+<span id="cb21-28"><a href="#cb21-28" aria-hidden="true" tabindex="-1"></a><span class="co">        - 'switch'  : switching after the host reveals one empty door</span></span>
+<span id="cb21-29"><a href="#cb21-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-30"><a href="#cb21-30" aria-hidden="true" tabindex="-1"></a><span class="co">    Examples</span></span>
+<span id="cb21-31"><a href="#cb21-31" aria-hidden="true" tabindex="-1"></a><span class="co">    --------</span></span>
+<span id="cb21-32"><a href="#cb21-32" aria-hidden="true" tabindex="-1"></a><span class="co">    &gt;&gt;&gt; results = montyhall_fast(3, 100000, seed=42)</span></span>
+<span id="cb21-33"><a href="#cb21-33" aria-hidden="true" tabindex="-1"></a><span class="co">    &gt;&gt;&gt; results</span></span>
+<span id="cb21-34"><a href="#cb21-34" aria-hidden="true" tabindex="-1"></a><span class="co">    {'noswitch': 33302, 'switch': 66698}</span></span>
+<span id="cb21-35"><a href="#cb21-35" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb21-36"><a href="#cb21-36" aria-hidden="true" tabindex="-1"></a>    rng <span class="op">=</span> np.random.default_rng(seed)</span>
+<span id="cb21-37"><a href="#cb21-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-38"><a href="#cb21-38" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Initial random assignments</span></span>
+<span id="cb21-39"><a href="#cb21-39" aria-hidden="true" tabindex="-1"></a>    prize <span class="op">=</span> rng.integers(n_doors, size<span class="op">=</span>n_trials, dtype<span class="op">=</span>np.int32)</span>
+<span id="cb21-40"><a href="#cb21-40" aria-hidden="true" tabindex="-1"></a>    player <span class="op">=</span> rng.integers(n_doors, size<span class="op">=</span>n_trials, dtype<span class="op">=</span>np.int32)</span>
+<span id="cb21-41"><a href="#cb21-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-42"><a href="#cb21-42" aria-hidden="true" tabindex="-1"></a>    host <span class="op">=</span> np.empty(n_trials, dtype<span class="op">=</span>np.int32)</span>
+<span id="cb21-43"><a href="#cb21-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-44"><a href="#cb21-44" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Case 1: player == prize → host excludes only 'player'</span></span>
+<span id="cb21-45"><a href="#cb21-45" aria-hidden="true" tabindex="-1"></a>    same <span class="op">=</span> prize <span class="op">==</span> player</span>
+<span id="cb21-46"><a href="#cb21-46" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> np.<span class="bu">any</span>(same):</span>
+<span id="cb21-47"><a href="#cb21-47" aria-hidden="true" tabindex="-1"></a>        k <span class="op">=</span> rng.integers(n_doors <span class="op">-</span> <span class="dv">1</span>, size<span class="op">=</span>np.<span class="bu">sum</span>(same), dtype<span class="op">=</span>np.int32)</span>
+<span id="cb21-48"><a href="#cb21-48" aria-hidden="true" tabindex="-1"></a>        p <span class="op">=</span> player[same]</span>
+<span id="cb21-49"><a href="#cb21-49" aria-hidden="true" tabindex="-1"></a>        host[same] <span class="op">=</span> k <span class="op">+</span> (k <span class="op">&gt;=</span> p)</span>
+<span id="cb21-50"><a href="#cb21-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-51"><a href="#cb21-51" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Case 2: player != prize → host excludes 'player' and 'prize'</span></span>
+<span id="cb21-52"><a href="#cb21-52" aria-hidden="true" tabindex="-1"></a>    diff <span class="op">=</span> <span class="op">~</span>same</span>
+<span id="cb21-53"><a href="#cb21-53" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> np.<span class="bu">any</span>(diff):</span>
+<span id="cb21-54"><a href="#cb21-54" aria-hidden="true" tabindex="-1"></a>        a <span class="op">=</span> np.minimum(player[diff], prize[diff])</span>
+<span id="cb21-55"><a href="#cb21-55" aria-hidden="true" tabindex="-1"></a>        b <span class="op">=</span> np.maximum(player[diff], prize[diff])</span>
+<span id="cb21-56"><a href="#cb21-56" aria-hidden="true" tabindex="-1"></a>        k <span class="op">=</span> rng.integers(n_doors <span class="op">-</span> <span class="dv">2</span>, size<span class="op">=</span>np.<span class="bu">sum</span>(diff), dtype<span class="op">=</span>np.int32)</span>
+<span id="cb21-57"><a href="#cb21-57" aria-hidden="true" tabindex="-1"></a>        host[diff] <span class="op">=</span> k <span class="op">+</span> (k <span class="op">&gt;=</span> a) <span class="op">+</span> (k <span class="op">&gt;=</span> b)</span>
+<span id="cb21-58"><a href="#cb21-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-59"><a href="#cb21-59" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Player switches: exclude 'player' and 'host'</span></span>
+<span id="cb21-60"><a href="#cb21-60" aria-hidden="true" tabindex="-1"></a>    a2 <span class="op">=</span> np.minimum(player, host)</span>
+<span id="cb21-61"><a href="#cb21-61" aria-hidden="true" tabindex="-1"></a>    b2 <span class="op">=</span> np.maximum(player, host)</span>
+<span id="cb21-62"><a href="#cb21-62" aria-hidden="true" tabindex="-1"></a>    k2 <span class="op">=</span> rng.integers(n_doors <span class="op">-</span> <span class="dv">2</span>, size<span class="op">=</span>n_trials, dtype<span class="op">=</span>np.int32)</span>
+<span id="cb21-63"><a href="#cb21-63" aria-hidden="true" tabindex="-1"></a>    player2 <span class="op">=</span> k2 <span class="op">+</span> (k2 <span class="op">&gt;=</span> a2) <span class="op">+</span> (k2 <span class="op">&gt;=</span> b2)</span>
+<span id="cb21-64"><a href="#cb21-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-65"><a href="#cb21-65" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {</span>
+<span id="cb21-66"><a href="#cb21-66" aria-hidden="true" tabindex="-1"></a>        <span class="st">"noswitch"</span>: <span class="bu">int</span>((prize <span class="op">==</span> player).<span class="bu">sum</span>()),</span>
+<span id="cb21-67"><a href="#cb21-67" aria-hidden="true" tabindex="-1"></a>        <span class="st">"switch"</span>: <span class="bu">int</span>((prize <span class="op">==</span> player2).<span class="bu">sum</span>()),</span>
+<span id="cb21-68"><a href="#cb21-68" aria-hidden="true" tabindex="-1"></a>    }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Let’s see their time comparison.</p>
+<div id="3d934ff2" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Timing function ---</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> benchmark():</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    n_doors, n_trials <span class="op">=</span> <span class="dv">3</span>, <span class="dv">100_000</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Original</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    start <span class="op">=</span> time.perf_counter()</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>    montyhall(n_doors, n_trials)</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>    end <span class="op">=</span> time.perf_counter()</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Original:  </span><span class="sc">{</span>end <span class="op">-</span> start<span class="sc">:.4f}</span><span class="ss"> seconds"</span>)</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Fast</span></span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>    start <span class="op">=</span> time.perf_counter()</span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>    montyhall_fast(n_doors, n_trials)</span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>    end <span class="op">=</span> time.perf_counter()</span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Fast:      </span><span class="sc">{</span>end <span class="op">-</span> start<span class="sc">:.4f}</span><span class="ss"> seconds"</span>)</span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>benchmark()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Original:  7.7109 seconds
+Fast:      0.0242 seconds</code></pre>
+</div>
+</div>
+</section>
 </section>
 </section>
 <section id="variables-versus-objects" class="level2" data-number="4.5">
 <h2 data-number="4.5" class="anchored" data-anchor-id="variables-versus-objects"><span class="header-section-number">4.5</span> Variables versus Objects</h2>
 <p>In Python, variables and the objects they point to actually live in two different places in the computer memory. Think of variables as pointers to the objects they’re associated with, rather than being those objects. This matters when multiple variables point to the same object.</p>
-<div id="3c8c03a5" class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]  <span class="co"># create a list; x points to the list</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> x          <span class="co"># y also points to the same list in the memory</span></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>y.append(<span class="dv">4</span>)    <span class="co"># append to y</span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>x              <span class="co"># x changed!</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="10">
+<div id="17ca171b" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]  <span class="co"># create a list; x points to the list</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> x          <span class="co"># y also points to the same list in the memory</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>y.append(<span class="dv">4</span>)    <span class="co"># append to y</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>x              <span class="co"># x changed!</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="13">
 <pre><code>[1, 2, 3, 4]</code></pre>
 </div>
 </div>
 <p>Now check their addresses</p>
-<div id="fc3c3c2d" class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">id</span>(x))   <span class="co"># address of x</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">id</span>(y))   <span class="co"># address of y</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="10a8394a" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">id</span>(x))   <span class="co"># address of x</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">id</span>(y))   <span class="co"># address of y</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>4465247232
-4465247232</code></pre>
+<pre><code>4474184128
+4474184128</code></pre>
 </div>
 </div>
 <p>Nonetheless, some data types in Python are “immutable”, meaning that their values cannot be changed in place. One such example is strings.</p>
-<div id="cf8b1424" class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="st">"abc"</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> x</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="st">"xyz"</span></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="12">
+<div id="ca2a08d9" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="st">"abc"</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> x</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="st">"xyz"</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="15">
 <pre><code>'abc'</code></pre>
 </div>
 </div>
 <p>Now check their addresses</p>
-<div id="73ceade2" class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">id</span>(x))   <span class="co"># address of x</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">id</span>(y))   <span class="co"># address of y</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="a9a7ad86" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">id</span>(x))   <span class="co"># address of x</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">id</span>(y))   <span class="co"># address of y</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>4411247472
-4498862656</code></pre>
+<pre><code>4420209424
+4510381424</code></pre>
 </div>
 </div>
 <p>Question: What’s mutable and what’s immutable?</p>
@@ -472,16 +578,16 @@ window.Quarto = {
 <li><strong>Some</strong> manipulations of mutable types create new objects.</li>
 </ul>
 <p>Different variables may all be pointing at the same object is preserved through function calls (a behavior known as “pass by object-reference”). So if you pass a list to a function, and that function manipulates that list using an in-place mutation, that change will affect any variable that was pointing to that same object outside the function.</p>
-<div id="1cc9dacc" class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> x</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> append_42(input_list):</span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>    input_list.append(<span class="dv">42</span>)</span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> input_list</span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>append_42(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="14">
+<div id="21d64d0a" class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> x</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> append_42(input_list):</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>    input_list.append(<span class="dv">42</span>)</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> input_list</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>append_42(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="17">
 <pre><code>[1, 2, 3, 42]</code></pre>
 </div>
 </div>
@@ -493,31 +599,31 @@ window.Quarto = {
 <section id="integers" class="level3" data-number="4.6.1">
 <h3 data-number="4.6.1" class="anchored" data-anchor-id="integers"><span class="header-section-number">4.6.1</span> Integers</h3>
 <p>If not careful, It is easy to be bitten by overflow with integers when using Numpy and Pandas in Python.</p>
-<div id="f0a378f4" class="cell" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.array(<span class="dv">2</span> <span class="op">**</span> <span class="dv">63</span> <span class="op">-</span> <span class="dv">1</span> , dtype <span class="op">=</span> <span class="st">'int'</span>)</span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>x</span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="co"># This should be the largest number numpy can display, with</span></span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="co"># the default int8 type (64 bits)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="15">
+<div id="b9e992ae" class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.array(<span class="dv">2</span> <span class="op">**</span> <span class="dv">63</span> <span class="op">-</span> <span class="dv">1</span> , dtype <span class="op">=</span> <span class="st">'int'</span>)</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>x</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="co"># This should be the largest number numpy can display, with</span></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a><span class="co"># the default int8 type (64 bits)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="18">
 <pre><code>array(9223372036854775807)</code></pre>
 </div>
 </div>
 <p><em>Note: on Windows and other platforms, <code>dtype = 'int'</code> may have to be changed to <code>dtype = np.int64</code> for the code to execute. Source: <a href="https://stackoverflow.com/questions/38314118/overflowerror-python-int-too-large-to-convert-to-c-long-on-windows-but-not-ma">Stackoverflow</a></em></p>
 <p>What if we increment it by 1?</p>
-<div id="8506c98d" class="cell" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> np.array(x <span class="op">+</span> <span class="dv">1</span>, dtype <span class="op">=</span> <span class="st">'int'</span>)</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>y</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Because of the overflow, it becomes negative!</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="16">
+<div id="e190dc0d" class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> np.array(x <span class="op">+</span> <span class="dv">1</span>, dtype <span class="op">=</span> <span class="st">'int'</span>)</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>y</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Because of the overflow, it becomes negative!</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="19">
 <pre><code>array(-9223372036854775808)</code></pre>
 </div>
 </div>
 <p>For vanilla Python, the overflow errors are checked and more digits are allocated when needed, at the cost of being slow.</p>
-<div id="934f6a33" class="cell" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="op">**</span> <span class="dv">63</span> <span class="op">*</span> <span class="dv">1000</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="17">
+<div id="c292da92" class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="op">**</span> <span class="dv">63</span> <span class="op">*</span> <span class="dv">1000</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="20">
 <pre><code>9223372036854775808000</code></pre>
 </div>
 </div>
@@ -527,63 +633,63 @@ window.Quarto = {
 <h3 data-number="4.6.2" class="anchored" data-anchor-id="floating-number"><span class="header-section-number">4.6.2</span> Floating Number</h3>
 <p>Standard double-precision floating point number uses 64 bits. Among them, 1 is for sign, 11 is for exponent, and 52 are fraction significand, See <a href="https://en.wikipedia.org/wiki/Double-precision_floating-point_format" class="uri">https://en.wikipedia.org/wiki/Double-precision_floating-point_format</a>. The bottom line is that, of course, not every real number is exactly representable.</p>
 <p>If you have played the Game 24, here is a tricky one:</p>
-<div id="8ba1e66d" class="cell" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="dv">8</span> <span class="op">/</span> (<span class="dv">3</span> <span class="op">-</span> <span class="dv">8</span> <span class="op">/</span> <span class="dv">3</span>) <span class="op">==</span> <span class="dv">24</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="18">
+<div id="9a6e2d1a" class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="dv">8</span> <span class="op">/</span> (<span class="dv">3</span> <span class="op">-</span> <span class="dv">8</span> <span class="op">/</span> <span class="dv">3</span>) <span class="op">==</span> <span class="dv">24</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="21">
 <pre><code>False</code></pre>
 </div>
 </div>
 <p>Surprise?</p>
 <p>There are more.</p>
-<div id="11af42e8" class="cell" data-execution_count="19">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fl">0.1</span> <span class="op">+</span> <span class="fl">0.1</span> <span class="op">+</span> <span class="fl">0.1</span> <span class="op">==</span> <span class="fl">0.3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="19">
+<div id="4ec2f9a8" class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fl">0.1</span> <span class="op">+</span> <span class="fl">0.1</span> <span class="op">+</span> <span class="fl">0.1</span> <span class="op">==</span> <span class="fl">0.3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="22">
 <pre><code>False</code></pre>
 </div>
 </div>
-<div id="a24ed835" class="cell" data-execution_count="20">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fl">0.3</span> <span class="op">-</span> <span class="fl">0.2</span> <span class="op">==</span> <span class="fl">0.1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="20">
+<div id="43a684a8" class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fl">0.3</span> <span class="op">-</span> <span class="fl">0.2</span> <span class="op">==</span> <span class="fl">0.1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="23">
 <pre><code>False</code></pre>
 </div>
 </div>
 <p>What is really going on?</p>
-<div id="a1bf33a3" class="cell" data-execution_count="21">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> decimal</span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>decimal.Decimal(<span class="fl">0.1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="21">
+<div id="dfa4b325" class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> decimal</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>decimal.Decimal(<span class="fl">0.1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="24">
 <pre><code>Decimal('0.1000000000000000055511151231257827021181583404541015625')</code></pre>
 </div>
 </div>
-<div id="bf907158" class="cell" data-execution_count="22">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>decimal.Decimal(<span class="dv">8</span> <span class="op">/</span> (<span class="dv">3</span> <span class="op">-</span> <span class="dv">8</span> <span class="op">/</span> <span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="22">
+<div id="0879487a" class="cell" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>decimal.Decimal(<span class="dv">8</span> <span class="op">/</span> (<span class="dv">3</span> <span class="op">-</span> <span class="dv">8</span> <span class="op">/</span> <span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="25">
 <pre><code>Decimal('23.999999999999989341858963598497211933135986328125')</code></pre>
 </div>
 </div>
 <p>Because the mantissa bits are limited, it can not represent a floating point that’s both very big and very precise. Most computers can represent all integers up to <span class="math inline">\(2^{53}\)</span>, after that it starts skipping numbers.</p>
-<div id="7ca7cee6" class="cell" data-execution_count="23">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fl">2.1</span> <span class="op">**</span> <span class="dv">53</span> <span class="op">+</span> <span class="dv">1</span> <span class="op">==</span> <span class="fl">2.1</span> <span class="op">**</span> <span class="dv">53</span></span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Find a number larger than 2 to the 53rd</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="23">
+<div id="52409e39" class="cell" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fl">2.1</span> <span class="op">**</span> <span class="dv">53</span> <span class="op">+</span> <span class="dv">1</span> <span class="op">==</span> <span class="fl">2.1</span> <span class="op">**</span> <span class="dv">53</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Find a number larger than 2 to the 53rd</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="26">
 <pre><code>True</code></pre>
 </div>
 </div>
-<div id="c547b6ea" class="cell" data-execution_count="24">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="fl">2.1</span> <span class="op">**</span> <span class="dv">53</span></span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1000000</span>):</span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> x <span class="op">+</span> <span class="dv">1</span></span>
-<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>x <span class="op">==</span> <span class="fl">2.1</span> <span class="op">**</span> <span class="dv">53</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="24">
+<div id="4b7890b4" class="cell" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="fl">2.1</span> <span class="op">**</span> <span class="dv">53</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1000000</span>):</span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> x <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>x <span class="op">==</span> <span class="fl">2.1</span> <span class="op">**</span> <span class="dv">53</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="27">
 <pre><code>True</code></pre>
 </div>
 </div>
 <p>We add 1 to <code>x</code> by 1000000 times, but it still equal to its initial value, <code>2.1 ** 53</code>. This is because this number is too big that computer can’t handle it with precision like add 1.</p>
 <p>Machine epsilon is the smallest positive floating-point number <code>x</code> such that <code>1 + x != 1</code>.</p>
-<div id="fdaf13ba" class="cell" data-execution_count="25">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(np.finfo(<span class="bu">float</span>).eps)</span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(np.finfo(np.float32).eps)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="ea9263e6" class="cell" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(np.finfo(<span class="bu">float</span>).eps)</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(np.finfo(np.float32).eps)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>2.220446049250313e-16
 1.1920929e-07</code></pre>
