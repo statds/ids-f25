@@ -3,3 +3,4 @@
 - Explore pandas for handling and cleaning datasets
 - Learn scikit-learn basics for simple machine learning models
 - Improve ability to visualize data using matplotlib and seaborn
+- Document projects reproducibly using Quarto
