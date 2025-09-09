@@ -189,7 +189,7 @@ presenters = ug + gr
 
 import random
 ## seed jointly set by the class
-random.seed(6895 + 283 + 3184 + 3078 + 5901 + 36)
+random.seed(2819 + 4075 + 6227 + 5139 + 4768 + 109)
 random.sample(presenters, len(presenters))
 ## random.shuffle(presenters) # This would shuffle the list in place
 ```
