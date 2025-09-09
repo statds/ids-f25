@@ -1,3 +1,4 @@
 - Add wish about more Python examples
 - Practice branching, merging, and resolving conflicts in Git
 - Explore pandas for handling and cleaning datasets
+- Learn scikit-learn basics for simple machine learning models
