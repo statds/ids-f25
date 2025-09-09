@@ -171,7 +171,6 @@ Markdown.
 ### Students in 5255
 + Anzalone, Matthew James
 + Gomez-Haibach, Konrad
-+ Hu, Youshuang
 + Plotnikov, Alexander
 
 
@@ -211,8 +210,7 @@ boosting. This justifies certain requests for switching slots.
 Talk to the professor about your topics at least one week prior to
 your scheduled presentation. Here are some example tasks:
 
-+ Making presentations with Quarto
-+ Markdown jumpstart
++ Markdown jumpstart 
 + Effective data science communication
 + Import/Export data
 + Data manipulation with `Pandas`
@@ -242,6 +240,8 @@ your scheduled presentation. Here are some example tasks:
 + Developing a Python package
 + Web scraping
 + Personal webpage on GitHub
++ Making presentations with Quarto 
+
 
 ### Topic Presentation Schedule
 
@@ -252,16 +252,6 @@ The topic presentation is 20 points. It includes:
 + Contribute to the class notes within two weeks following the
   presentation (6 points).
   
-Tips on topic contribution:
-
-+ No plagiarism (see instructions on Contributing to Class Notes).
-+ Avoid external graphics.
-+ Use simulated data.
-+ Use data from homework assignments.
-+ Cite article/book references (learn how from our sources).
-+ Include a subsection of Further Readings.
-+ Test on your own computer before making a pull request.
-+ Send me your presentation two days in advance for feedbacks.
 
 Please use the following table to sign up.
 
@@ -307,11 +297,11 @@ be used as a template to start with.
 
    Date  | Presenter
   ------ | ---------------------- 
-   04/21 | Shiyi Li; Joann Jun; Ammar Alsadadi; Lang Lang
-   04/23 | John Ackerman; Alyssa Horn; Peiwen Xu; Thomas Schittina
-   04/28 | Daniel Kline; Luke Roy; Xavier Fables; Shubhan Tamhane
-   04/30 | Ruth Nasejje; Vladislav Lagutin; Ethan Long; Amer El Zein
-   05/05 (10:30-12:30)  | Sebastian Symula; Mario Tomiano; Kyle Reed; Yifei Chen; Selena Lin; Nick Pfeifer
+   11/18 | 5 
+   11/20 | 5
+   12/02 | 5
+   12/04 | 5
+   12/??  | 6
 
 ### Contributing to the Class Notes
 
@@ -324,8 +314,23 @@ Contribution to the class notes is through a `pull request'.
 + Work on your qmd file, test with `quarto render`.
 + When satisfied, commit and make a pull request with your quarto files and an updated `requirements.txt`.
 
-I have added a template file `mysection.qmd` and a new line to `_quarto.yml`
-as an example.
+
+I have added a template file `_mysection.qmd` as an example, which is
+`include`ed in `index.qmd`. See also how `_ethics.qmd` is included
+into `intro.qmd` for example.
+
+
+Tips on making contributions:
+
++ No plagiarism.
++ Avoid external graphics.
++ Use simulated data.
++ Use data from homework assignments.
++ Cite article/book references (learn how from our sources).
++ Include a subsection of Further Readings.
++ Test on your own computer before making a pull request.
++ Send me your presentation two days in advance for feedbacks.
+
 
 For more detailed style guidance, please see my notes on [statistical
 writing](https://statds.github.io/stat-writing/using-the-right-tools-for-writing.html#latex-for-typesetting).
