@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.33">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>5&nbsp; Exercises – Introduction to Data Science</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./references.html" rel="next">
+<link href="./python.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-364982630eef5352dd1537128a8ed5cb.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./exercises.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Exercises</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Introduction to Data Science</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preliminaries</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./git.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Project Management</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Reproducible Data Science</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./python.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Python Refreshment</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./exercises.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Exercises</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span id="sec-ex" class="quarto-section-identifier"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Exercises</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<ol type="1">
+<li><p><strong>Quarto and Git setup</strong> Quarto and Git are two important tools for data science. Get familiar with them through the following tasks. Please use the <a href="https://github.com/statds/ids-f25/blob/main/templates/hw.qmd"><code>templates/hw.qmd</code></a> template to document, for each step, what you did, the obstacles you encountered, and how you overcame them. Think of this as a user manual for students who are new to this. Use the command line interface.</p>
+<ol type="a">
+<li>Set up SSH authentication between your computer and your GitHub account.</li>
+<li>Install Quarto onto your computer following the instructions of <a href="https://quarto.org/docs/get-started/">Get Started</a>.</li>
+<li>Pick a tool of your choice (e.g., VS Code, Jupyter Notebook, Positron, Emacs, etc.), follow the instructions to reproduce the example of line plot on polar axis.</li>
+<li>Render the homework into a HTML.</li>
+<li>Print the HTML file to a pdf file and put the file into a release in your GitHub repo.</li>
+</ol></li>
+<li><p><strong>Working on Homework Problems</strong> All the requirements on homework styles have reasons. Reviewing these questions help you to understand them.</p>
+<ol type="a">
+<li>Why is the command line interface if preferred among the professionals?</li>
+<li>What are the advantages of Linux over Windows?</li>
+<li>What are the differences between binary and source files?</li>
+<li>Why do we not want to track binary files in a repo?</li>
+<li>Why do I require pdf output via release?</li>
+<li>Why do I not want your files added via ‘upload’?</li>
+<li>Why do I require line width under 80?</li>
+<li>Why is it not a good idea to have spaces in file/folder names?</li>
+<li>Why do I require at least 10 commits for each assignment?</li>
+</ol></li>
+<li><p><strong>Contributing to the Class Notes</strong> To contribute to the classnotes, you need to have a working copy of the sources on your computer. Document the following steps in a <code>qmd</code> file in the form of a step-by-step manual, as if you are explaining them to someone who wants to contribute too. Make at least 10 commits for this task, each with an informative message.</p>
+<ol type="a">
+<li>Create a fork of the notes repo into your own GitHub account.</li>
+<li>Clone it to an appropriate folder on your computer.</li>
+<li>Render the classnotes on your computer; document the obstacles and solutions.</li>
+<li>Make a new branch (and name it appropriately) to experiment with your changes.</li>
+<li>Checkout your branch and add your wishes to the wish list; commit with an informative message; and push the changes to your GitHub account.</li>
+<li>Make a pull request to class notes repo from your fork at GitHub. Make sure you have clear messages to document the changes.</li>
+</ol></li>
+<li><p><strong>Monty Hall</strong> Consider a generalized Monty Hall experiment. Suppose that the game start with <span class="math inline">\(n\)</span> doors; after you pick one, the host opens <span class="math inline">\(m \le n - 2\)</span> doors, that show no award. Include sufficient text around the code chunks to explain them.</p>
+<ol type="a">
+<li>Write a function to simulate the experiment once. The function takes two arguments <code>ndoors</code> and <code>nempty</code>, which represent the number of doors and the number of empty doors showed by the host, respectively, It returns the result of two strategies, switch and no-switch, from playing this game.</li>
+<li>Play this game with 3 doors and 1 empty a few times.</li>
+<li>Play this game with 10 doors and 8 empty a few times.</li>
+<li>Write a function to demonstrate the Monty Hall problem through simulation. The function takes three arguments <code>ndoors</code>, <code>nempty</code>, and <code>ntrials</code>, where <code>ntrial</code> is the number of trials in a simulation. The function should return the proportion of wins for both the switch and no-switch strategy.</li>
+<li>Apply your function with 3 doors (1 empty) and 10 doors (8 empty), both with 1000 trials. Summarize your results.</li>
+</ol></li>
+<li><p><strong>Approximating <span class="math inline">\(\pi\)</span></strong> Write a function to do a Monte Carlo approximation of <span class="math inline">\(\pi\)</span>. The function takes a Monte Carlo sample size <code>n</code> as input, and returns a point estimate of <span class="math inline">\(\pi\)</span> and a 95% confidence interval. Apply your function with sample size 1000, 2000, 4000, and 8000. Repeat the experiment 1000 times for each sample size and check the empirical probability that the confidence intervals cover the true value of <span class="math inline">\(\pi\)</span>. Comment on the results.</p></li>
+<li><p><strong>Google Billboard Ad</strong> Find the first 10-digit prime number occurring in consecutive digits of <span class="math inline">\(e\)</span>. This was a <a href="http://mathworld.wolfram.com/news/2004-10-13/google/">Google recruiting ad</a>.</p></li>
+<li><p><strong>Game 24</strong> The <a href="http://en.wikipedia.org/wiki/24_Game">math game 24</a> is one of the addictive games among number lovers. With four randomly selected cards from a deck of poker cards, use all four values and elementary arithmetic operations (<span class="math inline">\(+-\times /\)</span>) to come up with 24. Let <span class="math inline">\(\square\)</span> be one of the four numbers. Let <span class="math inline">\(\bigcirc\)</span> represent one of the four operators. For example, <span class="math display">\[\begin{equation*}
+(\square \bigcirc \square) \bigcirc (\square \bigcirc \square)
+\end{equation*}\]</span> is one way to group the the operations.</p>
+<ol type="a">
+<li>List all the possible ways to group the four numbers.</li>
+<li>How many possible ways are there to check for a solution?</li>
+<li>Write a function to solve the problem in a brutal force way. The inputs of the function are four numbers. The function returns a list of solutions. Some of the solutions will be equivalent, but let us not worry about that for now.</li>
+</ol></li>
+<li><p><strong>NYC Crash Data Cleaning</strong> The NYC motor vehicle collisions data with documentation is available from <a href="https://data.cityofnewyork.us/Public-Safety/Motor-Vehicle-Collisions-Crashes/h9gi-nx95">NYC Open Data</a>. The raw data needs some cleaning.</p>
+<ol type="a">
+<li>Use the filter from the website to download the crash data of the week of June 30, 2024 in CSV format; save it under a directory <code>data</code> with an informative name (e.g., <code>nyccrashes_2024w0630_by20240916.csv</code>); read the data into a Panda data frame with careful handling of the date time variables.</li>
+<li>Clean up the variable names. Use lower cases and replace spaces with underscores.</li>
+<li>Check the crash date and time to see if they really match the filter we intented. Remove the extra rows if needed.</li>
+<li>Get the basic summaries of each variables: missing percentage; descriptive statistics for continuous variables; frequency tables for discrete variables.</li>
+<li>Are their invalid <code>longitude</code> and <code>latitude</code> in the data? If so, replace them with <code>NA</code>.</li>
+<li>Are there <code>zip_code</code> values that are not legit NYC zip codes? If so, replace them with <code>NA</code>.</li>
+<li>Are there missing in <code>zip_code</code> and <code>borough</code>? Do they always co-occur?</li>
+<li>Are there cases where <code>zip_code</code> and <code>borough</code> are missing but the geo codes are not missing? If so, fill in <code>zip_code</code> and <code>borough</code> using the geo codes.</li>
+<li>Is it redundant to keep both <code>location</code> and the <code>longitude</code>/<code>latitude</code> at the NYC Open Data server?</li>
+<li>Check the frequency of <code>crash_time</code> by hour. Is there a matter of bad luck at exactly midnight? How would you interpret this?</li>
+<li>Are the number of persons killed/injured the summation of the numbers of pedestrians, cyclist, and motorists killed/injured? If so, is it redundant to keep these two columns at the NYC Open Data server?</li>
+<li>Print the whole frequency table of <code>contributing_factor_vehicle_1</code>. Convert lower cases to uppercases and check the frequencies again.</li>
+<li>Provided an opportunity to meet the data provider, what suggestions would you make based on your data exploration experience?</li>
+</ol></li>
+<li><p><strong>NYC Crash Data Exploration</strong> Except for the first question, use the cleaned crash data in feather format.</p>
+<ol type="a">
+<li>Construct a contigency table for missing in geocode (latitude and longitude) by borough. Is the missing pattern the same across boroughs? Formulate a hypothesis and test it.</li>
+<li>Construct a <code>hour</code> variable with integer values from 0 to 23. Plot the histogram of the number of crashes by <code>hour</code>. Plot it by borough.</li>
+<li>Overlay the locations of the crashes on a map of NYC. The map could be a static map or a Google map.</li>
+<li>Create a new variable <code>severe</code> which is one if the number of persons injured or deaths is 1 or more; and zero otherwise. Construct a cross table for <code>severe</code> versus borough. Is the severity of the crashes the same across boroughs? Test the null hypothesis that the two variables are not associated with an appropriate test.</li>
+<li>Merge the crash data with the Census zip code database which contains zip-code level demographic or socioeconomic variables.</li>
+<li>Fit a logistic model with <code>severe</code> as the outcome variable and covariates that are available in the data or can be engineered from the data. For example, zip code level covariates obtained from merging with the zip code database; crash hour; number of vehicles involved.</li>
+</ol></li>
+<li><p><strong>NYC Crash severity modeling</strong> Using the cleaned NYC crash data, merged with zipcode level information, predict <code>severe</code> of a crash.</p>
+<ol type="a">
+<li>Set random seed to <code>1234</code>. Randomly select 20% of the crashes as testing data and leave the rest 80% as training data.</li>
+<li>Fit a logistic model on the training data and validate the performance on the testing data. Explain the confusion matrix result from the testing data. Compute the F1 score.</li>
+<li>Fit a logistic model on the training data with <span class="math inline">\(L_1\)</span> regularization. Select the tuning parameter with 5-fold cross-validation in F1 score</li>
+<li>Apply the regularized logistic regression to predict the severity of the crashes in the testing data. Compare the performance of the two logistic models in terms of accuracy, precision, recall, F1-score, and AUC.</li>
+</ol></li>
+<li><p><strong>Midterm project: Street flood in NYC</strong> The class presentation at the 2025 NYC Open Data Weeik is scheduled for <a href="https://2025.open-data.nyc/event/risk-analysis-of-nyc-street-flooding/">Monday, March 24, 2:00-3:00 pm</a>.</p>
+<p>The <a href="https://data.cityofnewyork.us/Social-Services/311-Service-Requests-from-2010-to-Present/erm2-nwe9">NYC Open Data of 311 Service Requests</a> contains all service requests from 2010 to the present. This analysis focuses on two sewer-related complaints in 2024: Street Flooding (SF) and Catch Basin (CB). SF complaints serve as a practical indicator of street flooding, while CB complaints provide insights into a key infrastructural factor—when catch basins fail to drain rainwater properly due to blockages or structural issues, water accumulates on the streets. SF complaints are typically filed when residents observe standing water or flooding, whereas CB complaints report clogged basins, defective grates, or other drainage problems. The dataset is available in CSV format as <code>data/nycflood2024.csv</code>. Refer to the online data dictionary for a detailed explanation of variable meanings. Try to tell a story in your report while going through the questions.</p>
+<ol type="a">
+<li>Data cleaning.
+<ol type="i">
+<li>Import the data, rename the columns with our preferred styles.</li>
+<li>Summarize the missing information. Are there variables that are close to completely missing?</li>
+<li>Are there redundant information in the data? Try storing the data using the Arrow format and comment on the efficiency gain.</li>
+<li>Are there invalid NYC zipcode or borough? Can some of the missing values be filled? Fill them if yes.</li>
+<li>Are there date errors? Examples are earlier <code>closed_date</code> than <code>created_date</code>; <code>closed_date</code> and <code>created_date</code> matching to the second; dates exactly at midnight or noon to the second.</li>
+<li>Summarize your suggestions to the data curator in several bullet points.</li>
+</ol></li>
+<li>Exploratory analysis.
+<ol type="i">
+<li>Visualize the locations of complaints on a NYC map, with different symbols for different descriptors.</li>
+<li>Create a variable <code>response_time</code>, which is the duration from <code>created_date</code> to <code>closed_date</code>.</li>
+<li>Visualize the comparison of response time by complaint descriptor and borough. The original may not be the best given the long tail or outlers.</li>
+<li>Is there significant difference in response time between SF and CB complaints? Across different boroughs? Does the difference between SF and CB depend on borough? State your hypothesis, justify your test, and summarize your results in plain English.</li>
+<li>Create a binary variable <code>over3d</code> to indicate that a service request took three days or longer to close.</li>
+<li>Does <code>over3d</code> depend on the complaint descriptor, borough, or weekday (vs weekend/holiday)? State your hypotheses, justify your test, and summarize your results.</li>
+</ol></li>
+<li>Modeling the occurrence of overly long response time.
+<ol type="i">
+<li>Create a data set which contains the outcome variable <code>over3d</code> and variables that might be useful in predicting it. Consider including time-of-day effects (e.g., rush hour vs.&nbsp;late-night), seasonal trends, and neighborhood-level demographics. Zip code level information could be useful too, such as the zip code area and the ACS 2023 variables (<code>data/nyc_zip_areas.feather</code> and <code>data/acs2023.feather</code>).</li>
+<li>Randomly select 20% of the complaints as testing data with seeds <code>1234</code>. Build a logistic model to predict <code>over3d</code> for the complaints with the training data. If you have tuning parameters, justify how they were selected.</li>
+<li>Construct the confusion matrix from your prediction with a threshold of 1/2 on both training and testing data. Explain your accuracy, recall, precision, and F1 score to a New Yorker.</li>
+<li>Construct the ROC curve of your fitted logistic model and obtain the AUROC for both training and testing data. Explain your results to a New Yorker.</li>
+<li>Identify the most important predictors of <code>over3d</code>. Use model coefficients or feature importance (e.g., odds ratios, standardized coefficients, or SHAP values).</li>
+<li>Summarize your results to a New Yorker who is not data science savvy in several bullet points.</li>
+</ol></li>
+<li>Modeling the count of SF complains by zip code.
+<ol type="i">
+<li>Create a data set by aggregate the count of SF and SB complains by day for each zipcode.</li>
+<li>Merge the NYC precipitation (<code>data/rainfall_CP.csv</code>), by day to this data set.</li>
+<li>Merge the NYC zip code level landscape variables (<code>data/nyc_zip_lands.csv</code>) and ACS 2023 variables into the data set.</li>
+<li>For each day, create two variables representing 1-day lag of the precipitation and the number of CB complaints.</li>
+<li>Filter data from March 1 to November 30, excluding winter months when flooding is less frequent. November 30.</li>
+<li>Compare a Poisson regression with a Negative Binomial regression to account for overdispersion. Which model fits better? Explain the results to a New Yorker.</li>
+</ol></li>
+</ol></li>
+</ol>
+
+
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./python.html" class="pagination-link" aria-label="Python Refreshment">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Python Refreshment</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./references.html" class="pagination-link" aria-label="References">
+        <span class="nav-page-text">References</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
