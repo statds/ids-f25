@@ -1,1 +1,1 @@
-- Add more worked examples for Chapter 3
+- Add wish about more Python examples
