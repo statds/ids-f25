@@ -4,3 +4,4 @@
 - Learn scikit-learn basics for simple machine learning models
 - Improve ability to visualize data using matplotlib and seaborn
 - Document projects reproducibly using Quarto
+- Build confidence in presenting results clearly and effectively
