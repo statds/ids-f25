@@ -1,0 +1,3 @@
+# Wishlist
+
+- Add more Python examples to Chapter 2
