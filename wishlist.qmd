@@ -1,1 +1,2 @@
 - Add wish about more Python examples
+- Practice branching, merging, and resolving conflicts in Git
