@@ -173,6 +173,9 @@ Markdown.
 + Gomez-Haibach, Konrad
 + Hu, Youshuang
 + Plotnikov, Alexander
+    - Gain working knowledge of Git and project management.
+    - Learn AI and Machine Learning algorithms.
+    - Apply skillset by working on different projects.
 
 
 ## Course Logistics
