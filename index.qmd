@@ -149,6 +149,9 @@ Markdown.
 + Milun, Lewis Aaron
 + Montalvo, Victor Samuel
 + Patel, Sahil Sanjay
+    - I want learn more about time series forecasting
+    - I want to be more comfortable using git and GitHub
+    - I want to learn about the applications of Data Science in Finance
 + Patel, Tulsi Manankumar
 + Perkins, Jack Thomas
 + Saltus, Quinn Lloyd Turner
