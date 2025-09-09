@@ -425,7 +425,7 @@ div.csl-indent {
 <section id="presentation-orders" class="level3">
 <h3 class="anchored" data-anchor-id="presentation-orders">Presentation Orders</h3>
 <p>The topic presentation order is set up in class.</p>
-<div id="b41398c9" class="cell" data-execution_count="1">
+<div id="ae1cb4c6" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'rosters/3255.txt'</span>, <span class="st">'r'</span>) <span class="im">as</span> <span class="bu">file</span>:</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    ug <span class="op">=</span> [line.strip() <span class="cf">for</span> line <span class="kw">in</span> <span class="bu">file</span>]</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'rosters/5255.txt'</span>, <span class="st">'r'</span>) <span class="im">as</span> <span class="bu">file</span>:</span>
@@ -434,39 +434,39 @@ div.csl-indent {
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">## seed jointly set by the class</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>random.seed(<span class="dv">6895</span> <span class="op">+</span> <span class="dv">283</span> <span class="op">+</span> <span class="dv">3184</span> <span class="op">+</span> <span class="dv">3078</span> <span class="op">+</span> <span class="dv">5901</span> <span class="op">+</span> <span class="dv">36</span>)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>random.seed(<span class="dv">2819</span> <span class="op">+</span> <span class="dv">4075</span> <span class="op">+</span> <span class="dv">6227</span> <span class="op">+</span> <span class="dv">5139</span> <span class="op">+</span> <span class="dv">4768</span> <span class="op">+</span> <span class="dv">109</span>)</span>
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>random.sample(presenters, <span class="bu">len</span>(presenters))</span>
 <span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">## random.shuffle(presenters) # This would shuffle the list in place</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="1">
-<pre><code>['Mayer-Costa,Jaden Paulo',
- 'Haerter,Alejandro Erik',
- 'Blake,Roger Cooley',
- 'Lucey,Sonia Niamh',
- 'Agostino,Michael Angelo',
- 'Fazzina,Sophia Carmen',
- 'White,Abigail Lynn',
- 'Wishneski,Emma Irene',
- 'Saxena,Aanya',
- 'Lawrence,Claire Elise',
- 'Yoon,Jessica Nari',
- 'Saltus,Quinn Lloyd Turner',
- 'Chen,Jingang Calvin',
- 'Schlessel,Jacob E',
- 'Patel,Sahil Sanjay',
- 'Levine,Hannah Maya',
- 'Plotnikov,Alexander',
- 'Patel,Tulsi Manankumar',
- 'Chen,Irene',
+<pre><code>['Chen,Jingang Calvin',
  'Montalvo,Victor Samuel',
- 'Milun,Lewis Aaron',
- 'Sgro,Owen Bentley',
- 'Tran,Justin',
- 'Tang,Wilson Chen',
  'Cao,Enshuo',
+ 'Chen,Irene',
+ 'Haerter,Alejandro Erik',
+ 'Saxena,Aanya',
+ 'Gomez-Haibach,Konrad',
+ 'Sgro,Owen Bentley',
+ 'Lucey,Sonia Niamh',
+ 'Yoon,Jessica Nari',
+ 'Patel,Sahil Sanjay',
+ 'Plotnikov,Alexander',
+ 'Milun,Lewis Aaron',
+ 'Patel,Tulsi Manankumar',
+ 'Perkins,Jack Thomas',
+ 'Fazzina,Sophia Carmen',
+ 'Tang,Wilson Chen',
+ 'Wishneski,Emma Irene',
+ 'Lawrence,Claire Elise',
+ 'White,Abigail Lynn',
+ 'Mayer-Costa,Jaden Paulo',
  'Anzalone,Matthew James',
  'Zhang,Mark Justin',
- 'Perkins,Jack Thomas',
- 'Gomez-Haibach,Konrad']</code></pre>
+ 'Saltus,Quinn Lloyd Turner',
+ 'Tran,Justin',
+ 'Levine,Hannah Maya',
+ 'Blake,Roger Cooley',
+ 'Schlessel,Jacob E',
+ 'Agostino,Michael Angelo']</code></pre>
 </div>
 </div>
 <p>Switching slots is allowed as long as you find someone who is willing to switch with you. In this case, make a pull request to switch the order and let me know.</p>
@@ -815,7 +815,7 @@ div.csl-indent {
 <h3 class="anchored" data-anchor-id="sub-topic-1">Sub Topic 1</h3>
 <p>Put materials on topic 1 here</p>
 <p>Python examples can be put into <code>python</code> code chunks:</p>
-<div id="ddc69d76" class="cell" data-execution_count="2">
+<div id="f3d61347" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># import pandas as pd</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># do something</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
