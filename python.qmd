@@ -144,7 +144,7 @@ In this version, the host opens only one empty door.
 import numpy as np
 
 def montyhall(ndoors, ntrials):
-    doors = np.arange(1, ndoors + 1) / 10
+    doors = np.arange(1, ndoors + 1)
     prize = np.random.choice(doors, size=ntrials)
     player = np.random.choice(doors, size=ntrials)
     host = np.array([np.random.choice([d for d in doors
@@ -156,9 +156,13 @@ def montyhall(ndoors, ntrials):
     return {'noswitch': np.sum(prize == player), 'switch': np.sum(prize == player2)}
 ```
 
-Test it out:
+Test it out with 3 doors.
 ```{python}
 montyhall(3, 1000)
+```
+
+Then with 4 doors
+```{python}
 montyhall(4, 1000)
 ```
 
@@ -167,6 +171,105 @@ $1 / n$ and $\frac{n - 1}{n (n - 2)}$.
 
 In the homework exercise, the host opens $m$ doors that are empty. An
 argument `nempty` could be added to the function.
+
+
+#### Faster version
+
+This one avoid loops.
+```{python}
+import numpy as np
+from typing import Dict, Optional
+
+def montyhall_fast(
+    n_doors: int,
+    n_trials: int,
+    seed: Optional[int] = None
+) -> Dict[str, int]:
+    """
+    Run a Monty Hall simulation with `n_doors` doors and `n_trials` repetitions.
+    The host always opens exactly one empty door that is neither the prize door
+    nor the player's initial choice.
+
+    Parameters
+    ----------
+    n_doors : int
+        Total number of doors in the game (must be >= 3).
+    n_trials : int
+        Number of independent trials to simulate.
+    seed : int, optional
+        Random seed for reproducibility.
+
+    Returns
+    -------
+    Dict[str, int]
+        A dictionary with counts of wins under two strategies:
+        - 'noswitch': staying with the initial choice
+        - 'switch'  : switching after the host reveals one empty door
+
+    Examples
+    --------
+    >>> results = montyhall_fast(3, 100000, seed=42)
+    >>> results
+    {'noswitch': 33302, 'switch': 66698}
+    """
+    rng = np.random.default_rng(seed)
+
+    # Initial random assignments
+    prize = rng.integers(n_doors, size=n_trials, dtype=np.int32)
+    player = rng.integers(n_doors, size=n_trials, dtype=np.int32)
+
+    host = np.empty(n_trials, dtype=np.int32)
+
+    # Case 1: player == prize → host excludes only 'player'
+    same = prize == player
+    if np.any(same):
+        k = rng.integers(n_doors - 1, size=np.sum(same), dtype=np.int32)
+        p = player[same]
+        host[same] = k + (k >= p)
+
+    # Case 2: player != prize → host excludes 'player' and 'prize'
+    diff = ~same
+    if np.any(diff):
+        a = np.minimum(player[diff], prize[diff])
+        b = np.maximum(player[diff], prize[diff])
+        k = rng.integers(n_doors - 2, size=np.sum(diff), dtype=np.int32)
+        host[diff] = k + (k >= a) + (k >= b)
+
+    # Player switches: exclude 'player' and 'host'
+    a2 = np.minimum(player, host)
+    b2 = np.maximum(player, host)
+    k2 = rng.integers(n_doors - 2, size=n_trials, dtype=np.int32)
+    player2 = k2 + (k2 >= a2) + (k2 >= b2)
+
+    return {
+        "noswitch": int((prize == player).sum()),
+        "switch": int((prize == player2).sum()),
+    }
+```
+
+Let's see their time comparison.
+```{python}
+import time
+
+# --- Timing function ---
+def benchmark():
+    n_doors, n_trials = 3, 100_000
+
+    # Original
+    start = time.perf_counter()
+    montyhall(n_doors, n_trials)
+    end = time.perf_counter()
+    print(f"Original:  {end - start:.4f} seconds")
+
+    # Fast
+    start = time.perf_counter()
+    montyhall_fast(n_doors, n_trials)
+    end = time.perf_counter()
+    print(f"Fast:      {end - start:.4f} seconds")
+
+benchmark()
+```
+
 
 ## Variables versus Objects
 
