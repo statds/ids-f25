@@ -145,6 +145,70 @@ API, where you would need to register an account and get your Census
 API Key.
 
 
+## The Data Science Life Cycle
+
+This section summarizes Chapter 2 of *Veridical Data Science*
+\citep{yu2024veridical}, which introduces the data science life cycle
+(DSLC). The DSLC provides a structured way to think about the
+progression of data science projects. It consists of six stages, each with
+a distinct purpose:
+
+- Stage 1: Problem formulation and data collection  
+  Collaborate with domain experts to refine vague questions into ones
+  that can realistically be answered with data. Identify what data already
+  exists or design new collection protocols. Understanding the
+  collection process is crucial for assessing how data relates to reality.
+
+- Stage 2: Data cleaning, preprocessing, and exploratory data analysis  
+  Clean data to make it tidy, unambiguous, and correctly formatted.
+  Preprocess it to meet the requirements of specific algorithms, such as
+  handling missing values or scaling variables. Exploratory data analysis
+  (EDA) summarizes patterns using tables, statistics, and plots, while
+  explanatory data analysis polishes visuals for communication.
+
+- Stage 3: Exploring intrinsic data structures (optional)  
+  Techniques such as dimensionality reduction simplify data into
+  lower-dimensional forms, while clustering identifies natural groupings
+  among observations. Even if not central to the project, these methods
+  often enhance understanding.
+
+- Stage 4: Predictive and/or inferential analysis (optional)  
+  Many projects are cast as prediction tasks, training algorithms like
+  regression or random forests to forecast outcomes. Inference focuses
+  on estimating population parameters and quantifying uncertainty.
+  This book emphasizes prediction while acknowledging inference as
+  important in many domains.
+
+- Stage 5: Evaluation of results  
+  Findings should be evaluated both qualitatively, through critical
+  thinking, and quantitatively, through the PCS framework. PCS stands
+  for predictability, computability, and stability:  
+  * Predictability asks whether findings hold up in relevant future data.  
+  * Computability asks whether methods are feasible with available
+    computational resources.  
+  * Stability asks whether conclusions remain consistent under
+    reasonable changes in data, methods, or judgment calls.  
+  Together, PCS provides a foundation for assessing the reliability of
+  data-driven results.
+
+- Stage 6: Communication of results  
+  Results must be conveyed clearly to intended audiences, whether
+  through reports, presentations, visualizations, or deployable tools.
+  Communication should be tailored so findings can inform real-world
+  decisions.
+
+The DSLC is not a linear pipeline---analysts often loop back to refine
+earlier steps. The chapter also cautions against data snooping, where
+patterns discovered during exploration are mistaken for reliable truths.
+Applying PCS ensures that results are not only technically sound but
+also trustworthy and interpretable across the life cycle.
+
+
+## Further Readings
+
++ [@yu2024veridical](https://vdsbook.com): Ch 1-3.
+
+
 <!-- <\!-- This section is to be included as a Primer of Markdown. -\-> -->
 <!-- {{< include _markdown.qmd >}} -->
 

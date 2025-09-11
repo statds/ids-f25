@@ -1,0 +1,597 @@
+# Data Manipulation
+
+## Introduction
+
+Data manipulation is crucial for transforming raw data into a
+more analyzable format, essential for uncovering patterns and
+ensuring accurate analysis. This chapter introduces the core
+techniques for data manipulation in Python, utilizing the Pandas
+library, a cornerstone for data handling within Python's data
+science toolkit.
+
+
+Python's ecosystem is rich with libraries that facilitate not
+just data manipulation but comprehensive data analysis. Pandas,
+in particular, provides extensive functionality for data
+manipulation tasks including reading, cleaning, transforming,
+and summarizing data. Using real-world datasets, we will explore
+how to leverage Python for practical data manipulation tasks.
+
+
+By the end of this chapter, you will learn to:
+
+- Import/export data from/to diverse sources.
+- Clean and preprocess data efficiently.
+- Transform and aggregate data to derive insights.
+- Merge and concatenate datasets from various origins.
+- Analyze real-world datasets using these techniques.
+
+
+<!-- This section is to be included as a tutorial on pandas. -->
+<!-- {{< include _pandas.qmd >}} -->
+
+
+## Example: NYC Crash Data
+
+Consider a subset of the NYC Crash Data, which contains all
+NYC motor vehicle collisions data with documentation from
+[NYC Open Data](https://data.cityofnewyork.us/Public-Safety/Motor-Vehicle-Collisions-Crashes/h9gi-nx95).
+We downloaded the crash data for the week of August 21, 2025,
+on September 11, 2025, in CSC format.
+```{python}
+import numpy as np
+import pandas as pd
+
+# Load the dataset
+file_path = 'data/nyc_crashes_lbdwk_2025.csv'
+df = pd.read_csv(file_path,
+                 dtype={'LATITUDE': np.float32,
+                        'LONGITUDE': np.float32,
+                        'ZIP CODE': str})
+
+# Replace column names: convert to lowercase and replace spaces with underscores
+df.columns = df.columns.str.lower().str.replace(' ', '_')
+
+# Check for missing values
+df.isnull().sum()
+```
+
+
+Take a peek at the first five rows:
+```{python}
+df.head()
+```
+
+
+A quick summary of the data types of the columns:
+```{python}
+df.info()
+```
+
+
+Now we can do some cleaning after a quick browse.
+```{python}
+# Replace invalid coordinates (latitude=0, longitude=0 or NaN) with NaN
+df.loc[(df['latitude'] == 0) & (df['longitude'] == 0), 
+       ['latitude', 'longitude']] = pd.NA
+df['latitude'] = df['latitude'].replace(0, pd.NA)
+df['longitude'] = df['longitude'].replace(0, pd.NA)
+
+# Drop the redundant `latitute` and `longitude` columns
+df = df.drop(columns=['location'])
+
+# Converting 'crash_date' and 'crash_time' columns into a single datetime column
+df['crash_datetime'] = pd.to_datetime(df['crash_date'] + ' ' 
+                       + df['crash_time'], format='%m/%d/%Y %H:%M', errors='coerce')
+
+# Drop the original 'crash_date' and 'crash_time' columns
+df = df.drop(columns=['crash_date', 'crash_time'])
+```
+
+Let's get some basic frequency tables of `borough` and `zip_code`,
+whose values could be used to check their validity against the
+legitmate values.
+```{python}
+# Frequency table for 'borough' without filling missing values
+borough_freq = df['borough'].value_counts(dropna=False).reset_index()
+borough_freq.columns = ['borough', 'count']
+
+# Frequency table for 'zip_code' without filling missing values
+zip_code_freq = df['zip_code'].value_counts(dropna=False).reset_index()
+zip_code_freq.columns = ['zip_code', 'count']
+zip_code_freq
+```
+
+A comprehensive list of ZIP codes by borough can be obtained, for
+example, from [the New York City Department of Health's UHF
+Codes](https://www.nyc.gov/assets/doh/downloads/pdf/ah/zipcodetable.pdf). 
+We can use this list to check the validity of the zip codes in the
+data.
+```{python}
+# List of valid NYC ZIP codes compiled from UHF codes
+# Define all_valid_zips based on the earlier extracted ZIP codes
+all_valid_zips = {
+    10463, 10471, 10466, 10469, 10470, 10475, 10458, 10467, 10468,
+    10461, 10462, 10464, 10465, 10472, 10473, 10453, 10457, 10460,
+    10451, 10452, 10456, 10454, 10455, 10459, 10474, 11211, 11222,
+    11201, 11205, 11215, 11217, 11231, 11213, 11212, 11216, 11233,
+    11238, 11207, 11208, 11220, 11232, 11204, 11218, 11219, 11230,
+    11203, 11210, 11225, 11226, 11234, 11236, 11239, 11209, 11214,
+    11228, 11223, 11224, 11229, 11235, 11206, 11221, 11237, 10031,
+    10032, 10033, 10034, 10040, 10026, 10027, 10030, 10037, 10039,
+    10029, 10035, 10023, 10024, 10025, 10021, 10028, 10044, 10128,
+    10001, 10011, 10018, 10019, 10020, 10036, 10010, 10016, 10017,
+    10022, 10012, 10013, 10014, 10002, 10003, 10009, 10004, 10005,
+    10006, 10007, 10038, 10280, 11101, 11102, 11103, 11104, 11105,
+    11106, 11368, 11369, 11370, 11372, 11373, 11377, 11378, 11354,
+    11355, 11356, 11357, 11358, 11359, 11360, 11361, 11362, 11363,
+    11364, 11374, 11375, 11379, 11385, 11365, 11366, 11367, 11414,
+    11415, 11416, 11417, 11418, 11419, 11420, 11421, 11412, 11423,
+    11432, 11433, 11434, 11435, 11436, 11004, 11005, 11411, 11413,
+    11422, 11426, 11427, 11428, 11429, 11691, 11692, 11693, 11694,
+    11695, 11697, 10302, 10303, 10310, 10301, 10304, 10305, 10314,
+    10306, 10307, 10308, 10309, 10312
+}
+
+    
+# Convert set to list of strings
+all_valid_zips = list(map(str, all_valid_zips))
+
+# Identify invalid ZIP codes (including NaN)
+invalid_zips = df[
+    df['zip_code'].isna() | ~df['zip_code'].isin(all_valid_zips)
+    ]['zip_code']
+
+# Calculate frequency of invalid ZIP codes
+invalid_zip_freq = invalid_zips.value_counts(dropna=False).reset_index()
+invalid_zip_freq.columns = ['zip_code', 'frequency']
+
+invalid_zip_freq
+```
+
+As it turns out, the collection of valid NYC zip codes differ from
+different sources. From [United States Zip
+Codes](https://www.unitedstateszipcodes.org/), `10065` appears to be a
+valid NYC zip code. Under this circumstance, it might be safer to not
+remove any zip code from the data.
+
+
+To be safe, let's concatenate valid and invalid zips.
+```{python}
+# Convert invalid ZIP codes to a set of strings
+invalid_zips_set = set(invalid_zip_freq['zip_code'].dropna().astype(str))
+
+# Convert all_valid_zips to a set of strings (if not already)
+valid_zips_set = set(map(str, all_valid_zips))
+
+# Merge both sets
+merged_zips = invalid_zips_set | valid_zips_set  # Union of both sets
+```
+
+Are missing in zip code and borough always co-occur?
+```{python}
+# Check if missing values in 'zip_code' and 'borough' always co-occur
+# Count rows where both are missing
+missing_cooccur = df[['zip_code', 'borough']].isnull().all(axis=1).sum()
+# Count total missing in 'zip_code' and 'borough', respectively
+total_missing_zip_code = df['zip_code'].isnull().sum()
+total_missing_borough = df['borough'].isnull().sum()
+
+# If missing in both columns always co-occur, the number of missing
+# co-occurrences should be equal to the total missing in either column
+np.array([missing_cooccur, total_missing_zip_code, total_missing_borough])
+```
+
+Are there cases where zip_code and borough are missing
+but the geo codes are not missing? If so, fill in `zip_code`
+and `borough` using the geo codes by reverse geocoding.
+
+First make sure `geopy` is installed.
+``` shell
+pip install geopy
+```
+
+Now we use model `Nominatim` in package `geopy` to reverse geocode.
+```{python}
+from geopy.geocoders import Nominatim
+import time
+
+# Initialize the geocoder; the `user_agent` is your identifier 
+# when using the service. Be mindful not to crash the server
+# by unlimited number of queries, especially invalid code.
+geolocator = Nominatim(user_agent="jyGeopyTry")
+```
+
+We write a function to do the reverse geocoding given
+lattitude and longitude.
+```{python}
+# Function to fill missing zip_code
+def get_zip_code(latitude, longitude):
+    try:
+        location = geolocator.reverse((latitude, longitude), timeout=10)
+        if location:
+            address = location.raw['address']
+            zip_code = address.get('postcode', None)
+            return zip_code
+        else:
+            return None
+    except Exception as e:
+        print(f"Error: {e} for coordinates {latitude}, {longitude}")
+        return None
+    finally:
+        time.sleep(1)  # Delay to avoid overwhelming the service
+```
+
+Let's try it out:
+```{python}
+# Example usage
+latitude = 40.730610
+longitude = -73.935242
+get_zip_code(latitude, longitude)
+```
+
+The function `get_zip_code` can then be applied to
+rows where zip code is missing but geocodes are not to
+fill the missing zip code.
+
+Once zip code is known, figuring out `burough` is simple
+because valid zip codes from each borough are known.
+
+
+## Accessing Census Data
+
+The U.S. Census Bureau provides extensive demographic, economic, and 
+social data through multiple surveys, including the decennial Census, 
+the American Community Survey (ACS), and the Economic Census. These 
+datasets offer valuable insights into population trends, economic 
+conditions, and community characteristics at multiple geographic levels.
+
+There are several ways to access Census data:
+
+- **Census API**: The [Census API](https://www.census.gov/data/developers/data-sets.html) 
+  allows programmatic access to various datasets. It supports queries 
+  for different geographic levels and time periods.
+- **data.census.gov**: The official [web interface](https://data.census.gov/) 
+  for searching and downloading Census data.
+- **IPUMS USA**: Provides harmonized microdata for longitudinal 
+  research. Available at [IPUMS USA](https://usa.ipums.org/usa/).
+- **NHGIS**: Offers historical Census data with geographic information. 
+  Visit [NHGIS](https://www.nhgis.org/).
+
+In addition, Python tools simplify API access and data retrieval.
+
+### Python Tools for Accessing Census Data
+
+Several Python libraries facilitate Census data retrieval:
+
+- `censusapi`: The 
+  [official API wrapper](https://github.com/uscensusbureau/census-api) 
+  for direct access to Census datasets.
+- `census`: A high-level interface to the Census API, supporting ACS 
+  and decennial Census queries. See 
+  [census on PyPI](https://pypi.org/project/census/).
+- `censusdata`: A package for downloading and processing Census data 
+  directly in Python. Available at 
+  [censusdata documentation](https://jtleider.github.io/censusdata/).
+- `uszipcode`: A library for retrieving Census and geographic 
+  information by ZIP code. See 
+  [uszipcode on PyPI](https://pypi.org/project/uszipcode/).
+
+### Zip-Code Level for NYC Crash Data
+
+Now that we have NYC crash data, we might want to analyze patterns at 
+the zip-code level to understand whether certain demographic or 
+economic factors correlate with traffic incidents. While the crash 
+dataset provides details about individual accidents, such as location, 
+time, and severity, it does not contain contextual information about 
+the neighborhoods where these crashes occur. 
+
+
+To perform meaningful zip-code-level analysis, we need additional data 
+sources that provide relevant demographic, economic, and geographic 
+variables. For example, understanding whether high-income areas 
+experience fewer accidents, or whether population density influences 
+crash frequency, requires integrating Census data. Key variables such 
+as population size, median household income, employment rate, and 
+population density can provide valuable context for interpreting crash
+trends across different zip codes. 
+
+
+Since the Census Bureau provides detailed estimates for these variables 
+at the zip-code level, we can use the Census API or other tools to 
+retrieve relevant data and merge it with the NYC crash dataset. To 
+access the Census API, you need an API key, which is free and easy to 
+obtain. Visit the [Census API Request page](https://api.census.gov/data/key_signup.html) 
+and submit your email address to receive a key. Once you have the key, 
+you must include it in your API requests to access Census data. The
+following demonstration assumes that you have registered, obtained
+your API key, and saved it in a file called `censusAPIkey.txt`.
+
+
+```python
+# Import modules
+import matplotlib.pyplot as plt
+import pandas as pd
+import geopandas as gpd
+from census import Census
+from us import states
+import os
+import io
+
+api_key = open("censusAPIkey.txt").read().strip()
+c = Census(api_key)
+```
+
+
+Suppose that we want to get some basic info from ACS data of the year
+of 2023 for all the NYC zip codes. The variable names can be found in
+the [ACS variable documentation](https://www.census.gov/programs-surveys/acs/technical-documentation/table-shells.html).
+```python
+ACS_YEAR = 2023
+ACS_DATASET = "acs/acs5"
+
+# Important ACS variables (including land area for density calculation)
+ACS_VARIABLES = {
+    "B01003_001E": "Total Population",
+    "B19013_001E": "Median Household Income",
+    "B02001_002E": "White Population",
+    "B02001_003E": "Black Population",
+    "B02001_005E": "Asian Population",
+    "B15003_022E": "Bachelor’s Degree Holders",
+    "B15003_025E": "Graduate Degree Holders",
+    "B23025_002E": "Labor Force",
+    "B23025_005E": "Unemployed",
+    "B25077_001E": "Median Home Value"
+}
+
+# Convert set to list of strings
+merged_zips = list(map(str, merged_zips))
+```
+
+Let's set up the query to request the ACS data, and process the
+returned data.
+```python
+acs_data = c.acs5.get(
+    list(ACS_VARIABLES.keys()), 
+    {'for': f'zip code tabulation area:{",".join(merged_zips)}'}
+    )
+
+# Convert to DataFrame
+df_acs = pd.DataFrame(acs_data)
+
+# Rename columns
+df_acs.rename(columns=ACS_VARIABLES, inplace=True)
+df_acs.rename(columns={"zip code tabulation area": "ZIP Code"}, inplace=True)
+```
+
+
+We could save the ACS data `df_acs` in feather format (see next Section).
+``` python
+#| eval: false
+df_acs.to_feather("data/acs2023.feather")
+```
+
+The population density could be an important factor for crash
+likelihood. To obtain the population densities, we need the areas of
+the zip codes. The shape files can be obtained from NYC Open Data.
+
+```python
+import requests
+import zipfile
+import geopandas as gpd
+
+# Define the NYC MODZCTA shapefile URL and extraction directory
+shapefile_url = "https://data.cityofnewyork.us/api/geospatial/pri4-ifjk?method=export&format=Shapefile"
+extract_dir = "MODZCTA_Shapefile"
+
+# Create the directory if it doesn't exist
+os.makedirs(extract_dir, exist_ok=True)
+
+# Step 1: Download and extract the shapefile
+print("Downloading MODZCTA shapefile...")
+response = requests.get(shapefile_url)
+with zipfile.ZipFile(io.BytesIO(response.content), "r") as z:
+    z.extractall(extract_dir)
+
+print(f"Shapefile extracted to: {extract_dir}")
+```
+
+Now we process the shape file to calculate the areas of the polygons.
+```python
+# Step 2: Automatically detect the correct .shp file
+shapefile_path = None
+for file in os.listdir(extract_dir):
+    if file.endswith(".shp"):
+        shapefile_path = os.path.join(extract_dir, file)
+        break  # Use the first .shp file found
+
+if not shapefile_path:
+    raise FileNotFoundError("No .shp file found in extracted directory.")
+
+print(f"Using shapefile: {shapefile_path}")
+
+# Step 3: Load the shapefile into GeoPandas
+gdf = gpd.read_file(shapefile_path)
+
+# Step 4: Convert to CRS with meters for accurate area calculation
+gdf = gdf.to_crs(epsg=3857)
+
+# Step 5: Compute land area in square miles
+gdf['land_area_sq_miles'] = gdf['geometry'].area / 2_589_988.11
+# 1 square mile = 2,589,988.11 square meters
+
+print(gdf[['modzcta', 'land_area_sq_miles']].head())
+```
+
+Let's export this data frame for future usage in feather format (see
+next Section).
+```python
+#| eval: false
+gdf[['modzcta', 'land_area_sq_miles']].to_feather('data/nyc_zip_areas.feather')
+```
+
+Now we are ready to merge the two data frames.
+```python
+# Merge ACS data (`df_acs`) directly with MODZCTA land area (`gdf`)
+gdf = gdf.merge(df_acs, left_on='modzcta', right_on='ZIP Code', how='left')
+
+# Calculate Population Density (people per square mile)
+gdf['popdensity_per_sq_mile'] = (
+    gdf['Total Population'] / gdf['land_area_sq_miles']
+    )
+
+# Display first few rows
+print(gdf[['modzcta', 'Total Population', 'land_area_sq_miles',
+    'popdensity_per_sq_mile']].head())
+```
+
+Some visualization of population density.
+```python
+import matplotlib.pyplot as plt
+import geopandas as gpd
+
+# Set up figure and axis
+fig, ax = plt.subplots(figsize=(10, 12))
+
+# Plot the choropleth map
+gdf.plot(column='popdensity_per_sq_mile', 
+         cmap='viridis',  # Use a visually appealing color map
+         linewidth=0.8, 
+         edgecolor='black',
+         legend=True,
+         legend_kwds={'label': "Population Density (per sq mile)",
+             'orientation': "horizontal"},
+         ax=ax)
+
+# Add a title
+ax.set_title("Population Density by ZCTA in NYC", fontsize=14)
+
+# Remove axes
+ax.set_xticks([])
+ax.set_yticks([])
+ax.set_frame_on(False)
+
+# Show the plot
+plt.show()
+```
+
+## Cross-platform Data Format `Arrow`
+
+The CSV format (and related formats like TSV - tab-separated values)
+for data tables is ubiquitous, convenient, and can be read or written
+by many different data analysis environments, including spreadsheets.
+An advantage of the textual representation of the data in a CSV file 
+is that the entire data table, or portions of it, can be previewed
+in a text editor. However, the textual representation can be ambiguous
+and inconsistent. The format of a particular column: Boolean, integer,
+floating-point, text, factor, etc. must be inferred from text
+representation, often at the expense of reading the entire file
+before these inferences can be made. Experienced data scientists are aware
+that a substantial part of an analysis or report generation is often
+the "data cleaning" involved in preparing the data for analysis. This
+can be an open-ended task --- it required numerous trial-and-error
+iterations to create the list of different missing data
+representations we use for the sample CSV file and even now we are
+not sure we have them all.
+
+To read and export data efficiently, leveraging the Apache `Arrow`
+library can significantly improve performance and storage efficiency,
+especially with large datasets. The IPC (Inter-Process Communication)
+file format in the context of Apache Arrow is a key component for
+efficiently sharing data between different processes, potentially
+written in different programming languages. Arrow's IPC mechanism is
+designed around two main file formats:
+
++ Stream Format: For sending an arbitrary length sequence of Arrow
+  record batches (tables). The stream format is useful for real-time
+  data exchange where the size of the data is not known upfront and can
+  grow indefinitely.
++ File (or Feather) Format: Optimized for storage and memory-mapped
+  access, allowing for fast random access to different sections of the
+  data. This format is ideal for scenarios where the entire dataset is
+  available upfront and can be stored in a file system for repeated
+  reads and writes.
+
+
+Apache Arrow provides a columnar
+memory format for flat and hierarchical data, optimized for efficient
+data analytics. It can be used in Python through the `pyarrow`
+package. Here's how you can use Arrow to read, manipulate, and export
+data, including a demonstration of storage savings.
+
+
+First, ensure you have `pyarrow` installed on your computer (and
+preferrably, in your current virtual environment):
+``` shell
+pip install pyarrow
+```
+
+Feather is a fast, lightweight, and easy-to-use binary file format for
+storing data frames, optimized for speed and efficiency, particularly
+for IPC and data sharing between Python and R or Julia.
+
+
+The following code processes the cleaned data in CSV format from
+Mohammad Mundiwala and write out in Arrow format.
+
+```python
+#| eval: false
+
+import pandas as pd
+
+# Read CSV, ensuring 'zip_code' is string and 'crash_datetime' is parsed as datetime
+df = pd.read_csv('data/nyc_crashes_cleaned_mm.csv',
+                 dtype={'zip_code': str},
+                 parse_dates=['crash_datetime'])
+
+# Drop the 'date' and 'time' columns
+df = df.drop(columns=['crash_date', 'crash_time'])
+
+# Move 'crash_datetime' to the first column
+df = df[['crash_datetime'] + df.drop(columns=['crash_datetime']).columns.tolist()]
+
+df['zip_code'] = df['zip_code'].astype(str).str.rstrip('.0')
+
+df = df.sort_values(by='crash_datetime')
+
+df.to_feather('nyccrashes_cleaned.feather')
+```
+
+Let's compare the file sizes of the feather format and the CSV format.
+
+```python
+import os
+
+# File paths
+csv_file = 'data/nyccrashes_2024w0630_by20250212.csv'
+feather_file = 'data/nyccrashes_cleaned.feather'
+
+# Get file sizes in bytes
+csv_size = os.path.getsize(csv_file)
+feather_size = os.path.getsize(feather_file)
+
+# Convert bytes to a more readable format (e.g., MB)
+csv_size_mb = csv_size / (1024 * 1024)
+feather_size_mb = feather_size / (1024 * 1024)
+
+# Print the file sizes
+print(f"CSV file size: {csv_size_mb:.2f} MB")
+print(f"Feather file size: {feather_size_mb:.2f} MB")
+```
+
+Read the feather file back in:
+```python
+#| eval: false
+dff = pd.read_feather("data/nyccrashes_cleaned.feather")
+dff.shape
+```
+
+
+<!-- <\!-- This section is to be included as a tutorial for using SQL. -\-> -->
+<!-- {{< include _sql.qmd >}} -->
+
+<!-- <\!-- This section is to be included as a tutorial for Data Imputation. -\-> -->
+<!-- {{< include _imputation.qmd >}} -->
+
+<!-- <\!-- This section is to be included as a tutorial for using netcdf. -\-> -->
+<!-- {{< include _netcdf.qmd >}} -->
