@@ -126,7 +126,12 @@ Markdown.
 
 ### Students in 3255
 + Agostino, Michael Angelo
+    - Further understanding of github and improve my workflow. 
+    - Build a project in order to gain real world data science experience.
 + Blake, Roger Cooley
+    - Gain experience using git and github
+    - Complete a project that transforms real-world data into valuable insights
+    - Master control over my computer and its file system
 + Bone, Dylan Jason
 + Cao, Enshuo
 + Chen, Irene
@@ -137,6 +142,9 @@ Markdown.
 + Lawrence, Claire Elise
 + Levine, Hannah Maya
 + Lucey, Sonia Niamh
+    - Learn practical applications of Data Science and Economics
+    - Learn how to use Git/GitHub
+    - Improve Python/coding skills
 + Mayer-Costa, Jaden Paulo
 + Milun, Lewis Aaron
 + Montalvo, Victor Samuel
@@ -148,6 +156,9 @@ Markdown.
 + Schlessel, Jacob E
 + Sgro, Owen Bentley
 + Tang, Wilson Chen
+    - I want to be very comfortable with using GitHub and GitBash
+    - I want to learn how to have a clear style
+    - I want to use programming tools in a professional way
 + Tran, Justin
     - To become proficient in the knowledge of Git.
     - To adopt command line knowledge into the workforce.
@@ -156,11 +167,13 @@ Markdown.
 + Wishneski, Emma Irene
 + Yoon, Jessica Nari
 + Zhang, Mark Justin
+    - Get comfortable with command line and Git
+    - Learn to make my own data science projects
+    - learn theory and application of ML algorithms
 
 ### Students in 5255
 + Anzalone, Matthew James
 + Gomez-Haibach, Konrad
-+ Hu, Youshuang
 + Plotnikov, Alexander
 
 
@@ -179,7 +192,7 @@ presenters = ug + gr
 
 import random
 ## seed jointly set by the class
-random.seed(6895 + 283 + 3184 + 3078 + 5901 + 36)
+random.seed(2819 + 4075 + 6227 + 5139 + 4768 + 109)
 random.sample(presenters, len(presenters))
 ## random.shuffle(presenters) # This would shuffle the list in place
 ```
@@ -200,8 +213,7 @@ boosting. This justifies certain requests for switching slots.
 Talk to the professor about your topics at least one week prior to
 your scheduled presentation. Here are some example tasks:
 
-+ Making presentations with Quarto
-+ Markdown jumpstart
++ Markdown jumpstart 
 + Effective data science communication
 + Import/Export data
 + Data manipulation with `Pandas`
@@ -231,6 +243,8 @@ your scheduled presentation. Here are some example tasks:
 + Developing a Python package
 + Web scraping
 + Personal webpage on GitHub
++ Making presentations with Quarto 
+
 
 ### Topic Presentation Schedule
 
@@ -241,50 +255,41 @@ The topic presentation is 20 points. It includes:
 + Contribute to the class notes within two weeks following the
   presentation (6 points).
   
-Tips on topic contribution:
-
-+ No plagiarism (see instructions on Contributing to Class Notes).
-+ Avoid external graphics.
-+ Use simulated data.
-+ Use data from homework assignments.
-+ Cite article/book references (learn how from our sources).
-+ Include a subsection of Further Readings.
-+ Test on your own computer before making a pull request.
-+ Send me your presentation two days in advance for feedbacks.
 
 Please use the following table to sign up.
 
    Date  | Presenter              | Topic
   ----- | ------------- | -------------------------
-   02/10 |  Li, Shiyi     | A Primer of Markdown
-   02/12 |  Jun, Joann     | Making Presentations with Quarto
-   02/17 |  Roy, Luke William     | Grammar of Graphics with Plotnine
-   02/19 |  Lang, Lang     | Data manipulation with Pandas
-   02/24 |  Ackerman, John     | Performing Statistical Tests (SciPy)
-   02/26 |  Horn, Alyssa Noelle     | Database operation with Structured query language (SQL)
-   03/03 |  El Zein, Amer Hani     | Effective Communication in Data Science
-   03/05 |  Schittina, Thomas     | Spatial Data With Geopandas & Google Maps
-   03/10 |  Kline, Daniel Esteban     |
-   03/12 |  Edo, Mezmur Wossenu      | Principal Component Analysis (PCA)
-   03/26 |  Alsadadi, Ammar Shaker     | Sentiment Analysis with Python 
-   03/26 |  Fables, Xavier Milan     | Variable Importance Metrics in Supervised Learning
-   03/31 |  Tamhane, Shubhan     | Support Vector Machine
-   03/31 |  Nasejje, Ruth Nicole     | Personal webpage on GitHub
-   04/02 |  Lagutin, Vladislav     | Google Maps visualizations using Folium library
-   04/02 |  Zhang, Gaofei    | Random forest
-   04/07 |  Long, Ethan Kenneth     | Synthetic Minority Oversampling Technique (SMOTE)
-   04/07 |  Xu, Peiwen   | Developing a Python package
-   04/09 |  Kravette, Noah   | Working with NetCDF Data 
-   04/09 |  Symula, Sebastian   | Imputation Methods for Missing Data
-   04/09 |  Tomaino, Mario Anthony   | K-Prototypes Clustering
-   04/14 |  Reed, Kyle Daniel   | Autoencoders
-   04/14 |  Chen, Yifei   | Explaining XGBoost Predictions with SHAP
-   04/14 |  Mundiwala, Mohammad Moiz   | Math animations with manim
-   04/16 |  Lin, Selena   | Naive Bayes
-   04/16 |  Pfeifer, Nicholas Theodore | Choosing the number of clusters in clustering
-   04/16 |  Vellore, Ajeeth Krishna | Neural Network Basics
-
-
+   09/18 | Chen, Jingang Calvin |
+   09/23 | Montalvo, Victor Samuel |
+   09/25 | Cao, Enshuo |
+   09/30 | Chen, Irene, 
+   10/02 | Haerter, Alejandro Erik |
+   10/02 | Saxena, Aanya | 
+   10/07 | Gomez-Haibach, Konrad |
+   10/07 | Sgro, Owen Bentley |
+   10/09 | Lucey, Sonia Niamh |
+   10/09 | Yoon, Jessica Nari |
+   10/14 | Patel, Sahil Sanjay |
+   10/14 | Plotnikov, Alexander |
+   10/16 | Milun, Lewis Aaron |
+   10/16 | Patel, Tulsi Manankumar |
+   10/23 | Perkins, Jack Thomas |
+   10/23 | Fazzina, Sophia Carmen |
+   10/28 | Tang, Wilson Chen |
+   10/28 | Wishneski, Emma Irene |
+   10/30 | Lawrence, Claire Elise |
+   11/04 | White, Abigail Lynn |
+   11/04 | Mayer-Costa, Jaden Paulo |
+   11/06 | Anzalone, Matthew James |
+   11/06 | Zhang, Mark Justin |
+   11/11 | Saltus, Quinn Lloyd Turner |
+   11/11 | Tran, Justin |
+   11/11 | Levine, Hannah Maya |
+   11/13 | Blake, Roger Cooley |
+   11/13 | Schlessel, Jacob E |
+   11/13 | Agostino, Michael Angelo | 
+ 
 ### Final Project Presentation Schedule
 
 We use the same order as the topic presentation for undergraduate
@@ -296,11 +301,11 @@ be used as a template to start with.
 
    Date  | Presenter
   ------ | ---------------------- 
-   04/21 | Shiyi Li; Joann Jun; Ammar Alsadadi; Lang Lang
-   04/23 | John Ackerman; Alyssa Horn; Peiwen Xu; Thomas Schittina
-   04/28 | Daniel Kline; Luke Roy; Xavier Fables; Shubhan Tamhane
-   04/30 | Ruth Nasejje; Vladislav Lagutin; Ethan Long; Amer El Zein
-   05/05 (10:30-12:30)  | Sebastian Symula; Mario Tomiano; Kyle Reed; Yifei Chen; Selena Lin; Nick Pfeifer
+   11/18 | Chen, Jingang Calvin; Montalvo,  Victor Samuel; Cao, Enshuo; Chen, Irene; Haerter, Alejandro Erik
+   11/20 | Saxena, Aanya; Sgro,  Owen Bentley; Lucey,  Sonia Niamh; Yoon,  Jessica Nari; Patel, Sahil Sanjay
+   12/02 | Milun, Lewis Aaron; Patel, Tulsi Manankumar; Perkins, Jack Thomas; Fazzina, Sophia Carmen; Tang, Wilson Chen
+   12/04 | Wishneski, Emma Irene; Lawrence, Claire Elise; White, Abigail Lynn; Mayer-Costa, Jaden Paulo; Zhang, Mark Justin
+   12/???  | Saltus, Quinn Lloyd Turner; Tran, Justin; Levine, Hannah Maya; Blake, Roger Cooley; Schlessel, Jacob E; Agostino, Michael Angelo
 
 ### Contributing to the Class Notes
 
@@ -313,8 +318,23 @@ Contribution to the class notes is through a `pull request'.
 + Work on your qmd file, test with `quarto render`.
 + When satisfied, commit and make a pull request with your quarto files and an updated `requirements.txt`.
 
-I have added a template file `mysection.qmd` and a new line to `_quarto.yml`
-as an example.
+
+I have added a template file `_mysection.qmd` as an example, which is
+`include`ed in `index.qmd`. See also how `_ethics.qmd` is included
+into `intro.qmd` for example.
+
+
+Tips on making contributions:
+
++ No plagiarism.
++ Avoid external graphics.
++ Use simulated data.
++ Use data from homework assignments.
++ Cite article/book references (learn how from our sources).
++ Include a subsection of Further Readings.
++ Test on your own computer before making a pull request.
++ Send me your presentation two days in advance for feedbacks.
+
 
 For more detailed style guidance, please see my notes on [statistical
 writing](https://statds.github.io/stat-writing/using-the-right-tools-for-writing.html#latex-for-typesetting).
