@@ -260,12 +260,12 @@ Please use the following table to sign up.
    09/18 | Chen, Jingang Calvin |
    09/23 | Montalvo, Victor Samuel |
    09/25 | Cao, Enshuo |
-   09/30 | Chen, Irene, 
+   09/30 | Lucey, Sonia Niamh |
    10/02 | Haerter, Alejandro Erik |
    10/02 | Saxena, Aanya | 
    10/07 | Gomez-Haibach, Konrad |
    10/07 | Sgro, Owen Bentley |
-   10/09 | Lucey, Sonia Niamh |
+   10/09 | Chen, Irene |
    10/09 | Yoon, Jessica Nari |
    10/14 | Patel, Sahil Sanjay |
    10/14 | Plotnikov, Alexander |
@@ -298,8 +298,8 @@ be used as a template to start with.
 
    Date  | Presenter
   ------ | ---------------------- 
-   11/18 | Chen, Jingang Calvin; Montalvo,  Victor Samuel; Cao, Enshuo; Chen, Irene; Haerter, Alejandro Erik
-   11/20 | Saxena, Aanya; Sgro,  Owen Bentley; Lucey,  Sonia Niamh; Yoon,  Jessica Nari; Patel, Sahil Sanjay
+   11/18 | Chen, Jingang Calvin; Montalvo,  Victor Samuel; Cao, Enshuo; Lucey,  Sonia Niamh; Haerter, Alejandro Erik
+   11/20 | Saxena, Aanya; Sgro,  Owen Bentley; ; Chen, Irene; Yoon,  Jessica Nari; Patel, Sahil Sanjay
    12/02 | Milun, Lewis Aaron; Patel, Tulsi Manankumar; Perkins, Jack Thomas; Fazzina, Sophia Carmen; Tang, Wilson Chen
    12/04 | Wishneski, Emma Irene; Lawrence, Claire Elise; White, Abigail Lynn; Mayer-Costa, Jaden Paulo; Zhang, Mark Justin
    12/???  | Saltus, Quinn Lloyd Turner; Tran, Justin; Levine, Hannah Maya; Blake, Roger Cooley; Schlessel, Jacob E; Agostino, Michael Angelo
