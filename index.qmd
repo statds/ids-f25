@@ -132,7 +132,6 @@ Markdown.
     - Gain experience using git and github
     - Complete a project that transforms real-world data into valuable insights
     - Master control over my computer and its file system
-+ Bone, Dylan Jason
 + Cao, Enshuo
 + Chen, Irene
     - Become proficient in using Git and Python
@@ -145,7 +144,6 @@ Markdown.
     - Get comfortable using Git and GitHub
     - Work on a data science project from start to finish
     - Get a good grade in this class
-+ Fu, Wenwei
 + Haerter, Alejandro Erik
 + Lawrence, Claire Elise
 + Levine, Hannah Maya
@@ -298,7 +296,7 @@ Please use the following table to sign up.
    09/18 | Chen, Jingang Calvin |
    09/23 | Montalvo, Victor Samuel |
    09/25 | Cao, Enshuo |
-   09/30 | Chen, Irene, 
+   09/30 | Chen, Irene |
    10/02 | Haerter, Alejandro Erik |
    10/02 | Saxena, Aanya | 
    10/07 | Gomez-Haibach, Konrad |
