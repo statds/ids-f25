@@ -152,6 +152,9 @@ Markdown.
     - Learn how to use Git/GitHub
     - Improve Python/coding skills
 + Mayer-Costa, Jaden Paulo
+    - Gain hands on experience working with real-world data
+    - Become proficient in using Git and Github.
+    - Continue adding to python skills and using code editing software.
 + Milun, Lewis Aaron
 + Montalvo, Victor Samuel
 + Patel, Sahil Sanjay
