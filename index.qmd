@@ -135,6 +135,8 @@ Markdown.
 + Bone, Dylan Jason
 + Cao, Enshuo
 + Chen, Irene
+    - Become proficient in using Git and Python
+    - Deepen machine learning and data science skills
 + Chen, Jingang Calvin
     - gain exposure and hands on experience to machine learning models
     - become proficient in Git and Github
