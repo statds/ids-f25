@@ -36,7 +36,7 @@ By the end of this chapter, you will learn to:
 Consider a subset of the NYC Crash Data, which contains all
 NYC motor vehicle collisions data with documentation from
 [NYC Open Data](https://data.cityofnewyork.us/Public-Safety/Motor-Vehicle-Collisions-Crashes/h9gi-nx95).
-We downloaded the crash data for the week of August 21, 2025,
+We downloaded the crash data for the week of August 31, 2025,
 on September 11, 2025, in CSC format.
 ```{python}
 import numpy as np
@@ -192,7 +192,7 @@ First make sure `geopy` is installed.
 pip install geopy
 ```
 
-Now we use model `Nominatim` in package `geopy` to reverse geocode.
+Now we use module `Nominatim` in package `geopy` to reverse geocode.
 ```{python}
 from geopy.geocoders import Nominatim
 import time
@@ -247,7 +247,7 @@ the American Community Survey (ACS), and the Economic Census. These
 datasets offer valuable insights into population trends, economic 
 conditions, and community characteristics at multiple geographic levels.
 
-There are several ways to access Census data:
+There are multiple ways to access Census data. For example:
 
 - **Census API**: The [Census API](https://www.census.gov/data/developers/data-sets.html) 
   allows programmatic access to various datasets. It supports queries 
@@ -275,9 +275,6 @@ Several Python libraries facilitate Census data retrieval:
 - `us`: Often used alongside census libraries to handle U.S. state and
   territory information (e.g., FIPS codes). See [`us` on
   PyPI](https://pypi.org/project/us/).
-<!-- - `uszipcode`: A library for retrieving Census and geographic  -->
-<!--   information by ZIP code. See  -->
-<!--   [uszipcode on PyPI](https://pypi.org/project/uszipcode/). -->
 
 ### Zip-Code Level for NYC Crash Data
 
@@ -326,10 +323,10 @@ c = Census(api_key)
 
 
 Suppose that we want to get some basic info from ACS data of the year
-of 2023 for all the NYC zip codes. The variable names can be found in
+of 2024 for all the NYC zip codes. The variable names can be found in
 the [ACS variable documentation](https://www.census.gov/programs-surveys/acs/technical-documentation/table-shells.html).
 ```{python}
-ACS_YEAR = 2023
+ACS_YEAR = 2024
 ACS_DATASET = "acs/acs5"
 
 # Important ACS variables (including land area for density calculation)
