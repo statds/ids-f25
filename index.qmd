@@ -157,7 +157,7 @@ Markdown.
 + Sgro, Owen Bentley
     - I want to become better acquainted with command line interface and using the terminal.
     - I want more experience with creating my own projects and finding my own way of creating things.
-    - I want to further my experience with python (and any other languages we may use).
+    - I want to further my experience with python (and any other languages we may use) and be able to apply that to other classes.
 + Tang, Wilson Chen
     - I want to be very comfortable with using GitHub and GitBash
     - I want to learn how to have a clear style
