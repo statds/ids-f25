@@ -186,6 +186,7 @@ Are there cases where zip_code and borough are missing
 but the geo codes are not missing? If so, fill in `zip_code`
 and `borough` using the geo codes by reverse geocoding.
 
+
 First make sure `geopy` is installed.
 ``` shell
 pip install geopy
@@ -264,18 +265,19 @@ In addition, Python tools simplify API access and data retrieval.
 
 Several Python libraries facilitate Census data retrieval:
 
-- `censusapi`: The 
-  [official API wrapper](https://github.com/uscensusbureau/census-api) 
-  for direct access to Census datasets.
 - `census`: A high-level interface to the Census API, supporting ACS 
   and decennial Census queries. See 
-  [census on PyPI](https://pypi.org/project/census/).
-- `censusdata`: A package for downloading and processing Census data 
-  directly in Python. Available at 
-  [censusdata documentation](https://jtleider.github.io/censusdata/).
-- `uszipcode`: A library for retrieving Census and geographic 
-  information by ZIP code. See 
-  [uszipcode on PyPI](https://pypi.org/project/uszipcode/).
+  [`census` on PyPI](https://pypi.org/project/census/).
+- `censusdis`: Provides richer functionality: automatic discovery of
+  variables, geographies, and datasets. Helpful if you don’t want to
+  manually look up variable codes. See [`censusdis` on
+  PyPI](https://pypi.org/project/censusdis/).
+- `us`: Often used alongside census libraries to handle U.S. state and
+  territory information (e.g., FIPS codes). See [`us` on
+  PyPI](https://pypi.org/project/us/).
+<!-- - `uszipcode`: A library for retrieving Census and geographic  -->
+<!--   information by ZIP code. See  -->
+<!--   [uszipcode on PyPI](https://pypi.org/project/uszipcode/). -->
 
 ### Zip-Code Level for NYC Crash Data
 
@@ -308,7 +310,7 @@ following demonstration assumes that you have registered, obtained
 your API key, and saved it in a file called `censusAPIkey.txt`.
 
 
-```python
+```{python}
 # Import modules
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -326,7 +328,7 @@ c = Census(api_key)
 Suppose that we want to get some basic info from ACS data of the year
 of 2023 for all the NYC zip codes. The variable names can be found in
 the [ACS variable documentation](https://www.census.gov/programs-surveys/acs/technical-documentation/table-shells.html).
-```python
+```{python}
 ACS_YEAR = 2023
 ACS_DATASET = "acs/acs5"
 
@@ -350,7 +352,7 @@ merged_zips = list(map(str, merged_zips))
 
 Let's set up the query to request the ACS data, and process the
 returned data.
-```python
+```{python}
 acs_data = c.acs5.get(
     list(ACS_VARIABLES.keys()), 
     {'for': f'zip code tabulation area:{",".join(merged_zips)}'}
@@ -366,7 +368,7 @@ df_acs.rename(columns={"zip code tabulation area": "ZIP Code"}, inplace=True)
 
 
 We could save the ACS data `df_acs` in feather format (see next Section).
-``` python
+```{python}
 #| eval: false
 df_acs.to_feather("data/acs2023.feather")
 ```
@@ -375,7 +377,7 @@ The population density could be an important factor for crash
 likelihood. To obtain the population densities, we need the areas of
 the zip codes. The shape files can be obtained from NYC Open Data.
 
-```python
+```{python}
 import requests
 import zipfile
 import geopandas as gpd
@@ -397,7 +399,7 @@ print(f"Shapefile extracted to: {extract_dir}")
 ```
 
 Now we process the shape file to calculate the areas of the polygons.
-```python
+```{python}
 # Step 2: Automatically detect the correct .shp file
 shapefile_path = None
 for file in os.listdir(extract_dir):
@@ -425,13 +427,13 @@ print(gdf[['modzcta', 'land_area_sq_miles']].head())
 
 Let's export this data frame for future usage in feather format (see
 next Section).
-```python
+```{python}
 #| eval: false
 gdf[['modzcta', 'land_area_sq_miles']].to_feather('data/nyc_zip_areas.feather')
 ```
 
 Now we are ready to merge the two data frames.
-```python
+```{python}
 # Merge ACS data (`df_acs`) directly with MODZCTA land area (`gdf`)
 gdf = gdf.merge(df_acs, left_on='modzcta', right_on='ZIP Code', how='left')
 
@@ -446,7 +448,7 @@ print(gdf[['modzcta', 'Total Population', 'land_area_sq_miles',
 ```
 
 Some visualization of population density.
-```python
+```{python}
 import matplotlib.pyplot as plt
 import geopandas as gpd
 

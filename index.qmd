@@ -132,12 +132,18 @@ Markdown.
     - Gain experience using git and github
     - Complete a project that transforms real-world data into valuable insights
     - Master control over my computer and its file system
-+ Bone, Dylan Jason
 + Cao, Enshuo
 + Chen, Irene
+    - Become proficient in using Git and Python
+    - Deepen machine learning and data science skills
 + Chen, Jingang Calvin
+    - gain exposure and hands on experience to machine learning models
+    - become proficient in Git and Github
+    - apply statistical and data analysis skills to a data science project
 + Fazzina, Sophia Carmen
-+ Fu, Wenwei
+    - Get comfortable using Git and GitHub
+    - Work on a data science project from start to finish
+    - Get a good grade in this class
 + Haerter, Alejandro Erik
 + Lawrence, Claire Elise
 + Levine, Hannah Maya
@@ -146,21 +152,45 @@ Markdown.
     - Learn how to use Git/GitHub
     - Improve Python/coding skills
 + Mayer-Costa, Jaden Paulo
+    - Gain hands on experience working with real-world data
+    - Become proficient in using Git and Github.
+    - Continue adding to python skills and using code editing software.
 + Milun, Lewis Aaron
+    - Become proficient in Git
+    - Learn more about the processes involved in Data Science
 + Montalvo, Victor Samuel
 + Patel, Sahil Sanjay
+    - I want learn more about time series forecasting
+    - I want to be more comfortable using git and GitHub
+    - I want to learn about the applications of Data Science in Finance
 + Patel, Tulsi Manankumar
 + Perkins, Jack Thomas
+    - Be able to incorporate git into my own workflow.
+    - Use python to boost efficiency in data problems.
+    - Become more comfortable with python for data science. 
 + Saltus, Quinn Lloyd Turner
+    - Gain proficiency in data visualization with Python
+    - Build experience using version control to expand the scope of my projects
+    - Learn when and how to apply libraries (such as numpy & pytorch) to improve my code's performance
+    - Become familiar with machine learning tools and techniques
 + Saxena, Aanya
 + Schlessel, Jacob E
+    - Learn about different classification algorithms
+    - Practice using python for analyzing data
+    - Become comfortable with Git and Github
 + Sgro, Owen Bentley
 + Tang, Wilson Chen
     - I want to be very comfortable with using GitHub and GitBash
     - I want to learn how to have a clear style
     - I want to use programming tools in a professional way
 + Tran, Justin
+    - To become proficient in the knowledge of Git.
+    - To adopt command line knowledge into the workforce.
+    - Fostering good practices with commits.
 + White, Abigail Lynn
+    - Become more comfortable working with GitHub.
+    - Learn and memorize more commands used in the Terminal.
+    - Advance my statistical skills through a data science project.
 + Wishneski, Emma Irene
 + Yoon, Jessica Nari
 + Zhang, Mark Justin
@@ -169,9 +199,15 @@ Markdown.
     - learn theory and application of ML algorithms
 
 ### Students in 5255
-+ Anzalone, Matthew James
++ Anzalone, Matthew James  
+    - Build professional workflow habits for a data-science career  
+    - Increase my Python knowledge enough that I could eventually create usable packages  
+    - Improve my data-driven thinking outside of the bounds of economics
 + Gomez-Haibach, Konrad
 + Plotnikov, Alexander
+    - Gain working knowledge of Git and project management.
+    - Learn AI and Machine Learning algorithms.
+    - Apply skillset by working on different projects.
 
 
 ## Course Logistics
@@ -221,7 +257,7 @@ your scheduled presentation. Here are some example tasks:
 + Grammar of graphics
 + Handling spatial data
 + Spatial data with `GeoPandas`
-+ Visualize spatial data in a Google map
++ Visualize spatial data in a Google map with `gmplot`
 + Animation
 + Support vector machine
 + Random forest
@@ -260,7 +296,7 @@ Please use the following table to sign up.
    09/18 | Chen, Jingang Calvin |
    09/23 | Montalvo, Victor Samuel |
    09/25 | Cao, Enshuo |
-   09/30 | Lucey, Sonia Niamh |
+   09/30 | Chen, Irene |
    10/02 | Haerter, Alejandro Erik |
    10/02 | Saxena, Aanya | 
    10/07 | Gomez-Haibach, Konrad |
