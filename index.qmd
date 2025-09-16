@@ -136,6 +136,9 @@ Markdown.
 + Cao, Enshuo
 + Chen, Irene
 + Chen, Jingang Calvin
+    - gain exposure and hands on experience to machine learning models
+    - become proficient in Git and Github
+    - apply statistical and data analysis skills to a data science project
 + Fazzina, Sophia Carmen
 + Fu, Wenwei
 + Haerter, Alejandro Erik
