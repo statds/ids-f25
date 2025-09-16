@@ -172,6 +172,9 @@ Markdown.
     - I want to learn how to have a clear style
     - I want to use programming tools in a professional way
 + Tran, Justin
+    - To become proficient in the knowledge of Git.
+    - To adopt command line knowledge into the workforce.
+    - Fostering good practices with commits.
 + White, Abigail Lynn
     - Become more comfortable working with GitHub.
     - Learn and memorize more commands used in the Terminal.
