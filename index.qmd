@@ -163,6 +163,9 @@ Markdown.
 + Saltus, Quinn Lloyd Turner
 + Saxena, Aanya
 + Schlessel, Jacob E
+    - Learn about different classification algorithms
+    - Practice using python for analyzing data
+    - Become comfortable with Git and Github
 + Sgro, Owen Bentley
 + Tang, Wilson Chen
     - I want to be very comfortable with using GitHub and GitBash
