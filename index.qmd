@@ -204,6 +204,9 @@ Markdown.
     - Improve my data-driven thinking outside of the bounds of economics
 + Gomez-Haibach, Konrad
 + Plotnikov, Alexander
+    - Gain working knowledge of Git and project management.
+    - Learn AI and Machine Learning algorithms.
+    - Apply skillset by working on different projects.
 
 
 ## Course Logistics
