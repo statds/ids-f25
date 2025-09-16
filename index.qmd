@@ -140,6 +140,9 @@ Markdown.
     - become proficient in Git and Github
     - apply statistical and data analysis skills to a data science project
 + Fazzina, Sophia Carmen
+    - Get comfortable using Git and GitHub
+    - Work on a data science project from start to finish
+    - Get a good grade in this class
 + Fu, Wenwei
 + Haerter, Alejandro Erik
 + Lawrence, Claire Elise
