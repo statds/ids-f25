@@ -257,7 +257,7 @@ your scheduled presentation. Here are some example tasks:
 + Grammar of graphics
 + Handling spatial data
 + Spatial data with `GeoPandas`
-+ Visualize spatial data in a Google map
++ Visualize spatial data in a Google map with `gmplot`
 + Animation
 + Support vector machine
 + Random forest
