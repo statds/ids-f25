@@ -158,6 +158,8 @@ Markdown.
     - Become proficient in using Git and Github.
     - Continue adding to python skills and using code editing software.
 + Milun, Lewis Aaron
+    - Become proficient in Git
+    - Learn more about the processes involved in Data Science
 + Montalvo, Victor Samuel
 + Patel, Sahil Sanjay
 + Patel, Tulsi Manankumar
