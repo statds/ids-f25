@@ -20,7 +20,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -139,8 +159,14 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./manipulation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data Manipulation</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Exercises</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Exercises</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -167,6 +193,8 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#render-the-classnotes" id="toc-render-the-classnotes" class="nav-link" data-scroll-target="#render-the-classnotes"><span class="header-section-number">3.2.3</span> Render the Classnotes</a></li>
   <li><a href="#login-requirements" id="toc-login-requirements" class="nav-link" data-scroll-target="#login-requirements"><span class="header-section-number">3.2.4</span> Login Requirements</a></li>
   </ul></li>
+  <li><a href="#the-data-science-life-cycle" id="toc-the-data-science-life-cycle" class="nav-link" data-scroll-target="#the-data-science-life-cycle"><span class="header-section-number">3.3</span> The Data Science Life Cycle</a></li>
+  <li><a href="#further-readings" id="toc-further-readings" class="nav-link" data-scroll-target="#further-readings"><span class="header-section-number">3.4</span> Further Readings</a></li>
   </ul>
 </nav>
     </div>
@@ -246,13 +274,51 @@ quarto render</code></pre>
 <section id="login-requirements" class="level3" data-number="3.2.4">
 <h3 data-number="3.2.4" class="anchored" data-anchor-id="login-requirements"><span class="header-section-number">3.2.4</span> Login Requirements</h3>
 <p>For some illustrations, you need to interact with certain sites that require account information. For example, for Google map services, you need to save your API key in a file named <code>api_key.txt</code> in the root folder of the source. Another example is to access the US Census API, where you would need to register an account and get your Census API Key.</p>
+</section>
+</section>
+<section id="the-data-science-life-cycle" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="the-data-science-life-cycle"><span class="header-section-number">3.3</span> The Data Science Life Cycle</h2>
+<p>This section summarizes Chapter 2 of <em>Veridical Data Science</em> , which introduces the data science life cycle (DSLC). The DSLC provides a structured way to think about the progression of data science projects. It consists of six stages, each with a distinct purpose:</p>
+<ul>
+<li><p>Stage 1: Problem formulation and data collection<br>
+Collaborate with domain experts to refine vague questions into ones that can realistically be answered with data. Identify what data already exists or design new collection protocols. Understanding the collection process is crucial for assessing how data relates to reality.</p></li>
+<li><p>Stage 2: Data cleaning, preprocessing, and exploratory data analysis<br>
+Clean data to make it tidy, unambiguous, and correctly formatted. Preprocess it to meet the requirements of specific algorithms, such as handling missing values or scaling variables. Exploratory data analysis (EDA) summarizes patterns using tables, statistics, and plots, while explanatory data analysis polishes visuals for communication.</p></li>
+<li><p>Stage 3: Exploring intrinsic data structures (optional)<br>
+Techniques such as dimensionality reduction simplify data into lower-dimensional forms, while clustering identifies natural groupings among observations. Even if not central to the project, these methods often enhance understanding.</p></li>
+<li><p>Stage 4: Predictive and/or inferential analysis (optional)<br>
+Many projects are cast as prediction tasks, training algorithms like regression or random forests to forecast outcomes. Inference focuses on estimating population parameters and quantifying uncertainty. This book emphasizes prediction while acknowledging inference as important in many domains.</p></li>
+<li><p>Stage 5: Evaluation of results<br>
+Findings should be evaluated both qualitatively, through critical thinking, and quantitatively, through the PCS framework. PCS stands for predictability, computability, and stability:</p>
+<ul>
+<li>Predictability asks whether findings hold up in relevant future data.<br>
+</li>
+<li>Computability asks whether methods are feasible with available computational resources.<br>
+</li>
+<li>Stability asks whether conclusions remain consistent under reasonable changes in data, methods, or judgment calls.<br>
+Together, PCS provides a foundation for assessing the reliability of data-driven results.</li>
+</ul></li>
+<li><p>Stage 6: Communication of results<br>
+Results must be conveyed clearly to intended audiences, whether through reports, presentations, visualizations, or deployable tools. Communication should be tailored so findings can inform real-world decisions.</p></li>
+</ul>
+<p>The DSLC is not a linear pipeline—analysts often loop back to refine earlier steps. The chapter also cautions against data snooping, where patterns discovered during exploration are mistaken for reliable truths. Applying PCS ensures that results are not only technically sound but also trustworthy and interpretable across the life cycle.</p>
+</section>
+<section id="further-readings" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="further-readings"><span class="header-section-number">3.4</span> Further Readings</h2>
+<ul>
+<li><a href="https://vdsbook.com"><span class="citation" data-cites="yu2024veridical">Yu &amp; Barter (<span>2024</span>)</span></a>: Ch 1-3.</li>
+</ul>
 <!-- <\!-- This section is to be included as a Primer of Markdown. -\-> -->
 <!-- {{< include _markdown.qmd >}} -->
 <!-- <\!-- This section is to be included as a tutorial for Quarto Presentations. -\-> -->
 <!-- {{< include _quarto_presentation.qmd >}} -->
 
 
-</section>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list" style="display: none">
+<div id="ref-yu2024veridical" class="csl-entry" role="listitem">
+Yu, B., &amp; Barter, R. L. (2024). <em>Veridical data science: The practice of responsible data analysis and decision making</em>. MIT Press.
+</div>
+</div>
 </section>
 
 </main> <!-- /main -->
