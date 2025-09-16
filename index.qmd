@@ -164,6 +164,9 @@ Markdown.
 + Patel, Sahil Sanjay
 + Patel, Tulsi Manankumar
 + Perkins, Jack Thomas
+    - Be able to incorporate git into my own workflow.
+    - Use python to boost efficiency in data problems.
+    - Become more comfortable with python for data science. 
 + Saltus, Quinn Lloyd Turner
     - Gain proficiency in data visualization with Python
     - Build experience using version control to expand the scope of my projects
