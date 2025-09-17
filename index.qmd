@@ -297,7 +297,7 @@ Please use the following table to sign up.
    09/23 | Montalvo, Victor Samuel |
    09/25 | Cao, Enshuo |
    09/30 | Chen, Irene |
-   10/02 | Haerter, Alejandro Erik |
+   10/02 | Haerter, Alejandro Erik | Geospatial Data with GeoPandas
    10/02 | Saxena, Aanya | 
    10/07 | Gomez-Haibach, Konrad |
    10/07 | Sgro, Owen Bentley |
