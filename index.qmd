@@ -145,6 +145,9 @@ Markdown.
     - Work on a data science project from start to finish
     - Get a good grade in this class
 + Haerter, Alejandro Erik
+    - Understand proper workflow principles via GIt
+    - Find an intersection between data science and economics
+    - Learn efficient use of AI for trivial tasks
 + Lawrence, Claire Elise
 + Levine, Hannah Maya
 + Lucey, Sonia Niamh
