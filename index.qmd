@@ -370,10 +370,11 @@ Tips on making contributions:
 
 + No plagiarism.
 + Avoid external graphics.
-+ Use simulated data.
++ Use simulated data or data in Python packages.
 + Use data from homework assignments.
 + Cite article/book references (learn how from our sources).
 + Include a subsection of Further Readings.
++ Watch for header levels.
 + Test on your own computer before making a pull request.
 + Send me your presentation two days in advance for feedbacks.
 

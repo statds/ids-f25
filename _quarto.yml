@@ -17,8 +17,8 @@ book:
     - git.qmd
     - quarto.qmd
     - python.qmd
+    - visualization.qmd
     - manipulation.qmd
-#    - visualization.qmd
 #    - stats.qmd
 #    - machinelearning.qmd
 #    - supervised.qmd
