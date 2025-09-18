@@ -148,7 +148,7 @@ API Key.
 ## The Data Science Life Cycle
 
 This section summarizes Chapter 2 of *Veridical Data Science*
-\citep{yu2024veridical}, which introduces the data science life cycle
+[@yu2024veridical], which introduces the data science life cycle
 (DSLC). The DSLC provides a structured way to think about the
 progression of data science projects. It consists of six stages, each with
 a distinct purpose:
@@ -204,13 +204,8 @@ Applying PCS ensures that results are not only technically sound but
 also trustworthy and interpretable across the life cycle.
 
 
-## Further Readings
-
-+ [@yu2024veridical](https://vdsbook.com): Ch 1-3.
-
-
 <!-- <\!-- This section is to be included as a Primer of Markdown. -\-> -->
-<!-- {{< include _markdown.qmd >}} -->
+{{< include _markdown.qmd >}}
 
 <!-- <\!-- This section is to be included as a tutorial for Quarto Presentations. -\-> -->
 <!-- {{< include _quarto_presentation.qmd >}} -->
