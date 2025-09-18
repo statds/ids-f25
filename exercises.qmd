@@ -113,12 +113,11 @@
    The NYC motor vehicle collisions data with documentation is available from
    [NYC Open
    Data](https://data.cityofnewyork.us/Public-Safety/Motor-Vehicle-Collisions-Crashes/h9gi-nx95).
-   The raw data needs some cleaning.
-    a.  Use the filter from the website to download the crash
-    data of the week of June 30, 2024 in CSV format;
-    save it under a directory `data` with an informative
-    name (e.g., `nyccrashes_2024w0630_by20240916.csv`);
-    read the data into a Panda data frame with careful
+   The raw data needs some cleaning. The data of the Labor Day week,
+   2025, was downloaded by filtering with `CRASH Date` in between
+   11:59:59 PM August 30 and 12:00:00 AM September 7, available in
+   `data/nyc_crashes_lbdwk_2025.csv`.
+    a.  Read the data into a Pandas data frame with careful
     handling of the date time variables.
     a.  Clean up the variable names. Use lower cases and replace
     spaces with underscores.
@@ -147,7 +146,7 @@
     a.  Print the whole frequency table of
     `contributing_factor_vehicle_1`. 
     Convert lower cases to uppercases and check the frequencies again.
-    a.  Provided an opportunity to meet the data provider, what
+    a.  Provided an opportunity to meet the data curator, what
     suggestions would you make based on your data exploration
     experience?
 
@@ -172,7 +171,7 @@
      example, zip code level covariates obtained from merging with the
      zip code database; crash hour; number of vehicles involved.
 
-1. **NYC Crash severity modeling**
+1. **NYC Crash Severity Modeling**
    Using the cleaned NYC crash data, merged with zipcode level
    information, predict `severe` of a crash.
     a.  Set random seed to `1234`. Randomly select 20% of the

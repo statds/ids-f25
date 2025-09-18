@@ -1,0 +1,12 @@
+## A Primer of Markdown
+
+This is section was written by Jingang Calvin Chen. Calvin was a ...
+
+
+### Subsection 1
+
+
+### Subsection 2
+
+
+### Further Reading

@@ -9,6 +9,7 @@ attrs==25.3.0
 babel==2.17.0
 beautifulsoup4==4.13.5
 bleach==6.2.0
+census==0.8.24
 certifi==2025.8.3
 cffi==1.17.1
 charset-normalizer==3.4.3
@@ -35,6 +36,7 @@ ipython_pygments_lexers==1.1.1
 ipywidgets==8.1.7
 isoduration==20.11.0
 jedi==0.19.2
+jellyfish==1.2.0
 Jinja2==3.1.6
 json5==0.12.1
 jsonpointer==3.0.0
@@ -112,6 +114,7 @@ typing_extensions==4.15.0
 tzdata==2025.2
 uri-template==1.3.0
 urllib3==2.5.0
+us==3.2.0
 wcwidth==0.2.13
 webcolors==24.11.1
 webencodings==0.5.1

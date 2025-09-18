@@ -9,3 +9,6 @@ req:
 
 publish:
 	printf "y\n" | quarto publish gh-pages
+
+clean:
+	rm -rf _site .quarto

@@ -1,5 +1,16 @@
 # Data Manipulation
 
+```{python}
+#| eval: true
+#| echo: false
+
+from pathlib import Path
+
+# Define folder and file
+folder = Path("tmp")
+folder.mkdir(parents=True, exist_ok=True)  # create tmp if not exist
+```
+
 ## Introduction
 
 Data manipulation is crucial for transforming raw data into a
@@ -36,7 +47,7 @@ By the end of this chapter, you will learn to:
 Consider a subset of the NYC Crash Data, which contains all
 NYC motor vehicle collisions data with documentation from
 [NYC Open Data](https://data.cityofnewyork.us/Public-Safety/Motor-Vehicle-Collisions-Crashes/h9gi-nx95).
-We downloaded the crash data for the week of August 21, 2025,
+We downloaded the crash data for the week of August 31, 2025,
 on September 11, 2025, in CSC format.
 ```{python}
 import numpy as np
@@ -186,12 +197,13 @@ Are there cases where zip_code and borough are missing
 but the geo codes are not missing? If so, fill in `zip_code`
 and `borough` using the geo codes by reverse geocoding.
 
+
 First make sure `geopy` is installed.
 ``` shell
 pip install geopy
 ```
 
-Now we use model `Nominatim` in package `geopy` to reverse geocode.
+Now we use module `Nominatim` in package `geopy` to reverse geocode.
 ```{python}
 from geopy.geocoders import Nominatim
 import time
@@ -246,7 +258,7 @@ the American Community Survey (ACS), and the Economic Census. These
 datasets offer valuable insights into population trends, economic 
 conditions, and community characteristics at multiple geographic levels.
 
-There are several ways to access Census data:
+There are multiple ways to access Census data. For example:
 
 - **Census API**: The [Census API](https://www.census.gov/data/developers/data-sets.html) 
   allows programmatic access to various datasets. It supports queries 
@@ -264,18 +276,16 @@ In addition, Python tools simplify API access and data retrieval.
 
 Several Python libraries facilitate Census data retrieval:
 
-- `censusapi`: The 
-  [official API wrapper](https://github.com/uscensusbureau/census-api) 
-  for direct access to Census datasets.
 - `census`: A high-level interface to the Census API, supporting ACS 
   and decennial Census queries. See 
-  [census on PyPI](https://pypi.org/project/census/).
-- `censusdata`: A package for downloading and processing Census data 
-  directly in Python. Available at 
-  [censusdata documentation](https://jtleider.github.io/censusdata/).
-- `uszipcode`: A library for retrieving Census and geographic 
-  information by ZIP code. See 
-  [uszipcode on PyPI](https://pypi.org/project/uszipcode/).
+  [`census` on PyPI](https://pypi.org/project/census/).
+- `censusdis`: Provides richer functionality: automatic discovery of
+  variables, geographies, and datasets. Helpful if you don’t want to
+  manually look up variable codes. See [`censusdis` on
+  PyPI](https://pypi.org/project/censusdis/).
+- `us`: Often used alongside census libraries to handle U.S. state and
+  territory information (e.g., FIPS codes). See [`us` on
+  PyPI](https://pypi.org/project/us/).
 
 ### Zip-Code Level for NYC Crash Data
 
@@ -308,7 +318,7 @@ following demonstration assumes that you have registered, obtained
 your API key, and saved it in a file called `censusAPIkey.txt`.
 
 
-```python
+```{python}
 # Import modules
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -324,10 +334,10 @@ c = Census(api_key)
 
 
 Suppose that we want to get some basic info from ACS data of the year
-of 2023 for all the NYC zip codes. The variable names can be found in
+of 2024 for all the NYC zip codes. The variable names can be found in
 the [ACS variable documentation](https://www.census.gov/programs-surveys/acs/technical-documentation/table-shells.html).
-```python
-ACS_YEAR = 2023
+```{python}
+ACS_YEAR = 2024
 ACS_DATASET = "acs/acs5"
 
 # Important ACS variables (including land area for density calculation)
@@ -350,7 +360,7 @@ merged_zips = list(map(str, merged_zips))
 
 Let's set up the query to request the ACS data, and process the
 returned data.
-```python
+```{python}
 acs_data = c.acs5.get(
     list(ACS_VARIABLES.keys()), 
     {'for': f'zip code tabulation area:{",".join(merged_zips)}'}
@@ -366,7 +376,7 @@ df_acs.rename(columns={"zip code tabulation area": "ZIP Code"}, inplace=True)
 
 
 We could save the ACS data `df_acs` in feather format (see next Section).
-``` python
+```{python}
 #| eval: false
 df_acs.to_feather("data/acs2023.feather")
 ```
@@ -375,14 +385,14 @@ The population density could be an important factor for crash
 likelihood. To obtain the population densities, we need the areas of
 the zip codes. The shape files can be obtained from NYC Open Data.
 
-```python
+```{python}
 import requests
 import zipfile
 import geopandas as gpd
 
 # Define the NYC MODZCTA shapefile URL and extraction directory
 shapefile_url = "https://data.cityofnewyork.us/api/geospatial/pri4-ifjk?method=export&format=Shapefile"
-extract_dir = "MODZCTA_Shapefile"
+extract_dir = "tmp/MODZCTA_Shapefile"
 
 # Create the directory if it doesn't exist
 os.makedirs(extract_dir, exist_ok=True)
@@ -397,7 +407,7 @@ print(f"Shapefile extracted to: {extract_dir}")
 ```
 
 Now we process the shape file to calculate the areas of the polygons.
-```python
+```{python}
 # Step 2: Automatically detect the correct .shp file
 shapefile_path = None
 for file in os.listdir(extract_dir):
@@ -425,13 +435,13 @@ print(gdf[['modzcta', 'land_area_sq_miles']].head())
 
 Let's export this data frame for future usage in feather format (see
 next Section).
-```python
+```{python}
 #| eval: false
 gdf[['modzcta', 'land_area_sq_miles']].to_feather('data/nyc_zip_areas.feather')
 ```
 
 Now we are ready to merge the two data frames.
-```python
+```{python}
 # Merge ACS data (`df_acs`) directly with MODZCTA land area (`gdf`)
 gdf = gdf.merge(df_acs, left_on='modzcta', right_on='ZIP Code', how='left')
 
@@ -446,7 +456,7 @@ print(gdf[['modzcta', 'Total Population', 'land_area_sq_miles',
 ```
 
 Some visualization of population density.
-```python
+```{python}
 import matplotlib.pyplot as plt
 import geopandas as gpd
 
@@ -531,21 +541,15 @@ storing data frames, optimized for speed and efficiency, particularly
 for IPC and data sharing between Python and R or Julia.
 
 
-The following code processes the cleaned data in CSV format from
-Mohammad Mundiwala and write out in Arrow format.
+The following code processes the raw data in CSV format
+and write out in Arrow format.
 
-```python
-#| eval: false
+```{python}
+# File paths
+csv_file = 'data/nyc_crashes_lbdwk_2025.csv'
+feather_file = 'tmp/nyc_crashes_lbdwk_2025.feather'
 
 import pandas as pd
-
-# Read CSV, ensuring 'zip_code' is string and 'crash_datetime' is parsed as datetime
-df = pd.read_csv('data/nyc_crashes_cleaned_mm.csv',
-                 dtype={'zip_code': str},
-                 parse_dates=['crash_datetime'])
-
-# Drop the 'date' and 'time' columns
-df = df.drop(columns=['crash_date', 'crash_time'])
 
 # Move 'crash_datetime' to the first column
 df = df[['crash_datetime'] + df.drop(columns=['crash_datetime']).columns.tolist()]
@@ -554,17 +558,14 @@ df['zip_code'] = df['zip_code'].astype(str).str.rstrip('.0')
 
 df = df.sort_values(by='crash_datetime')
 
-df.to_feather('nyccrashes_cleaned.feather')
+df.to_feather(feather_file)
 ```
 
 Let's compare the file sizes of the feather format and the CSV format.
 
-```python
+```{python}
 import os
 
-# File paths
-csv_file = 'data/nyccrashes_2024w0630_by20250212.csv'
-feather_file = 'data/nyccrashes_cleaned.feather'
 
 # Get file sizes in bytes
 csv_size = os.path.getsize(csv_file)
@@ -582,7 +583,7 @@ print(f"Feather file size: {feather_size_mb:.2f} MB")
 Read the feather file back in:
 ```python
 #| eval: false
-dff = pd.read_feather("data/nyccrashes_cleaned.feather")
+dff = pd.read_feather(feather_file)
 dff.shape
 ```
 
