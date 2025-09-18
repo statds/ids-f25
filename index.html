@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Jun Yan and Students in Fall 2025">
-<meta name="dcterms.date" content="2025-09-16">
+<meta name="dcterms.date" content="2025-09-18">
 
 <title>Introduction to Data Science</title>
 <style>
@@ -195,14 +195,20 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./visualization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data Visualization</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./manipulation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data Manipulation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data Manipulation</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Exercises</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Exercises</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -284,7 +290,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 16, 2025</p>
+      <p class="date">September 18, 2025</p>
     </div>
   </div>
   
@@ -392,9 +398,19 @@ div.csl-indent {
 <li>Work on a data science project from start to finish</li>
 <li>Get a good grade in this class</li>
 </ul></li>
-<li>Haerter, Alejandro Erik</li>
+<li>Haerter, Alejandro Erik
+<ul>
+<li>Understand proper workflow principles via GIt</li>
+<li>Find an intersection between data science and economics</li>
+<li>Learn efficient use of AI for trivial tasks</li>
+</ul></li>
 <li>Lawrence, Claire Elise</li>
-<li>Levine, Hannah Maya</li>
+<li>Levine, Hannah Maya
+<ul>
+<li>Become more comfortable using Git/GitHub</li>
+<li>Improve Python/style skills</li>
+<li>Gain experience with real world projects</li>
+</ul></li>
 <li>Lucey, Sonia Niamh
 <ul>
 <li>Learn practical applications of Data Science and Economics</li>
@@ -440,7 +456,12 @@ div.csl-indent {
 <li>Practice using python for analyzing data</li>
 <li>Become comfortable with Git and Github</li>
 </ul></li>
-<li>Sgro, Owen Bentley</li>
+<li>Sgro, Owen Bentley
+<ul>
+<li>I want to become better acquainted with command line interface and using the terminal.</li>
+<li>I want more experience with creating my own projects and finding my own way of creating things.</li>
+<li>I want to further my experience with python (and any other languages we may use) and be able to apply that to other classes.</li>
+</ul></li>
 <li>Tang, Wilson Chen
 <ul>
 <li>I want to be very comfortable with using GitHub and GitBash</li>
@@ -495,7 +516,7 @@ div.csl-indent {
 <section id="presentation-orders" class="level3">
 <h3 class="anchored" data-anchor-id="presentation-orders">Presentation Orders</h3>
 <p>The topic presentation order is set up in class.</p>
-<div id="eae0672f" class="cell" data-execution_count="1">
+<div id="837a31d2" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'rosters/3255.txt'</span>, <span class="st">'r'</span>) <span class="im">as</span> <span class="bu">file</span>:</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    ug <span class="op">=</span> [line.strip() <span class="cf">for</span> line <span class="kw">in</span> <span class="bu">file</span>]</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'rosters/5255.txt'</span>, <span class="st">'r'</span>) <span class="im">as</span> <span class="bu">file</span>:</span>
@@ -507,7 +528,7 @@ div.csl-indent {
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>random.seed(<span class="dv">2819</span> <span class="op">+</span> <span class="dv">4075</span> <span class="op">+</span> <span class="dv">6227</span> <span class="op">+</span> <span class="dv">5139</span> <span class="op">+</span> <span class="dv">4768</span> <span class="op">+</span> <span class="dv">109</span>)</span>
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>random.sample(presenters, <span class="bu">len</span>(presenters))</span>
 <span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">## random.shuffle(presenters) # This would shuffle the list in place</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="1">
+<div class="cell-output cell-output-display" data-execution_count="3">
 <pre><code>['Chen,Jingang Calvin',
  'Montalvo,Victor Samuel',
  'Cao,Enshuo',
@@ -600,7 +621,7 @@ div.csl-indent {
 <tr class="odd">
 <td>09/18</td>
 <td>Chen, Jingang Calvin</td>
-<td></td>
+<td>Syntax of Markdown</td>
 </tr>
 <tr class="even">
 <td>09/23</td>
@@ -620,7 +641,7 @@ div.csl-indent {
 <tr class="odd">
 <td>10/02</td>
 <td>Haerter, Alejandro Erik</td>
-<td></td>
+<td>Geospatial Data with GeoPandas</td>
 </tr>
 <tr class="even">
 <td>10/02</td>
@@ -639,7 +660,7 @@ div.csl-indent {
 </tr>
 <tr class="odd">
 <td>10/09</td>
-<td>Lucey, Sonia Niamh</td>
+<td>Chen, Irene</td>
 <td></td>
 </tr>
 <tr class="even">
@@ -762,11 +783,11 @@ div.csl-indent {
 <tbody>
 <tr class="odd">
 <td>11/18</td>
-<td>Chen, Jingang Calvin; Montalvo, Victor Samuel; Cao, Enshuo; Chen, Irene; Haerter, Alejandro Erik</td>
+<td>Chen, Jingang Calvin; Montalvo, Victor Samuel; Cao, Enshuo; Lucey, Sonia Niamh; Haerter, Alejandro Erik</td>
 </tr>
 <tr class="even">
 <td>11/20</td>
-<td>Saxena, Aanya; Sgro, Owen Bentley; Lucey, Sonia Niamh; Yoon, Jessica Nari; Patel, Sahil Sanjay</td>
+<td>Saxena, Aanya; Sgro, Owen Bentley; ; Chen, Irene; Yoon, Jessica Nari; Patel, Sahil Sanjay</td>
 </tr>
 <tr class="odd">
 <td>12/02</td>
@@ -799,10 +820,11 @@ div.csl-indent {
 <ul>
 <li>No plagiarism.</li>
 <li>Avoid external graphics.</li>
-<li>Use simulated data.</li>
+<li>Use simulated data or data in Python packages.</li>
 <li>Use data from homework assignments.</li>
 <li>Cite article/book references (learn how from our sources).</li>
 <li>Include a subsection of Further Readings.</li>
+<li>Watch for header levels.</li>
 <li>Test on your own computer before making a pull request.</li>
 <li>Send me your presentation two days in advance for feedbacks.</li>
 </ul>
@@ -894,7 +916,7 @@ div.csl-indent {
 <h3 class="anchored" data-anchor-id="sub-topic-1">Sub Topic 1</h3>
 <p>Put materials on topic 1 here</p>
 <p>Python examples can be put into <code>python</code> code chunks:</p>
-<div id="fbd03c70" class="cell" data-execution_count="2">
+<div id="74a8484c" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># import pandas as pd</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># do something</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>

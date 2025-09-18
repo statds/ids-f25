@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>References – Introduction to Data Science</title>
+<title>5&nbsp; Data Visualization – Introduction to Data Science</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,26 +20,7 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -49,7 +30,8 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./exercises.html" rel="prev">
+<link href="./manipulation.html" rel="next">
+<link href="./python.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -100,7 +82,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./references.html">References</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./visualization.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data Visualization</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -157,7 +139,7 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./visualization.html" class="sidebar-item-text sidebar-link">
+  <a href="./visualization.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data Visualization</span></span></a>
   </div>
 </li>
@@ -175,7 +157,7 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link active">
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">References</span></a>
   </div>
 </li>
@@ -184,15 +166,26 @@ div.csl-indent {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#grammar-of-graphics-with-plotnine" id="toc-grammar-of-graphics-with-plotnine" class="nav-link active" data-scroll-target="#grammar-of-graphics-with-plotnine"><span class="header-section-number">5.1</span> Grammar of Graphics with Plotnine</a>
+  <ul class="collapse">
+  <li><a href="#subsection-1" id="toc-subsection-1" class="nav-link" data-scroll-target="#subsection-1"><span class="header-section-number">5.1.1</span> Subsection 1</a></li>
+  <li><a href="#subsection-2" id="toc-subsection-2" class="nav-link" data-scroll-target="#subsection-2"><span class="header-section-number">5.1.2</span> Subsection 2</a></li>
+  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">5.1.3</span> Further Reading</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">References</h1>
+<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data Visualization</span></h1>
 </div>
 
 
@@ -209,58 +202,25 @@ div.csl-indent {
 </header>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
-<div id="ref-agonafir2022machine" class="csl-entry" role="listitem">
-Agonafir, C., Lakhankar, T., Khanbilvardi, R., Krakauer, N., Radell, D.,
-&amp; Devineni, N. (2022). A machine learning approach to evaluate the
-spatial variability of <span>N</span>ew <span>Y</span>ork
-<span>C</span>ity’s 311 street flooding complaints. <em>Computers,
-Environment and Urban Systems</em>, <em>97</em>, 101854.
-</div>
-<div id="ref-agonafir2022understanding" class="csl-entry" role="listitem">
-Agonafir, C., Pabon, A. R., Lakhankar, T., Khanbilvardi, R., &amp;
-Devineni, N. (2022). Understanding <span>N</span>ew <span>Y</span>ork
-<span>C</span>ity street flooding through 311 complaints. <em>Journal of
-Hydrology</em>, <em>605</em>, 127300.
-</div>
-<div id="ref-asa2018" class="csl-entry" role="listitem">
-American Statistical Association (ASA). (2018). <em>Ethical guidelines
-for statistical practice</em>.
-</div>
-<div id="ref-acm2018" class="csl-entry" role="listitem">
-Computing Machinery (ACM), A. for. (2018). <em>Code of ethics and
-professional conduct</em>.
-</div>
-<div id="ref-ada1990" class="csl-entry" role="listitem">
-Congress, U. S. (1990). <em>Americans with disabilities act of 1990
-(ADA)</em>.
-</div>
-<div id="ref-hipaa1996" class="csl-entry" role="listitem">
-Health, U. S. D. of, &amp; Services, H. (1996). <em>Health insurance
-portability and accountability act of 1996 (HIPAA)</em>.
-</div>
-<div id="ref-belmont1979" class="csl-entry" role="listitem">
-Protection of Human Subjects of Biomedical, N. C. for the, &amp;
-Research, B. (1979). <em>The belmont report: Ethical principles and
-guidelines for the protection of human subjects of research</em>.
-</div>
-<div id="ref-fds2019" class="csl-entry" role="listitem">
-Team, F. D. S. D. (2019). <em>Federal data strategy 2020 action
-plan</em>.
-</div>
-<div id="ref-vanderplas2016python" class="csl-entry" role="listitem">
-VanderPlas, J. (2016). <em>Python data science handbook:
-<span>E</span>ssential tools for working with data</em>. O’Reilly Media,
-Inc.
-</div>
-<div id="ref-yu2024veridical" class="csl-entry" role="listitem">
-Yu, B., &amp; Barter, R. L. (2024). <em>Veridical data science: The
-practice of responsible data analysis and decision making</em>. MIT
-Press.
-</div>
-</div>
+<!-- This section is to be included as a tutorial for ggplot with plotnine. -->
+<section id="grammar-of-graphics-with-plotnine" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="grammar-of-graphics-with-plotnine"><span class="header-section-number">5.1</span> Grammar of Graphics with Plotnine</h2>
+<p>This is section was written by Sonia Lucey. Sonia was ..</p>
+<section id="subsection-1" class="level3" data-number="5.1.1">
+<h3 data-number="5.1.1" class="anchored" data-anchor-id="subsection-1"><span class="header-section-number">5.1.1</span> Subsection 1</h3>
+</section>
+<section id="subsection-2" class="level3" data-number="5.1.2">
+<h3 data-number="5.1.2" class="anchored" data-anchor-id="subsection-2"><span class="header-section-number">5.1.2</span> Subsection 2</h3>
+</section>
+<section id="further-reading" class="level3" data-number="5.1.3">
+<h3 data-number="5.1.3" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">5.1.3</span> Further Reading</h3>
+<!-- This section is to be included as a tutorial for geopands data. -->
+<!-- {{< include _geopandas.qmd >}} -->
+<!-- Interesting topics: gmplot, folium -->
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -664,11 +624,14 @@ Press.
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./exercises.html" class="pagination-link" aria-label="Exercises">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Exercises</span></span>
+      <a href="./python.html" class="pagination-link" aria-label="Python Refreshment">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Python Refreshment</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="./manipulation.html" class="pagination-link" aria-label="Data Manipulation">
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data Manipulation</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->
