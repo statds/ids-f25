@@ -547,7 +547,7 @@ and write out in Arrow format.
 ```{python}
 # File paths
 csv_file = 'data/nyc_crashes_lbdwk_2025.csv'
-feather_file = 'tmp/nyccrashes_cleaned.feather'
+feather_file = 'tmp/nyc_crashes_lbdwk_2025.feather'
 
 import pandas as pd
 
