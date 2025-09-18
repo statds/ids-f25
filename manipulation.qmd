@@ -392,7 +392,7 @@ import geopandas as gpd
 
 # Define the NYC MODZCTA shapefile URL and extraction directory
 shapefile_url = "https://data.cityofnewyork.us/api/geospatial/pri4-ifjk?method=export&format=Shapefile"
-extract_dir = "MODZCTA_Shapefile"
+extract_dir = "tmp/MODZCTA_Shapefile"
 
 # Create the directory if it doesn't exist
 os.makedirs(extract_dir, exist_ok=True)
