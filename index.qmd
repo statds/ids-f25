@@ -296,7 +296,7 @@ Please use the following table to sign up.
 
    Date  | Presenter              | Topic
   ----- | ------------- | -------------------------
-   09/18 | Chen, Jingang Calvin |
+   09/18 | Chen, Jingang Calvin | Syntax of Markdown
    09/23 | Montalvo, Victor Samuel |
    09/25 | Cao, Enshuo |
    09/30 | Chen, Irene |
