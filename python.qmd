@@ -143,22 +143,27 @@ In this version, the host opens only one empty door.
 ```{python}
 import numpy as np
 
-def montyhall(ndoors, ntrials):
-    doors = np.arange(1, ndoors + 1) / 10
-    prize = np.random.choice(doors, size=ntrials)
-    player = np.random.choice(doors, size=ntrials)
+def montyhall(n_doors, n_trials):
+    doors = np.arange(1, n_doors + 1)
+    prize = np.random.choice(doors, size=n_trials)
+    player = np.random.choice(doors, size=n_trials)
     host = np.array([np.random.choice([d for d in doors
 									   if d not in [player[x], prize[x]]])
-					 for x in range(ntrials)])
+					 for x in range(n_trials)])
     player2 = np.array([np.random.choice([d for d in doors
 										  if d not in [player[x], host[x]]])
-						for x in range(ntrials)])
-    return {'noswitch': np.sum(prize == player), 'switch': np.sum(prize == player2)}
+						for x in range(n_trials)])
+    return {'noswitch': np.sum(prize == player),
+               'switch': np.sum(prize == player2)}
 ```
 
-Test it out:
+Test it out with 3 doors.
 ```{python}
 montyhall(3, 1000)
+```
+
+Then with 4 doors
+```{python}
 montyhall(4, 1000)
 ```
 
@@ -167,6 +172,231 @@ $1 / n$ and $\frac{n - 1}{n (n - 2)}$.
 
 In the homework exercise, the host opens $m$ doors that are empty. An
 argument `nempty` could be added to the function.
+
+
+#### Faster version
+
+This one avoid loops.
+```{python}
+import numpy as np
+from typing import Dict, Optional
+
+def montyhall_fast(
+    n_doors: int,
+    n_trials: int,
+    seed: Optional[int] = None
+) -> Dict[str, int]:
+    """
+    Run a Monty Hall simulation with `n_doors` doors and `n_trials` repetitions.
+    The host always opens exactly one empty door that is neither the prize door
+    nor the player's initial choice.
+
+    Parameters
+    ----------
+    n_doors : int
+        Total number of doors in the game (must be >= 3).
+    n_trials : int
+        Number of independent trials to simulate.
+    seed : int, optional
+        Random seed for reproducibility.
+
+    Returns
+    -------
+    Dict[str, int]
+        A dictionary with counts of wins under two strategies:
+        - 'noswitch': staying with the initial choice
+        - 'switch'  : switching after the host reveals one empty door
+
+    Examples
+    --------
+    >>> results = montyhall_fast(3, 100000, seed=42)
+    >>> results
+    {'noswitch': 33302, 'switch': 66698}
+    """
+    rng = np.random.default_rng(seed)
+
+    # Initial random assignments
+    prize = rng.integers(n_doors, size=n_trials, dtype=np.int32)
+    player = rng.integers(n_doors, size=n_trials, dtype=np.int32)
+
+    host = np.empty(n_trials, dtype=np.int32)
+
+    # Case 1: player == prize → host excludes only 'player'
+    same = prize == player
+    if np.any(same):
+        k = rng.integers(n_doors - 1, size=np.sum(same), dtype=np.int32)
+        p = player[same]
+        host[same] = k + (k >= p)
+
+    # Case 2: player != prize → host excludes 'player' and 'prize'
+    diff = ~same
+    if np.any(diff):
+        a = np.minimum(player[diff], prize[diff])
+        b = np.maximum(player[diff], prize[diff])
+        k = rng.integers(n_doors - 2, size=np.sum(diff), dtype=np.int32)
+        host[diff] = k + (k >= a) + (k >= b)
+
+    # Player switches: exclude 'player' and 'host'
+    a2 = np.minimum(player, host)
+    b2 = np.maximum(player, host)
+    k2 = rng.integers(n_doors - 2, size=n_trials, dtype=np.int32)
+    player2 = k2 + (k2 >= a2) + (k2 >= b2)
+
+    return {
+        "noswitch": int((prize == player).sum()),
+        "switch": int((prize == player2).sum()),
+    }
+```
+
+
+Another faster version uses `Numba` just-in-time (JIT) compiler
+Python, which translates a subset of Python and Numpy into fast
+machine code via LLVM at runtime. A decorator is added to the numeric
+functions and, after a one-time compile on the first call (“warm-up”),
+later calls run much faster.  One can toggle `parallel=True` for
+multi-core speedups.
+
+```{python}
+from typing import Dict, Optional
+import numpy as np
+from numba import njit, prange
+
+# --- internal helpers (compiled) ---
+
+@njit
+def _seed_numba(seed: int) -> None:
+    # Seed the RNG used inside Numba-compiled code
+    np.random.seed(seed)
+
+@njit
+def _trial_once(n_doors: int) -> (int, int):
+    """
+    Run one Monty Hall trial (host opens exactly one empty door).
+    Returns (noswitch_win, switch_win) as 0/1 ints.
+    """
+    prize  = np.random.randint(0, n_doors)
+    player = np.random.randint(0, n_doors)
+
+    # host picks an empty door not equal to prize or player
+    if player == prize:
+        # exclude only 'player' (size n_doors-1)
+        k = np.random.randint(0, n_doors - 1)
+        host = k + (1 if k >= player else 0)
+    else:
+        # exclude 'player' and 'prize' (size n_doors-2)
+        a = player if player < prize else prize
+        b = prize if prize > player else player
+        k = np.random.randint(0, n_doors - 2)
+        host = k + (1 if k >= a else 0) + (1 if k >= b else 0)
+
+    # player switches: choose uniformly from doors != player and != host
+    a2 = player if player < host else host
+    b2 = host if host > player else player
+    k2 = np.random.randint(0, n_doors - 2)
+    player2 = k2 + (1 if k2 >= a2 else 0) + (1 if k2 >= b2 else 0)
+
+    noswitch_win = 1 if prize == player  else 0
+    switch_win   = 1 if prize == player2 else 0
+    return noswitch_win, switch_win
+
+@njit(parallel=True)
+def _run_parallel(n_doors: int, n_trials: int) -> (int, int):
+    ns = np.zeros(n_trials, dtype=np.int64)
+    sw = np.zeros(n_trials, dtype=np.int64)
+    for i in prange(n_trials):
+        a, b = _trial_once(n_doors)
+        ns[i] = a
+        sw[i] = b
+    return int(ns.sum()), int(sw.sum())
+
+@njit
+def _run_serial(n_doors: int, n_trials: int) -> (int, int):
+    noswitch = 0
+    switch   = 0
+    for _ in range(n_trials):
+        a, b = _trial_once(n_doors)
+        noswitch += a
+        switch   += b
+    return noswitch, switch
+
+# --- public API ---
+
+def montyhall_numba(
+    n_doors: int,
+    n_trials: int,
+    seed: Optional[int] = None,
+    parallel: bool = True,
+) -> Dict[str, int]:
+    """
+    Monty Hall (host opens one empty door) using Numba-compiled loops.
+
+    Parameters
+    ----------
+    n_doors : int
+        Number of doors (>= 3).
+    n_trials : int
+        Number of trials to simulate.
+    seed : int, optional
+        Seed for reproducibility.
+    parallel : bool, default True
+        Use a parallel loop over trials (multi-core).
+
+    Returns
+    -------
+    Dict[str, int]
+        {'noswitch': ..., 'switch': ...}
+    """
+    if n_doors < 3:
+        raise ValueError("n_doors must be >= 3")
+
+    if seed is not None:
+        _seed_numba(int(seed))  # seed the compiled RNG
+
+    ns, sw = (_run_parallel(n_doors, n_trials)
+              if parallel else
+              _run_serial(n_doors, n_trials))
+    return {"noswitch": ns, "switch": sw}
+```
+
+It wins when `n_trials` is very large (e.g., 10–100M) where loop
+overhead is amortized and you give it many threads, or the design
+avoids massive temporaries (not much in this example).
+
+
+Let's see their time comparison.
+```{python}
+import timeit
+
+# --- Timing function ---
+def benchmark(n_doors: int = 3, n_trials: int = 1_000_00, seed: int = 42) -> None:
+    print(f"n_doors={n_doors}, n_trials={n_trials}")
+    # Ensure deterministic where possible
+    np.random.seed(seed)
+
+    # Time original
+    t_orig = min(timeit.repeat(lambda: montyhall(n_doors, n_trials),
+                               repeat=3, number=1))
+    print(f"Original (lists): {t_orig:.4f}s")
+
+    # Time vectorized
+    t_vec = min(timeit.repeat(lambda: montyhall_fast(n_doors, n_trials, seed),
+                              repeat=3, number=1))
+    print(f"Vectorized NumPy: {t_vec:.4f}s")
+
+    # Time Numba serial (compile excluded by earlier warm-up)
+    t_numba_ser = min(timeit.repeat(lambda: montyhall_numba(n_doors, n_trials,
+                                    seed, parallel=False), repeat=3, number=1))
+    print(f"Numba serial:     {t_numba_ser:.4f}s")
+
+    # Time Numba parallel
+    t_numba_par = min(timeit.repeat(lambda: montyhall_numba(n_doors, n_trials,
+                                    seed, parallel=True), repeat=3, number=1))
+    print(f"Numba parallel:   {t_numba_par:.4f}s")
+
+
+benchmark(n_doors = 4, n_trials = 1000_000)
+```
+
 
 ## Variables versus Objects
 
