@@ -1,5 +1,16 @@
 # Data Manipulation
 
+```{python}
+#| eval: true
+#| echo: false
+
+from pathlib import Path
+
+# Define folder and file
+folder = Path("tmp")
+folder.mkdir(parents=True, exist_ok=True)  # create tmp if not exist
+```
+
 ## Introduction
 
 Data manipulation is crucial for transforming raw data into a
@@ -381,7 +392,7 @@ import geopandas as gpd
 
 # Define the NYC MODZCTA shapefile URL and extraction directory
 shapefile_url = "https://data.cityofnewyork.us/api/geospatial/pri4-ifjk?method=export&format=Shapefile"
-extract_dir = "MODZCTA_Shapefile"
+extract_dir = "tmp/MODZCTA_Shapefile"
 
 # Create the directory if it doesn't exist
 os.makedirs(extract_dir, exist_ok=True)
@@ -530,21 +541,15 @@ storing data frames, optimized for speed and efficiency, particularly
 for IPC and data sharing between Python and R or Julia.
 
 
-The following code processes the cleaned data in CSV format from
-Mohammad Mundiwala and write out in Arrow format.
+The following code processes the raw data in CSV format
+and write out in Arrow format.
 
-```python
-#| eval: false
+```{python}
+# File paths
+csv_file = 'data/nyc_crashes_lbdwk_2025.csv'
+feather_file = 'tmp/nyc_crashes_lbdwk_2025.feather'
 
 import pandas as pd
-
-# Read CSV, ensuring 'zip_code' is string and 'crash_datetime' is parsed as datetime
-df = pd.read_csv('data/nyc_crashes_cleaned_mm.csv',
-                 dtype={'zip_code': str},
-                 parse_dates=['crash_datetime'])
-
-# Drop the 'date' and 'time' columns
-df = df.drop(columns=['crash_date', 'crash_time'])
 
 # Move 'crash_datetime' to the first column
 df = df[['crash_datetime'] + df.drop(columns=['crash_datetime']).columns.tolist()]
@@ -553,17 +558,14 @@ df['zip_code'] = df['zip_code'].astype(str).str.rstrip('.0')
 
 df = df.sort_values(by='crash_datetime')
 
-df.to_feather('nyccrashes_cleaned.feather')
+df.to_feather(feather_file)
 ```
 
 Let's compare the file sizes of the feather format and the CSV format.
 
-```python
+```{python}
 import os
 
-# File paths
-csv_file = 'data/nyccrashes_2024w0630_by20250212.csv'
-feather_file = 'data/nyccrashes_cleaned.feather'
 
 # Get file sizes in bytes
 csv_size = os.path.getsize(csv_file)
@@ -581,7 +583,7 @@ print(f"Feather file size: {feather_size_mb:.2f} MB")
 Read the feather file back in:
 ```python
 #| eval: false
-dff = pd.read_feather("data/nyccrashes_cleaned.feather")
+dff = pd.read_feather(feather_file)
 dff.shape
 ```
 
