@@ -197,7 +197,7 @@ Markdown.
 + Wishneski, Emma Irene
 + Yoon, Jessica Nari
     - Become comfortable with Git and version control.  
-    - Learn and be able to apply skills from this classes to other courses. 
+    - Apply skills from this classes to other courses. 
     - Understand my computer better. 
 + Zhang, Mark Justin
     - Get comfortable with command line and Git
