@@ -202,6 +202,9 @@ Markdown.
     - Advance my statistical skills through a data science project.
 + Wishneski, Emma Irene
 + Yoon, Jessica Nari
+    - Become comfortable with Git and version control.  
+    - Apply skills from this classes to other courses. 
+    - Understand my computer better. 
 + Zhang, Mark Justin
     - Get comfortable with command line and Git
     - Learn to make my own data science projects
