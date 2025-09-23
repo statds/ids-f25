@@ -1,0 +1,1876 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.33">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>7&nbsp; Data Exploration – Introduction to Data Science</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./exercises.html" rel="next">
+<link href="./06-manipulation.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-485d01fc63b59abcd3ee1bf1e8e2748d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./07-exploration.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Data Exploration</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Introduction to Data Science</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preliminaries</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-git.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Project Management</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Reproducible Data Science</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-python.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Python Refreshment</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-visualization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data Visualization</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-manipulation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data Manipulation</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-exploration.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Data Exploration</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./exercises.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Exercises</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">7.1</span> Introduction</a></li>
+  <li><a href="#getting-to-know-data" id="toc-getting-to-know-data" class="nav-link" data-scroll-target="#getting-to-know-data"><span class="header-section-number">7.2</span> Getting to Know Data</a></li>
+  <li><a href="#data-cleaning-principles" id="toc-data-cleaning-principles" class="nav-link" data-scroll-target="#data-cleaning-principles"><span class="header-section-number">7.3</span> Data Cleaning Principles</a>
+  <ul class="collapse">
+  <li><a href="#illustration-with-ames-housing" id="toc-illustration-with-ames-housing" class="nav-link" data-scroll-target="#illustration-with-ames-housing"><span class="header-section-number">7.3.1</span> Illustration with Ames Housing</a></li>
+  </ul></li>
+  <li><a href="#common-exploration-practices" id="toc-common-exploration-practices" class="nav-link" data-scroll-target="#common-exploration-practices"><span class="header-section-number">7.4</span> Common Exploration Practices</a>
+  <ul class="collapse">
+  <li><a href="#univariate-summaries" id="toc-univariate-summaries" class="nav-link" data-scroll-target="#univariate-summaries"><span class="header-section-number">7.4.1</span> Univariate summaries</a></li>
+  <li><a href="#grouped-summaries" id="toc-grouped-summaries" class="nav-link" data-scroll-target="#grouped-summaries"><span class="header-section-number">7.4.2</span> Grouped summaries</a></li>
+  <li><a href="#cross-tabulations" id="toc-cross-tabulations" class="nav-link" data-scroll-target="#cross-tabulations"><span class="header-section-number">7.4.3</span> Cross-tabulations</a></li>
+  <li><a href="#correlations" id="toc-correlations" class="nav-link" data-scroll-target="#correlations"><span class="header-section-number">7.4.4</span> Correlations</a></li>
+  <li><a href="#conditional-summaries" id="toc-conditional-summaries" class="nav-link" data-scroll-target="#conditional-summaries"><span class="header-section-number">7.4.5</span> Conditional summaries</a></li>
+  </ul></li>
+  <li><a href="#forming-and-testing-hypotheses" id="toc-forming-and-testing-hypotheses" class="nav-link" data-scroll-target="#forming-and-testing-hypotheses"><span class="header-section-number">7.5</span> Forming and Testing Hypotheses</a>
+  <ul class="collapse">
+  <li><a href="#neighborhood-and-sale-price" id="toc-neighborhood-and-sale-price" class="nav-link" data-scroll-target="#neighborhood-and-sale-price"><span class="header-section-number">7.5.1</span> Neighborhood and sale price</a></li>
+  <li><a href="#year-built-and-sale-price" id="toc-year-built-and-sale-price" class="nav-link" data-scroll-target="#year-built-and-sale-price"><span class="header-section-number">7.5.2</span> Year built and sale price</a></li>
+  <li><a href="#lot-area-and-sale-price" id="toc-lot-area-and-sale-price" class="nav-link" data-scroll-target="#lot-area-and-sale-price"><span class="header-section-number">7.5.3</span> Lot area and sale price</a></li>
+  <li><a href="#fireplaces-and-sale-price" id="toc-fireplaces-and-sale-price" class="nav-link" data-scroll-target="#fireplaces-and-sale-price"><span class="header-section-number">7.5.4</span> Fireplaces and sale price</a></li>
+  <li><a href="#garage-type-and-neighborhood" id="toc-garage-type-and-neighborhood" class="nav-link" data-scroll-target="#garage-type-and-neighborhood"><span class="header-section-number">7.5.5</span> Garage type and neighborhood</a></li>
+  <li><a href="#quick-reference-table-for-common-tests" id="toc-quick-reference-table-for-common-tests" class="nav-link" data-scroll-target="#quick-reference-table-for-common-tests"><span class="header-section-number">7.5.6</span> Quick reference table for common tests</a></li>
+  </ul></li>
+  <li><a href="#iterative-nature-of-exploration" id="toc-iterative-nature-of-exploration" class="nav-link" data-scroll-target="#iterative-nature-of-exploration"><span class="header-section-number">7.6</span> Iterative Nature of Exploration</a>
+  <ul class="collapse">
+  <li><a href="#cycle-of-exploration" id="toc-cycle-of-exploration" class="nav-link" data-scroll-target="#cycle-of-exploration"><span class="header-section-number">7.6.1</span> Cycle of exploration</a></li>
+  <li><a href="#example-garage-year-built" id="toc-example-garage-year-built" class="nav-link" data-scroll-target="#example-garage-year-built"><span class="header-section-number">7.6.2</span> Example: Garage year built</a></li>
+  <li><a href="#example-living-area-and-sale-price" id="toc-example-living-area-and-sale-price" class="nav-link" data-scroll-target="#example-living-area-and-sale-price"><span class="header-section-number">7.6.3</span> Example: Living area and sale price</a></li>
+  </ul></li>
+  <li><a href="#good-practices-in-data-exploration" id="toc-good-practices-in-data-exploration" class="nav-link" data-scroll-target="#good-practices-in-data-exploration"><span class="header-section-number">7.7</span> 7. Good Practices in Data Exploration</a>
+  <ul class="collapse">
+  <li><a href="#reproducibility" id="toc-reproducibility" class="nav-link" data-scroll-target="#reproducibility"><span class="header-section-number">7.7.1</span> Reproducibility</a></li>
+  <li><a href="#documentation" id="toc-documentation" class="nav-link" data-scroll-target="#documentation"><span class="header-section-number">7.7.2</span> Documentation</a></li>
+  <li><a href="#balanced-curiosity-and-rigor" id="toc-balanced-curiosity-and-rigor" class="nav-link" data-scroll-target="#balanced-curiosity-and-rigor"><span class="header-section-number">7.7.3</span> Balanced curiosity and rigor</a></li>
+  <li><a href="#effect-sizes-and-intervals" id="toc-effect-sizes-and-intervals" class="nav-link" data-scroll-target="#effect-sizes-and-intervals"><span class="header-section-number">7.7.4</span> Effect sizes and intervals</a></li>
+  <li><a href="#transparency" id="toc-transparency" class="nav-link" data-scroll-target="#transparency"><span class="header-section-number">7.7.5</span> Transparency</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span id="ch-exploration" class="quarto-section-identifier"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Data Exploration</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="introduction" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">7.1</span> Introduction</h2>
+<p>Data exploration is the disciplined process that connects raw records to credible analysis. Its goals are to identify data quality issues, understand what variables mean operationally, and generate falsifiable claims that later analysis can scrutinize. The work is iterative: initial checks surface inconsistencies or gaps; targeted cleaning follows; then renewed examination tests whether earlier conclusions still hold. Reproducibility is non-negotiable, so every step should live in code with a brief log explaining what changed and why. Critically, this phase is not confirmatory inference. Instead, it frames questions clearly, proposes measurable definitions, and records assumptions that later sections will test formally. Scope of this chapter.</p>
+<p>We will develop practical habits for high-quality exploration. First, we present cleaning principles: consistency of formats and units, completeness and missing-data mechanisms, accuracy and duplicates, and integrity across related fields, together with clear documentation. Next, we practice numerically driven summaries: distributional statistics, grouped descriptives, cross-tabulations, and simple association checks that reveal promising relationships. Finally, we show how to state hypotheses correctly—with the null representing no effect or independence—and run appropriate tests in Python (ANOVA or Kruskal–Wallis for group means, Welch’s t-test or Mann–Whitney for two groups, OLS slope tests with robust errors, and Pearson or Spearman correlations), pairing p-values with effect sizes and intervals.</p>
+</section>
+<section id="getting-to-know-data" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="getting-to-know-data"><span class="header-section-number">7.2</span> Getting to Know Data</h2>
+<p>Any analysis begins by becoming familiar with the dataset. This involves learning what the observations represent, what types of variables are recorded, and whether the structure meets the expectations of tidy data. Before turning to a specific example, we highlight general principles.</p>
+<ul>
+<li><p>Units of observation. Each row of a dataset should correspond to a single unit, such as an individual, transaction, or property sale. Misalignment of units often leads to errors in later analysis.</p></li>
+<li><p>Variables and their types. Columns record attributes of units. These may be continuous measurements, counts, ordered categories, or nominal labels. Recognizing the correct type is essential because it dictates which summary statistics and hypothesis tests are appropriate.</p></li>
+<li><p>Tidy data principles. In a tidy format, each row is one observation and each column is one variable. When data are stored otherwise, reshaping is necessary before analysis can proceed smoothly.</p></li>
+</ul>
+<p>We now illustrate these ideas using the Ames Housing dataset, which is available directly from OpenML.</p>
+<div id="105bd105" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> openml</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Load Ames Housing (OpenML ID 42165)</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>dataset <span class="op">=</span> openml.datasets.get_dataset(<span class="dv">42165</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>df, <span class="op">*</span>_ <span class="op">=</span> dataset.get_data()</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Basic dimensions</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>df.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="1">
+<pre><code>(1460, 81)</code></pre>
+</div>
+</div>
+<p>The dataset contains nearly three thousand house sales and eighty variables.</p>
+<p>It is useful to view the first few rows to confirm the structure.</p>
+<div id="533ee07c" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># First few rows</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Id</th>
+<th data-quarto-table-cell-role="th">MSSubClass</th>
+<th data-quarto-table-cell-role="th">MSZoning</th>
+<th data-quarto-table-cell-role="th">LotFrontage</th>
+<th data-quarto-table-cell-role="th">LotArea</th>
+<th data-quarto-table-cell-role="th">Street</th>
+<th data-quarto-table-cell-role="th">Alley</th>
+<th data-quarto-table-cell-role="th">LotShape</th>
+<th data-quarto-table-cell-role="th">LandContour</th>
+<th data-quarto-table-cell-role="th">Utilities</th>
+<th data-quarto-table-cell-role="th">...</th>
+<th data-quarto-table-cell-role="th">PoolArea</th>
+<th data-quarto-table-cell-role="th">PoolQC</th>
+<th data-quarto-table-cell-role="th">Fence</th>
+<th data-quarto-table-cell-role="th">MiscFeature</th>
+<th data-quarto-table-cell-role="th">MiscVal</th>
+<th data-quarto-table-cell-role="th">MoSold</th>
+<th data-quarto-table-cell-role="th">YrSold</th>
+<th data-quarto-table-cell-role="th">SaleType</th>
+<th data-quarto-table-cell-role="th">SaleCondition</th>
+<th data-quarto-table-cell-role="th">SalePrice</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>1</td>
+<td>60</td>
+<td>RL</td>
+<td>65.0</td>
+<td>8450</td>
+<td>Pave</td>
+<td>None</td>
+<td>Reg</td>
+<td>Lvl</td>
+<td>AllPub</td>
+<td>...</td>
+<td>0</td>
+<td>None</td>
+<td>None</td>
+<td>None</td>
+<td>0</td>
+<td>2</td>
+<td>2008</td>
+<td>WD</td>
+<td>Normal</td>
+<td>208500</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>2</td>
+<td>20</td>
+<td>RL</td>
+<td>80.0</td>
+<td>9600</td>
+<td>Pave</td>
+<td>None</td>
+<td>Reg</td>
+<td>Lvl</td>
+<td>AllPub</td>
+<td>...</td>
+<td>0</td>
+<td>None</td>
+<td>None</td>
+<td>None</td>
+<td>0</td>
+<td>5</td>
+<td>2007</td>
+<td>WD</td>
+<td>Normal</td>
+<td>181500</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>3</td>
+<td>60</td>
+<td>RL</td>
+<td>68.0</td>
+<td>11250</td>
+<td>Pave</td>
+<td>None</td>
+<td>IR1</td>
+<td>Lvl</td>
+<td>AllPub</td>
+<td>...</td>
+<td>0</td>
+<td>None</td>
+<td>None</td>
+<td>None</td>
+<td>0</td>
+<td>9</td>
+<td>2008</td>
+<td>WD</td>
+<td>Normal</td>
+<td>223500</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>4</td>
+<td>70</td>
+<td>RL</td>
+<td>60.0</td>
+<td>9550</td>
+<td>Pave</td>
+<td>None</td>
+<td>IR1</td>
+<td>Lvl</td>
+<td>AllPub</td>
+<td>...</td>
+<td>0</td>
+<td>None</td>
+<td>None</td>
+<td>None</td>
+<td>0</td>
+<td>2</td>
+<td>2006</td>
+<td>WD</td>
+<td>Abnorml</td>
+<td>140000</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>5</td>
+<td>60</td>
+<td>RL</td>
+<td>84.0</td>
+<td>14260</td>
+<td>Pave</td>
+<td>None</td>
+<td>IR1</td>
+<td>Lvl</td>
+<td>AllPub</td>
+<td>...</td>
+<td>0</td>
+<td>None</td>
+<td>None</td>
+<td>None</td>
+<td>0</td>
+<td>12</td>
+<td>2008</td>
+<td>WD</td>
+<td>Normal</td>
+<td>250000</td>
+</tr>
+</tbody>
+</table>
+
+<p>5 rows × 81 columns</p>
+</div>
+</div>
+</div>
+<p>Each row corresponds to one property sale, while columns record attributes such as lot size, neighborhood, and sale price.</p>
+<p>Understanding whether variables are numeric, categorical, or temporal guides later exploration and cleaning.</p>
+<div id="74485671" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Dtypes in pandas</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>df.dtypes.value_counts()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<pre><code>object     43
+int64      22
+uint8      13
+float64     3
+Name: count, dtype: int64</code></pre>
+</div>
+</div>
+<div id="5bc877d6" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example: show a few variables with types</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>df.dtypes.head(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<pre><code>Id               int64
+MSSubClass       uint8
+MSZoning        object
+LotFrontage    float64
+LotArea          int64
+Street          object
+Alley           object
+LotShape        object
+LandContour     object
+Utilities       object
+dtype: object</code></pre>
+</div>
+</div>
+<p>Most features are numeric or categorical. Some, such as <code>YearBuilt</code>, are integers but represent calendar years.</p>
+<p>The outcome of interest is the sale price.</p>
+<div id="8194803c" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The default target from OpenML</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>dataset.default_target_attribute</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<pre><code>'SalePrice'</code></pre>
+</div>
+</div>
+<p>Numeric summaries highlight scale and possible outliers.</p>
+<div id="d38c184b" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Summary statistics for numeric columns</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>df.describe().T.head(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">count</th>
+<th data-quarto-table-cell-role="th">mean</th>
+<th data-quarto-table-cell-role="th">std</th>
+<th data-quarto-table-cell-role="th">min</th>
+<th data-quarto-table-cell-role="th">25%</th>
+<th data-quarto-table-cell-role="th">50%</th>
+<th data-quarto-table-cell-role="th">75%</th>
+<th data-quarto-table-cell-role="th">max</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Id</td>
+<td>1460.0</td>
+<td>730.500000</td>
+<td>421.610009</td>
+<td>1.0</td>
+<td>365.75</td>
+<td>730.5</td>
+<td>1095.25</td>
+<td>1460.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">MSSubClass</td>
+<td>1460.0</td>
+<td>56.897260</td>
+<td>42.300571</td>
+<td>20.0</td>
+<td>20.00</td>
+<td>50.0</td>
+<td>70.00</td>
+<td>190.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">LotFrontage</td>
+<td>1201.0</td>
+<td>70.049958</td>
+<td>24.284752</td>
+<td>21.0</td>
+<td>59.00</td>
+<td>69.0</td>
+<td>80.00</td>
+<td>313.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">LotArea</td>
+<td>1460.0</td>
+<td>10516.828082</td>
+<td>9981.264932</td>
+<td>1300.0</td>
+<td>7553.50</td>
+<td>9478.5</td>
+<td>11601.50</td>
+<td>215245.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">OverallQual</td>
+<td>1460.0</td>
+<td>6.099315</td>
+<td>1.382997</td>
+<td>1.0</td>
+<td>5.00</td>
+<td>6.0</td>
+<td>7.00</td>
+<td>10.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">OverallCond</td>
+<td>1460.0</td>
+<td>5.575342</td>
+<td>1.112799</td>
+<td>1.0</td>
+<td>5.00</td>
+<td>5.0</td>
+<td>6.00</td>
+<td>9.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">YearBuilt</td>
+<td>1460.0</td>
+<td>1971.267808</td>
+<td>30.202904</td>
+<td>1872.0</td>
+<td>1954.00</td>
+<td>1973.0</td>
+<td>2000.00</td>
+<td>2010.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">YearRemodAdd</td>
+<td>1460.0</td>
+<td>1984.865753</td>
+<td>20.645407</td>
+<td>1950.0</td>
+<td>1967.00</td>
+<td>1994.0</td>
+<td>2004.00</td>
+<td>2010.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">MasVnrArea</td>
+<td>1452.0</td>
+<td>103.685262</td>
+<td>181.066207</td>
+<td>0.0</td>
+<td>0.00</td>
+<td>0.0</td>
+<td>166.00</td>
+<td>1600.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">BsmtFinSF1</td>
+<td>1460.0</td>
+<td>443.639726</td>
+<td>456.098091</td>
+<td>0.0</td>
+<td>0.00</td>
+<td>383.5</td>
+<td>712.25</td>
+<td>5644.0</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Categorical summaries reveal balance among levels.</p>
+<div id="1bd69d9b" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Frequency counts for categorical columns</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Neighborhood'</span>].value_counts().head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<pre><code>Neighborhood
+NAmes      225
+CollgCr    150
+OldTown    113
+Edwards    100
+Somerst     86
+Name: count, dtype: int64</code></pre>
+</div>
+</div>
+<div id="f8ade432" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Another example</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'GarageType'</span>].value_counts(dropna<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<pre><code>GarageType
+Attchd     870
+Detchd     387
+BuiltIn     88
+None        81
+Basment     19
+CarPort      9
+2Types       6
+Name: count, dtype: int64</code></pre>
+</div>
+</div>
+<p>Simple checks can detect implausible combinations.</p>
+<div id="d51c2e19" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Houses should not be sold before built</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>(df[<span class="st">'YrSold'</span>] <span class="op">&lt;</span> df[<span class="st">'YearBuilt'</span>]).<span class="bu">sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="9">
+<pre><code>np.int64(0)</code></pre>
+</div>
+</div>
+<div id="a47807a8" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Garage year built should not precede house year built</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>(df[<span class="st">'GarageYrBlt'</span>] <span class="op">&lt;</span> df[<span class="st">'YearBuilt'</span>]).<span class="bu">sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<pre><code>np.int64(9)</code></pre>
+</div>
+</div>
+<p>These checks confirm that while the dataset is well curated, certain quirks require careful interpretation.</p>
+</section>
+<section id="data-cleaning-principles" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="data-cleaning-principles"><span class="header-section-number">7.3</span> Data Cleaning Principles</h2>
+<p>Exploration begins with data cleaning. The purpose is not to modify values casually but to identify issues, understand their sources, and decide on a transparent response. The following principles provide structure.</p>
+<p>Consistency. Variables should follow the same format and unit across all records. Dates should have a common representation, categorical labels should not differ by spelling, and measurements should use the same scale.</p>
+<p>Completeness. Missing values are unavoidable. It is important to determine whether they arise from data entry errors, survey nonresponse, or structural absence. For example, a missing value in <code>FireplaceQu</code> often indicates that a house has no fireplace rather than missing information.</p>
+<p>Accuracy. Values should be plausible. Obvious errors include negative square footage or sale years in the future. Duplicate records also fall under this category.</p>
+<p>Integrity. Relationships between variables should be logically consistent. A house cannot be sold before it was built. If related totals exist, the sum of parts should match the total.</p>
+<p>Transparency. All cleaning decisions should be recorded. Reproducibility requires that another analyst can understand what was changed and why.</p>
+<section id="illustration-with-ames-housing" class="level3" data-number="7.3.1">
+<h3 data-number="7.3.1" class="anchored" data-anchor-id="illustration-with-ames-housing"><span class="header-section-number">7.3.1</span> Illustration with Ames Housing</h3>
+<p>We apply these principles to the Ames dataset. The first step is to inspect missing values.</p>
+<div id="d6000ddb" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Count missing values in each column</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>df.isna().<span class="bu">sum</span>().sort_values(ascending<span class="op">=</span><span class="va">False</span>).head(<span class="dv">15</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="11">
+<pre><code>PoolQC          1453
+MiscFeature     1406
+Alley           1369
+Fence           1179
+FireplaceQu      690
+LotFrontage      259
+GarageFinish      81
+GarageQual        81
+GarageYrBlt       81
+GarageType        81
+GarageCond        81
+BsmtExposure      38
+BsmtFinType2      38
+BsmtCond          37
+BsmtFinType1      37
+dtype: int64</code></pre>
+</div>
+</div>
+<p>Several variables, such as <code>PoolQC</code>, <code>MiscFeature</code>, and <code>Alley</code>, contain many missing entries. Documentation shows that these are structural, indicating the absence of the feature.</p>
+<div id="b4261669" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example: check PoolQC against PoolArea</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>(df[<span class="st">'PoolQC'</span>].isna() <span class="op">&amp;</span> (df[<span class="st">'PoolArea'</span>] <span class="op">&gt;</span> <span class="dv">0</span>)).<span class="bu">sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="12">
+<pre><code>np.int64(0)</code></pre>
+</div>
+</div>
+<p>The result is zero, confirming that missing <code>PoolQC</code> means no pool.</p>
+<p>Consistency can be checked by reviewing categorical labels.</p>
+<div id="bb11c61c" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Distinct values in Exterior1st</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Exterior1st'</span>].unique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="13">
+<pre><code>array(['VinylSd', 'MetalSd', 'Wd Sdng', 'HdBoard', 'BrkFace', 'WdShing',
+       'CemntBd', 'Plywood', 'AsbShng', 'Stucco', 'BrkComm', 'AsphShn',
+       'Stone', 'ImStucc', 'CBlock'], dtype=object)</code></pre>
+</div>
+</div>
+<p>If spelling variants are detected, they should be harmonized.</p>
+<p>Accuracy checks involve searching for implausible values.</p>
+<div id="46c92d0e" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Negative or zero living area</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>(df[<span class="st">'GrLivArea'</span>] <span class="op">&lt;=</span> <span class="dv">0</span>).<span class="bu">sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="14">
+<pre><code>np.int64(0)</code></pre>
+</div>
+</div>
+<p>Integrity checks verify logical relationships.</p>
+<div id="7d3854af" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Houses sold before they were built</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>(df[<span class="st">'YrSold'</span>] <span class="op">&lt;</span> df[<span class="st">'YearBuilt'</span>]).<span class="bu">sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="15">
+<pre><code>np.int64(0)</code></pre>
+</div>
+</div>
+<div id="dc709d25" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Garage built before house built</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>(df[<span class="st">'GarageYrBlt'</span>] <span class="op">&lt;</span> df[<span class="st">'YearBuilt'</span>]).<span class="bu">sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="16">
+<pre><code>np.int64(9)</code></pre>
+</div>
+</div>
+<p>These checks help identify issues to document and, if appropriate, correct in a reproducible way.</p>
+</section>
+</section>
+<section id="common-exploration-practices" class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="common-exploration-practices"><span class="header-section-number">7.4</span> Common Exploration Practices</h2>
+<p>After establishing data cleaning principles, the next step is to compute summaries that describe the distributions of variables and their relationships. This section avoids graphics, relying instead on tables and statistics.</p>
+<section id="univariate-summaries" class="level3" data-number="7.4.1">
+<h3 data-number="7.4.1" class="anchored" data-anchor-id="univariate-summaries"><span class="header-section-number">7.4.1</span> Univariate summaries</h3>
+<p>Simple statistics reveal scale, central tendency, and variability.</p>
+<div id="163e1568" class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sale price distribution</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'SalePrice'</span>].describe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="17">
+<pre><code>count      1460.000000
+mean     180921.195890
+std       79442.502883
+min       34900.000000
+25%      129975.000000
+50%      163000.000000
+75%      214000.000000
+max      755000.000000
+Name: SalePrice, dtype: float64</code></pre>
+</div>
+</div>
+<p>The sale price is right-skewed, with a mean higher than the median.</p>
+<div id="7d989648" class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lot area distribution</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'LotArea'</span>].describe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="18">
+<pre><code>count      1460.000000
+mean      10516.828082
+std        9981.264932
+min        1300.000000
+25%        7553.500000
+50%        9478.500000
+75%       11601.500000
+max      215245.000000
+Name: LotArea, dtype: float64</code></pre>
+</div>
+</div>
+<p>Lot size shows extreme variation, indicating possible outliers.</p>
+</section>
+<section id="grouped-summaries" class="level3" data-number="7.4.2">
+<h3 data-number="7.4.2" class="anchored" data-anchor-id="grouped-summaries"><span class="header-section-number">7.4.2</span> Grouped summaries</h3>
+<p>Comparisons across categories highlight differences in central tendency.</p>
+<div id="eb1706ce" class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mean sale price by neighborhood</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>df.groupby(<span class="st">'Neighborhood'</span>)[<span class="st">'SalePrice'</span>].mean().sort_values().head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="19">
+<pre><code>Neighborhood
+MeadowV     98576.470588
+IDOTRR     100123.783784
+BrDale     104493.750000
+BrkSide    124834.051724
+Edwards    128219.700000
+Name: SalePrice, dtype: float64</code></pre>
+</div>
+</div>
+<p>Neighborhoods differ substantially in average sale price.</p>
+<div id="bd5d8dad" class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Median sale price by overall quality</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>df.groupby(<span class="st">'OverallQual'</span>)[<span class="st">'SalePrice'</span>].median()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="20">
+<pre><code>OverallQual
+1      50150.0
+2      60000.0
+3      86250.0
+4     108000.0
+5     133000.0
+6     160000.0
+7     200141.0
+8     269750.0
+9     345000.0
+10    432390.0
+Name: SalePrice, dtype: float64</code></pre>
+</div>
+</div>
+<p>Higher quality ratings correspond to higher prices.</p>
+</section>
+<section id="cross-tabulations" class="level3" data-number="7.4.3">
+<h3 data-number="7.4.3" class="anchored" data-anchor-id="cross-tabulations"><span class="header-section-number">7.4.3</span> Cross-tabulations</h3>
+<p>Cross-tabulations summarize associations between categorical variables.</p>
+<div id="cdfb18ad" class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Neighborhood by garage type</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>pd.crosstab(df[<span class="st">'Neighborhood'</span>], df[<span class="st">'GarageType'</span>]).head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="21">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">GarageType</th>
+<th data-quarto-table-cell-role="th">2Types</th>
+<th data-quarto-table-cell-role="th">Attchd</th>
+<th data-quarto-table-cell-role="th">Basment</th>
+<th data-quarto-table-cell-role="th">BuiltIn</th>
+<th data-quarto-table-cell-role="th">CarPort</th>
+<th data-quarto-table-cell-role="th">Detchd</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Neighborhood</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Blmngtn</td>
+<td>0</td>
+<td>17</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Blueste</td>
+<td>0</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">BrDale</td>
+<td>0</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>13</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">BrkSide</td>
+<td>0</td>
+<td>3</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>44</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">ClearCr</td>
+<td>0</td>
+<td>24</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Some garage types are common only in specific neighborhoods.</p>
+</section>
+<section id="correlations" class="level3" data-number="7.4.4">
+<h3 data-number="7.4.4" class="anchored" data-anchor-id="correlations"><span class="header-section-number">7.4.4</span> Correlations</h3>
+<p>Correlation coefficients capture linear associations between numeric variables.</p>
+<div id="73123eae" class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Correlation between living area and sale price</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>df[[<span class="st">'GrLivArea'</span>,<span class="st">'SalePrice'</span>]].corr()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="22">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">GrLivArea</th>
+<th data-quarto-table-cell-role="th">SalePrice</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">GrLivArea</td>
+<td>1.000000</td>
+<td>0.708624</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">SalePrice</td>
+<td>0.708624</td>
+<td>1.000000</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="66a7dc45" class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Correlation between lot area and sale price</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>df[[<span class="st">'LotArea'</span>,<span class="st">'SalePrice'</span>]].corr()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="23">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">LotArea</th>
+<th data-quarto-table-cell-role="th">SalePrice</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">LotArea</td>
+<td>1.000000</td>
+<td>0.263843</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">SalePrice</td>
+<td>0.263843</td>
+<td>1.000000</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Living area is strongly correlated with price, while lot area shows a weaker association.</p>
+</section>
+<section id="conditional-summaries" class="level3" data-number="7.4.5">
+<h3 data-number="7.4.5" class="anchored" data-anchor-id="conditional-summaries"><span class="header-section-number">7.4.5</span> Conditional summaries</h3>
+<p>Examining distributions within subgroups can surface interaction patterns.</p>
+<div id="ed2d38c1" class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Average sale price by house style</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>df.groupby(<span class="st">'HouseStyle'</span>)[<span class="st">'SalePrice'</span>].mean().sort_values()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="24">
+<pre><code>HouseStyle
+1.5Unf    110150.000000
+SFoyer    135074.486486
+1.5Fin    143116.740260
+2.5Unf    157354.545455
+SLvl      166703.384615
+1Story    175985.477961
+2Story    210051.764045
+2.5Fin    220000.000000
+Name: SalePrice, dtype: float64</code></pre>
+</div>
+</div>
+<p>House style is another factor associated with variation in price.</p>
+<p>These practices provide a numerical portrait of the data, guiding later steps where hypotheses will be stated explicitly and tested with appropriate statistical methods.</p>
+</section>
+</section>
+<section id="forming-and-testing-hypotheses" class="level2" data-number="7.5">
+<h2 data-number="7.5" class="anchored" data-anchor-id="forming-and-testing-hypotheses"><span class="header-section-number">7.5</span> Forming and Testing Hypotheses</h2>
+<p>Exploration becomes more rigorous when we state hypotheses formally and run appropriate tests. The null hypothesis always represents no effect, no difference, or no association. The alternative expresses the presence of an effect. The examples below use the Ames Housing data.</p>
+<section id="neighborhood-and-sale-price" class="level3" data-number="7.5.1">
+<h3 data-number="7.5.1" class="anchored" data-anchor-id="neighborhood-and-sale-price"><span class="header-section-number">7.5.1</span> Neighborhood and sale price</h3>
+<p>Hypothesis: - H0: The mean sale prices are equal across neighborhoods. - H1: At least one neighborhood has a different mean.</p>
+<div id="b23c0c64" class="cell" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.formula.api <span class="im">as</span> smf</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statsmodels.stats.anova <span class="im">import</span> anova_lm</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>sub <span class="op">=</span> df[[<span class="st">'SalePrice'</span>,<span class="st">'Neighborhood'</span>]].dropna()</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> smf.ols(<span class="st">'SalePrice ~ C(Neighborhood)'</span>, data<span class="op">=</span>sub).fit()</span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>anova_lm(model, typ<span class="op">=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="25">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">sum_sq</th>
+<th data-quarto-table-cell-role="th">df</th>
+<th data-quarto-table-cell-role="th">F</th>
+<th data-quarto-table-cell-role="th">PR(&gt;F)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">C(Neighborhood)</td>
+<td>5.023606e+12</td>
+<td>24.0</td>
+<td>71.784865</td>
+<td>1.558600e-225</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Residual</td>
+<td>4.184305e+12</td>
+<td>1435.0</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>ANOVA tests equality of group means. If significant, post-hoc comparisons can identify which neighborhoods differ.</p>
+</section>
+<section id="year-built-and-sale-price" class="level3" data-number="7.5.2">
+<h3 data-number="7.5.2" class="anchored" data-anchor-id="year-built-and-sale-price"><span class="header-section-number">7.5.2</span> Year built and sale price</h3>
+<p>Hypothesis: - H0: The slope for YearBuilt is zero; no linear relationship. - H1: The slope is not zero.</p>
+<div id="0fdf75f5" class="cell" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> smf.ols(<span class="st">'SalePrice ~ YearBuilt'</span>, data<span class="op">=</span>df).fit(cov_type<span class="op">=</span><span class="st">'HC3'</span>)</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>model.summary().tables[<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="26">
+<table class="simpletable caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<tbody>
+<tr class="odd">
+<td></td>
+<td data-quarto-table-cell-role="th">coef</td>
+<td data-quarto-table-cell-role="th">std err</td>
+<td data-quarto-table-cell-role="th">z</td>
+<td data-quarto-table-cell-role="th">P&gt;|z|</td>
+<td data-quarto-table-cell-role="th">[0.025</td>
+<td data-quarto-table-cell-role="th">0.975]</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Intercept</td>
+<td>-2.53e+06</td>
+<td>1.36e+05</td>
+<td>-18.667</td>
+<td>0.000</td>
+<td>-2.8e+06</td>
+<td>-2.26e+06</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">YearBuilt</td>
+<td>1375.3735</td>
+<td>68.973</td>
+<td>19.941</td>
+<td>0.000</td>
+<td>1240.189</td>
+<td>1510.558</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>The regression slope test checks whether newer houses tend to sell for more.</p>
+</section>
+<section id="lot-area-and-sale-price" class="level3" data-number="7.5.3">
+<h3 data-number="7.5.3" class="anchored" data-anchor-id="lot-area-and-sale-price"><span class="header-section-number">7.5.3</span> Lot area and sale price</h3>
+<p>Hypothesis: - H0: The population correlation is zero. - H1: The correlation is not zero.</p>
+<div id="38d3bdcc" class="cell" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> stats</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>sub <span class="op">=</span> df[[<span class="st">'LotArea'</span>,<span class="st">'SalePrice'</span>]].dropna()</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>stats.pearsonr(sub[<span class="st">'LotArea'</span>], sub[<span class="st">'SalePrice'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="27">
+<pre><code>PearsonRResult(statistic=np.float64(0.2638433538714058), pvalue=np.float64(1.123139154918551e-24))</code></pre>
+</div>
+</div>
+<p>A Pearson correlation tests linear association. A Spearman rank correlation can be used when distributions are skewed.</p>
+</section>
+<section id="fireplaces-and-sale-price" class="level3" data-number="7.5.4">
+<h3 data-number="7.5.4" class="anchored" data-anchor-id="fireplaces-and-sale-price"><span class="header-section-number">7.5.4</span> Fireplaces and sale price</h3>
+<p>Hypothesis: - H0: The mean sale price is the same for houses with and without a fireplace. - H1: The mean sale prices differ.</p>
+<div id="c693df30" class="cell" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>sub <span class="op">=</span> df[[<span class="st">'SalePrice'</span>,<span class="st">'Fireplaces'</span>]].dropna()</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>sub[<span class="st">'has_fp'</span>] <span class="op">=</span> (sub[<span class="st">'Fireplaces'</span>] <span class="op">&gt;</span> <span class="dv">0</span>).astype(<span class="bu">int</span>)</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>g1 <span class="op">=</span> sub.loc[sub[<span class="st">'has_fp'</span>]<span class="op">==</span><span class="dv">1</span>, <span class="st">'SalePrice'</span>]</span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>g0 <span class="op">=</span> sub.loc[sub[<span class="st">'has_fp'</span>]<span class="op">==</span><span class="dv">0</span>, <span class="st">'SalePrice'</span>]</span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>stats.ttest_ind(g1, g0, equal_var<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="28">
+<pre><code>TtestResult(statistic=np.float64(21.105376324953664), pvalue=np.float64(4.666259945494159e-84), df=np.float64(1171.6295727321062))</code></pre>
+</div>
+</div>
+<p>Welch’s t-test compares means when variances differ.</p>
+</section>
+<section id="garage-type-and-neighborhood" class="level3" data-number="7.5.5">
+<h3 data-number="7.5.5" class="anchored" data-anchor-id="garage-type-and-neighborhood"><span class="header-section-number">7.5.5</span> Garage type and neighborhood</h3>
+<p>Hypothesis: - H0: Garage type and neighborhood are independent. - H1: Garage type and neighborhood are associated.</p>
+<div id="87963745" class="cell" data-execution_count="29">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>ct <span class="op">=</span> pd.crosstab(df[<span class="st">'GarageType'</span>], df[<span class="st">'Neighborhood'</span>])</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>stats.chi2_contingency(ct)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="29">
+<pre><code>Chi2ContingencyResult(statistic=np.float64(794.6871326886048), pvalue=np.float64(5.179037846292559e-100), dof=120, expected_freq=array([[7.39666425e-02, 8.70195794e-03, 6.52646846e-02, 2.08846991e-01,
+        1.17476432e-01, 6.43944888e-01, 2.21899927e-01, 3.39376360e-01,
+        3.43727339e-01, 1.26178390e-01, 5.22117476e-02, 1.91443075e-01,
+        9.52864394e-01, 3.91588107e-02, 3.17621465e-01, 1.78390138e-01,
+        3.35025381e-01, 4.39448876e-01, 8.70195794e-02, 3.08919507e-01,
+        2.52356780e-01, 3.74184191e-01, 1.08774474e-01, 1.65337201e-01,
+        4.78607687e-02],
+       [1.07251632e+01, 1.26178390e+00, 9.46337926e+00, 3.02828136e+01,
+        1.70340827e+01, 9.33720087e+01, 3.21754895e+01, 4.92095722e+01,
+        4.98404641e+01, 1.82958666e+01, 7.57070341e+00, 2.77592458e+01,
+        1.38165337e+02, 5.67802756e+00, 4.60551124e+01, 2.58665700e+01,
+        4.85786802e+01, 6.37200870e+01, 1.26178390e+01, 4.47933285e+01,
+        3.65917331e+01, 5.42567078e+01, 1.57722988e+01, 2.39738941e+01,
+        6.93981146e+00],
+       [2.34227701e-01, 2.75562001e-02, 2.06671501e-01, 6.61348803e-01,
+        3.72008702e-01, 2.03915881e+00, 7.02683104e-01, 1.07469181e+00,
+        1.08846991e+00, 3.99564902e-01, 1.65337201e-01, 6.06236403e-01,
+        3.01740392e+00, 1.24002901e-01, 1.00580131e+00, 5.64902103e-01,
+        1.06091371e+00, 1.39158811e+00, 2.75562001e-01, 9.78245105e-01,
+        7.99129804e-01, 1.18491661e+00, 3.44452502e-01, 5.23567803e-01,
+        1.51559101e-01],
+       [1.08484409e+00, 1.27628716e-01, 9.57215373e-01, 3.06308920e+00,
+        1.72298767e+00, 9.44452502e+00, 3.25453227e+00, 4.97751994e+00,
+        5.04133430e+00, 1.85061639e+00, 7.65772299e-01, 2.80783176e+00,
+        1.39753445e+01, 5.74329224e-01, 4.65844815e+00, 2.61638869e+00,
+        4.91370558e+00, 6.44525018e+00, 1.27628716e+00, 4.53081943e+00,
+        3.70123278e+00, 5.48803481e+00, 1.59535896e+00, 2.42494561e+00,
+        7.01957941e-01],
+       [1.10949964e-01, 1.30529369e-02, 9.78970268e-02, 3.13270486e-01,
+        1.76214648e-01, 9.65917331e-01, 3.32849891e-01, 5.09064540e-01,
+        5.15591008e-01, 1.89267585e-01, 7.83176215e-02, 2.87164612e-01,
+        1.42929659e+00, 5.87382161e-02, 4.76432197e-01, 2.67585207e-01,
+        5.02538071e-01, 6.59173314e-01, 1.30529369e-01, 4.63379260e-01,
+        3.78535170e-01, 5.61276287e-01, 1.63161711e-01, 2.48005801e-01,
+        7.17911530e-02],
+       [4.77084844e+00, 5.61276287e-01, 4.20957215e+00, 1.34706309e+01,
+        7.57722988e+00, 4.15344453e+01, 1.43125453e+01, 2.18897752e+01,
+        2.21704133e+01, 8.13850616e+00, 3.36765772e+00, 1.23480783e+01,
+        6.14597534e+01, 2.52574329e+00, 2.04865845e+01, 1.15061639e+01,
+        2.16091371e+01, 2.83444525e+01, 5.61276287e+00, 1.99253082e+01,
+        1.62770123e+01, 2.41348803e+01, 7.01595359e+00, 1.06642495e+01,
+        3.08701958e+00]]))</code></pre>
+</div>
+</div>
+<p>A chi-square test checks for association between two categorical variables.</p>
+<hr>
+</section>
+<section id="quick-reference-table-for-common-tests" class="level3" data-number="7.5.6">
+<h3 data-number="7.5.6" class="anchored" data-anchor-id="quick-reference-table-for-common-tests"><span class="header-section-number">7.5.6</span> Quick reference table for common tests</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 31%">
+<col style="width: 29%">
+<col style="width: 25%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Situation</th>
+<th>Null hypothesis</th>
+<th>Test</th>
+<th>Python tool</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>k-group mean comparison</td>
+<td>All group means equal</td>
+<td>One-way ANOVA</td>
+<td><code>anova_lm</code></td>
+</tr>
+<tr class="even">
+<td>k-group, nonparametric</td>
+<td>All group distributions equal</td>
+<td>Kruskal–Wallis</td>
+<td><code>stats.kruskal</code></td>
+</tr>
+<tr class="odd">
+<td>Two means, unequal variance</td>
+<td>Means equal</td>
+<td>Welch’s t-test</td>
+<td><code>stats.ttest_ind</code></td>
+</tr>
+<tr class="even">
+<td>Two groups, nonparametric</td>
+<td>Distributions equal</td>
+<td>Mann–Whitney U</td>
+<td><code>stats.mannwhitneyu</code></td>
+</tr>
+<tr class="odd">
+<td>Linear relationship</td>
+<td>Slope = 0</td>
+<td>OLS slope test</td>
+<td><code>ols</code> + robust SE</td>
+</tr>
+<tr class="even">
+<td>Continuous association</td>
+<td>Correlation = 0</td>
+<td>Pearson correlation</td>
+<td><code>stats.pearsonr</code></td>
+</tr>
+<tr class="odd">
+<td>Monotone association</td>
+<td>Correlation = 0</td>
+<td>Spearman correlation</td>
+<td><code>stats.spearmanr</code></td>
+</tr>
+<tr class="even">
+<td>Categorical association</td>
+<td>Independence</td>
+<td>Chi-square test</td>
+<td><code>stats.chi2_contingency</code></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p>These examples illustrate how hypotheses guide exploration. Each test produces a statistic, a p-value, and often an effect size. Results are provisional and informal, but they shape which relationships merit deeper investigation.</p>
+</section>
+</section>
+<section id="iterative-nature-of-exploration" class="level2" data-number="7.6">
+<h2 data-number="7.6" class="anchored" data-anchor-id="iterative-nature-of-exploration"><span class="header-section-number">7.6</span> Iterative Nature of Exploration</h2>
+<p>Exploration is rarely linear. Cleaning, summarizing, and testing feed back into each other. Each new discovery can prompt a return to earlier steps.</p>
+<section id="cycle-of-exploration" class="level3" data-number="7.6.1">
+<h3 data-number="7.6.1" class="anchored" data-anchor-id="cycle-of-exploration"><span class="header-section-number">7.6.1</span> Cycle of exploration</h3>
+<ul>
+<li>Inspect variables and detect anomalies.</li>
+<li>Clean data based on what anomalies reveal.</li>
+<li>Summarize distributions and relationships.</li>
+<li>Formulate and test new hypotheses.</li>
+<li>Revisit cleaning when results suggest overlooked issues.</li>
+</ul>
+</section>
+<section id="example-garage-year-built" class="level3" data-number="7.6.2">
+<h3 data-number="7.6.2" class="anchored" data-anchor-id="example-garage-year-built"><span class="header-section-number">7.6.2</span> Example: Garage year built</h3>
+<p>Initial inspection may suggest that many values of <code>GarageYrBlt</code> are missing. Documentation indicates that missing means no garage.</p>
+<div id="cba1054e" class="cell" data-execution_count="30">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Count missing garage years</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'GarageYrBlt'</span>].isna().<span class="bu">sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="30">
+<pre><code>np.int64(81)</code></pre>
+</div>
+</div>
+<p>When checking integrity, we may notice that some garage years precede the house year built.</p>
+<div id="89772a03" class="cell" data-execution_count="31">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Garage built before house built</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>(df[<span class="st">'GarageYrBlt'</span>] <span class="op">&lt;</span> df[<span class="st">'YearBuilt'</span>]).<span class="bu">sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="31">
+<pre><code>np.int64(9)</code></pre>
+</div>
+</div>
+<p>This prompts a decision: treat as data entry error, keep with caution, or exclude in certain analyses.</p>
+</section>
+<section id="example-living-area-and-sale-price" class="level3" data-number="7.6.3">
+<h3 data-number="7.6.3" class="anchored" data-anchor-id="example-living-area-and-sale-price"><span class="header-section-number">7.6.3</span> Example: Living area and sale price</h3>
+<p>A strong correlation between <code>GrLivArea</code> and <code>SalePrice</code> may surface.</p>
+<div id="d7c60a59" class="cell" data-execution_count="32">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Correlation</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>sub <span class="op">=</span> df[[<span class="st">'GrLivArea'</span>,<span class="st">'SalePrice'</span>]].dropna()</span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>sub.corr()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="32">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">GrLivArea</th>
+<th data-quarto-table-cell-role="th">SalePrice</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">GrLivArea</td>
+<td>1.000000</td>
+<td>0.708624</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">SalePrice</td>
+<td>0.708624</td>
+<td>1.000000</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>If a few extremely large houses are driving the correlation, it may be necessary to investigate further.</p>
+<div id="c3f32918" class="cell" data-execution_count="33">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Identify extreme values</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>sub[sub[<span class="st">'GrLivArea'</span>] <span class="op">&gt;</span> <span class="dv">4000</span>][[<span class="st">'GrLivArea'</span>,<span class="st">'SalePrice'</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="33">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">GrLivArea</th>
+<th data-quarto-table-cell-role="th">SalePrice</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">523</td>
+<td>4676</td>
+<td>184750</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">691</td>
+<td>4316</td>
+<td>755000</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1182</td>
+<td>4476</td>
+<td>745000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1298</td>
+<td>5642</td>
+<td>160000</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>These observations may be genuine luxury properties, or they may distort summary statistics. The decision is context-dependent and should be documented.</p>
+<p>Exploration is not a one-pass process. Findings in one step often require revisiting previous steps. Clear documentation ensures that these iterations are transparent and reproducible.</p>
+</section>
+</section>
+<section id="good-practices-in-data-exploration" class="level2" data-number="7.7">
+<h2 data-number="7.7" class="anchored" data-anchor-id="good-practices-in-data-exploration"><span class="header-section-number">7.7</span> 7. Good Practices in Data Exploration</h2>
+<p>Clear habits in exploration make later analysis more reliable and easier to share. The following practices help ensure quality and reproducibility.</p>
+<section id="reproducibility" class="level3" data-number="7.7.1">
+<h3 data-number="7.7.1" class="anchored" data-anchor-id="reproducibility"><span class="header-section-number">7.7.1</span> Reproducibility</h3>
+<ul>
+<li>Keep all work in notebooks or scripts, never only in spreadsheets.</li>
+<li>Ensure that another analyst can rerun the code and obtain identical results.</li>
+</ul>
+<div id="4efe37e9" class="cell" data-execution_count="34">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example: set a random seed for reproducibility</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">20250923</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="documentation" class="level3" data-number="7.7.2">
+<h3 data-number="7.7.2" class="anchored" data-anchor-id="documentation"><span class="header-section-number">7.7.2</span> Documentation</h3>
+<ul>
+<li>Record cleaning decisions explicitly. For example, note that NA in <code>PoolQC</code> means no pool.</li>
+<li>Keep a running log of questions, anomalies, and decisions.</li>
+</ul>
+<div id="8af77136" class="cell" data-execution_count="35">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example: create an indicator for presence of a pool</span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'HasPool'</span>] <span class="op">=</span> df[<span class="st">'PoolArea'</span>] <span class="op">&gt;</span> <span class="dv">0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="balanced-curiosity-and-rigor" class="level3" data-number="7.7.3">
+<h3 data-number="7.7.3" class="anchored" data-anchor-id="balanced-curiosity-and-rigor"><span class="header-section-number">7.7.3</span> Balanced curiosity and rigor</h3>
+<ul>
+<li>Exploration can generate many possible stories. Avoid over-interpreting patterns before formal testing.</li>
+<li>Distinguish clearly between exploratory checks and confirmatory analysis.</li>
+</ul>
+</section>
+<section id="effect-sizes-and-intervals" class="level3" data-number="7.7.4">
+<h3 data-number="7.7.4" class="anchored" data-anchor-id="effect-sizes-and-intervals"><span class="header-section-number">7.7.4</span> Effect sizes and intervals</h3>
+<ul>
+<li>Report not only p-values but also effect sizes and confidence intervals.</li>
+<li>This practice keeps focus on the magnitude of relationships.</li>
+</ul>
+<div id="9531c6b8" class="cell" data-execution_count="36">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example: compute Cohen's d for fireplace vs no fireplace</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>sub <span class="op">=</span> df[[<span class="st">'SalePrice'</span>,<span class="st">'Fireplaces'</span>]].dropna()</span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>sub[<span class="st">'has_fp'</span>] <span class="op">=</span> (sub[<span class="st">'Fireplaces'</span>] <span class="op">&gt;</span> <span class="dv">0</span>).astype(<span class="bu">int</span>)</span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a>mean_diff <span class="op">=</span> sub.groupby(<span class="st">'has_fp'</span>)[<span class="st">'SalePrice'</span>].mean().diff().iloc[<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a>pooled_sd <span class="op">=</span> sub.groupby(<span class="st">'has_fp'</span>)[<span class="st">'SalePrice'</span>].std().mean()</span>
+<span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a>cohens_d <span class="op">=</span> mean_diff <span class="op">/</span> pooled_sd</span>
+<span id="cb60-8"><a href="#cb60-8" aria-hidden="true" tabindex="-1"></a>cohens_d</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="36">
+<pre><code>np.float64(1.144008229281349)</code></pre>
+</div>
+</div>
+</section>
+<section id="transparency" class="level3" data-number="7.7.5">
+<h3 data-number="7.7.5" class="anchored" data-anchor-id="transparency"><span class="header-section-number">7.7.5</span> Transparency</h3>
+<ul>
+<li>Share both code and notes with collaborators.</li>
+<li>Version control with Git helps track changes and decisions.</li>
+</ul>
+<hr>
+<p>Good practices keep exploration structured and reproducible. They also create a record of reasoning that improves collaboration and supports later analysis.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./06-manipulation.html" class="pagination-link" aria-label="Data Manipulation">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data Manipulation</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./exercises.html" class="pagination-link" aria-label="Exercises">
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Exercises</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

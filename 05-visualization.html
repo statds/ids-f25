@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>3&nbsp; Reproducible Data Science – Introduction to Data Science</title>
+<title>5&nbsp; Data Visualization – Introduction to Data Science</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,27 +20,7 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-  margin-bottom: 0em;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -50,8 +30,8 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./python.html" rel="next">
-<link href="./git.html" rel="prev">
+<link href="./06-manipulation.html" rel="next">
+<link href="./04-python.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -102,7 +82,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./quarto.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Reproducible Data Science</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./05-visualization.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data Visualization</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -135,44 +115,50 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./intro.html" class="sidebar-item-text sidebar-link">
+  <a href="./01-intro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./git.html" class="sidebar-item-text sidebar-link">
+  <a href="./02-git.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Project Management</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./quarto.html" class="sidebar-item-text sidebar-link active">
+  <a href="./03-quarto.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Reproducible Data Science</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./python.html" class="sidebar-item-text sidebar-link">
+  <a href="./04-python.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Python Refreshment</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./visualization.html" class="sidebar-item-text sidebar-link">
+  <a href="./05-visualization.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data Visualization</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./manipulation.html" class="sidebar-item-text sidebar-link">
+  <a href="./06-manipulation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data Manipulation</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./07-exploration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Data Exploration</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Exercises</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Exercises</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -191,20 +177,11 @@ div.csl-indent {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#introduction-to-quarto" id="toc-introduction-to-quarto" class="nav-link active" data-scroll-target="#introduction-to-quarto"><span class="header-section-number">3.1</span> Introduction to Quarto</a></li>
-  <li><a href="#sec-buildnotes" id="toc-sec-buildnotes" class="nav-link" data-scroll-target="#sec-buildnotes"><span class="header-section-number">3.2</span> Compiling the Classnotes</a>
+  <li><a href="#grammar-of-graphics-with-plotnine" id="toc-grammar-of-graphics-with-plotnine" class="nav-link active" data-scroll-target="#grammar-of-graphics-with-plotnine"><span class="header-section-number">5.1</span> Grammar of Graphics with Plotnine</a>
   <ul class="collapse">
-  <li><a href="#set-up-your-python-virtual-environment" id="toc-set-up-your-python-virtual-environment" class="nav-link" data-scroll-target="#set-up-your-python-virtual-environment"><span class="header-section-number">3.2.1</span> Set up your Python Virtual Environment</a></li>
-  <li><a href="#clone-the-repository" id="toc-clone-the-repository" class="nav-link" data-scroll-target="#clone-the-repository"><span class="header-section-number">3.2.2</span> Clone the Repository</a></li>
-  <li><a href="#render-the-classnotes" id="toc-render-the-classnotes" class="nav-link" data-scroll-target="#render-the-classnotes"><span class="header-section-number">3.2.3</span> Render the Classnotes</a></li>
-  <li><a href="#login-requirements" id="toc-login-requirements" class="nav-link" data-scroll-target="#login-requirements"><span class="header-section-number">3.2.4</span> Login Requirements</a></li>
-  </ul></li>
-  <li><a href="#the-data-science-life-cycle" id="toc-the-data-science-life-cycle" class="nav-link" data-scroll-target="#the-data-science-life-cycle"><span class="header-section-number">3.3</span> The Data Science Life Cycle</a></li>
-  <li><a href="#a-primer-of-markdown" id="toc-a-primer-of-markdown" class="nav-link" data-scroll-target="#a-primer-of-markdown"><span class="header-section-number">3.4</span> A Primer of Markdown</a>
-  <ul class="collapse">
-  <li><a href="#subsection-1" id="toc-subsection-1" class="nav-link" data-scroll-target="#subsection-1"><span class="header-section-number">3.4.1</span> Subsection 1</a></li>
-  <li><a href="#subsection-2" id="toc-subsection-2" class="nav-link" data-scroll-target="#subsection-2"><span class="header-section-number">3.4.2</span> Subsection 2</a></li>
-  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">3.4.3</span> Further Reading</a></li>
+  <li><a href="#subsection-1" id="toc-subsection-1" class="nav-link" data-scroll-target="#subsection-1"><span class="header-section-number">5.1.1</span> Subsection 1</a></li>
+  <li><a href="#subsection-2" id="toc-subsection-2" class="nav-link" data-scroll-target="#subsection-2"><span class="header-section-number">5.1.2</span> Subsection 2</a></li>
+  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">5.1.3</span> Further Reading</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -214,7 +191,7 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span id="sec-quarto" class="quarto-section-identifier"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Reproducible Data Science</span></span></h1>
+<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data Visualization</span></h1>
 </div>
 
 
@@ -231,110 +208,23 @@ div.csl-indent {
 </header>
 
 
-<p>Data science projects should be reproducible to be trustworthy. Dynamic documents facilitate reproducibility. <a href="https://quarto.org">Quarto</a> is an open-source dynamic document preparation system, ideal for scientific and technical publishing. From the official websites, Quarto can be used to:</p>
-<ul>
-<li>Create dynamic content with Python, R, Julia, and Observable.</li>
-<li>Author documents as plain text markdown or Jupyter notebooks.</li>
-<li>Publish high-quality articles, reports, presentations, websites, blogs, and books in HTML, PDF, MS Word, ePub, and more.</li>
-<li>Author with scientific markdown, including equations, citations, cross references, figure panels, callouts, advanced layout, and more.</li>
-</ul>
-<section id="introduction-to-quarto" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="introduction-to-quarto"><span class="header-section-number">3.1</span> Introduction to Quarto</h2>
-<p>To get started with Quarto, see documentation at <a href="https://quarto.org/docs/get-started/">Quarto</a>.</p>
-<p>For a clean style, I suggest that you use <code>VS Code</code> as your IDE. The <code>ipynb</code> files have extra formats in plain texts, which are not as clean as <code>qmd</code> files. There are, of course, tools to convert between the two representations of a notebook. For example:</p>
-<pre><code>quarto convert hello.ipynb # converts to qmd
-quarto convert hello.qmd   # converts to ipynb</code></pre>
-<p>We will use Quarto for homework assignments, classnotes, and presentations. You will see them in action through in-class demonstrations. The following sections in the <a href="https://quarto.org/docs/guide/">Quarto Guide</a> are immediately useful.</p>
-<ul>
-<li><a href="https://quarto.org/docs/authoring/markdown-basics.html">Markdown basics</a></li>
-<li><a href="https://quarto.org/docs/computations/python.html">Using Python</a></li>
-<li><a href="https://quarto.org/docs/presentations/">Presentations</a></li>
-</ul>
-<p>A template for homework is in this repo (<code>hwtemp.qmd</code>) to get you started with homework assignments.</p>
+<!-- This section is to be included as a tutorial for ggplot with plotnine. -->
+<section id="grammar-of-graphics-with-plotnine" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="grammar-of-graphics-with-plotnine"><span class="header-section-number">5.1</span> Grammar of Graphics with Plotnine</h2>
+<p>This is section was written by Sonia Lucey. Sonia was ..</p>
+<section id="subsection-1" class="level3" data-number="5.1.1">
+<h3 data-number="5.1.1" class="anchored" data-anchor-id="subsection-1"><span class="header-section-number">5.1.1</span> Subsection 1</h3>
 </section>
-<section id="sec-buildnotes" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="sec-buildnotes"><span class="header-section-number">3.2</span> Compiling the Classnotes</h2>
-<p>The sources of the classnotes are at <a href="https://github.com/statds/ids-s25" class="uri">https://github.com/statds/ids-s25</a>. This is also the source tree that you will contributed to this semester. I expect that you clone the repository to your own computer, update it frequently, and compile the latest version on your computer (reproducibility).</p>
-<p>To compile the classnotes, you need the following tools: Git, Quarto, and Python.</p>
-<section id="set-up-your-python-virtual-environment" class="level3" data-number="3.2.1">
-<h3 data-number="3.2.1" class="anchored" data-anchor-id="set-up-your-python-virtual-environment"><span class="header-section-number">3.2.1</span> Set up your Python Virtual Environment</h3>
-<p>I suggest that a Python virtual environment for the classnotes be set up in the current directory for reproducibility. A Python virtual environment is simply a directory with a particular file structure, which contains a specific Python interpreter and software libraries and binaries needed to support a project. It allows us to isolate our Python development projects from our system installed Python and other Python environments.</p>
-<p>To create a Python virtual environment for our classnotes:</p>
-<pre><code>python3 -m venv .ids-s25-venv</code></pre>
-<p>Here <code>.ids-s25-venv</code> is the name of the virtual environment to be created. Choose an informative name. This only needs to be set up once.</p>
-<p>To activate this virtual environment:</p>
-<pre><code>. .ids-s25-venv/bin/activate</code></pre>
-<p>After activating the virtual environment, you will see <code>(.ids-s25-venv)</code> at the beginning of your shell prompt. Then, the Python interpreter and packages needed will be the local versions in this virtual environment without interfering your system-wide installation or other virtual environments.</p>
-<p>To install the Python packages that are needed to compile the classnotes, we have a <code>requirements.txt</code> file that specifies the packages and their versions. They can be installed easily with:</p>
-<pre><code>pip install -r requirements.txt</code></pre>
-<p>If you are interested in learning how to create the <code>requirements.txt</code> file, just put your question into a Google search.</p>
-<p>To exit the virtual environment, simply type <code>deactivate</code> in your command line. This will return you to your system’s global Python environment.</p>
+<section id="subsection-2" class="level3" data-number="5.1.2">
+<h3 data-number="5.1.2" class="anchored" data-anchor-id="subsection-2"><span class="header-section-number">5.1.2</span> Subsection 2</h3>
 </section>
-<section id="clone-the-repository" class="level3" data-number="3.2.2">
-<h3 data-number="3.2.2" class="anchored" data-anchor-id="clone-the-repository"><span class="header-section-number">3.2.2</span> Clone the Repository</h3>
-<p>Clone the repository to your own computer. In a terminal (command line), go to an appropriate directory (folder), and clone the repo. For example, if you use <code>ssh</code> for authentication:</p>
-<pre><code>git clone git@github.com:statds/ids-s25.git</code></pre>
-</section>
-<section id="render-the-classnotes" class="level3" data-number="3.2.3">
-<h3 data-number="3.2.3" class="anchored" data-anchor-id="render-the-classnotes"><span class="header-section-number">3.2.3</span> Render the Classnotes</h3>
-<p>Assuming <code>quarto</code> has been set up, we render the classnotes in the cloned repository</p>
-<pre><code>cd ids-s25
-quarto render</code></pre>
-<p>If there are error messages, search and find solutions to clear them. Otherwise, the html version of the notes will be available under <code>_book/index.html</code>, which is default location of the output.</p>
-</section>
-<section id="login-requirements" class="level3" data-number="3.2.4">
-<h3 data-number="3.2.4" class="anchored" data-anchor-id="login-requirements"><span class="header-section-number">3.2.4</span> Login Requirements</h3>
-<p>For some illustrations, you need to interact with certain sites that require account information. For example, for Google map services, you need to save your API key in a file named <code>api_key.txt</code> in the root folder of the source. Another example is to access the US Census API, where you would need to register an account and get your Census API Key.</p>
-</section>
-</section>
-<section id="the-data-science-life-cycle" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="the-data-science-life-cycle"><span class="header-section-number">3.3</span> The Data Science Life Cycle</h2>
-<p>This section summarizes Chapter 2 of <em>Veridical Data Science</em> <span class="citation" data-cites="yu2024veridical">(<a href="references.html#ref-yu2024veridical" role="doc-biblioref">Yu &amp; Barter, 2024</a>)</span>, which introduces the data science life cycle (DSLC). The DSLC provides a structured way to think about the progression of data science projects. It consists of six stages, each with a distinct purpose:</p>
-<ul>
-<li><p>Stage 1: Problem formulation and data collection<br>
-Collaborate with domain experts to refine vague questions into ones that can realistically be answered with data. Identify what data already exists or design new collection protocols. Understanding the collection process is crucial for assessing how data relates to reality.</p></li>
-<li><p>Stage 2: Data cleaning, preprocessing, and exploratory data analysis<br>
-Clean data to make it tidy, unambiguous, and correctly formatted. Preprocess it to meet the requirements of specific algorithms, such as handling missing values or scaling variables. Exploratory data analysis (EDA) summarizes patterns using tables, statistics, and plots, while explanatory data analysis polishes visuals for communication.</p></li>
-<li><p>Stage 3: Exploring intrinsic data structures (optional)<br>
-Techniques such as dimensionality reduction simplify data into lower-dimensional forms, while clustering identifies natural groupings among observations. Even if not central to the project, these methods often enhance understanding.</p></li>
-<li><p>Stage 4: Predictive and/or inferential analysis (optional)<br>
-Many projects are cast as prediction tasks, training algorithms like regression or random forests to forecast outcomes. Inference focuses on estimating population parameters and quantifying uncertainty. This book emphasizes prediction while acknowledging inference as important in many domains.</p></li>
-<li><p>Stage 5: Evaluation of results<br>
-Findings should be evaluated both qualitatively, through critical thinking, and quantitatively, through the PCS framework. PCS stands for predictability, computability, and stability:</p>
-<ul>
-<li>Predictability asks whether findings hold up in relevant future data.<br>
-</li>
-<li>Computability asks whether methods are feasible with available computational resources.<br>
-</li>
-<li>Stability asks whether conclusions remain consistent under reasonable changes in data, methods, or judgment calls.<br>
-Together, PCS provides a foundation for assessing the reliability of data-driven results.</li>
-</ul></li>
-<li><p>Stage 6: Communication of results<br>
-Results must be conveyed clearly to intended audiences, whether through reports, presentations, visualizations, or deployable tools. Communication should be tailored so findings can inform real-world decisions.</p></li>
-</ul>
-<p>The DSLC is not a linear pipeline—analysts often loop back to refine earlier steps. The chapter also cautions against data snooping, where patterns discovered during exploration are mistaken for reliable truths. Applying PCS ensures that results are not only technically sound but also trustworthy and interpretable across the life cycle.</p>
-<!-- <\!-- This section is to be included as a Primer of Markdown. -\-> -->
-</section>
-<section id="a-primer-of-markdown" class="level2" data-number="3.4">
-<h2 data-number="3.4" class="anchored" data-anchor-id="a-primer-of-markdown"><span class="header-section-number">3.4</span> A Primer of Markdown</h2>
-<p>This is section was written by Jingang Calvin Chen. Calvin was a …</p>
-<section id="subsection-1" class="level3" data-number="3.4.1">
-<h3 data-number="3.4.1" class="anchored" data-anchor-id="subsection-1"><span class="header-section-number">3.4.1</span> Subsection 1</h3>
-</section>
-<section id="subsection-2" class="level3" data-number="3.4.2">
-<h3 data-number="3.4.2" class="anchored" data-anchor-id="subsection-2"><span class="header-section-number">3.4.2</span> Subsection 2</h3>
-</section>
-<section id="further-reading" class="level3" data-number="3.4.3">
-<h3 data-number="3.4.3" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">3.4.3</span> Further Reading</h3>
-<!-- <\!-- This section is to be included as a tutorial for Quarto Presentations. -\-> -->
-<!-- {{< include _quarto_presentation.qmd >}} -->
+<section id="further-reading" class="level3" data-number="5.1.3">
+<h3 data-number="5.1.3" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">5.1.3</span> Further Reading</h3>
+<!-- This section is to be included as a tutorial for geopands data. -->
+<!-- {{< include _geopandas.qmd >}} -->
+<!-- Interesting topics: gmplot, folium -->
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list" style="display: none">
-<div id="ref-yu2024veridical" class="csl-entry" role="listitem">
-Yu, B., &amp; Barter, R. L. (2024). <em>Veridical data science: The practice of responsible data analysis and decision making</em>. MIT Press.
-</div>
-</div>
 </section>
 </section>
 
@@ -740,13 +630,13 @@ Yu, B., &amp; Barter, R. L. (2024). <em>Veridical data science: The practice of 
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./git.html" class="pagination-link" aria-label="Project Management">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Project Management</span></span>
+      <a href="./04-python.html" class="pagination-link" aria-label="Python Refreshment">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Python Refreshment</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./python.html" class="pagination-link" aria-label="Python Refreshment">
-        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Python Refreshment</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./06-manipulation.html" class="pagination-link" aria-label="Data Manipulation">
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data Manipulation</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

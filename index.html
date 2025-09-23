@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Jun Yan and Students in Fall 2025">
-<meta name="dcterms.date" content="2025-09-18">
+<meta name="dcterms.date" content="2025-09-23">
 
 <title>Introduction to Data Science</title>
 <style>
@@ -87,7 +87,7 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./intro.html" rel="next">
+<link href="./01-intro.html" rel="next">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -171,44 +171,50 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./intro.html" class="sidebar-item-text sidebar-link">
+  <a href="./01-intro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./git.html" class="sidebar-item-text sidebar-link">
+  <a href="./02-git.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Project Management</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./quarto.html" class="sidebar-item-text sidebar-link">
+  <a href="./03-quarto.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Reproducible Data Science</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./python.html" class="sidebar-item-text sidebar-link">
+  <a href="./04-python.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Python Refreshment</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./visualization.html" class="sidebar-item-text sidebar-link">
+  <a href="./05-visualization.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data Visualization</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./manipulation.html" class="sidebar-item-text sidebar-link">
+  <a href="./06-manipulation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data Manipulation</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./07-exploration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Data Exploration</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Exercises</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Exercises</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -290,7 +296,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 18, 2025</p>
+      <p class="date">September 23, 2025</p>
     </div>
   </div>
   
@@ -314,10 +320,10 @@ div.csl-indent {
 </section>
 <section id="compiling-the-classnotes" class="level2">
 <h2 class="anchored" data-anchor-id="compiling-the-classnotes">Compiling the Classnotes</h2>
-<p>To reproduce the classnotes output on your own computer, here are the necessary steps. See Section <a href="quarto.html#sec-buildnotes" class="quarto-xref"><span>Compiling the Classnotes</span></a> for details.</p>
+<p>To reproduce the classnotes output on your own computer, here are the necessary steps. See Section <a href="03-quarto.html#sec-buildnotes" class="quarto-xref"><span>Compiling the Classnotes</span></a> for details.</p>
 <ul>
-<li>Clone the classnotes repository to an appropriate location on your computer; see Chapter <a href="git.html" class="quarto-xref"><span>2&nbsp; Project Management</span></a> for using Git.</li>
-<li>Set up a Python virtual environment in the root folder of the source; see Section <a href="python.html#sec-python-venv" class="quarto-xref"><span>Virtual Environment</span></a>.</li>
+<li>Clone the classnotes repository to an appropriate location on your computer; see Chapter <a href="02-git.html" class="quarto-xref"><span>2&nbsp; Project Management</span></a> for using Git.</li>
+<li>Set up a Python virtual environment in the root folder of the source; see Section <a href="04-python.html#sec-python-venv" class="quarto-xref"><span>Virtual Environment</span></a>.</li>
 <li>Activate your virtual environment.</li>
 <li>Install all the packages specified in <code>requirements.txt</code> in your virtual environment:</li>
 </ul>
@@ -481,7 +487,13 @@ div.csl-indent {
 <li>Advance my statistical skills through a data science project.</li>
 </ul></li>
 <li>Wishneski, Emma Irene</li>
-<li>Yoon, Jessica Nari</li>
+<li>Yoon, Jessica Nari
+<ul>
+<li>Become comfortable with Git and version control.<br>
+</li>
+<li>Apply skills from this classes to other courses.</li>
+<li>Understand my computer better.</li>
+</ul></li>
 <li>Zhang, Mark Justin
 <ul>
 <li>Get comfortable with command line and Git</li>
@@ -516,7 +528,7 @@ div.csl-indent {
 <section id="presentation-orders" class="level3">
 <h3 class="anchored" data-anchor-id="presentation-orders">Presentation Orders</h3>
 <p>The topic presentation order is set up in class.</p>
-<div id="837a31d2" class="cell" data-execution_count="1">
+<div id="77fbc10d" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'rosters/3255.txt'</span>, <span class="st">'r'</span>) <span class="im">as</span> <span class="bu">file</span>:</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    ug <span class="op">=</span> [line.strip() <span class="cf">for</span> line <span class="kw">in</span> <span class="bu">file</span>]</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'rosters/5255.txt'</span>, <span class="st">'r'</span>) <span class="im">as</span> <span class="bu">file</span>:</span>
@@ -528,7 +540,7 @@ div.csl-indent {
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>random.seed(<span class="dv">2819</span> <span class="op">+</span> <span class="dv">4075</span> <span class="op">+</span> <span class="dv">6227</span> <span class="op">+</span> <span class="dv">5139</span> <span class="op">+</span> <span class="dv">4768</span> <span class="op">+</span> <span class="dv">109</span>)</span>
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>random.sample(presenters, <span class="bu">len</span>(presenters))</span>
 <span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">## random.shuffle(presenters) # This would shuffle the list in place</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="3">
+<div class="cell-output cell-output-display" data-execution_count="1">
 <pre><code>['Chen,Jingang Calvin',
  'Montalvo,Victor Samuel',
  'Cao,Enshuo',
@@ -661,7 +673,7 @@ div.csl-indent {
 <tr class="odd">
 <td>10/09</td>
 <td>Chen, Irene</td>
-<td></td>
+<td>Presentations with Quarto</td>
 </tr>
 <tr class="even">
 <td>10/09</td>
@@ -847,7 +859,7 @@ div.csl-indent {
 <section id="requirements" class="level4">
 <h4 class="anchored" data-anchor-id="requirements">Requirements</h4>
 <ul>
-<li>Use the repo from Git Classroom to submit your work. See Chapter <a href="git.html" class="quarto-xref"><span>2&nbsp; Project Management</span></a>.
+<li>Use the repo from Git Classroom to submit your work. See Chapter <a href="02-git.html" class="quarto-xref"><span>2&nbsp; Project Management</span></a>.
 <ul>
 <li>Keep the repo clean (no tracking generated files).
 <ul>
@@ -856,7 +868,7 @@ div.csl-indent {
 </ul></li>
 <li>Make at least 10 commits and form a style of frequent small commits.</li>
 </ul></li>
-<li>Track <code>quarto</code> sources only in your repo. See Chapter <a href="quarto.html" class="quarto-xref"><span>3&nbsp; Reproducible Data Science</span></a>.</li>
+<li>Track <code>quarto</code> sources only in your repo. See Chapter <a href="03-quarto.html" class="quarto-xref"><span>3&nbsp; Reproducible Data Science</span></a>.</li>
 <li>For the convenience of grading, add your standalone html or pdf output to a release in your repo.</li>
 <li>For standalone pdf output, you will need to have <a href="https://www.latex-project.org/get/">LaTeX</a> installed.</li>
 </ul>
@@ -916,7 +928,7 @@ div.csl-indent {
 <h3 class="anchored" data-anchor-id="sub-topic-1">Sub Topic 1</h3>
 <p>Put materials on topic 1 here</p>
 <p>Python examples can be put into <code>python</code> code chunks:</p>
-<div id="74a8484c" class="cell" data-execution_count="2">
+<div id="52bad494" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># import pandas as pd</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># do something</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1358,7 +1370,7 @@ VanderPlas, J. (2016). <em>Python data science handbook: <span>E</span>ssential 
   <div class="nav-page nav-page-previous">
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./intro.html" class="pagination-link" aria-label="Introduction">
+      <a href="./01-intro.html" class="pagination-link" aria-label="Introduction">
         <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>

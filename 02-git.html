@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>5&nbsp; Data Visualization – Introduction to Data Science</title>
+<title>2&nbsp; Project Management – Introduction to Data Science</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,8 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./manipulation.html" rel="next">
-<link href="./python.html" rel="prev">
+<link href="./03-quarto.html" rel="next">
+<link href="./01-intro.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -82,7 +82,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./visualization.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data Visualization</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./02-git.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Project Management</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -115,44 +115,50 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./intro.html" class="sidebar-item-text sidebar-link">
+  <a href="./01-intro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./git.html" class="sidebar-item-text sidebar-link">
+  <a href="./02-git.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Project Management</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./quarto.html" class="sidebar-item-text sidebar-link">
+  <a href="./03-quarto.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Reproducible Data Science</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./python.html" class="sidebar-item-text sidebar-link">
+  <a href="./04-python.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Python Refreshment</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./visualization.html" class="sidebar-item-text sidebar-link active">
+  <a href="./05-visualization.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data Visualization</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./manipulation.html" class="sidebar-item-text sidebar-link">
+  <a href="./06-manipulation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data Manipulation</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./07-exploration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Data Exploration</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Exercises</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Exercises</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -171,12 +177,10 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#grammar-of-graphics-with-plotnine" id="toc-grammar-of-graphics-with-plotnine" class="nav-link active" data-scroll-target="#grammar-of-graphics-with-plotnine"><span class="header-section-number">5.1</span> Grammar of Graphics with Plotnine</a>
-  <ul class="collapse">
-  <li><a href="#subsection-1" id="toc-subsection-1" class="nav-link" data-scroll-target="#subsection-1"><span class="header-section-number">5.1.1</span> Subsection 1</a></li>
-  <li><a href="#subsection-2" id="toc-subsection-2" class="nav-link" data-scroll-target="#subsection-2"><span class="header-section-number">5.1.2</span> Subsection 2</a></li>
-  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">5.1.3</span> Further Reading</a></li>
-  </ul></li>
+  <li><a href="#set-up-gitgithub" id="toc-set-up-gitgithub" class="nav-link active" data-scroll-target="#set-up-gitgithub"><span class="header-section-number">2.1</span> Set Up Git/GitHub</a></li>
+  <li><a href="#most-frequently-used-git-commands" id="toc-most-frequently-used-git-commands" class="nav-link" data-scroll-target="#most-frequently-used-git-commands"><span class="header-section-number">2.2</span> Most Frequently Used Git Commands</a></li>
+  <li><a href="#tips-on-using-git" id="toc-tips-on-using-git" class="nav-link" data-scroll-target="#tips-on-using-git"><span class="header-section-number">2.3</span> Tips on using Git:</a></li>
+  <li><a href="#pull-request" id="toc-pull-request" class="nav-link" data-scroll-target="#pull-request"><span class="header-section-number">2.4</span> Pull Request</a></li>
   </ul>
 </nav>
     </div>
@@ -185,7 +189,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data Visualization</span></h1>
+<h1 class="title"><span id="sec-git" class="quarto-section-identifier"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Project Management</span></span></h1>
 </div>
 
 
@@ -202,24 +206,152 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<!-- This section is to be included as a tutorial for ggplot with plotnine. -->
-<section id="grammar-of-graphics-with-plotnine" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="grammar-of-graphics-with-plotnine"><span class="header-section-number">5.1</span> Grammar of Graphics with Plotnine</h2>
-<p>This is section was written by Sonia Lucey. Sonia was ..</p>
-<section id="subsection-1" class="level3" data-number="5.1.1">
-<h3 data-number="5.1.1" class="anchored" data-anchor-id="subsection-1"><span class="header-section-number">5.1.1</span> Subsection 1</h3>
+<p>Many tutorials are available in different formats. Here is a <a href="https://www.youtube.com/watch?v=RGOj5yH7evk">YouTube video ``Git and GitHub for Beginners — Crash Course’’</a>. The video also covers GitHub, a cloud service for Git which provides a cloud back up of your work and makes collaboration with co-workers easy. Similar services are, for example, <a href="bitbucket.org">bitbucket</a> and <a href="gitlab.com">GitLab</a>.</p>
+<p>There are tools that make learning Git easy.</p>
+<ul>
+<li>Here is a collection of <a href="https://gitexercises.fracz.com">online Git exersices</a> that I used for Git training in other courses that I taught.</li>
+<li>Here is a game called <a href="https://ohmygit.org"><code>Oh My Git</code></a>, an open source game about learning Git!</li>
+</ul>
+<section id="set-up-gitgithub" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="set-up-gitgithub"><span class="header-section-number">2.1</span> Set Up Git/GitHub</h2>
+<p>Download <a href="https://git-scm.com/downloads">Git</a> if you don’t have it already.</p>
+<p>To set up GitHub (other services like Bitbucket or GitLab are similar), you need to</p>
+<ul>
+<li>Generate an SSH key if you don’t have one already.</li>
+<li>Sign up an GitHub account.</li>
+<li>Add the SSH key to your GitHub account</li>
+</ul>
+<p>See <a href="https://docs.github.com/en/get-started/onboarding/getting-started-with-your-github-account">how to get started with GitHub account</a>.</p>
 </section>
-<section id="subsection-2" class="level3" data-number="5.1.2">
-<h3 data-number="5.1.2" class="anchored" data-anchor-id="subsection-2"><span class="header-section-number">5.1.2</span> Subsection 2</h3>
+<section id="most-frequently-used-git-commands" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="most-frequently-used-git-commands"><span class="header-section-number">2.2</span> Most Frequently Used Git Commands</h2>
+<p>The following seven commands will get you started and they may be all that you need most of the time.</p>
+<ul>
+<li><code>git clone</code>:
+<ul>
+<li>Used to clone a repository to a local folder.</li>
+<li>Requires either HTTPS link or SSH key to authenticate.</li>
+</ul></li>
+<li><code>git pull</code>:
+<ul>
+<li>Downloads any updates made to the remote repository and automatically updates the local repository.</li>
+</ul></li>
+<li><code>git status</code>:
+<ul>
+<li>Returns the state of the working directory.</li>
+<li>Lists the files that have been modified, and are yet to be or have been staged and/or committed.</li>
+<li>Shows if the local repository is begind or ahead a remote branch.</li>
+</ul></li>
+<li><code>git add</code>:
+<ul>
+<li>Adds new or modified files to the Git staging area.</li>
+<li>Gives the option to select which files are to be sent to the remote repository</li>
+</ul></li>
+<li><code>git rm</code>:
+<ul>
+<li>Used to remove files from the staging index or the local repository.</li>
+</ul></li>
+<li><code>git commit</code>:
+<ul>
+<li>Commits changes made to the local repository and saves it like a snapshot.</li>
+<li>A message is recommended with every commit to keep track of changes made.</li>
+</ul></li>
+<li><code>git push</code>:
+<ul>
+<li>Used to send commits made on local repository to the remote repository.</li>
+</ul></li>
+</ul>
+<p>For more advanced usages:</p>
+<ul>
+<li><code>git diff</code></li>
+<li><code>git branch</code></li>
+<li><code>git reset</code></li>
+</ul>
 </section>
-<section id="further-reading" class="level3" data-number="5.1.3">
-<h3 data-number="5.1.3" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">5.1.3</span> Further Reading</h3>
-<!-- This section is to be included as a tutorial for geopands data. -->
-<!-- {{< include _geopandas.qmd >}} -->
-<!-- Interesting topics: gmplot, folium -->
+<section id="tips-on-using-git" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="tips-on-using-git"><span class="header-section-number">2.3</span> Tips on using Git:</h2>
+<ul>
+<li>Use the command line interface instead of the web interface (e.g., upload on GitHub)</li>
+<li>Make frequent small commits instead of rare large commits.</li>
+<li>Make commit messages informative and meaningful.</li>
+<li>Name your files/folders by some reasonable convention.
+<ul>
+<li>Lower cases are better than upper cases.</li>
+<li>No blanks in file/folder names.</li>
+</ul></li>
+<li>Keep the repo clean by not tracking generated files.</li>
+<li>Creat a <code>.gitignore</code> file for better output from <code>git status</code>.</li>
+<li>Keep the linewidth of sources to under 80 for better <code>git diff</code> view.</li>
+</ul>
+</section>
+<section id="pull-request" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="pull-request"><span class="header-section-number">2.4</span> Pull Request</h2>
+<p>To contribute to an open source project (e.g., our classnotes), use pull requests. <a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests">Pull requests</a> “let you tell others about changes you’ve pushed to a branch in a repository on GitHub. Once a pull request is opened, you can discuss and review the potential changes with collaborators and add follow-up commits before your changes are merged into the base branch.”</p>
+<p>Watch this YouTube video: <a href="https://youtu.be/8lGpZkjnkt4">GitHub pull requests in 100 seconds</a>.</p>
+<p>The following are step-by-step instructions on how to make a pull request to the class notes contributed by <strong>Nick Pfeifer</strong>..</p>
+<ul>
+<li>Create a fork of the class repository on the GitHub website.
+<ul>
+<li>Make sure your fork is up to date by clicking <strong>Sync fork</strong> if necessary.</li>
+</ul></li>
+<li>Clone your fork into a folder on your computer.
+<ul>
+<li><code>git clone https://github.com/GitHub_Username/ids-s25.git</code></li>
+<li>Replace <strong>GitHub_Username</strong> with your personal GitHub Username.</li>
+</ul></li>
+<li>Check to see if you can access the folder/cloned repository in your code editor.
+<ul>
+<li>The class notes home page is located in the index.qmd file.</li>
+</ul></li>
+<li>Make a branch and give it a good name.
+<ul>
+<li>Move into the directory with the cloned repository.</li>
+<li>Create a branch using:
+<ul>
+<li><code>git checkout -b branch_name</code></li>
+<li>Replace <strong>branch_name</strong> with a more descriptive name.</li>
+</ul></li>
+<li>You can check your branches using:
+<ul>
+<li><code>git branch</code></li>
+<li>The branch in use will have an asterisk to the left of it.</li>
+</ul></li>
+<li>If you are not in the right branch you can use the following command:
+<ul>
+<li><code>git checkout existing-branch</code></li>
+<li>Replace <strong>existing-branch</strong> with the name of the branch you want to use.</li>
+</ul></li>
+</ul></li>
+<li>Run <code>git status</code> to verify that no changes have been made.</li>
+<li>Make changes to a file in the class notes repository.
+<ul>
+<li>For example: add your wishes to the Wishlist in index.qmd using nested list syntax in markdown.</li>
+<li>Remember to save your changes.</li>
+</ul></li>
+<li>Run <code>git status</code> again to see that changes have been made.</li>
+<li>Use the add command.
+<ul>
+<li><code>git add filename</code></li>
+<li>Example usage: <code>git add index.qmd</code></li>
+</ul></li>
+<li>Make a commit.
+<ul>
+<li><code>git commit -m "Informative Message"</code></li>
+<li>Be clear about what you changed and perhaps include your name in the message.</li>
+</ul></li>
+<li>Push the files to GitHub.
+<ul>
+<li><code>git push origin branch-name</code></li>
+<li>Replace <strong>branch-name</strong> with the name of your current branch.</li>
+</ul></li>
+<li>Go to your forked repository on GitHub and refresh the page, you should see a button that says <strong>Compare and Pull Request</strong>.
+<ul>
+<li>Describe the changes you made in the pull request.</li>
+<li>Click <strong>Create pull request</strong>.</li>
+</ul></li>
+</ul>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -624,13 +756,13 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./python.html" class="pagination-link" aria-label="Python Refreshment">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Python Refreshment</span></span>
+      <a href="./01-intro.html" class="pagination-link" aria-label="Introduction">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./manipulation.html" class="pagination-link" aria-label="Data Manipulation">
-        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data Manipulation</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./03-quarto.html" class="pagination-link" aria-label="Reproducible Data Science">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Reproducible Data Science</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

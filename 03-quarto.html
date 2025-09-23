@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>2&nbsp; Project Management – Introduction to Data Science</title>
+<title>3&nbsp; Reproducible Data Science – Introduction to Data Science</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,7 +20,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -30,8 +50,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./quarto.html" rel="next">
-<link href="./intro.html" rel="prev">
+<link href="./04-python.html" rel="next">
+<link href="./02-git.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -82,7 +102,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./git.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Project Management</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./03-quarto.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Reproducible Data Science</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -115,44 +135,50 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./intro.html" class="sidebar-item-text sidebar-link">
+  <a href="./01-intro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./git.html" class="sidebar-item-text sidebar-link active">
+  <a href="./02-git.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Project Management</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./quarto.html" class="sidebar-item-text sidebar-link">
+  <a href="./03-quarto.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Reproducible Data Science</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./python.html" class="sidebar-item-text sidebar-link">
+  <a href="./04-python.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Python Refreshment</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./visualization.html" class="sidebar-item-text sidebar-link">
+  <a href="./05-visualization.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data Visualization</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./manipulation.html" class="sidebar-item-text sidebar-link">
+  <a href="./06-manipulation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data Manipulation</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./07-exploration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Data Exploration</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Exercises</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Exercises</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -171,10 +197,21 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#set-up-gitgithub" id="toc-set-up-gitgithub" class="nav-link active" data-scroll-target="#set-up-gitgithub"><span class="header-section-number">2.1</span> Set Up Git/GitHub</a></li>
-  <li><a href="#most-frequently-used-git-commands" id="toc-most-frequently-used-git-commands" class="nav-link" data-scroll-target="#most-frequently-used-git-commands"><span class="header-section-number">2.2</span> Most Frequently Used Git Commands</a></li>
-  <li><a href="#tips-on-using-git" id="toc-tips-on-using-git" class="nav-link" data-scroll-target="#tips-on-using-git"><span class="header-section-number">2.3</span> Tips on using Git:</a></li>
-  <li><a href="#pull-request" id="toc-pull-request" class="nav-link" data-scroll-target="#pull-request"><span class="header-section-number">2.4</span> Pull Request</a></li>
+  <li><a href="#introduction-to-quarto" id="toc-introduction-to-quarto" class="nav-link active" data-scroll-target="#introduction-to-quarto"><span class="header-section-number">3.1</span> Introduction to Quarto</a></li>
+  <li><a href="#sec-buildnotes" id="toc-sec-buildnotes" class="nav-link" data-scroll-target="#sec-buildnotes"><span class="header-section-number">3.2</span> Compiling the Classnotes</a>
+  <ul class="collapse">
+  <li><a href="#set-up-your-python-virtual-environment" id="toc-set-up-your-python-virtual-environment" class="nav-link" data-scroll-target="#set-up-your-python-virtual-environment"><span class="header-section-number">3.2.1</span> Set up your Python Virtual Environment</a></li>
+  <li><a href="#clone-the-repository" id="toc-clone-the-repository" class="nav-link" data-scroll-target="#clone-the-repository"><span class="header-section-number">3.2.2</span> Clone the Repository</a></li>
+  <li><a href="#render-the-classnotes" id="toc-render-the-classnotes" class="nav-link" data-scroll-target="#render-the-classnotes"><span class="header-section-number">3.2.3</span> Render the Classnotes</a></li>
+  <li><a href="#login-requirements" id="toc-login-requirements" class="nav-link" data-scroll-target="#login-requirements"><span class="header-section-number">3.2.4</span> Login Requirements</a></li>
+  </ul></li>
+  <li><a href="#the-data-science-life-cycle" id="toc-the-data-science-life-cycle" class="nav-link" data-scroll-target="#the-data-science-life-cycle"><span class="header-section-number">3.3</span> The Data Science Life Cycle</a></li>
+  <li><a href="#a-primer-of-markdown" id="toc-a-primer-of-markdown" class="nav-link" data-scroll-target="#a-primer-of-markdown"><span class="header-section-number">3.4</span> A Primer of Markdown</a>
+  <ul class="collapse">
+  <li><a href="#subsection-1" id="toc-subsection-1" class="nav-link" data-scroll-target="#subsection-1"><span class="header-section-number">3.4.1</span> Subsection 1</a></li>
+  <li><a href="#subsection-2" id="toc-subsection-2" class="nav-link" data-scroll-target="#subsection-2"><span class="header-section-number">3.4.2</span> Subsection 2</a></li>
+  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">3.4.3</span> Further Reading</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -183,7 +220,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span id="sec-git" class="quarto-section-identifier"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Project Management</span></span></h1>
+<h1 class="title"><span id="sec-quarto" class="quarto-section-identifier"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Reproducible Data Science</span></span></h1>
 </div>
 
 
@@ -200,152 +237,111 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Many tutorials are available in different formats. Here is a <a href="https://www.youtube.com/watch?v=RGOj5yH7evk">YouTube video ``Git and GitHub for Beginners — Crash Course’’</a>. The video also covers GitHub, a cloud service for Git which provides a cloud back up of your work and makes collaboration with co-workers easy. Similar services are, for example, <a href="bitbucket.org">bitbucket</a> and <a href="gitlab.com">GitLab</a>.</p>
-<p>There are tools that make learning Git easy.</p>
+<p>Data science projects should be reproducible to be trustworthy. Dynamic documents facilitate reproducibility. <a href="https://quarto.org">Quarto</a> is an open-source dynamic document preparation system, ideal for scientific and technical publishing. From the official websites, Quarto can be used to:</p>
 <ul>
-<li>Here is a collection of <a href="https://gitexercises.fracz.com">online Git exersices</a> that I used for Git training in other courses that I taught.</li>
-<li>Here is a game called <a href="https://ohmygit.org"><code>Oh My Git</code></a>, an open source game about learning Git!</li>
+<li>Create dynamic content with Python, R, Julia, and Observable.</li>
+<li>Author documents as plain text markdown or Jupyter notebooks.</li>
+<li>Publish high-quality articles, reports, presentations, websites, blogs, and books in HTML, PDF, MS Word, ePub, and more.</li>
+<li>Author with scientific markdown, including equations, citations, cross references, figure panels, callouts, advanced layout, and more.</li>
 </ul>
-<section id="set-up-gitgithub" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="set-up-gitgithub"><span class="header-section-number">2.1</span> Set Up Git/GitHub</h2>
-<p>Download <a href="https://git-scm.com/downloads">Git</a> if you don’t have it already.</p>
-<p>To set up GitHub (other services like Bitbucket or GitLab are similar), you need to</p>
+<section id="introduction-to-quarto" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="introduction-to-quarto"><span class="header-section-number">3.1</span> Introduction to Quarto</h2>
+<p>To get started with Quarto, see documentation at <a href="https://quarto.org/docs/get-started/">Quarto</a>.</p>
+<p>For a clean style, I suggest that you use <code>VS Code</code> as your IDE. The <code>ipynb</code> files have extra formats in plain texts, which are not as clean as <code>qmd</code> files. There are, of course, tools to convert between the two representations of a notebook. For example:</p>
+<pre><code>quarto convert hello.ipynb # converts to qmd
+quarto convert hello.qmd   # converts to ipynb</code></pre>
+<p>We will use Quarto for homework assignments, classnotes, and presentations. You will see them in action through in-class demonstrations. The following sections in the <a href="https://quarto.org/docs/guide/">Quarto Guide</a> are immediately useful.</p>
 <ul>
-<li>Generate an SSH key if you don’t have one already.</li>
-<li>Sign up an GitHub account.</li>
-<li>Add the SSH key to your GitHub account</li>
+<li><a href="https://quarto.org/docs/authoring/markdown-basics.html">Markdown basics</a></li>
+<li><a href="https://quarto.org/docs/computations/python.html">Using Python</a></li>
+<li><a href="https://quarto.org/docs/presentations/">Presentations</a></li>
 </ul>
-<p>See <a href="https://docs.github.com/en/get-started/onboarding/getting-started-with-your-github-account">how to get started with GitHub account</a>.</p>
+<p>A template for homework is in this repo (<code>hwtemp.qmd</code>) to get you started with homework assignments.</p>
 </section>
-<section id="most-frequently-used-git-commands" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="most-frequently-used-git-commands"><span class="header-section-number">2.2</span> Most Frequently Used Git Commands</h2>
-<p>The following seven commands will get you started and they may be all that you need most of the time.</p>
-<ul>
-<li><code>git clone</code>:
-<ul>
-<li>Used to clone a repository to a local folder.</li>
-<li>Requires either HTTPS link or SSH key to authenticate.</li>
-</ul></li>
-<li><code>git pull</code>:
-<ul>
-<li>Downloads any updates made to the remote repository and automatically updates the local repository.</li>
-</ul></li>
-<li><code>git status</code>:
-<ul>
-<li>Returns the state of the working directory.</li>
-<li>Lists the files that have been modified, and are yet to be or have been staged and/or committed.</li>
-<li>Shows if the local repository is begind or ahead a remote branch.</li>
-</ul></li>
-<li><code>git add</code>:
-<ul>
-<li>Adds new or modified files to the Git staging area.</li>
-<li>Gives the option to select which files are to be sent to the remote repository</li>
-</ul></li>
-<li><code>git rm</code>:
-<ul>
-<li>Used to remove files from the staging index or the local repository.</li>
-</ul></li>
-<li><code>git commit</code>:
-<ul>
-<li>Commits changes made to the local repository and saves it like a snapshot.</li>
-<li>A message is recommended with every commit to keep track of changes made.</li>
-</ul></li>
-<li><code>git push</code>:
-<ul>
-<li>Used to send commits made on local repository to the remote repository.</li>
-</ul></li>
-</ul>
-<p>For more advanced usages:</p>
-<ul>
-<li><code>git diff</code></li>
-<li><code>git branch</code></li>
-<li><code>git reset</code></li>
-</ul>
+<section id="sec-buildnotes" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="sec-buildnotes"><span class="header-section-number">3.2</span> Compiling the Classnotes</h2>
+<p>The sources of the classnotes are at <a href="https://github.com/statds/ids-s25" class="uri">https://github.com/statds/ids-s25</a>. This is also the source tree that you will contributed to this semester. I expect that you clone the repository to your own computer, update it frequently, and compile the latest version on your computer (reproducibility).</p>
+<p>To compile the classnotes, you need the following tools: Git, Quarto, and Python.</p>
+<section id="set-up-your-python-virtual-environment" class="level3" data-number="3.2.1">
+<h3 data-number="3.2.1" class="anchored" data-anchor-id="set-up-your-python-virtual-environment"><span class="header-section-number">3.2.1</span> Set up your Python Virtual Environment</h3>
+<p>I suggest that a Python virtual environment for the classnotes be set up in the current directory for reproducibility. A Python virtual environment is simply a directory with a particular file structure, which contains a specific Python interpreter and software libraries and binaries needed to support a project. It allows us to isolate our Python development projects from our system installed Python and other Python environments.</p>
+<p>To create a Python virtual environment for our classnotes:</p>
+<pre><code>python3 -m venv .ids-s25-venv</code></pre>
+<p>Here <code>.ids-s25-venv</code> is the name of the virtual environment to be created. Choose an informative name. This only needs to be set up once.</p>
+<p>To activate this virtual environment:</p>
+<pre><code>. .ids-s25-venv/bin/activate</code></pre>
+<p>After activating the virtual environment, you will see <code>(.ids-s25-venv)</code> at the beginning of your shell prompt. Then, the Python interpreter and packages needed will be the local versions in this virtual environment without interfering your system-wide installation or other virtual environments.</p>
+<p>To install the Python packages that are needed to compile the classnotes, we have a <code>requirements.txt</code> file that specifies the packages and their versions. They can be installed easily with:</p>
+<pre><code>pip install -r requirements.txt</code></pre>
+<p>If you are interested in learning how to create the <code>requirements.txt</code> file, just put your question into a Google search.</p>
+<p>To exit the virtual environment, simply type <code>deactivate</code> in your command line. This will return you to your system’s global Python environment.</p>
 </section>
-<section id="tips-on-using-git" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="tips-on-using-git"><span class="header-section-number">2.3</span> Tips on using Git:</h2>
-<ul>
-<li>Use the command line interface instead of the web interface (e.g., upload on GitHub)</li>
-<li>Make frequent small commits instead of rare large commits.</li>
-<li>Make commit messages informative and meaningful.</li>
-<li>Name your files/folders by some reasonable convention.
-<ul>
-<li>Lower cases are better than upper cases.</li>
-<li>No blanks in file/folder names.</li>
-</ul></li>
-<li>Keep the repo clean by not tracking generated files.</li>
-<li>Creat a <code>.gitignore</code> file for better output from <code>git status</code>.</li>
-<li>Keep the linewidth of sources to under 80 for better <code>git diff</code> view.</li>
-</ul>
+<section id="clone-the-repository" class="level3" data-number="3.2.2">
+<h3 data-number="3.2.2" class="anchored" data-anchor-id="clone-the-repository"><span class="header-section-number">3.2.2</span> Clone the Repository</h3>
+<p>Clone the repository to your own computer. In a terminal (command line), go to an appropriate directory (folder), and clone the repo. For example, if you use <code>ssh</code> for authentication:</p>
+<pre><code>git clone git@github.com:statds/ids-s25.git</code></pre>
 </section>
-<section id="pull-request" class="level2" data-number="2.4">
-<h2 data-number="2.4" class="anchored" data-anchor-id="pull-request"><span class="header-section-number">2.4</span> Pull Request</h2>
-<p>To contribute to an open source project (e.g., our classnotes), use pull requests. <a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests">Pull requests</a> “let you tell others about changes you’ve pushed to a branch in a repository on GitHub. Once a pull request is opened, you can discuss and review the potential changes with collaborators and add follow-up commits before your changes are merged into the base branch.”</p>
-<p>Watch this YouTube video: <a href="https://youtu.be/8lGpZkjnkt4">GitHub pull requests in 100 seconds</a>.</p>
-<p>The following are step-by-step instructions on how to make a pull request to the class notes contributed by <strong>Nick Pfeifer</strong>..</p>
+<section id="render-the-classnotes" class="level3" data-number="3.2.3">
+<h3 data-number="3.2.3" class="anchored" data-anchor-id="render-the-classnotes"><span class="header-section-number">3.2.3</span> Render the Classnotes</h3>
+<p>Assuming <code>quarto</code> has been set up, we render the classnotes in the cloned repository</p>
+<pre><code>cd ids-s25
+quarto render</code></pre>
+<p>If there are error messages, search and find solutions to clear them. Otherwise, the html version of the notes will be available under <code>_book/index.html</code>, which is default location of the output.</p>
+</section>
+<section id="login-requirements" class="level3" data-number="3.2.4">
+<h3 data-number="3.2.4" class="anchored" data-anchor-id="login-requirements"><span class="header-section-number">3.2.4</span> Login Requirements</h3>
+<p>For some illustrations, you need to interact with certain sites that require account information. For example, for Google map services, you need to save your API key in a file named <code>api_key.txt</code> in the root folder of the source. Another example is to access the US Census API, where you would need to register an account and get your Census API Key.</p>
+</section>
+</section>
+<section id="the-data-science-life-cycle" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="the-data-science-life-cycle"><span class="header-section-number">3.3</span> The Data Science Life Cycle</h2>
+<p>This section summarizes Chapter 2 of <em>Veridical Data Science</em> <span class="citation" data-cites="yu2024veridical">(<a href="references.html#ref-yu2024veridical" role="doc-biblioref">Yu &amp; Barter, 2024</a>)</span>, which introduces the data science life cycle (DSLC). The DSLC provides a structured way to think about the progression of data science projects. It consists of six stages, each with a distinct purpose:</p>
 <ul>
-<li>Create a fork of the class repository on the GitHub website.
+<li><p>Stage 1: Problem formulation and data collection<br>
+Collaborate with domain experts to refine vague questions into ones that can realistically be answered with data. Identify what data already exists or design new collection protocols. Understanding the collection process is crucial for assessing how data relates to reality.</p></li>
+<li><p>Stage 2: Data cleaning, preprocessing, and exploratory data analysis<br>
+Clean data to make it tidy, unambiguous, and correctly formatted. Preprocess it to meet the requirements of specific algorithms, such as handling missing values or scaling variables. Exploratory data analysis (EDA) summarizes patterns using tables, statistics, and plots, while explanatory data analysis polishes visuals for communication.</p></li>
+<li><p>Stage 3: Exploring intrinsic data structures (optional)<br>
+Techniques such as dimensionality reduction simplify data into lower-dimensional forms, while clustering identifies natural groupings among observations. Even if not central to the project, these methods often enhance understanding.</p></li>
+<li><p>Stage 4: Predictive and/or inferential analysis (optional)<br>
+Many projects are cast as prediction tasks, training algorithms like regression or random forests to forecast outcomes. Inference focuses on estimating population parameters and quantifying uncertainty. This book emphasizes prediction while acknowledging inference as important in many domains.</p></li>
+<li><p>Stage 5: Evaluation of results<br>
+Findings should be evaluated both qualitatively, through critical thinking, and quantitatively, through the PCS framework. PCS stands for predictability, computability, and stability:</p>
 <ul>
-<li>Make sure your fork is up to date by clicking <strong>Sync fork</strong> if necessary.</li>
+<li>Predictability asks whether findings hold up in relevant future data.<br>
+</li>
+<li>Computability asks whether methods are feasible with available computational resources.<br>
+</li>
+<li>Stability asks whether conclusions remain consistent under reasonable changes in data, methods, or judgment calls.<br>
+Together, PCS provides a foundation for assessing the reliability of data-driven results.</li>
 </ul></li>
-<li>Clone your fork into a folder on your computer.
-<ul>
-<li><code>git clone https://github.com/GitHub_Username/ids-s25.git</code></li>
-<li>Replace <strong>GitHub_Username</strong> with your personal GitHub Username.</li>
-</ul></li>
-<li>Check to see if you can access the folder/cloned repository in your code editor.
-<ul>
-<li>The class notes home page is located in the index.qmd file.</li>
-</ul></li>
-<li>Make a branch and give it a good name.
-<ul>
-<li>Move into the directory with the cloned repository.</li>
-<li>Create a branch using:
-<ul>
-<li><code>git checkout -b branch_name</code></li>
-<li>Replace <strong>branch_name</strong> with a more descriptive name.</li>
-</ul></li>
-<li>You can check your branches using:
-<ul>
-<li><code>git branch</code></li>
-<li>The branch in use will have an asterisk to the left of it.</li>
-</ul></li>
-<li>If you are not in the right branch you can use the following command:
-<ul>
-<li><code>git checkout existing-branch</code></li>
-<li>Replace <strong>existing-branch</strong> with the name of the branch you want to use.</li>
-</ul></li>
-</ul></li>
-<li>Run <code>git status</code> to verify that no changes have been made.</li>
-<li>Make changes to a file in the class notes repository.
-<ul>
-<li>For example: add your wishes to the Wishlist in index.qmd using nested list syntax in markdown.</li>
-<li>Remember to save your changes.</li>
-</ul></li>
-<li>Run <code>git status</code> again to see that changes have been made.</li>
-<li>Use the add command.
-<ul>
-<li><code>git add filename</code></li>
-<li>Example usage: <code>git add index.qmd</code></li>
-</ul></li>
-<li>Make a commit.
-<ul>
-<li><code>git commit -m "Informative Message"</code></li>
-<li>Be clear about what you changed and perhaps include your name in the message.</li>
-</ul></li>
-<li>Push the files to GitHub.
-<ul>
-<li><code>git push origin branch-name</code></li>
-<li>Replace <strong>branch-name</strong> with the name of your current branch.</li>
-</ul></li>
-<li>Go to your forked repository on GitHub and refresh the page, you should see a button that says <strong>Compare and Pull Request</strong>.
-<ul>
-<li>Describe the changes you made in the pull request.</li>
-<li>Click <strong>Create pull request</strong>.</li>
-</ul></li>
+<li><p>Stage 6: Communication of results<br>
+Results must be conveyed clearly to intended audiences, whether through reports, presentations, visualizations, or deployable tools. Communication should be tailored so findings can inform real-world decisions.</p></li>
 </ul>
+<p>The DSLC is not a linear pipeline—analysts often loop back to refine earlier steps. The chapter also cautions against data snooping, where patterns discovered during exploration are mistaken for reliable truths. Applying PCS ensures that results are not only technically sound but also trustworthy and interpretable across the life cycle.</p>
+<!-- <\!-- This section is to be included as a Primer of Markdown. -\-> -->
+</section>
+<section id="a-primer-of-markdown" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="a-primer-of-markdown"><span class="header-section-number">3.4</span> A Primer of Markdown</h2>
+<p>This is section was written by Jingang Calvin Chen. Calvin was a …</p>
+<section id="subsection-1" class="level3" data-number="3.4.1">
+<h3 data-number="3.4.1" class="anchored" data-anchor-id="subsection-1"><span class="header-section-number">3.4.1</span> Subsection 1</h3>
+</section>
+<section id="subsection-2" class="level3" data-number="3.4.2">
+<h3 data-number="3.4.2" class="anchored" data-anchor-id="subsection-2"><span class="header-section-number">3.4.2</span> Subsection 2</h3>
+</section>
+<section id="further-reading" class="level3" data-number="3.4.3">
+<h3 data-number="3.4.3" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">3.4.3</span> Further Reading</h3>
+<!-- <\!-- This section is to be included as a tutorial for Quarto Presentations. -\-> -->
+<!-- {{< include _quarto_presentation.qmd >}} -->
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list" style="display: none">
+<div id="ref-yu2024veridical" class="csl-entry" role="listitem">
+Yu, B., &amp; Barter, R. L. (2024). <em>Veridical data science: The practice of responsible data analysis and decision making</em>. MIT Press.
+</div>
+</div>
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -750,13 +746,13 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./intro.html" class="pagination-link" aria-label="Introduction">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span>
+      <a href="./02-git.html" class="pagination-link" aria-label="Project Management">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Project Management</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./quarto.html" class="pagination-link" aria-label="Reproducible Data Science">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Reproducible Data Science</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./04-python.html" class="pagination-link" aria-label="Python Refreshment">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Python Refreshment</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
