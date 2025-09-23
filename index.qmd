@@ -202,6 +202,9 @@ Markdown.
     - Advance my statistical skills through a data science project.
 + Wishneski, Emma Irene
 + Yoon, Jessica Nari
+    - Become comfortable with Git and version control.  
+    - Apply skills from this classes to other courses. 
+    - Understand my computer better. 
 + Zhang, Mark Justin
     - Get comfortable with command line and Git
     - Learn to make my own data science projects
@@ -310,7 +313,7 @@ Please use the following table to sign up.
    10/02 | Saxena, Aanya | 
    10/07 | Gomez-Haibach, Konrad |
    10/07 | Sgro, Owen Bentley |
-   10/09 | Chen, Irene |
+   10/09 | Chen, Irene | Presentations with Quarto
    10/09 | Yoon, Jessica Nari |
    10/14 | Patel, Sahil Sanjay |
    10/14 | Plotnikov, Alexander |
