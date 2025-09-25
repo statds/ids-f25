@@ -20,6 +20,7 @@ book:
     - 05-visualization.qmd
     - 06-manipulation.qmd
     - 07-exploration.qmd
+    - 08-regression.qmd
 #    - stats.qmd
 #    - machinelearning.qmd
 #    - supervised.qmd
@@ -34,9 +35,9 @@ bibliography:
 
 csl: apa.csl
 
-
 format:
   html:
+    html-math-method: mathjax
     theme: cosmo
 #  pdf:
 #    documentclass: scrbook
