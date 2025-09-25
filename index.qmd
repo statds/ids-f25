@@ -201,6 +201,9 @@ Markdown.
     - Learn and memorize more commands used in the Terminal.
     - Advance my statistical skills through a data science project.
 + Wishneski, Emma Irene
+    - Gain a better understanding of data science, and real life applications
+    - Get comfortable using github, python, and other applications
+    - Become familiar with useful techniques for machine learning
 + Yoon, Jessica Nari
     - Become comfortable with Git and version control.  
     - Apply skills from this classes to other courses. 
