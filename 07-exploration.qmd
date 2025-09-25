@@ -438,7 +438,7 @@ revisiting previous steps. Clear documentation ensures that these iterations
 are transparent and reproducible.
 
 
-## 7. Good Practices in Data Exploration
+## Good Practices in Data Exploration
 
 Clear habits in exploration make later analysis more reliable and easier to
 share. The following practices help ensure quality and reproducibility.
