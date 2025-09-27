@@ -319,7 +319,7 @@ Please use the following table to sign up.
    10/09 | Chen, Irene | Presentations with Quarto
    10/09 | Yoon, Jessica Nari |
    10/14 | Patel, Sahil Sanjay |
-   10/14 | Plotnikov, Alexander |
+   10/14 | Plotnikov, Alexander | Random Forests
    10/16 | Milun, Lewis Aaron |
    10/16 | Patel, Tulsi Manankumar |
    10/23 | Perkins, Jack Thomas |
