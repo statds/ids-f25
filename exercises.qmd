@@ -150,13 +150,17 @@
     suggestions would you make based on your data exploration
     experience?
 
-1. **NYC Crash Data Exploration** Except for the first question, use
-   the cleaned crash data in feather format.
-    a.  Construct a contigency table for missing in zip code but not
-     in geocode (latitude and longitude) by borough.
-	 Is the missing pattern the same across boroughs?
-     Formulate a hypothesis and test it. 
-    a.  Construct a `hour` variable with integer values from 0 to 23. Plot the
+1. **NYC Crash Data Exploration** In the 
+    [cleaned crash data](data/nyc_crashes_cleaned.feather) in feather
+    format (thank Wilson Tang for [his work](docs/nyc_crashes_cleaning.pdf), 
+	we have a variable `zip_filled` which is `true` if, in the raw
+    data, a crash has nonmissing geocode but missing zip code, which
+    was filled during the cleaning process. This variable
+    could be viewed as a data quality metric.
+    a.  Construct a contigency table for `zip_filled` and
+    `borough`.  Is the pattern of fillable zips the same across
+    boroughs?  Formulate a hypothesis and test it. 
+    a.  Construct an `hour` variable with integer values from 0 to 23. Plot the
      histogram of the number of crashes by `hour`. Plot it by borough.
     a.  Overlay the locations of the crashes on a map of NYC. The map could be a
      static map or a Google map.
