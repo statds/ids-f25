@@ -298,10 +298,10 @@ window.Quarto = {
 <li>Print the whole frequency table of <code>contributing_factor_vehicle_1</code>. Convert lower cases to uppercases and check the frequencies again.</li>
 <li>Provided an opportunity to meet the data curator, what suggestions would you make based on your data exploration experience?</li>
 </ol></li>
-<li><p><strong>NYC Crash Data Exploration</strong> Except for the first question, use the cleaned crash data in feather format.</p>
+<li><p><strong>NYC Crash Data Exploration</strong> In the <a href="data/nyc_crashes_cleaned.feather">cleaned crash data</a> in feather format (thank Wilson Tang for <a href="docs/nyc_crashes_cleaning.pdf">his work</a>, we have a variable <code>zip_filled</code> which is <code>true</code> if, in the raw data, a crash has nonmissing geocode but missing zip code, which was filled during the cleaning process. This variable could be viewed as a data quality metric.</p>
 <ol type="a">
-<li>Construct a contigency table for missing in zip code but not in geocode (latitude and longitude) by borough. Is the missing pattern the same across boroughs? Formulate a hypothesis and test it.</li>
-<li>Construct a <code>hour</code> variable with integer values from 0 to 23. Plot the histogram of the number of crashes by <code>hour</code>. Plot it by borough.</li>
+<li>Construct a contigency table for <code>zip_filled</code> and <code>borough</code>. Is the pattern of fillable zips the same across boroughs? Formulate a hypothesis and test it.</li>
+<li>Construct an <code>hour</code> variable with integer values from 0 to 23. Plot the histogram of the number of crashes by <code>hour</code>. Plot it by borough.</li>
 <li>Overlay the locations of the crashes on a map of NYC. The map could be a static map or a Google map.</li>
 <li>Create a new variable <code>severe</code> which is one if the number of persons injured or deaths is 1 or more; and zero otherwise. Construct a cross table for <code>severe</code> versus borough. Is the severity of the crashes the same across boroughs? Test the null hypothesis that the two variables are not associated with an appropriate test.</li>
 <li>Merge the crash data with the Census zip code database which contains zip-code level demographic or socioeconomic variables.</li>
