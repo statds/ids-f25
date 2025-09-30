@@ -55,7 +55,27 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -267,6 +287,15 @@ window.Quarto = {
   <li><a href="#solution-paths" id="toc-solution-paths" class="nav-link" data-scroll-target="#solution-paths"><span class="header-section-number">8.3.4</span> Solution Paths</a></li>
   <li><a href="#tuning-parameter-selection" id="toc-tuning-parameter-selection" class="nav-link" data-scroll-target="#tuning-parameter-selection"><span class="header-section-number">8.3.5</span> Tuning Parameter Selection</a></li>
   </ul></li>
+  <li><a href="#generalized-linear-models" id="toc-generalized-linear-models" class="nav-link" data-scroll-target="#generalized-linear-models"><span class="header-section-number">8.4</span> Generalized Linear Models</a>
+  <ul class="collapse">
+  <li><a href="#introduction-1" id="toc-introduction-1" class="nav-link" data-scroll-target="#introduction-1"><span class="header-section-number">8.4.1</span> Introduction</a></li>
+  <li><a href="#framework" id="toc-framework" class="nav-link" data-scroll-target="#framework"><span class="header-section-number">8.4.2</span> Framework</a></li>
+  <li><a href="#special-cases" id="toc-special-cases" class="nav-link" data-scroll-target="#special-cases"><span class="header-section-number">8.4.3</span> Special Cases</a></li>
+  <li><a href="#fitting-and-diagnosis" id="toc-fitting-and-diagnosis" class="nav-link" data-scroll-target="#fitting-and-diagnosis"><span class="header-section-number">8.4.4</span> Fitting and Diagnosis</a></li>
+  <li><a href="#regularized-glm" id="toc-regularized-glm" class="nav-link" data-scroll-target="#regularized-glm"><span class="header-section-number">8.4.5</span> Regularized GLM</a></li>
+  <li><a href="#example-regularized-glm-with-ames-housing-data" id="toc-example-regularized-glm-with-ames-housing-data" class="nav-link" data-scroll-target="#example-regularized-glm-with-ames-housing-data"><span class="header-section-number">8.4.6</span> Example: Regularized GLM with Ames Housing Data</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -300,7 +329,7 @@ window.Quarto = {
 <h3 data-number="8.1.1" class="anchored" data-anchor-id="ames-housing-data-cleaning"><span class="header-section-number">8.1.1</span> Ames Housing Data Cleaning</h3>
 <p>The Ames housing data will be used for illustration, but it requires careful preprocessing. A distinctive feature of this dataset is that many <code>NA</code> values do not represent missing information but instead denote the absence of a feature. Treating them as missing would discard useful signals, so they should be recoded explicitly.</p>
 <p>First, we retrieve the data to ensure reproducibility.</p>
-<div id="a0f87602" class="cell" data-execution_count="1">
+<div id="f2c406d5" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> openml</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -309,7 +338,7 @@ window.Quarto = {
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>df, <span class="op">*</span>_ <span class="op">=</span> dataset.get_data()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>For categorical variables, <code>NA</code> often means that the property does not have the feature. For example, <code>Alley</code> is <code>NA</code> when no alley access exists, <code>FireplaceQu</code> is <code>NA</code> when no fireplace is present, and <code>PoolQC</code> is <code>NA</code> when the house does not have a pool. In these cases, <code>NA</code> should be replaced with an explicit category such as “None.”</p>
-<div id="96efbb20" class="cell" data-execution_count="2">
+<div id="a6b911ee" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>none_cols <span class="op">=</span> [</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Alley"</span>, <span class="st">"FireplaceQu"</span>, <span class="st">"PoolQC"</span>, <span class="st">"Fence"</span>, <span class="st">"MiscFeature"</span>,</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"GarageType"</span>, <span class="st">"GarageFinish"</span>, <span class="st">"GarageQual"</span>, <span class="st">"GarageCond"</span>,</span>
@@ -320,7 +349,7 @@ window.Quarto = {
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    df[col] <span class="op">=</span> df[col].fillna(<span class="st">"None"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>For numeric variables, <code>NA</code> may also indicate absence. Examples include <code>GarageCars</code>, <code>GarageArea</code>, and basement square footage variables. When no garage or basement is present, the correct encoding is zero. Thus, these columns should be filled with 0 rather than treated as missing.</p>
-<div id="129ab4b8" class="cell" data-execution_count="3">
+<div id="f288615d" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>zero_cols <span class="op">=</span> [</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"GarageCars"</span>, <span class="st">"GarageArea"</span>,</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"BsmtFinSF1"</span>, <span class="st">"BsmtFinSF2"</span>, <span class="st">"BsmtUnfSF"</span>,</span>
@@ -331,7 +360,7 @@ window.Quarto = {
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    df[col] <span class="op">=</span> df[col].fillna(<span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Finally, some variables contain genuinely missing data. A common example is <code>LotFrontage</code>, which records the linear feet of street connected to a property. Here <code>NA</code> values reflect unavailable measurements. These can be imputed using summary statistics such as the median or by more advanced methods if desired.</p>
-<div id="3f253913" class="cell" data-execution_count="4">
+<div id="cd4c4070" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"LotFrontage"</span>] <span class="op">=</span> df[<span class="st">"LotFrontage"</span>].fillna(df[<span class="st">"LotFrontage"</span>].median())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>This structured cleaning step ensures that absence is distinguished from missingness, numeric zero values are meaningful, and true missing values are handled appropriately. Only after this preparation is the dataset ready for modeling.</p>
@@ -358,14 +387,14 @@ L(\beta) = \sum_{i=1}^n (Y_i - \beta_0 - \beta_1 X_{i1} - \cdots - \beta_p X_{ip
 Y_i = \log(\text{SalePrice}_i).
 \]</span></p>
 <p>We add this transformed response to the dataset.</p>
-<div id="dc127a8d" class="cell" data-execution_count="5">
+<div id="86a7890d" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"LogPrice"</span>] <span class="op">=</span> np.log(df[<span class="st">"SalePrice"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Many studies and analyses of the Ames data have found certain variables to be consistently important for predicting sale price. These include <code>OverallQual</code> (overall material and finish quality), <code>GrLivArea</code> (above- ground living area), <code>GarageCars</code> (garage capacity), <code>TotalBsmtSF</code> (total basement area), <code>YearBuilt</code> (construction year), <code>FullBath</code> (number of full bathrooms), and <code>KitchenQual</code> (kitchen quality). We will focus on these predictors to illustrate model fitting.</p>
 <p>Instead of manually creating dummy variables, we can use the formula API from <code>statsmodels</code>, which handles categorical predictors internally.</p>
-<div id="69ad2ad2" class="cell" data-execution_count="6">
+<div id="99dd46f4" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.formula.api <span class="im">as</span> smf</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>formula <span class="op">=</span> (</span>
@@ -374,11 +403,11 @@ Y_i = \log(\text{SalePrice}_i).
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We then fit the regression model directly with the formula.</p>
-<div id="cf215b08" class="cell" data-execution_count="7">
+<div id="b1db2faf" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> smf.ols(formula, data<span class="op">=</span>df).fit()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Finally, we examine the regression results, which highlight the most important predictors of log sale price.</p>
-<div id="8d6f307e" class="cell" data-execution_count="8">
+<div id="0f2e7f8b" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>model.summary()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
 <table class="simpletable caption-top table table-sm table-striped small" data-quarto-postprocess="true">
@@ -404,13 +433,13 @@ Y_i = \log(\text{SalePrice}_i).
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">Date:</td>
-<td>Thu, 25 Sep 2025</td>
+<td>Tue, 30 Sep 2025</td>
 <td data-quarto-table-cell-role="th">Prob (F-statistic):</td>
 <td>0.00</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">Time:</td>
-<td>15:26:47</td>
+<td>15:25:47</td>
 <td data-quarto-table-cell-role="th">Log-Likelihood:</td>
 <td>515.19</td>
 </tr>
@@ -596,7 +625,7 @@ Y_i = \log(\text{SalePrice}_i).
 \hat{\varepsilon}_i = Y_i - \hat{Y}_i.
 \]</span></p>
 <p>Plotting residuals against fitted values reveals whether variance is constant and whether systematic patterns remain.</p>
-<div id="e72cfff0" class="cell" data-execution_count="9">
+<div id="97184d2c" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>fitted_vals <span class="op">=</span> model.fittedvalues</span>
@@ -617,7 +646,7 @@ Y_i = \log(\text{SalePrice}_i).
 </div>
 </div>
 <p>Another check is the distribution of residuals. A histogram or Q-Q plot can indicate whether residuals are approximately normal, which is most relevant for inference in small samples.</p>
-<div id="607601fc" class="cell" data-execution_count="10">
+<div id="0dc27623" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>plt.hist(residuals, bins<span class="op">=</span><span class="dv">30</span>, edgecolor<span class="op">=</span><span class="st">"black"</span>)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Residuals"</span>)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Histogram of residuals"</span>)</span>
@@ -646,7 +675,7 @@ Y_i = \log(\text{SalePrice}_i).
 </div>
 </div>
 <p>Influential observations can distort regression results. Leverage and Cook’s distance are standard measures to detect such points.</p>
-<div id="7c7d6138" class="cell" data-execution_count="11">
+<div id="127e16f9" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>cooks <span class="op">=</span> influence.cooks_distance[<span class="dv">0</span>]</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>plt.scatter(fitted_vals, cooks, alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
@@ -683,7 +712,7 @@ Y_i = \log(\text{SalePrice}_i).
 <h3 data-number="8.3.2" class="anchored" data-anchor-id="formulation"><span class="header-section-number">8.3.2</span> Formulation</h3>
 <p>The penalized regression framework modifies the least squares objective:</p>
 <p><span class="math display">\[
-L(\beta) = \sum_{i=1}^n (Y_i - X_i^T \beta)^2 + \lambda P(\beta),
+L(\beta) = \sum_{i=1}^n (Y_i - X_i^\top \beta)^2 + \lambda P(\beta),
 \]</span></p>
 <p>where <span class="math inline">\(P(\beta)\)</span> is a penalty function and <span class="math inline">\(\lambda\)</span> controls its strength.</p>
 <p>For ridge regression the penalty is</p>
@@ -700,7 +729,7 @@ P(\beta) = \sum_j |\beta_j|.
 <h3 data-number="8.3.3" class="anchored" data-anchor-id="algorithms"><span class="header-section-number">8.3.3</span> Algorithms</h3>
 <p>Ridge regression has a closed-form solution obtained by modifying the normal equations. Lasso and elastic net require iterative algorithms, with coordinate descent being the most widely used. In practice, these algorithms are efficient and scale well to high-dimensional data.</p>
 <p>When using scikit-learn, predictors must be numeric. Since the Ames data include categorical variables such as <code>KitchenQual</code>, we need to encode them. We use a <code>OneHotEncoder</code> inside a <code>ColumnTransformer</code>. This transforms categorical variables into binary indicator columns while keeping numeric variables unchanged. The <code>drop="first"</code> option avoids perfect collinearity by omitting one reference category.</p>
-<div id="a22b07e2" class="cell" data-execution_count="12">
+<div id="ce5b3353" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> OneHotEncoder</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.compose <span class="im">import</span> ColumnTransformer</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> Pipeline</span>
@@ -743,7 +772,7 @@ P(\beta) = \sum_j |\beta_j|.
 <p>As the penalty parameter <span class="math inline">\(\lambda\)</span> decreases, the behavior of coefficients changes. Ridge coefficients approach ordinary least squares estimates, while lasso coefficients enter the model sequentially, illustrating variable selection.</p>
 <p>Because predictors must be on the same scale for a fair comparison, it is important to standardize the numeric variables before computing the lasso path. Without standardization, some coefficients can appear flat or dominate others due to differences in scale.</p>
 <p>In our Ames example, we have six numeric predictors and three dummy variables for <code>KitchenQual</code> (since one category was dropped). This means we are estimating nine coefficients in total, excluding the intercept. All nine should appear in the solution path once variables are properly scaled.</p>
-<div id="059fc202" class="cell" data-execution_count="13">
+<div id="d46b2a41" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> lasso_path</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -781,34 +810,173 @@ P(\beta) = \sum_j |\beta_j|.
 </section>
 <section id="tuning-parameter-selection" class="level3" data-number="8.3.5">
 <h3 data-number="8.3.5" class="anchored" data-anchor-id="tuning-parameter-selection"><span class="header-section-number">8.3.5</span> Tuning Parameter Selection</h3>
-<p>Choosing <span class="math inline">\(\lambda\)</span> is critical. Too large, and the model is oversmoothed; too small, and the penalty has little effect. Cross-validation provides a principled way to select <span class="math inline">\(\lambda\)</span> by minimizing prediction error on held-out folds.</p>
+<p>Choosing <span class="math inline">\(\lambda\)</span> is critical. Too large, and the model is oversmoothed; too small, and the penalty has little effect. This parameter controls the trade-off between model fit and complexity:</p>
+<ul>
+<li>When <span class="math inline">\(\lambda = 0\)</span>, the model reduces to the unpenalized regression.</li>
+<li>As <span class="math inline">\(\lambda \to \infty\)</span>, coefficients shrink toward zero, increasing bias but reducing variance.</li>
+</ul>
+<p>Choosing <span class="math inline">\(\lambda\)</span> appropriately is crucial. A general principle is to define a selection criterion <span class="math inline">\(C(\lambda)\)</span>, which measures the predictive or explanatory performance of the fitted model, and then select <span class="math inline">\(\hat{\lambda} = \arg\min_{\lambda} C(\lambda)\)</span>.</p>
+<p>Common criteria:</p>
+<ul>
+<li><span class="math inline">\(R^2\)</span> on a validation set: select <span class="math inline">\(\lambda\)</span> that maximizes explained variance.</li>
+<li>Information criteria (AIC, BIC): less common in practice for penalized regression.</li>
+<li>Cross-validation (CV): partition data, fit on training folds, evaluate on holdout fold, average prediction error across folds.</li>
+</ul>
+<p>The grid of candidate values is not arbitrary:</p>
+<ul>
+<li><p>Maximum value:</p>
+<p><span class="math display">\[
+\lambda_{\max} = \max_j \tfrac{1}{n} |x_j^\top y|,
+\]</span></p>
+<p>with standardized predictors. At this level, all coefficients are zero.</p></li>
+<li><p>Minimum value: <span class="math display">\[
+\lambda_{\min} = \epsilon \cdot \lambda_{\max},
+\]</span> with <span class="math inline">\(\epsilon = 10^{-3}\)</span> if <span class="math inline">\(n &gt; p\)</span> and <span class="math inline">\(\epsilon = 10^{-2}\)</span> otherwise.</p></li>
+<li><p>Grid: values are log-spaced between <span class="math inline">\(\lambda_{\max}\)</span> and <span class="math inline">\(\lambda_{\min}\)</span> (default 100 points in <code>scikit-learn</code>).</p></li>
+</ul>
 <p>In the Ames example, we can use <span class="math inline">\(k\)</span>-fold cross-validation to evaluate ridge and lasso models.</p>
-<div id="34a2aa31" class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> cross_val_score</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>alphas <span class="op">=</span> [<span class="fl">0.01</span>, <span class="fl">0.1</span>, <span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">100</span>]</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>cv_scores <span class="op">=</span> [</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    cross_val_score(</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>        Pipeline(steps<span class="op">=</span>[</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>            (<span class="st">"preprocessor"</span>, preprocessor),</span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>            (<span class="st">"model"</span>, Ridge(alpha<span class="op">=</span>a))</span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>        ]), X, y, cv<span class="op">=</span><span class="dv">5</span>, scoring<span class="op">=</span><span class="st">"r2"</span></span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    ).mean()</span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> a <span class="kw">in</span> alphas</span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>]</span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="bu">list</span>(<span class="bu">zip</span>(alphas, cv_scores))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="14">
-<pre><code>[(0.01, np.float64(0.8074123276451681)),
- (0.1, np.float64(0.8074146419334094)),
- (1, np.float64(0.8074156315242685)),
- (10, np.float64(0.8067337548566238)),
- (100, np.float64(0.8034321208588533))]</code></pre>
+<div id="73c5caa0" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LassoCV</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> Pipeline</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> KFold</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Lasso with 10-fold CV</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>lasso_cv <span class="op">=</span> LassoCV(</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    cv<span class="op">=</span>KFold(n_splits<span class="op">=</span><span class="dv">10</span>, shuffle<span class="op">=</span><span class="va">True</span>, random_state<span class="op">=</span><span class="dv">123</span>),</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    random_state<span class="op">=</span><span class="dv">123</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Pipeline with preprocessing + model</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>pipe <span class="op">=</span> Pipeline(steps<span class="op">=</span>[</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"preprocessor"</span>, preprocessor),</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"model"</span>, lasso_cv)</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>])</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>pipe.fit(X, y)</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Selected lambda</span></span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>best_lambda <span class="op">=</span> pipe.named_steps[<span class="st">"model"</span>].alpha_</span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Best lambda (alpha) selected by CV:"</span>, best_lambda)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Best lambda (alpha) selected by CV: 0.14702662062588473</code></pre>
 </div>
 </div>
 <p>This process identifies the tuning parameter that balances bias and variance most effectively, yielding a model that generalizes well beyond the training data.</p>
+</section>
+</section>
+<section id="generalized-linear-models" class="level2" data-number="8.4">
+<h2 data-number="8.4" class="anchored" data-anchor-id="generalized-linear-models"><span class="header-section-number">8.4</span> Generalized Linear Models</h2>
+<section id="introduction-1" class="level3" data-number="8.4.1">
+<h3 data-number="8.4.1" class="anchored" data-anchor-id="introduction-1"><span class="header-section-number">8.4.1</span> Introduction</h3>
+<p>Linear regression is a powerful tool for continuous outcomes under Gaussian assumptions, but many response variables encountered in practice are not continuous or normally distributed. For example, an indicator of whether a house sale price is above the median is binary, the number of bathrooms is a count, and proportions such as the fraction of remodeled homes lie between 0 and 1. Using linear regression in these settings can yield nonsensical predictions (e.g., negative counts or probabilities outside the unit interval).</p>
+<p>Generalized linear models (GLMs) extend linear regression to cover a wider range of outcomes. The key idea is to preserve the familiar linear predictor structure, while linking it to the mean of the outcome through a function that reflects the nature of the data. The formal framework was introduced by <span class="citation" data-cites="nelder1972generalized">Nelder &amp; Wedderburn (<a href="references.html#ref-nelder1972generalized" role="doc-biblioref">1972</a>)</span> and remains central in modern statistics. Today, GLMs are viewed more flexibly: the distributional assumption provides a convenient likelihood-based loss function, but in practice one can proceed with quasi-likelihood or even direct loss minimization without strict distributional commitment.</p>
+</section>
+<section id="framework" class="level3" data-number="8.4.2">
+<h3 data-number="8.4.2" class="anchored" data-anchor-id="framework"><span class="header-section-number">8.4.2</span> Framework</h3>
+<p>GLMs extend linear regression by introducing a <strong>link function</strong> between the linear predictor and the conditional mean of the response. In linear regression we write</p>
+<p><span class="math display">\[
+Y_i = X_i^\top \beta + \varepsilon_i
+\]</span></p>
+<p>with mean zero error <span class="math inline">\(\varepsilon_i\)</span>’s.</p>
+<p>The mean is simply <span class="math inline">\(\mu_i = X_i^\top \beta\)</span>. In a GLM, we allow non-Gaussian outcomes by defining</p>
+<p><span class="math display">\[
+\eta_i = X_i^\top \beta, \quad g(\mu_i) = \eta_i,
+\]</span></p>
+<p>where <span class="math inline">\(g(\cdot)\)</span> is a monotone link function, <span class="math inline">\(\mu_i = \mathbb{E}(Y_i)\)</span>, and <span class="math inline">\(\beta\)</span> are regression coefficients. The coefficients maintain the same interpretation as in linear regression: a one-unit change in a predictor shifts the linear predictor <span class="math inline">\(\eta_i\)</span> by its coefficient, with an indirect effect on <span class="math inline">\(\mu_i\)</span> through the link.</p>
+<p>The variance of <span class="math inline">\(Y_i\)</span> depends on the mean: <span class="math inline">\(\text{Var}(Y_i) = V(\mu_i)
+\cdot \phi\)</span>, where <span class="math inline">\(V(\cdot)\)</span> is the variance function and <span class="math inline">\(\phi\)</span> is a dispersion parameter. This structure arises naturally from the exponential family, which provides a unifying framework for GLMs. While exact distributional assumptions can be specified, the mean–variance relationship is often sufficient.</p>
+</section>
+<section id="special-cases" class="level3" data-number="8.4.3">
+<h3 data-number="8.4.3" class="anchored" data-anchor-id="special-cases"><span class="header-section-number">8.4.3</span> Special Cases</h3>
+<ul>
+<li><p><strong>Logistic regression</strong> For binary outcomes, <span class="math inline">\(Y_i \sim \text{Bernoulli}(\mu_i)\)</span> with <span class="math inline">\(g(\mu_i) = \log \tfrac{\mu_i}{1-\mu_i}\)</span>. The coefficient <span class="math inline">\(\beta_j\)</span> represents the log-odds change of success per one-unit increase in <span class="math inline">\(x_{ij}\)</span>, holding other covariates fixed.</p></li>
+<li><p><strong>Poisson regression</strong> For counts, <span class="math inline">\(Y_i \sim \text{Poisson}(\mu_i)\)</span> with <span class="math inline">\(g(\mu_i) =
+\log(\mu_i)\)</span>. The coefficient <span class="math inline">\(\beta_j\)</span> is the log rate ratio: <span class="math inline">\(\exp(\beta_j)\)</span> gives the multiplicative change in expected count per one-unit increase in <span class="math inline">\(x_{ij}\)</span>.</p></li>
+<li><p><strong>Gaussian regression</strong> For continuous responses, <span class="math inline">\(Y_i \sim N(\mu_i, \sigma^2)\)</span> with identity link <span class="math inline">\(g(\mu_i) = \mu_i\)</span>. The coefficient <span class="math inline">\(\beta_j\)</span> is the expected change in the response for a one-unit increase in <span class="math inline">\(x_{ij}\)</span>.</p></li>
+</ul>
+<p>Thus, GLMs preserve the linear predictor while flexibly adapting the link and variance structure to suit binary, count, and continuous data.</p>
+</section>
+<section id="fitting-and-diagnosis" class="level3" data-number="8.4.4">
+<h3 data-number="8.4.4" class="anchored" data-anchor-id="fitting-and-diagnosis"><span class="header-section-number">8.4.4</span> Fitting and Diagnosis</h3>
+<p>Estimation in generalized linear models is typically carried out by maximum likelihood. The parameters <span class="math inline">\(\beta\)</span> are obtained by solving the score equations, which in practice are computed through numerical optimization. A common algorithm is iteratively reweighted least squares (IRLS), which updates coefficient estimates using weighted least squares until convergence. In Python, functions such as <code>statsmodels.api.GLM</code> or <code>sklearn.linear_model.LogisticRegression</code> implement this estimation automatically, providing coefficient estimates along with standard errors and confidence intervals when applicable.</p>
+<p>After fitting a GLM, model adequacy should be checked through diagnostics. Residuals such as deviance residuals or Pearson residuals can reveal lack of fit and highlight influential observations. Goodness of fit can also be assessed with deviance statistics, likelihood ratio tests, or pseudo-<span class="math inline">\(R^2\)</span> measures. In Python, <code>statsmodels</code> provides methods like <code>.resid_deviance</code>, <code>.resid_pearson</code>, and influence statistics to assess model fit. Visual inspection through residual plots remains a practical tool to detect systematic deviations from model assumptions.</p>
+</section>
+<section id="regularized-glm" class="level3" data-number="8.4.5">
+<h3 data-number="8.4.5" class="anchored" data-anchor-id="regularized-glm"><span class="header-section-number">8.4.5</span> Regularized GLM</h3>
+<p>Regularization extends generalized linear models by adding a penalty to the log-likelihood, which stabilizes estimation in high-dimensional settings and enables variable selection. The optimization problem can be formulated as</p>
+<p><span class="math display">\[
+\hat{\beta} = \arg\min_{\beta} \Big\{ -\ell(\beta) +
+\lambda P(\beta) \Big\},
+\]</span></p>
+<p>where <span class="math inline">\(\ell(\beta)\)</span> is the log-likelihood, <span class="math inline">\(P(\beta)\)</span> is a penalty function, and <span class="math inline">\(\lambda\)</span> is a tuning parameter controlling the strength of shrinkage.</p>
+<p>Common choices of <span class="math inline">\(P(\beta)\)</span> include:</p>
+<ul>
+<li>Ridge (<span class="math inline">\(L_2\)</span>): <span class="math inline">\(\sum_j \beta_j^2\)</span>.</li>
+<li>Lasso (<span class="math inline">\(L_1\)</span>): <span class="math inline">\(\sum_j |\beta_j|\)</span>.</li>
+<li>Elastic Net: <span class="math inline">\(\alpha \sum_j |\beta_j| + (1-\alpha)\sum_j \beta_j^2\)</span>.</li>
+</ul>
+<p>The fitting algorithm typically involves coordinate descent or gradient- based optimization methods, which are efficient for large-scale data and sparse solutions. For example, the <code>glmnet</code> algorithm uses cyclical coordinate descent with warm starts.</p>
+<p>Selection of the tuning parameter <span class="math inline">\(\lambda\)</span> is crucial. A standard approach is cross-validation, where data are split into folds, the model is fitted on training folds for a grid of <span class="math inline">\(\lambda\)</span> values, and performance is evaluated on validation folds. The <span class="math inline">\(\lambda\)</span> yielding the lowest prediction error is chosen, sometimes with an additional rule to prefer more parsimonious models (the “one standard error rule”).</p>
+<p>In Python, <code>sklearn.linear_model.LogisticRegressionCV</code> or <code>sklearn.linear_model.ElasticNetCV</code> implement these ideas, providing automatic cross-validation for regularized GLMs.</p>
+</section>
+<section id="example-regularized-glm-with-ames-housing-data" class="level3" data-number="8.4.6">
+<h3 data-number="8.4.6" class="anchored" data-anchor-id="example-regularized-glm-with-ames-housing-data"><span class="header-section-number">8.4.6</span> Example: Regularized GLM with Ames Housing Data</h3>
+<p>We continue with the processed Ames housing dataset (OpenML id 42165) from earlier in the regression chapter. The task is to predict whether a home is “expensive” (above the median sale price) using selected predictors. We fit a logistic regression model with an <span class="math inline">\(L_1\)</span> (lasso) penalty to enable variable selection.</p>
+<div id="9f820bd1" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegressionCV</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Define binary outcome: 1 if SalePrice &gt; median</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>median_price <span class="op">=</span> df[<span class="st">"SalePrice"</span>].median()</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"expensive"</span>] <span class="op">=</span> (df[<span class="st">"SalePrice"</span>] <span class="op">&gt;</span> median_price).astype(<span class="bu">int</span>)</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Select predictors</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> df[[<span class="st">"GrLivArea"</span>, <span class="st">"YearBuilt"</span>, <span class="st">"OverallQual"</span>, <span class="st">"GarageCars"</span>, <span class="st">"FullBath"</span>]]</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> df[<span class="st">"expensive"</span>]</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Standardize predictors</span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> StandardScaler()</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>X_scaled <span class="op">=</span> scaler.fit_transform(X)</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit logistic regression with L1 penalty and cross-validation</span></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>logit_lasso_cv <span class="op">=</span> LogisticRegressionCV(</span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>    Cs<span class="op">=</span><span class="dv">20</span>,</span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>    cv<span class="op">=</span><span class="dv">5</span>,</span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>    penalty<span class="op">=</span><span class="st">"l1"</span>,</span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>    solver<span class="op">=</span><span class="st">"saga"</span>,</span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>    scoring<span class="op">=</span><span class="st">"accuracy"</span>,</span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>    max_iter<span class="op">=</span><span class="dv">5000</span>,</span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>    random_state<span class="op">=</span><span class="dv">0</span></span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a>logit_lasso_cv.fit(X_scaled, y)</span>
+<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Display selected coefficients</span></span>
+<span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Selected coefficients (lasso):"</span>)</span>
+<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, coef <span class="kw">in</span> <span class="bu">zip</span>(X.columns, logit_lasso_cv.coef_[<span class="dv">0</span>]):</span>
+<span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>name<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>coef<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb16-34"><a href="#cb16-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-35"><a href="#cb16-35" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Best C (inverse of lambda):"</span>, logit_lasso_cv.C_[<span class="dv">0</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Selected coefficients (lasso):
+GrLivArea: 1.0883
+YearBuilt: 0.7325
+OverallQual: 1.0613
+GarageCars: 0.4715
+FullBath: 0.2609
+
+Best C (inverse of lambda): 0.03359818286283781</code></pre>
+</div>
+</div>
+<p>This example demonstrates how lasso-penalized logistic regression can be used within the GLM framework. The penalty shrinks coefficients toward zero, with some set exactly to zero if uninformative, thereby improving interpretability and predictive stability.</p>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list" style="display: none">
+<div id="ref-nelder1972generalized" class="csl-entry" role="listitem">
+Nelder, J. A., &amp; Wedderburn, R. W. M. (1972). Generalized linear models. <em>Journal of the Royal Statistical Society Series A: Statistics in Society</em>, <em>135</em>(3), 370–384.
+</div>
+</div>
 </section>
 </section>
 
