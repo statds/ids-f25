@@ -311,7 +311,7 @@ Please use the following table to sign up.
    10/07 | Gomez-Haibach, Konrad |
    10/07 | Sgro, Owen Bentley |
    10/09 | Chen, Irene |
-   10/09 | Yoon, Jessica Nari |
+   10/09 | Yoon, Jessica Nari | Random Forest
    10/14 | Patel, Sahil Sanjay |
    10/14 | Plotnikov, Alexander |
    10/16 | Milun, Lewis Aaron |
