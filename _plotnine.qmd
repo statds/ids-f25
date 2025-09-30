@@ -232,11 +232,11 @@ Faceting lets us compare contributing factors side by side across boroughs.
 ```{python}
 #| echo: true
 #| eval: false
-df["hour"] = pd.to_datetime(df["crash_time"], format="%H:%M", errors="coerce").dt.hour
+df["hour"] = pd.to_datetime(df["crash_time"], errors="coerce").dt.hour
 
 (ggplot(df, aes(x="hour", fill="borough"))
  + geom_histogram(binwidth=1, alpha=0.6, position="identity")
- + facet_wrap("~ borough")
+ + facet_grid("borough ~ .")
  + labs(title="Crashes by Hour of Day Across Boroughs",
         x="Hour of Day", y="Number of Crashes"))
 ```
@@ -245,11 +245,11 @@ df["hour"] = pd.to_datetime(df["crash_time"], format="%H:%M", errors="coerce").d
 ### Faceting Grid - Output
 ```{python}
 #| echo: false
-df["hour"] = pd.to_datetime(df["crash_time"], format="%H:%M", errors="coerce").dt.hour
+df["hour"] = pd.to_datetime(df["crash_time"], errors="coerce").dt.hour
 
 (ggplot(df, aes(x="hour", fill="borough"))
  + geom_histogram(binwidth=1, alpha=0.6, position="identity")
- + facet_wrap("~ borough")
+ + facet_grid("borough ~ .")
  + labs(title="Crashes by Hour of Day Across Boroughs",
         x="Hour of Day", y="Number of Crashes"))
 ```
