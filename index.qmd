@@ -201,7 +201,13 @@ Markdown.
     - Learn and memorize more commands used in the Terminal.
     - Advance my statistical skills through a data science project.
 + Wishneski, Emma Irene
+    - Gain a better understanding of data science, and real life applications
+    - Get comfortable using github, python, and other applications
+    - Become familiar with useful techniques for machine learning
 + Yoon, Jessica Nari
+    - Become comfortable with Git and version control.  
+    - Apply skills from this classes to other courses. 
+    - Understand my computer better. 
 + Zhang, Mark Justin
     - Get comfortable with command line and Git
     - Learn to make my own data science projects
@@ -305,12 +311,12 @@ Please use the following table to sign up.
    09/18 | Chen, Jingang Calvin | Syntax of Markdown
    09/23 | Montalvo, Victor Samuel |
    09/25 | Cao, Enshuo |
-   09/30 | Chen, Irene |
+   09/30 | Lucey, Sonia Niamh | Grammar of Graphics with Plotnine
    10/02 | Haerter, Alejandro Erik | Geospatial Data with GeoPandas
    10/02 | Saxena, Aanya | 
    10/07 | Gomez-Haibach, Konrad |
    10/07 | Sgro, Owen Bentley |
-   10/09 | Chen, Irene |
+   10/09 | Chen, Irene | Presentations with Quarto
    10/09 | Yoon, Jessica Nari |
    10/14 | Patel, Sahil Sanjay |
    10/14 | Plotnikov, Alexander |

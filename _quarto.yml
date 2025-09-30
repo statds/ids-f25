@@ -13,12 +13,14 @@ book:
   
   chapters:
     - index.qmd
-    - intro.qmd
-    - git.qmd
-    - quarto.qmd
-    - python.qmd
-    - visualization.qmd
-    - manipulation.qmd
+    - 01-intro.qmd
+    - 02-git.qmd
+    - 03-quarto.qmd
+    - 04-python.qmd
+    - 05-visualization.qmd
+    - 06-manipulation.qmd
+    - 07-exploration.qmd
+    - 08-regression.qmd
 #    - stats.qmd
 #    - machinelearning.qmd
 #    - supervised.qmd
@@ -33,9 +35,9 @@ bibliography:
 
 csl: apa.csl
 
-
 format:
   html:
+    html-math-method: mathjax
     theme: cosmo
 #  pdf:
 #    documentclass: scrbook

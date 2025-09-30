@@ -152,8 +152,9 @@
 
 1. **NYC Crash Data Exploration** Except for the first question, use
    the cleaned crash data in feather format.
-    a.  Construct a contigency table for missing in geocode (latitude and
-     longitude) by borough. Is the missing pattern the same across boroughs?
+    a.  Construct a contigency table for missing in zip code but not
+     in geocode (latitude and longitude) by borough.
+	 Is the missing pattern the same across boroughs?
      Formulate a hypothesis and test it. 
     a.  Construct a `hour` variable with integer values from 0 to 23. Plot the
      histogram of the number of crashes by `hour`. Plot it by borough.
