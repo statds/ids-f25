@@ -310,50 +310,11 @@ window.Quarto = {
 <li><p><strong>NYC Crash Severity Modeling</strong></p>
 <p>Using the cleaned NYC crash data, merged with zipcode level information, predict <code>severe</code> of a crash.</p>
 <ol type="a">
+<li>Create a varaible <code>n_vehicles</code> to represent the number of vehicles involved in each crash.</li>
 <li>Set random seed to <code>1234</code>. Randomly select 20% of the crashes as testing data and leave the rest 80% as training data.</li>
 <li>Fit a logistic model on the training data and validate the performance on the testing data. Explain the confusion matrix result from the testing data. Compute the F1 score.</li>
 <li>Fit a logistic model on the training data with <span class="math inline">\(L_1\)</span> regularization. Select the tuning parameter with 5-fold cross-validation in F1 score</li>
 <li>Apply the regularized logistic regression to predict the severity of the crashes in the testing data. Compare the performance of the two logistic models in terms of accuracy, precision, recall, F1-score, and AUC.</li>
-</ol></li>
-<li><p><strong>Midterm project: Street flood in NYC</strong> The class presentation at the 2025 NYC Open Data Weeik is scheduled for <a href="https://2025.open-data.nyc/event/risk-analysis-of-nyc-street-flooding/">Monday, March 24, 2:00-3:00 pm</a>.</p>
-<p>The <a href="https://data.cityofnewyork.us/Social-Services/311-Service-Requests-from-2010-to-Present/erm2-nwe9">NYC Open Data of 311 Service Requests</a> contains all service requests from 2010 to the present. This analysis focuses on two sewer-related complaints in 2024: Street Flooding (SF) and Catch Basin (CB). SF complaints serve as a practical indicator of street flooding, while CB complaints provide insights into a key infrastructural factor—when catch basins fail to drain rainwater properly due to blockages or structural issues, water accumulates on the streets. SF complaints are typically filed when residents observe standing water or flooding, whereas CB complaints report clogged basins, defective grates, or other drainage problems. The dataset is available in CSV format as <code>data/nycflood2024.csv</code>. Refer to the online data dictionary for a detailed explanation of variable meanings. Try to tell a story in your report while going through the questions.</p>
-<ol type="a">
-<li>Data cleaning.
-<ol type="i">
-<li>Import the data, rename the columns with our preferred styles.</li>
-<li>Summarize the missing information. Are there variables that are close to completely missing?</li>
-<li>Are there redundant information in the data? Try storing the data using the Arrow format and comment on the efficiency gain.</li>
-<li>Are there invalid NYC zipcode or borough? Can some of the missing values be filled? Fill them if yes.</li>
-<li>Are there date errors? Examples are earlier <code>closed_date</code> than <code>created_date</code>; <code>closed_date</code> and <code>created_date</code> matching to the second; dates exactly at midnight or noon to the second.</li>
-<li>Summarize your suggestions to the data curator in several bullet points.</li>
-</ol></li>
-<li>Exploratory analysis.
-<ol type="i">
-<li>Visualize the locations of complaints on a NYC map, with different symbols for different descriptors.</li>
-<li>Create a variable <code>response_time</code>, which is the duration from <code>created_date</code> to <code>closed_date</code>.</li>
-<li>Visualize the comparison of response time by complaint descriptor and borough. The original may not be the best given the long tail or outlers.</li>
-<li>Is there significant difference in response time between SF and CB complaints? Across different boroughs? Does the difference between SF and CB depend on borough? State your hypothesis, justify your test, and summarize your results in plain English.</li>
-<li>Create a binary variable <code>over3d</code> to indicate that a service request took three days or longer to close.</li>
-<li>Does <code>over3d</code> depend on the complaint descriptor, borough, or weekday (vs weekend/holiday)? State your hypotheses, justify your test, and summarize your results.</li>
-</ol></li>
-<li>Modeling the occurrence of overly long response time.
-<ol type="i">
-<li>Create a data set which contains the outcome variable <code>over3d</code> and variables that might be useful in predicting it. Consider including time-of-day effects (e.g., rush hour vs.&nbsp;late-night), seasonal trends, and neighborhood-level demographics. Zip code level information could be useful too, such as the zip code area and the ACS 2023 variables (<code>data/nyc_zip_areas.feather</code> and <code>data/acs2023.feather</code>).</li>
-<li>Randomly select 20% of the complaints as testing data with seeds <code>1234</code>. Build a logistic model to predict <code>over3d</code> for the complaints with the training data. If you have tuning parameters, justify how they were selected.</li>
-<li>Construct the confusion matrix from your prediction with a threshold of 1/2 on both training and testing data. Explain your accuracy, recall, precision, and F1 score to a New Yorker.</li>
-<li>Construct the ROC curve of your fitted logistic model and obtain the AUROC for both training and testing data. Explain your results to a New Yorker.</li>
-<li>Identify the most important predictors of <code>over3d</code>. Use model coefficients or feature importance (e.g., odds ratios, standardized coefficients, or SHAP values).</li>
-<li>Summarize your results to a New Yorker who is not data science savvy in several bullet points.</li>
-</ol></li>
-<li>Modeling the count of SF complains by zip code.
-<ol type="i">
-<li>Create a data set by aggregate the count of SF and SB complains by day for each zipcode.</li>
-<li>Merge the NYC precipitation (<code>data/rainfall_CP.csv</code>), by day to this data set.</li>
-<li>Merge the NYC zip code level landscape variables (<code>data/nyc_zip_lands.csv</code>) and ACS 2023 variables into the data set.</li>
-<li>For each day, create two variables representing 1-day lag of the precipitation and the number of CB complaints.</li>
-<li>Filter data from March 1 to November 30, excluding winter months when flooding is less frequent. November 30.</li>
-<li>Compare a Poisson regression with a Negative Binomial regression to account for overdispersion. Which model fits better? Explain the results to a New Yorker.</li>
-</ol></li>
 </ol></li>
 </ol>
 

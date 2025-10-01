@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 /* CSS for citations */
 div.csl-bib-body { }
 div.csl-entry {
@@ -90,6 +125,35 @@ div.csl-indent {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -214,9 +278,21 @@ div.csl-indent {
   <li><a href="#the-data-science-life-cycle" id="toc-the-data-science-life-cycle" class="nav-link" data-scroll-target="#the-data-science-life-cycle"><span class="header-section-number">3.3</span> The Data Science Life Cycle</a></li>
   <li><a href="#a-primer-of-markdown" id="toc-a-primer-of-markdown" class="nav-link" data-scroll-target="#a-primer-of-markdown"><span class="header-section-number">3.4</span> A Primer of Markdown</a>
   <ul class="collapse">
-  <li><a href="#subsection-1" id="toc-subsection-1" class="nav-link" data-scroll-target="#subsection-1"><span class="header-section-number">3.4.1</span> Subsection 1</a></li>
-  <li><a href="#subsection-2" id="toc-subsection-2" class="nav-link" data-scroll-target="#subsection-2"><span class="header-section-number">3.4.2</span> Subsection 2</a></li>
-  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">3.4.3</span> Further Reading</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction"><span class="header-section-number">3.4.1</span> Introduction</a></li>
+  <li><a href="#headers" id="toc-headers" class="nav-link" data-scroll-target="#headers"><span class="header-section-number">3.4.2</span> Headers</a></li>
+  <li><a href="#paragraph-and-line-break-convention" id="toc-paragraph-and-line-break-convention" class="nav-link" data-scroll-target="#paragraph-and-line-break-convention"><span class="header-section-number">3.4.3</span> Paragraph and Line Break Convention</a></li>
+  <li><a href="#horizontal-rules" id="toc-horizontal-rules" class="nav-link" data-scroll-target="#horizontal-rules"><span class="header-section-number">3.4.4</span> Horizontal Rules</a></li>
+  <li><a href="#text-formatting" id="toc-text-formatting" class="nav-link" data-scroll-target="#text-formatting"><span class="header-section-number">3.4.5</span> Text Formatting</a></li>
+  <li><a href="#blockquotes" id="toc-blockquotes" class="nav-link" data-scroll-target="#blockquotes"><span class="header-section-number">3.4.6</span> Blockquotes</a></li>
+  <li><a href="#lists" id="toc-lists" class="nav-link" data-scroll-target="#lists"><span class="header-section-number">3.4.7</span> Lists</a></li>
+  <li><a href="#formulas-and-equations" id="toc-formulas-and-equations" class="nav-link" data-scroll-target="#formulas-and-equations"><span class="header-section-number">3.4.8</span> Formulas and Equations</a></li>
+  <li><a href="#link-embedding" id="toc-link-embedding" class="nav-link" data-scroll-target="#link-embedding"><span class="header-section-number">3.4.9</span> Link Embedding</a></li>
+  <li><a href="#images" id="toc-images" class="nav-link" data-scroll-target="#images"><span class="header-section-number">3.4.10</span> Images</a></li>
+  <li><a href="#sec-tables" id="toc-sec-tables" class="nav-link" data-scroll-target="#sec-tables"><span class="header-section-number">3.4.11</span> Tables</a></li>
+  <li><a href="#cross-referencing" id="toc-cross-referencing" class="nav-link" data-scroll-target="#cross-referencing"><span class="header-section-number">3.4.12</span> Cross Referencing</a></li>
+  <li><a href="#footnotes" id="toc-footnotes" class="nav-link" data-scroll-target="#footnotes"><span class="header-section-number">3.4.13</span> Footnotes</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">3.4.14</span> Conclusion</a></li>
+  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">3.4.15</span> Further Reading</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -329,15 +405,654 @@ Results must be conveyed clearly to intended audiences, whether through reports,
 </section>
 <section id="a-primer-of-markdown" class="level2" data-number="3.4">
 <h2 data-number="3.4" class="anchored" data-anchor-id="a-primer-of-markdown"><span class="header-section-number">3.4</span> A Primer of Markdown</h2>
-<p>This is section was written by Jingang Calvin Chen. Calvin was a …</p>
-<section id="subsection-1" class="level3" data-number="3.4.1">
-<h3 data-number="3.4.1" class="anchored" data-anchor-id="subsection-1"><span class="header-section-number">3.4.1</span> Subsection 1</h3>
+<p>This section was prepared by Jingang Chen, an undergraduate junior pursuing a dual degree in computer science and statistical data science.</p>
+<section id="introduction" class="level3" data-number="3.4.1">
+<h3 data-number="3.4.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">3.4.1</span> Introduction</h3>
+<p>This section will focus on the syntax of Markdown, which is a lightweight markup language that allows to user to write content in plain text format, which can be rendered to various formats like HTML and PDF, and is widely used in open-source documentation.</p>
 </section>
-<section id="subsection-2" class="level3" data-number="3.4.2">
-<h3 data-number="3.4.2" class="anchored" data-anchor-id="subsection-2"><span class="header-section-number">3.4.2</span> Subsection 2</h3>
+<section id="headers" class="level3" data-number="3.4.2">
+<h3 data-number="3.4.2" class="anchored" data-anchor-id="headers"><span class="header-section-number">3.4.2</span> Headers</h3>
+<p>In markdown, creating heading levels for sections and subsections are denoted by <code>#</code> (atx-style) in the beginning of the line. The number of hashtags denote the heading level, with more hashtags indicating smaller heading levels. There are a total of 6 heading levels using the hashtags.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Header 1 (Main)</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">## Header 2 (Subheading)</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">### Header 3 (Subheading)</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Header 4</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">##### Header 5</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="fu">###### Header 6</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<blockquote class="blockquote">
+<p>A space is required after the hashtags to denote that it is a heading</p>
+</blockquote>
+<p>Headings can also be denoted by using underlined <code>=</code> and <code>-</code> signs, though this will only work for the first and second level headers respectively.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>Header 1</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">===</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>Header 2</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>----</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Any amount of <code>=</code> and <code>-</code> signs will work to create those top two headings.</p>
 </section>
-<section id="further-reading" class="level3" data-number="3.4.3">
-<h3 data-number="3.4.3" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">3.4.3</span> Further Reading</h3>
+<section id="paragraph-and-line-break-convention" class="level3" data-number="3.4.3">
+<h3 data-number="3.4.3" class="anchored" data-anchor-id="paragraph-and-line-break-convention"><span class="header-section-number">3.4.3</span> Paragraph and Line Break Convention</h3>
+<p>To seperate text into paragraphs, make sure there is at least one blank space between the blocks of texts.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>This is the first pargraph which can contain multiple lines, and as long there</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>is no blank line in this, then this block of text is one paragraph.</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>This is an example of a second paragraph. This one is seperated by a blank line</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>from the paragraph above to denote a different paragraph.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Output</strong>:</p>
+<p>This is the first pargraph which can contain multiple lines, and as long there is no blank line in this, then this block of text is one paragraph.</p>
+<p>This is an example of a second paragraph. This one is seperated by a blank line from the paragraph above to denote a different paragraph.</p>
+<p>To create a line break within a paragraph, end whatever line you’re on with two spaces, then press enter/return to start a new line. The break tag <code>&lt;br&gt;</code> is also sufficient.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>This is one line.  </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>This is a line that is seperated from the line above using two spaces. <span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>This is a third line seperated using the <span class="in">`&lt;br&gt;`</span> break tag.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Output:</strong></p>
+<p>This is one line.<br>
+This is a line that is seperated from the line above using two spaces. <br> This is a third line seperated using the <code>&lt;br&gt;</code> break tag.</p>
+<blockquote class="blockquote">
+<p><code>&lt;&gt;</code> in Markdown is a HTML tag, which is another way to structure the document</p>
+</blockquote>
+</section>
+<section id="horizontal-rules" class="level3" data-number="3.4.4">
+<h3 data-number="3.4.4" class="anchored" data-anchor-id="horizontal-rules"><span class="header-section-number">3.4.4</span> Horizontal Rules</h3>
+<p>Horizontal rules visually separate document sections, which can be done in Markdown by adding 3 or more of one of 3 characters: <code>***</code>, <code>---</code>, or <code>___</code>.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>paragraph 1.</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>******</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>paragraph 2.</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>------</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>paragraph 3.</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>______</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>paragraph 4.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Output:</strong></p>
+<p>paragraph 1.</p>
+<hr>
+<p>paragraph 2.</p>
+<hr>
+<p>paragraph 3.</p>
+<hr>
+<p>paragraph 4.</p>
+<blockquote class="blockquote">
+<p>Make sure when using the horizontal rulers, each of them is one blank line above and below them. There shouldn’t be any text above or below them adjacently.</p>
+</blockquote>
+</section>
+<section id="text-formatting" class="level3" data-number="3.4.5">
+<h3 data-number="3.4.5" class="anchored" data-anchor-id="text-formatting"><span class="header-section-number">3.4.5</span> Text Formatting</h3>
+<section id="bolding-and-italics" class="level4" data-number="3.4.5.1">
+<h4 data-number="3.4.5.1" class="anchored" data-anchor-id="bolding-and-italics"><span class="header-section-number">3.4.5.1</span> Bolding and Italics</h4>
+<p><em>Italic</em> text, uses single asterisks (*) or underscores (_) around the text, while <strong>bold</strong> text uses double asterisks or underscores. To make the text both <strong><em>bolded and italicized</em></strong>, put three asterisks or underscores around the text.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 69%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Syntax</th>
+<th>Output</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>*Italicized*</code> <br> <code>_Italicized_</code></td>
+<td><em>Italicized</em></td>
+</tr>
+<tr class="even">
+<td><code>**Bolded**</code> <br> <code>__Bolded__</code></td>
+<td><strong>Bolded</strong></td>
+</tr>
+<tr class="odd">
+<td><code>***bold &amp; italics***</code> <br> <code>___bold &amp; italics___</code></td>
+<td><strong><em>bolded &amp; italics</em></strong></td>
+</tr>
+</tbody>
+</table>
+<p>Emphasis can also be placed within a word as well, but only <code>*</code> can be used, not <code>_</code>.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 49%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Syntax</th>
+<th>Output</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>s*uperfragalis*t ex**pialidociou**s</code></td>
+<td>s<em>uperfragalis</em>t ex<strong>pialidociou</strong>s</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="strikethrough" class="level4" data-number="3.4.5.2">
+<h4 data-number="3.4.5.2" class="anchored" data-anchor-id="strikethrough"><span class="header-section-number">3.4.5.2</span> Strikethrough</h4>
+<p>Strikethrough uses <code>~~</code> around the text to cross it out.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Syntax</th>
+<th>Output</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>~~strikethrough text~~</code></td>
+<td><del>strikethrough text</del></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="superscript-and-subscript" class="level4" data-number="3.4.5.3">
+<h4 data-number="3.4.5.3" class="anchored" data-anchor-id="superscript-and-subscript"><span class="header-section-number">3.4.5.3</span> Superscript and Subscript</h4>
+<p>To superscript, use <code>^</code> around the desired text.</p>
+<p>For subscript, use <code>~</code> around the desired text.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Syntax</th>
+<th>Output</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>superscript^2^</code></td>
+<td>superscript<sup>2</sup></td>
+</tr>
+<tr class="even">
+<td><code>subscript~2~</code></td>
+<td>subscript<sub>2</sub></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="underlining-and-highlighting" class="level4" data-number="3.4.5.4">
+<h4 data-number="3.4.5.4" class="anchored" data-anchor-id="underlining-and-highlighting"><span class="header-section-number">3.4.5.4</span> Underlining and Highlighting</h4>
+<p>To underline, bracket the desired text with <code>[]</code>, and then follow that using <code>{.underline}</code>.</p>
+<p>To highlight, bracket the desired text with <code>[]</code>, and follow that using <code>{.mark}</code>. Alternatively you can start the text with <code>&lt;mark&gt;</code> and end it with <code>&lt;/mark&gt;</code>.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 59%">
+<col style="width: 40%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Syntax</th>
+<th>Output</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>[underlined text]{.underline}</code></td>
+<td><u>underlined text</u></td>
+</tr>
+<tr class="even">
+<td><code>[highlighted]{.mark}</code> <br> <code>&lt;mark&gt;higlighted&lt;/mark&gt;</code></td>
+<td><mark>highlighted</mark></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="escape-characters" class="level4" data-number="3.4.5.5">
+<h4 data-number="3.4.5.5" class="anchored" data-anchor-id="escape-characters"><span class="header-section-number">3.4.5.5</span> Escape Characters</h4>
+<p>If you want to display the Markdown syntax characters, it can be done by putting <code>\</code> before and after the text.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="sc">\#</span> Not a heading\</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="sc">\*</span>*not bolded**\</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="sc">\[</span>Not a link]\</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Output:</strong></p>
+<p># Not a heading<br>
+**not bolded**<br>
+[Not a link]<br>
+</p>
+</section>
+</section>
+<section id="blockquotes" class="level3" data-number="3.4.6">
+<h3 data-number="3.4.6" class="anchored" data-anchor-id="blockquotes"><span class="header-section-number">3.4.6</span> Blockquotes</h3>
+<p>Blockquotes is a way to highlight quoted content or important information in the document, which is denoted by <code>&gt;</code> in the beginning of the line.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; This is a block quote</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; </span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; second block quote</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; third block quote</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Output:</strong></p>
+<blockquote class="blockquote">
+<p>This is a blockquote</p>
+<p>second blockquote</p>
+<p>third blockquote</p>
+</blockquote>
+<p>To make sure that the blockquotes are seperated, make sure that each quote is seperated by <code>&gt;</code>’s with no text in that line. Putting blockquotes adjacent to each other will result in all the text being in the same paragraph.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; These blockquotes</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; are not seperated and</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; are all in one line</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Output:</strong></p>
+<blockquote class="blockquote">
+<p>These blockquotes are not seperated and are all in one line</p>
+</blockquote>
+<p>Blockquotes can also be nested by using multiple <code>&gt;</code> in one line.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; This is a blockquote</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; &gt; This is a nested blockquote</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; &gt;</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; &gt; &gt; Third level blockquote</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Output:</strong></p>
+<blockquote class="blockquote">
+<p>This is a blockquote</p>
+<blockquote class="blockquote">
+<p>This is a nested blockquote</p>
+<blockquote class="blockquote">
+<p>Third level blockquote</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</section>
+<section id="lists" class="level3" data-number="3.4.7">
+<h3 data-number="3.4.7" class="anchored" data-anchor-id="lists"><span class="header-section-number">3.4.7</span> Lists</h3>
+<p>Lists and nested lists can be structured in Markdown either unordered or ordered. For nested lists, make sure to include 4 spaces to properly indent the nested list (applies to both ordered and unordered).</p>
+<section id="unordered-lists" class="level4" data-number="3.4.7.1">
+<h4 data-number="3.4.7.1" class="anchored" data-anchor-id="unordered-lists"><span class="header-section-number">3.4.7.1</span> Unordered Lists</h4>
+<p>For unordered lists, <code>*</code>, <code>+</code>, or <code>-</code> can be used to make a list.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Item 1</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="ss">    * </span>Subitem</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="ss">        * </span>Another subitem</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Item 2</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Item 3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>and</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ss">+ </span>Item 1</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="ss">   + </span>Subitem</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="ss">       + </span>Another subitem</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="ss">+ </span>Item 2</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="ss">+ </span>Item 3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Item 1</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>Subitem</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="ss">       - </span>Another subitem</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Item 2</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Item 3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>as well a mix of all three:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Item 1</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="ss">   + </span>Subitem</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="ss">       - </span>Another subitem</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Item 2</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Item 3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>all yield the same output:</p>
+<ul>
+<li>Item 1
+<ul>
+<li>Subitem
+<ul>
+<li>Another subitem</li>
+</ul></li>
+</ul></li>
+<li>Item 2</li>
+<li>Item 3</li>
+</ul>
+</section>
+<section id="ordered-lists" class="level4" data-number="3.4.7.2">
+<h4 data-number="3.4.7.2" class="anchored" data-anchor-id="ordered-lists"><span class="header-section-number">3.4.7.2</span> Ordered Lists</h4>
+<p>Ordered lists use numbers with periods.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Item 1</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Item 2</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="ss">    1. </span>Sub item</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Item 3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The numbers don’t necessarily have to be ordered, and they can be duplicated as well. Whatever number the list starts on will be the one that it will count from no matter the numbers that come after it.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Item 1</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Item 2</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="ss">    1. </span>Sub Item</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Item 3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Item 1</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Item 2</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="ss">    2. </span>Sub Item</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="ss">7. </span>Item 3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>All three of these lists will yield the same result:</p>
+<ol type="1">
+<li>Item 1</li>
+<li>Item 2
+<ol type="1">
+<li>Sub Item</li>
+</ol></li>
+<li>Item 3</li>
+</ol>
+<p>However, if the list were to start on 2, it would start counting from 2 no matter the order that follows.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Item 1</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Item 2</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>Item 3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Output:</strong></p>
+<ol start="2" type="1">
+<li>Item 1</li>
+<li>Item 2</li>
+<li>Item 3</li>
+</ol>
+</section>
+<section id="task-list" class="level4" data-number="3.4.7.3">
+<h4 data-number="3.4.7.3" class="anchored" data-anchor-id="task-list"><span class="header-section-number">3.4.7.3</span> Task List</h4>
+<p>To denote the lists as a series of tasks, use <code>- [ ]</code>, which is unchecked, and <code>[x]</code>, which is checked, at the beginning of the line.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="va">[ ]</span> Task 1</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="va">[x]</span> Task 2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Output:</strong></p>
+<ul class="task-list">
+<li><label><input type="checkbox">Task 1</label></li>
+<li><label><input type="checkbox" checked="">Task 2</label></li>
+</ul>
+</section>
+<section id="definition-lists" class="level4" data-number="3.4.7.4">
+<h4 data-number="3.4.7.4" class="anchored" data-anchor-id="definition-lists"><span class="header-section-number">3.4.7.4</span> Definition lists</h4>
+<p>Defintion lists can be created with the following convention:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>term</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>: defintion</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>term2</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>: definition2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Output:</p>
+<dl>
+<dt>term</dt>
+<dd>
+defintion
+</dd>
+<dt>term2</dt>
+<dd>
+definition2
+</dd>
+</dl>
+</section>
+<section id="some-additional-notes-about-lists" class="level4" data-number="3.4.7.5">
+<h4 data-number="3.4.7.5" class="anchored" data-anchor-id="some-additional-notes-about-lists"><span class="header-section-number">3.4.7.5</span> Some Additional Notes About Lists</h4>
+<p>There are some additional features that can be done with the lists mentioned.</p>
+<p>A list can continue after a break in between. For ordered lists, the numbering still follows through after an interruption.</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Item 1</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>interruption text</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Item 2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Output:</strong></p>
+<ol type="1">
+<li>Item 1</li>
+</ol>
+<p>interruption text</p>
+<ol start="2" type="1">
+<li>Item 2</li>
+</ol>
+<p>Text than isn’t numbered or in bullet points can also be added below list using four spaces for indenting. Code chunks can be added in this case as well.</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>ordered list</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>item 2</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    continued after indenting 4 spaces</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    <span class="in">```python</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Hello, World!"</span>)</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>    <span class="in">```</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>    A. sub-sub-item 1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Output:</strong></p>
+<ol type="1">
+<li><p>ordered list</p></li>
+<li><p>item 2</p>
+<p>continued after indenting 4 spaces</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Hello, World!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ol type="A">
+<li>sub-sub-item 1 ### Code</li>
+</ol></li>
+</ol>
+</section>
+<section id="inline-code" class="level4" data-number="3.4.7.6">
+<h4 data-number="3.4.7.6" class="anchored" data-anchor-id="inline-code"><span class="header-section-number">3.4.7.6</span> Inline Code</h4>
+<p>Markdown allows for inline code and code blocks.</p>
+<p>To insert inline code, use the backticks <code>`</code> around the text</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>This is an example of <span class="in">`inline code`</span> in a text.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Output</strong>: This is an example of <code>inline code</code> in a text.</p>
+<p>To display the <code>`</code> as part of an inline code, surround the character with <code>``</code> backticks and spacing them apart from <code>`</code>.</p>
+</section>
+<section id="code-blocks" class="level4" data-number="3.4.7.7">
+<h4 data-number="3.4.7.7" class="anchored" data-anchor-id="code-blocks"><span class="header-section-number">3.4.7.7</span> Code Blocks</h4>
+<p>To create code blocks, <code>```</code> can be used.</p>
+<pre><code>    ```
+    some code
+    ```</code></pre>
+<p>Output:</p>
+<pre><code>some code</code></pre>
+<p>Alternatively, code blocks can be indented by identing four or more spaces prior to the code.</p>
+<pre><code>This is code using the indentation of four spaces
+    This line has more than four spaces</code></pre>
+<p>A language can also be added to specify the language of the code blocks if <code>```</code> is used.</p>
+<pre><code>```python
+print('some python code')
+```</code></pre>
+<p><strong>Output</strong>:</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'some python code'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>To make the code executable, put <code>{}</code> around the syntax language being used in the code blocks.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>    ```{python}</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Some python code"</span>)</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>    ```</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Output</strong>:</p>
+<div id="c4066cad" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'some python code'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>some python code</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="formulas-and-equations" class="level3" data-number="3.4.8">
+<h3 data-number="3.4.8" class="anchored" data-anchor-id="formulas-and-equations"><span class="header-section-number">3.4.8</span> Formulas and Equations</h3>
+<p>Markdown supports LaTeX-style expressions. Mathematical expressions can either be done inline (enclosing using <code>$</code>) or for display math (enclosed by <code>$$</code>).</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 64%">
+<col style="width: 35%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Syntax</th>
+<th>Output</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>Inline: $x^2 + y^2 = z^2$</code></td>
+<td>Inline: <span class="math inline">\(x^2 + y^2 = z^2\)</span></td>
+</tr>
+<tr class="even">
+<td><code>Display:</code> <br> <code>$$x^2 + y^2 = z^2$$</code></td>
+<td>Display: <br> <span id="eq-sample"><span class="math display">\[x^2 + y^2 = z^2 \tag{3.1}\]</span></span></td>
+</tr>
+</tbody>
+</table>
+<p>For mor information on how to use LaTeX expressions, visit <a href="https://www.overleaf.com/learn" class="uri">https://www.overleaf.com/learn</a> and look under the “Mathematics” section.</p>
+</section>
+<section id="link-embedding" class="level3" data-number="3.4.9">
+<h3 data-number="3.4.9" class="anchored" data-anchor-id="link-embedding"><span class="header-section-number">3.4.9</span> Link Embedding</h3>
+<p>Links in Markdown can either be added inline or as a reference.</p>
+<p>To add an <strong>inline link</strong>, use <code>[]</code> around the text that leads to the link, followed by actually inputting the link in <code>()</code>.</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>this is an example link that will lead to the </span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Markdown Guide</span><span class="co">](https://www.markdownguide.org/)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Output:</strong> : This is an example link that will lead to the <a href="https://www.markdownguide.org/">Markdown Guide</a>.</p>
+<p>Alternatively, for inline links, the URL can be directly added without linking it to text by just using <code>&lt;&gt;</code> around the URL.</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>Link to <span class="ot">&lt;https://www.markdownguide.org/&gt;</span>.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Output:</strong> Link to <a href="https://www.markdownguide.org/" class="uri">https://www.markdownguide.org/</a>.</p>
+<p>For reference-style links, you can having text linked to the URL and a seperate number or text that points to the link with <code>[]</code></p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>Example of reference-style link leading to the <span class="co">[</span><span class="ot">Markdown Guide</span><span class="co">][link]</span>.</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="ot">[link]: https://www.markdownguide.org</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Output:</strong></p>
+<p>Example of reference-style link leading to the <a href="https://www.markdownguide.org/">Markdown Guide</a>.</p>
+</section>
+<section id="images" class="level3" data-number="3.4.10">
+<h3 data-number="3.4.10" class="anchored" data-anchor-id="images"><span class="header-section-number">3.4.10</span> Images</h3>
+<p>To insert an image into markdown, the convention is to first add <code>!</code>, followed by a caption to the image wrapped in <code>[]</code>, and finally the file path or URL to the image enclosed with <code>()</code>.</p>
+<p>In addition, the image can be embedded with a link by first wrapping the 3 parameters mentioned above in <code>[]</code>, followed by the link wrapped in <code>()</code>. The link can either be a local file path stored on your computer or a direct link of the image found online. For reproducibility, this example uses a direct URL pointing to an online image.</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="al">![UConn Husky Logo](https://lofrev.net/wp-content/photos/2016/06/uconn_huskies_logo.jpg)</span><span class="co">](https://uconn.edu/)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Output:</strong></p>
+<div id="fig-sample" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-sample-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="https://uconn.edu/"><img src="https://lofrev.net/wp-content/photos/2016/06/uconn_huskies_logo.jpg" class="img-fluid figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sample-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3.1: UConn Husky Logo
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="sec-tables" class="level3" data-number="3.4.11">
+<h3 data-number="3.4.11" class="anchored" data-anchor-id="sec-tables"><span class="header-section-number">3.4.11</span> Tables</h3>
+<p>To create tables, the <code>|</code> character is used to seperate the table into columns, while the <code>-</code> is used to seperate the headers of the table from the rest of the data. After the table, a header can be included two lines below the table starting with <code>:</code>.</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Col 1 <span class="pp">|</span> Col 2 <span class="pp">|</span> Col 3 <span class="pp">|</span> Col 4 <span class="pp">|</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="pp">|------|-----|----------|-------|</span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>   a  <span class="pp">|</span>  b  <span class="pp">|</span>    c     <span class="pp">|</span>  d    <span class="pp">|</span></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>  e   <span class="pp">|</span>  f  <span class="pp">|</span>  g       <span class="pp">|</span>  h    <span class="pp">|</span></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>   i  <span class="pp">|</span>   j <span class="pp">|</span>    k     <span class="pp">|</span>    l  <span class="pp">|</span></span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>: Sample Table 1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Output:</p>
+<div id="tbl-sample1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-sample1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;3.1: Sample Table 1
+</figcaption>
+<div aria-describedby="tbl-sample1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Col 1</th>
+<th>Col 2</th>
+<th>Col 3</th>
+<th>Col 4</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>a</td>
+<td>b</td>
+<td>c</td>
+<td>d</td>
+</tr>
+<tr class="even">
+<td>e</td>
+<td>f</td>
+<td>g</td>
+<td>h</td>
+</tr>
+<tr class="odd">
+<td>i</td>
+<td>j</td>
+<td>k</td>
+<td>l</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>Columns can also be aligned to the left, right or center by add a colong <code>:</code> to the left, right or on both sides of the <code>-</code>’s of the table.</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Right Col <span class="pp">|</span> Left Col <span class="pp">|</span> Center <span class="pp">|</span> Default <span class="pp">|</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="pp">|----------:|:---------|:------:|---------|</span></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>        a  <span class="pp">|</span>       b  <span class="pp">|</span>    c   <span class="pp">|</span>    d    <span class="pp">|</span></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>  e        <span class="pp">|</span>       f  <span class="pp">|</span>   g    <span class="pp">|</span>    h    <span class="pp">|</span></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>   i       <span class="pp">|</span>        j <span class="pp">|</span>  k     <span class="pp">|</span>      l  <span class="pp">|</span></span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>: Sample Table 2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Output:</strong></p>
+<table class="caption-top table">
+<caption>Sample Table 2</caption>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Right Col</th>
+<th style="text-align: left;">Left Col</th>
+<th style="text-align: center;">Center</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">a</td>
+<td style="text-align: left;">b</td>
+<td style="text-align: center;">c</td>
+<td>d</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">e</td>
+<td style="text-align: left;">f</td>
+<td style="text-align: center;">g</td>
+<td>h</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">i</td>
+<td style="text-align: left;">j</td>
+<td style="text-align: center;">k</td>
+<td>l</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="cross-referencing" class="level3" data-number="3.4.12">
+<h3 data-number="3.4.12" class="anchored" data-anchor-id="cross-referencing"><span class="header-section-number">3.4.12</span> Cross Referencing</h3>
+<p>Prior to cross referencing a section, there must be a label attached to the section that is being referenced. This is done by using <code>{}</code> after the section and giving it a label inside of it starting with <code>#sec-</code> followed by anything else after it.</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">### Tables {#sec-tables}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Then, to reference the section, use the <code>@</code> followed by the label specified to create a direct link to the section. Optionally, you can wrap it around <code>[]</code> and add any additional text to the link.</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>Refer back to the Tables section in <span class="co">[</span><span class="ot">section @sec-tables</span><span class="co">]</span>.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Output:</strong></p>
+<p>Refer back to the Tables section in <a href="#sec-tables" class="quarto-xref">section&nbsp;<span>3.4.11</span></a>.</p>
+<p>To refer to figures and images, make sure to input the label after the URL. Make sure in the label to start with <code>#fig-</code> to specify that it is a figure that is being referenced.</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="al">![UConn Husky Logo](https://lofrev.net/wp-content/photos/2016/06/uconn_huskies_logo.jpg)</span><span class="ot">{#fig-sample}</span><span class="co">](https://uconn.edu/)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Now it can be referred back with the same convention as referencing a section:</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>This refers @fig-sample in the Images section.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Output:</strong></p>
+<p>This refers <a href="#fig-sample" class="quarto-xref">Figure&nbsp;<span>3.1</span></a> in the Images section.</p>
+<p>To cross reference tables, include the label on the line where the header is specified. Make sure to start the label with <code>#tbl-</code> to specify that it’s a table that is being referenced.</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Col 1 <span class="pp">|</span> Col 2 <span class="pp">|</span> Col 3 <span class="pp">|</span> Col 4 <span class="pp">|</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="pp">|------|-----|----------|-------|</span></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>   a  <span class="pp">|</span>  b  <span class="pp">|</span>    c     <span class="pp">|</span>  d    <span class="pp">|</span></span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>  e   <span class="pp">|</span>  f  <span class="pp">|</span>  g       <span class="pp">|</span>  h    <span class="pp">|</span></span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>   i  <span class="pp">|</span>   j <span class="pp">|</span>    k     <span class="pp">|</span>    l  <span class="pp">|</span></span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>: Sample Table 1 {#tbl-sample1}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Now to reference the table back:</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>@tbl-sample1 refers back to the first table in the Tables section.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Output:</strong></p>
+<p><a href="#tbl-sample1" class="quarto-xref">Table&nbsp;<span>3.1</span></a> refers back to the first table in the Tables section.</p>
+<p>Finally, to reference an equation, make sure to include the label after the equation, outside of the <code>$$</code> starting with <code>#eq-</code>.</p>
+<pre class="{markdown}"><code>$$x^2 + y^2 = z^2$$ {#eq-sample}</code></pre>
+<p>Now to reference the equation from the Equations section back:</p>
+<pre class="{markdown}"><code>@eq-sample is the Pythagorean theorem referenced from the Equations section.</code></pre>
+<p><strong>Output:</strong></p>
+<p><a href="#eq-sample" class="quarto-xref">Equation&nbsp;<span>3.1</span></a> is the Pythagorean theorem referenced from the Equations section.</p>
+</section>
+<section id="footnotes" class="level3" data-number="3.4.13">
+<h3 data-number="3.4.13" class="anchored" data-anchor-id="footnotes"><span class="header-section-number">3.4.13</span> Footnotes</h3>
+<p>Footnotes, often denoted by superscripts, are placed at the bottom of a page in a document, which helps provide additional information and references related to a specific part of the text. To insert a footnote in a text, it is done in the <code>[]</code>, where the first character inside of the brackets is <code>^</code>, followed by the desired name of the footnote. After that is specified, reference that footnote in a newline and put whatever note that is needed.</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>This is where you can place a footnote,<span class="ot">[^1]</span> sometimes multiple can be placed in </span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>one sentence.<span class="ot">[^longnote]</span></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a><span class="ot">[^1]: </span>This is a footnote.</span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a><span class="ot">[^longnote]: </span>This is a long footnote, which can have paragraphs.</span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>   </span>
+<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a><span class="in">    Make sure to use the four spaces to inent so that the subsequent paragraphs </span></span>
+<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a><span class="in">    belong to the same footnote.</span></span>
+<span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-11"><a href="#cb52-11" aria-hidden="true" tabindex="-1"></a><span class="in">    ```</span></span>
+<span id="cb52-12"><a href="#cb52-12" aria-hidden="true" tabindex="-1"></a><span class="in">    {code can also be inserted in here}</span></span>
+<span id="cb52-13"><a href="#cb52-13" aria-hidden="true" tabindex="-1"></a><span class="in">    ```</span></span>
+<span id="cb52-14"><a href="#cb52-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-15"><a href="#cb52-15" aria-hidden="true" tabindex="-1"></a><span class="in">    End footnote</span></span>
+<span id="cb52-16"><a href="#cb52-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-17"><a href="#cb52-17" aria-hidden="true" tabindex="-1"></a>Seperate paragraph here to show that this isn't part of the footnote.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Output:</strong></p>
+<p>This is where you can place a footnote,<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> sometimes multiple can be placed in one sentence<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<p>Seperate paragraph here to show that this isn’t part of the footnote.</p>
+</section>
+<section id="conclusion" class="level3" data-number="3.4.14">
+<h3 data-number="3.4.14" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">3.4.14</span> Conclusion</h3>
+<p>Markdown is a versatile markup language that simplifies writing for the web in a way that is readable and convenient. Today, it is widely used to present the work that is being done in a variety of areas, and Markdown provides a clean way to organize the content being presented and structure the documents well.</p>
+</section>
+<section id="further-reading" class="level3" data-number="3.4.15">
+<h3 data-number="3.4.15" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">3.4.15</span> Further Reading</h3>
+<ol type="1">
+<li><a href="https://quarto.org/docs/authoring/markdown-basics.html">Quarto Markdown Basics</a></li>
+<li><a href="https://www.tomarkdown.org/guides/markdown-complete-guide">The Complete Guide to Markdown</a></li>
+<li><a href="https://daringfireball.net/projects/markdown/syntax#precode">Markdown: Synatx by John Gruber</a></li>
+</ol>
 <!-- <\!-- This section is to be included as a tutorial for Quarto Presentations. -\-> -->
 <!-- {{< include _quarto_presentation.qmd >}} -->
 
@@ -348,6 +1063,16 @@ Yu, B., &amp; Barter, R. L. (2024). <em>Veridical data science: The practice of 
 </div>
 </div>
 </section>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>This is a footnote.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>This is a long footnote, which can have paragraphs.</p>
+<p>Make sure to use the four spaces to inent so that the subsequent paragraphs belong to the same footnote.</p>
+<pre><code>{code can also be inserted in here}</code></pre>
+<p>End footnote<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
 </section>
 
 </main> <!-- /main -->
