@@ -327,7 +327,7 @@ Please use the following table to sign up.
    10/28 | Tang, Wilson Chen | How to call R in Python
    10/28 | Wishneski, Emma Irene |
    10/30 | Lawrence, Claire Elise |
-   11/04 | White, Abigail Lynn |
+   11/04 | White, Abigail Lynn | Effective data science communication
    11/04 | Mayer-Costa, Jaden Paulo |
    11/06 | Anzalone, Matthew James |
    11/06 | Zhang, Mark Justin |
