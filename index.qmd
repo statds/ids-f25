@@ -324,7 +324,7 @@ Please use the following table to sign up.
    10/16 | Patel, Tulsi Manankumar |
    10/23 | Perkins, Jack Thomas |
    10/23 | Fazzina, Sophia Carmen |
-   10/28 | Tang, Wilson Chen |
+   10/28 | Tang, Wilson Chen | How to call R in Python
    10/28 | Wishneski, Emma Irene |
    10/30 | Lawrence, Claire Elise |
    11/04 | White, Abigail Lynn |
