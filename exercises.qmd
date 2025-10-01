@@ -150,12 +150,17 @@
     suggestions would you make based on your data exploration
     experience?
 
-1. **NYC Crash Data Exploration** Except for the first question, use
-   the cleaned crash data in feather format.
-    a.  Construct a contigency table for missing in geocode (latitude and
-     longitude) by borough. Is the missing pattern the same across boroughs?
-     Formulate a hypothesis and test it. 
-    a.  Construct a `hour` variable with integer values from 0 to 23. Plot the
+1. **NYC Crash Data Exploration** In the 
+    [cleaned crash data](data/nyc_crashes_cleaned.feather) in feather
+    format (thank Wilson Tang for [his work](docs/nyc_crashes_cleaning.pdf), 
+	we have a variable `zip_filled` which is `true` if, in the raw
+    data, a crash has nonmissing geocode but missing zip code, which
+    was filled during the cleaning process. This variable
+    could be viewed as a data quality metric.
+    a.  Construct a contigency table for `zip_filled` and
+    `borough`.  Is the pattern of fillable zips the same across
+    boroughs?  Formulate a hypothesis and test it. 
+    a.  Construct an `hour` variable with integer values from 0 to 23. Plot the
      histogram of the number of crashes by `hour`. Plot it by borough.
     a.  Overlay the locations of the crashes on a map of NYC. The map could be a
      static map or a Google map.
@@ -172,8 +177,11 @@
      zip code database; crash hour; number of vehicles involved.
 
 1. **NYC Crash Severity Modeling**
+   
    Using the cleaned NYC crash data, merged with zipcode level
    information, predict `severe` of a crash.
+    a.  Create a varaible `n_vehicles` to represent the number of
+   vehicles involved in each crash.
     a.  Set random seed to `1234`. Randomly select 20% of the
        crashes as testing data and leave the rest 80% as training
        data.
@@ -187,101 +195,4 @@
        severity of the crashes in the testing data. Compare the
 	   performance of the two logistic models in terms of accuracy, 
 	   precision, recall, F1-score, and AUC.
-
-
-1. **Midterm project: Street flood in NYC** 
-   The class presentation at the 2025 NYC Open Data Weeik is
-   scheduled for [Monday, March 24, 2:00-3:00 pm](https://2025.open-data.nyc/event/risk-analysis-of-nyc-street-flooding/).
-
-   The [NYC Open Data of 311 Service Requests](https://data.cityofnewyork.us/Social-Services/311-Service-Requests-from-2010-to-Present/erm2-nwe9)
-   contains all service requests from 2010 to the present. This
-   analysis focuses on two sewer-related complaints in 2024: Street
-   Flooding (SF) and Catch Basin (CB). SF complaints serve as a
-   practical indicator of street flooding, while CB complaints provide
-   insights into a key infrastructural factor—when catch basins fail
-   to drain rainwater properly due to blockages or structural issues,
-   water accumulates on the streets. SF complaints are typically filed
-   when residents observe standing water or flooding, whereas CB
-   complaints report clogged basins, defective grates, or other
-   drainage problems. The dataset is available in CSV format as
-   `data/nycflood2024.csv`. Refer to the online data dictionary for a
-   detailed explanation of variable meanings. Try to tell a story in
-   your report while going through the questions.
-    a.  Data cleaning.
-        i.  Import the data, rename the columns with our preferred styles.
-        i.  Summarize the missing information. Are there variables that
-          are close to completely missing? 
-        i.  Are there redundant information in the data? Try storing the
-          data using the Arrow format and comment on the efficiency
-          gain.
-        i.  Are there invalid NYC zipcode or borough? Can some of the
-          missing values be filled? Fill them if yes.
-        i.  Are there date errors? Examples are earlier `closed_date`
-          than `created_date`; `closed_date` and `created_date`
-          matching to the second; dates exactly at midnight or noon to
-          the second.
-        i.  Summarize your suggestions to the data curator in several
-          bullet points.
-    a.  Exploratory analysis.
-        i.  Visualize the locations of complaints on a NYC map, with
-           different symbols for different descriptors.
-        i.  Create a variable `response_time`, which is the duration
-           from `created_date` to `closed_date`. 
-        i.  Visualize the comparison of response time by complaint
-          descriptor and borough. The original may not be the best
-          given the long tail or outlers.
-        i.  Is there significant difference in response time between SF
-           and CB complaints? Across different boroughs? Does the
-           difference between SF and CB depend on borough? State your
-           hypothesis, justify your test, and summarize your results
-           in plain English.
-        i.  Create a binary variable `over3d` to indicate that a service
-          request took three days or longer to close. 
-        i.  Does `over3d`
-          depend on the complaint descriptor, borough, or weekday (vs
-          weekend/holiday)? State your hypotheses, justify your test,
-          and summarize your results.
-    a.  Modeling the occurrence of overly long response time.
-        i.  Create a data set which contains the outcome variable
-          `over3d` and variables that might be useful in predicting it.
-          Consider including time-of-day effects (e.g., rush hour
-          vs. late-night), seasonal trends, and neighborhood-level
-          demographics. Zip code level information could be useful
-          too, such as the zip code
-         area and the ACS 2023 variables
-         (`data/nyc_zip_areas.feather` and
-         `data/acs2023.feather`).
-        i.  Randomly select 20% of the complaints as testing data with
-          seeds `1234`. Build a logistic model to predict `over3d` for
-          the complaints with the training data. If you
-          have tuning parameters, justify how they were selected.
-        i.  Construct the confusion matrix from your prediction with a
-          threshold of 1/2 on both training and testing
-          data. Explain your accuracy, recall, precision, and F1 score to a
-          New Yorker.
-        i. Construct the ROC curve of your fitted logistic model and
-          obtain the AUROC for both training and testing data. Explain your
-          results to a New Yorker.
-        i. Identify the most important predictors of `over3d`. Use model
-          coefficients or feature importance (e.g., odds ratios, standardized
-          coefficients, or SHAP values).
-        i. Summarize your results to a New Yorker who is not data
-           science savvy in several bullet points.
-    a.  Modeling the count of SF complains by zip code.
-        i.  Create a data set by aggregate the count of SF and SB
-           complains by day for each zipcode. 
-        i.  Merge the NYC precipitation (`data/rainfall_CP.csv`), 
-           by day to this data set.
-        i.  Merge the NYC zip code level landscape variables
-           (`data/nyc_zip_lands.csv`) and ACS 2023 variables into the
-           data set.
-		i. For each day, create two variables representing 1-day lag of the
-           precipitation and the number of CB complaints.
-        i. Filter data from March 1 to November 30, excluding winter
-           months when flooding is less frequent.
-           November 30. 
-        i.  Compare a Poisson regression with a Negative Binomial
-           regression to account for overdispersion. Which model fits better?
-           Explain the results to a New Yorker.
-
 

@@ -50,8 +50,11 @@ statistics and hypothesis tests are appropriate.
 column is one variable. When data are stored otherwise, reshaping is necessary
 before analysis can proceed smoothly.
 
-We now illustrate these ideas using the Ames Housing dataset, which is
-available directly from OpenML.
+We now illustrate these ideas using a reduced version of the Ames
+Housing dataset [@decock2009ames], which is available directly from
+`OpenML`. With a filtered subset of ~1460 observations, it drops older
+sales, keeps only certain years, and removes some variables to make
+modeling cleaner for beginners.
 
 
 ```{python}
@@ -438,7 +441,7 @@ revisiting previous steps. Clear documentation ensures that these iterations
 are transparent and reproducible.
 
 
-## 7. Good Practices in Data Exploration
+## Good Practices in Data Exploration
 
 Clear habits in exploration make later analysis more reliable and easier to
 share. The following practices help ensure quality and reproducibility.
