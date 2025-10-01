@@ -180,6 +180,8 @@
    
    Using the cleaned NYC crash data, merged with zipcode level
    information, predict `severe` of a crash.
+    a.  Create a varaible `n_vehicles` to represent the number of
+   vehicles involved in each crash.
     a.  Set random seed to `1234`. Randomly select 20% of the
        crashes as testing data and leave the rest 80% as training
        data.
