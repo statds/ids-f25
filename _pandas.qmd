@@ -1,0 +1,5 @@
+---
+title: "Data Manipulation with Pandas"
+author: "Owen Sgro"
+date: "2025-10-02"
+---
