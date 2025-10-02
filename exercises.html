@@ -307,10 +307,8 @@ window.Quarto = {
 <li>Merge the crash data with the Census zip code database which contains zip-code level demographic or socioeconomic variables.</li>
 <li>Fit a logistic model with <code>severe</code> as the outcome variable and covariates that are available in the data or can be engineered from the data. For example, zip code level covariates obtained from merging with the zip code database; crash hour; number of vehicles involved.</li>
 </ol></li>
-<li><p><strong>NYC Crash Severity Modeling</strong></p>
-<p>Using the cleaned NYC crash data, merged with zipcode level information, predict <code>severe</code> of a crash.</p>
+<li><p><strong>NYC Crash Severity Modeling</strong> Using the cleaned NYC crash data, merged with zipcode level information, predict <code>severe</code> of a crash.</p>
 <ol type="a">
-<li>Create a varaible <code>n_vehicles</code> to represent the number of vehicles involved in each crash.</li>
 <li>Set random seed to <code>1234</code>. Randomly select 20% of the crashes as testing data and leave the rest 80% as training data.</li>
 <li>Fit a logistic model on the training data and validate the performance on the testing data. Explain the confusion matrix result from the testing data. Compute the F1 score.</li>
 <li>Fit a logistic model on the training data with <span class="math inline">\(L_1\)</span> regularization. Select the tuning parameter with 5-fold cross-validation in F1 score</li>
