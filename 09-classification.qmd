@@ -1,0 +1,303 @@
+# Classification {# ch-classification}
+
+
+Classification is one of the most widely used tasks in data science,
+concerned with predicting categorical outcomes rather than continuous
+quantities. Many real-world problems can be framed as classification,
+such as diagnosing a disease from medical records, determining whether
+a loan applicant is likely to default, or identifying spam emails.
+Compared with regression, which models numeric responses, classification
+methods aim to assign observations into predefined classes based on
+their features. Logistic regression, introduced in the previous chapter,
+provides a natural transition: it uses a regression framework to model
+the probability of class membership. In this chapter, we expand beyond
+logistic regression to study how classification models are evaluated and
+to introduce other methods developed for classification tasks.
+
+
+## Introduction to Classification
+
+Classification problems arise when the outcome of interest is
+categorical rather than continuous. Instead of predicting a numerical
+quantity, the task is to assign each observation to one of several
+predefined classes. Examples include deciding whether an email is spam
+or not, predicting a patient’s disease status from clinical measures, or
+determining whether a financial transaction is fraudulent. These
+problems are ubiquitous across domains and often require different tools
+from those used in regression.
+
+
+A widely used dataset for illustrating binary classification is the
+Breast Cancer Wisconsin (Diagnostic) dataset. It contains information on
+569 patients, each described by 30 numerical features computed from
+digitized images of fine needle aspirates of breast masses. These
+features summarize characteristics of the cell nuclei, such as radius,
+texture, perimeter, smoothness, and concavity, with versions capturing
+mean, variation, and extreme values. The outcome variable records
+whether the tumor is malignant or benign. Because the features are all
+numeric and the outcome is binary, this dataset provides an ideal
+setting for introducing classification methods and performance
+evaluation.
+
+
+Before building classification models, it is useful to perform
+exploratory data analysis (EDA) to understand the structure of the data.
+We first load the dataset from scikit-learn.
+
+```{python}
+from sklearn.datasets import load_breast_cancer
+import pandas as pd
+
+# Load dataset
+data = load_breast_cancer()
+df = pd.DataFrame(data.data, columns=data.feature_names)
+df["diagnosis"] = data.target
+
+# Map diagnosis: 0 = malignant, 1 = benign
+df["diagnosis"] = df["diagnosis"].map({0: "malignant", 1: "benign"})
+df.head()
+```
+
+We check the class distribution to see whether the dataset is balanced.
+
+```{python}
+df["diagnosis"].value_counts()
+```
+
+We can also examine summary statistics of the numeric features.
+
+```{python}
+df.describe().T.head(10)
+```
+
+Visualization helps reveal differences between classes. For example, we
+can compare the distributions of a few key features by diagnosis.
+
+```{python}
+from plotnine import ggplot, aes, geom_histogram, facet_wrap, labs
+
+features = ["mean radius", "mean texture", "mean area"]
+
+for feature in features:
+    p = (
+        ggplot(df, aes(x=feature, fill="diagnosis")) 
+        + geom_histogram(bins=20, alpha=0.5, position="identity")
+        + labs(title=feature)
+    )
+    p
+```
+
+These plots suggest that malignant and benign tumors differ in several
+features, such as mean radius and mean area. Such separation indicates
+that classification methods can be effective in distinguishing between
+the two groups.
+
+## Evaluating Classifiers
+
+Validating the performance of logistic regression models is crucial to
+assess their effectiveness and reliability. This section explores key
+metrics used to evaluate the performance of logistic regression
+models, starting with the confusion matrix, then moving on to
+accuracy, precision, recall, F1 score, and the area under the ROC
+curve (AUC). Using simulated data, we will demonstrate how to
+calculate and interpret these metrics using Python.
+
+
+
+### Confusion Matrix
+ 
+The [confusion matrix](https://en.wikipedia.org/wiki/Confusion_matrix)
+is a fundamental tool used for calculating
+several other classification metrics. It is a table used to describe
+the performance of a classification model on a set of data for which
+the true values are known. The matrix displays the actual values
+against the predicted values, providing insight into the number of
+correct and incorrect predictions.
+
+   Actual         | Predicted Positive | Predicted Negative 
+ ---------- | --------------- | ---------------
+  Actual Positive   | True Positive (TP)     | False Negative (FN) 
+  Actual Negative  | False Positive (FP)    | True Negative (TN)
+
+
+Four entries in the confusion matrix:
+
++ True Positive (TP): The cases in which the model correctly predicted
+  the positive class.
++ False Positive (FP): The cases in which the model incorrectly
+  predicted the positive class (i.e., the model predicted positive,
+  but the actual class was negative).
++ True Negative (TN): The cases in which the model correctly predicted
+  the negative class.
++ False Negative (FN): The cases in which the model incorrectly
+  predicted the negative class (i.e., the model predicted negative,
+  but the actual class was positive).
+
+Four rates from the confusion matrix with actual (row) margins:
+
++ True positive rate (TPR): TP / (TP + FN). Also known as sensitivity.
++ False negative rate (FNR): FN / (TP + FN). Also known as miss rate.
++ False positive rate (FPR): FP / (FP + TN). Also known as false alarm, fall-out.
++ True negative rate (TNR): TN / (FP + TN). Also known as specificity.
+
+Note that TPR and FPR do not add up to one. Neither do FNR and FPR.
+
+
+Four other rates with predicted (column) margins:
+
++ Positive predictive value (PPV): TP / (TP + FP). Also known as precision.
++ False discovery rate (FDR): FP / (TP + FP).
++ False omission rate (FOR): FN / (FN + TN).
++ Negative predictive value (NPV): TN / (FN + TN).
+
+Note that PPV and NP do not add up to one.
+
+
+### Accuracy
+Accuracy measures the overall correctness of the model and is
+defined as the ratio of correct predictions (both positive and
+negative) to the total number of cases examined.
+```
+  Accuracy = (TP + TN) / (TP + TN + FP + FN)
+```
+
++ Imbalanced Classes: Accuracy can be misleading if there is a
+  significant imbalance between the classes. For instance, in a
+  dataset where 95% of the samples are of one class, a model that
+  naively predicts the majority class for all instances will still
+  achieve 95% accuracy, which does not reflect true predictive
+  performance.
++ Misleading Interpretations: High overall accuracy might hide the
+  fact that the model is performing poorly on a smaller, yet
+  important, segment of the data.
+  
+
+### Precision
+Precision (or PPV) measures the accuracy of positive
+predictions. It quantifies the number of correct positive
+predictions made.
+```
+  Precision = TP / (TP + FP)
+```
+
++ Neglect of False Negatives: Precision focuses solely on the positive
+  class predictions. It does not take into account false negatives
+  (instances where the actual class is positive but predicted as
+  negative). This can be problematic in cases like disease screening
+  where missing a positive case (disease present) could be dangerous.
++ Not a Standalone Metric: High precision alone does not indicate good
+  model performance, especially if recall is low. This situation could
+  mean the model is too conservative in predicting positives, thus
+  missing out on a significant number of true positive instances.
+
+
+### Recall
+Recall (Sensitivity or TPR) measures the ability of a model to
+find all relevant cases (all actual positives).
+```
+  Recall = TP / (TP + FN)
+```
+
++ Neglect of False Positives: Recall does not consider false positives
+  (instances where the actual class is negative but predicted as
+  positive). High recall can be achieved at the expense of precision,
+  leading to a large number of false positives which can be costly or
+  undesirable in certain contexts, such as in spam detection.
++ Trade-off with Precision: Often, increasing recall decreases
+  precision. This trade-off needs to be managed carefully, especially
+  in contexts where both false positives and false negatives carry
+  significant costs or risks.
+  
+
+### F-beta Score
+The F-beta score is a weighted harmonic mean of precision and recall,
+taking into account a $\beta$ parameter such that recall is considered
+$\beta$ times as important as precision:
+$$
+(1 + \beta^2) \frac{\text{precision} \cdot \text{recall}}
+{\beta^2 \text{precision} + \text{recall}}.
+$$
+
+See [stackexchange
+  post](https://stats.stackexchange.com/questions/221997/why-f-beta-score-define-beta-like-that)
+  for the motivation of $\beta^2$ instead of just $\beta$.
+
+The F-beta score reaches its best value
+at 1 (perfect precision and recall) and worst at 0. 
+
+
+If reducing false negatives is more important (as might be the case in
+medical diagnostics where missing a positive diagnosis could be
+critical), you might choose a beta value greater than 1. If reducing
+false positives is more important (as in spam detection, where
+incorrectly classifying an email as spam could be inconvenient), a
+beta value less than 1 might be appropriate.
+
+The F1 Score is a specific case of the F-beta score where beta is 1,
+giving equal weight to precision and recall. It is the harmonic mean
+of Precision and Recall and is a useful measure when you seek a
+balance between Precision and Recall and there is an uneven class
+distribution (large number of actual negatives).
+
+
+
+### Breast Cancer Example
+
+Since logistic regression provides a natural starting point for
+classification, we will apply it to the breast cancer data using a
+subset of features for simplicity to illustrate the metrics.
+
+```{python}
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import confusion_matrix, classification_report
+
+X = df[["mean radius", "mean texture", "mean area"]]
+y = df["diagnosis"].map({"malignant":0, "benign":1})
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.3, random_state=42
+)
+
+model = LogisticRegression(max_iter=500)
+model.fit(X_train, y_train)
+y_pred = model.predict(X_test)
+
+conf_matrix = confusion_matrix(y_test, y_pred)
+conf_matrix
+```
+
+We can compute accuracy, precision, recall, and F1-score to evaluate
+performance.
+
+```{python}
+print(classification_report(y_test, y_pred,
+                                target_names=["malignant","benign"]))
+```
+
+
+
++ Malignant tumors: Precision of 0.91 means that 91% of tumors
+predicted malignant were truly malignant. Recall of 0.83 shows that
+the model correctly identified 83% of actual malignant tumors but
+missed 17% (false negatives). The F1-score of 0.87 balances these two
+aspects.
+
+- Benign tumors: Precision of 0.90 means 90% of predicted benign
+tumors were correct. Recall of 0.95 shows the model caught 95% of
+actual benign tumors, misclassifying only 5% as malignant. The F1-score
+of 0.93 reflects this strong performance.
+
+- Overall: The accuracy of 0.91 indicates that about 91% of tumors
+were classified correctly. The macro average (simple mean across
+classes) is slightly lower than the weighted average, reflecting the
+imbalance in sample sizes. Since benign cases are more common, the
+weighted average leans closer to their stronger performance.
+
+
+The model seems quite accurate overall, but performs
+better at identifying benign tumors than malignant ones. The relatively
+lower recall for malignant cases means that some malignant tumors were
+misclassified as benign. In medical applications, such false negatives
+are especially serious and motivate the use of evaluation metrics beyond
+accuracy alone.
