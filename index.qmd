@@ -315,7 +315,7 @@ Please use the following table to sign up.
    10/02 | Haerter, Alejandro Erik | Geospatial Data with GeoPandas
    10/02 | Saxena, Aanya | 
    10/07 | Gomez-Haibach, Konrad |
-   10/07 | Sgro, Owen Bentley |
+   10/07 | Sgro, Owen Bentley | Data Manipulation with Pandas
    10/09 | Chen, Irene | Presentations with Quarto
    10/09 | Yoon, Jessica Nari | Random Forest
    10/14 | Patel, Sahil Sanjay |
