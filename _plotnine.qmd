@@ -4,25 +4,21 @@ author: "Sonia Lucey"
 bibliography: references.bib
 format:
   html:
-    code-fold: true
+    code-fold: false
     toc: true
     toc-title: "Contents"
 ---
 
-
-## Grammar of Graphics with Plotnine
-
-This section was written by Sonia Lucey.
-
-### Introduction
+## Introduction
 Hello everyone! My name is Sonia Lucey and I am a Statistical Data Science major.  
 Today I will be talking about the **Grammar of Graphics using Plotnine**.  
 We will use **NYC Crash Data (Week of Labor Day, 2025)**, which we cleaned in HW4.  
 
-### What is Grammar of Graphics?
+## The Grammar of Graphics
 Just like languages have grammar to structure words and sentences, the **Grammar of Graphics** gives us a structured framework for building visualizations.  [@wilkinson2012grammar]
 
-### Key components:  
+Every plot can be described using a few key components:
+
 - **Data**: what dataset you are using.  
 - **Aesthetics**: axes, color, size, shape.  
 - **Scales**: how values map to axes or colors.  
@@ -31,7 +27,7 @@ Just like languages have grammar to structure words and sentences, the **Grammar
 - **Facets**: break plots into subplots.  
 - **Coordinate system**: Cartesian, polar, etc.  
 
-### What can you do with Plotnine?
+## Building Plots with Plotnine
 *The Grammar of Graphics* [@wilkinson2012grammar].  Plotnine implements the Grammar of Graphics in Python ([@sarkar2018]; [@bansal2018]). It is inspired by **ggplot2 in R** and allows consistent, layered visualizations.
 
 Some examples of what we can create:  
@@ -43,8 +39,6 @@ Some examples of what we can create:
 
 We’ll build each of these using the NYC crash dataset.  
 
-
-### Using Plotnine
 To get started, install and import Plotnine:  
 
 ```{python}
@@ -54,8 +48,6 @@ import pandas as pd
 df = pd.read_csv("data/cleaned_nyc_crash_data.csv")
 ```
 
-
-### How to Build Plots in Plotnine
 When writing plots in Plotnine, follow a logical order that mirrors the Grammar of Graphics:  
 
 1. **Data + Mapping** → `ggplot(data, aes(...))`  
@@ -65,7 +57,8 @@ When writing plots in Plotnine, follow a logical order that mirrors the Grammar 
 5. **Facets** → `facet_wrap()` or `facet_grid()`  
 6. **Theme** → `theme_minimal()`, `theme_classic()`
 
-### Bar Chart
+## Examples of Visualizations
+**Bar Chart**
 ```{python}
 (ggplot(df, aes(x="borough", fill="borough"))
  + geom_bar()
@@ -77,8 +70,7 @@ When writing plots in Plotnine, follow a logical order that mirrors the Grammar 
 
 This shows how many crashes happened in each borough.  
 
-
-### Scatter Plot
+**Scatter Plot**
 ```{python}
 (ggplot(df, aes(x="number_of_persons_injured", 
                 y="number_of_persons_killed"))
@@ -90,7 +82,7 @@ This shows how many crashes happened in each borough.
 
 Most crashes cause injuries but not fatalities.  
 
-### Histogram
+**Histogram**
 ```{python}
 df["hour"] = pd.to_datetime(df["crash_time"], 
 format="%H:%M", errors="coerce").dt.hour
@@ -105,7 +97,7 @@ format="%H:%M", errors="coerce").dt.hour
 Crashes are elevated throughout the day, with particularly high counts around midday and late afternoon. Midnight also shows an unexpected spike, which may reflect a default rather than commuting patterns. 
 
 
-### Box Plot
+**Box Plot**
 ```{python}
 (ggplot(df, aes(x="borough", y="number_of_persons_injured", fill="borough"))
  + geom_boxplot()
@@ -116,7 +108,8 @@ Crashes are elevated throughout the day, with particularly high counts around mi
 
 The boxplot compares injury severity between boroughs.  
 
-### Faceting 
+## Faceting in Plotnine
+**Wrap**
 ```{python}
 df["contributing_factor_vehicle_1"] = (
     df["contributing_factor_vehicle_1"]
@@ -140,7 +133,7 @@ df_top = df[df["contributing_factor_vehicle_1"].isin(top_factors)]
 
 Faceting lets us compare contributing factors side by side across boroughs.  
 
-### Faceting Grid
+**Grid**
 ```{python}
 df["hour"] = pd.to_datetime(df["crash_time"], 
 errors="coerce").dt.hour
@@ -152,29 +145,22 @@ errors="coerce").dt.hour
         x="Hour of Day", y="Number of Crashes"))
 ```
 
-### Faceting: Grid vs. Wrap
-
+**Grid vs. Wrap**
 Faceting allows you to split plots by one or two variables for comparison.
 
 - **facet_wrap()** arranges plots in a single flexible grid (best for one variable).
 - **facet_grid()** creates a strict row×column layout (best for two variables).
 - **Key difference:** wrap = flexible (one variable), grid = fixed (two variables).
 
-### Key Takeaway
+## Key Takeaway
 
 The Grammar of Graphics shifts our mindset: instead of asking *“what chart type do I need?”*, we ask *“what grammar components best represent my data and message?”*  
 
 This makes visualizations flexible, reusable, and less error prone. And once you know the grammar, learning tools like **Plotnine** or **ggplot2** ([@wilkinson2012grammar]; [@sarkar2018]; [@bansal2018]) becomes much easier. Think of plots not as pictures, but as structured sentences written with this grammar.  
 
 
-### Resources
+## Resources
 -  aeturrell.github.io
 - realpython.com
 - geeksforgeeks.org
 - jeroenjanssens.com
-
-### References
-- @wilkinson2012grammar
-- @bansal2018
-- @sarkar2018
-- @plotnine2025
