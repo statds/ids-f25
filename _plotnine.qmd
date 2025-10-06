@@ -1,3 +1,15 @@
+---
+title: "Grammar of Graphics with Plotnine"
+author: "Sonia Lucey"
+bibliography: references.bib
+format:
+  html:
+    code-fold: true
+    toc: true
+    toc-title: "Contents"
+---
+
+
 ## Grammar of Graphics with Plotnine
 
 This section was written by Sonia Lucey.
@@ -39,7 +51,7 @@ To get started, install and import Plotnine:
 from plotnine import *
 import pandas as pd
 
-df = pd.read_csv("../data/cleaned_nyc_crash_data.csv")
+df = pd.read_csv("data/cleaned_nyc_crash_data.csv")
 ```
 
 
@@ -53,7 +65,7 @@ When writing plots in Plotnine, follow a logical order that mirrors the Grammar 
 5. **Facets** → `facet_wrap()` or `facet_grid()`  
 6. **Theme** → `theme_minimal()`, `theme_classic()`
 
-### Bar Chart – Code
+### Bar Chart
 ```{python}
 (ggplot(df, aes(x="borough", fill="borough"))
  + geom_bar()
@@ -90,7 +102,7 @@ format="%H:%M", errors="coerce").dt.hour
  + ylab("Crash Count"))
 ```
 
-Crashes are elevated throughout the day, with particularly high counts around midday and late afternoon. Midnight also shows an unexpected spike, which may a default rather than commuting patterns. 
+Crashes are elevated throughout the day, with particularly high counts around midday and late afternoon. Midnight also shows an unexpected spike, which may reflect a default rather than commuting patterns. 
 
 
 ### Box Plot
@@ -140,20 +152,13 @@ errors="coerce").dt.hour
         x="Hour of Day", y="Number of Crashes"))
 ```
 
+### Faceting: Grid vs. Wrap
 
-### Faceting Grid vs. Faceting Wrap
+Faceting allows you to split plots by one or two variables for comparison.
 
-#### facet_wrap()
-- Arranges plots in a single row or column that wraps into multiple lines as needed.
-- Best when faceting by a single variable with many levels.
-- Flexible layout, adapts to available space.
-
-#### facet_grid()
-- Creates a fixed grid defined by two variables (rows × columns).
-- Good for structured comparisons (e.g., boroughs on rows, time of day on columns).
-- Layout is strict — empty panels will appear if some combinations of factors don’t exist.
-
-#### Key difference: wrap = flexible, one variable; grid = fixed, two variables.
+- **facet_wrap()** arranges plots in a single flexible grid (best for one variable).
+- **facet_grid()** creates a strict row×column layout (best for two variables).
+- **Key difference:** wrap = flexible (one variable), grid = fixed (two variables).
 
 ### Key Takeaway
 
