@@ -1,6 +1,6 @@
 ## Grammar of Graphics with Plotnine
 
-This is section was written by Sonia Lucey.
+This section was written by Sonia Lucey.
 
 ### Introduction
 Hello everyone! My name is Sonia Lucey and I am a Statistical Data Science major.  
@@ -39,7 +39,7 @@ To get started, install and import Plotnine:
 from plotnine import *
 import pandas as pd
 
-df = pd.read_csv("data/cleaned_nyc_crash_data.csv")
+df = pd.read_csv("../data/cleaned_nyc_crash_data.csv")
 ```
 
 
@@ -55,19 +55,6 @@ When writing plots in Plotnine, follow a logical order that mirrors the Grammar 
 
 ### Bar Chart – Code
 ```{python}
-#| echo: true
-#| eval: false
-(ggplot(df, aes(x="borough", fill="borough"))
- + geom_bar()
- + ggtitle("Number of Crashes by Borough")
- + coord_flip()
- + xlab("Borough")
- + ylab("Number of Crashes"))
-```
-
-### Bar Chart – Output
-```{python}
-#| echo: false
 (ggplot(df, aes(x="borough", fill="borough"))
  + geom_bar()
  + ggtitle("Number of Crashes by Borough")
@@ -79,22 +66,8 @@ When writing plots in Plotnine, follow a logical order that mirrors the Grammar 
 This shows how many crashes happened in each borough.  
 
 
-### Scatter Plot – Code
+### Scatter Plot
 ```{python}
-#| echo: true
-#| eval: false
-(ggplot(df, aes(x="number_of_persons_injured", 
-                y="number_of_persons_killed"))
- + geom_point(alpha=0.6)
- + labs(title="Injuries vs Fatalities per Crash",
-        x="Persons Injured",
-        y="Persons Killed"))
-```
-
-
-### Scatter Plot – Output
-```{python}
-#| echo: false
 (ggplot(df, aes(x="number_of_persons_injured", 
                 y="number_of_persons_killed"))
  + geom_point(alpha=0.6)
@@ -105,24 +78,10 @@ This shows how many crashes happened in each borough.
 
 Most crashes cause injuries but not fatalities.  
 
-### Histogram – Code
+### Histogram
 ```{python}
-#| echo: true
-#| eval: false
-df["hour"] = pd.to_datetime(df["crash_time"], format="%H:%M", errors="coerce").dt.hour
-
-(ggplot(df, aes(x="hour"))
- + geom_histogram(binwidth=1, color="black", fill="skyblue")
- + ggtitle("Distribution of Crashes by Hour")
- + xlab("Hour of Day")
- + ylab("Crash Count"))
-```
-
-
-### Histogram – Output
-```{python}
-#| echo: false
-df["hour"] = pd.to_datetime(df["crash_time"], format="%H:%M", errors="coerce").dt.hour
+df["hour"] = pd.to_datetime(df["crash_time"], 
+format="%H:%M", errors="coerce").dt.hour
 
 (ggplot(df, aes(x="hour"))
  + geom_histogram(binwidth=1, color="black", fill="skyblue")
@@ -134,20 +93,8 @@ df["hour"] = pd.to_datetime(df["crash_time"], format="%H:%M", errors="coerce").d
 Crashes are elevated throughout the day, with particularly high counts around midday and late afternoon. Midnight also shows an unexpected spike, which may a default rather than commuting patterns. 
 
 
-### Box Plot – Code
+### Box Plot
 ```{python}
-#| echo: true
-#| eval: false
-(ggplot(df, aes(x="borough", y="number_of_persons_injured", fill="borough"))
- + geom_boxplot()
- + ggtitle("Persons Injured by Borough")
- + xlab("Borough")
- + ylab("Number of Persons Injured"))
-```
-
-### Box Plot – Output
-```{python}
-#| echo: false
 (ggplot(df, aes(x="borough", y="number_of_persons_injured", fill="borough"))
  + geom_boxplot()
  + ggtitle("Persons Injured by Borough")
@@ -157,35 +104,8 @@ Crashes are elevated throughout the day, with particularly high counts around mi
 
 The boxplot compares injury severity between boroughs.  
 
-### Faceting – Code
+### Faceting 
 ```{python}
-#| echo: true
-#| eval: false
-
-df["contributing_factor_vehicle_1"] = (
-    df["contributing_factor_vehicle_1"]
-    .astype(str)
-    .str.strip()
-    .str.lower()
-    .replace({"": None, "na": None, "nan": None})
-)
-top_factors = (df["contributing_factor_vehicle_1"]
-               .value_counts()
-               .head(10)
-               .index)
-df_top = df[df["contributing_factor_vehicle_1"].isin(top_factors)]
-
-(ggplot(df_top, aes(x="contributing_factor_vehicle_1", fill="borough"))
- + geom_bar(show_legend=False)
- + facet_wrap("~ borough")
- + theme(axis_text_x=element_text(rotation=90, hjust=1))
- + ggtitle("Top 10 Contributing Factors by Borough"))
-```
-
-### Faceting – Output
-```{python}
-#| echo: false
-
 df["contributing_factor_vehicle_1"] = (
     df["contributing_factor_vehicle_1"]
     .astype(str)
@@ -208,23 +128,10 @@ df_top = df[df["contributing_factor_vehicle_1"].isin(top_factors)]
 
 Faceting lets us compare contributing factors side by side across boroughs.  
 
-### Faceting Grid - Code
+### Faceting Grid
 ```{python}
-#| echo: true
-#| eval: false
-df["hour"] = pd.to_datetime(df["crash_time"], errors="coerce").dt.hour
-
-(ggplot(df, aes(x="hour", fill="borough"))
- + geom_histogram(binwidth=1, alpha=0.6, position="identity")
- + facet_grid("borough ~ .")
- + labs(title="Crashes by Hour of Day Across Boroughs",
-        x="Hour of Day", y="Number of Crashes"))
-```
-
-### Faceting Grid - Output
-```{python}
-#| echo: false
-df["hour"] = pd.to_datetime(df["crash_time"], errors="coerce").dt.hour
+df["hour"] = pd.to_datetime(df["crash_time"], 
+errors="coerce").dt.hour
 
 (ggplot(df, aes(x="hour", fill="borough"))
  + geom_histogram(binwidth=1, alpha=0.6, position="identity")
