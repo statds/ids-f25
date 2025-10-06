@@ -2,11 +2,15 @@
 title: "Grammar of Graphics with Plotnine"
 author: "Sonia Lucey"
 bibliography: references.bib
+editor:
+  markdown:
+    wrap: 80
 format:
   html:
     code-fold: false
     toc: true
     toc-title: "Contents"
+    
 ---
 
 ## Introduction
