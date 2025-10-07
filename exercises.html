@@ -320,6 +320,33 @@ window.Quarto = {
 <li>Fit a logistic model on the training data with <span class="math inline">\(L_1\)</span> regularization. Select the tuning parameter with 5-fold cross-validation in F1 score</li>
 <li>Apply the regularized logistic regression to predict the severity of the crashes in the testing data. Compare the performance of the two logistic models in terms of accuracy, precision, recall, F1-score, and AUC.</li>
 </ol></li>
+<li><p><strong>Midterm project: Noise complaints in NYC</strong> The <a href="https://data.cityofnewyork.us/Social-Service%20s/311-Service-Requests-from-2010-to-Present/erm2-nwe9">NYC Open Data of 311 Service Requests</a> contains all requests from 2010 to present. We consider a subset of it with requests to NYPD on noise complaints that are created from 12:00:00 AM 06/29/2025 to 12:00:00 PM 07/05/2025. The subset is available in CSV format as <code>data/nypd311w062925noise_by100625.csv</code>. Read the data dictionary online to understand the meaning of the variables.</p>
+<ol type="a">
+<li>Data cleaning.
+<ol type="i">
+<li>Import the data, rename the columns with our preferred styles.</li>
+<li>Summarize the missing information. Are there variables that are close to completely missing?</li>
+<li>Are there redundant information in the data? Try storing the data using the Arrow format and comment on the efficiency gain.</li>
+<li>Are there invalid NYC zipcode or borough? Justify and clean them if yes.</li>
+<li>Are there date errors? Examples are earlier <code>closed_date</code> than <code>created_date</code>; <code>closed_date</code> and <code>created_date</code> matching to the second; dates exactly at midnight or noon to the second; <code>action_update_date</code> after <code>closed_date</code>.</li>
+<li>Summarize your suggestions to the data curator in several bullet points.</li>
+</ol></li>
+<li>Data exploration.
+<ol type="i">
+<li>If we suspect that response time may depend on the time of day when a complaint is made, we can compare the response times for complaints submitted during nighttime and daytime. To do this, we can visualize the comparison by complaint type, borough, and weekday (vs weekend/holiday).</li>
+<li>Perform a formal hypothesis test to confirm the observations from your visualization. Formally state your hypotheses and summarize your conclusions in plain English.</li>
+<li>Create a binary variable <code>over2h</code> to indicate that a service request took two hours or longer to close.</li>
+<li>Does <code>over2h</code> depend on the complaint type, borough, or weekday (vs weekend/holiday)? State your hypotheses and summarize your conclusions in plain English.</li>
+</ol></li>
+<li>Data analysis.
+<ol type="i">
+<li>The addresses of NYC police precincts are stored in <code>data/nypd_precincts.csv</code>. Use geocoding tools to find their geocode (longitude and latitude) from the addresses.</li>
+<li>Create a variable <code>dist2pp</code> which represent the distance from each request incidence to the nearest police precinct.</li>
+<li>Add zip code level variables by merging with data from US Census.</li>
+<li>Randomly select 20% of the complaints as testing data with seeds <code>1234</code>. Build a logistic model to predict <code>over2h</code> for the noise complaints with the training data, using all the variables you can engineer from the available data. If you have tuning parameters, justify how they were selected.</li>
+<li>Assess the performance of your model in terms of commonly used metrics. Summarize your results to a New Yorker who is not data science savvy.</li>
+</ol></li>
+</ol></li>
 </ol>
 
 
