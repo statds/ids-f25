@@ -135,7 +135,8 @@ Four entries in the confusion matrix:
 
 Four rates from the confusion matrix with actual (row) margins:
 
-+ True positive rate (TPR): TP / (TP + FN). Also known as sensitivity.
++ True positive rate (TPR): TP / (TP + FN). Also known as sensitivity
+  or recall.
 + False negative rate (FNR): FN / (TP + FN). Also known as miss rate.
 + False positive rate (FPR): FP / (FP + TN). Also known as false alarm, fall-out.
 + True negative rate (TNR): TN / (FP + TN). Also known as specificity.
@@ -239,6 +240,62 @@ of Precision and Recall and is a useful measure when you seek a
 balance between Precision and Recall and there is an uneven class
 distribution (large number of actual negatives).
 
+### Receiver Operating Characteristic (ROC) Curve
+
+The Receiver Operating Characteristic (ROC) curve is a plot that
+illustrates the diagnostic ability of a binary classifier as its
+discrimination threshold is varied. It shows the trade-off between the
+TPR and FPR. The ROC plots TPR against FPR as the decision threshold
+is varied. It can be particularly useful in evaluating the
+performance of classifiers when the class distribution is imbalanced,
+
+
++ Increasing from $(0, 0)$ to $(1, 1)$. The ROC curve always starts at
+  (0, 0) and ends at (1, 1) because these points represent the extreme
+  threshold settings of the classifier. When the threshold is so high
+  that all predictions are negative, both TPR and the TPR are
+  zero---corresponding to the point (0, 0). When the threshold is so
+  low that all predictions are positive, both TPR and FPR are
+  one---corresponding to the point (1, 1).
++ Best classification passes $(0, 1)$. The ideal classifier would
+  achieve a TPR of 1 while keeping the FPR at 0. This corresponds to
+  the point (0, 1) in the ROC space. In practice, the closer a
+  classifier’s ROC curve approaches this top-left corner, the better
+  its discriminative performance.
++ Classification by random guess gives the 45-degree line. For every
+  threshold, the TPR equals the FPR, because the classifier is just as
+  likely to label a negative instance as positive as it is to label a
+  positive instance correctly. Thus, its points fall on the line where
+  TPR = FPR. This diagonal serves as a baseline: a model whose ROC
+  curve lies on or below this line has no discriminative ability,
+  equivalent to random guessing. Any useful classifier should produce
+  a curve that bows above the diagonal, showing higher TPRs than FPRs
+  across thresholds. The greater the area between the ROC curve and
+  the diagonal, the more informative the model.
++ Area between the ROC and the 45-degree line is the Gini coefficient,
+  a measure of inequality.
++ Area under the curve (AUC) of ROC thus provides an important metric
+  of classification results. A higher AUC indicates that the model
+  ranks positive instances higher than negative ones more
+  consistently. Thus, a larger AUC reflects stronger separability
+  between the classes and a more powerful classifier. An AUC of 1
+  means perfect discrimination, whereas an AUC of 0.5 means random
+  guessing.
+
+
+The Area Under the ROC Curve (AUC) is a scalar value that
+summarizes the performance of a classifier. It measures the total area
+underneath the ROC curve, providing a single metric to compare
+models. The value of AUC ranges from 0 to 1:
+
+- AUC = 1: A perfect classifier, which perfectly separates positive
+  and negative classes.
+- AUC = 0.5: A classifier that performs no better than random chance.
+- AUC < 0.5: A classifier performing worse than random.
+
+The AUC value provides insight into the model's ability to
+discriminate between positive and negative classes across all possible
+threshold values.
 
 
 ### Breast Cancer Example
@@ -246,6 +303,23 @@ distribution (large number of actual negatives).
 Since logistic regression provides a natural starting point for
 classification, we will apply it to the breast cancer data using a
 subset of features for simplicity to illustrate the metrics.
+
+
+The response variable `y` is a binary array indicating whether a tumor
+is malignant or benign.
+
+- `y = 0` corresponds to **malignant** (cancerous) tumors.
+- `y = 1` corresponds to **benign** (non-cancerous) tumors.
+
+This encoding follows scikit-learn’s convention for the Wisconsin Diagnostic
+Breast Cancer dataset. The dataset includes 569 samples with 30 numeric
+features derived from digitized images of fine needle aspirate biopsies.
+
+When fitting a logistic regression model, the predicted probabilities
+(`y_pred_prob`) represent the estimated probability that a tumor is **benign
+(1)**. Consequently, high predicted probabilities correspond to benign cases,
+and low probabilities indicate malignant ones. The ROC and AUC computations use
+these probabilities as scores for the positive class (benign).
 
 ```{python}
 from sklearn.linear_model import LogisticRegression
@@ -301,3 +375,158 @@ lower recall for malignant cases means that some malignant tumors were
 misclassified as benign. In medical applications, such false negatives
 are especially serious and motivate the use of evaluation metrics beyond
 accuracy alone.
+
+```{python}
+from sklearn.metrics import roc_curve, roc_auc_score
+import pandas as pd
+from plotnine import ggplot, aes, geom_line, geom_abline, labs, theme_minimal
+
+# Assume model and data are from previous logistic regression example
+# y_test: true labels (0/1)
+# y_pred_prob: predicted probabilities for the positive class
+y_pred_prob = model.predict_proba(X_test)[:, 1]
+
+# Compute ROC curve and AUC
+fpr, tpr, thresholds = roc_curve(y_test, y_pred_prob)
+auc_value = roc_auc_score(y_test, y_pred_prob)
+
+# Create ROC DataFrame
+roc_df = pd.DataFrame({
+    'False Positive Rate': fpr,
+    'True Positive Rate': tpr
+})
+
+# Plot ROC curve
+(
+    ggplot(roc_df, aes(x='False Positive Rate', y='True Positive Rate')) +
+    geom_line(color='blue') +
+    geom_abline(linetype='dashed') +
+    labs(
+        title=f'ROC Curve (AUC = {auc_value:.2f})',
+        x='False Positive Rate (1 - Specificity)',
+        y='True Positive Rate (Sensitivity)'
+    ) +
+    theme_minimal()
+)
+```
+
+## Tuning Regularized Logistic Models
+
+The logistic regression model with an L1 (lasso) penalty requires a tuning
+parameter controlling the strength of regularization. In scikit-learn, this
+parameter is expressed as $C = 1 / \lambda$. Smaller $C$ values
+correspond to stronger penalties, shrinking more coefficients toward zero. The
+goal is to select $C$ that optimizes a performance metric such as F1 or AUC
+via cross-validation.
+
++ Step 1: Data and Setup
+
+We continue with the breast cancer dataset.
+
+```{python}
+from sklearn.datasets import load_breast_cancer
+from sklearn.model_selection import StratifiedKFold, cross_val_score
+from sklearn.linear_model import LogisticRegressionCV
+from sklearn.preprocessing import StandardScaler
+from sklearn.pipeline import Pipeline
+import numpy as np
+import pandas as pd
+from plotnine import ggplot, aes, geom_line, labs, scale_x_log10, theme_minimal
+
+# Load the data
+X, y = load_breast_cancer(return_X_y=True)
+```
+
++ Step 2: Automatic Selection of Candidate C Values
+
+Rather than manually picking a grid, `LogisticRegressionCV` determines a data-
+dependent range of $C$ values by examining the scale of the coefficients. It
+constructs a grid of regularization strengths internally based on the variance
+of the features and outcome, ensuring coverage from under-regularized to over-
+regularized regimes.
+
+```{python}
+# Use LogisticRegressionCV to determine reasonable C values
+auto_lasso = LogisticRegressionCV(
+    Cs=20,
+    penalty="l1",
+    solver="saga",
+    cv=5,
+    scoring="roc_auc",
+    max_iter=5000,
+    n_jobs=-1
+)
+
+pipeline = Pipeline([
+    ("scaler", StandardScaler()),
+    ("model", auto_lasso)
+])
+
+pipeline.fit(X, y)
+
+## set tested Cs
+C_values = np.logspace(-2, 1, 20)
+## C_values = auto_lasso.Cs_        
+```
+
++ Step 3: Cross-Validation for F1 and AUC
+
+While `LogisticRegressionCV` provides built-in AUC-based selection, we can also
+evaluate each $C$ value using different metrics such as F1-score.
+
+```{python}
+from sklearn.model_selection import cross_val_score
+
+cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
+
+# Evaluate across automatically chosen C values
+f1_scores = []
+auc_scores = []
+for C in C_values:
+    model = LogisticRegression(
+        penalty="l1", solver="saga", C=C, max_iter=5000
+    )
+    pipe = Pipeline([
+        ("scaler", StandardScaler()),
+        ("model", model)
+    ])
+    f1_scores.append(cross_val_score(pipe, X, y, cv=cv, scoring="f1").mean())
+    auc_scores.append(cross_val_score(pipe, X, y, cv=cv, scoring="roc_auc").mean())
+
+cv_results = pd.DataFrame({"C": C_values, "F1": f1_scores, "AUC": auc_scores})
+```
+
++ Step 4: Identify the Optimal Regularization Strength
+
+```{python}
+best_f1 = cv_results.loc[cv_results["F1"].idxmax()]
+best_auc = cv_results.loc[cv_results["AUC"].idxmax()]
+
+print("Best by F1:", best_f1)
+print("Best by AUC:", best_auc)
+```
+
++ Step 5: Visualization
+
+```{python}
+(
+    ggplot(cv_results.melt(id_vars="C", var_name="Metric", value_name="Score"),
+           aes(x="C", y="Score", color="Metric"))
+    + geom_line()
+    + scale_x_log10()
+    + labs(
+        title="Cross-Validation for Lasso Logistic Regression",
+        x="C (Inverse Regularization Strength)",
+        y="Mean 5-Fold Score"
+    )
+    + theme_minimal()
+)
+```
+
+
+This approach avoids arbitrary grids. The smallest $C$ corresponds to the
+strongest regularization (the simplest model), while the largest $C$ allows
+almost no penalty (the most flexible model). The optimal $C$ often lies
+between these extremes. A higher AUC indicates better class separation, whereas
+a higher F1-score indicates balanced precision and recall. Depending on the
+application, one metric may be prioritized over the other.
