@@ -264,8 +264,10 @@ window.Quarto = {
   <li><a href="#precision" id="toc-precision" class="nav-link" data-scroll-target="#precision"><span class="header-section-number">9.2.3</span> Precision</a></li>
   <li><a href="#recall" id="toc-recall" class="nav-link" data-scroll-target="#recall"><span class="header-section-number">9.2.4</span> Recall</a></li>
   <li><a href="#f-beta-score" id="toc-f-beta-score" class="nav-link" data-scroll-target="#f-beta-score"><span class="header-section-number">9.2.5</span> F-beta Score</a></li>
-  <li><a href="#breast-cancer-example" id="toc-breast-cancer-example" class="nav-link" data-scroll-target="#breast-cancer-example"><span class="header-section-number">9.2.6</span> Breast Cancer Example</a></li>
+  <li><a href="#receiver-operating-characteristic-roc-curve" id="toc-receiver-operating-characteristic-roc-curve" class="nav-link" data-scroll-target="#receiver-operating-characteristic-roc-curve"><span class="header-section-number">9.2.6</span> Receiver Operating Characteristic (ROC) Curve</a></li>
+  <li><a href="#breast-cancer-example" id="toc-breast-cancer-example" class="nav-link" data-scroll-target="#breast-cancer-example"><span class="header-section-number">9.2.7</span> Breast Cancer Example</a></li>
   </ul></li>
+  <li><a href="#tuning-regularized-logistic-models" id="toc-tuning-regularized-logistic-models" class="nav-link" data-scroll-target="#tuning-regularized-logistic-models"><span class="header-section-number">9.3</span> Tuning Regularized Logistic Models</a></li>
   </ul>
 </nav>
     </div>
@@ -297,7 +299,7 @@ window.Quarto = {
 <p>Classification problems arise when the outcome of interest is categorical rather than continuous. Instead of predicting a numerical quantity, the task is to assign each observation to one of several predefined classes. Examples include deciding whether an email is spam or not, predicting a patient’s disease status from clinical measures, or determining whether a financial transaction is fraudulent. These problems are ubiquitous across domains and often require different tools from those used in regression.</p>
 <p>A widely used dataset for illustrating binary classification is the Breast Cancer Wisconsin (Diagnostic) dataset. It contains information on 569 patients, each described by 30 numerical features computed from digitized images of fine needle aspirates of breast masses. These features summarize characteristics of the cell nuclei, such as radius, texture, perimeter, smoothness, and concavity, with versions capturing mean, variation, and extreme values. The outcome variable records whether the tumor is malignant or benign. Because the features are all numeric and the outcome is binary, this dataset provides an ideal setting for introducing classification methods and performance evaluation.</p>
 <p>Before building classification models, it is useful to perform exploratory data analysis (EDA) to understand the structure of the data. We first load the dataset from scikit-learn.</p>
-<div id="c3514e2e" class="cell" data-execution_count="1">
+<div id="f21a0256" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_breast_cancer</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -469,7 +471,7 @@ window.Quarto = {
 </div>
 </div>
 <p>We check the class distribution to see whether the dataset is balanced.</p>
-<div id="790e4c20" class="cell" data-execution_count="2">
+<div id="877093c7" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"diagnosis"</span>].value_counts()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="2">
 <pre><code>diagnosis
@@ -479,7 +481,7 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 <p>We can also examine summary statistics of the numeric features.</p>
-<div id="cebddd6c" class="cell" data-execution_count="3">
+<div id="e8d3ef81" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df.describe().T.head(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <div>
@@ -617,7 +619,7 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 <p>Visualization helps reveal differences between classes. For example, we can compare the distributions of a few key features by diagnosis.</p>
-<div id="989192be" class="cell" data-execution_count="4">
+<div id="86d51790" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> plotnine <span class="im">import</span> ggplot, aes, geom_histogram, facet_wrap, labs</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>features <span class="op">=</span> [<span class="st">"mean radius"</span>, <span class="st">"mean texture"</span>, <span class="st">"mean area"</span>]</span>
@@ -668,7 +670,7 @@ Name: count, dtype: int64</code></pre>
 </ul>
 <p>Four rates from the confusion matrix with actual (row) margins:</p>
 <ul>
-<li>True positive rate (TPR): TP / (TP + FN). Also known as sensitivity.</li>
+<li>True positive rate (TPR): TP / (TP + FN). Also known as sensitivity or recall.</li>
 <li>False negative rate (FNR): FN / (TP + FN). Also known as miss rate.</li>
 <li>False positive rate (FPR): FP / (FP + TN). Also known as false alarm, fall-out.</li>
 <li>True negative rate (TNR): TN / (FP + TN). Also known as specificity.</li>
@@ -721,10 +723,35 @@ Name: count, dtype: int64</code></pre>
 <p>If reducing false negatives is more important (as might be the case in medical diagnostics where missing a positive diagnosis could be critical), you might choose a beta value greater than 1. If reducing false positives is more important (as in spam detection, where incorrectly classifying an email as spam could be inconvenient), a beta value less than 1 might be appropriate.</p>
 <p>The F1 Score is a specific case of the F-beta score where beta is 1, giving equal weight to precision and recall. It is the harmonic mean of Precision and Recall and is a useful measure when you seek a balance between Precision and Recall and there is an uneven class distribution (large number of actual negatives).</p>
 </section>
-<section id="breast-cancer-example" class="level3" data-number="9.2.6">
-<h3 data-number="9.2.6" class="anchored" data-anchor-id="breast-cancer-example"><span class="header-section-number">9.2.6</span> Breast Cancer Example</h3>
+<section id="receiver-operating-characteristic-roc-curve" class="level3" data-number="9.2.6">
+<h3 data-number="9.2.6" class="anchored" data-anchor-id="receiver-operating-characteristic-roc-curve"><span class="header-section-number">9.2.6</span> Receiver Operating Characteristic (ROC) Curve</h3>
+<p>The Receiver Operating Characteristic (ROC) curve is a plot that illustrates the diagnostic ability of a binary classifier as its discrimination threshold is varied. It shows the trade-off between the TPR and FPR. The ROC plots TPR against FPR as the decision threshold is varied. It can be particularly useful in evaluating the performance of classifiers when the class distribution is imbalanced,</p>
+<ul>
+<li>Increasing from <span class="math inline">\((0, 0)\)</span> to <span class="math inline">\((1, 1)\)</span>. The ROC curve always starts at (0, 0) and ends at (1, 1) because these points represent the extreme threshold settings of the classifier. When the threshold is so high that all predictions are negative, both TPR and the TPR are zero—corresponding to the point (0, 0). When the threshold is so low that all predictions are positive, both TPR and FPR are one—corresponding to the point (1, 1).</li>
+<li>Best classification passes <span class="math inline">\((0, 1)\)</span>. The ideal classifier would achieve a TPR of 1 while keeping the FPR at 0. This corresponds to the point (0, 1) in the ROC space. In practice, the closer a classifier’s ROC curve approaches this top-left corner, the better its discriminative performance.</li>
+<li>Classification by random guess gives the 45-degree line. For every threshold, the TPR equals the FPR, because the classifier is just as likely to label a negative instance as positive as it is to label a positive instance correctly. Thus, its points fall on the line where TPR = FPR. This diagonal serves as a baseline: a model whose ROC curve lies on or below this line has no discriminative ability, equivalent to random guessing. Any useful classifier should produce a curve that bows above the diagonal, showing higher TPRs than FPRs across thresholds. The greater the area between the ROC curve and the diagonal, the more informative the model.</li>
+<li>Area between the ROC and the 45-degree line is the Gini coefficient, a measure of inequality.</li>
+<li>Area under the curve (AUC) of ROC thus provides an important metric of classification results. A higher AUC indicates that the model ranks positive instances higher than negative ones more consistently. Thus, a larger AUC reflects stronger separability between the classes and a more powerful classifier. An AUC of 1 means perfect discrimination, whereas an AUC of 0.5 means random guessing.</li>
+</ul>
+<p>The Area Under the ROC Curve (AUC) is a scalar value that summarizes the performance of a classifier. It measures the total area underneath the ROC curve, providing a single metric to compare models. The value of AUC ranges from 0 to 1:</p>
+<ul>
+<li>AUC = 1: A perfect classifier, which perfectly separates positive and negative classes.</li>
+<li>AUC = 0.5: A classifier that performs no better than random chance.</li>
+<li>AUC &lt; 0.5: A classifier performing worse than random.</li>
+</ul>
+<p>The AUC value provides insight into the model’s ability to discriminate between positive and negative classes across all possible threshold values.</p>
+</section>
+<section id="breast-cancer-example" class="level3" data-number="9.2.7">
+<h3 data-number="9.2.7" class="anchored" data-anchor-id="breast-cancer-example"><span class="header-section-number">9.2.7</span> Breast Cancer Example</h3>
 <p>Since logistic regression provides a natural starting point for classification, we will apply it to the breast cancer data using a subset of features for simplicity to illustrate the metrics.</p>
-<div id="bb994ddd" class="cell" data-execution_count="5">
+<p>The response variable <code>y</code> is a binary array indicating whether a tumor is malignant or benign.</p>
+<ul>
+<li><code>y = 0</code> corresponds to <strong>malignant</strong> (cancerous) tumors.</li>
+<li><code>y = 1</code> corresponds to <strong>benign</strong> (non-cancerous) tumors.</li>
+</ul>
+<p>This encoding follows scikit-learn’s convention for the Wisconsin Diagnostic Breast Cancer dataset. The dataset includes 569 samples with 30 numeric features derived from digitized images of fine needle aspirate biopsies.</p>
+<p>When fitting a logistic regression model, the predicted probabilities (<code>y_pred_prob</code>) represent the estimated probability that a tumor is <strong>benign (1)</strong>. Consequently, high predicted probabilities correspond to benign cases, and low probabilities indicate malignant ones. The ROC and AUC computations use these probabilities as scores for the positive class (benign).</p>
+<div id="d578e9c7" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> confusion_matrix, classification_report</span>
@@ -748,7 +775,7 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 <p>We can compute accuracy, precision, recall, and F1-score to evaluate performance.</p>
-<div id="27e991b9" class="cell" data-execution_count="6">
+<div id="e5e25fe7" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(classification_report(y_test, y_pred,</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>                                target_names<span class="op">=</span>[<span class="st">"malignant"</span>,<span class="st">"benign"</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -769,9 +796,167 @@ weighted avg       0.91      0.91      0.91       171
 <li><p>Overall: The accuracy of 0.91 indicates that about 91% of tumors were classified correctly. The macro average (simple mean across classes) is slightly lower than the weighted average, reflecting the imbalance in sample sizes. Since benign cases are more common, the weighted average leans closer to their stronger performance.</p></li>
 </ul>
 <p>The model seems quite accurate overall, but performs better at identifying benign tumors than malignant ones. The relatively lower recall for malignant cases means that some malignant tumors were misclassified as benign. In medical applications, such false negatives are especially serious and motivate the use of evaluation metrics beyond accuracy alone.</p>
-
-
+<div id="1232963c" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> roc_curve, roc_auc_score</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> plotnine <span class="im">import</span> ggplot, aes, geom_line, geom_abline, labs, theme_minimal</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Assume model and data are from previous logistic regression example</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co"># y_test: true labels (0/1)</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co"># y_pred_prob: predicted probabilities for the positive class</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>y_pred_prob <span class="op">=</span> model.predict_proba(X_test)[:, <span class="dv">1</span>]</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute ROC curve and AUC</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>fpr, tpr, thresholds <span class="op">=</span> roc_curve(y_test, y_pred_prob)</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>auc_value <span class="op">=</span> roc_auc_score(y_test, y_pred_prob)</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Create ROC DataFrame</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>roc_df <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">'False Positive Rate'</span>: fpr,</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">'True Positive Rate'</span>: tpr</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot ROC curve</span></span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>    ggplot(roc_df, aes(x<span class="op">=</span><span class="st">'False Positive Rate'</span>, y<span class="op">=</span><span class="st">'True Positive Rate'</span>)) <span class="op">+</span></span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>    geom_line(color<span class="op">=</span><span class="st">'blue'</span>) <span class="op">+</span></span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>    geom_abline(linetype<span class="op">=</span><span class="st">'dashed'</span>) <span class="op">+</span></span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>    labs(</span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>        title<span class="op">=</span><span class="ss">f'ROC Curve (AUC = </span><span class="sc">{</span>auc_value<span class="sc">:.2f}</span><span class="ss">)'</span>,</span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>        x<span class="op">=</span><span class="st">'False Positive Rate (1 - Specificity)'</span>,</span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>        y<span class="op">=</span><span class="st">'True Positive Rate (Sensitivity)'</span></span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>    ) <span class="op">+</span></span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a>    theme_minimal()</span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="09-classification_files/figure-html/cell-8-output-1.png" width="672" height="480" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
 </section>
+</section>
+<section id="tuning-regularized-logistic-models" class="level2" data-number="9.3">
+<h2 data-number="9.3" class="anchored" data-anchor-id="tuning-regularized-logistic-models"><span class="header-section-number">9.3</span> Tuning Regularized Logistic Models</h2>
+<p>The logistic regression model with an L1 (lasso) penalty requires a tuning parameter controlling the strength of regularization. In scikit-learn, this parameter is expressed as <span class="math inline">\(C = 1 / \lambda\)</span>. Smaller <span class="math inline">\(C\)</span> values correspond to stronger penalties, shrinking more coefficients toward zero. The goal is to select <span class="math inline">\(C\)</span> that optimizes a performance metric such as F1 or AUC via cross-validation.</p>
+<ul>
+<li>Step 1: Data and Setup</li>
+</ul>
+<p>We continue with the breast cancer dataset.</p>
+<div id="ba7fabec" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_breast_cancer</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> StratifiedKFold, cross_val_score</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegressionCV</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> Pipeline</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> plotnine <span class="im">import</span> ggplot, aes, geom_line, labs, scale_x_log10, theme_minimal</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the data</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>X, y <span class="op">=</span> load_breast_cancer(return_X_y<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Step 2: Automatic Selection of Candidate C Values</li>
+</ul>
+<p>Rather than manually picking a grid, <code>LogisticRegressionCV</code> determines a data- dependent range of <span class="math inline">\(C\)</span> values by examining the scale of the coefficients. It constructs a grid of regularization strengths internally based on the variance of the features and outcome, ensuring coverage from under-regularized to over- regularized regimes.</p>
+<div id="a9c06698" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use LogisticRegressionCV to determine reasonable C values</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>auto_lasso <span class="op">=</span> LogisticRegressionCV(</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    Cs<span class="op">=</span><span class="dv">20</span>,</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    penalty<span class="op">=</span><span class="st">"l1"</span>,</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    solver<span class="op">=</span><span class="st">"saga"</span>,</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    cv<span class="op">=</span><span class="dv">5</span>,</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    scoring<span class="op">=</span><span class="st">"roc_auc"</span>,</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    max_iter<span class="op">=</span><span class="dv">5000</span>,</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    n_jobs<span class="op">=-</span><span class="dv">1</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>pipeline <span class="op">=</span> Pipeline([</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"scaler"</span>, StandardScaler()),</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"model"</span>, auto_lasso)</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>])</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>pipeline.fit(X, y)</span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a><span class="co">## set tested Cs</span></span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>C_values <span class="op">=</span> np.logspace(<span class="op">-</span><span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">20</span>)</span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a><span class="co">## C_values = auto_lasso.Cs_        </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Step 3: Cross-Validation for F1 and AUC</li>
+</ul>
+<p>While <code>LogisticRegressionCV</code> provides built-in AUC-based selection, we can also evaluate each <span class="math inline">\(C\)</span> value using different metrics such as F1-score.</p>
+<div id="08dca5f1" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> cross_val_score</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>cv <span class="op">=</span> StratifiedKFold(n_splits<span class="op">=</span><span class="dv">5</span>, shuffle<span class="op">=</span><span class="va">True</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Evaluate across automatically chosen C values</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>f1_scores <span class="op">=</span> []</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>auc_scores <span class="op">=</span> []</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> C <span class="kw">in</span> C_values:</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    model <span class="op">=</span> LogisticRegression(</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>        penalty<span class="op">=</span><span class="st">"l1"</span>, solver<span class="op">=</span><span class="st">"saga"</span>, C<span class="op">=</span>C, max_iter<span class="op">=</span><span class="dv">5000</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>    pipe <span class="op">=</span> Pipeline([</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>        (<span class="st">"scaler"</span>, StandardScaler()),</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>        (<span class="st">"model"</span>, model)</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>    ])</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>    f1_scores.append(cross_val_score(pipe, X, y, cv<span class="op">=</span>cv, scoring<span class="op">=</span><span class="st">"f1"</span>).mean())</span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>    auc_scores.append(cross_val_score(pipe, X, y, cv<span class="op">=</span>cv, scoring<span class="op">=</span><span class="st">"roc_auc"</span>).mean())</span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>cv_results <span class="op">=</span> pd.DataFrame({<span class="st">"C"</span>: C_values, <span class="st">"F1"</span>: f1_scores, <span class="st">"AUC"</span>: auc_scores})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Step 4: Identify the Optimal Regularization Strength</li>
+</ul>
+<div id="940c4de3" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>best_f1 <span class="op">=</span> cv_results.loc[cv_results[<span class="st">"F1"</span>].idxmax()]</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>best_auc <span class="op">=</span> cv_results.loc[cv_results[<span class="st">"AUC"</span>].idxmax()]</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Best by F1:"</span>, best_f1)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Best by AUC:"</span>, best_auc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Best by F1: C      1.623777
+F1     0.979323
+AUC    0.994523
+Name: 14, dtype: float64
+Best by AUC: C      0.784760
+F1     0.976486
+AUC    0.995644
+Name: 12, dtype: float64</code></pre>
+</div>
+</div>
+<ul>
+<li>Step 5: Visualization</li>
+</ul>
+<div id="ef3f0244" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    ggplot(cv_results.melt(id_vars<span class="op">=</span><span class="st">"C"</span>, var_name<span class="op">=</span><span class="st">"Metric"</span>, value_name<span class="op">=</span><span class="st">"Score"</span>),</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>           aes(x<span class="op">=</span><span class="st">"C"</span>, y<span class="op">=</span><span class="st">"Score"</span>, color<span class="op">=</span><span class="st">"Metric"</span>))</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> geom_line()</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> scale_x_log10()</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> labs(</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>        title<span class="op">=</span><span class="st">"Cross-Validation for Lasso Logistic Regression"</span>,</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>        x<span class="op">=</span><span class="st">"C (Inverse Regularization Strength)"</span>,</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>        y<span class="op">=</span><span class="st">"Mean 5-Fold Score"</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> theme_minimal()</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="09-classification_files/figure-html/cell-13-output-1.png" width="672" height="480" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>This approach avoids arbitrary grids. The smallest <span class="math inline">\(C\)</span> corresponds to the strongest regularization (the simplest model), while the largest <span class="math inline">\(C\)</span> allows almost no penalty (the most flexible model). The optimal <span class="math inline">\(C\)</span> often lies between these extremes. A higher AUC indicates better class separation, whereas a higher F1-score indicates balanced precision and recall. Depending on the application, one metric may be prioritized over the other.</p>
+
+
 </section>
 
 </main> <!-- /main -->
