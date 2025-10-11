@@ -318,7 +318,7 @@ Please use the following table to sign up.
    10/07 | Sgro, Owen Bentley | Data Manipulation with Pandas
    10/09 | Chen, Irene | Presentations with Quarto
    10/09 | Yoon, Jessica Nari | Random Forest
-   10/14 | Patel, Sahil Sanjay |
+   10/14 | Patel, Sahil Sanjay | Web Scraping
    10/14 | Plotnikov, Alexander | Random Forests
    10/16 | Milun, Lewis Aaron | Database operation with Structured query language (SQL)
    10/16 | Patel, Tulsi Manankumar |
