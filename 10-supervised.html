@@ -290,7 +290,7 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction"><span class="header-section-number">10.2.1</span> Introduction</a></li>
   <li><a href="#gradient-boosting-process" id="toc-gradient-boosting-process" class="nav-link" data-scroll-target="#gradient-boosting-process"><span class="header-section-number">10.2.2</span> Gradient Boosting Process</a></li>
-  <li><a href="#demonstration" id="toc-demonstration" class="nav-link" data-scroll-target="#demonstration"><span class="header-section-number">10.2.3</span> Demonstration</a></li>
+  <li><a href="#boosted-trees-with-ames-housing" id="toc-boosted-trees-with-ames-housing" class="nav-link" data-scroll-target="#boosted-trees-with-ames-housing"><span class="header-section-number">10.2.3</span> Boosted Trees with Ames Housing</a></li>
   <li><a href="#xgboost-extreme-gradient-boosting" id="toc-xgboost-extreme-gradient-boosting" class="nav-link" data-scroll-target="#xgboost-extreme-gradient-boosting"><span class="header-section-number">10.2.4</span> XGBoost: Extreme Gradient Boosting</a></li>
   </ul></li>
   </ul>
@@ -396,7 +396,7 @@ H(Q_m) = \frac{1}{n_m} \sum_{i=1}^{n_m} |y_i - \bar{y}_m|.
 <h3 data-number="10.1.4" class="anchored" data-anchor-id="ames-housing-example"><span class="header-section-number">10.1.4</span> Ames Housing Example</h3>
 <p>The Ames Housing data are used to illustrate a regression tree model for predicting log house price.</p>
 <p>As before, we retrive the data from <code>OpenML</code>.</p>
-<div id="b3f935de" class="cell" data-execution_count="1">
+<div id="3df80053" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> openml</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -407,7 +407,7 @@ H(Q_m) = \frac{1}{n_m} \sum_{i=1}^{n_m} |y_i - \bar{y}_m|.
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"LogPrice"</span>] <span class="op">=</span> np.log(df[<span class="st">"SalePrice"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>A decision tree partitions the feature space into regions where the average log price is relatively constant.</p>
-<div id="47ad6322" class="cell" data-execution_count="2">
+<div id="84050170" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.compose <span class="im">import</span> ColumnTransformer</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> OneHotEncoder</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.tree <span class="im">import</span> DecisionTreeRegressor</span>
@@ -456,7 +456,7 @@ H(Q_m) = \frac{1}{n_m} \sum_{i=1}^{n_m} |y_i - \bar{y}_m|.
 </div>
 </div>
 <p>Cross-validation identifies an appropriate tree depth that balances fit and generalization. A too-deep tree overfits, while a shallow tree misses structure.</p>
-<div id="3dc80ca9" class="cell" data-execution_count="3">
+<div id="b00276a7" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>dt <span class="op">=</span> Pipeline([</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"pre"</span>, preprocessor),</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"model"</span>, DecisionTreeRegressor(max_depth<span class="op">=</span><span class="dv">4</span>, random_state<span class="op">=</span><span class="dv">0</span>))</span>
@@ -481,6 +481,7 @@ H(Q_m) = \frac{1}{n_m} \sum_{i=1}^{n_m} |y_i - \bar{y}_m|.
 </div>
 </div>
 <p>The plot shows predicted versus observed log prices. A well-fitted model has points close to the diagonal. The decision tree naturally captures nonlinear effects and interactions, though its predictions are piecewise constant, producing visible step patterns.</p>
+<!-- {{< include _random_forest.qmd >}} -->
 </section>
 </section>
 <section id="gradient-boosted-models" class="level2" data-number="10.2">
@@ -515,21 +516,93 @@ H(Q_m) = \frac{1}{n_m} \sum_{i=1}^{n_m} |y_i - \bar{y}_m|.
 <ul>
 <li><p>Compute pseudo-residuals representing the negative gradient of the loss function at the current predictions. For each observation <span class="math inline">\(i\)</span>: <span class="math display">\[
 r_i^{(m)} = -\left.\frac{\partial L(y_i, F(x_i))}{\partial F(x_i)}\right|_{F(x)=F_{m-1}(x)},
-\]</span> where <span class="math inline">\(x_i\)</span> and <span class="math inline">\(y_i\)</span> denote the feature vector and observed value for the <span class="math inline">\(i\)</span>-th observation, respectively.</p></li>
+\]</span> where <span class="math inline">\(x_i\)</span> and <span class="math inline">\(y_i\)</span> denote the feature vector and observed value for the <span class="math inline">\(i\)</span>-th observation, respectively. The residuals represent the direction of steepest descent in function space, so fitting a learner to them approximates a gradient descent step minimizing <span class="math inline">\(L(y, F(x))\)</span>.</p></li>
 <li><p>Fit a new weak learner <span class="math inline">\(h_m(x)\)</span> to these residuals.</p></li>
 <li><p>Update the model: <span class="math display">\[
 F_m(x) = F_{m-1}(x) + \eta \, h_m(x),
 \]</span> where <span class="math inline">\(\eta\)</span> is a small positive learning rate (e.g., 0.01–0.1), controlling incremental improvement and reducing overfitting.</p></li>
-</ul></li>
+</ul>
+<p>In some implementations, the update step includes an additional multiplier determined by a one-dimensional line search that minimizes the loss function at each iteration. Specifically, the optimal step length is defined as <span class="math display">\[
+\gamma_m = \arg\min_\gamma \sum_{i=1}^n
+L\bigl(y_i,\, F_{m-1}(x_i) + \gamma\, h_m(x_i)\bigr),
+\]</span> leading to an updated model of the form [ F_m(x) = F_{m-1}(x) + , _m, h_m(x), ] where <span class="math inline">\(\eta\)</span> remains a shrinkage factor controlling the overall rate of learning, while <span class="math inline">\(\gamma_m\)</span> adjusts the step size adaptively at each iteration.</p></li>
 <li><p>Final Model: After <span class="math inline">\(M\)</span> iterations, the ensemble model is: <span class="math display">\[
   F_M(x) = F_0(x) + \sum_{m=1}^M \eta \, h_m(x).
   \]</span></p></li>
 </ol>
-<p>Stochastic gradient boosting is a variant that enhances gradient boosting by introducing randomness through subsampling at each iteration, selecting a random fraction of data points (typically 50%–80%) to fit the model <span class="citation" data-cites="friedman2002stochastic">(<a href="references.html#ref-friedman2002stochastic" role="doc-biblioref">Friedman, 2002</a>)</span>. This randomness helps reduce correlation among trees, improve model robustness, and reduce the risk of overfitting.</p>
+<p>Stochastic gradient boosting is a variant that enhances gradient boosting by introducing randomness through subsampling at each iteration, selecting a random fraction of data points (typically 50%–80%) to fit the model . This randomness helps reduce correlation among trees, improve model robustness, and lower the risk of overfitting.</p>
 </section>
 </section>
-<section id="demonstration" class="level3" data-number="10.2.3">
-<h3 data-number="10.2.3" class="anchored" data-anchor-id="demonstration"><span class="header-section-number">10.2.3</span> Demonstration</h3>
+<section id="boosted-trees-with-ames-housing" class="level3" data-number="10.2.3">
+<h3 data-number="10.2.3" class="anchored" data-anchor-id="boosted-trees-with-ames-housing"><span class="header-section-number">10.2.3</span> Boosted Trees with Ames Housing</h3>
+<p>Boosted trees apply the gradient boosting framework to decision trees. They build an ensemble of shallow trees, each trained to correct the residual errors of the preceding ones. By sequentially emphasizing observations that are difficult to predict, the model progressively improves its overall predictive accuracy. We now apply gradient boosting using the same preprocessed features. Boosting combines many shallow trees, each correcting the residual errors of its predecessors, to improve predictive accuracy.</p>
+<div id="d10db716" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> GradientBoostingRegressor</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Define a range of tree counts for tuning</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>n_estimators_list <span class="op">=</span> [<span class="dv">50</span>, <span class="dv">100</span>, <span class="dv">200</span>, <span class="dv">400</span>]</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>cv_scores_gb <span class="op">=</span> [</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    cross_val_score(</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>        Pipeline([</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>            (<span class="st">"pre"</span>, preprocessor),</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>            (<span class="st">"model"</span>, GradientBoostingRegressor(</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>                n_estimators<span class="op">=</span>n,</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>                learning_rate<span class="op">=</span><span class="fl">0.05</span>,</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>                max_depth<span class="op">=</span><span class="dv">3</span>,</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>                random_state<span class="op">=</span><span class="dv">0</span>))</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>        ]),</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>        X, y, cv<span class="op">=</span><span class="dv">5</span>, scoring<span class="op">=</span><span class="st">"r2"</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    ).mean()</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> n <span class="kw">in</span> n_estimators_list</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="bu">list</span>(<span class="bu">zip</span>(n_estimators_list, cv_scores_gb))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<pre><code>[(50, np.float64(0.8199019428994425)),
+ (100, np.float64(0.8437789746745888)),
+ (200, np.float64(0.8451433195728157)),
+ (400, np.float64(0.8405078307788265))]</code></pre>
+</div>
+</div>
+<p>Cross-validation shows how increasing the number of boosting rounds initially improves performance but eventually risks overfitting when too many trees are added.</p>
+<div id="76d80156" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>gb <span class="op">=</span> Pipeline([</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"pre"</span>, preprocessor),</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"model"</span>, GradientBoostingRegressor(</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>        n_estimators<span class="op">=</span><span class="dv">200</span>,</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>        learning_rate<span class="op">=</span><span class="fl">0.05</span>,</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>        max_depth<span class="op">=</span><span class="dv">3</span>,</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>        random_state<span class="op">=</span><span class="dv">0</span>))</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>])</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>gb.fit(X, y)</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>y_pred_gb <span class="op">=</span> gb.predict(X)</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>df_pred_gb <span class="op">=</span> pd.DataFrame({<span class="st">"Observed"</span>: y, <span class="st">"Predicted"</span>: y_pred_gb})</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>(gg.ggplot(df_pred_gb, gg.aes(x<span class="op">=</span><span class="st">"Observed"</span>, y<span class="op">=</span><span class="st">"Predicted"</span>)) <span class="op">+</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a> gg.geom_point(alpha<span class="op">=</span><span class="fl">0.5</span>) <span class="op">+</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a> gg.geom_abline(slope<span class="op">=</span><span class="dv">1</span>, intercept<span class="op">=</span><span class="dv">0</span>, linetype<span class="op">=</span><span class="st">"dashed"</span>) <span class="op">+</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a> gg.labs(title<span class="op">=</span><span class="st">"Gradient-Boosted Regression on Ames Housing"</span>,</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>         x<span class="op">=</span><span class="st">"Observed Log Price"</span>, y<span class="op">=</span><span class="st">"Predicted Log Price"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="10-supervised_files/figure-html/cell-6-output-1.png" width="672" height="480" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The boosted model produces predictions that are generally closer to the 45-degree line than a single tree, reflecting improved accuracy and smoother response across the feature space.</p>
+<p>Gradient-boosted trees introduce several parameters that govern model complexity, learning stability, and overfitting control:</p>
+<ul>
+<li><code>n_estimators</code>: the number of trees (boosting rounds). More trees can reduce bias but increase computation and risk of overfitting. learning_rate — the shrinkage parameter <span class="math inline">\(\eta\)</span> controlling the contribution of each new tree. Smaller values (e.g., 0.05 or 0.01) require more trees but often yield better generalization.</li>
+<li><code>max_depth</code>: the maximum depth of each individual tree, limiting the model’s ability to overfit local noise. Shallow trees (depth 2–4) are typical weak learners.</li>
+<li><code>subsample</code>: the fraction of data used in each iteration. Values below 1.0 introduce randomness (stochastic boosting), improving robustness and reducing correlation among trees.</li>
+<li><code>min_samples_split</code> and <code>min_samples_leaf</code>: minimum numbers of observations required for splitting or forming leaves. These control tree granularity and help regularize the model.</li>
+</ul>
+<p>In practice, moderate learning rates with a sufficiently large number of estimators and shallow trees often perform best, balancing bias, variance, and computational cost.</p>
 </section>
 <section id="xgboost-extreme-gradient-boosting" class="level3" data-number="10.2.4">
 <h3 data-number="10.2.4" class="anchored" data-anchor-id="xgboost-extreme-gradient-boosting"><span class="header-section-number">10.2.4</span> XGBoost: Extreme Gradient Boosting</h3>
@@ -610,9 +683,6 @@ Chen, T., &amp; Guestrin, C. (2016). XGBoost: A scalable tree boosting system. <
 </div>
 <div id="ref-friedman2001greedy" class="csl-entry" role="listitem">
 Friedman, J. H. (2001). Greedy function approximation: A gradient boosting machine. <em>The Annals of Statistics</em>, <em>29</em>(5), 1189–1232.
-</div>
-<div id="ref-friedman2002stochastic" class="csl-entry" role="listitem">
-Friedman, J. H. (2002). Stochastic gradient boosting. <em>Computational Statistics &amp; Data Analysis</em>, <em>38</em>(4), 367–378.
 </div>
 <div id="ref-hastie2009elements" class="csl-entry" role="listitem">
 Hastie, T., Tibshirani, R., &amp; Friedman, J. (2009). <em>The elements of statistical learning: Data mining, inference, and prediction</em>. Springer.
