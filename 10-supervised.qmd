@@ -263,6 +263,8 @@ captures nonlinear effects and interactions, though its predictions are
 piecewise constant, producing visible step patterns.
 
 
+<!-- {{< include _random_forest.qmd >}} -->
+
 
 ## Gradient-Boosted Models
 
@@ -312,8 +314,7 @@ Gradient boosting builds an ensemble by iteratively minimizing the
 residual errors from previous models. This iterative approach
 optimizes a loss function, $L(y, F(x))$, where $y$ represents the
 observed target variable and $F(x)$ the model's prediction for a
-given feature vector $x$.
-
+given feature vector $x$. 
 
 Key concepts:
 
@@ -341,15 +342,34 @@ The gradient boosting algorithm proceeds as follows:
    r_i^{(m)} = -\left.\frac{\partial L(y_i, F(x_i))}{\partial F(x_i)}\right|_{F(x)=F_{m-1}(x)},
    $$
    where $x_i$ and $y_i$ denote the feature vector and observed value
-     for the $i$-th observation, respectively.
+   for the $i$-th observation, respectively. The residuals represent the
+   direction of steepest descent in function space, so fitting a learner
+   to them approximates a gradient descent step minimizing $L(y, F(x))$.
 
    - Fit a new weak learner $h_m(x)$ to these residuals.
+
    - Update the model:
    $$
    F_m(x) = F_{m-1}(x) + \eta \, h_m(x),
    $$
    where $\eta$ is a small positive learning rate (e.g., 0.01–0.1),
    controlling incremental improvement and reducing overfitting.
+   
+   In some implementations, the update step includes an additional
+   multiplier determined by a one-dimensional line search that minimizes
+   the loss function at each iteration. Specifically, the optimal step
+   length is defined as
+   $$
+   \gamma_m = \arg\min_\gamma \sum_{i=1}^n 
+    L\bigl(y_i,\, F_{m-1}(x_i) + \gamma\, h_m(x_i)\bigr),
+   $$
+   leading to an updated model of the form
+   \[
+    F_m(x) = F_{m-1}(x) + \eta\, \gamma_m\, h_m(x),
+   \]
+   where $\eta$ remains a shrinkage factor controlling the overall
+   rate of learning, while $\gamma_m$ adjusts the step size adaptively
+   at each iteration.
 
 3. Final Model: After $M$ iterations, the ensemble model is:
   $$
@@ -358,15 +378,99 @@ The gradient boosting algorithm proceeds as follows:
 
 
 Stochastic gradient boosting is a variant that enhances gradient
-boosting by introducing
-randomness through subsampling at each iteration, selecting a random
-fraction of data points (typically 50%–80%) to fit the model
-[@friedman2002stochastic]. This randomness helps reduce correlation
-among trees, improve model robustness, and reduce the risk of
-overfitting.
+boosting by introducing randomness through subsampling at each
+iteration, selecting a random fraction of data points (typically
+50\%--80\%) to fit the model \citep{friedman2002stochastic}. This
+randomness helps reduce correlation among trees, improve model
+robustness, and lower the risk of overfitting.
+
+### Boosted Trees with Ames Housing
+
+Boosted trees apply the gradient boosting framework to decision trees.
+They build an ensemble of shallow trees, each trained to correct the
+residual errors of the preceding ones. By sequentially emphasizing
+observations that are difficult to predict, the model progressively
+improves its overall predictive accuracy.
+We now apply gradient boosting using the same preprocessed features.
+Boosting combines many shallow trees, each correcting the residual
+errors of its predecessors, to improve predictive accuracy.
+
+```{python}
+from sklearn.ensemble import GradientBoostingRegressor
+
+# Define a range of tree counts for tuning
+n_estimators_list = [50, 100, 200, 400]
+
+cv_scores_gb = [
+    cross_val_score(
+        Pipeline([
+            ("pre", preprocessor),
+            ("model", GradientBoostingRegressor(
+                n_estimators=n,
+                learning_rate=0.05,
+                max_depth=3,
+                random_state=0))
+        ]),
+        X, y, cv=5, scoring="r2"
+    ).mean()
+    for n in n_estimators_list
+]
+
+list(zip(n_estimators_list, cv_scores_gb))
+```
+
+Cross-validation shows how increasing the number of boosting rounds
+initially improves performance but eventually risks overfitting when
+too many trees are added.
+
+```{python}
+gb = Pipeline([
+    ("pre", preprocessor),
+    ("model", GradientBoostingRegressor(
+        n_estimators=200,
+        learning_rate=0.05,
+        max_depth=3,
+        random_state=0))
+])
+
+gb.fit(X, y)
+y_pred_gb = gb.predict(X)
+
+df_pred_gb = pd.DataFrame({"Observed": y, "Predicted": y_pred_gb})
+
+(gg.ggplot(df_pred_gb, gg.aes(x="Observed", y="Predicted")) +
+ gg.geom_point(alpha=0.5) +
+ gg.geom_abline(slope=1, intercept=0, linetype="dashed") +
+ gg.labs(title="Gradient-Boosted Regression on Ames Housing",
+         x="Observed Log Price", y="Predicted Log Price"))
+```
+
+The boosted model produces predictions that are generally closer to the
+45-degree line than a single tree, reflecting improved accuracy and
+smoother response across the feature space.
 
 
-### Demonstration
+Gradient-boosted trees introduce several parameters that govern model
+complexity, learning stability, and overfitting control:
+
++ `n_estimators`: the number of trees (boosting rounds). More trees
+   can reduce bias but increase computation and risk of overfitting.
+   learning_rate — the shrinkage parameter $\eta$ controlling the
+   contribution of each new tree. Smaller values (e.g., 0.05 or 0.01)
+   require more trees but often yield better generalization.
++ `max_depth`: the maximum depth of each individual tree, limiting
+   the model’s ability to overfit local noise. Shallow trees (depth
+   2–4) are typical weak learners. 
++ `subsample`: the fraction of data used in each iteration. Values
+   below 1.0 introduce randomness (stochastic boosting), improving
+   robustness and reducing correlation among trees.
++ `min_samples_split` and `min_samples_leaf`: minimum numbers of
+  observations required for splitting or forming leaves. These control
+  tree granularity and help regularize the model. 
+  
+In practice, moderate learning rates with a sufficiently large number
+of estimators and shallow trees often perform best, balancing bias,
+variance, and computational cost.
 
 ### XGBoost: Extreme Gradient Boosting
 
