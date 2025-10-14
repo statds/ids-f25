@@ -272,7 +272,7 @@ Please use the following table to sign up.
    10/16 | Milun, Lewis Aaron |
    10/16 | Patel, Tulsi Manankumar |
    10/23 | Perkins, Jack Thomas |
-   10/23 | Fazzina, Sophia Carmen |
+   10/23 | Fazzina, Sophia Carmen | K-means clustering |
    10/28 | Tang, Wilson Chen |
    10/28 | Wishneski, Emma Irene |
    10/30 | Lawrence, Claire Elise |
