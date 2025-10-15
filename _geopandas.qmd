@@ -58,7 +58,7 @@ operations act on this column; it's accessed by `GeoDataFrame.geometry` attribut
 
 ### Basic Operations
 
-A file containg both data and geometry can be read by `geopandas.read.file()`.
+A file containg both data and geometry can be read by `geopandas.read_file()`.
 For this example, I use a dataset which contains geometric information for each
 of NYC's five boroughs.
 
@@ -100,7 +100,7 @@ Recall how to access CRS:
 print(gdf.crs)
 ```
 
-ESPG:2263 is a CRS specific for New York City. It uses feet for distance operations.
+EPSG:2263 is a CRS specific for New York City. It uses feet for distance operations.
 
 #### Area
 
@@ -113,7 +113,7 @@ gdf["area"] = gdf.area
 gdf["area"]
 ```
 
-Because of ESPG:2263, area is given in square footage. For example,
+Because of EPSG:2263, area is given in square footage. For example,
 Manhattan is `6.364712e+08` = 636,471,200 ft^2^ = 22.9mi^2^.
 
 #### Boundaries and Centroids
@@ -249,7 +249,7 @@ gdf.plot('area', legend=True)
 
 We can map multiple `GeoSeries` by using one plot as an axis for another.
 First, we need to verify that 
-`centroid_ll` and `poly` are in the same CRS by setting both to ESPG:4326, which gives Latitude and Longitude.
+`centroid_ll` and `poly` are in the same CRS by setting both to EPSG:4326, which gives Latitude and Longitude.
 I can use the `.crs` attribute from one `GeoDataFrame` as input for `.to_crs` to ensure a match. This code corrects the CRS and plots both centroids and polygons:
 ```{python}
 ax = gdf.set_geometry("poly").to_crs(gdf["centroid_ll"].crs).plot()   # polygons in lat/lon
@@ -286,16 +286,17 @@ import numpy as np
 import pandas as pd
 import geopandas as gpd
 import matplotlib.pyplot as plt
+import pyarrow
 
 crash_df = pd.read_feather('data/nyc_crashes_cleaned.feather')
 
-zip_gdf = gpd.read_file("data/MODZCTA/geo_export_e47f7c47-73ce-47ac-b45f-2f0d7d74a8d2.shp")
+zip_gdf = gpd.read_feather("data/nyc_modzcta_gp.feather")
 
 zip_gdf.head()
 ```
 
-`crash_df` is our `pandas.DataFrame` which collision data, and `zip_gdf` is our
-`GeoPandas.GeoDataFrame` which contains 
+`crash_df` is our `pandas.DataFrame` which contains collision data, and `zip_gdf` is our
+`GeoPandas.GeoDataFrame` which contains ZIP code data.
 
 ```{python}
 crash_df = crash_df.dropna(subset=["longitude", "latitude"])
@@ -305,8 +306,8 @@ zip_gdf = zip_gdf.drop(columns=["label", "zcta"])
 #### Data Overlay
 
 `crash_df` doesn't yet have an active geometry column to use for plotting, but does have
-Latitude and Longitude information. Function `gpd.points_from(x, y)` can take
-these inputs (which use ESPG:4326) to produce a `GeoSeries` of geometric 
+Latitude and Longitude information. Function `gpd.points_from_xy()` can take
+these inputs (which use EPSG:4326) to produce a `GeoSeries` of geometric 
 `shapely.Point` objects. The new `crash_gdf` `GeoDataFrame` combines these two.
 
 
