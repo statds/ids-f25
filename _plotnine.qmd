@@ -19,7 +19,9 @@ Today I will be talking about the **Grammar of Graphics using Plotnine**.
 We will use **NYC Crash Data (Week of Labor Day, 2025)**, which we cleaned in HW4.  
 
 ## The Grammar of Graphics
-Just like languages have grammar to structure words and sentences, the **Grammar of Graphics** gives us a structured framework for building visualizations.  [@wilkinson2012grammar]
+Just like languages have grammar to structure words and sentences, the **Grammar
+ of Graphics** gives us a structured framework for building visualizations.  
+ [@wilkinson2012grammar]
 
 Every plot can be described using a few key components:
 
@@ -32,7 +34,9 @@ Every plot can be described using a few key components:
 - **Coordinate system**: Cartesian, polar, etc.  
 
 ## Building Plots with Plotnine
-*The Grammar of Graphics* [@wilkinson2012grammar].  Plotnine implements the Grammar of Graphics in Python ([@sarkar2018]; [@bansal2018]). It is inspired by **ggplot2 in R** and allows consistent, layered visualizations.
+*The Grammar of Graphics* [@wilkinson2012grammar].  Plotnine implements the 
+Grammar of Graphics in Python ([@sarkar2018]; [@bansal2018]). It is inspired by 
+**ggplot2 in R** and allows consistent, layered visualizations.
 
 Some examples of what we can create:  
 - Bar Charts  
@@ -52,7 +56,8 @@ import pandas as pd
 df = pd.read_csv("data/cleaned_nyc_crash_data.csv")
 ```
 
-When writing plots in Plotnine, follow a logical order that mirrors the Grammar of Graphics:  
+When writing plots in Plotnine, follow a logical order that mirrors the Grammar 
+of Graphics:  
 
 1. **Data + Mapping** → `ggplot(data, aes(...))`  
 2. **Geom** → what to draw (`geom_bar()`, `geom_point()`, etc.)  
@@ -98,7 +103,9 @@ format="%H:%M", errors="coerce").dt.hour
  + ylab("Crash Count"))
 ```
 
-Crashes are elevated throughout the day, with particularly high counts around midday and late afternoon. Midnight also shows an unexpected spike, which may reflect a default rather than commuting patterns. 
+Crashes are elevated throughout the day, with particularly high counts around 
+midday and late afternoon. Midnight also shows an unexpected spike, which may 
+reflect a default rather than commuting patterns. 
 
 
 **Box Plot**
@@ -158,9 +165,13 @@ Faceting allows you to split plots by one or two variables for comparison.
 
 ## Key Takeaway
 
-The Grammar of Graphics shifts our mindset: instead of asking *“what chart type do I need?”*, we ask *“what grammar components best represent my data and message?”*  
+The Grammar of Graphics shifts our mindset: instead of asking *“what chart type
+ do I need?”*, we ask *“what grammar components best represent my data and message?”*  
 
-This makes visualizations flexible, reusable, and less error prone. And once you know the grammar, learning tools like **Plotnine** or **ggplot2** ([@wilkinson2012grammar]; [@sarkar2018]; [@bansal2018]) becomes much easier. Think of plots not as pictures, but as structured sentences written with this grammar.  
+This makes visualizations flexible, reusable, and less error prone. And once you
+ know the grammar, learning tools like **Plotnine** or **ggplot2** 
+ ([@wilkinson2012grammar]; [@sarkar2018]; [@bansal2018]) becomes much easier. 
+ Think of plots not as pictures, but as structured sentences written with this grammar.  
 
 
 ## Resources
