@@ -8,7 +8,7 @@
 
 <meta name="author" content="Jun Yan and Students in Fall 2025">
 <meta name="author" content="Jingang Chen">
-<meta name="dcterms.date" content="2025-10-14">
+<meta name="dcterms.date" content="2025-10-16">
 
 <title>Introduction to Data Science</title>
 <style>
@@ -232,8 +232,14 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./90-advanced.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Advanced Topics</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Exercises</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Exercises</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -316,7 +322,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 14, 2025</p>
+      <p class="date">October 16, 2025</p>
     </div>
   </div>
   
@@ -553,7 +559,7 @@ div.csl-indent {
 <section id="presentation-orders" class="level3">
 <h3 class="anchored" data-anchor-id="presentation-orders">Presentation Orders</h3>
 <p>The topic presentation order is set up in class.</p>
-<div id="8175dc41" class="cell" data-execution_count="1">
+<div id="61734861" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'rosters/3255.txt'</span>, <span class="st">'r'</span>) <span class="im">as</span> <span class="bu">file</span>:</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    ug <span class="op">=</span> [line.strip() <span class="cf">for</span> line <span class="kw">in</span> <span class="bu">file</span>]</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'rosters/5255.txt'</span>, <span class="st">'r'</span>) <span class="im">as</span> <span class="bu">file</span>:</span>
@@ -708,7 +714,7 @@ div.csl-indent {
 <tr class="even">
 <td>10/09</td>
 <td>Yoon, Jessica Nari</td>
-<td>Commonly used hypothesis tests</td>
+<td>Hypothesis Testing with Scipy.stats</td>
 </tr>
 <tr class="odd">
 <td>10/14</td>
@@ -738,7 +744,7 @@ div.csl-indent {
 <tr class="even">
 <td>10/23</td>
 <td>Fazzina, Sophia Carmen</td>
-<td></td>
+<td>K-means clustering</td>
 </tr>
 <tr class="odd">
 <td>10/28</td>
@@ -850,25 +856,27 @@ div.csl-indent {
 <h3 class="anchored" data-anchor-id="contributing-to-the-class-notes">Contributing to the Class Notes</h3>
 <p>Contribution to the class notes is through a `pull request’.</p>
 <ul>
+<li>Synchronize your local repo of the classnotes with my classnotes repo.</li>
 <li>Start a new branch and switch to the new branch.</li>
 <li>On the new branch, add a <code>qmd</code> file for your presentation</li>
 <li>If using Python, create and activate a virtual environment with <code>requirements.txt</code></li>
-<li>Edit <code>_quarto.yml</code> add a line for your <code>qmd</code> file to include it in the notes.</li>
 <li>Work on your qmd file, test with <code>quarto render</code>.</li>
 <li>When satisfied, commit and make a pull request with your quarto files and an updated <code>requirements.txt</code>.</li>
 </ul>
 <p>I have added a template file <code>_mysection.qmd</code> as an example, which is <code>include</code>ed in <code>index.qmd</code>. See also how <code>_ethics.qmd</code> is included into <code>intro.qmd</code> for example.</p>
-<p>Tips on making contributions:</p>
+<p>Here is a checklist to help smooth the process.</p>
 <ul>
-<li>No plagiarism.</li>
-<li>Avoid external graphics.</li>
-<li>Use simulated data or data in Python packages.</li>
-<li>Use data from homework assignments.</li>
-<li>Cite article/book references (learn how from our sources).</li>
-<li>Include a subsection of Further Readings.</li>
-<li>Watch for header levels.</li>
+<li>Get approval for your topic at least one week in advance. Otherwise you loose points.</li>
+<li>No plagiarism. Under no circumstances should you copy someone else’s notes and use it for your contribution.</li>
+<li>No yaml header. The whole souce tree is controlled by <code>_quarto.yml</code>.</li>
+<li>The top heading level of your contribuion is section (<code>##</code>). See existing sections for examples.</li>
+<li>Keep line width under 80 characters.</li>
+<li>Include a subsection (<code>###</code>) on further readings.</li>
+<li>Avoide dependence on external files (e.g., data, images, etc.). Using example datasets that are already in the <code>data</code> folder or that come with Python packages.</li>
+<li>No usage of copyrighted images.</li>
+<li>When citing article/book references, use BibTeX (learn how from our sources).</li>
 <li>Test on your own computer before making a pull request.</li>
-<li>Send me your presentation two days in advance for feedbacks.</li>
+<li>Send me your presentation two days in advance if you want feedbacks.</li>
 </ul>
 <p>For more detailed style guidance, please see my notes on <a href="https://statds.github.io/stat-writing/using-the-right-tools-for-writing.html#latex-for-typesetting">statistical writing</a>.</p>
 <p>Plagiarism is to be prevented. Remember that these class notes are publicly available online with your names attached. Here are some resources on <a href="https://usingsources.fas.harvard.edu/how-avoid-plagiarism">how to avoid plagiarism</a>. In particular, in our course, one convenient way to avoid plagiarism is to use our own data (e.g., NYC Open Data). Combined with your own explanation of the code chunks, it would be hard to plagiarize.</p>
@@ -958,7 +966,7 @@ div.csl-indent {
 <h3 class="anchored" data-anchor-id="sub-topic-1">Sub Topic 1</h3>
 <p>Put materials on topic 1 here</p>
 <p>Python examples can be put into <code>python</code> code chunks:</p>
-<div id="6acfa2ce" class="cell" data-execution_count="2">
+<div id="8088df37" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># import pandas as pd</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># do something</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>

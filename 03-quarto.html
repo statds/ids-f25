@@ -259,8 +259,14 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./90-advanced.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Advanced Topics</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Exercises</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Exercises</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -297,14 +303,15 @@ window.Quarto = {
   <li><a href="#text-formatting" id="toc-text-formatting" class="nav-link" data-scroll-target="#text-formatting"><span class="header-section-number">3.4.5</span> Text Formatting</a></li>
   <li><a href="#blockquotes" id="toc-blockquotes" class="nav-link" data-scroll-target="#blockquotes"><span class="header-section-number">3.4.6</span> Blockquotes</a></li>
   <li><a href="#lists" id="toc-lists" class="nav-link" data-scroll-target="#lists"><span class="header-section-number">3.4.7</span> Lists</a></li>
-  <li><a href="#formulas-and-equations" id="toc-formulas-and-equations" class="nav-link" data-scroll-target="#formulas-and-equations"><span class="header-section-number">3.4.8</span> Formulas and Equations</a></li>
-  <li><a href="#link-embedding" id="toc-link-embedding" class="nav-link" data-scroll-target="#link-embedding"><span class="header-section-number">3.4.9</span> Link Embedding</a></li>
-  <li><a href="#images" id="toc-images" class="nav-link" data-scroll-target="#images"><span class="header-section-number">3.4.10</span> Images</a></li>
-  <li><a href="#sec-tables" id="toc-sec-tables" class="nav-link" data-scroll-target="#sec-tables"><span class="header-section-number">3.4.11</span> Tables</a></li>
-  <li><a href="#cross-referencing" id="toc-cross-referencing" class="nav-link" data-scroll-target="#cross-referencing"><span class="header-section-number">3.4.12</span> Cross Referencing</a></li>
-  <li><a href="#footnotes" id="toc-footnotes" class="nav-link" data-scroll-target="#footnotes"><span class="header-section-number">3.4.13</span> Footnotes</a></li>
-  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">3.4.14</span> Conclusion</a></li>
-  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">3.4.15</span> Further Reading</a></li>
+  <li><a href="#code" id="toc-code" class="nav-link" data-scroll-target="#code"><span class="header-section-number">3.4.8</span> Code</a></li>
+  <li><a href="#formulas-and-equations" id="toc-formulas-and-equations" class="nav-link" data-scroll-target="#formulas-and-equations"><span class="header-section-number">3.4.9</span> Formulas and Equations</a></li>
+  <li><a href="#link-embedding" id="toc-link-embedding" class="nav-link" data-scroll-target="#link-embedding"><span class="header-section-number">3.4.10</span> Link Embedding</a></li>
+  <li><a href="#images" id="toc-images" class="nav-link" data-scroll-target="#images"><span class="header-section-number">3.4.11</span> Images</a></li>
+  <li><a href="#sec-tables" id="toc-sec-tables" class="nav-link" data-scroll-target="#sec-tables"><span class="header-section-number">3.4.12</span> Tables</a></li>
+  <li><a href="#cross-referencing" id="toc-cross-referencing" class="nav-link" data-scroll-target="#cross-referencing"><span class="header-section-number">3.4.13</span> Cross Referencing</a></li>
+  <li><a href="#footnotes" id="toc-footnotes" class="nav-link" data-scroll-target="#footnotes"><span class="header-section-number">3.4.14</span> Footnotes</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">3.4.15</span> Conclusion</a></li>
+  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">3.4.16</span> Further Reading</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -413,7 +420,7 @@ Together, PCS provides a foundation for assessing the reliability of data-driven
 Results must be conveyed clearly to intended audiences, whether through reports, presentations, visualizations, or deployable tools. Communication should be tailored so findings can inform real-world decisions.</p></li>
 </ul>
 <p>The DSLC is not a linear pipeline—analysts often loop back to refine earlier steps. The chapter also cautions against data snooping, where patterns discovered during exploration are mistaken for reliable truths. Applying PCS ensures that results are not only technically sound but also trustworthy and interpretable across the life cycle.</p>
-<!-- <\!-- This section is to be included as a Primer of Markdown. -\-> -->
+<!-- This section is to be included as a Primer of Markdown. -->
 </section>
 <section id="a-primer-of-markdown" class="level2" data-number="3.4">
 <h2 data-number="3.4" class="anchored" data-anchor-id="a-primer-of-markdown"><span class="header-section-number">3.4</span> A Primer of Markdown</h2>
@@ -803,20 +810,23 @@ definition2
 <p>continued after indenting 4 spaces</p>
 <div class="sourceCode" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Hello, World!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ol type="A">
-<li>sub-sub-item 1 ### Code</li>
+<li>sub-sub-item 1</li>
 </ol></li>
 </ol>
 </section>
-<section id="inline-code" class="level4" data-number="3.4.7.6">
-<h4 data-number="3.4.7.6" class="anchored" data-anchor-id="inline-code"><span class="header-section-number">3.4.7.6</span> Inline Code</h4>
+</section>
+<section id="code" class="level3" data-number="3.4.8">
+<h3 data-number="3.4.8" class="anchored" data-anchor-id="code"><span class="header-section-number">3.4.8</span> Code</h3>
+<section id="inline-code" class="level4" data-number="3.4.8.1">
+<h4 data-number="3.4.8.1" class="anchored" data-anchor-id="inline-code"><span class="header-section-number">3.4.8.1</span> Inline Code</h4>
 <p>Markdown allows for inline code and code blocks.</p>
 <p>To insert inline code, use the backticks <code>`</code> around the text</p>
 <div class="sourceCode" id="cb29"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>This is an example of <span class="in">`inline code`</span> in a text.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>Output</strong>: This is an example of <code>inline code</code> in a text.</p>
 <p>To display the <code>`</code> as part of an inline code, surround the character with <code>``</code> backticks and spacing them apart from <code>`</code>.</p>
 </section>
-<section id="code-blocks" class="level4" data-number="3.4.7.7">
-<h4 data-number="3.4.7.7" class="anchored" data-anchor-id="code-blocks"><span class="header-section-number">3.4.7.7</span> Code Blocks</h4>
+<section id="code-blocks" class="level4" data-number="3.4.8.2">
+<h4 data-number="3.4.8.2" class="anchored" data-anchor-id="code-blocks"><span class="header-section-number">3.4.8.2</span> Code Blocks</h4>
 <p>To create code blocks, <code>```</code> can be used.</p>
 <pre><code>    ```
     some code
@@ -837,7 +847,7 @@ print('some python code')
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Some python code"</span>)</span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>    ```</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>Output</strong>:</p>
-<div id="c4066cad" class="cell" data-execution_count="1">
+<div id="5ff01d33" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'some python code'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>some python code</code></pre>
@@ -845,8 +855,8 @@ print('some python code')
 </div>
 </section>
 </section>
-<section id="formulas-and-equations" class="level3" data-number="3.4.8">
-<h3 data-number="3.4.8" class="anchored" data-anchor-id="formulas-and-equations"><span class="header-section-number">3.4.8</span> Formulas and Equations</h3>
+<section id="formulas-and-equations" class="level3" data-number="3.4.9">
+<h3 data-number="3.4.9" class="anchored" data-anchor-id="formulas-and-equations"><span class="header-section-number">3.4.9</span> Formulas and Equations</h3>
 <p>Markdown supports LaTeX-style expressions. Mathematical expressions can either be done inline (enclosing using <code>$</code>) or for display math (enclosed by <code>$$</code>).</p>
 <table class="caption-top table">
 <colgroup>
@@ -872,8 +882,8 @@ print('some python code')
 </table>
 <p>For mor information on how to use LaTeX expressions, visit <a href="https://www.overleaf.com/learn" class="uri">https://www.overleaf.com/learn</a> and look under the “Mathematics” section.</p>
 </section>
-<section id="link-embedding" class="level3" data-number="3.4.9">
-<h3 data-number="3.4.9" class="anchored" data-anchor-id="link-embedding"><span class="header-section-number">3.4.9</span> Link Embedding</h3>
+<section id="link-embedding" class="level3" data-number="3.4.10">
+<h3 data-number="3.4.10" class="anchored" data-anchor-id="link-embedding"><span class="header-section-number">3.4.10</span> Link Embedding</h3>
 <p>Links in Markdown can either be added inline or as a reference.</p>
 <p>To add an <strong>inline link</strong>, use <code>[]</code> around the text that leads to the link, followed by actually inputting the link in <code>()</code>.</p>
 <div class="sourceCode" id="cb38"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>this is an example link that will lead to the </span>
@@ -889,8 +899,8 @@ print('some python code')
 <p><strong>Output:</strong></p>
 <p>Example of reference-style link leading to the <a href="https://www.markdownguide.org/">Markdown Guide</a>.</p>
 </section>
-<section id="images" class="level3" data-number="3.4.10">
-<h3 data-number="3.4.10" class="anchored" data-anchor-id="images"><span class="header-section-number">3.4.10</span> Images</h3>
+<section id="images" class="level3" data-number="3.4.11">
+<h3 data-number="3.4.11" class="anchored" data-anchor-id="images"><span class="header-section-number">3.4.11</span> Images</h3>
 <p>To insert an image into markdown, the convention is to first add <code>!</code>, followed by a caption to the image wrapped in <code>[]</code>, and finally the file path or URL to the image enclosed with <code>()</code>.</p>
 <p>In addition, the image can be embedded with a link by first wrapping the 3 parameters mentioned above in <code>[]</code>, followed by the link wrapped in <code>()</code>. The link can either be a local file path stored on your computer or a direct link of the image found online. For reproducibility, this example uses a direct URL pointing to an online image.</p>
 <div class="sourceCode" id="cb41"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="al">![UConn Husky Logo](https://lofrev.net/wp-content/photos/2016/06/uconn_huskies_logo.jpg)</span><span class="co">](https://uconn.edu/)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -906,8 +916,8 @@ Figure&nbsp;3.1: UConn Husky Logo
 </figure>
 </div>
 </section>
-<section id="sec-tables" class="level3" data-number="3.4.11">
-<h3 data-number="3.4.11" class="anchored" data-anchor-id="sec-tables"><span class="header-section-number">3.4.11</span> Tables</h3>
+<section id="sec-tables" class="level3" data-number="3.4.12">
+<h3 data-number="3.4.12" class="anchored" data-anchor-id="sec-tables"><span class="header-section-number">3.4.12</span> Tables</h3>
 <p>To create tables, the <code>|</code> character is used to seperate the table into columns, while the <code>-</code> is used to seperate the headers of the table from the rest of the data. After the table, a header can be included two lines below the table starting with <code>:</code>.</p>
 <div class="sourceCode" id="cb42"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Col 1 <span class="pp">|</span> Col 2 <span class="pp">|</span> Col 3 <span class="pp">|</span> Col 4 <span class="pp">|</span></span>
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="pp">|------|-----|----------|-------|</span></span>
@@ -997,14 +1007,14 @@ Table&nbsp;3.1: Sample Table 1
 </tbody>
 </table>
 </section>
-<section id="cross-referencing" class="level3" data-number="3.4.12">
-<h3 data-number="3.4.12" class="anchored" data-anchor-id="cross-referencing"><span class="header-section-number">3.4.12</span> Cross Referencing</h3>
+<section id="cross-referencing" class="level3" data-number="3.4.13">
+<h3 data-number="3.4.13" class="anchored" data-anchor-id="cross-referencing"><span class="header-section-number">3.4.13</span> Cross Referencing</h3>
 <p>Prior to cross referencing a section, there must be a label attached to the section that is being referenced. This is done by using <code>{}</code> after the section and giving it a label inside of it starting with <code>#sec-</code> followed by anything else after it.</p>
 <div class="sourceCode" id="cb44"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">### Tables {#sec-tables}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Then, to reference the section, use the <code>@</code> followed by the label specified to create a direct link to the section. Optionally, you can wrap it around <code>[]</code> and add any additional text to the link.</p>
 <div class="sourceCode" id="cb45"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>Refer back to the Tables section in <span class="co">[</span><span class="ot">section @sec-tables</span><span class="co">]</span>.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>Output:</strong></p>
-<p>Refer back to the Tables section in <a href="#sec-tables" class="quarto-xref">section&nbsp;<span>3.4.11</span></a>.</p>
+<p>Refer back to the Tables section in <a href="#sec-tables" class="quarto-xref">section&nbsp;<span>3.4.12</span></a>.</p>
 <p>To refer to figures and images, make sure to input the label after the URL. Make sure in the label to start with <code>#fig-</code> to specify that it is a figure that is being referenced.</p>
 <div class="sourceCode" id="cb46"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="al">![UConn Husky Logo](https://lofrev.net/wp-content/photos/2016/06/uconn_huskies_logo.jpg)</span><span class="ot">{#fig-sample}</span><span class="co">](https://uconn.edu/)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Now it can be referred back with the same convention as referencing a section:</p>
@@ -1030,8 +1040,8 @@ Table&nbsp;3.1: Sample Table 1
 <p><strong>Output:</strong></p>
 <p><a href="#eq-sample" class="quarto-xref">Equation&nbsp;<span>3.1</span></a> is the Pythagorean theorem referenced from the Equations section.</p>
 </section>
-<section id="footnotes" class="level3" data-number="3.4.13">
-<h3 data-number="3.4.13" class="anchored" data-anchor-id="footnotes"><span class="header-section-number">3.4.13</span> Footnotes</h3>
+<section id="footnotes" class="level3" data-number="3.4.14">
+<h3 data-number="3.4.14" class="anchored" data-anchor-id="footnotes"><span class="header-section-number">3.4.14</span> Footnotes</h3>
 <p>Footnotes, often denoted by superscripts, are placed at the bottom of a page in a document, which helps provide additional information and references related to a specific part of the text. To insert a footnote in a text, it is done in the <code>[]</code>, where the first character inside of the brackets is <code>^</code>, followed by the desired name of the footnote. After that is specified, reference that footnote in a newline and put whatever note that is needed.</p>
 <div class="sourceCode" id="cb52"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>This is where you can place a footnote,<span class="ot">[^1]</span> sometimes multiple can be placed in </span>
 <span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>one sentence.<span class="ot">[^longnote]</span></span>
@@ -1054,18 +1064,18 @@ Table&nbsp;3.1: Sample Table 1
 <p>This is where you can place a footnote,<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> sometimes multiple can be placed in one sentence<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
 <p>Seperate paragraph here to show that this isn’t part of the footnote.</p>
 </section>
-<section id="conclusion" class="level3" data-number="3.4.14">
-<h3 data-number="3.4.14" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">3.4.14</span> Conclusion</h3>
+<section id="conclusion" class="level3" data-number="3.4.15">
+<h3 data-number="3.4.15" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">3.4.15</span> Conclusion</h3>
 <p>Markdown is a versatile markup language that simplifies writing for the web in a way that is readable and convenient. Today, it is widely used to present the work that is being done in a variety of areas, and Markdown provides a clean way to organize the content being presented and structure the documents well.</p>
 </section>
-<section id="further-reading" class="level3" data-number="3.4.15">
-<h3 data-number="3.4.15" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">3.4.15</span> Further Reading</h3>
+<section id="further-reading" class="level3" data-number="3.4.16">
+<h3 data-number="3.4.16" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">3.4.16</span> Further Reading</h3>
 <ol type="1">
 <li><a href="https://quarto.org/docs/authoring/markdown-basics.html">Quarto Markdown Basics</a></li>
 <li><a href="https://www.tomarkdown.org/guides/markdown-complete-guide">The Complete Guide to Markdown</a></li>
 <li><a href="https://daringfireball.net/projects/markdown/syntax#precode">Markdown: Synatx by John Gruber</a></li>
 </ol>
-<!-- <\!-- This section is to be included as a tutorial for Quarto Presentations. -\-> -->
+<!-- This section is to be included as a tutorial for Quarto Presentations. -->
 <!-- {{< include _quarto_presentation.qmd >}} -->
 
 
