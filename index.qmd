@@ -359,12 +359,15 @@ be used as a template to start with.
 
 Contribution to the class notes is through a `pull request'.
 
++ Synchronize your local repo of the classnotes with my classnotes
+  repo.
 + Start a new branch and switch to the new branch.
 + On the new branch, add a `qmd` file for your presentation
-+ If using Python, create and activate a virtual environment with `requirements.txt` 
-+ Edit `_quarto.yml` add a line for your `qmd` file to include it in the notes.
++ If using Python, create and activate a virtual environment with
+  `requirements.txt` 
 + Work on your qmd file, test with `quarto render`.
-+ When satisfied, commit and make a pull request with your quarto files and an updated `requirements.txt`.
++ When satisfied, commit and make a pull request with your quarto
+  files and an updated `requirements.txt`.
 
 
 I have added a template file `_mysection.qmd` as an example, which is
@@ -372,17 +375,25 @@ I have added a template file `_mysection.qmd` as an example, which is
 into `intro.qmd` for example.
 
 
-Tips on making contributions:
+Here is a checklist to help smooth the process.
 
-+ No plagiarism.
-+ Avoid external graphics.
-+ Use simulated data or data in Python packages.
-+ Use data from homework assignments.
-+ Cite article/book references (learn how from our sources).
-+ Include a subsection of Further Readings.
-+ Watch for header levels.
++ Get approval for your topic at least one week in advance. Otherwise
+  you loose points.
++ No plagiarism. Under no circumstances should you copy someone else's
+  notes and use it for your contribution.
++ No yaml header. The whole souce tree is controlled by `_quarto.yml`. 
++ The top heading level of your contribuion is section (`##`). See
+  existing sections for examples.
++ Keep line width under 80 characters.
++ Include a subsection (`###`) on further readings.
++ Avoide dependence on external files (e.g., data, images,
+  etc.). Using example datasets that are already in the `data` folder
+  or that come with Python packages.
++ No usage of copyrighted images.
++ When citing article/book references, use BibTeX (learn how from our
+  sources).
 + Test on your own computer before making a pull request.
-+ Send me your presentation two days in advance for feedbacks.
++ Send me your presentation two days in advance if you want feedbacks.
 
 
 For more detailed style guidance, please see my notes on [statistical
