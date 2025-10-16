@@ -1,0 +1,210 @@
+# Reproducible Data Science {#sec-quarto}
+
+Data science projects should be reproducible to be trustworthy. Dynamic
+documents facilitate reproducibility. [Quarto](https://quarto.org) is an
+open-source dynamic document preparation system, ideal for scientific and
+technical publishing. From the official websites, Quarto can be used to:
+
++ Create dynamic content with Python, R, Julia, and Observable.
++ Author documents as plain text markdown or Jupyter notebooks.
++ Publish high-quality articles, reports, presentations, websites, blogs, and
+  books in HTML, PDF, MS Word, ePub, and more.
++ Author with scientific markdown, including equations, citations,
+  cross references, figure panels, callouts, advanced layout, and more.
+  
+
+## Introduction to Quarto
+
+To get started with Quarto, see documentation at
+[Quarto](https://quarto.org/docs/get-started/).
+
+
+For a clean style, I suggest that you use
+`VS Code` as your IDE. The `ipynb` files have extra
+formats in plain texts, which are not as clean as
+`qmd` files. There are, of course, tools to convert between
+the two representations of a notebook. For example:
+
+
+```
+quarto convert hello.ipynb # converts to qmd
+quarto convert hello.qmd   # converts to ipynb
+```
+
+
+We will use Quarto for homework assignments, classnotes, and presentations.
+You will see them in action through in-class demonstrations.
+The following sections in the [Quarto Guide](https://quarto.org/docs/guide/)
+are immediately useful.
+
++ [Markdown basics](https://quarto.org/docs/authoring/markdown-basics.html)
++ [Using Python](https://quarto.org/docs/computations/python.html)
++ [Presentations](https://quarto.org/docs/presentations/)
+
+
+A template for homework is in this repo (`hwtemp.qmd`) to get you
+started with homework assignments.
+
+
+## Compiling the Classnotes {#sec-buildnotes}
+
+The sources of the classnotes are at <https://github.com/statds/ids-s25>.
+This is also the source tree that you will contributed to this semester.
+I expect that you clone the repository to your own computer, update it
+frequently, and compile the latest version on your computer (reproducibility).
+
+
+To compile the classnotes, you need the following tools:
+Git, Quarto, and Python.
+
+
+### Set up your Python Virtual Environment
+
+I suggest that a Python virtual environment for the classnotes
+be set up in the current directory for reproducibility.
+A Python virtual environment is simply a directory with a particular
+file structure, which contains a specific Python interpreter and
+software libraries and binaries needed to support a project. It
+allows us to isolate our Python development projects from our system
+installed Python and other Python environments.
+
+To create a Python virtual environment for our classnotes:
+```
+python3 -m venv .ids-s25-venv
+```
+
+Here `.ids-s25-venv` is the name of the virtual environment 
+to be created. Choose an informative name. This only needs to
+be set up once.
+
+
+To activate this virtual environment:
+
+```
+. .ids-s25-venv/bin/activate
+```
+
+After activating the virtual environment, you will see
+`(.ids-s25-venv)` at the beginning of your shell prompt.
+Then, the Python interpreter and packages needed will be
+the local versions in this virtual environment without
+interfering your system-wide installation or other virtual
+environments.
+
+
+To install the Python packages that are needed to compile
+the classnotes, we have a `requirements.txt` file that specifies
+the packages and their versions. They can be installed
+easily with:
+
+```
+pip install -r requirements.txt
+```
+
+If you are interested in learning how to create the
+`requirements.txt` file, just put your question into a Google search.
+
+
+To exit the virtual environment, simply type `deactivate`
+in your command line. This will return you to your system’s
+global Python environment.
+
+
+### Clone the Repository
+
+Clone the repository to your own computer. In a terminal (command line),
+go to an appropriate directory (folder), and clone the repo. For example,
+if you use `ssh` for authentication: 
+
+```
+git clone git@github.com:statds/ids-s25.git
+```
+
+### Render the Classnotes
+
+Assuming `quarto` has been set up, we render 
+the classnotes in the cloned repository
+
+```
+cd ids-s25
+quarto render
+```
+
+If there are error messages, search and find solutions to clear
+them. Otherwise, the html version of the notes will be available under
+`_book/index.html`, which is default location of the output.
+
+
+### Login Requirements
+
+For some illustrations, you need to interact with certain sites that
+require account information. For example, for Google map services,
+you need to save your API key in a file named `api_key.txt` in the
+root folder of the source. Another example is to access the US Census
+API, where you would need to register an account and get your Census
+API Key.
+
+
+## The Data Science Life Cycle
+
+This section summarizes Chapter 2 of *Veridical Data Science*
+[@yu2024veridical], which introduces the data science life cycle
+(DSLC). The DSLC provides a structured way to think about the
+progression of data science projects. It consists of six stages, each with
+a distinct purpose:
+
+- Stage 1: Problem formulation and data collection  
+  Collaborate with domain experts to refine vague questions into ones
+  that can realistically be answered with data. Identify what data already
+  exists or design new collection protocols. Understanding the
+  collection process is crucial for assessing how data relates to reality.
+
+- Stage 2: Data cleaning, preprocessing, and exploratory data analysis  
+  Clean data to make it tidy, unambiguous, and correctly formatted.
+  Preprocess it to meet the requirements of specific algorithms, such as
+  handling missing values or scaling variables. Exploratory data analysis
+  (EDA) summarizes patterns using tables, statistics, and plots, while
+  explanatory data analysis polishes visuals for communication.
+
+- Stage 3: Exploring intrinsic data structures (optional)  
+  Techniques such as dimensionality reduction simplify data into
+  lower-dimensional forms, while clustering identifies natural groupings
+  among observations. Even if not central to the project, these methods
+  often enhance understanding.
+
+- Stage 4: Predictive and/or inferential analysis (optional)  
+  Many projects are cast as prediction tasks, training algorithms like
+  regression or random forests to forecast outcomes. Inference focuses
+  on estimating population parameters and quantifying uncertainty.
+  This book emphasizes prediction while acknowledging inference as
+  important in many domains.
+
+- Stage 5: Evaluation of results  
+  Findings should be evaluated both qualitatively, through critical
+  thinking, and quantitatively, through the PCS framework. PCS stands
+  for predictability, computability, and stability:  
+  * Predictability asks whether findings hold up in relevant future data.  
+  * Computability asks whether methods are feasible with available
+    computational resources.  
+  * Stability asks whether conclusions remain consistent under
+    reasonable changes in data, methods, or judgment calls.  
+  Together, PCS provides a foundation for assessing the reliability of
+  data-driven results.
+
+- Stage 6: Communication of results  
+  Results must be conveyed clearly to intended audiences, whether
+  through reports, presentations, visualizations, or deployable tools.
+  Communication should be tailored so findings can inform real-world
+  decisions.
+
+The DSLC is not a linear pipeline---analysts often loop back to refine
+earlier steps. The chapter also cautions against data snooping, where
+patterns discovered during exploration are mistaken for reliable truths.
+Applying PCS ensures that results are not only technically sound but
+also trustworthy and interpretable across the life cycle.
+
+<!-- <\!-- This section is to be included as a Primer of Markdown. -\-> -->
+{{< include _markdown.qmd >}}
+
+<!-- <\!-- This section is to be included as a tutorial for Quarto Presentations. -\-> -->
+<!-- {{< include _quarto_presentation.qmd >}} -->

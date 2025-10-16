@@ -1,0 +1,616 @@
+# Python Refreshment {#sec-python}
+
+You have programmed in Python. Regardless of your skill level, let us
+do some refreshing.
+
+## The Python World
+
++ Function: a block of organized, reusable code to complete certain
+  task.
++ Module: a file containing a collection of functions, variables, and
+  statements.
++ Package: a structured directory containing collections of modules
+  and an `__init.py__` file by which the directory is interpreted as a
+  package.
++ Library: a collection of related functionality of codes. It is a
+  reusable chunk of code that we can use by importing it in our
+  program, we can just use it by importing that library and calling
+  the method of that library with period(.).
+
+See, for example, [how to build a Python
+libratry](https://medium.com/analytics-vidhya/how-to-create-a-python-library-7d5aea80cc3f).
+
+
+## Standard Library
+
+Python’s has an extensive standard library that offers a wide range of
+facilities as indicated by the long table of contents listed below. 
+See documentation [online](https://docs.python.org/3/library/).
+
+> The library contains built-in modules (written in C) that provide access to
+> system functionality such as file I/O that would otherwise be inaccessible to
+> Python programmers, as well as modules written in Python that provide
+> standardized solutions for many problems that occur in everyday
+> programming. Some of these modules are explicitly designed to encourage and
+> enhance the portability of Python programs by abstracting away
+> platform-specifics into platform-neutral APIs.
+
+
+Question: How to get the constant $e$ to an arbitary precision?
+
+The constant is only represented by a given double precision.
+```{python}
+import math
+print("%0.20f" % math.e)
+print("%0.80f" % math.e)
+```
+Now use package `decimal` to export with an arbitary precision.
+```{python}
+import decimal  # for what?
+
+## set the required number digits to 150
+decimal.getcontext().prec = 150
+decimal.Decimal(1).exp().to_eng_string()
+decimal.Decimal(1).exp().to_eng_string()[2:]
+```
+
+## Important Libraries
+
++ NumPy
++ pandas
++ matplotlib
++ IPython/Jupyter
++ SciPy
++ scikit-learn
++ statsmodels
+
+Question: how to draw a random sample from a normal distribution and
+evaluate the density and distributions at these points?
+```{python}
+from scipy.stats import norm
+
+mu, sigma = 2, 4
+mean, var, skew, kurt = norm.stats(mu, sigma, moments='mvsk')
+print(mean, var, skew, kurt)
+x = norm.rvs(loc = mu, scale = sigma, size = 10)
+x
+```
+The pdf and cdf can be evaluated:
+```{python}
+norm.pdf(x, loc = mu, scale = sigma)
+```
+
+
+## Writing a Function
+
+Consider the Fibonacci Sequence
+$1, 1, 2, 3, 5, 8, 13, 21, 34, ...$.
+The next number is found by adding up the two numbers before it.
+We are going to use 3 ways to solve the problems.
+
+
+The first is a recursive solution.
+```{python}
+def fib_rs(n):
+    if (n==1 or n==2):
+        return 1
+    else:
+        return fib_rs(n - 1) + fib_rs(n - 2)
+
+%timeit fib_rs(10)
+```
+
+The second uses dynamic programming memoization.
+```{python}
+def fib_dm_helper(n, mem):
+    if mem[n] is not None:
+        return mem[n]
+    elif (n == 1 or n == 2):
+        result = 1
+    else:
+        result = fib_dm_helper(n - 1, mem) + fib_dm_helper(n - 2, mem)
+    mem[n] = result
+    return result
+
+def fib_dm(n):
+    mem = [None] * (n + 1)
+    return fib_dm_helper(n, mem)
+
+%timeit fib_dm(10)
+```
+
+The third is still dynamic programming but bottom-up.
+```{python}
+def fib_dbu(n):
+    mem = [None] * (n + 1)
+    mem[1] = 1;
+    mem[2] = 1;
+    for i in range(3, n + 1):
+        mem[i] = mem[i - 1] + mem[i - 2]
+    return mem[n]
+
+
+%timeit fib_dbu(500)
+```
+
+Apparently, the three solutions have very different performance for
+larger `n`.
+
+
+### Monty Hall
+Here is a function that performs the Monty Hall experiments.
+In this version, the host opens only one empty door.
+```{python}
+import numpy as np
+
+def montyhall(n_doors, n_trials):
+    doors = np.arange(1, n_doors + 1)
+    prize = np.random.choice(doors, size=n_trials)
+    player = np.random.choice(doors, size=n_trials)
+    host = np.array([np.random.choice([d for d in doors
+									   if d not in [player[x], prize[x]]])
+					 for x in range(n_trials)])
+    player2 = np.array([np.random.choice([d for d in doors
+										  if d not in [player[x], host[x]]])
+						for x in range(n_trials)])
+    return {'noswitch': np.sum(prize == player),
+               'switch': np.sum(prize == player2)}
+```
+
+Test it out with 3 doors.
+```{python}
+montyhall(3, 1000)
+```
+
+Then with 4 doors
+```{python}
+montyhall(4, 1000)
+```
+
+The true value for the two strategies with $n$ doors are, respectively,
+$1 / n$ and $\frac{n - 1}{n (n - 2)}$.
+
+In the homework exercise, the host opens $m$ doors that are empty. An
+argument `nempty` could be added to the function.
+
+
+#### Faster version
+
+This one avoid loops.
+```{python}
+import numpy as np
+from typing import Dict, Optional
+
+def montyhall_fast(
+    n_doors: int,
+    n_trials: int,
+    seed: Optional[int] = None
+) -> Dict[str, int]:
+    """
+    Run a Monty Hall simulation with `n_doors` doors and `n_trials` repetitions.
+    The host always opens exactly one empty door that is neither the prize door
+    nor the player's initial choice.
+
+    Parameters
+    ----------
+    n_doors : int
+        Total number of doors in the game (must be >= 3).
+    n_trials : int
+        Number of independent trials to simulate.
+    seed : int, optional
+        Random seed for reproducibility.
+
+    Returns
+    -------
+    Dict[str, int]
+        A dictionary with counts of wins under two strategies:
+        - 'noswitch': staying with the initial choice
+        - 'switch'  : switching after the host reveals one empty door
+
+    Examples
+    --------
+    >>> results = montyhall_fast(3, 100000, seed=42)
+    >>> results
+    {'noswitch': 33302, 'switch': 66698}
+    """
+    rng = np.random.default_rng(seed)
+
+    # Initial random assignments
+    prize = rng.integers(n_doors, size=n_trials, dtype=np.int32)
+    player = rng.integers(n_doors, size=n_trials, dtype=np.int32)
+
+    host = np.empty(n_trials, dtype=np.int32)
+
+    # Case 1: player == prize → host excludes only 'player'
+    same = prize == player
+    if np.any(same):
+        k = rng.integers(n_doors - 1, size=np.sum(same), dtype=np.int32)
+        p = player[same]
+        host[same] = k + (k >= p)
+
+    # Case 2: player != prize → host excludes 'player' and 'prize'
+    diff = ~same
+    if np.any(diff):
+        a = np.minimum(player[diff], prize[diff])
+        b = np.maximum(player[diff], prize[diff])
+        k = rng.integers(n_doors - 2, size=np.sum(diff), dtype=np.int32)
+        host[diff] = k + (k >= a) + (k >= b)
+
+    # Player switches: exclude 'player' and 'host'
+    a2 = np.minimum(player, host)
+    b2 = np.maximum(player, host)
+    k2 = rng.integers(n_doors - 2, size=n_trials, dtype=np.int32)
+    player2 = k2 + (k2 >= a2) + (k2 >= b2)
+
+    return {
+        "noswitch": int((prize == player).sum()),
+        "switch": int((prize == player2).sum()),
+    }
+```
+
+
+Another faster version uses `Numba` just-in-time (JIT) compiler
+Python, which translates a subset of Python and Numpy into fast
+machine code via LLVM at runtime. A decorator is added to the numeric
+functions and, after a one-time compile on the first call (“warm-up”),
+later calls run much faster.  One can toggle `parallel=True` for
+multi-core speedups.
+
+```{python}
+from typing import Dict, Optional
+import numpy as np
+from numba import njit, prange
+
+# --- internal helpers (compiled) ---
+
+@njit
+def _seed_numba(seed: int) -> None:
+    # Seed the RNG used inside Numba-compiled code
+    np.random.seed(seed)
+
+@njit
+def _trial_once(n_doors: int) -> (int, int):
+    """
+    Run one Monty Hall trial (host opens exactly one empty door).
+    Returns (noswitch_win, switch_win) as 0/1 ints.
+    """
+    prize  = np.random.randint(0, n_doors)
+    player = np.random.randint(0, n_doors)
+
+    # host picks an empty door not equal to prize or player
+    if player == prize:
+        # exclude only 'player' (size n_doors-1)
+        k = np.random.randint(0, n_doors - 1)
+        host = k + (1 if k >= player else 0)
+    else:
+        # exclude 'player' and 'prize' (size n_doors-2)
+        a = player if player < prize else prize
+        b = prize if prize > player else player
+        k = np.random.randint(0, n_doors - 2)
+        host = k + (1 if k >= a else 0) + (1 if k >= b else 0)
+
+    # player switches: choose uniformly from doors != player and != host
+    a2 = player if player < host else host
+    b2 = host if host > player else player
+    k2 = np.random.randint(0, n_doors - 2)
+    player2 = k2 + (1 if k2 >= a2 else 0) + (1 if k2 >= b2 else 0)
+
+    noswitch_win = 1 if prize == player  else 0
+    switch_win   = 1 if prize == player2 else 0
+    return noswitch_win, switch_win
+
+@njit(parallel=True)
+def _run_parallel(n_doors: int, n_trials: int) -> (int, int):
+    ns = np.zeros(n_trials, dtype=np.int64)
+    sw = np.zeros(n_trials, dtype=np.int64)
+    for i in prange(n_trials):
+        a, b = _trial_once(n_doors)
+        ns[i] = a
+        sw[i] = b
+    return int(ns.sum()), int(sw.sum())
+
+@njit
+def _run_serial(n_doors: int, n_trials: int) -> (int, int):
+    noswitch = 0
+    switch   = 0
+    for _ in range(n_trials):
+        a, b = _trial_once(n_doors)
+        noswitch += a
+        switch   += b
+    return noswitch, switch
+
+# --- public API ---
+
+def montyhall_numba(
+    n_doors: int,
+    n_trials: int,
+    seed: Optional[int] = None,
+    parallel: bool = True,
+) -> Dict[str, int]:
+    """
+    Monty Hall (host opens one empty door) using Numba-compiled loops.
+
+    Parameters
+    ----------
+    n_doors : int
+        Number of doors (>= 3).
+    n_trials : int
+        Number of trials to simulate.
+    seed : int, optional
+        Seed for reproducibility.
+    parallel : bool, default True
+        Use a parallel loop over trials (multi-core).
+
+    Returns
+    -------
+    Dict[str, int]
+        {'noswitch': ..., 'switch': ...}
+    """
+    if n_doors < 3:
+        raise ValueError("n_doors must be >= 3")
+
+    if seed is not None:
+        _seed_numba(int(seed))  # seed the compiled RNG
+
+    ns, sw = (_run_parallel(n_doors, n_trials)
+              if parallel else
+              _run_serial(n_doors, n_trials))
+    return {"noswitch": ns, "switch": sw}
+```
+
+It wins when `n_trials` is very large (e.g., 10–100M) where loop
+overhead is amortized and you give it many threads, or the design
+avoids massive temporaries (not much in this example).
+
+
+Let's see their time comparison.
+```{python}
+import timeit
+
+# --- Timing function ---
+def benchmark(n_doors: int = 3, n_trials: int = 1_000_00, seed: int = 42) -> None:
+    print(f"n_doors={n_doors}, n_trials={n_trials}")
+    # Ensure deterministic where possible
+    np.random.seed(seed)
+
+    # Time original
+    t_orig = min(timeit.repeat(lambda: montyhall(n_doors, n_trials),
+                               repeat=3, number=1))
+    print(f"Original (lists): {t_orig:.4f}s")
+
+    # Time vectorized
+    t_vec = min(timeit.repeat(lambda: montyhall_fast(n_doors, n_trials, seed),
+                              repeat=3, number=1))
+    print(f"Vectorized NumPy: {t_vec:.4f}s")
+
+    # Time Numba serial (compile excluded by earlier warm-up)
+    t_numba_ser = min(timeit.repeat(lambda: montyhall_numba(n_doors, n_trials,
+                                    seed, parallel=False), repeat=3, number=1))
+    print(f"Numba serial:     {t_numba_ser:.4f}s")
+
+    # Time Numba parallel
+    t_numba_par = min(timeit.repeat(lambda: montyhall_numba(n_doors, n_trials,
+                                    seed, parallel=True), repeat=3, number=1))
+    print(f"Numba parallel:   {t_numba_par:.4f}s")
+
+
+benchmark(n_doors = 4, n_trials = 1000_000)
+```
+
+
+## Variables versus Objects
+
+In Python, variables and the objects they point to actually live in
+two different places in the computer memory. Think of variables as
+pointers to the objects they’re associated with, rather than being
+those objects. This matters when multiple variables point to the same
+object.
+```{python}
+x = [1, 2, 3]  # create a list; x points to the list
+y = x          # y also points to the same list in the memory
+y.append(4)    # append to y
+x              # x changed!
+```
+Now check their addresses
+```{python}
+print(id(x))   # address of x
+print(id(y))   # address of y
+```
+
+
+Nonetheless, some data types in Python are "immutable", meaning that
+their values cannot be changed in place. One such example is strings.
+```{python}
+x = "abc"
+y = x
+y = "xyz"
+x
+```
+
+Now check their addresses
+```{python}
+print(id(x))   # address of x
+print(id(y))   # address of y
+```
+
+Question: What's mutable and what's immutable?
+
+Anything that is a collection of other objects is mutable, except
+``tuples``.
+
+Not all manipulations of mutable objects change the object rather than
+create a new object. Sometimes when you do something to a mutable
+object, you get back a new object. Manipulations that change an
+existing object, rather than create a new one, are referred to as
+“in-place mutations” or just “mutations.” So:
+
++ __All__ manipulations of immutable types create new objects.
++ __Some__ manipulations of mutable types create new objects.
+
+Different variables may all be pointing at the same object is
+preserved through function calls (a behavior known as “pass by
+object-reference”). So if you pass a list to a function, and that
+function manipulates that list using an in-place mutation, that change
+will affect any variable that was pointing to that same object outside
+the function.
+```{python}
+x = [1, 2, 3]
+y = x
+
+def append_42(input_list):
+    input_list.append(42)
+    return input_list
+
+append_42(x)
+```
+Note that both `x` and `y` have been appended by $42$.
+
+## Number Representation
+
+Numers in a computer's memory are represented by binary styles (on and
+off of bits).
+
+### Integers
+If not careful, It is easy to be bitten by overflow with integers when
+using Numpy and Pandas in Python.
+
+```{python}
+import numpy as np
+
+x = np.array(2 ** 63 - 1 , dtype = 'int')
+x
+# This should be the largest number numpy can display, with
+# the default int8 type (64 bits)
+```
+
+*Note: on Windows and other platforms, `dtype = 'int'` may have to be changed to `dtype = np.int64` for the code to execute. Source: [Stackoverflow](https://stackoverflow.com/questions/38314118/overflowerror-python-int-too-large-to-convert-to-c-long-on-windows-but-not-ma)*
+
+What if we increment it by 1?
+```{python}
+y = np.array(x + 1, dtype = 'int')
+y
+# Because of the overflow, it becomes negative!
+```
+For vanilla Python, the overflow errors are checked and more digits
+are allocated when needed, at the cost of being slow.
+```{python}
+2 ** 63 * 1000
+```
+This number is 1000 times larger than the prior number,
+but still displayed perfectly without any overflows
+
+### Floating Number
+
+Standard double-precision floating point number uses 64 bits. Among
+them, 1 is for sign, 11 is for exponent, and 52 are fraction significand,
+See <https://en.wikipedia.org/wiki/Double-precision_floating-point_format>.
+The bottom line is that, of course, not every real number is exactly
+representable.
+
+If you have played the Game 24, here is a tricky one:
+```{python}
+8 / (3 - 8 / 3) == 24
+```
+Surprise?
+
+There are more.
+```{python}
+0.1 + 0.1 + 0.1 == 0.3
+```
+
+```{python}
+0.3 - 0.2 == 0.1
+```
+
+What is really going on?
+```{python}
+import decimal
+decimal.Decimal(0.1)
+```
+
+```{python}
+decimal.Decimal(8 / (3 - 8 / 3))
+```
+
+Because the mantissa bits are limited, it can not represent a floating point
+that's both very big and very precise. Most computers can represent all integers
+up to $2^{53}$, after that it starts skipping numbers.
+
+```{python}
+2.1 ** 53 + 1 == 2.1 ** 53
+
+# Find a number larger than 2 to the 53rd
+```
+
+```{python}
+x = 2.1 ** 53
+for i in range(1000000):
+    x = x + 1
+x == 2.1 ** 53
+```
+We add 1 to `x` by 1000000 times, but it still equal to its initial
+value,  `2.1 ** 53`. This is because this number is too big that computer
+can't handle it with precision like add 1.
+
+Machine epsilon is the smallest positive floating-point number `x` such that
+`1 + x != 1`.
+```{python}
+print(np.finfo(float).eps)
+print(np.finfo(np.float32).eps)
+```
+
+
+## Virtual Environment {#sec-python-venv}
+Virtual environments in Python are essential tools for managing
+dependencies and ensuring consistency across projects. They allow
+you to create isolated environments for each project, with its
+own set of installed packages, separate from the global Python
+installation. This isolation prevents conflicts between project
+dependencies and versions, making your projects more reliable
+and easier to manage. It's particularly useful when working on
+multiple projects with differing requirements, or when
+collaborating with others who may have different setups.
+
+
+To set up a virtual environment, you first need to ensure that 
+Python is installed on your system. Most modern Python 
+installations come with the venv module, which is used to create 
+virtual environments. Here's how to set one up:
+
++ Open your command line interface.
++ Navigate to your project directory.
++ Run `python3 -m venv myenv`, where `myenv` is the name of the
+virtual environment to be created. Choose an informative name.
+
+This command creates a new directory named `myenv` (or your chosen 
+name) in your project directory, containing the virtual 
+environment.
+
+
+To start using this environment, you need to activate it. The 
+activation command varies depending on your operating system:
+
++ On Windows, run `myenv\Scripts\activate`.
++ On Linux or MacOS, use `source myenv/bin/activate` or
+  `. myenv/bin/activate`.
+
+Once activated, your command line will typically show the name of 
+the virtual environment, and you can then install and use packages 
+within this isolated environment without affecting your global 
+Python setup.
+
+
+To exit the virtual environment, simply type `deactivate` in your 
+command line. This will return you to your system’s global Python 
+environment.
+
+
+As an example, let's install a package, like `numpy`, in this
+newly created virtual environment:
+
++ Ensure your virtual environment is activated.
++ Run `pip install numpy`.
+
+This command installs the requests library in your virtual 
+environment. You can verify the installation by running
+`pip list`, which should show requests along with its version.

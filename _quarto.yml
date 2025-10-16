@@ -6,6 +6,7 @@ book:
   subtitle: "STAT 3255/5255 @ UConn, Fall 2025"
   author:
     - name: "[Jun Yan](https://statcomp.org) and Students in Fall 2025"
+    - name: Jingang Chen
   date: today
 
 #  sidebar:
@@ -13,12 +14,16 @@ book:
   
   chapters:
     - index.qmd
-    - intro.qmd
-    - git.qmd
-    - quarto.qmd
-    - python.qmd
-    - manipulation.qmd
-#    - visualization.qmd
+    - 01-intro.qmd
+    - 02-git.qmd
+    - 03-quarto.qmd
+    - 04-python.qmd
+    - 05-visualization.qmd
+    - 06-manipulation.qmd
+    - 07-exploration.qmd
+    - 08-regression.qmd
+    - 09-classification.qmd
+    - 10-supervised.qmd
 #    - stats.qmd
 #    - machinelearning.qmd
 #    - supervised.qmd
@@ -33,9 +38,9 @@ bibliography:
 
 csl: apa.csl
 
-
 format:
   html:
+    html-math-method: mathjax
     theme: cosmo
 #  pdf:
 #    documentclass: scrbook

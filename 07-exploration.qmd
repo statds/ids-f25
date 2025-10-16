@@ -1,0 +1,496 @@
+# Data Exploration {#ch-exploration}
+
+## Introduction
+
+Data exploration is the disciplined process that connects raw
+records to credible analysis. Its goals are to identify data quality
+issues, understand what variables mean operationally, and generate
+falsifiable claims that later analysis can scrutinize. The work is
+iterative: initial checks surface inconsistencies or gaps; targeted
+cleaning follows; then renewed examination tests whether earlier
+conclusions still hold. Reproducibility is non-negotiable, so every
+step should live in code with a brief log explaining what changed and
+why. Critically, this phase is not confirmatory inference. Instead,
+it frames questions clearly, proposes measurable definitions, and
+records assumptions that later sections will test formally.
+Scope of this chapter.
+
+
+We will develop practical habits for high-quality exploration. 
+First, we present cleaning principles: consistency of formats
+and units, completeness and missing-data mechanisms, accuracy and
+duplicates, and integrity across related fields, together with clear
+documentation. Next, we practice numerically driven summaries:
+distributional statistics, grouped descriptives, cross-tabulations,
+and simple association checks that reveal promising relationships.
+Finally, we show how to state hypotheses correctly—with the null
+representing no effect or independence—and run appropriate tests in
+Python (ANOVA or Kruskal–Wallis for group means, Welch’s t-test or
+Mann–Whitney for two groups, OLS slope tests with robust errors, and
+Pearson or Spearman correlations), pairing p-values with effect
+sizes and intervals.
+
+## Getting to Know Data
+
+Any analysis begins by becoming familiar with the dataset. This involves
+learning what the observations represent, what types of variables are
+recorded, and whether the structure meets the expectations of tidy data.
+Before turning to a specific example, we highlight general principles.
+
++ Units of observation. Each row of a dataset should correspond to a single
+unit, such as an individual, transaction, or property sale. Misalignment of
+units often leads to errors in later analysis.
+
++ Variables and their types. Columns record attributes of units. These may be
+continuous measurements, counts, ordered categories, or nominal labels.
+Recognizing the correct type is essential because it dictates which summary
+statistics and hypothesis tests are appropriate.
+
++ Tidy data principles. In a tidy format, each row is one observation and each
+column is one variable. When data are stored otherwise, reshaping is necessary
+before analysis can proceed smoothly.
+
+We now illustrate these ideas using a reduced version of the Ames
+Housing dataset [@decock2009ames], which is available directly from
+`OpenML`. With a filtered subset of ~1460 observations, it drops older
+sales, keeps only certain years, and removes some variables to make
+modeling cleaner for beginners.
+
+
+```{python}
+import openml
+
+# Load Ames Housing (OpenML ID 42165)
+dataset = openml.datasets.get_dataset(42165)
+df, *_ = dataset.get_data()
+
+# Basic dimensions
+df.shape
+```
+The dataset contains nearly three thousand house sales and eighty
+variables.
+
+
+It is useful to view the first few rows to confirm the structure.
+
+```{python}
+# First few rows
+df.head()
+```
+Each row corresponds to one property sale, while columns record attributes
+such as lot size, neighborhood, and sale price.
+
+
+Understanding whether variables are numeric, categorical, or temporal guides
+later exploration and cleaning.
+
+```{python}
+# Dtypes in pandas
+df.dtypes.value_counts()
+```
+
+```{python}
+# Example: show a few variables with types
+df.dtypes.head(10)
+```
+Most features are numeric or categorical. Some, such as `YearBuilt`, are
+integers but represent calendar years.
+
+
+The outcome of interest is the sale price.
+
+```{python}
+# The default target from OpenML
+dataset.default_target_attribute
+```
+
+Numeric summaries highlight scale and possible outliers.
+
+```{python}
+# Summary statistics for numeric columns
+df.describe().T.head(10)
+```
+
+Categorical summaries reveal balance among levels.
+
+```{python}
+# Frequency counts for categorical columns
+df['Neighborhood'].value_counts().head()
+```
+
+```{python}
+# Another example
+df['GarageType'].value_counts(dropna=False)
+```
+
+Simple checks can detect implausible combinations.
+
+```{python}
+# Houses should not be sold before built
+(df['YrSold'] < df['YearBuilt']).sum()
+```
+
+```{python}
+# Garage year built should not precede house year built
+(df['GarageYrBlt'] < df['YearBuilt']).sum()
+```
+These checks confirm that while the dataset is well curated, certain quirks
+require careful interpretation.
+
+
+## Data Cleaning Principles
+
+Exploration begins with data cleaning. The purpose is not to modify values
+casually but to identify issues, understand their sources, and decide on a
+transparent response. The following principles provide structure.
+
+Consistency. Variables should follow the same format and unit across all
+records. Dates should have a common representation, categorical labels should
+not differ by spelling, and measurements should use the same scale.
+
+Completeness. Missing values are unavoidable. It is important to determine
+whether they arise from data entry errors, survey nonresponse, or structural
+absence. For example, a missing value in `FireplaceQu` often indicates that a
+house has no fireplace rather than missing information.
+
+Accuracy. Values should be plausible. Obvious errors include negative square
+footage or sale years in the future. Duplicate records also fall under this
+category.
+
+Integrity. Relationships between variables should be logically consistent. A
+house cannot be sold before it was built. If related totals exist, the sum of
+parts should match the total.
+
+Transparency. All cleaning decisions should be recorded. Reproducibility
+requires that another analyst can understand what was changed and why.
+
+### Illustration with Ames Housing
+We apply these principles to the Ames dataset. The first step is to inspect
+missing values.
+
+```{python}
+# Count missing values in each column
+df.isna().sum().sort_values(ascending=False).head(15)
+```
+Several variables, such as `PoolQC`, `MiscFeature`, and `Alley`, contain many
+missing entries. Documentation shows that these are structural, indicating the
+absence of the feature.
+
+```{python}
+# Example: check PoolQC against PoolArea
+(df['PoolQC'].isna() & (df['PoolArea'] > 0)).sum()
+```
+The result is zero, confirming that missing `PoolQC` means no pool.
+
+Consistency can be checked by reviewing categorical labels.
+
+```{python}
+# Distinct values in Exterior1st
+df['Exterior1st'].unique()
+```
+If spelling variants are detected, they should be harmonized.
+
+Accuracy checks involve searching for implausible values.
+
+```{python}
+# Negative or zero living area
+(df['GrLivArea'] <= 0).sum()
+```
+
+Integrity checks verify logical relationships.
+
+```{python}
+# Houses sold before they were built
+(df['YrSold'] < df['YearBuilt']).sum()
+```
+
+```{python}
+# Garage built before house built
+(df['GarageYrBlt'] < df['YearBuilt']).sum()
+```
+These checks help identify issues to document and, if appropriate, correct in
+a reproducible way.
+
+
+## Common Exploration Practices
+
+After establishing data cleaning principles, the next step is to compute
+summaries that describe the distributions of variables and their relationships.
+This section avoids graphics, relying instead on tables and statistics.
+
+### Univariate summaries
+Simple statistics reveal scale, central tendency, and variability.
+
+```{python}
+# Sale price distribution
+df['SalePrice'].describe()
+```
+The sale price is right-skewed, with a mean higher than the median.
+
+```{python}
+# Lot area distribution
+df['LotArea'].describe()
+```
+Lot size shows extreme variation, indicating possible outliers.
+
+### Grouped summaries
+Comparisons across categories highlight differences in central tendency.
+
+```{python}
+# Mean sale price by neighborhood
+df.groupby('Neighborhood')['SalePrice'].mean().sort_values().head()
+```
+Neighborhoods differ substantially in average sale price.
+
+```{python}
+# Median sale price by overall quality
+df.groupby('OverallQual')['SalePrice'].median()
+```
+Higher quality ratings correspond to higher prices.
+
+### Cross-tabulations
+Cross-tabulations summarize associations between categorical variables.
+
+```{python}
+import pandas as pd
+# Neighborhood by garage type
+pd.crosstab(df['Neighborhood'], df['GarageType']).head()
+```
+Some garage types are common only in specific neighborhoods.
+
+### Correlations
+Correlation coefficients capture linear associations between numeric variables.
+
+```{python}
+# Correlation between living area and sale price
+df[['GrLivArea','SalePrice']].corr()
+```
+
+```{python}
+# Correlation between lot area and sale price
+df[['LotArea','SalePrice']].corr()
+```
+Living area is strongly correlated with price, while lot area shows a weaker
+association.
+
+### Conditional summaries
+Examining distributions within subgroups can surface interaction patterns.
+
+```{python}
+# Average sale price by house style
+df.groupby('HouseStyle')['SalePrice'].mean().sort_values()
+```
+House style is another factor associated with variation in price.
+
+
+These practices provide a numerical portrait of the data, guiding later steps
+where hypotheses will be stated explicitly and tested with appropriate
+statistical methods.
+
+
+## Forming and Testing Hypotheses
+
+Exploration becomes more rigorous when we state hypotheses formally and run
+appropriate tests. The null hypothesis always represents no effect, no
+difference, or no association. The alternative expresses the presence of an
+effect. The examples below use the Ames Housing data.
+
+### Neighborhood and sale price
+Hypothesis:
+- H0: The mean sale prices are equal across neighborhoods.
+- H1: At least one neighborhood has a different mean.
+
+```{python}
+import statsmodels.formula.api as smf
+from statsmodels.stats.anova import anova_lm
+
+sub = df[['SalePrice','Neighborhood']].dropna()
+model = smf.ols('SalePrice ~ C(Neighborhood)', data=sub).fit()
+anova_lm(model, typ=2)
+```
+ANOVA tests equality of group means. If significant, post-hoc comparisons can
+identify which neighborhoods differ.
+
+### Year built and sale price
+Hypothesis:
+- H0: The slope for YearBuilt is zero; no linear relationship.
+- H1: The slope is not zero.
+
+```{python}
+model = smf.ols('SalePrice ~ YearBuilt', data=df).fit(cov_type='HC3')
+model.summary().tables[1]
+```
+The regression slope test checks whether newer houses tend to sell for more.
+
+### Lot area and sale price
+Hypothesis:
+- H0: The population correlation is zero.
+- H1: The correlation is not zero.
+
+```{python}
+from scipy import stats
+sub = df[['LotArea','SalePrice']].dropna()
+stats.pearsonr(sub['LotArea'], sub['SalePrice'])
+```
+A Pearson correlation tests linear association. A Spearman rank correlation can
+be used when distributions are skewed.
+
+### Fireplaces and sale price
+Hypothesis:
+- H0: The mean sale price is the same for houses with and without a fireplace.
+- H1: The mean sale prices differ.
+
+```{python}
+sub = df[['SalePrice','Fireplaces']].dropna()
+sub['has_fp'] = (sub['Fireplaces'] > 0).astype(int)
+
+g1 = sub.loc[sub['has_fp']==1, 'SalePrice']
+g0 = sub.loc[sub['has_fp']==0, 'SalePrice']
+
+stats.ttest_ind(g1, g0, equal_var=False)
+```
+Welch’s t-test compares means when variances differ.
+
+### Garage type and neighborhood
+Hypothesis:
+- H0: Garage type and neighborhood are independent.
+- H1: Garage type and neighborhood are associated.
+
+```{python}
+import pandas as pd
+ct = pd.crosstab(df['GarageType'], df['Neighborhood'])
+stats.chi2_contingency(ct)
+```
+A chi-square test checks for association between two categorical variables.
+
+---
+
+### Quick reference table for common tests
+
+| Situation                   | Null hypothesis           | Test                  | Python tool |
+|-----------------------------|---------------------------|-----------------------|-------------|
+| k-group mean comparison     | All group means equal     | One-way ANOVA         | `anova_lm`  |
+| k-group, nonparametric      | All group distributions equal | Kruskal–Wallis   | `stats.kruskal` |
+| Two means, unequal variance | Means equal               | Welch’s t-test        | `stats.ttest_ind` |
+| Two groups, nonparametric   | Distributions equal       | Mann–Whitney U        | `stats.mannwhitneyu` |
+| Linear relationship         | Slope = 0                 | OLS slope test        | `ols` + robust SE |
+| Continuous association      | Correlation = 0           | Pearson correlation   | `stats.pearsonr` |
+| Monotone association        | Correlation = 0           | Spearman correlation  | `stats.spearmanr` |
+| Categorical association     | Independence              | Chi-square test       | `stats.chi2_contingency` |
+
+---
+
+These examples illustrate how hypotheses guide exploration. Each test produces
+a statistic, a p-value, and often an effect size. Results are provisional and
+informal, but they shape which relationships merit deeper investigation.
+
+## Iterative Nature of Exploration
+
+Exploration is rarely linear. Cleaning, summarizing, and testing feed back into
+each other. Each new discovery can prompt a return to earlier steps.
+
+### Cycle of exploration
+- Inspect variables and detect anomalies.
+- Clean data based on what anomalies reveal.
+- Summarize distributions and relationships.
+- Formulate and test new hypotheses.
+- Revisit cleaning when results suggest overlooked issues.
+
+### Example: Garage year built
+Initial inspection may suggest that many values of `GarageYrBlt` are missing.
+Documentation indicates that missing means no garage.
+
+```{python}
+# Count missing garage years
+df['GarageYrBlt'].isna().sum()
+```
+
+When checking integrity, we may notice that some garage years precede the house
+year built.
+
+```{python}
+# Garage built before house built
+(df['GarageYrBlt'] < df['YearBuilt']).sum()
+```
+This prompts a decision: treat as data entry error, keep with caution, or
+exclude in certain analyses.
+
+### Example: Living area and sale price
+A strong correlation between `GrLivArea` and `SalePrice` may surface.
+
+```{python}
+# Correlation
+sub = df[['GrLivArea','SalePrice']].dropna()
+sub.corr()
+```
+
+If a few extremely large houses are driving the correlation, it may be
+necessary to investigate further.
+
+```{python}
+# Identify extreme values
+sub[sub['GrLivArea'] > 4000][['GrLivArea','SalePrice']]
+```
+These observations may be genuine luxury properties, or they may distort
+summary statistics. The decision is context-dependent and should be documented.
+
+
+
+Exploration is not a one-pass process. Findings in one step often require
+revisiting previous steps. Clear documentation ensures that these iterations
+are transparent and reproducible.
+
+
+## Good Practices in Data Exploration
+
+Clear habits in exploration make later analysis more reliable and easier to
+share. The following practices help ensure quality and reproducibility.
+
+### Reproducibility
+- Keep all work in notebooks or scripts, never only in spreadsheets.
+- Ensure that another analyst can rerun the code and obtain identical results.
+
+```{python}
+# Example: set a random seed for reproducibility
+import numpy as np
+np.random.seed(20250923)
+```
+
+### Documentation
+- Record cleaning decisions explicitly. For example, note that NA in
+  `PoolQC` means no pool.
+- Keep a running log of questions, anomalies, and decisions.
+
+```{python}
+# Example: create an indicator for presence of a pool
+df['HasPool'] = df['PoolArea'] > 0
+```
+
+### Balanced curiosity and rigor
+- Exploration can generate many possible stories. Avoid over-interpreting
+  patterns before formal testing.
+- Distinguish clearly between exploratory checks and confirmatory analysis.
+
+### Effect sizes and intervals
+- Report not only p-values but also effect sizes and confidence intervals.
+- This practice keeps focus on the magnitude of relationships.
+
+```{python}
+# Example: compute Cohen's d for fireplace vs no fireplace
+sub = df[['SalePrice','Fireplaces']].dropna()
+sub['has_fp'] = (sub['Fireplaces'] > 0).astype(int)
+
+mean_diff = sub.groupby('has_fp')['SalePrice'].mean().diff().iloc[-1]
+pooled_sd = sub.groupby('has_fp')['SalePrice'].std().mean()
+cohens_d = mean_diff / pooled_sd
+cohens_d
+```
+
+### Transparency
+- Share both code and notes with collaborators.
+- Version control with Git helps track changes and decisions.
+
+---
+
+Good practices keep exploration structured and reproducible. They also create a
+record of reasoning that improves collaboration and supports later analysis.

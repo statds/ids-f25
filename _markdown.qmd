@@ -1,0 +1,720 @@
+## A Primer of Markdown
+
+This section was prepared by Jingang Chen, an undergraduate junior pursuing  a 
+dual degree in computer science and statistical data science.
+
+### Introduction
+This section will focus on the syntax of Markdown, which is a lightweight 
+markup language that allows to user to write content in plain text format, 
+which can be rendered to various formats like HTML and PDF, and is widely used 
+in open-source documentation.
+
+### Headers
+In markdown, creating heading levels for sections and subsections are denoted 
+by `#` (atx-style) in the beginning of the line. The number of hashtags denote 
+the heading level, with more hashtags indicating smaller heading levels. 
+There are a total of 6 heading levels using the hashtags.
+
+```markdown
+# Header 1 (Main)
+## Header 2 (Subheading)
+### Header 3 (Subheading)
+#### Header 4
+##### Header 5
+###### Header 6
+```
+
+> A space is required after the hashtags to denote that it is a heading
+
+Headings can also be denoted by using underlined `=` and `-` signs, though this 
+will only work for the first and second level headers respectively.
+
+```markdown
+Header 1
+===
+Header 2
+----
+```
+Any amount of `=` and `-` signs will work to create those top two headings.
+
+### Paragraph and Line Break Convention
+To seperate text into paragraphs, make sure there is at least one blank space 
+between the blocks of texts.
+
+```markdown
+This is the first pargraph which can contain multiple lines, and as long there
+is no blank line in this, then this block of text is one paragraph.
+
+This is an example of a second paragraph. This one is seperated by a blank line
+from the paragraph above to denote a different paragraph.
+```
+**Output**:
+
+This is the first pargraph which can contain multiple lines, and as long there
+is no blank line in this, then this block of text is one paragraph.
+
+This is an example of a second paragraph. This one is seperated by a blank line
+from the paragraph above to denote a different paragraph.
+
+To create a line break within a paragraph, end whatever line you're on with two
+spaces, then press enter/return to start a new line. The break tag `<br>` is 
+also sufficient.
+
+```markdown
+This is one line.  
+This is a line that is seperated from the line above using two spaces. <br>
+This is a third line seperated using the `<br>` break tag.
+```
+**Output:**
+
+This is one line.  
+This is a line that is seperated from the line above using two spaces. <br>
+This is a third line seperated using the `<br>` break tag.
+
+> `<>` in Markdown is a HTML tag, which is another way to structure the
+document
+
+### Horizontal Rules
+Horizontal rules visually separate document sections, which can be done in 
+Markdown by adding 3 or more of one of 3 characters: `***`, `---`, or `___`.
+
+```markdown
+
+paragraph 1.
+
+******
+
+paragraph 2.
+
+------
+
+paragraph 3.
+
+______
+
+paragraph 4.
+```
+**Output:**
+
+paragraph 1.
+
+******
+
+paragraph 2.
+
+------
+
+paragraph 3.
+
+______
+
+paragraph 4.
+
+> Make sure when using the horizontal rulers, each of them is one blank line 
+above and below them. There shouldn't be any text above or below them 
+adjacently.
+
+### Text Formatting
+
+#### Bolding and Italics
+*Italic* text, uses single asterisks (*) or underscores (_) around the text, 
+while **bold** text uses double asterisks or underscores. To make the text both 
+***bolded and italicized***, put three asterisks or underscores around the text.
+
+|                  Syntax                            | Output                |
+|----------------------------------------------------|-----------------------|
+| `*Italicized*` <br> `_Italicized_`                 | _Italicized_          |
+| `**Bolded**` <br> `__Bolded__`                     |  **Bolded**           |
+| `***bold & italics***` <br> ` ___bold & italics___`| ***bolded & italics***|
+
+Emphasis can also be placed within a word as well, but only `*` can be used, 
+not `_`.
+
+|                  Syntax              |            Output                   |
+|--------------------------------------|-------------------------------------|
+|`s*uperfragalis*t ex**pialidociou**s` | s*uperfragalis*t ex**pialidociou**s |
+
+#### Strikethrough
+Strikethrough uses `~~` around the text to cross it out.
+
+|     Syntax              |         Output         |
+|-------------------------|------------------------|
+|`~~strikethrough text~~` | ~~strikethrough text~~ |
+
+#### Superscript and Subscript
+To superscript, use `^` around the desired text.
+
+For subscript, use `~` around the desired text.
+
+|   Syntax       |   Output       |
+|----------------|----------------|
+|`superscript^2^`| superscript^2^ |
+|`subscript~2~`  | subscript~2~   |
+
+#### Underlining and Highlighting
+To underline, bracket the desired text with `[]`, and then follow that using 
+`{.underline}`.
+
+To highlight, bracket the desired text with `[]`, and follow that using 
+`{.mark}`. Alternatively you can start the text with `<mark>` and end it with 
+`</mark>`.
+
+|                  Syntax                     |      Output                   |
+|---------------------------------------------|-------------------------------|
+|`[underlined text]{.underline}`              | [underlined text]{.underline} |
+|`[highlighted]{.mark}` <br> `<mark>higlighted</mark>` | [highlighted]{.mark} |
+
+#### Escape Characters
+If you want to display the Markdown syntax characters, it can be done by putting
+`\`  before and after the text.
+
+```markdown
+\# Not a heading\
+\**not bolded**\
+\[Not a link]\
+```
+**Output:**
+
+\# Not a heading\
+\**not bolded**\
+\[Not a link]\
+
+### Blockquotes
+Blockquotes is a way to highlight quoted content or important information in the
+document, which is denoted by `>` in the beginning of the line.
+
+```markdown
+> This is a block quote
+> 
+> second block quote
+>
+> third block quote
+```
+**Output:**
+
+> This is a blockquote
+> 
+> second blockquote
+>
+> third blockquote
+
+To make sure that the blockquotes are seperated, make sure that each quote is 
+seperated by `>`'s with no text in that line. Putting blockquotes adjacent to 
+each other will result in all the text being in the same paragraph.
+
+```markdown
+> These blockquotes
+> are not seperated and
+> are all in one line
+```
+**Output:**
+
+> These blockquotes
+> are not seperated and
+> are all in one line
+
+Blockquotes can also be nested by using multiple `>` in one line.
+
+```markdown
+> This is a blockquote
+>
+> > This is a nested blockquote
+> >
+> > > Third level blockquote
+```
+**Output:**
+
+> This is a blockquote
+>
+> > This is a nested blockquote
+> >
+> > > Third level blockquote
+
+### Lists
+
+Lists and nested lists can be structured in Markdown either unordered or 
+ordered. For nested lists, make sure to include 4 spaces to properly indent the 
+nested list (applies to both ordered and unordered).
+
+#### Unordered Lists
+For unordered lists, `*`, `+`, or `-` can be used to make a list.
+
+```markdown
+* Item 1
+    * Subitem
+        * Another subitem
+* Item 2
+* Item 3
+```
+and
+
+```markdown
++ Item 1
+   + Subitem
+       + Another subitem
++ Item 2
++ Item 3
+```
+
+
+```markdown
+- Item 1
+   - Subitem
+       - Another subitem
+- Item 2
+- Item 3
+```
+as well a mix of all three:
+
+```markdown
+* Item 1
+   + Subitem
+       - Another subitem
+* Item 2
+* Item 3
+```
+
+all yield the same output:
+
+* Item 1
+   + Subitem
+       - Another subitem
+* Item 2
+* Item 3
+
+#### Ordered Lists
+Ordered lists use numbers with periods.
+
+```markdown
+1. Item 1
+2. Item 2
+    1. Sub item
+3. Item 3
+```
+The numbers don't necessarily have to be ordered, and they can be duplicated as
+well. Whatever number the list starts on will be the one that it will count from
+no matter the numbers that come after it.
+
+```markdown
+1. Item 1
+1. Item 2
+    1. Sub Item
+1. Item 3
+```
+
+```markdown
+1. Item 1
+4. Item 2
+    2. Sub Item
+7. Item 3
+```
+All three of these lists will yield the same result:
+
+1. Item 1
+4. Item 2
+    1. Sub Item
+7. Item 3
+
+However, if the list were to start on 2, it would start counting from 2 no 
+matter the order that follows.
+
+```markdown
+2. Item 1
+2. Item 2
+5. Item 3
+```
+**Output:**
+
+2. Item 1
+2. Item 2
+5. Item 3
+
+#### Task List
+To denote the lists as a series of tasks, use `- [ ]`, which is unchecked, 
+and ` [x]`, which is checked, at the beginning of the line.
+
+```markdown
+- [ ] Task 1
+- [x] Task 2
+```
+**Output:**
+
+- [ ] Task 1
+- [x] Task 2
+
+#### Definition lists
+Defintion lists can be created with the following convention:
+
+```markdown
+term
+: defintion
+
+term2
+: definition2
+```
+Output:
+
+term
+: defintion
+
+term2
+: definition2
+
+#### Some Additional Notes About Lists
+There are some additional features that can be done with the lists mentioned.
+
+A list can continue after a break in between. For ordered lists, the numbering
+still follows through after an interruption.
+
+```markdown
+1. Item 1
+
+interruption text
+
+2. Item 2
+```
+**Output:**
+
+1. Item 1
+
+interruption text
+
+2. Item 2
+
+Text than isn't numbered or in bullet points can also be added below list using
+four spaces for indenting. Code chunks can be added in this case as well.
+
+```markdown
+1. ordered list
+2. item 2
+    continued after indenting 4 spaces
+    ```python
+    print("Hello, World!")
+    ```
+    A. sub-sub-item 1
+```
+
+**Output:**
+
+1. ordered list
+2. item 2
+
+    continued after indenting 4 spaces
+   ```python
+   print("Hello, World!")
+   ```
+   A.  sub-sub-item 1
+
+### Code
+
+#### Inline Code
+Markdown allows for inline code and code blocks.
+
+To insert inline code, use the backticks `` ` `` around the text
+
+```markdown
+This is an example of `inline code` in a text.
+```
+**Output**: This is an example of `inline code` in a text.
+
+To display the `` ` `` as part of an inline code, surround the character with 
+` `` ` backticks and spacing them apart from `` ` ``.
+
+#### Code Blocks
+To create code blocks, ` ``` ` can be used.
+
+```
+    ```
+    some code
+    ```
+```
+Output:
+
+```
+some code
+```
+
+Alternatively, code blocks can be indented by identing four or more spaces
+prior to the code.
+
+    This is code using the indentation of four spaces
+        This line has more than four spaces
+
+A language can also be added to specify the language of the code blocks if
+` ``` ` is used.
+
+    ```python
+    print('some python code')
+    ```
+
+**Output**:
+
+```python
+print('some python code')
+```
+
+To make the code executable, put `{}` around the syntax language being used in
+the code blocks.
+
+```python
+    ```{{python}}
+    print("Some python code")
+    ```
+```
+
+**Output**:
+```{python}
+print('some python code')
+```
+
+### Formulas and Equations
+Markdown supports LaTeX-style expressions. Mathematical expressions can either 
+be done inline (enclosing using `$`) or for display math (enclosed by `$$`).
+
+|                  Syntax              |      Output         |
+|--------------------------------------|---------------------|
+|`Inline: $x^2 + y^2 = z^2$`           | Inline: $x^2 + y^2 = z^2$ |
+|`Display:` <br> `$$x^2 + y^2 = z^2$$` | Display: <br> $$x^2 + y^2 = z^2$$ {#eq-sample} |
+
+For mor information on how to use LaTeX expressions, visit 
+<https://www.overleaf.com/learn> and look under the "Mathematics" section.
+
+
+### Link Embedding
+Links in Markdown can either be added inline or as a reference.
+
+To add an **inline link**, use `[]` around the text that leads to the link, 
+followed by actually inputting the link in `()`.
+
+```markdown
+this is an example link that will lead to the 
+[Markdown Guide](https://www.markdownguide.org/)
+```
+**Output:** : This is an example link that will lead to the 
+[Markdown Guide](https://www.markdownguide.org/).
+
+Alternatively, for inline links, the URL can be directly added without linking 
+it to text by just using `<>` around the URL.
+
+```markdown
+Link to <https://www.markdownguide.org/>.
+```
+**Output:** Link to <https://www.markdownguide.org/>.
+
+For reference-style links, you can having text linked to the URL and a seperate 
+number or text that points to the link with `[]`
+
+```markdown
+Example of reference-style link leading to the [Markdown Guide][link].
+
+[link]: https://www.markdownguide.org
+```
+**Output:**
+
+Example of reference-style link leading to the [Markdown Guide][link].
+
+[link]: https://www.markdownguide.org/
+
+### Images
+
+To insert an image into markdown, the convention is to first add `!`, followed 
+by a caption to the image wrapped in `[]`, and finally the file path or URL to 
+the image enclosed with `()`.
+
+In addition, the image can be embedded with a link by first wrapping the 
+3 parameters mentioned above in `[]`, followed by the link wrapped in `()`. The 
+link can either be a local file path stored on your computer or a direct link 
+of the image found online. For reproducibility, this example uses a direct URL 
+pointing to an online image.
+
+```markdown
+[![UConn Husky Logo](https://lofrev.net/wp-content/photos/2016/06/uconn_huskies_logo.jpg)](https://uconn.edu/)
+```
+**Output:**
+
+[![UConn Husky Logo](https://lofrev.net/wp-content/photos/2016/06/uconn_huskies_logo.jpg){#fig-sample}](https://uconn.edu/)
+
+
+
+### Tables {#sec-tables}
+
+To create tables, the `|` character is used to seperate the table into columns,
+while the `-` is used to seperate the headers of the table from the rest of the 
+data. After the table, a header can be included two lines below the table 
+starting with `: `.
+
+```markdown
+| Col 1 | Col 2 | Col 3 | Col 4 |
+|------|-----|----------|-------|
+|   a  |  b  |    c     |  d    |
+|  e   |  f  |  g       |  h    |
+|   i  |   j |    k     |    l  |
+
+: Sample Table 1
+```
+Output:
+
+| Col 1 | Col 2 | Col 3 | Col 4 |
+|------|-----|----------|-------|
+|   a  |  b  |    c     |  d    |
+|  e   |  f  |  g       |  h    |
+|   i  |   j |    k     |    l  |
+
+: Sample Table 1 {#tbl-sample1}
+
+Columns can also be aligned to the left, right or center by add a colong `:` to
+the left, right or on both sides of the `-`'s of the table.
+
+```markdown
+| Right Col | Left Col | Center | Default |
+|----------:|:---------|:------:|---------|
+|        a  |       b  |    c   |    d    |
+|  e        |       f  |   g    |    h    |
+|   i       |        j |  k     |      l  |
+
+: Sample Table 2
+```
+
+**Output:**
+
+| Right Col | Left Col | Center | Default |
+|----------:|:---------|:------:|---------|
+|        a  |       b  |    c   |    d    |
+|  e        |       f  |   g    |    h    |
+|   i       |        j |  k     |      l  |
+
+: Sample Table 2
+
+### Cross Referencing
+Prior to cross referencing a section, there must be a label attached to the 
+section that is being referenced. This is done by using `{}` after the section 
+and giving it a label inside of it starting with `#sec-` followed by anything 
+else after it.
+
+```markdown
+### Tables {#sec-tables}
+```
+Then, to reference the section, use the `@` followed by the label specified to 
+create a direct link to the section. Optionally, you can wrap it around `[]` and 
+add any additional text to the link.
+```markdown
+Refer back to the Tables section in [section @sec-tables].
+```
+**Output:**
+
+Refer back to the Tables section in [section @sec-tables].
+
+To refer to figures and images, make sure to input the label after the URL. 
+Make sure in the label to start with `#fig-` to specify that it is a figure that 
+is being referenced.
+
+```markdown
+[![UConn Husky Logo](https://lofrev.net/wp-content/photos/2016/06/uconn_huskies_logo.jpg){#fig-sample}](https://uconn.edu/)
+```
+
+Now it can be referred back with the same convention as referencing a section:
+```markdown
+This refers @fig-sample in the Images section.
+```
+**Output:**
+
+This refers @fig-sample in the Images section.
+
+To cross reference tables, include the label on the line where the header is 
+specified. Make sure to start the label with `#tbl-` to specify that it's a 
+table that is being referenced.
+
+```markdown
+| Col 1 | Col 2 | Col 3 | Col 4 |
+|------|-----|----------|-------|
+|   a  |  b  |    c     |  d    |
+|  e   |  f  |  g       |  h    |
+|   i  |   j |    k     |    l  |
+
+: Sample Table 1 {#tbl-sample1}
+```
+
+Now to reference the table back:
+```markdown
+@tbl-sample1 refers back to the first table in the Tables section.
+```
+**Output:**
+
+@tbl-sample1 refers back to the first table in the Tables section.
+
+Finally, to reference an equation, make sure to include the label after the 
+equation, outside of the `$$` starting with `#eq-`.
+
+```{markdown}
+$$x^2 + y^2 = z^2$$ {#eq-sample}
+```
+
+Now to reference the equation from the Equations section back:
+
+```{markdown}
+@eq-sample is the Pythagorean theorem referenced from the Equations section.
+```
+**Output:**
+
+@eq-sample is the Pythagorean theorem referenced from the Equations section.
+
+### Footnotes
+Footnotes, often denoted by superscripts, are placed at the bottom of 
+a page in a document, which helps provide additional information and references 
+related to a specific part of the text. To insert a footnote in a text, it is 
+done in the `[]`, where the first character inside of the brackets is `^`, 
+followed by the desired name of the footnote. After that is specified, 
+reference that footnote in a newline and put whatever note that is needed.
+
+```markdown
+This is where you can place a footnote,[^1] sometimes multiple can be placed in 
+one sentence.[^longnote]
+
+[^1]: This is a footnote.
+
+[^longnote]: This is a long footnote, which can have paragraphs.
+   
+    Make sure to use the four spaces to inent so that the subsequent paragraphs 
+    belong to the same footnote.
+
+    ```
+    {code can also be inserted in here}
+    ```
+
+    End footnote
+
+Seperate paragraph here to show that this isn't part of the footnote.
+```
+**Output:**
+
+This is where you can place a footnote,[^1] sometimes multiple can be placed in 
+one sentence[^longnote]
+
+[^1]: This is a footnote.
+
+[^longnote]: This is a long footnote, which can have paragraphs.
+
+    Make sure to use the four spaces to inent so that the subsequent paragraphs 
+    belong to the same footnote.
+
+    ```
+    {code can also be inserted in here}
+    ```
+
+    End footnote
+
+Seperate paragraph here to show that this isn't part of the footnote.
+
+### Conclusion
+Markdown is a versatile markup language that simplifies writing for the web in 
+a way that is readable and convenient. Today, it is widely used to present the 
+work that is being done in a variety of areas, and Markdown provides a clean 
+way to organize the content being presented and structure the documents well.
+
+### Further Reading
+1. [Quarto Markdown Basics](
+    https://quarto.org/docs/authoring/markdown-basics.html)
+2. [The Complete Guide to Markdown](
+    https://www.tomarkdown.org/guides/markdown-complete-guide)
+3. [Markdown: Synatx by John Gruber](
+    https://daringfireball.net/projects/markdown/syntax#precode)
