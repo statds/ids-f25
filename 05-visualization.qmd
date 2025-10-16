@@ -2,7 +2,7 @@
 
 
 <!-- This section is to be included as a tutorial for ggplot with plotnine. -->
-{{< include _plotnine.qmd >}}
+<!-- {{< include _plotnine.qmd >}} -->
 
 <!-- This section is to be included as a tutorial for geopands data. -->
 <!-- {{< include _geopandas.qmd >}} -->

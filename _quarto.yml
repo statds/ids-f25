@@ -22,6 +22,9 @@ book:
     - 06-manipulation.qmd
     - 07-exploration.qmd
     - 08-regression.qmd
+    - 09-classification.qmd
+    - 10-supervised.qmd
+    - 90-advanced.qmd
 #    - stats.qmd
 #    - machinelearning.qmd
 #    - supervised.qmd
