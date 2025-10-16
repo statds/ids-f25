@@ -202,7 +202,11 @@ s/311-Service-Requests-from-2010-to-Present/erm2-nwe9) contains
    available in CSV format as
    `data/nypd311w062925noise_by100625.csv`. 
    Read the data dictionary online to understand the meaning of the
-   variables.
+   variables. **For a clean workflow, this data is not to be uploaded
+   to your GitHub repo.** You will lose style points if you do. 
+   Instead, it should be placed in an untracked
+   local folder `data`, so your analysis is reproducible as long as I
+   have the same folder on my computer. 
     a.  Data cleaning.
         i.  Import the data, rename the columns with our preferred styles.
         i.   Summarize the missing information. Are there variables that

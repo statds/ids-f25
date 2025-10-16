@@ -23,6 +23,7 @@ book:
     - 07-exploration.qmd
     - 08-regression.qmd
     - 09-classification.qmd
+    - 10-supervised.qmd
 #    - stats.qmd
 #    - machinelearning.qmd
 #    - supervised.qmd

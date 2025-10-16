@@ -317,13 +317,13 @@ Please use the following table to sign up.
    10/07 | Gomez-Haibach, Konrad |
    10/07 | Sgro, Owen Bentley | Data Manipulation with Pandas
    10/09 | Chen, Irene | Presentations with Quarto
-   10/09 | Yoon, Jessica Nari | Hypothesis Testing with scipy.stats
-   10/14 | Patel, Sahil Sanjay |
+   10/09 | Yoon, Jessica Nari | Hypothesis Testing with Scipy.stats
+   10/14 | Patel, Sahil Sanjay | Web Scraping
    10/14 | Plotnikov, Alexander | Random Forests
    10/16 | Milun, Lewis Aaron | Database operation with Structured query language (SQL)
    10/16 | Patel, Tulsi Manankumar |
    10/23 | Perkins, Jack Thomas |
-   10/23 | Fazzina, Sophia Carmen |
+   10/23 | Fazzina, Sophia Carmen | K-means clustering |
    10/28 | Tang, Wilson Chen | How to call R in Python
    10/28 | Wishneski, Emma Irene |
    10/30 | Lawrence, Claire Elise |
