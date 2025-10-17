@@ -1,18 +1,3 @@
----
-title: "Grammar of Graphics with Plotnine"
-author: "Sonia Lucey"
-bibliography: references.bib
-editor:
-  markdown:
-    wrap: 80
-format:
-  html:
-    code-fold: false
-    toc: true
-    toc-title: "Contents"
-    
----
-
 ## Introduction
 Hello everyone! My name is Sonia Lucey and I am a Statistical Data Science major.  
 Today I will be talking about the **Grammar of Graphics using Plotnine**.  
@@ -53,7 +38,7 @@ To get started, install and import Plotnine:
 from plotnine import *
 import pandas as pd
 
-df = pd.read_csv("data/cleaned_nyc_crash_data.csv")
+df = pd.read_feather("data/nyc_crashes_cleaned.feather")
 ```
 
 When writing plots in Plotnine, follow a logical order that mirrors the Grammar 
