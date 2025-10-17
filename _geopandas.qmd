@@ -1,47 +1,57 @@
 ## Spatial Data with Geopandas
 
-This section is by Alejandro Haerter, a junior majoring in Statistical Data Science and Economics.
+This section is by Alejandro Haerter, a junior majoring in Statistical Data 
+Science and Economics.
 
 ### Spatial Data and Python
 
-Spatial data is any information which describes the geographic location and shape of features. We might represent these as:
+Spatial data is any information which describes the geographic location
+and shape of  features. We might represent these as:
 
 - Points (address, cities)
 - Lines (Roads, rivers)
 - Polygons (Property parcels, city boundaries, ZIP codes)
 
-Spatial data is everywhere; we see it on maps, it has legal implications; and it
-often delineates demographic information. In short, a data scientist is certain to
-encounter spatial data in their career, and should know the tools to work with it.
+Spatial data is everywhere; we see it on maps, it has legal implications; and
+it often delineates demographic information. In short, a data scientist is 
+certain to encounter spatial data in their career, and should know the
+tools to work with it.
 
 Traditional Geographic Information Systems (GIS) tools (e.g., ArcGIS, QGIS)
-are proprietary, require steep learning curves, and do not implement well with the
-data science workflow. Luckily, with **GeoPandas**, we can use Python for spatial data analysis, preserving the data science workflow.
+are proprietary, require steep learning curves, and do not implement well with
+the data science workflow. Luckily, with **GeoPandas**, we can use Python for
+spatial data analysis, preserving the data science workflow.
 
 ### Introduction to GeoPandas
 
 **GeoPandas** is an open source package which adds support for geographic data
-to **pandas** objects, first released in 2014. GeoPandas' two main data structuers
+to **pandas** objects, first released in 2014. GeoPandas' two main data structures
 are the `geopandas.GeoSeries`, an extension of the `pandas.Series`, and the
 `geopandas.GeoDataFrame`, an extension of the `pandas.DataFrame`.
 
-GeoPandas is capable of geometric operations, transformations, and plotting, all relevant
-tools for 
+GeoPandas is capable of geometric operations, transformations, and plotting, all
+relevant tools for for operating with spatial data.
+
+GeoPandas requires **Folium** and **Matplotlib** as dependencies, both of
+which for plotting.
 
 #### GeoSeries
 
 `geopandas.GeoSeries` a subclass of `pandas.Series` which can only store
-geometries. Potential geometries include Points, Lines, Polygons, etc. Not all geometries
-need be the same type, but must be some form of **Shapely** geometric object.
+geometries. Potential geometries include Points, Lines, Polygons, etc. Not all
+geometries need be the same type, but must be some form of **Shapely** 
+geometric object.
 
-The `GeoSeries.crs` attribute stores the coordinate reference system (CRS) information
-of the `GeoSeries`. A CRS relates how map coordinates relate to real locations on
-Earth by specifying a datum (a model of the Earth's shape), a coordinate system (e.g.,
-Latitude/Longitude, UTM) and units of measurement (e.g., degrees, meters).
+The `GeoSeries.crs` attribute stores the coordinate reference system (CRS) 
+information of the `GeoSeries`. A CRS relates how map coordinates relate to
+real locations on Earth by specifying a datum (a model of the Earth's shape),
+a coordinate system (e.g., Latitude/Longitude, UTM) and units of measurement
+(e.g., degrees, meters).
 
 #### GeoDataFrame
-A `GeoDataFrame` is the core data stucture of GeoPandas. It can store one or more
-geometry columns and perform spatial operations. Essentially, it is a `pandas.DataFrame`  combined with one or more `GeoSeries`.
+A `GeoDataFrame` is the core data stucture of GeoPandas. It can store one or
+more geometry columns and perform spatial operations. Essentially, it is a 
+`pandas.DataFrame` combined with one or more `GeoSeries`.
 
 A mock `GeoDataFrame` might look like:
 
@@ -54,7 +64,8 @@ A mock `GeoDataFrame` might look like:
 
 Importantly, while we can have multiple `GeoSeries` in a `GeoDataFrame`, only
 one `GeoSeries` at a time is the **active geometry column**. All geometric
-operations act on this column; it's accessed by `GeoDataFrame.geometry` attribute.
+operations act on this column; it's accessed by `GeoDataFrame.geometry` 
+attribute.
 
 ### Basic Operations
 
@@ -85,10 +96,11 @@ gdf = gdf.rename(columns={"geometry": "poly"})
 gdf.head(1)
 ```
 
-GeoPandas also has its own functions, methods, and attributes which are specific to it.
-Recall `.geometry`, which gives us the **active geometry column**. This `GeoDataFrame`
-is still pointing to a column called `"geometry"`, even though its renamed and doesn't
-exist. `.set_geometry` fixes this.
+GeoPandas also has its own functions, methods, and attributes which are
+specific to it. Recall `.geometry`, which gives us the **active geometry 
+column**. This `GeoDataFrame` is still pointing to a column called `"geometry"`,
+even though its renamed and doesn't exist. This can be fixed with
+`.set_geometry`.
 
 ```{python}
 gdf = gdf.set_geometry('poly')
@@ -118,7 +130,8 @@ Manhattan is `6.364712e+08` = 636,471,200 ft^2^ = 22.9mi^2^.
 
 #### Boundaries and Centroids
 
-Right now, the **active geometry column** contains polygons. We can access the perimeters and the centroids of these polygons:
+Right now, the **active geometry column** contains polygons. We can access the
+perimeters and the centroids of these polygons:
 
 ```{python}
 gdf["boundary"] = gdf.boundary
@@ -132,8 +145,8 @@ geometry columns, but the active column wont change unless specified.
 
 #### Distance Operation
 
-If I wanted to find the distance between the center of Brooklyn and the center of the
-Bronx, that's taking the `distance()` between two centroids.
+If I wanted to find the distance between the center of Brooklyn and the center
+of the Bronx, that's taking the `.distance()` between two centroids.
 
 ```{python}
 # active geometry set to centroid info
@@ -143,9 +156,11 @@ gdf = gdf.set_geometry('centroid_ft')
 gdf.geometry['Bronx'].distance(gdf.geometry['Brooklyn'])
 ```
 
-Recall the current EPSG:2263, which is a projection in feet. ~79,000ft $\approx$ ~15mi.
+Recall the current EPSG:2263, which is a projection in feet.
+~79,000ft $\approx$ ~15mi.
 
-We have all the pandas functionality available here too, for example, `.mean()`:
+We have all the pandas functionality available here too, for example, 
+`.mean()`:
 
 ```{python}
 from shapely.geometry import Point
@@ -163,7 +178,9 @@ geographic center of NYC. *Although, that doesn't tell us very much...*
 
 #### Changing CRS
 
-Rule of thumb: Operations which rely on distance and area should use a Projected CRS (m, ft, km, etc). Geographic CRS (degrees) is better for position information, like Lat/Lon of a location. We use `.to_crs()`.
+Rule of thumb: Operations which rely on distance and area should use a
+Projected CRS (m, ft, km, etc). Geographic CRS (degrees) is better for
+position information, like Lat/Lon of a location. We use `.to_crs()`.
 
 ```{python}
 # new GeoSeries is just a different projection of existing GeoSeries
@@ -171,7 +188,8 @@ gdf['centroid_ll'] = gdf['centroid_ft'].to_crs(4326)
 gdf['centroid_ll']
 ```
 
-centroid_ll is centroid reprojected EPSG:4326, now giving coordinates. E.g., the center of the Bronx is at coordinates
+`centroid_ll` is centroid reprojected EPSG:4326, now giving coordinates.
+E.g., the center of the Bronx is at coordinates
 40.85&deg;N, 73.87&deg;W.
 
 ```{python}
@@ -203,11 +221,11 @@ import pyarrow
 gdf.to_feather("nyc_boroughs.feather")
 ```
 
-Just as pandas can handle file types `.csv`, `.feather`, `.html`, etc., GeoPandas data can
-also be stored in multipe file types, like `.shp`, `.geojson`, and also `.feather`! 
-These file types are are used by a variety of different GIS software, but they all 
-contain information which can read as a `GeoDataFrame`.
-
+Just as pandas can handle file types `.csv`, `.feather`, `.html`, etc.,
+GeoPandas data can also be stored in multipe file types, like `.shp`,
+`.geojson`, and also `.feather`! These file types are are used by a 
+variety of different GIS software, but they all contain information
+which can read as a `GeoDataFrame`.
 
 #### Other Useful Methods
 
@@ -221,7 +239,8 @@ contain information which can read as a `GeoDataFrame`.
   True if one geometry fully contains another.  
 
 - `buffer(distance)`  
-  Creates a new geometry expanded outward (or inward if negative) by the given distance.  
+  Creates a new geometry expanded outward (or inward if negative) by
+  the given distance.  
 
 - `equals(other)` 
   Checks geometric equality
@@ -249,10 +268,14 @@ gdf.plot('area', legend=True)
 
 We can map multiple `GeoSeries` by using one plot as an axis for another.
 First, we need to verify that 
-`centroid_ll` and `poly` are in the same CRS by setting both to EPSG:4326, which gives Latitude and Longitude.
-I can use the `.crs` attribute from one `GeoDataFrame` as input for `.to_crs` to ensure a match. This code corrects the CRS and plots both centroids and polygons:
+`centroid_ll` and `poly` are in the same CRS by setting both to EPSG:4326,
+which gives Latitude and Longitude.
+I can use the `.crs` attribute from one `GeoDataFrame` as input for `.to_crs`
+to ensure a match. This code corrects the CRS and plots both centroids and
+polygons:
 ```{python}
-ax = gdf.set_geometry("poly").to_crs(gdf["centroid_ll"].crs).plot()   # polygons in lat/lon
+# polygons in lat/lon
+ax = gdf.set_geometry("poly").to_crs(gdf["centroid_ll"].crs).plot()
 gdf.set_geometry("centroid_ll").plot(ax=ax, color="red")
 ```
 
@@ -270,10 +293,12 @@ gdf.explore("area", legend=False, zoom_to_layer=True)
 
 ### Worked Out Example: NYC Collision Data
 
-This section demonstrates the start-to-finish workflow of using GeoPandas on a real-world
-dataset. We will be using the cleaned NYC collision data, courtesy of Wilson Tang. 
-Additionally, for our spatial data, I'll be using the `.shp` file from the NYC Modified Zip Code Tabulation Areas (MODZCTA) dataset. ZIP codes can be reassigned and their boundaries changed;the goal of this dataset is to preserve the ZIP code shapes for
-geospatial analysis.
+This section demonstrates the start-to-finish workflow of using GeoPandas on a
+real-world dataset. We will be using the cleaned NYC collision data, courtesy of
+Wilson Tang.  Additionally, for our spatial data, I'll be using the `.shp` file
+from the NYC Modified Zip Code Tabulation Areas (MODZCTA) dataset. ZIP codes can
+be reassigned and their boundaries changed;the goal of this dataset is to preserve
+the ZIP code shapes for geospatial analysis.
 
 **Goal: overlay crash locations on a map of NYC**.
 
@@ -295,8 +320,8 @@ zip_gdf = gpd.read_feather("data/nyc_modzcta_gp.feather")
 zip_gdf.head()
 ```
 
-`crash_df` is our `pandas.DataFrame` which contains collision data, and `zip_gdf` is our
-`GeoPandas.GeoDataFrame` which contains ZIP code data.
+`crash_df` is our `pandas.DataFrame` which contains collision data, and `zip_gdf`
+is our `GeoPandas.GeoDataFrame` which contains ZIP code data.
 
 ```{python}
 crash_df = crash_df.dropna(subset=["longitude", "latitude"])
@@ -305,9 +330,9 @@ zip_gdf = zip_gdf.drop(columns=["label", "zcta"])
 
 #### Data Overlay
 
-`crash_df` doesn't yet have an active geometry column to use for plotting, but does have
-Latitude and Longitude information. Function `gpd.points_from_xy()` can take
-these inputs (which use EPSG:4326) to produce a `GeoSeries` of geometric 
+`crash_df` doesn't yet have an active geometry column to use for plotting,
+but does have Latitude and Longitude information. Function `gpd.points_from_xy()`
+can take these inputs (which use EPSG:4326) to produce a `GeoSeries` of geometric 
 `shapely.Point` objects. The new `crash_gdf` `GeoDataFrame` combines these two.
 
 
@@ -336,13 +361,15 @@ ax.set_title("NYC Crashes, Labor Day Week 2025")
 plt.show()
 ```
 
-This overlay uses two `GeoSeries`, each from a different `GeoDataFrame`. In this case, it was necessary to keep the two seperate, as they have fundamentally different structures.
+This overlay uses two `GeoSeries`, each from a different `GeoDataFrame`. 
+In this case, it was necessary to keep the two seperate, as they have 
+fundamentally different structures.
 
 #### Spatial Joins
 
-There are advantages of using just one `GeoDataFrame`. We use spatial join function
-`gpd.sjoin()`, which parallels `pd.merge`. This function combines two dataframes
-by matching keys and a join condition type.
+There are advantages of using just one `GeoDataFrame`. We use spatial join
+function `gpd.sjoin()`, which parallels `pd.merge`. This function combines
+two dataframes by matching keys and a join condition type.
 
 ```{python}
 # Crashes put within zips
@@ -361,13 +388,13 @@ zip_counts = zip_counts.set_geometry("geometry").to_crs(4326)
 zip_counts[["modzcta", "n_crashes"]].head()
 ```
 
-The new `GeoDataFrame` `zip_counts` gives us crash count by ZIP code, which allows
-us new plotting opportunities.
+The new `GeoDataFrame` `zip_counts` gives us crash count by ZIP code, which
+allows us new plotting opportunities.
 
 #### Plotting Joined Data
 
-Choropleth maps provide an easy way to visualize how a variable varies across a geographic
-area or show the level of variability within a region.
+Choropleth maps provide an easy way to visualize how a variable varies across
+a geographic area or show the level of variability within a region.
 
 ```{python}
 # Plot polygons colored by crash counts
@@ -394,15 +421,17 @@ zip_counts.explore(column="n_crashes",
     See more examples of GeoPandas uses.
 - [Pandas](https://pandas.pydata.org/docs/): 
     Not technically a dependency, but complete understanding of Pandas syntax
-    is necessary to be successful with GeoPandas. See Pandas section in the classnotes.
+    is necessary to be successful with GeoPandas. 
+    See Pandas section in the classnotes.
 - [Shapely](https://shapely.readthedocs.io/en/stable/): 
     GeoPandas leverages Shapely for geometric object types and operations.
-    You won't interface much with Shapely directly, but is helpful to have a basic understanding of.
+    You won't interface much with Shapely directly, 
+    but is helpful to have a basic understanding of.
 - [Matplotlib](https://matplotlib.org/stable/index.html): 
     Static plotting operations use Matplotlib syntax. 
 - [Folium](https://python-visualization.github.io/folium/latest/): 
     Interactive mapping uses a Folium backend. Folium is a very powerful tool
     for spatial visualization, which warrants its own topic presentation.
 - [EPSG](https://en.wikipedia.org/wiki/EPSG_Geodetic_Parameter_Dataset):
-    Familiarize yourself with the most common CRS, which are given by unique EPSG codes.
-    The EPSG database currently contrains over 5000 unique entries.
+    Familiarize yourself with the most common CRS, which are given by unique EPSG 
+    codes. The EPSG database currently contrains over 5000 unique entries.
