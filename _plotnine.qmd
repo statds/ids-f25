@@ -1,7 +1,7 @@
 ## Introduction
 Hello everyone! My name is Sonia Lucey and I am a Statistical Data Science major.  
 Today I will be talking about the **Grammar of Graphics using Plotnine**.  
-We will use **NYC Crash Data (Week of Labor Day, 2025)**, which we cleaned in HW4.  
+We will use **NYC Crash Data (Week of Labor Day, 2025)**, saved in the Feather format for faster loading.
 
 ## The Grammar of Graphics
 Just like languages have grammar to structure words and sentences, the **Grammar
@@ -159,7 +159,7 @@ This makes visualizations flexible, reusable, and less error prone. And once you
  Think of plots not as pictures, but as structured sentences written with this grammar.  
 
 
-## Resources
+## Further Readings
 -  aeturrell.github.io
 - realpython.com
 - geeksforgeeks.org
