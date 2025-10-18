@@ -1,0 +1,75 @@
+## My Presentation Topic (Template)
+
+This section was prepared by Jack Perkins.
+
+Use Markdown syntax. If not clear on what to do, learn from the class
+notes sources.
+
++ Pay attention to the sectioning levels.
++ Cite references with their bib key.
++ In examples, maximize usage of data set that the class is familiar with.
++ Could use datasets in Python packages or downloadable on the fly.
++ Test your section by `quarto render <filename.qmd>`.
+
+
+### Introduction
+
+Here is an overview.
+
+
+### Basic Creation
+
+```{python}
+pip install gmplot
+```
+
+Put materials on topic 1 here
+
+Python examples can be put into `python` code chunks:
+
+```{python}
+# import pandas as pd
+import gmplot
+api_key = 'AIzaSyDQGVco57cmHijHnzNqsytpOWeWTE5yOlQ'
+
+# UConn Storrs center
+center_lat, center_lng = 41.8079, -72.2546
+
+gmap = gmplot.GoogleMapPlotter(center_lat, center_lng, 15, apikey = api_key)
+
+gmap.draw("uconn_base.html")
+# do something
+```
+
+### Plotting Points
+
+```{python}
+gmap2 = gmplot.GoogleMapPlotter(center_lat, center_lng, 15, apikey = api_key)
+# Student Union
+gmap2.marker(41.8069, -72.2543, color='blue', title="Student Union")
+
+# Gampel Pavilion
+gmap2.marker(41.8052, -72.2544, color='red', title="Gampel Pavilion")
+
+# Homer Babbidge Library
+gmap2.marker(41.8067, -72.2520, color='green', title="Library")
+
+gmap2.draw("uconn_markers.html")
+```
+
+### Sub Topic 2
+
+Put materials on topic 2 here.
+
+### Sub Topic 3
+
+Put matreials on topic 3 here.
+
+
+### Conclusion
+
+Put sumaries here.
+
+### Further Readings
+
+Put links to further materials.
