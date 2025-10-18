@@ -317,13 +317,13 @@ Please use the following table to sign up.
    10/07 | Gomez-Haibach, Konrad |
    10/07 | Sgro, Owen Bentley | Data Manipulation with Pandas
    10/09 | Chen, Irene | Presentations with Quarto
-   10/09 | Yoon, Jessica Nari | Random Forest
-   10/14 | Patel, Sahil Sanjay |
+   10/09 | Yoon, Jessica Nari | Hypothesis Testing with Scipy.stats
+   10/14 | Patel, Sahil Sanjay | Web Scraping
    10/14 | Plotnikov, Alexander | Random Forests
    10/16 | Milun, Lewis Aaron | Database operation with Structured query language (SQL)
    10/16 | Patel, Tulsi Manankumar |
    10/23 | Perkins, Jack Thomas |
-   10/23 | Fazzina, Sophia Carmen |
+   10/23 | Fazzina, Sophia Carmen | K-means clustering |
    10/28 | Tang, Wilson Chen | How to call R in Python
    10/28 | Wishneski, Emma Irene |
    10/30 | Lawrence, Claire Elise |
@@ -331,7 +331,7 @@ Please use the following table to sign up.
    11/04 | Mayer-Costa, Jaden Paulo |
    11/06 | Anzalone, Matthew James |
    11/06 | Zhang, Mark Justin |
-   11/11 | Saltus, Quinn Lloyd Turner |
+   11/11 | Saltus, Quinn Lloyd Turner | Spatial Statistical Methods
    11/11 | Tran, Justin |
    11/11 | Levine, Hannah Maya |
    11/13 | Blake, Roger Cooley |
@@ -353,18 +353,21 @@ be used as a template to start with.
    11/20 | Saxena, Aanya; Sgro,  Owen Bentley; ; Chen, Irene; Yoon,  Jessica Nari; Patel, Sahil Sanjay
    12/02 | Milun, Lewis Aaron; Patel, Tulsi Manankumar; Perkins, Jack Thomas; Fazzina, Sophia Carmen; Tang, Wilson Chen
    12/04 | Wishneski, Emma Irene; Lawrence, Claire Elise; White, Abigail Lynn; Mayer-Costa, Jaden Paulo; Zhang, Mark Justin
-   12/???  | Saltus, Quinn Lloyd Turner; Tran, Justin; Levine, Hannah Maya; Blake, Roger Cooley; Schlessel, Jacob E; Agostino, Michael Angelo
+   12/13 | Saltus, Quinn Lloyd Turner; Tran, Justin; Levine, Hannah Maya; Blake, Roger Cooley; Schlessel, Jacob E; Agostino, Michael Angelo
 
 ### Contributing to the Class Notes
 
 Contribution to the class notes is through a `pull request'.
 
++ Synchronize your local repo of the classnotes with my classnotes
+  repo.
 + Start a new branch and switch to the new branch.
 + On the new branch, add a `qmd` file for your presentation
-+ If using Python, create and activate a virtual environment with `requirements.txt` 
-+ Edit `_quarto.yml` add a line for your `qmd` file to include it in the notes.
++ If using Python, create and activate a virtual environment with
+  `requirements.txt` 
 + Work on your qmd file, test with `quarto render`.
-+ When satisfied, commit and make a pull request with your quarto files and an updated `requirements.txt`.
++ When satisfied, commit and make a pull request with your quarto
+  files and an updated `requirements.txt`.
 
 
 I have added a template file `_mysection.qmd` as an example, which is
@@ -372,17 +375,25 @@ I have added a template file `_mysection.qmd` as an example, which is
 into `intro.qmd` for example.
 
 
-Tips on making contributions:
+Here is a checklist to help smooth the process.
 
-+ No plagiarism.
-+ Avoid external graphics.
-+ Use simulated data or data in Python packages.
-+ Use data from homework assignments.
-+ Cite article/book references (learn how from our sources).
-+ Include a subsection of Further Readings.
-+ Watch for header levels.
++ Get approval for your topic at least one week in advance. Otherwise
+  you loose points.
++ No plagiarism. Under no circumstances should you copy someone else's
+  notes and use it for your contribution.
++ No yaml header. The whole souce tree is controlled by `_quarto.yml`. 
++ The top heading level of your contribuion is section (`##`). See
+  existing sections for examples.
++ Keep line width under 80 characters.
++ Include a subsection (`###`) on further readings.
++ Avoide dependence on external files (e.g., data, images,
+  etc.). Using example datasets that are already in the `data` folder
+  or that come with Python packages.
++ No usage of copyrighted images.
++ When citing article/book references, use BibTeX (learn how from our
+  sources).
 + Test on your own computer before making a pull request.
-+ Send me your presentation two days in advance for feedbacks.
++ Send me your presentation two days in advance if you want feedbacks.
 
 
 For more detailed style guidance, please see my notes on [statistical

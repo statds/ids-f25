@@ -490,7 +490,9 @@ cohens_d
 - Share both code and notes with collaborators.
 - Version control with Git helps track changes and decisions.
 
----
 
 Good practices keep exploration structured and reproducible. They also create a
 record of reasoning that improves collaboration and supports later analysis.
+
+
+<!-- {{< include _hypotest.qmd >}} -->
