@@ -17,6 +17,16 @@ notes sources.
 Here is an overview.
 
 
+- latitude: It takes the float that represents the latitude of the center of the map.
+
+- longitude: It takes the float that represents the longitude of the center of the map.
+
+- zoom_int: It takes an integer and represents the zooming on the maps.
+
+- map_type: It is an optional parameter that allows us to show maps in a different mode. The possible input can be a roadmap, satellite, hybrid, and terrain.
+
+- api_key: It is also an optional parameter that takes Google Maps API. If it is not given, then it allows us to use with the watermark saying "for developer purpose only."
+
 ### Basic Creation
 
 ```{python}
@@ -59,7 +69,26 @@ gmap2.draw("uconn_markers.html")
 
 ### Sub Topic 2
 
-Put materials on topic 2 here.
+```{python}
+# import gmplot package
+import gmplot
+
+latitude_list = [ 41.8069, 41.8052, 41.8067]
+longitude_list = [-72.2543, -72.2544, -72.2520]
+
+gmap3 = gmplot.GoogleMapPlotter(center_lat, center_lng, 15, apikey = api_key)
+
+gmap3.scatter( latitude_list, longitude_list, '# FF0000',
+                                size = 40, marker = False)
+
+# polygon method Draw a polygon with
+# the help of coordinates
+gmap3.polygon(latitude_list, longitude_list,
+                   color = 'blue')
+
+gmap3.draw( "uconn_poly.html" )
+
+```
 
 ### Sub Topic 3
 
