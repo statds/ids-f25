@@ -364,9 +364,9 @@ The gradient boosting algorithm proceeds as follows:
     L\bigl(y_i,\, F_{m-1}(x_i) + \gamma\, h_m(x_i)\bigr),
    $$
    leading to an updated model of the form
-   \[
+   $$
     F_m(x) = F_{m-1}(x) + \eta\, \gamma_m\, h_m(x),
-   \]
+   $$
    where $\eta$ remains a shrinkage factor controlling the overall
    rate of learning, while $\gamma_m$ adjusts the step size adaptively
    at each iteration.
