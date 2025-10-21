@@ -344,7 +344,7 @@
     "href": "05-visualization.html",
     "title": "5  Data Visualization",
     "section": "",
-    "text": "5.1 Spatial Data with Geopandas\nThis section is by Alejandro Haerter, a junior majoring in Statistical Data Science and Economics.",
+    "text": "5.1 Spatial Data with Geopandas\nIn this chapter we embrace visualization as a cornerstone of modern data-analysis workflows: turning raw numbers into meaningful visuals that support insight, decision-making and communication. We begin by exploring static and information-rich graphics through plotnine, building on the grammar‐of-graphics approach. Next we extend into spatial data-visualisation using GeoPandas, equipping you to map, project and interpret geospatial patterns. Later sections will introduce further tools and techniques (for example interactive maps or dashboards), but throughout we emphasise the same core questions: Which visual form fits the data and question? How do our design and implementation choices influence what the viewer sees — and what they don’t see? With the tools and principles in hand, you’ll be prepared to insert clear, effective visualisation into your data-science project workflow.\nThis section is by Alejandro Haerter, a junior majoring in Statistical Data Science and Economics.",
     "crumbs": [
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>Data Visualization</span>"
     ]
