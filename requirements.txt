@@ -9,6 +9,7 @@ attrs==25.3.0
 babel==2.17.0
 beautifulsoup4==4.13.5
 bleach==6.2.0
+branca==0.8.2
 census==0.8.24
 certifi==2025.8.3
 cffi==1.17.1
@@ -21,8 +22,10 @@ decorator==5.2.1
 defusedxml==0.7.1
 executing==2.2.0
 fastjsonschema==2.21.2
+folium==0.20.0
 fonttools==4.59.2
 fqdn==1.5.1
+geodatasets==2024.8.0
 geographiclib==2.1
 geopandas==1.1.1
 geopy==2.4.1
@@ -59,6 +62,7 @@ kiwisolver==1.4.9
 lark==1.2.2
 liac-arff==2.5.0
 llvmlite==0.44.0
+mapclassify==2.10.0
 MarkupSafe==3.0.2
 matplotlib==3.10.6
 matplotlib-inline==0.1.7
@@ -69,6 +73,7 @@ nbclient==0.10.2
 nbconvert==7.16.6
 nbformat==5.10.4
 nest-asyncio==1.6.0
+networkx==3.5
 notebook==7.4.5
 notebook_shim==0.2.4
 numba==0.61.2
@@ -83,6 +88,7 @@ pexpect==4.9.0
 pillow==11.3.0
 platformdirs==4.4.0
 plotnine==0.15.0
+pooch==1.8.2
 prometheus_client==0.22.1
 prompt_toolkit==3.0.51
 psutil==7.0.0
@@ -134,5 +140,5 @@ webencodings==0.5.1
 websocket-client==1.8.0
 widgetsnbextension==4.0.14
 xmltodict==1.0.2
-gmplot==1.4.1
-folium==0.20.0
+xyzservices==2025.4.0
+
