@@ -1,60 +1,78 @@
-## My Presentation Topic (Template)
+## gmplot
 
 This section was prepared by Jack Perkins.
 
-Use Markdown syntax. If not clear on what to do, learn from the class
-notes sources.
-
-+ Pay attention to the sectioning levels.
-+ Cite references with their bib key.
-+ In examples, maximize usage of data set that the class is familiar with.
-+ Could use datasets in Python packages or downloadable on the fly.
-+ Test your section by `quarto render <filename.qmd>`.
-
-
 ### Introduction
 
-Here is an overview.
+gmplot is a python package that allows for the use and creation of google's mapping system. A variety of functions allow users to plot points, create shapes, and show directions over space. This allows a developer to show important locations through the use of a familiar interface. 
 
+### Getting Started
 
-- latitude: It takes the float that represents the latitude of the center of the map.
+To effectively use gmplot, the user must first install it. 
 
-- longitude: It takes the float that represents the longitude of the center of the map.
-
-- zoom_int: It takes an integer and represents the zooming on the maps.
-
-- map_type: It is an optional parameter that allows us to show maps in a different mode. The possible input can be a roadmap, satellite, hybrid, and terrain.
-
-- api_key: It is also an optional parameter that takes Google Maps API. If it is not given, then it allows us to use with the watermark saying "for developer purpose only."
-
-### Basic Creation
-
-```{python}
+```
 pip install gmplot
 ```
 
-Put materials on topic 1 here
-
-Python examples can be put into `python` code chunks:
+Upon installation, the user will be able to use all basic features. However, in order to use all feautures and avoid watermarks, the user must acquire a google API key. They can do so at this [link](https://console.cloud.google.com/apis/library). In order to run this code and see the full results, the Maps Javascript API, Geocoding API, and Directions API must be enabled. The API key should be saved in a file 'gmapi.txt'.
 
 ```{python}
-# import pandas as pd
-import gmplot
-api_key = 'AIzaSyDQGVco57cmHijHnzNqsytpOWeWTE5yOlQ'
+api_key = open('gmapi.txt').read().strip()
+```
 
+### Creating a Map
+
+A general map is created using the gmplot.GoogleMapPlotter() function. This function takes 5 arguments. 
+
+- latitude: takes the latitude for the centure of the map (float)
+
+- longitude: takes the longitude for the center of the map (float)
+
+- zoom_int: takes an interger for the zoom on the map
+
+- map_type: an optional parameter that allows for the selection of different map types such as terrain or satellite (string)
+
+- api_key: optional paramter that will remove the 'for development purposes only tag' and allow full use of API's features (string)
+
+The following code creates a map centered around the Storrs campus. It uses the variables center_lat, center_lng, and api_key to simplify the input process. 
+
+```{python}
+import gmplot
 # UConn Storrs center
 center_lat, center_lng = 41.8079, -72.2546
 
 gmap = gmplot.GoogleMapPlotter(center_lat, center_lng, 15, apikey = api_key)
-
-gmap.draw("uconn_base.html")
-# do something
 ```
+
+The .draw() function will create an output using the initialized map. The funtion produces the maps in an interactive html format. Unless otherwise specified, the file will be saved in the current directory. For the sake of this presentation, the results are shown in a simplified PNG.  
+
+```{python}
+# Produce file
+gmap.draw("uconn_base.html")
+```
+
+![UConn Base Map](images/gmplot/uconn_base.png)
+
+A map can also be drawn using a geocode translation. The following function takes a location name as opposed to to coordinates. This code will serve the same function as the original map plotter. 
+
+```{python}
+# Create map centered on UConn Storrs
+gmapg = gmplot.GoogleMapPlotter.from_geocode("Fenway Park", 15, apikey=api_key)
+
+# Save map
+gmapg.draw("Fenway_geocode.html")
+```
+
+![Fenway Base Map](images/gmplot/fenway.png)
 
 ### Plotting Points
 
+After initializing a map, additional layers can be placed on it. The simplest of those is a marker. The .marker() function allows a pin to be placed on the map. The function takes the location of the pin, a color argument, and title argument. The code below shows the creation of three different markers around Uconn campus.  
+
 ```{python}
+# Initialize Map
 gmap2 = gmplot.GoogleMapPlotter(center_lat, center_lng, 15, apikey = api_key)
+
 # Student Union
 gmap2.marker(41.8069, -72.2543, color='blue', title="Student Union")
 
@@ -64,41 +82,127 @@ gmap2.marker(41.8052, -72.2544, color='red', title="Gampel Pavilion")
 # Homer Babbidge Library
 gmap2.marker(41.8067, -72.2520, color='green', title="Library")
 
+# Save the Map
 gmap2.draw("uconn_markers.html")
 ```
 
-### Sub Topic 2
+![Uconn Markers Map](images/gmplot/uconn_markers.png)
+
+Another method for drawing markers is the .scatter() function. The function takes a list of coordinates and marks multiple points at once. The additional fields are size and marker. Setting marker to false will show a larger circle as compared to the point marker seen in .marker(). 
+
+The code below shows the .scatter() function in action.
 
 ```{python}
-# import gmplot package
-import gmplot
-
+# set desired longitudes and latitudes
 latitude_list = [ 41.8069, 41.8052, 41.8067]
 longitude_list = [-72.2543, -72.2544, -72.2520]
 
-gmap3 = gmplot.GoogleMapPlotter(center_lat, center_lng, 15, apikey = api_key)
+gmap2a = gmplot.GoogleMapPlotter(center_lat, center_lng, 15, apikey = api_key)
 
-gmap3.scatter( latitude_list, longitude_list, '# FF0000',
+gmap2a.scatter( latitude_list, longitude_list, color = 'blue',
                                 size = 40, marker = False)
 
-# polygon method Draw a polygon with
-# the help of coordinates
+gmap2a.draw( "uconn_scatter.html" )
+```
+
+![Uconn Scatter Map](images/gmplot/uconn_scatter.png)
+
+### Drawing Polygons
+
+Additionally, coordinates can be used to create a polygon. Each provided coordinate will be used as an anchor point for the shape. As in .marker() and .scatter(), the color may be changed. The code below is used to create a triangle, using the previous markers as its points. 
+```{python}
+# set desired longitudes and latitudes
+latitude_list = [ 41.8069, 41.8052, 41.8067]
+longitude_list = [-72.2543, -72.2544, -72.2520]
+
+gmap3 = gmplot.GoogleMapPlotter(center_lat, center_lng, 16, apikey = api_key)
+
+# Draw a polygon with the help of coordinates
 gmap3.polygon(latitude_list, longitude_list,
                    color = 'blue')
 
 gmap3.draw( "uconn_poly.html" )
-
 ```
 
-### Sub Topic 3
+![Uconn Polygon Map](images/gmplot/uconn_poly.png)
 
-Put matreials on topic 3 here.
+### Route Creation
+
+One of the most common uses of google maps is navigation. Fittingly, this use can be executed in gmplot. Most simply, it can be used with .plot(). The function takes a list of coordinates and draws a line sequentially to their locations. This does so in simple straight line distance. 
+```{python}
+# Create map centered at UConn
+gmap4 = gmplot.GoogleMapPlotter(center_lat, center_lng, 15, apikey = api_key)
 
 
-### Conclusion
+# Draw the route
+gmap4.plot(latitude_list, longitude_list, color='blue', edge_width=4)
 
-Put sumaries here.
+# Save the map
+gmap4.draw("uconn_route.html")
+```
+
+![Uconn Route Map](images/gmplot/uconn_route.png)
+
+While this may be helful, most routes cannot be utilized as straight lines. As such, one could plot various street corners and turns to make a route along roads. Alternatively, there is the .directions() function. The Directions API is required to utilize the function. There are four arguments for the function.
+
+- Origin: takes the starting coordinates
+- Destination: takes the end coordinates
+- Waypoints: takes any optional coordinates in between the two
+- Travel mode: takes the method of travel in order to give feasible directions (driving, walking)
+
+The following code shows driving directions from the student union to the library, with Gampel being used as a forced throughpoint. 
+```{python}
+# Create map centered at UConn
+gmap5 = gmplot.GoogleMapPlotter(41.8079, -72.2546, 15, apikey=api_key)
+
+# Define origin and destination
+origin = (41.8069, -72.2543)       # Student Union
+destination = (41.8067, -72.2520)  # Homer Babbidge Library
+
+# Optional waypoints
+waypoints = [(41.8052, -72.2544)]  # Gampel Pavilion
+
+# Add directions
+gmap5.directions(origin, destination, waypoints=waypoints, travel_mode='driving')
+
+# Save the map
+gmap5.draw("uconn_directions.html")
+```
+
+![Uconn Directions Map](images/gmplot/uconn_directions.png)
+
+### gmplot Conclusion
+
+gmplot is a user friendly tool for creating shared understanding between developer and user. It uses a common interface and has basic tools for displaying locations. However, it requires use of an API, is unable to render in document maps, and has limited features for displaying data. 
+
+### Folim Overview
+
+Foium is an alternative to gmplot. Folium is a python package that allows for the creation of interactive maps. To begin, the folium package must be installed.
+
+```
+pip install folium
+```
+
+A map in folium is initialized similar to gmplot. The folium.Map function takes locational arguments and the desired zoom. As opposed to being saved through html, it can be stored as an object. When called, the map will appear in the output. 
+
+```{python}
+import folium
+
+m = folium.Map(location=[41.8079, -72.2546], zoom_start=15)
+
+m
+```
+
+As seen above, this map can be interacted with without leaving the current html. This makes folium an ideal solution for maps that need user interaction.
+
+Folium contains additional features to display data:
+
+- Create markers
+- Create shapes
+- Create lines
+- Create heatmaps
 
 ### Further Readings
 
-Put links to further materials.
+- [Geeks for Geeks gmplot Guide](https://www.geeksforgeeks.org/python/python-plotting-google-map-using-gmplot-package/)
+- [Real Python Folium Guide](https://realpython.com/python-folium-web-maps-from-data/)
