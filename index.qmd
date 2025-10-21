@@ -333,7 +333,7 @@ Please use the following table to sign up.
    11/06 | Zhang, Mark Justin |
    11/11 | Saltus, Quinn Lloyd Turner | Spatial Statistical Methods
    11/11 | Tran, Justin |
-   11/11 | Levine, Hannah Maya |
+   11/11 | Levine, Hannah Maya | Synthetic Minority Over-sampling Technique (SMOTE)
    11/13 | Blake, Roger Cooley |
    11/13 | Schlessel, Jacob E |
    11/13 | Agostino, Michael Angelo | 
