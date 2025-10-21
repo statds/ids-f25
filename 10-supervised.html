@@ -402,7 +402,7 @@ H(Q_m) = \frac{1}{n_m} \sum_{i=1}^{n_m} |y_i - \bar{y}_m|.
 <h3 data-number="10.1.4" class="anchored" data-anchor-id="ames-housing-example"><span class="header-section-number">10.1.4</span> Ames Housing Example</h3>
 <p>The Ames Housing data are used to illustrate a regression tree model for predicting log house price.</p>
 <p>As before, we retrive the data from <code>OpenML</code>.</p>
-<div id="3df80053" class="cell" data-execution_count="1">
+<div id="6421f7f5" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> openml</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -413,7 +413,7 @@ H(Q_m) = \frac{1}{n_m} \sum_{i=1}^{n_m} |y_i - \bar{y}_m|.
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"LogPrice"</span>] <span class="op">=</span> np.log(df[<span class="st">"SalePrice"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>A decision tree partitions the feature space into regions where the average log price is relatively constant.</p>
-<div id="84050170" class="cell" data-execution_count="2">
+<div id="f5e6cce8" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.compose <span class="im">import</span> ColumnTransformer</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> OneHotEncoder</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.tree <span class="im">import</span> DecisionTreeRegressor</span>
@@ -462,7 +462,7 @@ H(Q_m) = \frac{1}{n_m} \sum_{i=1}^{n_m} |y_i - \bar{y}_m|.
 </div>
 </div>
 <p>Cross-validation identifies an appropriate tree depth that balances fit and generalization. A too-deep tree overfits, while a shallow tree misses structure.</p>
-<div id="b00276a7" class="cell" data-execution_count="3">
+<div id="022fcbb4" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>dt <span class="op">=</span> Pipeline([</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"pre"</span>, preprocessor),</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"model"</span>, DecisionTreeRegressor(max_depth<span class="op">=</span><span class="dv">4</span>, random_state<span class="op">=</span><span class="dv">0</span>))</span>
@@ -531,7 +531,9 @@ F_m(x) = F_{m-1}(x) + \eta \, h_m(x),
 <p>In some implementations, the update step includes an additional multiplier determined by a one-dimensional line search that minimizes the loss function at each iteration. Specifically, the optimal step length is defined as <span class="math display">\[
 \gamma_m = \arg\min_\gamma \sum_{i=1}^n
 L\bigl(y_i,\, F_{m-1}(x_i) + \gamma\, h_m(x_i)\bigr),
-\]</span> leading to an updated model of the form [ F_m(x) = F_{m-1}(x) + , _m, h_m(x), ] where <span class="math inline">\(\eta\)</span> remains a shrinkage factor controlling the overall rate of learning, while <span class="math inline">\(\gamma_m\)</span> adjusts the step size adaptively at each iteration.</p></li>
+\]</span> leading to an updated model of the form <span class="math display">\[
+F_m(x) = F_{m-1}(x) + \eta\, \gamma_m\, h_m(x),
+\]</span> where <span class="math inline">\(\eta\)</span> remains a shrinkage factor controlling the overall rate of learning, while <span class="math inline">\(\gamma_m\)</span> adjusts the step size adaptively at each iteration.</p></li>
 <li><p>Final Model: After <span class="math inline">\(M\)</span> iterations, the ensemble model is: <span class="math display">\[
   F_M(x) = F_0(x) + \sum_{m=1}^M \eta \, h_m(x).
   \]</span></p></li>
@@ -542,7 +544,7 @@ L\bigl(y_i,\, F_{m-1}(x_i) + \gamma\, h_m(x_i)\bigr),
 <section id="boosted-trees-with-ames-housing" class="level3" data-number="10.2.3">
 <h3 data-number="10.2.3" class="anchored" data-anchor-id="boosted-trees-with-ames-housing"><span class="header-section-number">10.2.3</span> Boosted Trees with Ames Housing</h3>
 <p>Boosted trees apply the gradient boosting framework to decision trees. They build an ensemble of shallow trees, each trained to correct the residual errors of the preceding ones. By sequentially emphasizing observations that are difficult to predict, the model progressively improves its overall predictive accuracy. We now apply gradient boosting using the same preprocessed features. Boosting combines many shallow trees, each correcting the residual errors of its predecessors, to improve predictive accuracy.</p>
-<div id="d10db716" class="cell" data-execution_count="4">
+<div id="7d3649df" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> GradientBoostingRegressor</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Define a range of tree counts for tuning</span></span>
@@ -572,7 +574,7 @@ L\bigl(y_i,\, F_{m-1}(x_i) + \gamma\, h_m(x_i)\bigr),
 </div>
 </div>
 <p>Cross-validation shows how increasing the number of boosting rounds initially improves performance but eventually risks overfitting when too many trees are added.</p>
-<div id="76d80156" class="cell" data-execution_count="5">
+<div id="6d197f03" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>gb <span class="op">=</span> Pipeline([</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"pre"</span>, preprocessor),</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"model"</span>, GradientBoostingRegressor(</span>
