@@ -587,12 +587,10 @@ dff = pd.read_feather(feather_file)
 dff.shape
 ```
 
+<!-- This section is to be included as a tutorial for using pandas. -->
+<!-- {{< include _pandas.qmd >}} -->
 
-<!-- <\!-- This section is to be included as a tutorial for using SQL. -\-> -->
+
+<!-- This section is to be included as a tutorial for using SQL. -->
 <!-- {{< include _sql.qmd >}} -->
 
-<!-- <\!-- This section is to be included as a tutorial for Data Imputation. -\-> -->
-<!-- {{< include _imputation.qmd >}} -->
-
-<!-- <\!-- This section is to be included as a tutorial for using netcdf. -\-> -->
-<!-- {{< include _netcdf.qmd >}} -->
