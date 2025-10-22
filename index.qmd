@@ -530,7 +530,7 @@ Please use the following table to sign up.
   ----- | ------------- | -------------------------
    09/18 | Chen, Jingang Calvin | Syntax of Markdown
    09/23 | Montalvo, Victor Samuel |
-   09/25 | Cao, Enshuo |
+   09/25 | Cao, Enshuo | Naive Bayes
    09/30 | Lucey, Sonia Niamh | Grammar of Graphics with Plotnine
    10/02 | Haerter, Alejandro Erik | Geospatial Data with GeoPandas
    10/02 | Saxena, Aanya | 
