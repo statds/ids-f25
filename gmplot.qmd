@@ -37,7 +37,7 @@ A general map is created using the gmplot.GoogleMapPlotter() function. This func
 The following code creates a map centered around the Storrs campus. It uses the variables center_lat, center_lng, and api_key to simplify the input process. 
 
 ```{python}
-import gmplot
+import gmplot, tempfile, os, shutil
 # UConn Storrs center
 center_lat, center_lng = 41.8079, -72.2546
 
@@ -47,11 +47,23 @@ gmap = gmplot.GoogleMapPlotter(center_lat, center_lng, 15, apikey = api_key)
 The .draw() function will create an output using the initialized map. The funtion produces the maps in an interactive html format. Unless otherwise specified, the file will be saved in the current directory. For the sake of this presentation, the results are shown in a simplified PNG.  
 
 ```{python}
-# Produce file
-gmap.draw("uconn_base.html")
+# Write to a temporary directory instead of cluttering the project
+tmpdir = tempfile.mkdtemp()
+html_path = os.path.join(tmpdir, "uconn_base.html")
+gmap.draw(html_path)
+
+# Copy to current directory for Quarto to access (then remove temp folder)
+shutil.copy(html_path, "uconn_base.html")
+shutil.rmtree(tmpdir)
 ```
 
-![UConn Base Map](images/gmplot/uconn_base.png)
+```{=html}
+<iframe src="uconn_base.html"
+        width="100%"
+        height="500"
+        style="border:none;">
+</iframe>
+```
 
 A map can also be drawn using a geocode translation. The following function takes a location name as opposed to to coordinates. This code will serve the same function as the original map plotter. 
 
@@ -59,11 +71,24 @@ A map can also be drawn using a geocode translation. The following function take
 # Create map centered on UConn Storrs
 gmapg = gmplot.GoogleMapPlotter.from_geocode("Fenway Park", 15, apikey=api_key)
 
-# Save map
-gmapg.draw("Fenway_geocode.html")
+# Write to a temporary directory instead of cluttering the project
+tmpdir = tempfile.mkdtemp()
+html_path = os.path.join(tmpdir, "Fenway_geocode.html")
+gmapg.draw(html_path)
+
+# Copy to current directory for Quarto to access (then remove temp folder)
+shutil.copy(html_path, "Fenway_geocode.html")
+shutil.rmtree(tmpdir)
 ```
 
-![Fenway Base Map](images/gmplot/fenway.png)
+```{=html}
+<iframe src="Fenway_geocode.html"
+        width="100%"
+        height="500"
+        style="border:none;">
+</iframe>
+```
+
 
 ### Plotting Points
 
@@ -82,11 +107,23 @@ gmap2.marker(41.8052, -72.2544, color='red', title="Gampel Pavilion")
 # Homer Babbidge Library
 gmap2.marker(41.8067, -72.2520, color='green', title="Library")
 
-# Save the Map
-gmap2.draw("uconn_markers.html")
+# Write to a temporary directory instead of cluttering the project
+tmpdir = tempfile.mkdtemp()
+html_path = os.path.join(tmpdir, "uconn_markers.html")
+gmap2.draw(html_path)
+
+# Copy to current directory for Quarto to access (then remove temp folder)
+shutil.copy(html_path, "uconn_markers.html")
+shutil.rmtree(tmpdir)
 ```
 
-![Uconn Markers Map](images/gmplot/uconn_markers.png)
+```{=html}
+<iframe src="uconn_markers.html"
+        width="100%"
+        height="500"
+        style="border:none;">
+</iframe>
+```
 
 Another method for drawing markers is the .scatter() function. The function takes a list of coordinates and marks multiple points at once. The additional fields are size and marker. Setting marker to false will show a larger circle as compared to the point marker seen in .marker(). 
 
@@ -102,10 +139,23 @@ gmap2a = gmplot.GoogleMapPlotter(center_lat, center_lng, 15, apikey = api_key)
 gmap2a.scatter( latitude_list, longitude_list, color = 'blue',
                                 size = 40, marker = False)
 
-gmap2a.draw( "uconn_scatter.html" )
+# Write to a temporary directory instead of cluttering the project
+tmpdir = tempfile.mkdtemp()
+html_path = os.path.join(tmpdir, "uconn_scatter.html")
+gmap2a.draw(html_path)
+
+# Copy to current directory for Quarto to access (then remove temp folder)
+shutil.copy(html_path, "uconn_scatter.html")
+shutil.rmtree(tmpdir)
 ```
 
-![Uconn Scatter Map](images/gmplot/uconn_scatter.png)
+```{=html}
+<iframe src="uconn_scatter.html"
+        width="100%"
+        height="500"
+        style="border:none;">
+</iframe>
+```
 
 ### Drawing Polygons
 
@@ -121,10 +171,23 @@ gmap3 = gmplot.GoogleMapPlotter(center_lat, center_lng, 16, apikey = api_key)
 gmap3.polygon(latitude_list, longitude_list,
                    color = 'blue')
 
-gmap3.draw( "uconn_poly.html" )
+# Write to a temporary directory instead of cluttering the project
+tmpdir = tempfile.mkdtemp()
+html_path = os.path.join(tmpdir, "uconn_poly.html")
+gmap3.draw(html_path)
+
+# Copy to current directory for Quarto to access (then remove temp folder)
+shutil.copy(html_path, "uconn_poly.html")
+shutil.rmtree(tmpdir)
 ```
 
-![Uconn Polygon Map](images/gmplot/uconn_poly.png)
+```{=html}
+<iframe src="uconn_poly.html"
+        width="100%"
+        height="500"
+        style="border:none;">
+</iframe>
+```
 
 ### Route Creation
 
@@ -137,11 +200,23 @@ gmap4 = gmplot.GoogleMapPlotter(center_lat, center_lng, 15, apikey = api_key)
 # Draw the route
 gmap4.plot(latitude_list, longitude_list, color='blue', edge_width=4)
 
-# Save the map
-gmap4.draw("uconn_route.html")
+# Write to a temporary directory instead of cluttering the project
+tmpdir = tempfile.mkdtemp()
+html_path = os.path.join(tmpdir, "uconn_route.html")
+gmap4.draw(html_path)
+
+# Copy to current directory for Quarto to access (then remove temp folder)
+shutil.copy(html_path, "uconn_route.html")
+shutil.rmtree(tmpdir)
 ```
 
-![Uconn Route Map](images/gmplot/uconn_route.png)
+```{=html}
+<iframe src="uconn_route.html"
+        width="100%"
+        height="500"
+        style="border:none;">
+</iframe>
+```
 
 While this may be helful, most routes cannot be utilized as straight lines. As such, one could plot various street corners and turns to make a route along roads. Alternatively, there is the .directions() function. The Directions API is required to utilize the function. There are four arguments for the function.
 
@@ -165,11 +240,23 @@ waypoints = [(41.8052, -72.2544)]  # Gampel Pavilion
 # Add directions
 gmap5.directions(origin, destination, waypoints=waypoints, travel_mode='driving')
 
-# Save the map
-gmap5.draw("uconn_directions.html")
+# Write to a temporary directory instead of cluttering the project
+tmpdir = tempfile.mkdtemp()
+html_path = os.path.join(tmpdir, "uconn_directions.html")
+gmap5.draw(html_path)
+
+# Copy to current directory for Quarto to access (then remove temp folder)
+shutil.copy(html_path, "uconn_directions.html")
+shutil.rmtree(tmpdir)
 ```
 
-![Uconn Directions Map](images/gmplot/uconn_directions.png)
+```{=html}
+<iframe src="uconn_directions.html"
+        width="100%"
+        height="500"
+        style="border:none;">
+</iframe>
+```
 
 ### gmplot Conclusion
 
@@ -192,8 +279,6 @@ m = folium.Map(location=[41.8079, -72.2546], zoom_start=15)
 
 m
 ```
-
-As seen above, this map can be interacted with without leaving the current html. This makes folium an ideal solution for maps that need user interaction.
 
 Folium contains additional features to display data:
 
