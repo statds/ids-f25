@@ -160,7 +160,7 @@ This makes visualizations flexible, reusable, and less error prone. And once you
  Think of plots not as pictures, but as structured sentences written with this grammar.  
 
 
-## Further Readings
+### Further Readings
 - [**Aeturrell’s Data Visualization Tutorials**](https://aeturrell.github.io) – 
 Clear, example-driven lessons on Plotnine, ggplot2, and the Grammar of Graphics for data scientists.  
 - [**Real Python: Data Visualization with Plotnine**](https://realpython.com/plotnine-python/) 
