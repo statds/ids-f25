@@ -1,13 +1,172 @@
-## Grammar of Graphics with Plotnine
 
-This is section was written by Sonia Lucey. Sonia was ..
+## Grammar of Graphics using Plotnine
+
+### Introduction
+Hello everyone! My name is Sonia Lucey and I am a Statistical Data Science major.  
+Today I will be talking about the **Grammar of Graphics using Plotnine**.  
+We will use **NYC Crash Data (Week of Labor Day, 2025)**, saved in the Feather format for faster loading.
+
+Just like languages have grammar to structure words and sentences, the **Grammar
+ of Graphics** gives us a structured framework for building visualizations.  
+ [@wilkinson2012grammar]
+
+Every plot can be described using a few key components:
+
+- **Data**: what dataset you are using.  
+- **Aesthetics**: axes, color, size, shape.  
+- **Scales**: how values map to axes or colors.  
+- **Geometric objects (geoms)**: points, bars, lines, etc.  
+- **Statistics**: summaries such as counts, means, distributions.  
+- **Facets**: break plots into subplots.  
+- **Coordinate system**: Cartesian, polar, etc.  
+
+### Building Plots with Plotnine
+*The Grammar of Graphics* [@wilkinson2012grammar].  Plotnine implements the 
+Grammar of Graphics in Python ([@sarkar2018]; [@bansal2018]). It is inspired by 
+**ggplot2 in R** and allows consistent, layered visualizations.
+
+Some examples of what we can create:  
+- Bar Charts  
+- Scatter Plots  
+- Histograms  
+- Box Plots  
+- Facet Plots  
+
+We’ll build each of these using the NYC crash dataset.  
+
+To get started, install and import Plotnine:  
+
+```{python}
+from plotnine import *
+import pandas as pd
+
+df = pd.read_feather("data/nyc_crashes_cleaned.feather")
+```
+
+When writing plots in Plotnine, follow a logical order that mirrors the Grammar 
+of Graphics:  
+
+1. **Data + Mapping** → `ggplot(data, aes(...))`  
+2. **Geom** → what to draw (`geom_bar()`, `geom_point()`, etc.)  
+3. **Scales & Labels** → `labs()`, `xlab()`, `ylab()`, `ggtitle()`  
+4. **Coordinates** → `coord_flip()`, `coord_polar()`  
+5. **Facets** → `facet_wrap()` or `facet_grid()`  
+6. **Theme** → `theme_minimal()`, `theme_classic()`
+
+### Examples of Visualizations
+**Bar Chart**
+```{python}
+(ggplot(df, aes(x="borough", fill="borough"))
+ + geom_bar()
+ + ggtitle("Number of Crashes by Borough")
+ + coord_flip()
+ + xlab("Borough")
+ + ylab("Number of Crashes"))
+```
+
+This shows how many crashes happened in each borough.  
+
+**Scatter Plot**
+```{python}
+(ggplot(df, aes(x="number_of_persons_injured", 
+                y="number_of_persons_killed"))
+ + geom_point(alpha=0.6)
+ + labs(title="Injuries vs Fatalities per Crash",
+        x="Persons Injured",
+        y="Persons Killed"))
+```
+
+Most crashes cause injuries but not fatalities.  
+
+**Histogram**
+```{python}
+df["hour"] = pd.to_datetime(df["crash_time"], 
+format="%H:%M", errors="coerce").dt.hour
+
+(ggplot(df, aes(x="hour"))
+ + geom_histogram(binwidth=1, color="black", fill="skyblue")
+ + ggtitle("Distribution of Crashes by Hour")
+ + xlab("Hour of Day")
+ + ylab("Crash Count"))
+```
+
+Crashes are elevated throughout the day, with particularly high counts around 
+midday and late afternoon. Midnight also shows an unexpected spike, which may 
+reflect a default rather than commuting patterns. 
 
 
-### Subsection 1
+**Box Plot**
+```{python}
+(ggplot(df, aes(x="borough", y="number_of_persons_injured", fill="borough"))
+ + geom_boxplot()
+ + ggtitle("Persons Injured by Borough")
+ + xlab("Borough")
+ + ylab("Number of Persons Injured"))
+```
+
+The boxplot compares injury severity between boroughs.  
+
+**Facet Wrap**
+```{python}
+df["contributing_factor_vehicle_1"] = (
+    df["contributing_factor_vehicle_1"]
+    .astype(str)
+    .str.strip()
+    .str.lower()
+    .replace({"": None, "na": None, "nan": None})
+)
+top_factors = (df["contributing_factor_vehicle_1"]
+               .value_counts()
+               .head(10)
+               .index)
+df_top = df[df["contributing_factor_vehicle_1"].isin(top_factors)]
+
+(ggplot(df_top, aes(x="contributing_factor_vehicle_1", fill="borough"))
+ + geom_bar(show_legend=False)
+ + facet_wrap("~ borough")
+ + theme(axis_text_x=element_text(rotation=90, hjust=1))
+ + ggtitle("Top 10 Contributing Factors by Borough"))
+```
+
+Faceting lets us compare contributing factors side by side across boroughs.  
+
+**Facet Grid**
+```{python}
+df["hour"] = pd.to_datetime(df["crash_time"], 
+errors="coerce").dt.hour
+
+(ggplot(df, aes(x="hour", fill="borough"))
+ + geom_histogram(binwidth=1, alpha=0.6, position="identity")
+ + facet_grid("borough ~ .")
+ + labs(title="Crashes by Hour of Day Across Boroughs",
+        x="Hour of Day", y="Number of Crashes"))
+```
+
+**Grid vs. Wrap**
+Faceting allows you to split plots by one or two variables for comparison.
+
+- **facet_wrap()** arranges plots in a single flexible grid (best for one variable).
+- **facet_grid()** creates a strict row×column layout (best for two variables).
+- **Key difference:** wrap = flexible (one variable), grid = fixed (two variables).
+
+### Key Takeaway
+
+The Grammar of Graphics shifts our mindset: instead of asking *“what chart type
+ do I need?”*, we ask *“what grammar components best represent my data and message?”*  
+
+This makes visualizations flexible, reusable, and less error prone. And once you
+ know the grammar, learning tools like **Plotnine** or **ggplot2** 
+ ([@wilkinson2012grammar]; [@sarkar2018]; [@bansal2018]) becomes much easier. 
+ Think of plots not as pictures, but as structured sentences written with this grammar.  
 
 
-### Subsection 2
-
-
-### Further Reading
-
+### Further Readings
+- [**Aeturrell’s Data Visualization Tutorials**](https://aeturrell.github.io) – 
+Clear, example-driven lessons on Plotnine, ggplot2, and the Grammar of Graphics for data scientists.  
+- [**Real Python: Data Visualization with Plotnine**](https://realpython.com/plotnine-python/) 
+– A practical guide to building layered graphics using Plotnine and pandas.  
+- [**GeeksforGeeks: Plotnine in Python**]
+(https://www.geeksforgeeks.org/plotnine-data-visualization-in-python/) – 
+Overview of Plotnine syntax, functions, and common chart types.  
+- [**Jeroen Janssens – Data Science at the Command Line**](https://jeroenjanssens.com/) 
+– Broader perspective on data workflows and reproducible visualization pipelines.
