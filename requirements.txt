@@ -29,6 +29,7 @@ geodatasets==2024.8.0
 geographiclib==2.1
 geopandas==1.1.1
 geopy==2.4.1
+gmplot==1.4.1
 h11==0.16.0
 httpcore==1.0.9
 httpx==0.28.1
