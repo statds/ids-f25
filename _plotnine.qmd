@@ -1,4 +1,7 @@
-## Introduction
+
+## Grammar of Graphics using Plotnine
+
+### Introduction
 Hello everyone! My name is Sonia Lucey and I am a Statistical Data Science major.  
 Today I will be talking about the **Grammar of Graphics using Plotnine**.  
 We will use **NYC Crash Data (Week of Labor Day, 2025)**, saved in the Feather format for faster loading.
@@ -17,7 +20,7 @@ Every plot can be described using a few key components:
 - **Facets**: break plots into subplots.  
 - **Coordinate system**: Cartesian, polar, etc.  
 
-## Building Plots with Plotnine
+### Building Plots with Plotnine
 *The Grammar of Graphics* [@wilkinson2012grammar].  Plotnine implements the 
 Grammar of Graphics in Python ([@sarkar2018]; [@bansal2018]). It is inspired by 
 **ggplot2 in R** and allows consistent, layered visualizations.
@@ -50,7 +53,7 @@ of Graphics:
 5. **Facets** → `facet_wrap()` or `facet_grid()`  
 6. **Theme** → `theme_minimal()`, `theme_classic()`
 
-## Examples of Visualizations
+### Examples of Visualizations
 **Bar Chart**
 ```{python}
 (ggplot(df, aes(x="borough", fill="borough"))
@@ -146,7 +149,7 @@ Faceting allows you to split plots by one or two variables for comparison.
 - **facet_grid()** creates a strict row×column layout (best for two variables).
 - **Key difference:** wrap = flexible (one variable), grid = fixed (two variables).
 
-## Key Takeaway
+### Key Takeaway
 
 The Grammar of Graphics shifts our mindset: instead of asking *“what chart type
  do I need?”*, we ask *“what grammar components best represent my data and message?”*  
@@ -158,7 +161,12 @@ This makes visualizations flexible, reusable, and less error prone. And once you
 
 
 ## Further Readings
--  aeturrell.github.io
-- realpython.com
-- geeksforgeeks.org
-- jeroenjanssens.com
+- [**Aeturrell’s Data Visualization Tutorials**](https://aeturrell.github.io) – 
+Clear, example-driven lessons on Plotnine, ggplot2, and the Grammar of Graphics for data scientists.  
+- [**Real Python: Data Visualization with Plotnine**](https://realpython.com/plotnine-python/) 
+– A practical guide to building layered graphics using Plotnine and pandas.  
+- [**GeeksforGeeks: Plotnine in Python**]
+(https://www.geeksforgeeks.org/plotnine-data-visualization-in-python/) – 
+Overview of Plotnine syntax, functions, and common chart types.  
+- [**Jeroen Janssens – Data Science at the Command Line**](https://jeroenjanssens.com/) 
+– Broader perspective on data workflows and reproducible visualization pipelines.
