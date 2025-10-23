@@ -3,7 +3,6 @@ Hello everyone! My name is Sonia Lucey and I am a Statistical Data Science major
 Today I will be talking about the **Grammar of Graphics using Plotnine**.  
 We will use **NYC Crash Data (Week of Labor Day, 2025)**, saved in the Feather format for faster loading.
 
-## The Grammar of Graphics
 Just like languages have grammar to structure words and sentences, the **Grammar
  of Graphics** gives us a structured framework for building visualizations.  
  [@wilkinson2012grammar]
@@ -104,8 +103,7 @@ reflect a default rather than commuting patterns.
 
 The boxplot compares injury severity between boroughs.  
 
-## Faceting in Plotnine
-**Wrap**
+**Facet Wrap**
 ```{python}
 df["contributing_factor_vehicle_1"] = (
     df["contributing_factor_vehicle_1"]
@@ -129,7 +127,7 @@ df_top = df[df["contributing_factor_vehicle_1"].isin(top_factors)]
 
 Faceting lets us compare contributing factors side by side across boroughs.  
 
-**Grid**
+**Facet Grid**
 ```{python}
 df["hour"] = pd.to_datetime(df["crash_time"], 
 errors="coerce").dt.hour
