@@ -3,15 +3,6 @@
 This section was prepared by Jessica Yoon, an undergraduate senior pursuing a
 degree in Biological Data Science 
 
-### Overview: 
-
-- What is Hypothesis Testing?
-- The Logic Behind It
-- Why It Matters
-- Key Tests: One Sample T-Test, Two Sample T-Test, ANOVA, Chi-Square and Correlation 
-- Non parametric Alternatives 
-- Discussion and Takeaway 
-
 ### What is Hypothesis Testing?
 
 - **Hypothesis testing** is a statistical method used to make decisions or
