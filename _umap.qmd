@@ -2,8 +2,10 @@
 
 This section was prepared by Mark Zhang, an undergraduate at UCONN.
 
-Use Markdown syntax. If not clear on what to do, learn from the class
-notes sources.
++ Don’t forget to introduce yourself if there is no moderator.
++ Highlight your research questions and results, not code.
++ Give an outline, carry it out, and summarize.
++ Use your own examples to reduce the risk of plagiarism.
 
 + Pay attention to the sectioning levels.
 + Cite references with their bib key.
@@ -14,25 +16,34 @@ notes sources.
 
 ### Introduction
 
-Uniform Manifold Approximation and Projection (UMAP), introduced by 
-Leland McInnes, John Healy, and James Melville in 2018 
-[@mcinnes2020umapuniformmanifoldapproximation], is a powerful dimensionality
+Uniform Manifold Approximation and Projection (UMAP) was introduced by 
+Leland McInnes, John Healy, and James Melville in 2018
+[@mcinnes2020umapuniformmanifoldapproximation]. UMAP is a powerful dimensionality
 reduction technique designed to visualize high-dimensional data in a 
 low-dimensional space, such as 2D or 3D. Unlike linear methods like PCA, 
 UMAP captures nonlinear structures, preserving local clusters while also 
-maintaining the overall global patterns of the data.
+maintaining the overall global patterns of the data. UMAP is utilized for
+clustering, data visualization, and data exploration.
 
 
-### Dimensionality Reduction
+### Other Dimensionality Reduction Techniques
+
+#### Principle Component Analysis (PCA)
+- linear technique; projects data along directions of maximum variance
+- Preserves global structure fairly well but may lose local neighborhood 
+  details.
+- good for visualization of 2-3 PCs but cannot capture nonlinear
+  structures.
 
 
+#### t-distributed Stochastic Neighbor Embedding (t-SNE)
+- finds distances between pairs of points, maps onto t dist.
+- nonlinear technique; preserves local structure very well.
+- can distort global relationships
+- often slower than UMAP for large datasets
 
-### Conceptual Overview
+### Algorithm Approach and Intuition
 
-
-
-
-### Mathematical Formulation
 
 
 
@@ -45,4 +56,5 @@ maintaining the overall global patterns of the data.
 
 
 ### Further Readings
+
 
