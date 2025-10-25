@@ -61,8 +61,12 @@ very simple way to build a k-dimensional object.
 
 #### Visualizing the manifold
 UMAP builds a graph as a discrete approximation of the manifold’s structure.
-First, lets visualize a topological representation of some data.
+To aid in visualizing the concepts, I will show how they apply to a noisy
+sin wave data set.
 ```{python}
+#| fig-cap: "Test data set of a noisy sin wave"
+#| echo: false
+#| message: false
 import matplotlib.pyplot as plt
 import numpy as np
 np.random.seed(42)
@@ -78,6 +82,7 @@ y = y + noise
 plt.scatter(x, y, color='blue')
 
 plt.axis('off')
+plt.show()
 ```
 
 #### Learning the manifold structure
