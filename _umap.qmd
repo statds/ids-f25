@@ -14,34 +14,35 @@ notes sources.
 
 ### Introduction
 
-Here is an overview.
+Uniform Manifold Approximation and Projection (UMAP), introduced by 
+Leland McInnes, John Healy, and James Melville in 2018 
+[@mcinnes2020umapuniformmanifoldapproximation], is a powerful dimensionality
+reduction technique designed to visualize high-dimensional data in a 
+low-dimensional space, such as 2D or 3D. Unlike linear methods like PCA, 
+UMAP captures nonlinear structures, preserving local clusters while also 
+maintaining the overall global patterns of the data.
 
 
-### Sub Topic 1
+### Dimensionality Reduction
 
-Put materials on topic 1 here
 
-Python examples can be put into `python` code chunks:
 
-```{python}
-# import pandas as pd
+### Conceptual Overview
 
-# do something
-```
 
-### Sub Topic 2
 
-Put materials on topic 2 here.
 
-### Sub Topic 3
+### Mathematical Formulation
 
-Put matreials on topic 3 here.
+
+
+### Practical Example
+
 
 
 ### Conclusion
 
-Put sumaries here.
+
 
 ### Further Readings
 
-Put links to further materials.
