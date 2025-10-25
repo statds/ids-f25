@@ -1,4 +1,4 @@
-## Uniform Manifold Approximation and Projection
+## Uniform Manifold Approximation and Projection                               |
 
 This section was prepared by Mark Zhang, an undergraduate at UCONN.
 
@@ -18,12 +18,12 @@ This section was prepared by Mark Zhang, an undergraduate at UCONN.
 
 Uniform Manifold Approximation and Projection (UMAP) was introduced by 
 Leland McInnes, John Healy, and James Melville in 2018
-[@mcinnes2020umapuniformmanifoldapproximation]. UMAP is a powerful dimensionality
-reduction technique designed to visualize high-dimensional data in a 
-low-dimensional space, such as 2D or 3D. Unlike linear methods like PCA, 
-UMAP captures nonlinear structures, preserving local clusters while also 
-maintaining the overall global patterns of the data. UMAP is utilized for
-clustering, data visualization, and data exploration.
+[@mcinnes2020umapuniformmanifoldapproximation]. UMAP is a powerful 
+dimensionality reduction technique designed to visualize high-dimensional 
+data in a low-dimensional space, such as 2D or 3D. Unlike linear methods
+like PCA, UMAP captures nonlinear structures, preserving local clusters 
+while also maintaining the overall global patterns of the data. UMAP is 
+utilized forclustering, data visualization, and data exploration.
 
 
 ### Other Dimensionality Reduction Techniques
@@ -43,7 +43,26 @@ clustering, data visualization, and data exploration.
 - often slower than UMAP for large datasets
 
 ### Algorithm Approach and Intuition
+UMAP is a graph-based dimensionality reduction algorithm rooted in algebraic
+topology. It represents data as a fuzzy graph and finds a low-dimensional
+embedding that preserves both local neighborhoods and global structure.
 
+#### Mathematical Foundations
+
+1. Riemannian Manifold
+UMAP assumes the data lies on a Riemannian manifold, 
+a smoothly curved surface embedded in high-dimensional space.
+
+1. Simplicial Sets
+From algebraic topology, a simplex is the simplest geometric building 
+block (a point, line, triangle, etc.), and a simplicial complex describes
+how these pieces connect to form a space. Geometrically a k-simplex is a 
+very simple way to build a k-dimensional object.
+
+#### Learning the manifold structure
+
+
+#### Finding a low-dimensional representation
 
 
 
