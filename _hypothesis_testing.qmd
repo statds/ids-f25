@@ -38,7 +38,7 @@ reflect a **real effect**.
 
 ---
 
-### Example Context: Housing 
+### Example Context: Housing Data 
 
 - The housing dataset allows us to explore real-world market patterns and relationships 
 between property features and price.   
@@ -52,7 +52,9 @@ on assumptions.
 
 ---
 
-### Load the Data
+### Load, Clean and Preview the Data 
+
+- Let's begin by loading the data 
 
 ```{python}
 import pandas as pd
@@ -64,7 +66,7 @@ import seaborn as sns
 housing = pd.read_csv("data/housing.csv")
 ```
 
-### Clean the Data 
+- Then, we want to clean the data 
 
 ```{python}
 # Step 1: Clean up column names
@@ -103,9 +105,7 @@ a single sample is significantly different from a known or hypothesized populati
 - In the context of housing data, we can test whether the average house price differs 
 from a target or benchmark value. For example, $1 million. 
 - H₀: μ = 1,000,000 (average house price = 1)
-- H₁: μ ≠ 1,000,000 (average house price ≠ 1)
-
-### One-Sample T-test 
+- H₁: μ ≠ 1,000,000 (average house price ≠ 1) 
 
 ```{python}
 prices = housing["medv"].dropna()
@@ -122,12 +122,7 @@ else:
     print(f"Fail to reject H₀ (p = {p_value:.3f}) → No significant difference from $20,000.")
 ```
 
---- 
-
-### One-Sample T-test Visual  
-
-- Most homes cluster below the hypothesized mean value, shown by the red dashed line at 
-μ = 20 (\$20,000).
+- We can visualize this by using a histogram
 
 ```{python}
 plt.hist(prices, bins=30, color="skyblue", edgecolor="black")
@@ -138,6 +133,9 @@ plt.ylabel("Frequency")
 plt.legend()
 plt.show()
 ```
+
+- Most homes cluster below the hypothesized mean value, shown by the red dashed line at 
+μ = 20 (\$20,000).
 
 ---
 
@@ -194,7 +192,7 @@ else:
     print(f"Fail to reject H₀ (p = {p_value:.4f}) → No significant difference in mean home values based on proximity to the Charles River.")
 ```
 
-### Two Sample T-Test Visual 
+- We can visualize these differences using boxplots 
 
 ```{python}
 sns.boxplot(x="chas", y="medv", data=housing, palette="pastel")
@@ -264,9 +262,7 @@ else:
 
 ```
 
----
-
-### ANOVA Visual 
+- We can visualize this by using boxplots 
 
 ```{python}
 sns.boxplot(x="rad", y="medv", data=housing, palette="pastel")
@@ -334,9 +330,7 @@ else:
           f"between proximity to the Charles River and highway accessibility.")
 ```
 
----
-
-### Chi-Square Test of Independence Visual 
+- Visual
 
 ```{python}
 sns.countplot(x="rad", hue="chas", data=housing, palette="pastel")
@@ -400,9 +394,7 @@ else:
     print(f"Fail to reject H₀ (p = {p_value:.4f}) → No significant correlation between rooms and home value.")
 ```
 
----
-
-### Correlation Test Scatterplot 
+- Scatterplot for visualization 
 
 ```{python}
 sns.scatterplot(x=housing["rm"], y=housing["medv"], alpha=0.4)
@@ -507,18 +499,6 @@ df
 - Use nonparametric methods when assumptions fail.
 - Statistical significance ≠ practical importance.
 - Clear hypotheses + clean data = valid conclusions.
-
----
-
-### Conclusion 
-
-- Hypothesis testing provides a structured, evidence-based approach to decision making 
-- scipy.stats offers tools for t-tests, ANOVA, chi-square and correlation all in python 
-- The Boston Housing dataset illustrates how statistics reveal valuable insights 
-into factors influencing home prices.
-- Data analysis isn't just numbers but it is a way to improve lives through informed action 
-
----
 
 ### Further Readings 
 - SciPy.stats Documentation: https://docs.scipy.org/doc/scipy/reference/stats.html
