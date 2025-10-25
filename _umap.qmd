@@ -59,11 +59,43 @@ block (a point, line, triangle, etc.), and a simplicial complex describes
 how these pieces connect to form a space. Geometrically a k-simplex is a 
 very simple way to build a k-dimensional object.
 
+#### Visualizing the manifold
+UMAP builds a graph as a discrete approximation of the manifold’s structure.
+First, lets visualize a topological representation of some data.
+```{python}
+import matplotlib.pyplot as plt
+import numpy as np
+np.random.seed(42)
+
+# 50 points along sin wave
+x = np.sort(np.random.rand(50) * 13)
+
+y = np.sin(x)
+# generate random numbers from normal dist
+noise = 0.05 * np.random.randn(len(x))
+y = y + noise
+
+plt.scatter(x, y, color='blue')
+
+plt.axis('off')
+```
+
 #### Learning the manifold structure
+1. Finding nearest neighbors
+For each point we find the nearest neighbors. This hyperparameter controls
+how local or global we want our structure to be. A large amount of neighbors
+represent the manifold more accurately as a whole and a smaller number would
+capture fine details of the structure.
+
+1. Constructing a neighborhood graph
+
 
 
 #### Finding a low-dimensional representation
+1. Minimum Distance
 
+
+2. Minimizing the cost function (Cross-Entropy)
 
 
 ### Practical Example
