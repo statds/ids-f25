@@ -94,8 +94,7 @@ housing.info()
 housing.head()
 ```
 
-- We can summarize the dataset using '.describe()' to see its spread and variability 
-before running tests
+- We can summarize the dataset using '.describe()' to see its spread and variability before running tests
 
 ```{python}
 housing.describe()
