@@ -59,7 +59,7 @@ block (a point, line, triangle, etc.), and a simplicial complex describes
 how these pieces connect to form a space. Geometrically a k-simplex is a 
 very simple way to build a k-dimensional object.
 
-#### Visualizing the manifold
+#### Learning the manifold structure
 UMAP builds a graph as a discrete approximation of the manifold’s structure.
 To aid in visualizing the concepts, I will show how they apply to a noisy
 sin wave data set.
@@ -69,38 +69,100 @@ sin wave data set.
 #| message: false
 import matplotlib.pyplot as plt
 import numpy as np
-np.random.seed(42)
+np.random.seed(3255)
 
-# 50 points along sin wave
-x = np.sort(np.random.rand(50) * 13)
+# 25 points along sin waves
+x = np.sort(np.random.rand(25) * 8)
 
 y = np.sin(x)
+xlim = (0, 8)
 # generate random numbers from normal dist
-noise = 0.05 * np.random.randn(len(x))
+noise = 0.1 * np.random.randn(len(x))
 y = y + noise
-
-plt.scatter(x, y, color='blue')
-
+fig, ax = plt.subplots(figsize=(10,6)) 
+ax.scatter(x, y, color='blue')
+ax.set_aspect('equal',adjustable='datalim')
+ax.set_xlim(xlim)
 plt.axis('off')
 plt.show()
 ```
 
-#### Learning the manifold structure
-1. Finding nearest neighbors
+How do we represent this data as a manifold? UMAP uses the concept of simplicial
+sets and topology and adapts them to fuzzy simplicial sets and metric space.
+
+
+##### Finding nearest neighbors
 For each point we find the nearest neighbors. This hyperparameter controls
 how local or global we want our structure to be. A large amount of neighbors
 represent the manifold more accurately as a whole and a smaller number would
 capture fine details of the structure.
+```{python}
+#| fig-cap: "Fuzzy balls to 4th nearest neighbor"
+#| echo: false
+#| message: false
+#| warning: false
+import matplotlib.pyplot as plt
+import numpy as np
+from sklearn.neighbors import NearestNeighbors
 
-1. Constructing a neighborhood graph
+np.random.seed(3255)
 
+# 25 noisy sine points
+x = np.sort(np.random.rand(25) * 8)
+y = np.sin(x) + 0.1 * np.random.randn(len(x))
+X = np.column_stack((x, y))
 
+# Find 4 nearest neighbors for each point
+k = 4
+nbrs = NearestNeighbors(n_neighbors=k+1).fit(X)
+distances, indices = nbrs.kneighbors(X)
+
+# Plot base points
+fig, ax = plt.subplots(figsize=(10,6))
+ax.scatter(x, y, color='blue', zorder=3)
+
+# Compute sigma = mean of neighbor distances (for fuzziness decay)
+sigma = np.mean(distances[:, 1:])
+
+# Draw fuzzy balls for each point (to its 4th neighbor)
+for i, (xi, yi) in enumerate(X):
+    for j in range(1, k+1):  # skip self (j=0)
+        d = distances[i, j]
+        w = np.exp(-d / sigma)  # fuzzy weight between 0 and 1
+        circle = plt.Circle((xi, yi), d, color='blue', alpha=w * 0.15, lw=0)
+        ax.add_patch(circle)
+
+ax.set_aspect('equal', adjustable='datalim')
+ax.set_xlim(xlim)
+ax.axis('off')
+plt.show()
+```
+
+##### Constructing a neighborhood graph
+
+UMAP represents high-dimensional data as a fuzzy simplicial set, capturing the 
+local connectivity of points. For each point, a fuzzy membership weight is 
+assigned to its neighbors:
+
+$$
+w_{ij} = \exp\Bigg(-\frac{d_{ij} - \rho_i}{\sigma_i}\Bigg)
+$$
+
+where:
+
+- $d_{ij}$ is the distance between points $i$ and $j$
+- $\rho_i$ is the distance to the closest neighbor of $i$
+- $\sigma_i$ is a local scaling factor. 
+
+This weighting ensures that nearby points have higher connection strength 
+while normalizing the total influence of each point, producing a uniform 
+manifold representation that preserves the underlying topology.
 
 #### Finding a low-dimensional representation
-1. Minimum Distance
+##### Minimum Distance
 
 
-2. Minimizing the cost function (Cross-Entropy)
+##### Minimizing the cost function (Cross-Entropy)
 
 
 ### Practical Example
