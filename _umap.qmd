@@ -97,7 +97,7 @@ how local or global we want our structure to be. A large amount of neighbors
 represent the manifold more accurately as a whole and a smaller number would
 capture fine details of the structure.
 ```{python}
-#| fig-cap: "Fuzzy balls to 4th nearest neighbor"
+#| fig-cap: "Fuzzy circles to 4th nearest neighbor"
 #| echo: false
 #| message: false
 #| warning: false
@@ -154,9 +154,23 @@ where:
 - $\rho_i$ is the distance to the closest neighbor of $i$
 - $\sigma_i$ is a local scaling factor. 
 
-This weighting ensures that nearby points have higher connection strength 
-while normalizing the total influence of each point, producing a uniform 
-manifold representation that preserves the underlying topology.
+In other words, each point adjusts its influence based on the local density of
+its neighborhood. Dense regions, where points are very close together, have
+ smaller $\sigma_i$, which reduces the weight of individual connections.
+ Sparse regions, with points farther apart, have larger $\sigma_i$.
+, increasing the weight of each connection.
+
+
+Since $w_{i \to j}$ and $w_{j \to i}$ can differ, UMAP combines them 
+using a probabilistic union:
+
+$$
+w_{ij}^{(final)} = w_{i \to j} + w_{j \to i} - w_{i \to j} \cdot w_{j \to i}
+$$
+
+This produces a symmetric weight between 0 and 1 that preserves local 
+topology, balances contributions across dense and sparse regions, and 
+yields a uniform manifold representation.
 
 #### Finding a low-dimensional representation
 ##### Minimum Distance
