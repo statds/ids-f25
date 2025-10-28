@@ -310,7 +310,7 @@ Please use the following table to sign up.
   ----- | ------------- | -------------------------
    09/18 | Chen, Jingang Calvin | Syntax of Markdown
    09/23 | Montalvo, Victor Samuel |
-   09/25 | Cao, Enshuo |
+   09/25 | Cao, Enshuo | Naive Bayes
    09/30 | Lucey, Sonia Niamh | Grammar of Graphics with Plotnine
    10/02 | Haerter, Alejandro Erik | Geospatial Data with GeoPandas
    10/02 | Saxena, Aanya | 
@@ -325,7 +325,7 @@ Please use the following table to sign up.
    10/23 | Perkins, Jack Thomas |
    10/23 | Fazzina, Sophia Carmen | K-means clustering |
    10/28 | Tang, Wilson Chen | How to call R in Python
-   10/28 | Wishneski, Emma Irene |
+   10/28 | Wishneski, Emma Irene | Support Vector Machine
    10/30 | Lawrence, Claire Elise |
    11/04 | White, Abigail Lynn | Effective data science communication
    11/04 | Mayer-Costa, Jaden Paulo | Personal Webpage on GitHub
