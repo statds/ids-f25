@@ -61,6 +61,23 @@ database. The if_exists argument handles what would happen if there is already
 a table in the database with the same name. The index argument is determining whether or not the first column of the dataframe should be handled as the 
 index of the table in the dataframe.
 
+#### serviceRequests Database
+First, we need to import our serviceRequests data from the csv in the data
+folder:
+```{python}
+df = pd.read_csv("data/serviceRequests06-09-2025_07-05-2025")
+```
+
+Now we need to repeat the process from nycflights13 but for our serviceRequests:
+```{python}
+srconn = sqllite3.connect("serviceRequests.db")
+
+df.to_sql("requests", srconn, if_exists="replace", index=False)
+```
+
+Here we imported the dataframe we got from the csv file as the only table in the
+serviceRequests.db database.
+
 ### Query Basics
 
 Put materials on topic 2 here.
