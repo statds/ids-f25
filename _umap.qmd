@@ -1,4 +1,4 @@
-## Uniform Manifold Approximation and Projection                               |
+## Uniform Manifold Approximation and Projection                               
 
 This section was prepared by Mark Zhang, an undergraduate at UCONN.
 
@@ -73,12 +73,9 @@ np.random.seed(3255)
 
 # 25 points along sin waves
 x = np.sort(np.random.rand(25) * 8)
-
-y = np.sin(x)
+y = np.sin(x) + 0.1 * np.random.randn(len(x))
 xlim = (0, 8)
-# generate random numbers from normal dist
-noise = 0.1 * np.random.randn(len(x))
-y = y + noise
+
 fig, ax = plt.subplots(figsize=(10,6)) 
 ax.scatter(x, y, color='blue')
 ax.set_aspect('equal',adjustable='datalim')
@@ -87,29 +84,23 @@ plt.axis('off')
 plt.show()
 ```
 
-How do we represent this data as a manifold? UMAP uses the concept of simplicial
-sets and topology and adapts them to **fuzzy simplicial sets** and metric space.
+How do we represent this data as a manifold? UMAP uses the concept of 
+simplicial sets and topology and adapts them to **fuzzy simplicial sets** 
+and metric space.
 
 
 ##### Finding nearest neighbors
-For each point we find the nearest neighbors. The `nneighbors` hyperparameter controls
-how local or global we want our structure to be. A large amount of neighbors
-represent the manifold more accurately as a whole and a smaller number would
-capture fine details of the structure.
+For each point we find the nearest neighbors. The `nneighbors` hyperparameter 
+controls how local or global we want our structure to be. A large amount of 
+neighbors represent the manifold more accurately as a whole and a smaller 
+number would capture fine details of the structure.
 ```{python}
 #| fig-cap: "Fuzzy circles to 4th nearest neighbor"
 #| echo: false
 #| message: false
 #| warning: false
-import matplotlib.pyplot as plt
-import numpy as np
 from sklearn.neighbors import NearestNeighbors
 
-np.random.seed(3255)
-
-# 25 noisy sine points
-x = np.sort(np.random.rand(25) * 8)
-y = np.sin(x) + 0.1 * np.random.randn(len(x))
 X = np.column_stack((x, y))
 
 # Find 4 nearest neighbors for each point
@@ -132,7 +123,7 @@ for i, (xi, yi) in enumerate(X):
         circle = plt.Circle((xi, yi), d, color='blue', alpha=w * 0.15, lw=0)
         ax.add_patch(circle)
 
-ax.set_aspect('equal', adjustable='datalim')
+ax.set_aspect('equal', adjustable="datalim")
 ax.set_xlim(xlim)
 ax.axis('off')
 plt.show()
@@ -140,8 +131,8 @@ plt.show()
 
 ##### Constructing a neighborhood graph
 
-UMAP represents high-dimensional data as a **fuzzy simplicial set**, capturing the 
-local connectivity of points. For each point, a fuzzy membership weight is 
+UMAP represents high-dimensional data as a **fuzzy simplicial set**, capturing 
+the local connectivity of points. For each point, a fuzzy membership weight is 
 assigned to its neighbors:
 
 $$
@@ -173,46 +164,47 @@ topology, balances contributions across dense and sparse regions, and
 yields a **uniform manifold** representation.
 
 ```{python}
-#| fig-cap: "Graph with combined edge weights"
+#| fig-cap: "Fuzzy weighted graph with UMAP-style combined weights"
 #| echo: false
 #| message: false
 #| warning: false
-import matplotlib.pyplot as plt
-import numpy as np
-from sklearn.neighbors import NearestNeighbors
 
-np.random.seed(3255)
-
-# 25 noisy sine points
-x = np.sort(np.random.rand(25) * 8)
-y = np.sin(x) + 0.1 * np.random.randn(len(x))
-X = np.column_stack((x, y))
-
-# Find 4 nearest neighbors
-k = 4
-nbrs = NearestNeighbors(n_neighbors=k+1).fit(X)
-distances, indices = nbrs.kneighbors(X)
-
-# Compute sigma for fuzzy weights
-sigma = np.mean(distances[:, 1:])
+# Compute local rho_i (distance to closest neighbor) and sigma_i (local scaling)
+rho = distances[:, 1]  # skip self (index 0)
+sigma = np.zeros(len(X))
+for i in range(len(X)):
+    # sigma_i = mean distance to nearest neighbors (excluding self)
+    sigma[i] = np.mean(distances[i, 1:])
 
 fig, ax = plt.subplots(figsize=(10,6))
 ax.scatter(x, y, color='blue', zorder=3)
 
-# Draw weighted edges
+# Compute combined fuzzy weights w_ij^final   
 for i, (xi, yi) in enumerate(X):
     for j in range(1, k+1):  # skip self
         neighbor_idx = indices[i, j]
         xj, yj = X[neighbor_idx]
         d = distances[i, j]
-        w = np.exp(-d / sigma)  # fuzzy weight
-        ax.plot([xi, xj], [yi, yj], color='blue', alpha=w, lw=w*3, zorder=1)  
+
+        # directional weights
+        w_i_to_j = np.exp(-(d - rho[i]) / sigma[i])
+        w_j_to_i = np.exp(-(d - rho[neighbor_idx]) / sigma[neighbor_idx])
+
+        # combined symmetric weight
+        w_final = w_i_to_j + w_j_to_i - w_i_to_j * w_j_to_i
+
+        # draw edge with alpha and width proportional to w_final
+        ax.plot([xi, xj], 
+                [yi, yj], 
+                color='blue', 
+                alpha=w_final, 
+                lw=w_final*3, 
+                zorder=1)
 
 ax.set_aspect('equal', adjustable='datalim')
-ax.set_xlim(0, 8)
+ax.set_xlim(xlim)
 ax.axis('off')
 plt.show()
-
 ```
 
 #### Finding a low-dimensional representation
