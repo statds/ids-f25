@@ -366,7 +366,6 @@ SQL has three different versions of JOIN statements:
 
 This allows the user to determine what rows get included as a result of joining
 two tables. Let's take a look at the differences:
-##### INNER JOIN
 ```{python}
 query = """
 SELECT DISTINCT f.flight,
@@ -389,7 +388,6 @@ in which the values in question are included in both tables. For example, if
 there was a row in flights that included an airline code that was not present in
 airlines, then SQL will not include that row in the result.
 
-##### LEFT JOIN
 ```{python}
 query = """
 SELECT DISTINCT f.flight,
@@ -415,7 +413,6 @@ the INNER JOIN, this row was removed from the result however it is present here
 because we used flights as our only reference for rows and therefore the row is
 included but the destination name is left as "None"
 
-##### RIGHT JOIN
 ```{python}
 query = """
 SELECT DISTINCT f.flight,
