@@ -253,7 +253,26 @@ preserves both **local neighborhoods** and **global manifold structure**.
 ### Practical Example
 First, install the necessary dependency:
 `pip install umap-learn`
+```{python}
+#| echo: true
+#| message: false
+#| warning: false
+#| fig-cap: "handwritten digit images(8x8 pixels) from digits dataset"
+import matplotlib.pyplot as plt
+from sklearn.datasets import load_digits
 
+digits = load_digits()
+
+# Show first 16 digits in a 3x4 grid
+fig, axes = plt.subplots(3, 4, figsize=(6, 6))
+for i, ax in enumerate(axes.flat):
+    ax.imshow(digits.images[i], cmap='gray')
+    ax.set_title(digits.target[i])
+    ax.axis('off')
+
+plt.tight_layout()
+plt.show()
+```
 ```{python}
 #| label: umap-digits-2d
 #| echo: true
