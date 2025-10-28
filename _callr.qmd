@@ -1,0 +1,223 @@
+## How to call R from Python
+
+This section was prepared by Wilson Tang, a undergraduate junior as of fall 2025
+pursuing a single degree in statistical data science.
+
+### Motivations
+
+R and Python are both languages we have been exposed to the most at UConn. I've
+had moments using one where I think about how the other might be useful, and so
+one might want to incorporate both languages. I want to show how we can properly
+incorporate R and Python together and when each language may be better.
+
+**Data science workflow:**
+
+Understanding the data science workflow will help us decide if we want to use
+R and Python together, or just individually.
+
+- Identify problem  
+- Gather data  
+- Clean & preprocess data  
+- Data exploration  
+- Feature engineering / external data
+- Statistical testing  
+- Modeling & machine learning  
+- Evaluation  
+- Visualization
+
+### Corresponding packages
+
+For most tasks, we can find corresponding packages in both Python and R that can
+generally accomplish the same tasks. Of course, do mind exceptions can occur for
+very specific tasks and you should make decisions based on the scope of your 
+work.
+
+- **Cleaning / Preprocessing Data**
+  - R: dplyr
+  - Python: pandas
+
+- **Exploratory Data Analysis**
+  - R: built-in functions, dplyr, ggplot2
+  - Python: pandas, matplotlib, seaborn, plotnine
+
+- **Feature Engineering**
+  - R: recipes (tidymodels), forcats, lubridate
+  - Python: sklearn, pandas
+
+- **Evaluation**
+  - R: yardstick, caret
+  - Python: sklearn, yellowbrick
+
+- **Visualization**
+  - R: ggplot2
+  - Python: plotnine, matplotlib, seaborn
+
+### R / Python advantages
+
+**R:**
+
+- Statistical testing: t-test, ANOVA, chi-squared, Shapiro-wilk are common tests
+built into R. Durbin Test and a fisher's test that can work for any r x c 
+contingency table.
+- Econometrics, time-series and biostatistics.
+
+**Python:**
+
+- Being able to handle bigger data
+- Machine learning and AI
+    - sklearn for machine learning
+    - Tensor flow / Keras / Pytorch for deep learning
+    - XGBoost / LightGBM / CatBoost for gradient boosting
+    - Pipelines    
+- Versatile data handling
+    - APIs - Better for large scale / complex integration ('requests', 'httpx',
+      'aiohttp')
+    - Web Scraping - Better for large scale / dynamic web scraping ('Beautiful',
+      'Scrapy', 'Selenium')
+    - Databases - SQL, NoSQL and big platforms
+    - Cloud data - R has limited options for this and sometimes rely on Python
+      libraries
+    - Real-time data - R can't really do this
+
+### Setup both R and Python
+
+**Make sure you have your own python:**
+
+Windows comes with python, however we want to install our own because it will
+prevent errors in the future steps. (Microsoft sucks)
+
+[Install python](https://www.python.org/downloads/)
+
+**Download R and Install R extension:**
+
+[Install R](https://cran.r-project.org/bin/windows/base/)
+
+Find the Extensions tab on the left toolbar, search R language and install the
+R extension for VS code. And you can use `Ctrl+Shift+P` and type 
+`R: Create R terminal`.
+
+Calling R in Python:
+
+We will use the package `rpy2` to call R from Python, there are also other
+packages that can call R, check [Additional resources](#more-resources).
+
+Calling R from Python is a Python first method, and is generally recommended if
+the user is going to be using more python. However, one can also call Python
+from R as well. Check [Additional resources](#more-resources) for packages
+in R that allows us to call Python from R.
+
+**Reproducibility:**
+
+Since we are trying to use 2 languages at once, there will be packages from both
+R and Python. Of course, we would never want to compromise on reproducibility so
+what should we do? The best method would be to use Conda.
+
+A single Conda environment can specify both versions of Python as well as R,
+while also allowing us to keep the packages of both in one place.
+
+### Example
+
+**Prerequisites:**
+
+In order to render these classnotes you will need to have a Python virtual
+environment with packages from 
+[requirements.txt](https://github.com/statds/ids-f25/blob/main/requirements.txt)
+and the package `gamlss` needs to be installed into your R global environment.
+
+`GAMLSS`  or Generalized Additive Models for Location, Scale, and Shape. It
+allows all parameters of the response distribution to depend on explanatory
+variables and thus each parameter can be modeled as a function of predictors.
+This model is useful when variability changes with predictors, skewness / 
+kurtosis change with predictors.
+
+Load Python libraries:
+
+```{python}
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+```
+
+Load `rpy2` to call R interface:
+
+```{python}
+from rpy2 import robjects
+from rpy2.robjects import pandas2ri, Formula
+import rpy2.robjects.packages as rpackages
+from rpy2.robjects.conversion import localconverter
+```
+
+Call `gamlss` from `rpy2`, `rpy2` will look for the R global environment is the 
+default location:
+
+```{python}
+gamlss = rpackages.importr('gamlss')
+```
+
+Load in `penguins` from `seaborn` and prepare Data:
+
+```{python}
+penguins = sns.load_dataset("penguins").dropna()
+
+penguins = penguins.rename(columns={
+    "body_mass_g": "mass",
+    "bill_length_mm": "bill",
+    "flipper_length_mm": "flipper"
+})
+
+penguins = penguins[["mass", "bill", "flipper", "species", "sex"]]
+```
+
+Send data frame from `pandas` to R and have it be converted to a R data frame 
+using `rpy2`:
+
+```{python}
+with localconverter(robjects.default_converter + pandas2ri.converter):
+    r_df = robjects.conversion.py2rpy(penguins)
+```    
+
+Here we are saying that `mass` depends on `flipper`, `bill`, `species`, `sex` 
+and the variability of `mass` depends on `flipper`. Run `gamlss` from the R data
+frame to extract whatever we need from `gamlss`, in this case fitted $\sigma$:
+
+```{python}
+formula_mu = Formula("mass ~ flipper + bill + species + sex")
+formula_sigma = Formula("~ flipper")
+
+model = gamlss.gamlss(formula_mu, sigma_formula=formula_sigma,
+                      data=r_df, family="NO")
+
+fitted_sigma = robjects.r("fitted.values")(model, "sigma")
+```
+
+Send fitted values or anything extracted from the previous part:
+
+```{python}
+with localconverter(robjects.default_converter + pandas2ri.converter):
+    penguins["fitted_sigma"] = robjects.conversion.rpy2py(fitted_sigma)
+```  
+
+Use extracted values for anything of interest in Python, in this case let's say 
+for some reason we wanted to use `matplotlib` and `seaborn` to plot our fitted
+$\sigma$:
+
+```{python}
+plt.figure(figsize=(8,6))
+sns.scatterplot(x="flipper", y="fitted_sigma", hue="species", data=penguins, 
+                alpha=0.6)
+sns.lineplot(x="flipper", y="fitted_sigma", hue="species", data=penguins, lw=2)
+plt.title("GAMLSS: Predicted Variability vs Flipper Length")
+plt.xlabel("Flipper Length (mm)")
+plt.ylabel("Predicted Body Mass Variability (grams)")
+plt.legend(title="Species")
+plt.show()
+```
+
+We see here that as flipper length increases, predicted body mass variability
+tends to decrease.
+
+### Additional resources {#more-resources}
+
+- [More packages to call R in Python and vice versa](https://www.datacamp.com/tutorial/using-both-python-r)
+
+- [More about Python / R strengths and workflow with conda](https://www.business-science.io/business/2018/10/08/python-and-r.html)
