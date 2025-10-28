@@ -237,8 +237,7 @@ An easy way in SQL to see the total number of rows that fit the conditions you'v
 query = """
 SELECT COUNT(DISTINCT dest)
 FROM flights
-WHERE NOT (origin = 'LGA' OR dest = 'ATL')
-ORDER BY origin, dest;
+WHERE NOT (origin = 'LGA' OR dest = 'ATL');
 """
 pd.read_sql_query(query, nycconn).head()
 ```
