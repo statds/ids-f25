@@ -428,7 +428,78 @@ for all rows that include destinations from the airports table. This includes
 all rows from the airports table itself.
 
 ### Creating Tables
+Let's take a look at our serviceRequests.db's requests table:
+```{python}
+query = """
+SELECT *
+FROM requests;
+"""
+pd.read_sql_query(query, srconn).head()
+```
 
+This table is incredibly complicated and redundant through repeated information
+such as each row having both "Agency" and "Agency Name". This redundancy 
+clutters the table, making it difficult to read. It would be much better if the 
+database wasn't just one table and instead was formatted like the 
+nycflights13.db
+
+Take note that we have began using our other connection (srconn instead of 
+nycconn) because we are working with our other database.
+
+Thankfully, SQL makes it very simple to create new tables from the results of a
+query. Looking back at the redundancy with agencies, we can create the following
+query to see all the agency codes and their corresponding names:
+```{python}
+query = """
+SELECT DISTINCT Agency, "Agency Name"
+FROM requests
+ORDER BY Agency;
+"""
+pd.read_sql_query(query, srconn).head()
+```
+
+Something to note here is how one can handle a column name that includes a space
+or a comma. If you put the name of the column in quotes, then SQL will handle
+everything inside the quotes as the name of the column.
+
+Now that we have created this query, we can make the result into its own table 
+in the database:
+```{python}
+query = """
+CREATE TABLE IF NOT EXISTS agencies AS
+SELECT DISTINCT Agency, "Agency Name"
+FROM requests
+ORDER BY Agency;
+"""
+srconn.execute(query)
+srconn.commit()
+```
+
+There are a few key parts to this query:
+
+Firstly, we have the first line which tells SQL to create a table named agencies
+and the AS works here to tell SQL to make the table be the result of the query
+that follows the first line.
+
+Second, there is the statement "IF NOT EXISTS". This is incredibly useful to
+include in the query as it ensures that you do not override any tables that you
+have previously made.
+
+Lastly, we use different commands outside of creating the query variable. 
+Instead of pd.read_sql_query(query, srconn), we have our connection to SQL
+execute the query we created, then commit the changes to the database.
+
+Now that we have added the table to our database, we can query it:
+```{python}
+
+query = """
+SELECT *
+FROM agencies;
+"""
+pd.read_sql_query(query, srconn).head()
+```
+
+This process can be repeated to clean up messy tables and messy databases.
 
 ### Statement Order
 Statements in a SQL query must go in a certain order, otherwise the query will return an error. The order is as follows:
@@ -442,6 +513,5 @@ Statements in a SQL query must go in a certain order, otherwise the query will r
  + LIMIT/OFFSET
 
 ### Conclusion
-
 
 ### Further Readings
