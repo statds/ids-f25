@@ -251,8 +251,44 @@ adjusting the coordinates of points in low dimensions so that the embedding
 preserves both **local neighborhoods** and **global manifold structure**.
 
 ### Practical Example
+First, install the necessary dependency:
+`pip install umap-learn`
+
+```{python}
+#| label: umap-digits-2d
+#| echo: true
+#| message: false
+#| warning: false
+#| fig-cap: "2D UMAP of Digits dataset"
+import umap
+import matplotlib.pyplot as plt
+from sklearn.datasets import load_digits
+
+# Load digits dataset
+digits = load_digits()
+X = digits.data
+y = digits.target
+
+# 2D UMAP projection
+reducer = umap.UMAP(n_components=2, 
+                    n_neighbors=15, 
+                    min_dist=0.1, 
+                    random_state=42)
+X_umap = reducer.fit_transform(X)
+
+# 2D scatter plot
+plt.figure(figsize=(8, 6))
+scatter = plt.scatter(X_umap[:, 0], X_umap[:, 1],
+                      c=y, cmap='Spectral', s=20)
+
+plt.title("2D UMAP projection of Digits dataset")
+plt.xlabel("UMAP 1")
+plt.ylabel("UMAP 2")
+plt.colorbar(scatter, label='Digit')
+plt.show()
 
 
+```
 
 ### Conclusion
 
