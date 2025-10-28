@@ -591,6 +591,6 @@ dff.shape
 <!-- {{< include _pandas.qmd >}} -->
 
 
-<!-- This section is to be included as a tutorial for using SQL. -->
-<!-- {{< include _sql.qmd >}} -->
+<!-- <\!-- This section is to be included as a tutorial for using SQL. -\-> -->
+{{< include _sql.qmd >}}
 
