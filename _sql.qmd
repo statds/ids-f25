@@ -514,4 +514,7 @@ Statements in a SQL query must go in a certain order, otherwise the query will r
 
 ### Conclusion
 
+
 ### Further Readings
+1. [W3 Schools SQL Tutorial](https://www.w3schools.com/sql/default.asp)
+1. [SQLite Tutorial (downloading SQLite not necessary)](https://www.sqlitetutorial.net/)
