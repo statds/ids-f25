@@ -1,4 +1,4 @@
-## Database operation with Structured query language (SQL)
+## Database operation with SQL
 
 This section was prepared by Lewis Milun.
 
@@ -32,6 +32,7 @@ however it is proven simple when working with SQL.
 
 To set up this database, we need to import the proper packages:
 ```{python}
+#| output: false
 import sqlite3
 import pandas as pd
 from nycflights13 import flights, airlines, airports
@@ -52,6 +53,7 @@ our connection to this database.
 Next step is to add the three tables we imported from nycflights13 to the 
 database:
 ```{python}
+#| output: false
 flights.to_sql("flights", nycconn, if_exists="replace", index=False)
 airlines.to_sql("airlines", nycconn, if_exists="replace", index=False)
 airports.to_sql("airports", nycconn, if_exists="replace", index=False)
@@ -72,6 +74,7 @@ df = pd.read_csv("data/serviceRequests06-09-2025_07-05-2025.csv")
 
 Now we need to repeat the process from nycflights13 but for our serviceRequests:
 ```{python}
+#| output: false
 srconn = sqlite3.connect("serviceRequests.db")
 
 df.to_sql("requests", srconn, if_exists="replace", index=False)
@@ -182,12 +185,13 @@ pd.read_sql_query(query, nycconn).head()
 ```
 
 You add conditionals in the "WHERE" line by using the following comparators:
- + =
- + <
- + >
- + <=
- + >=
- + !=
+
++ '='
++ '<'
++ '>'
++ '<='
++ '>='
++ '!='
 
 Be careful of the type of the data in a particular column!
 
@@ -309,24 +313,29 @@ pd.read_sql_query(query, nycconn).head()
 This is a much more complicated query that returns a table of the distinct
 airline, origin, and destination in the flights database. We introduced three
 new statements in this query:
- + AS is similar to how "as" is used when importing packages in Python. It
- gives us an opportunity to use a shorthand instead of needing to type out the
- full table names every time we mention a column. It can also be used in our 
- SELECT line to name columns in our resultant table
- + INNER JOIN connects a new table to our query (in this case, the new table is
- airlines).
- + ON lets SQL know what column in each table it should use to connect the 
- tables. Here we told SQL that in every row, when it reaches the carrier column
- in flights, it should use that as its reference for what row in airlines to use
- for values in this row. For example, in the first row, SQL saw that the carrier name in flights was "UA". SQL then looked in the carrier column in airlines and
- found the row in which "UA" was the value in that table's carrier column. So 
- when SQL was calculating the value for airline_name in the first row, it knew 
- which column to search in airline to find "United Air Lines Inc."
+
+AS is similar to how "as" is used when importing packages in Python. It
+gives us an opportunity to use a shorthand instead of needing to type out the
+full table names every time we mention a column. It can also be used in our 
+SELECT line to name columns in our resultant table
+
+INNER JOIN connects a new table to our query (in this case, the new table is
+airlines).
+
+ON lets SQL know what column in each table it should use to connect the 
+tables. Here we told SQL that in every row, when it reaches the carrier column
+in flights, it should use that as its reference for what row in airlines to use
+for values in this row. For example, in the first row, SQL saw that the carrier
+name in flights was "UA". SQL then looked in the carrier column in airlines and
+found the row in which "UA" was the value in that table's carrier column. So 
+when SQL was calculating the value for airline_name in the first row, it knew 
+which column to search in airline to find "United Air Lines Inc."
 
 JOIN statements are key when using SQL to display data. This is what allows SQL
 databases to be in such nice and concise structures.
 
-Now let's also add in the values from the "airports" table so that we get the full names of the airports instead of their three-digit codes:
+Now let's also add in the values from the "airports" table so that we get the 
+full names of the airports instead of their three-digit codes:
 ```{python}
 query = """
 SELECT DISTINCT a.name AS airline_name,
@@ -351,9 +360,9 @@ readable.
 
 #### The difference between the three JOINs
 SQL has three different versions of JOIN statements:
- + INNER JOIN
- + LEFT JOIN
- + RIGHT JOIN
++ INNER JOIN
++ LEFT JOIN
++ RIGHT JOIN
 
 This allows the user to determine what rows get included as a result of joining
 two tables. Let's take a look at the differences:
@@ -375,7 +384,8 @@ INNER JOIN airports AS dest
 pd.read_sql_query(query, nycconn).head()
 ```
 
-INNER JOIN is the most common. This is because the result will only include rows in which the values in question are included in both tables. For example, if 
+INNER JOIN is the most common. This is because the result will only include rows
+in which the values in question are included in both tables. For example, if 
 there was a row in flights that included an airline code that was not present in
 airlines, then SQL will not include that row in the result.
 
@@ -503,14 +513,15 @@ This process can be repeated to clean up messy tables and messy databases.
 ### Statement Order
 Statements in a SQL query must go in a certain order, otherwise the query will
 return an error. The order is as follows:
- + SELECT
- + FROM
- + JOIN
- + WHERE
- + GROUP BY
- + HAVING
- + ORDER BY
- + LIMIT/OFFSET
+
++ SELECT
++ FROM
++ JOIN
++ WHERE
++ GROUP BY
++ HAVING
++ ORDER BY
++ LIMIT/OFFSET
 
 ### Conclusion
 SQL makes working with large datasets much easier by organizing databases and 
@@ -521,4 +532,5 @@ tables.
 
 ### Further Readings
 1. [W3 Schools SQL Tutorial](https://www.w3schools.com/sql/default.asp)
-2. [SQLite Tutorial (downloading SQLite not necessary)](https://www.sqlitetutorial.net/)
+2. [SQLite Tutorial (installing SQLite not necessary)]
+ (https://www.sqlitetutorial.net/)
