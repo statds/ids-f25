@@ -5,25 +5,25 @@ This section was prepared by Lewis Milun.
 ### Introduction
 Structured Query Language (SQL) is one of the standard languages that is used 
 to work with large databases. It uses tables to store and display data, 
-creating an organized and comprehendable interface that makes it far easier to
+creating an organized and comprehensible interface that makes it far easier to
 track and view your data.
 
 Some advantages of using SQL include its ability to handle large amounts of data
-while simultaneously simplifying the process of screating, updating, and 
+while simultaneously simplifying the process of creating, updating, and 
 retrieving any data you may want.
 
-The biggest advantage of using SQL for the purposes of this class, is that it
-can very easily connect with python and R. This makes it so that we can have
-all of the benefits of working with SQL while still working in the python
+The biggest advantage of using SQL for the purposes of this class is that it
+can very easily connect with Python and R. This makes it so that we can have
+all of the benefits of working with SQL while still working in the Python
 environment we already have set up.
 
 ### Setting up Databases
 In this section, we will be working with two databases, one that's built into
-a python package (nycflights13) and one that we used for our midterm project 
+a Python package (nycflights13) and one that we used for our midterm project 
 (311 Service Requests)
 
 #### nycflights13
-This database is built into the pandas package and includes flight data for all
+This database uses the pandas package and includes flight data for all
 flights that left New York City airports in 2013. The database includes several
 tables including ones that detail each flight, airline, airport, and much more
 info regarding the flights. The data in this database is contained across 
@@ -41,7 +41,7 @@ Here we imported "sqlite3" which is the package to import when working with SQL.
 We also imported "pandas" which also includes the nycflights13 database and from
 there imported the three tables we will be working with.
 
-Now, we want to establish the connection between python and our sql database:
+Now, we want to establish the connection between Python and our SQL database:
 ```{python}
 nycconn = sqlite3.connect("nycflights13.db")
 ```
@@ -57,7 +57,7 @@ airlines.to_sql("airlines", nycconn, if_exists="replace", index=False)
 airports.to_sql("airports", nycconn, if_exists="replace", index=False)
 ```
 
-What this does is converts the three pandas dataframes into tables in the sql
+What this does is converts the three pandas dataframes into tables in the SQL
 database. The if_exists argument handles what would happen if there is already
 a table in the database with the same name. The index argument is determining
 whether or not the first column of the dataframe should be handled as the 
@@ -82,11 +82,11 @@ serviceRequests.db database.
 
 ### Query Basics
 Now we can move onto working with the data in our SQL databases. The most common
-use for SQL is writing a "query" which is a statement sent to the SQL databse
+use for SQL is writing a "query" which is a statement sent to the SQL database
 that returns a selection of rows and columns from the tables in a database.
 
 We will be looking at the "flights" table in our nycflights13 database for this
-seciton.
+section.
 
 #### SELECT and FROM
 The following is the most basic possible query one can perform:
@@ -98,7 +98,7 @@ FROM flights;
 pd.read_sql_query(query, nycconn).head()
 ```
 
-This snippet represents the basic form of writing SQL queries in python. We
+This snippet represents the basic form of writing SQL queries in Python. We
 create a variable 'query' that contains the statement we intend to pass into 
 SQL. The last line then uses the nycconn connection we created earlier to pass
 our query into SQL and it returns the head() of the result we get back.
@@ -133,7 +133,7 @@ ORDER BY origin;
 pd.read_sql_query(query, nycconn).head()
 ```
 
-Here we added a new "SORTBY" line. This line tells SQL what columns to sort 
+Here we added a new "ORDER BY" line. This line tells SQL what columns to sort 
 the list by.
 
 You can sort by multiple columns just by listing them with commas in between:
@@ -159,7 +159,7 @@ ORDER BY origin, dest;
 pd.read_sql_query(query, nycconn).head()
 ```
 
-Here we replaced out "SELECT" statement with a "SELECT DISTINCT" statement. This
+Here we replaced our "SELECT" statement with a "SELECT DISTINCT" statement. This
 tells SQL to only return the unique columns from the query.
 
 ### Conditionals
@@ -192,7 +192,7 @@ You add conditionals in the "WHERE" line by using the following comparators:
 Be careful of the type of the data in a particular column!
 
 #### AND, OR, and NOT
-You can add multiple conditionals by using AND, OR, and parenthesis
+You can add multiple conditionals by using AND, OR, and parentheses
 ```{python}
 query = """
 SELECT origin, dest
@@ -280,7 +280,7 @@ column as that would be very redundant.
 
 ### Joins
 The last query that we did was useful, however it isn't realistic to expect
-users to memorize the two digit codes for all airlines. Thankfully, there is the
+users to memorize the two-digit codes for all airlines. Thankfully, there is the
 airlines table in our nycflights13.db database. Let's take a look at it:
 ```{python} 
 query = """
@@ -293,7 +293,7 @@ pd.read_sql_query(query, nycconn).head()
 This table is much simpler than the "flights" table as it only has two columns.
 
 #### INNER JOIN
-Logically, we wouldn't want our outputted table to display the two digit code 
+Logically, we wouldn't want our outputted table to display the two-digit code 
 that represents each airline but instead we'd want to see the name of the 
 airline. Thankfully, SQL has a way to join the data from the two tables 
 together:
@@ -308,9 +308,9 @@ pd.read_sql_query(query, nycconn).head()
 ```
 
 This is a much more complicated query that returns a table of the distinct
-airline, origin, and destinations in the flights database. We introduced three
+airline, origin, and destination in the flights database. We introduced three
 new statements in this query:
- + AS is similar to how "as" is used when importing packages in python. It
+ + AS is similar to how "as" is used when importing packages in Python. It
  gives us an opportunity to use a shorthand instead of needing to type out the
  full table names every time we mention a column. It can also be used in our 
  SELECT line to name columns in our resultant table
@@ -325,9 +325,9 @@ new statements in this query:
  which column to search in airline to find "United Air Lines Inc."
 
 JOIN statements are key when using SQL to display data. This is what allows SQL
-databases to be in such nice and concise forms.
+databases to be in such nice and concise structures.
 
-Now let's also add in the values from the "airports" table so that we get the full names of the airports instead of their three digit codes:
+Now let's also add in the values from the "airports" table so that we get the full names of the airports instead of their three-digit codes:
 ```{python}
 query = """
 SELECT DISTINCT a.name AS airline_name,
@@ -344,7 +344,7 @@ INNER JOIN airports AS dest
 pd.read_sql_query(query, nycconn).head()
 ```
 
-Here we use three different INNER JOIN statements to connect the two tables
+Here we use three different INNER JOIN statements to connect the three tables
 properly. The reason we use two JOIN statements to connect the same "airports"
 table is to have SQL be able to look separately for the origin and destination
 airport names. This query also utilizes indenting to make the query far more
@@ -443,7 +443,7 @@ clutters the table, making it difficult to read. It would be much better if the
 database wasn't just one table and instead was formatted like the 
 nycflights13.db
 
-Take note that we have began using our other connection (srconn instead of 
+Take note that we have begun using our other connection (srconn instead of 
 nycconn) because we are working with our other database.
 
 Thankfully, SQL makes it very simple to create new tables from the results of a
@@ -515,11 +515,11 @@ return an error. The order is as follows:
 
 ### Conclusion
 SQL makes working with large datasets much easier by organizing databases and 
-simplifying the process of displaying data. Using both the queries shown here as
-well as much more complicated queries, one can turn complex tables into 
+simplifying the process of displaying data. Using either the queries shown here
+as well as much more complicated queries, one can turn complex tables into 
 databases that don't unnecessarily repeat data, and that consist of easily read
 tables.
 
 ### Further Readings
 1. [W3 Schools SQL Tutorial](https://www.w3schools.com/sql/default.asp)
-1. [SQLite Tutorial (downloading SQLite not necessary)](https://www.sqlitetutorial.net/)
+2. [SQLite Tutorial (downloading SQLite not necessary)](https://www.sqlitetutorial.net/)
