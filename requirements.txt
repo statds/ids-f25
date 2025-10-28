@@ -78,6 +78,7 @@ notebook==7.4.5
 notebook_shim==0.2.4
 numba==0.61.2
 numpy==2.2.6
+nycflights13==0.0.3
 openml==0.15.1
 packaging==25.0
 pandas==2.3.2
