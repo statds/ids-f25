@@ -232,7 +232,51 @@ pd.read_sql_query(query, nycconn).head()
 ```
 
 #### COUNT
-An easy way to see all of the 
+An easy way in SQL to see the total number of rows that fit the conditions you've specified:
+```{python}
+query = """
+SELECT COUNT(DISTINCT dest)
+FROM flights
+WHERE NOT (origin = 'LGA' OR dest = 'ATL')
+ORDER BY origin, dest;
+"""
+pd.read_sql_query(query, nycconn).head()
+```
+
+This returns the number of distinct destinations that fit the specified criteria
+
+#### LIMIT
+If you don't want to use .head() to only display the first few rows, this can be
+done in SQL using a LIMIT statement:
+```{python}
+query = """
+SELECT DISTINCT carrier, origin, dest
+FROM flights
+WHERE carrier = 'UA'
+ORDER BY origin, dest
+LIMIT 5;
+"""
+pd.read_sql_query(query, nycconn)
+```
+
+This query added the "carrier" column that displays the airline that held the flight. We specified that we want all flights from the "UA" airline and limited
+the result to 5 rows.
+
+An interesting thing you can do with conditionals in SQL is to filter by values
+in a column that you are not displaying:
+```{python}
+query = """
+SELECT DISTINCT origin, dest
+FROM flights
+WHERE carrier = 'UA'
+ORDER BY origin, dest
+LIMIT 5;
+"""
+pd.read_sql_query(query, nycconn)
+```
+
+Here we still filter by flights from the "UA" airline but we don't display the
+column as that would be very redundant.
 
 ### Joins
 
