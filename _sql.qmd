@@ -5,7 +5,8 @@ This section was prepared by Lewis Milun.
 ### Introduction
 Structured Query Language (SQL) is one of the standard languages that is used 
 to work with large databases. It uses tables to store and display data, 
-creating an organized and comprehendable interface that makes it far easier to track and view your data.
+creating an organized and comprehendable interface that makes it far easier to
+track and view your data.
 
 Some advantages of using SQL include its ability to handle large amounts of data
 while simultaneously simplifying the process of screating, updating, and 
@@ -58,7 +59,8 @@ airports.to_sql("airports", nycconn, if_exists="replace", index=False)
 
 What this does is converts the three pandas dataframes into tables in the sql
 database. The if_exists argument handles what would happen if there is already
-a table in the database with the same name. The index argument is determining whether or not the first column of the dataframe should be handled as the 
+a table in the database with the same name. The index argument is determining
+whether or not the first column of the dataframe should be handled as the 
 index of the table in the dataframe.
 
 #### serviceRequests Database
@@ -161,9 +163,76 @@ Here we replaced out "SELECT" statement with a "SELECT DISTINCT" statement. This
 tells SQL to only return the unique columns from the query.
 
 ### Conditionals
+Usually you wouldn't want to just return all rows or all unique rows from a table
+You instead will have conditions that determine which rows are relevant to your
+query
 
-Put matreials on topic 3 here.
+#### WHERE
+The way you can add conditionals to your query is by adding a "WHERE" line.
+Let's take the same list from the last section and filter it so that only the
+flights that departed from LGA are returned:
+```{python}
+query = """
+SELECT DISTINCT origin, dest
+FROM flights
+WHERE origin = 'LGA'
+ORDER BY origin, dest;
+"""
+pd.read_sql_query(query, nycconn).head()
+```
 
+You add conditionals in the "WHERE" line by using the following comparators:
+ - =
+ - <
+ - >
+ - <=
+ - >=
+ - !=
+
+Be careful of the type of the data in a particular column!
+
+#### AND, OR, and NOT
+You can add multiple conditionals by using AND, OR, and parenthesis
+```{python}
+query = """
+SELECT origin, dest
+FROM flights
+WHERE origin = 'LGA' AND dest = 'ATL'
+ORDER BY origin, dest;
+"""
+pd.read_sql_query(query, nycconn).head()
+```
+
+This uses AND to return all flights that departed from LGA and arrived in ATL
+
+We can also use OR to return all flights that either departed from LGA or 
+arrived in ATL:
+```{python}
+query = """
+SELECT DISTINCT origin, dest
+FROM flights
+WHERE origin = 'LGA' OR dest = 'ATL'
+ORDER BY origin, dest;
+"""
+pd.read_sql_query(query, nycconn).head()
+```
+
+When you want to get more complicated with your conditionals, parenthesis can
+be used to ensure SQL is correctly mixing the AND and OR statements.
+
+Use NOT to return the opposite of a statement:
+```{python}
+query = """
+SELECT DISTINCT origin, dest
+FROM flights
+WHERE NOT (origin = 'LGA' OR dest = 'ATL')
+ORDER BY origin, dest;
+"""
+pd.read_sql_query(query, nycconn).head()
+```
+
+#### COUNT
+An easy way to see all of the 
 
 ### Joins
 
