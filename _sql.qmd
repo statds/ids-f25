@@ -182,12 +182,12 @@ pd.read_sql_query(query, nycconn).head()
 ```
 
 You add conditionals in the "WHERE" line by using the following comparators:
- - =
- - <
- - >
- - <=
- - >=
- - !=
+ + =
+ + <
+ + >
+ + <=
+ + >=
+ + !=
 
 Be careful of the type of the data in a particular column!
 
@@ -310,13 +310,13 @@ pd.read_sql_query(query, nycconn).head()
 This is a much more complicated query that returns a table of the distinct
 airline, origin, and destinations in the flights database. We introduced three
 new statements in this query:
- - AS is similar to how "as" is used when importing packages in python. It
+ + AS is similar to how "as" is used when importing packages in python. It
  gives us an opportunity to use a shorthand instead of needing to type out the
  full table names every time we mention a column. It can also be used in our 
  SELECT line to name columns in our resultant table
- - INNER JOIN connects a new table to our query (in this case, the new table is
+ + INNER JOIN connects a new table to our query (in this case, the new table is
  airlines).
- - ON lets SQL know what column in each table it should use to connect the 
+ + ON lets SQL know what column in each table it should use to connect the 
  tables. Here we told SQL that in every row, when it reaches the carrier column
  in flights, it should use that as its reference for what row in airlines to use
  for values in this row. For example, in the first row, SQL saw that the carrier name in flights was "UA". SQL then looked in the carrier column in airlines and
@@ -352,9 +352,9 @@ readable.
 
 #### The difference between the three JOINs
 SQL has three different versions of JOIN statements:
- - INNER JOIN
- - LEFT JOIN
- - RIGHT JOIN
+ + INNER JOIN
+ + LEFT JOIN
+ + RIGHT JOIN
 
 This allows the user to determine what rows get included as a result of joining
 two tables. Let's take a look at the differences:
@@ -429,18 +429,17 @@ all rows from the airports table itself.
 
 ### Creating Tables
 
-Put links to further materials.
 
 ### Statement Order
 Statements in a SQL query must go in a certain order, otherwise the query will return an error. The order is as follows:
- - SELECT
- - FROM
- - JOIN
- - WHERE
- - GROUP BY
- - HAVING
- - ORDER BY
- - LIMIT/OFFSET
+ + SELECT
+ + FROM
+ + JOIN
+ + WHERE
+ + GROUP BY
+ + HAVING
+ + ORDER BY
+ + LIMIT/OFFSET
 
 ### Conclusion
 
