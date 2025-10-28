@@ -502,7 +502,8 @@ pd.read_sql_query(query, srconn).head()
 This process can be repeated to clean up messy tables and messy databases.
 
 ### Statement Order
-Statements in a SQL query must go in a certain order, otherwise the query will return an error. The order is as follows:
+Statements in a SQL query must go in a certain order, otherwise the query will
+return an error. The order is as follows:
  + SELECT
  + FROM
  + JOIN
@@ -513,7 +514,11 @@ Statements in a SQL query must go in a certain order, otherwise the query will r
  + LIMIT/OFFSET
 
 ### Conclusion
-
+SQL makes working with large datasets much easier by organizing databases and 
+simplifying the process of displaying data. Using both the queries shown here as
+well as much more complicated queries, one can turn complex tables into 
+databases that don't unnecessarily repeat data, and that consist of easily read
+tables.
 
 ### Further Readings
 1. [W3 Schools SQL Tutorial](https://www.w3schools.com/sql/default.asp)
