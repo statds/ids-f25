@@ -172,6 +172,49 @@ This produces a symmetric weight between 0 and 1 that preserves local
 topology, balances contributions across dense and sparse regions, and 
 yields a **uniform manifold** representation.
 
+```{python}
+#| fig-cap: "Graph with combined edge weights"
+#| echo: false
+#| message: false
+#| warning: false
+import matplotlib.pyplot as plt
+import numpy as np
+from sklearn.neighbors import NearestNeighbors
+
+np.random.seed(3255)
+
+# 25 noisy sine points
+x = np.sort(np.random.rand(25) * 8)
+y = np.sin(x) + 0.1 * np.random.randn(len(x))
+X = np.column_stack((x, y))
+
+# Find 4 nearest neighbors
+k = 4
+nbrs = NearestNeighbors(n_neighbors=k+1).fit(X)
+distances, indices = nbrs.kneighbors(X)
+
+# Compute sigma for fuzzy weights
+sigma = np.mean(distances[:, 1:])
+
+fig, ax = plt.subplots(figsize=(10,6))
+ax.scatter(x, y, color='blue', zorder=3)
+
+# Draw weighted edges
+for i, (xi, yi) in enumerate(X):
+    for j in range(1, k+1):  # skip self
+        neighbor_idx = indices[i, j]
+        xj, yj = X[neighbor_idx]
+        d = distances[i, j]
+        w = np.exp(-d / sigma)  # fuzzy weight
+        ax.plot([xi, xj], [yi, yj], color='blue', alpha=w, lw=w*3, zorder=1)  
+
+ax.set_aspect('equal', adjustable='datalim')
+ax.set_xlim(0, 8)
+ax.axis('off')
+plt.show()
+
+```
+
 #### Finding a low-dimensional representation
 After building the fuzzy simplicial set (the weighted neighborhood graph), 
 UMAP tries to embed the points in a low-dimensional space (e.g., 2D or 3D) 
