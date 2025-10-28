@@ -79,8 +79,33 @@ Here we imported the dataframe we got from the csv file as the only table in the
 serviceRequests.db database.
 
 ### Query Basics
+Now we can move onto working with the data in our SQL databases. The most common
+use for SQL is writing a "query" which is a statement sent to the SQL databse
+that returns a selection of rows and columns from the tables in a database.
 
-Put materials on topic 2 here.
+We will be looking at the "flights" table in our nycflights13 database for this
+seciton.
+
+#### SELECT and FROM
+The following is the most basic possible query one can perform:
+```{python}
+query = """
+SELECT *
+FROM flights;
+"""
+pd.read_sql_query(query, nycconn).head()
+```
+
+This snippet represents the basic form of writing SQL queries in python. We
+create a variable 'query' that contains the statement we intend to pass into 
+SQL. The last line then uses the nycconn connection we created earlier to pass
+our query into SQL and it returns the head() of the result we get back.
+
+This query is the most basic query, as it returns the entire flights table. The
+SELECT line of the query is where you put the names of which columns you want 
+from your table. You specify which table you want to work with on the FROM line.
+We put "*" in our SELECT line which returns all columns.
+All SQL queries must end with ";", otherwise you'll get an error.
 
 ### Conditionals
 
