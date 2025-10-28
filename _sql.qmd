@@ -65,12 +65,12 @@ index of the table in the dataframe.
 First, we need to import our serviceRequests data from the csv in the data
 folder:
 ```{python}
-df = pd.read_csv("data/serviceRequests06-09-2025_07-05-2025")
+df = pd.read_csv("data/serviceRequests06-09-2025_07-05-2025.csv")
 ```
 
 Now we need to repeat the process from nycflights13 but for our serviceRequests:
 ```{python}
-srconn = sqllite3.connect("serviceRequests.db")
+srconn = sqlite3.connect("serviceRequests.db")
 
 df.to_sql("requests", srconn, if_exists="replace", index=False)
 ```
@@ -106,6 +106,59 @@ SELECT line of the query is where you put the names of which columns you want
 from your table. You specify which table you want to work with on the FROM line.
 We put "*" in our SELECT line which returns all columns.
 All SQL queries must end with ";", otherwise you'll get an error.
+
+Now let's try to simplify what we're seeing by only looking at the origins and
+destinations of the flights:
+```{python}
+query = """
+SELECT origin, dest
+FROM flights;
+"""
+pd.read_sql_query(query, nycconn).head()
+```
+
+Here we replaced the "*" in our SELECT statement with "origin, dest"
+This told SQL to only return those two columns from the database.
+
+#### ORDER BY
+These columns are quite messy to look at so let's try sorting them by origin:
+```{python}
+query = """
+SELECT origin, dest
+FROM flights
+ORDER BY origin;
+"""
+pd.read_sql_query(query, nycconn).head()
+```
+
+Here we added a new "SORTBY" line. This line tells SQL what columns to sort 
+the list by.
+
+You can sort by multiple columns just by listing them with commas in between:
+```{python}
+query = """
+SELECT origin, dest
+FROM flights
+ORDER BY origin, dest;
+"""
+pd.read_sql_query(query, nycconn).head()
+```
+
+#### SELECT DISTINCT
+Now that the list is properly sorted, we can see that there are multiple flights
+from each origin to destination combination. If we want to only see the unique
+columns, we can do this:
+```{python}
+query = """
+SELECT DISTINCT origin, dest
+FROM flights
+ORDER BY origin, dest;
+"""
+pd.read_sql_query(query, nycconn).head()
+```
+
+Here we replaced out "SELECT" statement with a "SELECT DISTINCT" statement. This
+tells SQL to only return the unique columns from the query.
 
 ### Conditionals
 
