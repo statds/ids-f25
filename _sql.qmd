@@ -279,15 +279,168 @@ Here we still filter by flights from the "UA" airline but we don't display the
 column as that would be very redundant.
 
 ### Joins
+The last query that we did was useful, however it isn't realistic to expect
+users to memorize the two digit codes for all airlines. Thankfully, there is the
+airlines table in our nycflights13.db database. Let's take a look at it:
+```{python} 
+query = """
+SELECT *
+FROM airlines;
+"""
+pd.read_sql_query(query, nycconn).head()
+```
 
-Put sumaries here.
+This table is much simpler than the "flights" table as it only has two columns.
+
+#### INNER JOIN
+Logically, we wouldn't want our outputted table to display the two digit code 
+that represents each airline but instead we'd want to see the name of the 
+airline. Thankfully, SQL has a way to join the data from the two tables 
+together:
+```{python}
+query = """
+SELECT DISTINCT a.name AS airline_name, f.origin, f.dest
+FROM flights AS f
+INNER JOIN airlines AS a
+ON f.carrier = a.carrier;
+"""
+pd.read_sql_query(query, nycconn).head()
+```
+
+This is a much more complicated query that returns a table of the distinct
+airline, origin, and destinations in the flights database. We introduced three
+new statements in this query:
+ - AS is similar to how "as" is used when importing packages in python. It
+ gives us an opportunity to use a shorthand instead of needing to type out the
+ full table names every time we mention a column. It can also be used in our 
+ SELECT line to name columns in our resultant table
+ - INNER JOIN connects a new table to our query (in this case, the new table is
+ airlines).
+ - ON lets SQL know what column in each table it should use to connect the 
+ tables. Here we told SQL that in every row, when it reaches the carrier column
+ in flights, it should use that as its reference for what row in airlines to use
+ for values in this row. For example, in the first row, SQL saw that the carrier name in flights was "UA". SQL then looked in the carrier column in airlines and
+ found the row in which "UA" was the value in that table's carrier column. So 
+ when SQL was calculating the value for airline_name in the first row, it knew 
+ which column to search in airline to find "United Air Lines Inc."
+
+JOIN statements are key when using SQL to display data. This is what allows SQL
+databases to be in such nice and concise forms.
+
+Now let's also add in the values from the "airports" table so that we get the full names of the airports instead of their three digit codes:
+```{python}
+query = """
+SELECT DISTINCT a.name AS airline_name,
+       orig.name AS origin_name,
+       dest.name AS dest_name
+FROM flights AS f
+INNER JOIN airlines AS a
+    ON f.carrier = a.carrier
+INNER JOIN airports AS orig
+    ON f.origin = orig.faa
+INNER JOIN airports AS dest
+    ON f.dest = dest.faa;
+"""
+pd.read_sql_query(query, nycconn).head()
+```
+
+Here we use three different INNER JOIN statements to connect the two tables
+properly. The reason we use two JOIN statements to connect the same "airports"
+table is to have SQL be able to look separately for the origin and destination
+airport names. This query also utilizes indenting to make the query far more
+readable.
+
+#### The difference between the three JOINs
+SQL has three different versions of JOIN statements:
+ - INNER JOIN
+ - LEFT JOIN
+ - RIGHT JOIN
+
+This allows the user to determine what rows get included as a result of joining
+two tables. Let's take a look at the differences:
+##### INNER JOIN
+```{python}
+query = """
+SELECT DISTINCT f.flight,
+       a.name AS airline_name,
+       orig.name AS origin_name,
+       dest.name AS dest_name
+FROM flights AS f
+INNER JOIN airlines AS a
+    ON f.carrier = a.carrier
+INNER JOIN airports AS orig
+    ON f.origin = orig.faa
+INNER JOIN airports AS dest
+    ON f.dest = dest.faa;
+"""
+pd.read_sql_query(query, nycconn).head()
+```
+
+INNER JOIN is the most common. This is because the result will only include rows in which the values in question are included in both tables. For example, if 
+there was a row in flights that included an airline code that was not present in
+airlines, then SQL will not include that row in the result.
+
+##### LEFT JOIN
+```{python}
+query = """
+SELECT DISTINCT f.flight,
+    a.name AS airline_name,
+    orig.name AS origin_name,
+    dest.name AS dest_name
+FROM flights AS f
+LEFT JOIN airlines AS a
+    ON f.carrier = a.carrier
+LEFT JOIN airports AS orig
+    ON f.origin = orig.faa
+LEFT JOIN airports AS dest
+    ON f.dest = dest.faa;
+"""
+pd.read_sql_query(query, nycconn).head()
+```
+
+LEFT JOIN will return all rows that are in flights regardless of if SQL was able
+to find matching rows on the other tables. This is perfectly represented in the
+fourth row of the output. On flights, the destination for flight 725 is "BQN"
+which is not an airport on the airports table. If you look back to the result of
+the INNER JOIN, this row was removed from the result however it is present here
+because we used flights as our only reference for rows and therefore the row is
+included but the destination name is left as "None"
+
+##### RIGHT JOIN
+```{python}
+query = """
+SELECT DISTINCT f.flight,
+    f.origin,
+    dest.name AS dest_name
+FROM flights AS f
+RIGHT JOIN airports AS dest
+    ON f.dest = dest.faa;
+"""
+pd.read_sql_query(query, nycconn)
+```
+
+RIGHT JOIN is basically the opposite of LEFT JOIN. Instead of using flights as
+its basis for what rows to include, RIGHT JOIN uses the joined tables instead.
+As you can see, the fourth row is being skipped again because the airports 
+table is being used as reference instead. Also, the table ends with rows for all
+destinations from the airports table. SQL includes them because it is looking 
+for all rows that include destinations from the airports table. This includes 
+all rows from the airports table itself.
 
 ### Creating Tables
 
 Put links to further materials.
 
 ### Statement Order
-
+Statements in a SQL query must go in a certain order, otherwise the query will return an error. The order is as follows:
+ - SELECT
+ - FROM
+ - JOIN
+ - WHERE
+ - GROUP BY
+ - HAVING
+ - ORDER BY
+ - LIMIT/OFFSET
 
 ### Conclusion
 
