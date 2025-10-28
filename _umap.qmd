@@ -43,17 +43,17 @@ utilized forclustering, data visualization, and data exploration.
 - often slower than UMAP for large datasets
 
 ### Algorithm Approach and Intuition
-UMAP is a graph-based dimensionality reduction algorithm rooted in algebraic
+UMAP is a **graph-based dimensionality reduction algorithm** rooted in algebraic
 topology. It represents data as a fuzzy graph and finds a low-dimensional
-embedding that preserves both local neighborhoods and global structure.
+embedding that preserves both **local neighborhoods** and **global structure**.
 
 #### Mathematical Foundations
 
-1. Riemannian Manifold
+1. **Riemannian Manifold** -
 UMAP assumes the data lies on a Riemannian manifold, 
 a smoothly curved surface embedded in high-dimensional space.
 
-1. Simplicial Sets
+1. **Simplicial Sets** - 
 From algebraic topology, a simplex is the simplest geometric building 
 block (a point, line, triangle, etc.), and a simplicial complex describes
 how these pieces connect to form a space. Geometrically a k-simplex is a 
@@ -88,11 +88,11 @@ plt.show()
 ```
 
 How do we represent this data as a manifold? UMAP uses the concept of simplicial
-sets and topology and adapts them to fuzzy simplicial sets and metric space.
+sets and topology and adapts them to **fuzzy simplicial sets** and metric space.
 
 
 ##### Finding nearest neighbors
-For each point we find the nearest neighbors. This hyperparameter controls
+For each point we find the nearest neighbors. The `nneighbors` hyperparameter controls
 how local or global we want our structure to be. A large amount of neighbors
 represent the manifold more accurately as a whole and a smaller number would
 capture fine details of the structure.
@@ -140,7 +140,7 @@ plt.show()
 
 ##### Constructing a neighborhood graph
 
-UMAP represents high-dimensional data as a fuzzy simplicial set, capturing the 
+UMAP represents high-dimensional data as a **fuzzy simplicial set**, capturing the 
 local connectivity of points. For each point, a fuzzy membership weight is 
 assigned to its neighbors:
 
@@ -170,14 +170,50 @@ $$
 
 This produces a symmetric weight between 0 and 1 that preserves local 
 topology, balances contributions across dense and sparse regions, and 
-yields a uniform manifold representation.
+yields a **uniform manifold** representation.
 
 #### Finding a low-dimensional representation
+After building the fuzzy simplicial set (the weighted neighborhood graph), 
+UMAP tries to embed the points in a low-dimensional space (e.g., 2D or 3D) 
+while preserving the relationships encoded in the graph. This is done by 
+optimizing a cost function.
+
 ##### Minimum Distance
+The `min_dist` parameter controls how close points can be in the 
+low-dimensional embedding:  
+
+- **Small `min_dist`** - points can be closer together, resulting in 
+  **dense clusters** that preserve fine local structure.  
+- **Large `min_dist`** - points are forced farther apart, producing 
+  **spread-out clusters** that highlight global relationships.  
+
+In other words, `min_dist` adjusts the **tightness of clusters** in 
+the embedding without changing the underlying topology of the data.  
 
 
 ##### Minimizing the cost function (Cross-Entropy)
+After constructing the fuzzy simplicial set and initializing 
+the low-dimensional embedding, UMAP positions the points by 
+**minimizing a cross-entropy-like cost function**:
 
+$$
+C = \sum_{i \neq j} \Big[ w_{ij} \log \frac{w_{ij}}{w_{ij}^{(\text{low})}} + 
+(1 - w_{ij}) \log \frac{1 - w_{ij}}{1 - w_{ij}^{(\text{low})}} \Big]
+$$
+
+- $w_{ij}$ = high-dimensional fuzzy weight between points $i$ and $j$  
+- $w_{ij}^{(\text{low})}$ = corresponding low-dimensional embedding weight  
+
+**Intuition:**  
+
+1. If two points are **strongly connected** in high dimensions (large $w_{ij}$), 
+   the embedding tries to place them **close together**.  
+2. If two points are **weakly connected** (small $w_{ij}$), the embedding tries 
+   to place them **far apart**.  
+
+UMAP uses **stochastic gradient descent** to minimize this cost function, 
+adjusting the coordinates of points in low dimensions so that the embedding 
+preserves both **local neighborhoods** and **global manifold structure**.
 
 ### Practical Example
 
