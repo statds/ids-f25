@@ -3,20 +3,63 @@
 This section was prepared by Lewis Milun.
 
 ### Introduction
+Structured Query Language (SQL) is one of the standard languages that is used 
+to work with large databases. It uses tables to store and display data, 
+creating an organized and comprehendable interface that makes it far easier to track and view your data.
 
-Here is an overview.
+Some advantages of using SQL include its ability to handle large amounts of data
+while simultaneously simplifying the process of screating, updating, and 
+retrieving any data you may want.
+
+The biggest advantage of using SQL for the purposes of this class, is that it
+can very easily connect with python and R. This makes it so that we can have
+all of the benefits of working with SQL while still working in the python
+environment we already have set up.
 
 ### Setting up Databases
+In this section, we will be working with two databases, one that's built into
+a python package (nycflights13) and one that we used for our midterm project 
+(311 Service Requests)
 
-Put materials on topic 1 here
+#### nycflights13
+This database is built into the pandas package and includes flight data for all
+flights that left New York City airports in 2013. The database includes several
+tables including ones that detail each flight, airline, airport, and much more
+info regarding the flights. The data in this database is contained across 
+several tables. Data stored like this would typically be irritating to deal with
+however it is proven simple when working with SQL.
 
-Python examples can be put into `python` code chunks:
-
+To set up this database, we need to import the proper packages:
 ```{python}
-# import pandas as pd
-
-# do something
+import sqlite3
+import pandas as pd
+from nycflights13 import flights, airlines, airports
 ```
+
+Here we imported "sqlite3" which is the package to import when working with SQL.
+We also imported "pandas" which also includes the nycflights13 database and from
+there imported the three tables we will be working with.
+
+Now, we want to establish the connection between python and our sql database:
+```{python}
+nycconn = sqlite3.connect("nycflights13.db")
+```
+
+This snippet both creates the nycflights13.db database and establishes nycconn as
+our connection to this database.
+
+Next step is to add the three tables we imported from nycflights13 to the 
+database:
+```{python}
+flights.to_sql("flights", nycconn, if_exists="replace", index=False)
+airlines.to_sql("airlines", nycconn, if_exists="replace", index=False)
+airports.to_sql("airports", nycconn, if_exists="replace", index=False)
+```
+
+What this does is converts the three pandas dataframes into tables in the sql
+database. The if_exists argument handles what would happen if there is already
+a table in the database with the same name. The index argument is determining whether or not the first column of the dataframe should be handled as the 
+index of the table in the dataframe.
 
 ### Query Basics
 
