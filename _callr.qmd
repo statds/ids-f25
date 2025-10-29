@@ -96,7 +96,7 @@ Find the Extensions tab on the left toolbar, search R language and install the
 R extension for VS code. And you can use `Ctrl+Shift+P` and type 
 `R: Create R terminal`.
 
-Calling R in Python:
+**Calling R in Python:**
 
 We will use the package `rpy2` to call R from Python, there are also other
 packages that can call R, check [Additional resources](#more-resources).
