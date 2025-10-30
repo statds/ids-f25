@@ -85,7 +85,7 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./90-advanced.html" rel="next">
+<link href="./11-unsupervised.html" rel="next">
 <link href="./09-classification.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -262,14 +262,20 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./11-unsupervised.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Unsupervised Learning</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./90-advanced.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Advanced Topics</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Advanced Topics</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Exercises</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Exercises</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -288,29 +294,30 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#decision-trees" id="toc-decision-trees" class="nav-link active" data-scroll-target="#decision-trees"><span class="header-section-number">10.1</span> Decision Trees</a>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">10.1</span> Introduction</a></li>
+  <li><a href="#decision-trees" id="toc-decision-trees" class="nav-link" data-scroll-target="#decision-trees"><span class="header-section-number">10.2</span> Decision Trees</a>
   <ul class="collapse">
-  <li><a href="#recursive-partition-algorithm" id="toc-recursive-partition-algorithm" class="nav-link" data-scroll-target="#recursive-partition-algorithm"><span class="header-section-number">10.1.1</span> Recursive Partition Algorithm</a></li>
-  <li><a href="#search-space-for-possible-splits" id="toc-search-space-for-possible-splits" class="nav-link" data-scroll-target="#search-space-for-possible-splits"><span class="header-section-number">10.1.2</span> Search Space for Possible Splits</a></li>
-  <li><a href="#metrics" id="toc-metrics" class="nav-link" data-scroll-target="#metrics"><span class="header-section-number">10.1.3</span> Metrics</a></li>
-  <li><a href="#ames-housing-example" id="toc-ames-housing-example" class="nav-link" data-scroll-target="#ames-housing-example"><span class="header-section-number">10.1.4</span> Ames Housing Example</a></li>
+  <li><a href="#recursive-partition-algorithm" id="toc-recursive-partition-algorithm" class="nav-link" data-scroll-target="#recursive-partition-algorithm"><span class="header-section-number">10.2.1</span> Recursive Partition Algorithm</a></li>
+  <li><a href="#search-space-for-possible-splits" id="toc-search-space-for-possible-splits" class="nav-link" data-scroll-target="#search-space-for-possible-splits"><span class="header-section-number">10.2.2</span> Search Space for Possible Splits</a></li>
+  <li><a href="#metrics" id="toc-metrics" class="nav-link" data-scroll-target="#metrics"><span class="header-section-number">10.2.3</span> Metrics</a></li>
+  <li><a href="#ames-housing-example" id="toc-ames-housing-example" class="nav-link" data-scroll-target="#ames-housing-example"><span class="header-section-number">10.2.4</span> Ames Housing Example</a></li>
   </ul></li>
-  <li><a href="#gradient-boosted-models" id="toc-gradient-boosted-models" class="nav-link" data-scroll-target="#gradient-boosted-models"><span class="header-section-number">10.2</span> Gradient-Boosted Models</a>
+  <li><a href="#gradient-boosted-models" id="toc-gradient-boosted-models" class="nav-link" data-scroll-target="#gradient-boosted-models"><span class="header-section-number">10.3</span> Gradient-Boosted Models</a>
   <ul class="collapse">
-  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction"><span class="header-section-number">10.2.1</span> Introduction</a></li>
-  <li><a href="#gradient-boosting-process" id="toc-gradient-boosting-process" class="nav-link" data-scroll-target="#gradient-boosting-process"><span class="header-section-number">10.2.2</span> Gradient Boosting Process</a></li>
-  <li><a href="#boosted-trees-with-ames-housing" id="toc-boosted-trees-with-ames-housing" class="nav-link" data-scroll-target="#boosted-trees-with-ames-housing"><span class="header-section-number">10.2.3</span> Boosted Trees with Ames Housing</a></li>
-  <li><a href="#xgboost-extreme-gradient-boosting" id="toc-xgboost-extreme-gradient-boosting" class="nav-link" data-scroll-target="#xgboost-extreme-gradient-boosting"><span class="header-section-number">10.2.4</span> XGBoost: Extreme Gradient Boosting</a></li>
+  <li><a href="#introduction-1" id="toc-introduction-1" class="nav-link" data-scroll-target="#introduction-1"><span class="header-section-number">10.3.1</span> Introduction</a></li>
+  <li><a href="#gradient-boosting-process" id="toc-gradient-boosting-process" class="nav-link" data-scroll-target="#gradient-boosting-process"><span class="header-section-number">10.3.2</span> Gradient Boosting Process</a></li>
+  <li><a href="#boosted-trees-with-ames-housing" id="toc-boosted-trees-with-ames-housing" class="nav-link" data-scroll-target="#boosted-trees-with-ames-housing"><span class="header-section-number">10.3.3</span> Boosted Trees with Ames Housing</a></li>
+  <li><a href="#xgboost-extreme-gradient-boosting" id="toc-xgboost-extreme-gradient-boosting" class="nav-link" data-scroll-target="#xgboost-extreme-gradient-boosting"><span class="header-section-number">10.3.4</span> XGBoost: Extreme Gradient Boosting</a></li>
   </ul></li>
-  <li><a href="#neural-networks" id="toc-neural-networks" class="nav-link" data-scroll-target="#neural-networks"><span class="header-section-number">10.3</span> Neural Networks</a>
+  <li><a href="#neural-networks" id="toc-neural-networks" class="nav-link" data-scroll-target="#neural-networks"><span class="header-section-number">10.4</span> Neural Networks</a>
   <ul class="collapse">
-  <li><a href="#structure-of-a-neural-network" id="toc-structure-of-a-neural-network" class="nav-link" data-scroll-target="#structure-of-a-neural-network"><span class="header-section-number">10.3.1</span> Structure of a Neural Network</a></li>
-  <li><a href="#mathematical-formulation" id="toc-mathematical-formulation" class="nav-link" data-scroll-target="#mathematical-formulation"><span class="header-section-number">10.3.2</span> Mathematical Formulation</a></li>
-  <li><a href="#network-diagram" id="toc-network-diagram" class="nav-link" data-scroll-target="#network-diagram"><span class="header-section-number">10.3.3</span> Network Diagram</a></li>
-  <li><a href="#activation-functions" id="toc-activation-functions" class="nav-link" data-scroll-target="#activation-functions"><span class="header-section-number">10.3.4</span> Activation Functions</a></li>
-  <li><a href="#training-neural-networks" id="toc-training-neural-networks" class="nav-link" data-scroll-target="#training-neural-networks"><span class="header-section-number">10.3.5</span> Training Neural Networks</a></li>
-  <li><a href="#regularization-and-overfitting" id="toc-regularization-and-overfitting" class="nav-link" data-scroll-target="#regularization-and-overfitting"><span class="header-section-number">10.3.6</span> Regularization and Overfitting</a></li>
-  <li><a href="#example-a-simple-feed-forward-network" id="toc-example-a-simple-feed-forward-network" class="nav-link" data-scroll-target="#example-a-simple-feed-forward-network"><span class="header-section-number">10.3.7</span> Example: A Simple Feed-Forward Network</a></li>
+  <li><a href="#structure-of-a-neural-network" id="toc-structure-of-a-neural-network" class="nav-link" data-scroll-target="#structure-of-a-neural-network"><span class="header-section-number">10.4.1</span> Structure of a Neural Network</a></li>
+  <li><a href="#mathematical-formulation" id="toc-mathematical-formulation" class="nav-link" data-scroll-target="#mathematical-formulation"><span class="header-section-number">10.4.2</span> Mathematical Formulation</a></li>
+  <li><a href="#network-diagram" id="toc-network-diagram" class="nav-link" data-scroll-target="#network-diagram"><span class="header-section-number">10.4.3</span> Network Diagram</a></li>
+  <li><a href="#activation-functions" id="toc-activation-functions" class="nav-link" data-scroll-target="#activation-functions"><span class="header-section-number">10.4.4</span> Activation Functions</a></li>
+  <li><a href="#training-neural-networks" id="toc-training-neural-networks" class="nav-link" data-scroll-target="#training-neural-networks"><span class="header-section-number">10.4.5</span> Training Neural Networks</a></li>
+  <li><a href="#regularization-and-overfitting" id="toc-regularization-and-overfitting" class="nav-link" data-scroll-target="#regularization-and-overfitting"><span class="header-section-number">10.4.6</span> Regularization and Overfitting</a></li>
+  <li><a href="#example-a-simple-feed-forward-network" id="toc-example-a-simple-feed-forward-network" class="nav-link" data-scroll-target="#example-a-simple-feed-forward-network"><span class="header-section-number">10.4.7</span> Example: A Simple Feed-Forward Network</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -337,11 +344,14 @@ window.Quarto = {
 </header>
 
 
-<section id="decision-trees" class="level2" data-number="10.1">
-<h2 data-number="10.1" class="anchored" data-anchor-id="decision-trees"><span class="header-section-number">10.1</span> Decision Trees</h2>
+<section id="introduction" class="level2" data-number="10.1">
+<h2 data-number="10.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">10.1</span> Introduction</h2>
+</section>
+<section id="decision-trees" class="level2" data-number="10.2">
+<h2 data-number="10.2" class="anchored" data-anchor-id="decision-trees"><span class="header-section-number">10.2</span> Decision Trees</h2>
 <p>Decision trees are widely used supervised learning models that predict the value of a target variable by iteratively splitting the dataset based on decision rules derived from input features. The model functions as a piecewise constant approximation of the target function, producing clear, interpretable rules that are easily visualized and analyzed <span class="citation" data-cites="breiman1984classification">(<a href="references.html#ref-breiman1984classification" role="doc-biblioref">Breiman et al., 1984</a>)</span>. Decision trees are fundamental in both classification and regression tasks, serving as the building blocks for more advanced ensemble models such as Random Forests and Gradient Boosting Machines.</p>
-<section id="recursive-partition-algorithm" class="level3" data-number="10.1.1">
-<h3 data-number="10.1.1" class="anchored" data-anchor-id="recursive-partition-algorithm"><span class="header-section-number">10.1.1</span> Recursive Partition Algorithm</h3>
+<section id="recursive-partition-algorithm" class="level3" data-number="10.2.1">
+<h3 data-number="10.2.1" class="anchored" data-anchor-id="recursive-partition-algorithm"><span class="header-section-number">10.2.1</span> Recursive Partition Algorithm</h3>
 <p>The core mechanism of a decision tree algorithm is the identification of optimal splits that partition the data into subsets that are increasingly homogeneous with respect to the target variable. At any node <span class="math inline">\(m\)</span>, the data subset is denoted as <span class="math inline">\(Q_m\)</span> with a sample size of <span class="math inline">\(n_m\)</span>. The objective is to find a candidate split <span class="math inline">\(\theta\)</span>, defined as a threshold for a given feature, that minimizes an impurity or loss measure <span class="math inline">\(H\)</span>.</p>
 <p>When a split is made at node <span class="math inline">\(m\)</span>, the data is divided into two subsets: <span class="math inline">\(Q_{m,l}\)</span> (left node) with sample size <span class="math inline">\(n_{m,l}\)</span>, and <span class="math inline">\(Q_{m,r}\)</span> (right node) with sample size <span class="math inline">\(n_{m,r}\)</span>. The split quality, measured by <span class="math inline">\(G(Q_m, \theta)\)</span>, is given by:</p>
 <p><span class="math display">\[
@@ -358,8 +368,8 @@ G(Q_m, \theta) = \frac{n_{m,l}}{n_m} H(Q_{m,l}(\theta)) +
 <li><strong>Pruning:</strong> Reduce the complexity of the final tree by removing branches that add little predictive value. This reduces overfitting and improves generalization.</li>
 </ul>
 </section>
-<section id="search-space-for-possible-splits" class="level3" data-number="10.1.2">
-<h3 data-number="10.1.2" class="anchored" data-anchor-id="search-space-for-possible-splits"><span class="header-section-number">10.1.2</span> Search Space for Possible Splits</h3>
+<section id="search-space-for-possible-splits" class="level3" data-number="10.2.2">
+<h3 data-number="10.2.2" class="anchored" data-anchor-id="search-space-for-possible-splits"><span class="header-section-number">10.2.2</span> Search Space for Possible Splits</h3>
 <p>At each node, the search space for possible splits comprises all features in the dataset and potential thresholds derived from the feature values. For a given feature, the algorithm considers each of its unique value in the current node as a possible split point. The potential thresholds are typically set as midpoints between consecutive unique values, ensuring effective partition.</p>
 <p>Formally, let the feature set be <span class="math inline">\(\{X_1, X_2, \ldots, X_p\}\)</span>, where <span class="math inline">\(p\)</span> is the total number of features, and let the unique values of feature <span class="math inline">\(X_j\)</span> at node <span class="math inline">\(m\)</span> be denoted by <span class="math inline">\(\{v_{m,j,1}, v_{m,j,2}, \ldots, v_{m,j,k_{mj}}\}\)</span>. The search space at node <span class="math inline">\(m\)</span> includes:</p>
 <ul>
@@ -370,10 +380,10 @@ G(Q_m, \theta) = \frac{n_{m,l}}{n_m} H(Q_{m,l}(\theta)) +
 </ul>
 <p>While the complexity of this search can be substantial, particularly for high-dimensional data or features with numerous unique values, efficient algorithms use sorting and single-pass scanning techniques to mitigate the computational cost.</p>
 </section>
-<section id="metrics" class="level3" data-number="10.1.3">
-<h3 data-number="10.1.3" class="anchored" data-anchor-id="metrics"><span class="header-section-number">10.1.3</span> Metrics</h3>
-<section id="classification" class="level4" data-number="10.1.3.1">
-<h4 data-number="10.1.3.1" class="anchored" data-anchor-id="classification"><span class="header-section-number">10.1.3.1</span> Classification</h4>
+<section id="metrics" class="level3" data-number="10.2.3">
+<h3 data-number="10.2.3" class="anchored" data-anchor-id="metrics"><span class="header-section-number">10.2.3</span> Metrics</h3>
+<section id="classification" class="level4" data-number="10.2.3.1">
+<h4 data-number="10.2.3.1" class="anchored" data-anchor-id="classification"><span class="header-section-number">10.2.3.1</span> Classification</h4>
 <p>In classification, the split quality metric measures how pure the resulting nodes are after a split. A pure node contains observations that predominantly belong to a single class.</p>
 <ul>
 <li><p><strong>Gini Index</strong>: The Gini index measures node impurity by the probability that two observations randomly drawn from the node belong to different classes. A perfect split (all instances belong to one class) has a Gini index of 0. At node <span class="math inline">\(m\)</span>, the Gini index is <span class="math display">\[
@@ -389,8 +399,8 @@ H(Q_m) = 1 - \max_k p_{mk},
 \]</span> where <span class="math inline">\(\max_k p_{mk}\)</span> is the largest proportion of samples belonging to any class <span class="math inline">\(k\)</span>.</p></li>
 </ul>
 </section>
-<section id="regression-criteria" class="level4" data-number="10.1.3.2">
-<h4 data-number="10.1.3.2" class="anchored" data-anchor-id="regression-criteria"><span class="header-section-number">10.1.3.2</span> Regression Criteria</h4>
+<section id="regression-criteria" class="level4" data-number="10.2.3.2">
+<h4 data-number="10.2.3.2" class="anchored" data-anchor-id="regression-criteria"><span class="header-section-number">10.2.3.2</span> Regression Criteria</h4>
 <p>In regression, the goal is to minimize the spread or variance of the target variable within each node.</p>
 <ul>
 <li><p><strong>Mean Squared Error (MSE):</strong> MSE is the average squared difference between observed and predicted values (mean of the target in the node). The smaller the MSE, the better the fit. At node <span class="math inline">\(m\)</span>, it is <span class="math display">\[
@@ -411,11 +421,11 @@ H(Q_m) = \frac{1}{n_m} \sum_{i=1}^{n_m} |y_i - \bar{y}_m|.
 </ul>
 </section>
 </section>
-<section id="ames-housing-example" class="level3" data-number="10.1.4">
-<h3 data-number="10.1.4" class="anchored" data-anchor-id="ames-housing-example"><span class="header-section-number">10.1.4</span> Ames Housing Example</h3>
+<section id="ames-housing-example" class="level3" data-number="10.2.4">
+<h3 data-number="10.2.4" class="anchored" data-anchor-id="ames-housing-example"><span class="header-section-number">10.2.4</span> Ames Housing Example</h3>
 <p>The Ames Housing data are used to illustrate a regression tree model for predicting log house price.</p>
 <p>As before, we retrive the data from <code>OpenML</code>.</p>
-<div id="5b8b998b" class="cell" data-execution_count="1">
+<div id="0f7788a7" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> openml</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -426,7 +436,7 @@ H(Q_m) = \frac{1}{n_m} \sum_{i=1}^{n_m} |y_i - \bar{y}_m|.
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"LogPrice"</span>] <span class="op">=</span> np.log(df[<span class="st">"SalePrice"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>A decision tree partitions the feature space into regions where the average log price is relatively constant.</p>
-<div id="15e8d557" class="cell" data-execution_count="2">
+<div id="10a61256" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.compose <span class="im">import</span> ColumnTransformer</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> OneHotEncoder</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.tree <span class="im">import</span> DecisionTreeRegressor</span>
@@ -475,7 +485,7 @@ H(Q_m) = \frac{1}{n_m} \sum_{i=1}^{n_m} |y_i - \bar{y}_m|.
 </div>
 </div>
 <p>Cross-validation identifies an appropriate tree depth that balances fit and generalization. A too-deep tree overfits, while a shallow tree misses structure.</p>
-<div id="4fbfc023" class="cell" data-execution_count="3">
+<div id="3fc8ecb8" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>dt <span class="op">=</span> Pipeline([</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"pre"</span>, preprocessor),</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"model"</span>, DecisionTreeRegressor(max_depth<span class="op">=</span><span class="dv">4</span>, random_state<span class="op">=</span><span class="dv">0</span>))</span>
@@ -503,11 +513,11 @@ H(Q_m) = \frac{1}{n_m} \sum_{i=1}^{n_m} |y_i - \bar{y}_m|.
 <!-- {{< include _random_forest.qmd >}} -->
 </section>
 </section>
-<section id="gradient-boosted-models" class="level2" data-number="10.2">
-<h2 data-number="10.2" class="anchored" data-anchor-id="gradient-boosted-models"><span class="header-section-number">10.2</span> Gradient-Boosted Models</h2>
+<section id="gradient-boosted-models" class="level2" data-number="10.3">
+<h2 data-number="10.3" class="anchored" data-anchor-id="gradient-boosted-models"><span class="header-section-number">10.3</span> Gradient-Boosted Models</h2>
 <p>Gradient boosting is a powerful ensemble technique in machine learning that combines multiple weak learners into a strong predictive model. Unlike bagging methods, which train models independently, gradient boosting fits models sequentially, with each new model correcting errors made by the previous ensemble <span class="citation" data-cites="friedman2001greedy">(<a href="references.html#ref-friedman2001greedy" role="doc-biblioref">Friedman, 2001</a>)</span>. While decision trees are commonly used as weak learners, gradient boosting can be generalized to other base models. This iterative method optimizes a specified loss function by repeatedly adding models designed to reduce residual errors.</p>
-<section id="introduction" class="level3" data-number="10.2.1">
-<h3 data-number="10.2.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">10.2.1</span> Introduction</h3>
+<section id="introduction-1" class="level3" data-number="10.3.1">
+<h3 data-number="10.3.1" class="anchored" data-anchor-id="introduction-1"><span class="header-section-number">10.3.1</span> Introduction</h3>
 <p>Gradient boosting builds on the general concept of boosting, aiming to construct a strong predictor from an ensemble of sequentially trained weak learners. The weak learners are often shallow decision trees (stumps), linear models, or generalized additive models <span class="citation" data-cites="hastie2009elements">(<a href="references.html#ref-hastie2009elements" role="doc-biblioref">Hastie et al., 2009</a>)</span>. Each iteration adds a new learner focusing primarily on the data points poorly predicted by the existing ensemble, thereby progressively enhancing predictive accuracy.</p>
 <p>Gradient boosting’s effectiveness stems from:</p>
 <ul>
@@ -517,8 +527,8 @@ H(Q_m) = \frac{1}{n_m} \sum_{i=1}^{n_m} |y_i - \bar{y}_m|.
 </ul>
 <p>The effectiveness of gradient-boosted models has made them popular across diverse tasks, including classification, regression, and ranking. Gradient boosting forms the foundation for algorithms such as XGBoost <span class="citation" data-cites="chen2016xgboost">(<a href="references.html#ref-chen2016xgboost" role="doc-biblioref">Chen &amp; Guestrin, 2016</a>)</span>, LightGBM <span class="citation" data-cites="ke2017lightgbm">(<a href="references.html#ref-ke2017lightgbm" role="doc-biblioref">Ke et al., 2017</a>)</span>, and CatBoost <span class="citation" data-cites="prokhorenkova2018catboost">(<a href="references.html#ref-prokhorenkova2018catboost" role="doc-biblioref">Prokhorenkova et al., 2018</a>)</span>, known for their high performance and scalability.</p>
 </section>
-<section id="gradient-boosting-process" class="level3" data-number="10.2.2">
-<h3 data-number="10.2.2" class="anchored" data-anchor-id="gradient-boosting-process"><span class="header-section-number">10.2.2</span> Gradient Boosting Process</h3>
+<section id="gradient-boosting-process" class="level3" data-number="10.3.2">
+<h3 data-number="10.3.2" class="anchored" data-anchor-id="gradient-boosting-process"><span class="header-section-number">10.3.2</span> Gradient Boosting Process</h3>
 <p>Gradient boosting builds an ensemble by iteratively minimizing the residual errors from previous models. This iterative approach optimizes a loss function, <span class="math inline">\(L(y, F(x))\)</span>, where <span class="math inline">\(y\)</span> represents the observed target variable and <span class="math inline">\(F(x)\)</span> the model’s prediction for a given feature vector <span class="math inline">\(x\)</span>.</p>
 <p>Key concepts:</p>
 <ul>
@@ -526,8 +536,8 @@ H(Q_m) = \frac{1}{n_m} \sum_{i=1}^{n_m} |y_i - \bar{y}_m|.
 <li>Learning Rate: Controls incremental updates, balancing training speed and generalization.</li>
 <li>Regularization: Reduces overfitting through tree depth limitation, subsampling, and L1/L2 penalties.</li>
 </ul>
-<section id="model-iteration" class="level4" data-number="10.2.2.1">
-<h4 data-number="10.2.2.1" class="anchored" data-anchor-id="model-iteration"><span class="header-section-number">10.2.2.1</span> Model Iteration</h4>
+<section id="model-iteration" class="level4" data-number="10.3.2.1">
+<h4 data-number="10.3.2.1" class="anchored" data-anchor-id="model-iteration"><span class="header-section-number">10.3.2.1</span> Model Iteration</h4>
 <p>The gradient boosting algorithm proceeds as follows:</p>
 <ol type="1">
 <li><p>Initialization: Define a base model <span class="math inline">\(F_0(x)\)</span>, typically the mean of the target variable for regression or the log-odds for classification.</p></li>
@@ -554,10 +564,10 @@ F_m(x) = F_{m-1}(x) + \eta\, \gamma_m\, h_m(x),
 <p>Stochastic gradient boosting is a variant that enhances gradient boosting by introducing randomness through subsampling at each iteration, selecting a random fraction of data points (typically 50%–80%) to fit the model . This randomness helps reduce correlation among trees, improve model robustness, and lower the risk of overfitting.</p>
 </section>
 </section>
-<section id="boosted-trees-with-ames-housing" class="level3" data-number="10.2.3">
-<h3 data-number="10.2.3" class="anchored" data-anchor-id="boosted-trees-with-ames-housing"><span class="header-section-number">10.2.3</span> Boosted Trees with Ames Housing</h3>
+<section id="boosted-trees-with-ames-housing" class="level3" data-number="10.3.3">
+<h3 data-number="10.3.3" class="anchored" data-anchor-id="boosted-trees-with-ames-housing"><span class="header-section-number">10.3.3</span> Boosted Trees with Ames Housing</h3>
 <p>Boosted trees apply the gradient boosting framework to decision trees. They build an ensemble of shallow trees, each trained to correct the residual errors of the preceding ones. By sequentially emphasizing observations that are difficult to predict, the model progressively improves its overall predictive accuracy. We now apply gradient boosting using the same preprocessed features. Boosting combines many shallow trees, each correcting the residual errors of its predecessors, to improve predictive accuracy.</p>
-<div id="009fa05e" class="cell" data-execution_count="4">
+<div id="783e4df5" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> GradientBoostingRegressor</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Define a range of tree counts for tuning</span></span>
@@ -587,7 +597,7 @@ F_m(x) = F_{m-1}(x) + \eta\, \gamma_m\, h_m(x),
 </div>
 </div>
 <p>Cross-validation shows how increasing the number of boosting rounds initially improves performance but eventually risks overfitting when too many trees are added.</p>
-<div id="08555586" class="cell" data-execution_count="5">
+<div id="b3851c1f" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>gb <span class="op">=</span> Pipeline([</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"pre"</span>, preprocessor),</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"model"</span>, GradientBoostingRegressor(</span>
@@ -625,8 +635,8 @@ F_m(x) = F_{m-1}(x) + \eta\, \gamma_m\, h_m(x),
 </ul>
 <p>In practice, moderate learning rates with a sufficiently large number of estimators and shallow trees often perform best, balancing bias, variance, and computational cost.</p>
 </section>
-<section id="xgboost-extreme-gradient-boosting" class="level3" data-number="10.2.4">
-<h3 data-number="10.2.4" class="anchored" data-anchor-id="xgboost-extreme-gradient-boosting"><span class="header-section-number">10.2.4</span> XGBoost: Extreme Gradient Boosting</h3>
+<section id="xgboost-extreme-gradient-boosting" class="level3" data-number="10.3.4">
+<h3 data-number="10.3.4" class="anchored" data-anchor-id="xgboost-extreme-gradient-boosting"><span class="header-section-number">10.3.4</span> XGBoost: Extreme Gradient Boosting</h3>
 <p>XGBoost is a scalable and efficient implementation of gradient-boosted decision trees <span class="citation" data-cites="chen2016xgboost">(<a href="references.html#ref-chen2016xgboost" role="doc-biblioref">Chen &amp; Guestrin, 2016</a>)</span>. It has become one of the most widely used machine learning methods for structured data due to its high predictive performance, regularization capabilities, and speed. XGBoost builds an ensemble of decision trees in a stage-wise fashion, minimizing a regularized objective that balances training loss and model complexity.</p>
 <p>The core idea of XGBoost is to fit each new tree to the <em>gradient</em> of the loss function with respect to the model’s predictions. Unlike traditional boosting algorithms like AdaBoost, which use only first-order gradients, XGBoost optionally uses second-order derivatives (Hessians), enabling better convergence and stability <span class="citation" data-cites="friedman2001greedy">(<a href="references.html#ref-friedman2001greedy" role="doc-biblioref">Friedman, 2001</a>)</span>.</p>
 <p>XGBoost is widely used in data science competitions and real-world applications. It supports regularization (L1 and L2), handles missing values internally, and is designed for distributed computing.</p>
@@ -696,8 +706,8 @@ F_m(x) = F_{m-1}(x) + \eta\, \gamma_m\, h_m(x),
 <!-- This section is to be included as a tutorial for geopands data. -->
 </section>
 </section>
-<section id="neural-networks" class="level2" data-number="10.3">
-<h2 data-number="10.3" class="anchored" data-anchor-id="neural-networks"><span class="header-section-number">10.3</span> Neural Networks</h2>
+<section id="neural-networks" class="level2" data-number="10.4">
+<h2 data-number="10.4" class="anchored" data-anchor-id="neural-networks"><span class="header-section-number">10.4</span> Neural Networks</h2>
 <p>Neural networks learn flexible, nonlinear relationships by composing simple computational units. Each unit (or <em>neuron</em>) applies an affine transformation to its inputs followed by a nonlinearity; stacking layers of such units yields a <strong>feed-forward</strong> mapping from features to predictions. A helpful anchor is logistic regression: it can be viewed as a one-layer neural network with a sigmoid activation. Hidden layers generalize this idea by transforming inputs into progressively more useful internal representations, enabling the model to capture complex patterns beyond linear decision boundaries.</p>
 <p>Historically, the field traces back to the early formal model of a neuron by <span class="citation" data-cites="mcculloch1943logical">McCulloch &amp; Pitts (<a href="references.html#ref-mcculloch1943logical" role="doc-biblioref">1943</a>)</span>, followed by Rosenblatt’s perceptron <span class="citation" data-cites="rosenblatt1958perceptron">(<a href="references.html#ref-rosenblatt1958perceptron" role="doc-biblioref">Rosenblatt, 1958</a>)</span>, which was the first trainable linear classifier. The limitations of single-layer perceptrons, notably their inability to model nonlinearly separable functions, were rigorously analyzed by <span class="citation" data-cites="minsky1969perceptrons">Minsky &amp; Papert (<a href="references.html#ref-minsky1969perceptrons" role="doc-biblioref">1969</a>)</span>, leading to a temporary decline in interest. The introduction of the backpropagation algorithm by <span class="citation" data-cites="rumelhart1986learning">Rumelhart et al. (<a href="references.html#ref-rumelhart1986learning" role="doc-biblioref">1986</a>)</span> revived the study of neural networks in the 1980s. With the growth of data, advances in hardware, and improved optimization methods, neural networks became the foundation for modern deep learning. Multilayer networks are universal function approximators in principle; in practice, their success depends on careful architectural design, efficient optimization, and appropriate regularization.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
@@ -728,12 +738,12 @@ Figure&nbsp;10.1: A minimal feed-forward neural network with an input layer (3 n
 </div>
 </div>
 </div>
-<section id="structure-of-a-neural-network" class="level3" data-number="10.3.1">
-<h3 data-number="10.3.1" class="anchored" data-anchor-id="structure-of-a-neural-network"><span class="header-section-number">10.3.1</span> Structure of a Neural Network</h3>
+<section id="structure-of-a-neural-network" class="level3" data-number="10.4.1">
+<h3 data-number="10.4.1" class="anchored" data-anchor-id="structure-of-a-neural-network"><span class="header-section-number">10.4.1</span> Structure of a Neural Network</h3>
 <p>A neural network is composed of <strong>layers</strong> of interconnected processing units called <em>neurons</em> or <em>nodes</em>. Each neuron receives inputs, applies a linear transformation, and passes the result through a nonlinear <strong>activation function</strong>. The layers are arranged sequentially so that information flows from input features to intermediate representations and finally to the output.</p>
 </section>
-<section id="mathematical-formulation" class="level3" data-number="10.3.2">
-<h3 data-number="10.3.2" class="anchored" data-anchor-id="mathematical-formulation"><span class="header-section-number">10.3.2</span> Mathematical Formulation</h3>
+<section id="mathematical-formulation" class="level3" data-number="10.4.2">
+<h3 data-number="10.4.2" class="anchored" data-anchor-id="mathematical-formulation"><span class="header-section-number">10.4.2</span> Mathematical Formulation</h3>
 <p>Let the input vector be <span class="math inline">\(x \in \mathbb{R}^{d}\)</span>. A hidden layer with <span class="math inline">\(m\)</span> neurons computes</p>
 <p><span class="math display">\[
 h = \sigma(Wx + b),
@@ -762,8 +772,8 @@ Backward propagation of gradients (discussed later) updates all weights based on
 </div>
 </div>
 </section>
-<section id="network-diagram" class="level3" data-number="10.3.3">
-<h3 data-number="10.3.3" class="anchored" data-anchor-id="network-diagram"><span class="header-section-number">10.3.3</span> Network Diagram</h3>
+<section id="network-diagram" class="level3" data-number="10.4.3">
+<h3 data-number="10.4.3" class="anchored" data-anchor-id="network-diagram"><span class="header-section-number">10.4.3</span> Network Diagram</h3>
 <p><a href="#fig-deep-network" class="quarto-xref">Figure&nbsp;<span>10.2</span></a> illustrates a feed-forward neural network with two hidden layers. Arrows indicate the direction of information flow from one layer to the next. Each connection carries a learnable weight, and nonlinear activations transform the signals as they propagate forward.</p>
 <div id="cell-fig-deep-network" class="cell" data-fig-format="svg" data-fig-height="4" data-fig-width="8" data-execution_count="7">
 <div class="cell-output cell-output-display">
@@ -793,8 +803,8 @@ Note
 </div>
 </div>
 </section>
-<section id="activation-functions" class="level3" data-number="10.3.4">
-<h3 data-number="10.3.4" class="anchored" data-anchor-id="activation-functions"><span class="header-section-number">10.3.4</span> Activation Functions</h3>
+<section id="activation-functions" class="level3" data-number="10.4.4">
+<h3 data-number="10.4.4" class="anchored" data-anchor-id="activation-functions"><span class="header-section-number">10.4.4</span> Activation Functions</h3>
 <p>Activation functions introduce <strong>nonlinearity</strong> into neural networks. Without them, the entire network would collapse into a single linear transformation, regardless of the number of layers. Nonlinear activations allow networks to approximate arbitrary complex functions, enabling them to model curved decision boundaries and hierarchical representations.</p>
 <p>Let <span class="math inline">\(z\)</span> denote the input to a neuron before activation. The most common choices are:</p>
 <table class="caption-top table">
@@ -855,11 +865,11 @@ Figure&nbsp;10.3: Activation functions commonly used in neural networks. ReLU an
 </div>
 </div>
 </section>
-<section id="training-neural-networks" class="level3" data-number="10.3.5">
-<h3 data-number="10.3.5" class="anchored" data-anchor-id="training-neural-networks"><span class="header-section-number">10.3.5</span> Training Neural Networks</h3>
+<section id="training-neural-networks" class="level3" data-number="10.4.5">
+<h3 data-number="10.4.5" class="anchored" data-anchor-id="training-neural-networks"><span class="header-section-number">10.4.5</span> Training Neural Networks</h3>
 <p>Training a neural network means adjusting its parameters so that its predictions <span class="math inline">\(\hat{y}\)</span> align closely with the true outputs <span class="math inline">\(y\)</span>. This is done by minimizing a <strong>loss function</strong> that quantifies prediction error. Optimization proceeds iteratively through <strong>forward</strong> and <strong>backward</strong> passes.</p>
-<section id="loss-functions" class="level4" data-number="10.3.5.1">
-<h4 data-number="10.3.5.1" class="anchored" data-anchor-id="loss-functions"><span class="header-section-number">10.3.5.1</span> Loss Functions</h4>
+<section id="loss-functions" class="level4" data-number="10.4.5.1">
+<h4 data-number="10.4.5.1" class="anchored" data-anchor-id="loss-functions"><span class="header-section-number">10.4.5.1</span> Loss Functions</h4>
 <p>The choice of loss depends on the task:</p>
 <table class="caption-top table">
 <colgroup>
@@ -894,8 +904,8 @@ Figure&nbsp;10.3: Activation functions commonly used in neural networks. ReLU an
 </table>
 <p>The loss function <span class="math inline">\(L(\theta)\)</span> depends on all network parameters <span class="math inline">\(\theta = \{W, b, V, c, \ldots\}\)</span> and guides the optimization.</p>
 </section>
-<section id="gradient-descent" class="level4" data-number="10.3.5.2">
-<h4 data-number="10.3.5.2" class="anchored" data-anchor-id="gradient-descent"><span class="header-section-number">10.3.5.2</span> Gradient Descent</h4>
+<section id="gradient-descent" class="level4" data-number="10.4.5.2">
+<h4 data-number="10.4.5.2" class="anchored" data-anchor-id="gradient-descent"><span class="header-section-number">10.4.5.2</span> Gradient Descent</h4>
 <p>Neural networks are trained by <strong>gradient descent</strong>, which updates parameters in the opposite direction of the gradient of the loss:</p>
 <p><span class="math display">\[
 \theta^{(t+1)} = \theta^{(t)} - \eta \nabla_\theta L(\theta^{(t)}),
@@ -920,11 +930,11 @@ Figure&nbsp;10.4: Conceptual illustration of gradient descent. The optimizer ite
 </div>
 </section>
 </section>
-<section id="regularization-and-overfitting" class="level3" data-number="10.3.6">
-<h3 data-number="10.3.6" class="anchored" data-anchor-id="regularization-and-overfitting"><span class="header-section-number">10.3.6</span> Regularization and Overfitting</h3>
+<section id="regularization-and-overfitting" class="level3" data-number="10.4.6">
+<h3 data-number="10.4.6" class="anchored" data-anchor-id="regularization-and-overfitting"><span class="header-section-number">10.4.6</span> Regularization and Overfitting</h3>
 <p>Because neural networks contain large numbers of parameters, they can easily <strong>overfit</strong> training data—capturing noise or random fluctuations rather than generalizable patterns. A model that overfits performs well on the training set but poorly on new data. Regularization techniques introduce constraints or randomness that help the network generalize.</p>
-<section id="the-biasvariance-trade-off" class="level4" data-number="10.3.6.1">
-<h4 data-number="10.3.6.1" class="anchored" data-anchor-id="the-biasvariance-trade-off"><span class="header-section-number">10.3.6.1</span> The Bias–Variance Trade-Off</h4>
+<section id="the-biasvariance-trade-off" class="level4" data-number="10.4.6.1">
+<h4 data-number="10.4.6.1" class="anchored" data-anchor-id="the-biasvariance-trade-off"><span class="header-section-number">10.4.6.1</span> The Bias–Variance Trade-Off</h4>
 <p>Adding model complexity (more layers or neurons) reduces bias but increases variance. The goal of regularization is to find a balance between these forces. <a href="#fig-overfitting-illustration" class="quarto-xref">Figure&nbsp;<span>10.5</span></a> provides a schematic view: the unregularized model follows every data fluctuation, while a regularized model captures only the underlying trend.</p>
 <div id="cell-fig-overfitting-illustration" class="cell" data-fig-format="svg" data-fig-height="4" data-fig-width="6" data-execution_count="10">
 <div class="cell-output cell-output-display">
@@ -941,8 +951,8 @@ Figure&nbsp;10.5: Illustration of overfitting and regularization. The unregulari
 </div>
 </div>
 </section>
-<section id="common-regularization-techniques" class="level4" data-number="10.3.6.2">
-<h4 data-number="10.3.6.2" class="anchored" data-anchor-id="common-regularization-techniques"><span class="header-section-number">10.3.6.2</span> Common Regularization Techniques</h4>
+<section id="common-regularization-techniques" class="level4" data-number="10.4.6.2">
+<h4 data-number="10.4.6.2" class="anchored" data-anchor-id="common-regularization-techniques"><span class="header-section-number">10.4.6.2</span> Common Regularization Techniques</h4>
 <p>Among the simplest and most widely used techniques is <strong>L2 weight decay</strong>, which adds a penalty term to discourage large weights:</p>
 <p><span class="math display">\[
 L_{\text{total}} = L_{\text{data}} + \lambda \sum_{l}\sum_{i,j} (w_{ij}^{(l)})^2,
@@ -983,13 +993,13 @@ Practical Tips
 </div>
 </section>
 </section>
-<section id="example-a-simple-feed-forward-network" class="level3" data-number="10.3.7">
-<h3 data-number="10.3.7" class="anchored" data-anchor-id="example-a-simple-feed-forward-network"><span class="header-section-number">10.3.7</span> Example: A Simple Feed-Forward Network</h3>
+<section id="example-a-simple-feed-forward-network" class="level3" data-number="10.4.7">
+<h3 data-number="10.4.7" class="anchored" data-anchor-id="example-a-simple-feed-forward-network"><span class="header-section-number">10.4.7</span> Example: A Simple Feed-Forward Network</h3>
 <p>To illustrate how a neural network operates in practice, we train a simple <strong>multilayer perceptron (MLP)</strong> on a two-dimensional nonlinear dataset. The model learns a curved decision boundary that cannot be captured by linear classifiers.</p>
 <p>The <em>two-moons</em> dataset consists of two interleaving half-circles, forming a pattern that resembles a pair of crescents. Each point represents an observation with two features <span class="math inline">\((x_1, x_2)\)</span>, and the color indicates its class. The two classes overlap slightly due to added random noise.</p>
 <p>A linear classifier such as logistic regression would draw a straight line through the plane, misclassifying many points. In contrast, a neural network can learn the <strong>nonlinear boundary</strong> that curves along the interface between the moons. This problem, although simple, captures the essence of nonlinear learning in higher dimensions.</p>
 <p>We generate the data using <code>make_moons()</code> from <code>scikit-learn</code> and train a feed-forward neural network with two hidden layers. The model’s task is to assign each observation to one of the two moon shapes.</p>
-<div id="f6936b8d" class="cell" data-execution_count="11">
+<div id="68b0008f" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> make_moons</span>
@@ -2162,8 +2172,8 @@ Rumelhart, D. E., Hinton, G. E., &amp; Williams, R. J. (1986). Learning represen
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./90-advanced.html" class="pagination-link" aria-label="Advanced Topics">
-        <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Advanced Topics</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./11-unsupervised.html" class="pagination-link" aria-label="Unsupervised Learning">
+        <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Unsupervised Learning</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
