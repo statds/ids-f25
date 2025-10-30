@@ -1,10 +1,16 @@
 ## Presentations with Quarto
 
-This section is written by Irene Chen, a Senior majoring in Statistical Data Science at the University of Connecticut.
+This section is written by Irene Chen, a Senior majoring in Statistical Data 
+Science at the University of Connecticut.
 
 ### Introduction
 
-Quarto allows you to create dynamic, reproducible, and visually appealing presentations from a single source file. You can generate interactive slides with code, visuals, and math without having to switch between multiple tools. It works smoothly with Git for collaboration and can update automatically as your data changes. Quarto support multiple programming languages, and allows multiple output formats. 
+Quarto allows you to create dynamic, reproducible, and visually appealing 
+presentations from a single source file. You can generate interactive slides 
+with code, visuals, and math without having to switch between multiple tools. 
+It works smoothly with Git for collaboration and can update automatically as 
+your data changes. Quarto support multiple programming languages, and allows 
+multiple output formats. 
 
 ### Presentation Formatting
 Quarto supports several formats for creating presentations including:
@@ -15,7 +21,8 @@ Quarto supports several formats for creating presentations including:
 
 - `pptx` - PowerPoint (Microsoft Office)
 
-Slides will render as HTML by default, and it is preferred over `beamer` and `pptx` unless you are specifically looking for a LaTeX or Office output.
+Slides will render as HTML by default, and it is preferred over `beamer` and 
+`pptx` unless you are specifically looking for a LaTeX or Office output.
 
 | Feature | `revealjs` | `beamer`  | `pptx`  |
 |--------------|----------------|------------|---------------|
@@ -26,7 +33,8 @@ Slides will render as HTML by default, and it is preferred over `beamer` and `pp
 
 ### Creating a Presentation File
 
-In your new `.qmd` file, include a YAML header at the top to tell Quarto to render slides instead of a document. 
+In your new `.qmd` file, include a YAML header at the top to tell Quarto to 
+render slides instead of a document. 
 
 ```python
 ---
@@ -57,7 +65,8 @@ format:
 
 #### Functional YAML Customizations
 
-- `embed-resources: true` - Creates self-contained file HTML files that bundles images, fonts, and CSS for easy sharing.
+- `embed-resources: true` - Creates self-contained file HTML files that bundles 
+images, fonts, and CSS for easy sharing.
 
 - `multiplex: true` - Allows live audience synchronization.
 
@@ -65,13 +74,17 @@ format:
 
 - `toc: true` - Generates a table of contents slide automatically.
 
--  `center: false` - Aligns content at the top rather than centering on the slides.
+-  `center: false` - Aligns content at the top rather than centering on the 
+slides.
 
 #### Stylistic YAML Customizations
 
-- `theme: [slide theme]` - Configures the theme as one of the 12 included with Reveal (or one of your own as a `.css`). 
-    - `default`, `white`, `league`, `night`, `beige`, `simple`, `serif`, `solarized`, `moon`,  `dracula`, `sky`, `blood`
-    - Note: `default` is automatically used, so this header is only used for alternative themes.
+- `theme: [slide theme]` - Configures the theme as one of the 12 included with 
+Reveal (or one of your own as a `.css`). 
+    - `default`, `white`, `league`, `night`, `beige`, `simple`, `serif`, 
+    `solarized`, `moon`,  `dracula`, `sky`, `blood`
+    - Note: `default` is automatically used, so this header is only used for 
+    alternative themes.
 
 - `transition: [transition]` - Adds transitions in between the slides.
     - `none`, `slide`, `fade`, `convex`, `concave`, `zoom`
@@ -84,7 +97,10 @@ format:
 
 #### CSS files
 
-A CSS file (short for Cascading Style Sheets) is a styling file used to control how your content looks (colors, fonts, layout, spacing, etc...). In the same folder as your `.qmd`, make a file called `custom.css` (or `custom.scss`). An example could look like this:
+A CSS file (short for Cascading Style Sheets) is a styling file used to control 
+how your content looks (colors, fonts, layout, spacing, etc...). In the same 
+folder as your `.qmd`, make a file called `custom.css` (or `custom.scss`). An 
+example could look like this:
 
 ```css
 :root{ 
@@ -105,25 +121,31 @@ A CSS file (short for Cascading Style Sheets) is a styling file used to control 
 }
 ```
 
-Add the file name to the YAML heading like `theme: [custom.css]`. You can also make a cascading theme like `theme: [simple, custom.css]`, which starts with the simple theme and applies the custom design rules on top.
+Add the file name to the YAML heading like `theme: [custom.css]`. You can also 
+make a cascading theme like `theme: [simple, custom.css]`, which starts with the
+ simple theme and applies the custom design rules on top.
 
-**Note**: Order matters because style sheets cascade. A sheet with multiple rules for the same element creates a hierarchy of specificity.
+**Note**: Order matters because style sheets cascade. A sheet with multiple 
+rules for the same element creates a hierarchy of specificity.
 
 
 ### Creating a New Slide
 
 - Each level 1 header (`#`) creates a new title slide section.
 
-- Each level 2 header (`##`) creates a sub-slide that will appear when you press the down arrow.
+- Each level 2 header (`##`) creates a sub-slide that will appear when you press
+ the down arrow.
 
 - Adding (`###`) will create a subheading in the slide, not a new slide.
 
-- Horizontal rules (`---`) are used to create a slide when you don't want to add a heading or title.
+- Horizontal rules (`---`) are used to create a slide when you don't want to add
+ a heading or title.
 
 
 ### Code Blocks
 
-If you want Quarto to run the Python code and show the output, add curly brackets:
+If you want Quarto to run the Python code and show the output, add curly 
+brackets:
 
 
 ```` python
@@ -136,7 +158,10 @@ print("Hello World!")
 print("Hello World!")
 ```
 
-If you want Quarto to show the code on the slide as text, but not execute it, remove the curly brackets. Quarto will treat this as plain Markdown code and not recognize it as executable. This is perfect for simple code display to show examples or syntax:
+If you want Quarto to show the code on the slide as text, but not execute it, 
+remove the curly brackets. Quarto will treat this as plain Markdown code and not
+ recognize it as executable. This is perfect for simple code display to show 
+ examples or syntax:
 
 
 ```` markdown
@@ -149,7 +174,10 @@ print("Hello World!")
 print("Hello World!")
 ```
 
-Similarly, Quarto will show the code on the slide without running it, but Quarto will treat it as a code cell that is part of your document even though the code isn't evaluated. This is perfect for code display that stays consistently styled with other executable blocks.
+Similarly, Quarto will show the code on the slide without running it, but Quarto
+ will treat it as a code cell that is part of your document even though the code
+  isn't evaluated. This is perfect for code display that stays consistently 
+  styled with other executable blocks.
 
 ```` markdown
 ```{{.python}}
@@ -161,7 +189,8 @@ print("Hello World!")
 print("Hello World!")
 ```
 
-If you want Quarto to display the raw code block, add two lines of `markdown`. This is perfect for tutorials.
+If you want Quarto to display the raw code block, add two lines of `markdown`. 
+This is perfect for tutorials.
 
 ```` markdown
 ```` markdown
@@ -193,7 +222,8 @@ plt.show()
 ```
 ````
 
-You can also highlight disparate ranges of lines by using `,` to separate rather than `-`. 
+You can also highlight disparate ranges of lines by using `,` to separate rather
+ than `-`. 
 
 For example, 
 ````markdown
@@ -206,7 +236,8 @@ plt.show()
 ```
 ````
 
-Finally, you can highlight different line ranges. For example, here we show all the lines highlighted, then only line 1, and finally only line 4 is highlighted: 
+Finally, you can highlight different line ranges. For example, here we show all 
+the lines highlighted, then only line 1, and finally only line 4 is highlighted: 
 ````markdown
 ```{.python code-line-numbers="|1|4"}
 import matplotlib.pyplot as plt
@@ -218,7 +249,9 @@ plt.show()
 ````
 
 ### Code Echo
-By default, executable code blocks within Quarto presentations do not `echo` their source code. To override this, add `#| echo: true` inside the code fence at the top.
+By default, executable code blocks within Quarto presentations do not `echo` 
+their source code. To override this, add `#| echo: true` inside the code fence 
+at the top.
 
 Ex: `echo: false`
 
@@ -250,31 +283,39 @@ print("Hello World!")
 ```
 
 ### Output Location
-By default, outputs from code blocks are displayed immediately after the code. To change this, you can use `#| output-location: [output location]`. The location options include:
+By default, outputs from code blocks are displayed immediately after the code. 
+To change this, you can use `#| output-location: [output location]`. The 
+location options include:
 
 - `column` : Displays the output in a column next to the code
 
 - `slide` : Displays the output on the following slide
 
-- `fragment` : Displays the output as a Fragment (delays displaying the output until you advance the slide)
+- `fragment` : Displays the output as a Fragment (delays displaying the output 
+until you advance the slide)
 
-- `column-fragment` : Displays the output in a column next to the code as a Fragment
+- `column-fragment` : Displays the output in a column next to the code as a 
+Fragment
 
-**Note**: `output-location` only works for code cells that echo (`#| echo: true`).
+**Note**: `output-location` only works for code cells that echo 
+(`#| echo: true`).
 
 ### Images
 
 ``` markdown
-![Quarto Logo](https://quarto.org/docs/get-started/hello/images/quarto.png){width=300px}
+![Quarto Logo](https://quarto.org/docs/get-started/hello/images/quarto.png)
+{width=300px}
 ```
 
 - The caption for the figure is enclosed in `[]`.
 
 - The file path for the saved image file is enclosed in `()`.
 
-- Any optional stylistic attributes like size, alignment, and class are enclosed in `{}`.
+- Any optional stylistic attributes like size, alignment, and class are enclosed
+ in `{}`.
 
-**Note**: Remember to use relative references when specifying the file path to ensure seamless reproducibility, not absolute references.
+**Note**: Remember to use relative references when specifying the file path to 
+ensure seamless reproducibility, not absolute references.
 
 
 ### Hyperlinks
@@ -290,7 +331,8 @@ By default, outputs from code blocks are displayed immediately after the code. T
 
 ### Math
 
-You can use `\( ... \)`  for inline math, which appears in the line of text. For example, 
+You can use `\( ... \)`  for inline math, which appears in the line of text. For
+ example, 
 ```markdown
 The Pythagorean theorem equation is \(a^2 + b^2 = c^2 \).
 ```
@@ -308,7 +350,8 @@ The Pythagorean theorem equation is $a^2 + b^2 = c^2$.
 
 <br>
 
-With LaTeX, you can also use `$$ ... $$` to display math, which centers the equation in its own line. For example, 
+With LaTeX, you can also use `$$ ... $$` to display math, which centers the 
+equation in its own line. For example, 
 
 ```markdown
 The quadratic formula is given by
@@ -325,11 +368,16 @@ $$
 
 ### Div Containers
 
-Div containers are special blocks that allow you to add attributes or structure to specific parts of your presentation. They start and end with triple colons (`:::`) and include classes like `.incremental` or attributes like `width="50%"`.
+Div containers are special blocks that allow you to add attributes or structure 
+to specific parts of your presentation. They start and end with triple colons 
+(`:::`) and include classes like `.incremental` or attributes like `width="50%"`
+.
 
 ### Incremental Lists
 
-Bulleted lists by default are displayed all at once. You can change this globally by using `incremental: true` in the YAML header, or explicitly change it by slide using `{.incremental}`.
+Bulleted lists by default are displayed all at once. You can change this 
+globally by using `incremental: true` in the YAML header, or explicitly change 
+it by slide using `{.incremental}`.
 
 To make a list incremental:
 ```markdown
@@ -355,7 +403,8 @@ Similarly, to make a list non-incremental:
 
 ### Columns
 
-Use `{.columns}` to create columns in your slides. Each `.column` can be given a specific width percentage to control how much space is taken up. 
+Use `{.columns}` to create columns in your slides. Each `.column` can be given a
+ specific width percentage to control how much space is taken up. 
 
 ```markdown
 ::::{.columns}
@@ -392,7 +441,10 @@ Right Column
 
 ### Overflow
 
-Some slides may contain more content than can be displayed in a single slide. You can fix this with `{.smaller}`, which will use a smaller typeface so that more text fits on the slide. You can also use `{.scrollable}`, to make any content that ends up off the slide available when you scroll. 
+Some slides may contain more content than can be displayed in a single slide. 
+You can fix this with `{.smaller}`, which will use a smaller typeface so that 
+more text fits on the slide. You can also use `{.scrollable}`, to make any 
+content that ends up off the slide available when you scroll. 
 
 Both of these overlay classes can also be applied globally in the YAML header:
 
@@ -408,7 +460,10 @@ format:
 
 ### Speaker Notes
 
-Add notes using a div with class `{.notes}` that will only be visible to the presenter, not the audience. Press S during the presentation to open Speaker View (which displays your notes, the current slide, and the next slide). You can also see a timer and slide navigation tools.
+Add notes using a div with class `{.notes}` that will only be visible to the 
+presenter, not the audience. Press S during the presentation to open Speaker 
+View (which displays your notes, the current slide, and the next slide). You can
+ also see a timer and slide navigation tools.
 
 ```markdown
 ::: {.notes}
@@ -426,11 +481,13 @@ Adding `multiplex: true` in your YAML enables a live audience mode:
 
 - `presentations.html` - Audience slides that you publish.
 
-- `presentations-speaker.html` - Presenter's version that is used to control the slides.
+- `presentations-speaker.html` - Presenter's version that is used to control the
+ slides.
 
 ### Chalkboard
 
-Annotate directly on your slides while presenting by enabling the option under your YAML settings with `chalkboard:true`. Some shortcuts include:
+Annotate directly on your slides while presenting by enabling the option under 
+your YAML settings with `chalkboard:true`. Some shortcuts include:
 
 - B : Toggles the chalkboard on and off.
 
@@ -446,13 +503,15 @@ Annotate directly on your slides while presenting by enabling the option under y
 
 ### Rendering 
 
-Render the Quarto presentation by entering the following code in your terminal and it will reveal presentation.html which can be opened in a browser.
+Render the Quarto presentation by entering the following code in your terminal 
+and it will reveal presentation.html which can be opened in a browser.
 
 ```python
 quarto render presentation.qmd
 ```
 
-Temporarily override the YAML format to test how it looks in other formats. For example:
+Temporarily override the YAML format to test how it looks in other formats. For 
+example:
 
 ```python
 quarto render presentation.qmd --to beamer
@@ -460,9 +519,11 @@ quarto render presentation.qmd --to beamer
 
 ### Additional Reading
 - [Quarto Presentations](https://quarto.org/docs/presentations/)
-- [Quarto Revealjs](https://quarto.org/docs/reference/formats/presentations/revealjs.html)
+- [Quarto Revealjs](
+    https://quarto.org/docs/reference/formats/presentations/revealjs.html)
 - [Quarto Beamer](https://quarto.org/docs/presentations/beamer.html)
-- [Quarto PowerPoint](https://quarto.org/docs/reference/formats/presentations/pptx.html)
+- [Quarto PowerPoint](
+    https://quarto.org/docs/reference/formats/presentations/pptx.html)
 
 
 
