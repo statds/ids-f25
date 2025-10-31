@@ -2,18 +2,6 @@
 
 This section was prepared by Mark Zhang, an undergraduate at UCONN.
 
-+ Don’t forget to introduce yourself if there is no moderator.
-+ Highlight your research questions and results, not code.
-+ Give an outline, carry it out, and summarize.
-+ Use your own examples to reduce the risk of plagiarism.
-
-+ Pay attention to the sectioning levels.
-+ Cite references with their bib key.
-+ In examples, maximize usage of data set that the class is familiar with.
-+ Could use datasets in Python packages or downloadable on the fly.
-+ Test your section by `quarto render <filename.qmd>`.
-
-
 ### Introduction
 
 Uniform Manifold Approximation and Projection (UMAP) was introduced by 
@@ -134,7 +122,6 @@ plt.show()
 UMAP represents high-dimensional data as a **fuzzy simplicial set**, capturing 
 the local connectivity of points. For each point, a fuzzy membership weight is 
 assigned to its neighbors:
-
 $$
 w_{ij} = \exp\Bigg(-\frac{d_{ij} - \rho_i}{\sigma_i}\Bigg)
 $$
@@ -250,7 +237,7 @@ UMAP uses **stochastic gradient descent** to minimize this cost function,
 adjusting the coordinates of points in low dimensions so that the embedding 
 preserves both **local neighborhoods** and **global manifold structure**.
 
-### Practical Example
+### Practical Example: UMAP on 8x8 digit data
 First, install the necessary dependency:
 `pip install umap-learn`
 ```{python}
@@ -305,8 +292,6 @@ plt.xlabel("UMAP 1")
 plt.ylabel("UMAP 2")
 plt.colorbar(scatter, label='Digit')
 plt.show()
-
-
 ```
 
 ### Conclusion
