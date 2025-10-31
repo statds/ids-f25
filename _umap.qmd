@@ -324,9 +324,16 @@ preserving meaningful relationships.
 > making high-dimensional data interpretable in 2D.
 
 ### Conclusion
-
-
+UMAP is a nonlinear dimensionality reduction technique that 
+effectively captures both **local and global structure** in 
+high-dimensional data. By constructing a fuzzy neighborhood graph 
+and optimizing a low-dimensional embedding, it preserves cluster 
+relationships, highlights visually similar points, and maintains 
+overall manifold structure. This makes UMAP a powerful, interpretable 
+tool for **visualization and exploratory data analysis**.
 
 ### Further Readings
 
-
+- McInnes, L., Healy, J., Saul, N., & Großberger, L. (2018). 
+  *UMAP: Uniform Manifold Approximation and Projection*. 
+  arXiv:1802.03426. [https://arxiv.org/abs/1802.03426](https://arxiv.org/abs/1802.03426)  
