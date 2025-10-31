@@ -240,6 +240,10 @@ preserves both **local neighborhoods** and **global manifold structure**.
 ### Practical Example: UMAP on 8x8 digit data
 First, install the necessary dependency:
 `pip install umap-learn`
+
+Before applying UMAP, let’s take a look at the raw data. The Digits 
+dataset from sklearn contains 1,797 images of handwritten digits, 
+each represented as an 8×8 grayscale image (64 features per sample).
 ```{python}
 #| echo: true
 #| message: false
@@ -260,6 +264,12 @@ for i, ax in enumerate(axes.flat):
 plt.tight_layout()
 plt.show()
 ```
+We now project the 64-dimensional data into a 2D embedding using UMAP.
+The parameters below control the embedding:
+
+- n_neighbors: how many nearby points are used to estimate local structure.
+
+- min_dist: how tightly UMAP packs points in the low-dimensional space.
 ```{python}
 #| label: umap-digits-2d
 #| echo: true
@@ -293,6 +303,25 @@ plt.ylabel("UMAP 2")
 plt.colorbar(scatter, label='Digit')
 plt.show()
 ```
+In the 2D UMAP embedding of the digits dataset, each point represents a
+digit image, colored by its label. The plot shows that UMAP successfully 
+captures the structure of high-dimensional data: points of the same digit 
+cluster tightly, while visually similar digits appear near each other, 
+preserving meaningful relationships.
+
+- **Same digits** - form tight clusters, showing that UMAP preserves 
+  **local neighborhood structure** and keeps similar points together.  
+- **Similar digits** (e.g., 3 & 8) - positioned near each other, 
+  reflecting their **visual similarity** in shape and style.  
+- **Different clusters** - mostly separate, indicating 
+  **clear class separation** and that UMAP maintains 
+  distinctions between digit types.  
+- **Global layout** - reflects the relative positions of all clusters
+  , preserving **overall structure** of the dataset.
+
+
+> **Takeaway:** UMAP reveals both **local and global patterns**, 
+> making high-dimensional data interpretable in 2D.
 
 ### Conclusion
 
