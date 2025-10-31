@@ -212,12 +212,27 @@ low-dimensional embedding:
 In other words, `min_dist` adjusts the **tightness of clusters** in 
 the embedding without changing the underlying topology of the data.  
 
-
 ##### Minimizing the cost function (Cross-Entropy)
 After constructing the fuzzy simplicial set and initializing 
 the low-dimensional embedding, UMAP positions the points by 
 **minimizing a cross-entropy-like cost function**:
 
+To compute the similarity between points in the low-dimensional 
+embedding, UMAP defines a corresponding low-dimensional weight 
+for each pair of points:
+
+$$
+w_{ij}^{(\text{low})} = \frac{1}{1 + a \|y_i - y_j\|^{2b}}
+$$
+
+where:
+
+- \(\|y_i - y_j\|\) is the Euclidean distance between points 
+  \(y_i\) and \(y_j\) in the low-dimensional space (2D or 3D),  
+- \(a\) and \(b\) are hyperparameters that control the shape 
+  of the attraction/repulsion curve.  
+
+The cross-entropy cost function is then defined as:
 $$
 C = \sum_{i \neq j} \Big[ w_{ij} \log \frac{w_{ij}}{w_{ij}^{(\text{low})}} + 
 (1 - w_{ij}) \log \frac{1 - w_{ij}}{1 - w_{ij}^{(\text{low})}} \Big]
@@ -228,9 +243,9 @@ $$
 
 **Intuition:**  
 
-1. If two points are **strongly connected** in high dimensions (large $w_{ij}$), 
-   the embedding tries to place them **close together**.  
-2. If two points are **weakly connected** (small $w_{ij}$), the embedding tries 
+1. If two points are **strongly connected** in high dimensions 
+  (large $w_{ij}$), the embedding tries to place them **close together**.  
+1. If two points are **weakly connected** (small $w_{ij}$), the embedding tries 
    to place them **far apart**.  
 
 UMAP uses **stochastic gradient descent** to minimize this cost function, 
