@@ -295,7 +295,7 @@ X_umap = reducer.fit_transform(X)
 # 2D scatter plot
 plt.figure(figsize=(8, 6))
 scatter = plt.scatter(X_umap[:, 0], X_umap[:, 1],
-                      c=y, cmap='Spectral', s=20)
+                      c=y, cmap='tab10', s=20)
 
 plt.title("2D UMAP projection of Digits dataset")
 plt.xlabel("UMAP 1")
@@ -336,4 +336,5 @@ tool for **visualization and exploratory data analysis**.
 
 - McInnes, L., Healy, J., Saul, N., & Großberger, L. (2018). 
   *UMAP: Uniform Manifold Approximation and Projection*. 
-  arXiv:1802.03426. [https://arxiv.org/abs/1802.03426](https://arxiv.org/abs/1802.03426)  
+  arXiv:1802.03426. 
+  [https://arxiv.org/abs/1802.03426](https://arxiv.org/abs/1802.03426)  
