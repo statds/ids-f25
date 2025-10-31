@@ -294,7 +294,12 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">10.1</span> Introduction</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">10.1</span> Introduction</a>
+  <ul class="collapse">
+  <li><a href="#supervised-learning" id="toc-supervised-learning" class="nav-link" data-scroll-target="#supervised-learning"><span class="header-section-number">10.1.1</span> Supervised Learning</a></li>
+  <li><a href="#unsupervised-learning" id="toc-unsupervised-learning" class="nav-link" data-scroll-target="#unsupervised-learning"><span class="header-section-number">10.1.2</span> Unsupervised Learning</a></li>
+  <li><a href="#reinforcement-learning" id="toc-reinforcement-learning" class="nav-link" data-scroll-target="#reinforcement-learning"><span class="header-section-number">10.1.3</span> Reinforcement Learning</a></li>
+  </ul></li>
   <li><a href="#decision-trees" id="toc-decision-trees" class="nav-link" data-scroll-target="#decision-trees"><span class="header-section-number">10.2</span> Decision Trees</a>
   <ul class="collapse">
   <li><a href="#recursive-partition-algorithm" id="toc-recursive-partition-algorithm" class="nav-link" data-scroll-target="#recursive-partition-algorithm"><span class="header-section-number">10.2.1</span> Recursive Partition Algorithm</a></li>
@@ -327,7 +332,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Supervised Learning</span></h1>
+<h1 class="title"><span id="sec-supervised" class="quarto-section-identifier"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Supervised Learning</span></span></h1>
 </div>
 
 
@@ -346,6 +351,45 @@ window.Quarto = {
 
 <section id="introduction" class="level2" data-number="10.1">
 <h2 data-number="10.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">10.1</span> Introduction</h2>
+<p>Machine Learning (ML) is a branch of artificial intelligence that enables systems to learn from data and improve their performance over time without being explicitly programmed. At its core, machine learning algorithms aim to identify patterns in data and use those patterns to make decisions or predictions.</p>
+<p>Machine learning can be categorized into three main types: supervised learning, unsupervised learning, and reinforcement learning. Each type differs in the data it uses and the learning tasks it performs, addressing addresses different tasks and problems. Supervised learning aims to predict outcomes based on labeled data, unsupervised learning focuses on discovering hidden patterns within the data, and reinforcement learning centers around learning optimal actions through interaction with an environment.</p>
+<p>Let’s define some notations to introduce them:</p>
+<ul>
+<li><p><span class="math inline">\(X\)</span>: A set of feature vectors representing the input data. Each element <span class="math inline">\(X_i\)</span> corresponds to a set of features or attributes that describe an instance of data.</p></li>
+<li><p><span class="math inline">\(Y\)</span>: A set of labels or rewards associated with outcomes. In supervised learning, <span class="math inline">\(Y\)</span> is used to evaluate the correctness of the model’s predictions. In reinforcement learning, <span class="math inline">\(Y\)</span> represents the rewards that guide the learning process.</p></li>
+<li><p><span class="math inline">\(A\)</span>: A set of possible actions in a given context. In reinforcement learning, actions <span class="math inline">\(A\)</span> represent choices that can be made in response to a given situation, with the goal of maximizing a reward.</p></li>
+</ul>
+<section id="supervised-learning" class="level3" data-number="10.1.1">
+<h3 data-number="10.1.1" class="anchored" data-anchor-id="supervised-learning"><span class="header-section-number">10.1.1</span> Supervised Learning</h3>
+<p>Supervised learning is the most widely used type of machine learning. In supervised learning, we have both feature vectors <span class="math inline">\(X\)</span> and their corresponding labels <span class="math inline">\(Y\)</span>. The objective is to train a model that can predict <span class="math inline">\(Y\)</span> based on <span class="math inline">\(X\)</span>. This model is trained on labeled examples, where the correct outcome is known, and it adjusts its internal parameters to minimize the error in its predictions, which occurs as part of the cross-validation process.</p>
+<p>Key tasks in supervised learning include:</p>
+<ul>
+<li>Classification: Assigning data points to predefined categories or classes.</li>
+<li>Regression: Predicting a continuous value based on input data.</li>
+</ul>
+<p>In supervised learning, the data consists of both feature vectors <span class="math inline">\(X\)</span> and labels <span class="math inline">\(Y\)</span>, namely, <span class="math inline">\((X, Y)\)</span>.</p>
+</section>
+<section id="unsupervised-learning" class="level3" data-number="10.1.2">
+<h3 data-number="10.1.2" class="anchored" data-anchor-id="unsupervised-learning"><span class="header-section-number">10.1.2</span> Unsupervised Learning</h3>
+<p>Unsupervised learning involves learning patterns from data without any associated labels or outcomes. The objective is to explore and identify hidden structures in the feature vectors <span class="math inline">\(X\)</span>. Since there are no ground-truth labels <span class="math inline">\(Y\)</span> to guide the learning process, the algorithm must discover patterns on its own. This is particularly useful when subject matter experts are unsure of common properties within a data set.</p>
+<p>Common tasks in unsupervised learning include:</p>
+<ul>
+<li><p>Clustering: Grouping similar data points together based on certain features.</p></li>
+<li><p>Dimension Reduction: Simplifying the input data by reducing the number of features while preserving essential patterns.</p></li>
+</ul>
+<p>In unsupervised learning, the data consists solely of feature vectors <span class="math inline">\(X\)</span>.</p>
+</section>
+<section id="reinforcement-learning" class="level3" data-number="10.1.3">
+<h3 data-number="10.1.3" class="anchored" data-anchor-id="reinforcement-learning"><span class="header-section-number">10.1.3</span> Reinforcement Learning</h3>
+<p>Reinforcement learning involves learning how to make a sequence of decisions to maximize a cumulative reward. Unlike supervised learning, where the model learns from a static dataset of labeled examples, reinforcement learning involves an agent that interacts with an environment by taking actions <span class="math inline">\(A\)</span>, receiving feedback in the form of rewards <span class="math inline">\(Y\)</span>, and learning over time which actions lead to the highest cumulative reward.</p>
+<p>The process in reinforcement learning involves:</p>
+<ul>
+<li><p>States: The context or environment the agent is in, represented by feature vectors <span class="math inline">\(X\)</span>.</p></li>
+<li><p>Actions: The set of possible choices the agent can make in response to the current state, denoted as <span class="math inline">\(A\)</span>.</p></li>
+<li><p>Rewards: Feedback the agent receives after taking an action, which guides the learning process.</p></li>
+</ul>
+<p>In reinforcement learning, the data consists of feature vectors <span class="math inline">\(X\)</span>, actions <span class="math inline">\(A\)</span>, and rewards <span class="math inline">\(Y\)</span>, namely, <span class="math inline">\((X, A, Y)\)</span>.</p>
+</section>
 </section>
 <section id="decision-trees" class="level2" data-number="10.2">
 <h2 data-number="10.2" class="anchored" data-anchor-id="decision-trees"><span class="header-section-number">10.2</span> Decision Trees</h2>
@@ -425,7 +469,7 @@ H(Q_m) = \frac{1}{n_m} \sum_{i=1}^{n_m} |y_i - \bar{y}_m|.
 <h3 data-number="10.2.4" class="anchored" data-anchor-id="ames-housing-example"><span class="header-section-number">10.2.4</span> Ames Housing Example</h3>
 <p>The Ames Housing data are used to illustrate a regression tree model for predicting log house price.</p>
 <p>As before, we retrive the data from <code>OpenML</code>.</p>
-<div id="0f7788a7" class="cell" data-execution_count="1">
+<div id="90e148f5" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> openml</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -436,7 +480,7 @@ H(Q_m) = \frac{1}{n_m} \sum_{i=1}^{n_m} |y_i - \bar{y}_m|.
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"LogPrice"</span>] <span class="op">=</span> np.log(df[<span class="st">"SalePrice"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>A decision tree partitions the feature space into regions where the average log price is relatively constant.</p>
-<div id="10a61256" class="cell" data-execution_count="2">
+<div id="196c8973" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.compose <span class="im">import</span> ColumnTransformer</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> OneHotEncoder</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.tree <span class="im">import</span> DecisionTreeRegressor</span>
@@ -485,7 +529,7 @@ H(Q_m) = \frac{1}{n_m} \sum_{i=1}^{n_m} |y_i - \bar{y}_m|.
 </div>
 </div>
 <p>Cross-validation identifies an appropriate tree depth that balances fit and generalization. A too-deep tree overfits, while a shallow tree misses structure.</p>
-<div id="3fc8ecb8" class="cell" data-execution_count="3">
+<div id="2ede7f04" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>dt <span class="op">=</span> Pipeline([</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"pre"</span>, preprocessor),</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"model"</span>, DecisionTreeRegressor(max_depth<span class="op">=</span><span class="dv">4</span>, random_state<span class="op">=</span><span class="dv">0</span>))</span>
@@ -567,7 +611,7 @@ F_m(x) = F_{m-1}(x) + \eta\, \gamma_m\, h_m(x),
 <section id="boosted-trees-with-ames-housing" class="level3" data-number="10.3.3">
 <h3 data-number="10.3.3" class="anchored" data-anchor-id="boosted-trees-with-ames-housing"><span class="header-section-number">10.3.3</span> Boosted Trees with Ames Housing</h3>
 <p>Boosted trees apply the gradient boosting framework to decision trees. They build an ensemble of shallow trees, each trained to correct the residual errors of the preceding ones. By sequentially emphasizing observations that are difficult to predict, the model progressively improves its overall predictive accuracy. We now apply gradient boosting using the same preprocessed features. Boosting combines many shallow trees, each correcting the residual errors of its predecessors, to improve predictive accuracy.</p>
-<div id="783e4df5" class="cell" data-execution_count="4">
+<div id="f2b23edd" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> GradientBoostingRegressor</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Define a range of tree counts for tuning</span></span>
@@ -597,7 +641,7 @@ F_m(x) = F_{m-1}(x) + \eta\, \gamma_m\, h_m(x),
 </div>
 </div>
 <p>Cross-validation shows how increasing the number of boosting rounds initially improves performance but eventually risks overfitting when too many trees are added.</p>
-<div id="b3851c1f" class="cell" data-execution_count="5">
+<div id="9b00e954" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>gb <span class="op">=</span> Pipeline([</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"pre"</span>, preprocessor),</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"model"</span>, GradientBoostingRegressor(</span>
@@ -999,7 +1043,7 @@ Practical Tips
 <p>The <em>two-moons</em> dataset consists of two interleaving half-circles, forming a pattern that resembles a pair of crescents. Each point represents an observation with two features <span class="math inline">\((x_1, x_2)\)</span>, and the color indicates its class. The two classes overlap slightly due to added random noise.</p>
 <p>A linear classifier such as logistic regression would draw a straight line through the plane, misclassifying many points. In contrast, a neural network can learn the <strong>nonlinear boundary</strong> that curves along the interface between the moons. This problem, although simple, captures the essence of nonlinear learning in higher dimensions.</p>
 <p>We generate the data using <code>make_moons()</code> from <code>scikit-learn</code> and train a feed-forward neural network with two hidden layers. The model’s task is to assign each observation to one of the two moon shapes.</p>
-<div id="68b0008f" class="cell" data-execution_count="11">
+<div id="d8a8f5c8" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> make_moons</span>
