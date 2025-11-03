@@ -515,3 +515,6 @@ but introduces a number of enhancements:
 XGBoost is therefore more suitable for large-scale problems and provides 
 better generalization performance in many practical tasks.
 
+
+<!-- This section is to be included as a tutorial for geopands data. -->
+{{< include _nnet.qmd >}}
