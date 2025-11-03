@@ -1,0 +1,29 @@
+## Spatial Statistical Methods
+
+This section was prepared by Quinn Saltus.
+
+<!-- TODO when converting from presentation to section, fix heading levels -->
+## Introduction
+
+Spatially dependent data can cause problems for standard statistical methods.
+
+Many common statistical tools assume that 
+
+## Spatial Surface Interpolation
+
+```{python}
+import pandas as pd
+import geopandas as gp
+
+
+```
+
+### Inverse Distance Weighted
+
+### Kriging
+
+## Spatial Autoregression
+
+## Conclusion
+
+## Further Readings
