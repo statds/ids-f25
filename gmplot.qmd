@@ -4,7 +4,10 @@ This section was prepared by Jack Perkins.
 
 ### Introduction
 
-gmplot is a python package that allows for the use and creation of google's mapping system. A variety of functions allow users to plot points, create shapes, and show directions over space. This allows a developer to show important locations through the use of a familiar interface. 
+gmplot is a python package that allows for the use and creation of google's map
+ping system. A variety of functions allow users to plot points, create shapes, 
+and show directions over space. This allows a developer to show important locat
+ions through the use of a familiar interface. 
 
 ### Getting Started
 
@@ -14,7 +17,12 @@ To effectively use gmplot, the user must first install it.
 pip install gmplot
 ```
 
-Upon installation, the user will be able to use all basic features. However, in order to use all feautures and avoid watermarks, the user must acquire a google API key. They can do so at this [link](https://console.cloud.google.com/apis/library). In order to run this code and see the full results, the Maps Javascript API, Geocoding API, and Directions API must be enabled. The API key should be saved in a file 'gmapi.txt'.
+Upon installation, the user will be able to use all basic features. However, in
+ order to use all feautures and avoid watermarks, the user must acquire a googl
+ e API key. They can do so at this [link](https://console.cloud.google.com/apis
+ /library). In order to run this code and see the full results, the Maps Javasc
+ ript API, Geocoding API, and Directions API must be enabled. The API key shoul
+ d be saved in a file 'gmapi.txt'.
 
 ```{python}
 api_key = open('gmapi.txt').read().strip()
@@ -22,7 +30,8 @@ api_key = open('gmapi.txt').read().strip()
 
 ### Creating a Map
 
-A general map is created using the gmplot.GoogleMapPlotter() function. This function takes 5 arguments. 
+A general map is created using the gmplot.GoogleMapPlotter() function. This fun
+ction takes 5 arguments. 
 
 - latitude: takes the latitude for the centure of the map (float)
 
@@ -30,11 +39,14 @@ A general map is created using the gmplot.GoogleMapPlotter() function. This func
 
 - zoom_int: takes an interger for the zoom on the map
 
-- map_type: an optional parameter that allows for the selection of different map types such as terrain or satellite (string)
+- map_type: an optional parameter that allows for the selection of different ma
+p types such as terrain or satellite (string)
 
-- api_key: optional paramter that will remove the 'for development purposes only tag' and allow full use of API's features (string)
+- api_key: optional paramter that will remove the 'for development purposes onl
+y tag' and allow full use of API's features (string)
 
-The following code creates a map centered around the Storrs campus. It uses the variables center_lat, center_lng, and api_key to simplify the input process. 
+The following code creates a map centered around the Storrs campus. It uses the
+ variables center_lat, center_lng, and api_key to simplify the input process. 
 
 ```{python}
 import gmplot, tempfile, os, shutil
@@ -44,7 +56,10 @@ center_lat, center_lng = 41.8079, -72.2546
 gmap = gmplot.GoogleMapPlotter(center_lat, center_lng, 15, apikey = api_key)
 ```
 
-The .draw() function will create an output using the initialized map. The funtion produces the maps in an interactive html format. Unless otherwise specified, the file will be saved in the current directory. For the sake of this presentation, the results are shown in a simplified PNG.  
+The .draw() function will create an output using the initialized map. The funti
+on produces the maps in an interactive html format. Unless otherwise specified,
+ the file will be saved in the current directory. For the sake of this presenta
+ tion, the results are shown in a simplified PNG.  
 
 ```{python}
 # Write to a temporary directory instead of cluttering the project
@@ -65,7 +80,9 @@ shutil.rmtree(tmpdir)
 </iframe>
 ```
 
-A map can also be drawn using a geocode translation. The following function takes a location name as opposed to to coordinates. This code will serve the same function as the original map plotter. 
+A map can also be drawn using a geocode translation. The following function tak
+es a location name as opposed to to coordinates. This code will serve the same 
+function as the original map plotter. 
 
 ```{python}
 # Create map centered on UConn Storrs
@@ -92,7 +109,11 @@ shutil.rmtree(tmpdir)
 
 ### Plotting Points
 
-After initializing a map, additional layers can be placed on it. The simplest of those is a marker. The .marker() function allows a pin to be placed on the map. The function takes the location of the pin, a color argument, and title argument. The code below shows the creation of three different markers around Uconn campus.  
+After initializing a map, additional layers can be placed on it. The simplest o
+f those is a marker. The .marker() function allows a pin to be placed on the ma
+p. The function takes the location of the pin, a color argument, and title argu
+ment. The code below shows the creation of three different markers around Uconn
+ campus.  
 
 ```{python}
 # Initialize Map
@@ -125,7 +146,10 @@ shutil.rmtree(tmpdir)
 </iframe>
 ```
 
-Another method for drawing markers is the .scatter() function. The function takes a list of coordinates and marks multiple points at once. The additional fields are size and marker. Setting marker to false will show a larger circle as compared to the point marker seen in .marker(). 
+Another method for drawing markers is the .scatter() function. The function tak
+es a list of coordinates and marks multiple points at once. The additional fiel
+ds are size and marker. Setting marker to false will show a larger circle as co
+mpared to the point marker seen in .marker(). 
 
 The code below shows the .scatter() function in action.
 
@@ -159,7 +183,10 @@ shutil.rmtree(tmpdir)
 
 ### Drawing Polygons
 
-Additionally, coordinates can be used to create a polygon. Each provided coordinate will be used as an anchor point for the shape. As in .marker() and .scatter(), the color may be changed. The code below is used to create a triangle, using the previous markers as its points. 
+Additionally, coordinates can be used to create a polygon. Each provided coordi
+nate will be used as an anchor point for the shape. As in .marker() and .scatte
+r(), the color may be changed. The code below is used to create a triangle, usi
+ng the previous markers as its points. 
 ```{python}
 # set desired longitudes and latitudes
 latitude_list = [ 41.8069, 41.8052, 41.8067]
@@ -191,7 +218,10 @@ shutil.rmtree(tmpdir)
 
 ### Route Creation
 
-One of the most common uses of google maps is navigation. Fittingly, this use can be executed in gmplot. Most simply, it can be used with .plot(). The function takes a list of coordinates and draws a line sequentially to their locations. This does so in simple straight line distance. 
+One of the most common uses of google maps is navigation. Fittingly, this use c
+an be executed in gmplot. Most simply, it can be used with .plot(). The functio
+n takes a list of coordinates and draws a line sequentially to their locations.
+ This does so in simple straight line distance. 
 ```{python}
 # Create map centered at UConn
 gmap4 = gmplot.GoogleMapPlotter(center_lat, center_lng, 15, apikey = api_key)
@@ -218,14 +248,19 @@ shutil.rmtree(tmpdir)
 </iframe>
 ```
 
-While this may be helful, most routes cannot be utilized as straight lines. As such, one could plot various street corners and turns to make a route along roads. Alternatively, there is the .directions() function. The Directions API is required to utilize the function. There are four arguments for the function.
+While this may be helful, most routes cannot be utilized as straight lines. As 
+such, one could plot various street corners and turns to make a route along roa
+ds. Alternatively, there is the .directions() function. The Directions API is r
+equired to utilize the function. There are four arguments for the function.
 
 - Origin: takes the starting coordinates
 - Destination: takes the end coordinates
 - Waypoints: takes any optional coordinates in between the two
-- Travel mode: takes the method of travel in order to give feasible directions (driving, walking)
+- Travel mode: takes the method of travel in order to give feasible directions 
+(driving, walking)
 
-The following code shows driving directions from the student union to the library, with Gampel being used as a forced throughpoint. 
+The following code shows driving directions from the student union to the libra
+ry, with Gampel being used as a forced throughpoint. 
 ```{python}
 # Create map centered at UConn
 gmap5 = gmplot.GoogleMapPlotter(41.8079, -72.2546, 15, apikey=api_key)
@@ -238,7 +273,8 @@ destination = (41.8067, -72.2520)  # Homer Babbidge Library
 waypoints = [(41.8052, -72.2544)]  # Gampel Pavilion
 
 # Add directions
-gmap5.directions(origin, destination, waypoints=waypoints, travel_mode='driving')
+gmap5.directions(origin, destination, waypoints=waypoints, 
+travel_mode='driving')
 
 # Write to a temporary directory instead of cluttering the project
 tmpdir = tempfile.mkdtemp()
@@ -260,17 +296,25 @@ shutil.rmtree(tmpdir)
 
 ### gmplot Conclusion
 
-gmplot is a user friendly tool for creating shared understanding between developer and user. It uses a common interface and has basic tools for displaying locations. However, it requires use of an API, is unable to render in document maps, and has limited features for displaying data. 
+gmplot is a user friendly tool for creating shared understanding between develo
+per and user. It uses a common interface and has basic tools for displaying loc
+ations. However, it requires use of an API, is unable to render in document map
+s, and has limited features for displaying data. 
 
 ### Folim Overview
 
-Foium is an alternative to gmplot. Folium is a python package that allows for the creation of interactive maps. To begin, the folium package must be installed.
+Foium is an alternative to gmplot. Folium is a python package that allows for t
+he creation of interactive maps. To begin, the folium package must be installed
+.
 
 ```
 pip install folium
 ```
 
-A map in folium is initialized similar to gmplot. The folium.Map function takes locational arguments and the desired zoom. As opposed to being saved through html, it can be stored as an object. When called, the map will appear in the output. 
+A map in folium is initialized similar to gmplot. The folium.Map function takes
+ locational arguments and the desired zoom. As opposed to being saved through h
+ tml, it can be stored as an object. When called, the map will appear in the ou
+ tput. 
 
 ```{python}
 import folium
@@ -289,5 +333,7 @@ Folium contains additional features to display data:
 
 ### Further Readings
 
-- [Geeks for Geeks gmplot Guide](https://www.geeksforgeeks.org/python/python-plotting-google-map-using-gmplot-package/)
-- [Real Python Folium Guide](https://realpython.com/python-folium-web-maps-from-data/)
+- [Geeks for Geeks gmplot Guide](https://www.geeksforgeeks.org/python/python-pl
+otting-google-map-using-gmplot-package/)
+- [Real Python Folium Guide]("https://realpython.com/python-folium-web-maps-fro
+m-data/")
