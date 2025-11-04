@@ -3,25 +3,30 @@
 This section was written by Owen Sgro.
 
 ### Introduction
-My name is Owen Sgro and I'm a Statistical Data Science major, minoring in Computer Science. 
+My name is Owen Sgro and I'm a Statistical Data Science major, 
+minoring in Computer Science. 
 I'll be talking about **Data Manipulation using Pandas**.
 For this presentation I'll be using the **NYC Crash Data** we cleaned.
 
 #### What is Pandas?
-- **Pandas** is the primary Python library for **data manipulation and analysis**.
+- **Pandas** is the primary Python library for 
+**data manipulation and analysis** [@mckinney2010].
 - It provides tools to load, clean, filter, transform, and summarize datasets.
 
 #### Why Use Pandas?
 - Intuitive table-like structure (similar to R's data frames)
 - Handles missing data
 - Built-in methods for grouping, filtering, merging, and reshaping
-- Works seamlessly with libraries like **Plotnine**, **Matplotlib**, and **NumPy**
+- Works seamlessly with libraries like **Plotnine**, **Matplotlib**
+, and **NumPy**
 
 ### Getting Started
 
 #### Importing Pandas
-- For our examples we will use the cleaned feather of the NYC crash data (courtesy of Wilson Tang)
-- Feather files are fast, binary formats for data, perfect for usage with Pandas.
+- For our examples we will use the cleaned feather of the NYC crash data 
+(courtesy of Wilson Tang)
+- Feather files are fast, binary formats for data, perfect for usage 
+with Pandas.
 - pip install pandas
 ```{python}
 import pandas as pd
@@ -35,14 +40,11 @@ df.head()
 ```
 
 ### Exploring Data
-
-#### Info
 - info() --> column types and missing values
 ```{python}
 df.info()
 ```
 
-#### Describe
 - describe() --> summary statistics for numeric columns
 ```{python}
 df.describe()
@@ -50,21 +52,21 @@ df.describe()
 
 ### Selecting and Filtering Data
 
-#### Selecting Columns
+We can select the rows that we want included in the data.
 ```{python}
 df["borough"].head()
 df[["borough", "crash_datetime", "number_of_persons_injured"]].head()
 ```
 
-#### Filtering Rows
-- Filtering crashes with at least one person injured
+In this next text block we filter the data by number_of_persons_injured.
 ```{python}
 injured = df[df["number_of_persons_injured"] > 0]
 print(injured.head(5))
 ```
 
 #### Using Boolean and .loc
-- '.loc' is used to **access groups of rows and columns** by *labels* or *Boolean conditions*.
+- '.loc' is used to **access groups of rows and columns** by 
+*labels* or *Boolean conditions*.
 ```{python}
 # Select first 5 rows and specific columns
 df.loc[0:5, ["borough", "number_of_persons_injured"]]
@@ -97,7 +99,8 @@ df["borough"].value_counts().head() # Frequency of top categories
 
 #### Selecting Columns
 
-- Selecting one column returns a **Series**, selecting multiple returns a **DataFrame**
+- Selecting one column returns a **Series**,
+selecting multiple returns a **DataFrame**
 ```{python}
 df["borough"].head()
 df[["borough", "crash_datetime", "number_of_persons_injured"]].head()
@@ -105,7 +108,8 @@ df[["borough", "crash_datetime", "number_of_persons_injured"]].head()
 
 ### Transforming Data
 
-#### Extracting and Creating Columns
+Here we extract crash hour from datetime,
+then create a severity label using a custom rule.
 ```{python}
 # Extract crash hour from datetime
 df["hour"] = df["crash_datetime"].dt.hour
@@ -118,7 +122,6 @@ df["severity"] = df["number_of_persons_injured"].apply(
 df[["borough", "hour", "severity"]].head()
 ```
 
-#### Common Transformations
 - In Pandas you can:
   - convert text to uppercase
   - create a binary flag column
@@ -136,9 +139,11 @@ df = df.rename(columns={"number_of_persons_injured": "persons_injured"})
 print(df[["borough", "injury_flag"]].head(5))
 ```
 
+### Dealing with Missing Data
+- Pandas has flexible options for dropping, filling,
+or interpolating missing data.
 
-#### Handling Missing Values
-- Pandas has flexible options for dropping, filling, or interpolating missing data.
+Here we can check the missing values and drop missing entries.
 ```{python}
 # Check missing values per column
 df.isna().sum()
@@ -147,7 +152,6 @@ df.isna().sum()
 df = df.dropna(subset=["borough"])
 ```
 
-#### Other Strategies for Missing Data
 - Fill with a default value
 - Forward or backward fill (useful for time-series)
 - Replace missing numberic data with mean or median
@@ -168,21 +172,18 @@ df.isna().mean() * 100
 
 ### Summarizing Data
 
-#### Grouping and Counting
 - We can compute the **average number of injuries per crash by borough**:
 ```{python}
 # Average injuries per crash by borough
 df.groupby("borough")["persons_injured"].mean().sort_values(ascending=False)
 ```
 
-#### Multiple Aggregations
 - Groupby can also perform multiple summary statistics at once
 ```{python}
 df.groupby("borough")["persons_injured"].agg(["mean", "max", "count"])
 ```
 
-#### Counting Crashes
-- Two ways to count crashes:
+- We have two ways to count crashes:
 ```{python}
 df["borough"].value_counts()
 
@@ -191,7 +192,6 @@ df["borough"].value_counts()
 df.groupby("borough").size().reset_index(name="crash_count")
 ```
 
-#### Pivot Tables
 - Pivot tables are great for reshaping summaries
 ```{python}
 #| results: 'hide'
@@ -210,8 +210,8 @@ pivot_rounded = pivot.round(2)
 pivot_rounded_subset = pivot_rounded.loc[:, 1:5]
 ```
 
-#### Pivot Table Output
-- Average injuries per hour by Borough (hours 1-5)
+- We can output a pivot table of,
+average injuries per hour by Borough (hours 1-5)
 ```{python}
 #| echo: false
 pivot_rounded_subset
@@ -219,7 +219,8 @@ pivot_rounded_subset
 
 ### Combining and Visualizing Data
 
-#### Merging with Population Data
+We can merge our borough data with
+the populatio data of those boroughs.
 ```{python}
 borough_pop = pd.DataFrame({
     "borough": ["Bronx", "Brooklyn", "Manhattan", "Queens", "Staten Island"],
@@ -229,9 +230,11 @@ borough_pop = pd.DataFrame({
 merged = pd.merge(df, borough_pop, on="borough", how="inner")
 ```
 
-#### Reshaping and Exporting
-- Real-world data often needs to be **restructured** for analysis or visualization
+- Real-world data often needs to be **restructured** for analysis 
+or visualization
 - Pandas provides powerful tools to switch between **wide** and **long** formats
+
+Here we can convert our data from wide to long format.
 ```{python}
 # Convert from wide to long format
 long_df = pd.melt(
@@ -250,7 +253,7 @@ long_df.to_csv("output/nyc_crash_long.csv", index=False)
 
 ### Visualizing with Plotnine
 
-#### Crashes by Borough
+We can visualize data in Pandas with plotnine.
 - We can see that Brooklyn and Queens typically have higher crash counts
  - Reflects both population and traffic density
 ```{python}
@@ -261,7 +264,7 @@ from plotnine import *
  + labs(title="Crashes by Borough", x="Borough", y="Count"))
 ```
 
-#### Crashes By Hour of Day
+Here we calculate the crash frequency per hour.
 - Crash frequency tends to increase during commute hours (rush hour)
 ```{python}
 (ggplot(df, aes(x="hour"))
@@ -270,9 +273,6 @@ from plotnine import *
 ```
 
 ### Wrapping Up
-
-#### Key Takeaways
-
 - Pandas simplifies all stages of data analysis.
   - Exploration (head(), info(), describe())
   - Cleaning and Transformation (apply(), dropna())
@@ -280,16 +280,17 @@ from plotnine import *
   - Combination and Reshaping (merge(), melt())
 - Integrates seamlessly with NumPy and Plotnine
 - Enables reproducible, efficient, and scalable data workflows
-- Mastering Pandas provides a strong foundation for machine learning, visualization, and statistical modeling
+- Mastering Pandas provides a strong foundation for machine learning, 
+visualization, and statistical modeling
 
-#### Resources
+### Resources
 
 - [Pandas Documentation](https://pandas.pydata.org)
 - [Real Python – Pandas Tutorials](https://realpython.com)
 - [Kaggle – Pandas Exercises](https://www.kaggle.com)
 - [Towards Data Science – Pandas Articles](https://towardsdatascience.com)
 
-#### References
+### References
 
 - McKinney, W. (2010). Data Structures for Statistical Computing in Python.
 In Proceedings of the 9th Python in Science Conference.
