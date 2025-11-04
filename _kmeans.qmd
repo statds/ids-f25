@@ -1,0 +1,536 @@
+## K-Means Clustering
+
+This section was prepared by Sophia Fazzina, an undergraduate senior pursuing a degree in Applied Data Analysis. 
+
+
+### Overview
+
+- What is **K-Means** and how does it work?
+- Toy example **with overlap** (to show mistakes & limits)
+- Choosing **K**: Elbow (limitations) vs **Silhouette**
+- **Iris** dataset demo (classic benchmark)
+- Pros, cons, and tips
+
+
+
+### What is K-Means?
+
+**Goal:** Group data points into *K* clusters based on similarity (distance).
+
+It repeats the following steps:
+1. Pick or adjust **centroids**  
+2. Assign each point to its **nearest centroid**  
+3. Recalculate each centroid as the **mean** of its cluster  
+4. Repeat until assignments no longer change  
+
+> Minimizes the **within-cluster sum of squares** — also known as *inertia*.
+
+
+```{python}
+#| echo: false
+#| fig-width: 6
+#| fig-height: 5
+#| dpi: 150
+
+from sklearn.datasets import make_blobs
+from sklearn.cluster import KMeans
+import matplotlib.pyplot as plt
+
+# Generate tight, distinct clusters
+
+X_ideal, _ = make_blobs(
+n_samples=300,
+centers=3,
+cluster_std=0.5,   # smaller std → less overlap
+random_state=10
+)
+
+# Fit K-Means
+
+km_ideal = KMeans(n_clusters=3, n_init=10, random_state=10).fit(X_ideal)
+labels_ideal = km_ideal.labels_
+centers_ideal = km_ideal.cluster_centers_
+
+# Plot results
+
+plt.figure(figsize=(6,5))
+plt.scatter(X_ideal[:,0], X_ideal[:,1], c=labels_ideal, s=40, alpha=0.8, cmap="viridis")
+plt.scatter(centers_ideal[:,0], centers_ideal[:,1], c="red", s=200, marker="X", edgecolor="k", label="Centroids")
+plt.title("Ideal K-Means: Tight, Well-Separated Clusters")
+plt.legend()
+plt.tight_layout()
+plt.show()
+```
+
+
+### Noisy Toy Dataset (with Overlap)
+
+We’ll generate **3 clusters** (blobs) with intentional **overlap**, so K-Means will sometimes *misclassify* points.  
+This shows how real-world data isn’t always perfectly separable.
+
+```{python}
+# Make noisy overlapping blobs
+from sklearn.datasets import make_blobs
+
+X, _ = make_blobs(
+    n_samples=300,
+    centers=3,
+    cluster_std=3.3,   # more noise → more overlap
+    random_state=42
+)
+X[:3]
+```
+
+
+### Fit K-Means (K=3)
+
+We’ll now fit the **K-Means algorithm** to our synthetic dataset with K=3 clusters.
+
+```{python}
+from sklearn.cluster import KMeans
+
+# Fit K-Means with 3 clusters
+kmeans = KMeans(n_clusters=3, n_init=10, random_state=42).fit(X)
+labels = kmeans.labels_
+centers = kmeans.cluster_centers_
+
+labels[:10], centers
+```
+
+
+### Visualize Clusters and Centroids
+
+Let’s plot our K-Means results to see how the algorithm groups points and positions centroids.
+
+```{python}
+#| echo: false
+#| fig-width: 6
+#| fig-height: 5
+#| dpi: 150
+
+import matplotlib.pyplot as plt
+
+plt.figure(figsize=(6,5))
+plt.scatter(X[:,0], X[:,1], c=labels, s=40, alpha=0.75, cmap="viridis")
+plt.scatter(centers[:,0], centers[:,1],
+            c="red", s=200, marker="X", edgecolor="k", label="Centroids")
+plt.title("K-Means on Noisy Overlapping Data (K=3)")
+plt.legend()
+plt.tight_layout()
+plt.show()
+```
+
+```{python}
+#| echo: false
+#| fig-width: 10
+#| fig-height: 4.5
+#| dpi: 150
+
+import matplotlib.pyplot as plt
+from sklearn.datasets import make_blobs
+from sklearn.cluster import KMeans
+
+# --- Ideal (tight) clusters ---
+X_ideal, _ = make_blobs(
+    n_samples=300,
+    centers=3,
+    cluster_std=0.5,
+    random_state=42
+)
+km_ideal = KMeans(n_clusters=3, n_init=10, random_state=42).fit(X_ideal)
+labels_ideal = km_ideal.labels_
+centers_ideal = km_ideal.cluster_centers_
+
+# --- Noisy (overlapping) clusters ---
+X_noisy, _ = make_blobs(
+    n_samples=300,
+    centers=3,
+    cluster_std=2.5,  # add noise/overlap
+    random_state=42
+)
+km_noisy = KMeans(n_clusters=3, n_init=10, random_state=42).fit(X_noisy)
+labels_noisy = km_noisy.labels_
+centers_noisy = km_noisy.cluster_centers_
+
+# --- Side-by-side plots ---
+fig, axes = plt.subplots(1, 2, figsize=(10, 4.5))
+
+axes[0].scatter(X_ideal[:,0], X_ideal[:,1], c=labels_ideal, s=35, cmap="viridis", alpha=0.8)
+axes[0].scatter(centers_ideal[:,0], centers_ideal[:,1], c="red", s=200, marker="X", edgecolor="k")
+axes[0].set_title("Ideal K-Means: Tight, Well-Separated Clusters")
+
+axes[1].scatter(X_noisy[:,0], X_noisy[:,1], c=labels_noisy, s=35, cmap="viridis", alpha=0.8)
+axes[1].scatter(centers_noisy[:,0], centers_noisy[:,1], c="red", s=200, marker="X", edgecolor="k")
+axes[1].set_title("Noisy K-Means: Overlapping Clusters")
+
+for ax in axes:
+    ax.legend(["Centroids"])
+    ax.grid(alpha=0.3)
+
+plt.tight_layout()
+plt.show()
+```
+The plot on the left is our ideal K-Means scenario, where clusters are tight and clearly separated. On the right, noise and overlap make it harder for K-Means to distinguish groups, showing that real world data is messy. 
+
+
+
+### Why Show Overlap?
+
+Even simple-looking data can be messy in reality — this helps us understand **K-Means’ limitations**.
+
+- Real data rarely forms **perfect, round clusters**  
+- K-Means can **misclassify** points near boundaries  
+- Good to know what the algorithm **can’t easily capture**
+
+
+
+### Choosing K
+
+The **Elbow Method** (inertia vs K) is a common but **subjective** way to pick the number of clusters.
+
+- Inertia always decreases as K increases  
+- The “elbow” is not always clear — and **rarely used alone**  
+- We’ll also compare with the **Silhouette Index**, which gives a numeric score for cluster quality
+
+
+
+#### Elbow Method (Toy Data)
+
+```{python}
+#| echo: false       # hides code, shows only the plot
+#| fig-width: 6
+#| fig-height: 5
+#| dpi: 150
+
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.cluster import KMeans
+
+K_range = range(2, 11)
+inertias = []
+for k in K_range:
+    km = KMeans(n_clusters=k, n_init=10, random_state=42).fit(X)
+    inertias.append(km.inertia_)
+
+plt.plot(list(K_range), inertias, marker="o")
+plt.title("Elbow Curve (Toy Data)")
+plt.xlabel("K")
+plt.ylabel("Inertia (within-cluster SS)")
+plt.grid(alpha=.3)
+plt.show()
+```
+
+
+### Silhouette: A Better Heuristic
+
+The **Silhouette Score** measures how well each point fits within its assigned cluster.
+
+- **Near 1.0** → points are compact and well-separated  
+- **Near 0** → clusters overlap or are ambiguous  
+- **Near -1.0** → points may be misclassified  
+
+> We’ll compute silhouette scores across K values to find the most meaningful number of clusters.
+
+
+
+### Compute Silhouette Scores (Toy Data)
+
+We compute the average silhouette score for each K to identify the most balanced clustering.
+
+```{python}
+#| fig-width: 6
+#| fig-height: 5
+#| dpi: 150
+
+from sklearn.metrics import silhouette_score
+from sklearn.cluster import KMeans
+import numpy as np
+
+sil_scores = []
+K_range = range(2, 11)
+
+for k in K_range:
+    km = KMeans(n_clusters=k, n_init=10, random_state=42).fit(X)
+    sil = silhouette_score(X, km.labels_)
+    sil_scores.append(sil)
+
+best_k = list(K_range)[int(np.argmax(sil_scores))]
+best_k
+```
+
+
+### Silhouette Plot (Toy Data)
+
+Higher silhouette scores mean clearer cluster separation.
+
+```{python}
+#| echo: true
+#| fig-width: 6
+#| fig-height: 5
+#| dpi: 150
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Print silhouette scores for each K
+print("Silhouette Scores by K:")
+for k, s in zip(K_range, sil_scores):
+    print(f"K = {k}: {s:.3f}")
+```
+
+
+```{python}
+# Plot the silhouette curve
+plt.plot(list(K_range), sil_scores, marker="o")
+plt.title("Silhouette Score vs K (Toy Data)")
+plt.xlabel("K")
+plt.ylabel("Silhouette Score")
+
+# Mark the best K
+plt.axvline(best_k, color="tab:red", ls="--", label=f"Best K ≈ {best_k}")
+plt.scatter(best_k, max(sil_scores), color="red", s=80, zorder=5)
+
+# Optional: label K=3 for clarity
+plt.text(3, sil_scores[1] + 0.02, "K=3", color="black", fontsize=10)
+
+plt.legend()
+plt.grid(alpha=.3)
+plt.show()
+```
+
+
+
+### Takeaway on Choosing K
+
+- **Elbow** is simple and visual — but often **subjective**  
+- **Silhouette** adds a **numerical perspective** for comparison  
+- The best choice combines **metrics**, **visuals**, and **domain insight**
+
+
+
+### Iris Dataset (Real, Continuous Features)
+
+We’ll cluster the **Iris flower measurements** —  
+(sepal length/width, petal length/width).  
+
+There are three true species — *Setosa, Versicolor,* and *Virginica* —  
+but we’ll **ignore labels** during clustering and compare afterward.
+
+
+
+#### Load and Standardize the Iris Dataset
+
+```{python}
+from sklearn.datasets import load_iris
+from sklearn.preprocessing import StandardScaler
+import pandas as pd
+
+# 1. Load the Iris dataset
+iris = load_iris(as_frame=True)
+df_iris = iris.frame.copy()
+X_iris = df_iris[iris.feature_names].values
+
+# 2. Standardize features for fair distance comparison
+scaler = StandardScaler()
+X_iris_sc = scaler.fit_transform(X_iris)
+
+# 3. Preview the first few rows
+df_iris.head(3)
+```
+
+
+
+#### Compute and Plot Silhouette Scores (Iris Dataset)
+
+We evaluate the **silhouette score** for K = 2 → 10 to find the best number of clusters.
+
+```{python}
+#| fig-width: 6
+#| fig-height: 5
+#| dpi: 150
+
+from sklearn.metrics import silhouette_score
+from sklearn.cluster import KMeans
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Evaluate silhouette for K = 2 to 10
+sil_iris = []
+K_range = range(2, 11)
+
+for k in K_range:
+    km = KMeans(n_clusters=k, n_init=20, random_state=42).fit(X_iris_sc)
+    sil = silhouette_score(X_iris_sc, km.labels_)
+    sil_iris.append(sil)
+
+# Print silhouette scores for clarity
+print("Silhouette Scores by K:")
+for k, s in zip(K_range, sil_iris):
+    print(f"K = {k}: {s:.3f}")
+```
+
+
+
+```{python}
+# Identify best K based on silhouette score
+best_k_iris = list(K_range)[int(np.argmax(sil_iris))]
+print(f"\nBest K based on silhouette score: {best_k_iris}")
+
+# Plot silhouette curve
+plt.plot(list(K_range), sil_iris, marker="o")
+plt.title("Silhouette Score vs K (Iris Dataset)")
+plt.xlabel("K")
+plt.ylabel("Silhouette Score")
+
+# Highlight the best K
+plt.axvline(best_k_iris, color="tab:red", ls="--", label=f"Best K ≈ {best_k_iris}")
+plt.scatter(best_k_iris, max(sil_iris), color="red", s=80, zorder=5)
+
+plt.legend()
+plt.grid(alpha=.3)
+plt.show()
+```
+
+
+
+#### PCA Projection (Iris Dataset)
+
+PCA is Principal Component Analysis. It is used to reduce the dimensionality of a dataset so that it can be plotted, but still captures most of the variance within the data. 
+
+We’ll reduce the 4D Iris feature space (sepal & petal measurements)  
+to **2D** using PCA, so we can visualize clusters.
+
+```{python}
+from sklearn.decomposition import PCA
+from sklearn.cluster import KMeans
+
+# 1. Fit K-Means with K=3 (typical for Iris)
+km_iris = KMeans(n_clusters=3, n_init=20, random_state=42).fit(X_iris_sc)
+labels_iris = km_iris.labels_
+centers_iris = km_iris.cluster_centers_
+
+# 2. Apply PCA to project 4D features into 2D
+pca = PCA(n_components=2, random_state=42)
+X_iris_p = pca.fit_transform(X_iris_sc)
+centers_p = pca.transform(centers_iris)
+
+# 3. Check variance explained by first two PCs
+pca.explained_variance_ratio_.sum()
+```
+
+
+
+#### Iris Clusters in PCA Space
+
+Now we can visualize the three clusters in **2D PCA space**.  
+Each point is a flower, color-coded by cluster, and the red X marks the **centroid**.
+
+```{python}
+#| echo: false
+#| fig-width: 6
+#| fig-height: 5
+#| dpi: 150
+
+plt.figure(figsize=(6,5))
+plt.scatter(X_iris_p[:,0], X_iris_p[:,1], c=labels_iris,
+            s=28, alpha=.8, cmap="viridis")
+plt.scatter(centers_p[:,0], centers_p[:,1], c="red",
+            s=180, marker="X", edgecolor="k", label="Centroids")
+plt.title("Iris: K-Means (K=3) in PCA Space")
+plt.xlabel("PC1")
+plt.ylabel("PC2")
+plt.legend()
+plt.tight_layout()
+plt.show()
+```
+
+
+#### Interpretation
+
+- Three clear groups emerge — roughly aligning with *Setosa*, *Versicolor*, and *Virginica*.  
+- Cluster overlap shows that Versicolor and Virginica are harder to separate — which matches real biology.  
+- This demonstrates how **K-Means captures natural structure** even without labels.
+
+
+
+#### Comparing K-Means Clusters to True Iris Species
+
+We can check how K-Means clusters align with the **actual Iris species**.  
+This is for intuition only — K-Means never saw the labels.
+
+```{python}
+# Compare cluster labels to species (for intuition only)
+
+df_cmp = pd.DataFrame({
+    "cluster": labels_iris,
+    "species": iris.target
+})
+crosstab = pd.crosstab(
+    df_cmp["cluster"],
+    df_cmp["species"],
+    rownames=["Cluster ID"],
+    colnames=["True Species"]
+)
+crosstab
+```
+
+
+#### Interpretation
+
+- One cluster almost perfectly matches **Setosa** — it’s the most distinct.  
+- The other two clusters overlap between **Versicolor** and **Virginica**,  
+  showing that K-Means can struggle when classes aren’t clearly separable.  
+- Still, the result is strong — the algorithm found **biologically meaningful groups** without supervision.
+
+
+
+#### Notes on the Iris Clustering Results
+
+- One cluster often matches **Setosa** very well — it’s clearly separated.  
+- The other two clusters (**Versicolor** and **Virginica**) partially overlap.  
+- This shows both the **strengths and natural limits** of K-Means.  
+
+
+
+#### Strengths & Limitations of K-Means
+
+**Strengths**
+- Simple, fast, and scalable  
+- Works well for roughly spherical clusters  
+- Easy to explain and implement  
+
+**Limitations**
+- Must choose **K** in advance  
+- Sensitive to **feature scaling** and **outliers**  
+- Struggles with **non-spherical** or unevenly sized clusters  
+- Random initialization can vary (fix with `n_init` and `random_state`)
+
+
+
+#### Tips & Alternatives
+
+- **Scale features** before applying K-Means  
+- Try several **K values** and use the **Silhouette Score** as a guide  
+- Use **PCA or feature engineering** if one variable dominates  
+- For **irregular shapes or noise**, try:
+  - DBSCAN (density-based)
+  - Agglomerative / Hierarchical clustering
+
+
+
+#### Key Takeaways
+
+- **K-Means** is an excellent first pass for finding structure in numeric data  
+- Combine **plots and metrics** (especially silhouette) to choose K wisely  
+- Always **sanity-check clusters** with domain knowledge  
+- Interpretation > algorithm — understand *why* groups form, not just that they do
+
+
+
+#### Further Reading
+
+- [**scikit-learn: Clustering User Guide (K-Means, Silhouette, DBSCAN)**](https://scikit-learn.org/stable/modules/clustering.html)
+- [**An Introduction to Statistical Learning (ISLR)** — Chapter on Unsupervised Learning](https://www.statlearning.com/)
+- [**Elements of Statistical Learning (ESL)** — Clustering Overview (Chapter 14)](https://hastie.su.domains/ElemStatLearn/)
+- [**Comparisons of K-Means, DBSCAN, and Spectral Clustering** — Towards Data Science](https://towardsdatascience.com/clustering-algorithms-and-how-to-compare-them-3b0d1c3bda9a)
+
