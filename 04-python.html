@@ -329,7 +329,7 @@ window.Quarto = {
 </blockquote>
 <p>Question: How to get the constant <span class="math inline">\(e\)</span> to an arbitary precision?</p>
 <p>The constant is only represented by a given double precision.</p>
-<div id="e70ee4b8" class="cell" data-execution_count="1">
+<div id="905faaf7" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="sc">%0.20f</span><span class="st">"</span> <span class="op">%</span> math.e)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="sc">%0.80f</span><span class="st">"</span> <span class="op">%</span> math.e)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -339,7 +339,7 @@ window.Quarto = {
 </div>
 </div>
 <p>Now use package <code>decimal</code> to export with an arbitary precision.</p>
-<div id="44006ba0" class="cell" data-execution_count="2">
+<div id="d3185e49" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> decimal  <span class="co"># for what?</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">## set the required number digits to 150</span></span>
@@ -363,7 +363,7 @@ window.Quarto = {
 <li>statsmodels</li>
 </ul>
 <p>Question: how to draw a random sample from a normal distribution and evaluate the density and distributions at these points?</p>
-<div id="ca2aafa3" class="cell" data-execution_count="3">
+<div id="046d5199" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> norm</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>mu, sigma <span class="op">=</span> <span class="dv">2</span>, <span class="dv">4</span></span>
@@ -375,16 +375,16 @@ window.Quarto = {
 <pre><code>2.0 16.0 0.0 0.0</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="3">
-<pre><code>array([ 2.82006715, -3.9178885 ,  4.39633472,  8.50748384, -1.61381509,
-        4.26662995,  1.58397951,  5.7061026 ,  3.58507023,  3.6764123 ])</code></pre>
+<pre><code>array([ 1.40945498, -0.85583838,  3.45660625,  4.70745299,  3.28986492,
+       -2.25182801,  3.61472452, -3.21260146,  0.72966336, -1.92119533])</code></pre>
 </div>
 </div>
 <p>The pdf and cdf can be evaluated:</p>
-<div id="7821f6fc" class="cell" data-execution_count="4">
+<div id="635898e4" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>norm.pdf(x, loc <span class="op">=</span> mu, scale <span class="op">=</span> sigma)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
-<pre><code>array([0.0976614 , 0.03338489, 0.08335193, 0.02655367, 0.06631446,
-       0.08494229, 0.0991976 , 0.0649292 , 0.09220445, 0.09135004])</code></pre>
+<pre><code>array([0.09865453, 0.07729685, 0.09333724, 0.07931684, 0.09468259,
+       0.05668919, 0.09193145, 0.04266684, 0.09483064, 0.0616843 ])</code></pre>
 </div>
 </div>
 </section>
@@ -392,7 +392,7 @@ window.Quarto = {
 <h2 data-number="4.4" class="anchored" data-anchor-id="writing-a-function"><span class="header-section-number">4.4</span> Writing a Function</h2>
 <p>Consider the Fibonacci Sequence <span class="math inline">\(1, 1, 2, 3, 5, 8, 13, 21, 34, ...\)</span>. The next number is found by adding up the two numbers before it. We are going to use 3 ways to solve the problems.</p>
 <p>The first is a recursive solution.</p>
-<div id="f9ddc6d2" class="cell" data-execution_count="5">
+<div id="1188eb4f" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fib_rs(n):</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (n<span class="op">==</span><span class="dv">1</span> <span class="kw">or</span> n<span class="op">==</span><span class="dv">2</span>):</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">1</span></span>
@@ -401,11 +401,11 @@ window.Quarto = {
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>timeit fib_rs(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>7.75 μs ± 403 ns per loop (mean ± std. dev. of 7 runs, 100,000 loops each)</code></pre>
+<pre><code>9.68 μs ± 1.66 μs per loop (mean ± std. dev. of 7 runs, 100,000 loops each)</code></pre>
 </div>
 </div>
 <p>The second uses dynamic programming memoization.</p>
-<div id="ac495f24" class="cell" data-execution_count="6">
+<div id="8204544a" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fib_dm_helper(n, mem):</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> mem[n] <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> mem[n]</span>
@@ -422,11 +422,11 @@ window.Quarto = {
 <span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>timeit fib_dm(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>1.92 μs ± 69.8 ns per loop (mean ± std. dev. of 7 runs, 1,000,000 loops each)</code></pre>
+<pre><code>1.85 μs ± 59.4 ns per loop (mean ± std. dev. of 7 runs, 1,000,000 loops each)</code></pre>
 </div>
 </div>
 <p>The third is still dynamic programming but bottom-up.</p>
-<div id="73d5d9ec" class="cell" data-execution_count="7">
+<div id="69db077b" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fib_dbu(n):</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    mem <span class="op">=</span> [<span class="va">None</span>] <span class="op">*</span> (n <span class="op">+</span> <span class="dv">1</span>)</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    mem[<span class="dv">1</span>] <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></span>
@@ -438,14 +438,14 @@ window.Quarto = {
 <span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>timeit fib_dbu(<span class="dv">500</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>62.9 μs ± 4.15 μs per loop (mean ± std. dev. of 7 runs, 10,000 loops each)</code></pre>
+<pre><code>62 μs ± 823 ns per loop (mean ± std. dev. of 7 runs, 10,000 loops each)</code></pre>
 </div>
 </div>
 <p>Apparently, the three solutions have very different performance for larger <code>n</code>.</p>
 <section id="monty-hall" class="level3" data-number="4.4.1">
 <h3 data-number="4.4.1" class="anchored" data-anchor-id="monty-hall"><span class="header-section-number">4.4.1</span> Monty Hall</h3>
 <p>Here is a function that performs the Monty Hall experiments. In this version, the host opens only one empty door.</p>
-<div id="2a294700" class="cell" data-execution_count="8">
+<div id="32824c84" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> montyhall(n_doors, n_trials):</span>
@@ -462,17 +462,17 @@ window.Quarto = {
 <span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>               <span class="st">'switch'</span>: np.<span class="bu">sum</span>(prize <span class="op">==</span> player2)}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Test it out with 3 doors.</p>
-<div id="075ac340" class="cell" data-execution_count="9">
+<div id="85c2fe88" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>montyhall(<span class="dv">3</span>, <span class="dv">1000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
-<pre><code>{'noswitch': np.int64(349), 'switch': np.int64(651)}</code></pre>
+<pre><code>{'noswitch': np.int64(307), 'switch': np.int64(693)}</code></pre>
 </div>
 </div>
 <p>Then with 4 doors</p>
-<div id="e0471e56" class="cell" data-execution_count="10">
+<div id="c39ceed2" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>montyhall(<span class="dv">4</span>, <span class="dv">1000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="10">
-<pre><code>{'noswitch': np.int64(248), 'switch': np.int64(389)}</code></pre>
+<pre><code>{'noswitch': np.int64(259), 'switch': np.int64(350)}</code></pre>
 </div>
 </div>
 <p>The true value for the two strategies with <span class="math inline">\(n\)</span> doors are, respectively, <span class="math inline">\(1 / n\)</span> and <span class="math inline">\(\frac{n - 1}{n (n - 2)}\)</span>.</p>
@@ -480,7 +480,7 @@ window.Quarto = {
 <section id="faster-version" class="level4" data-number="4.4.1.1">
 <h4 data-number="4.4.1.1" class="anchored" data-anchor-id="faster-version"><span class="header-section-number">4.4.1.1</span> Faster version</h4>
 <p>This one avoid loops.</p>
-<div id="d24adae3" class="cell" data-execution_count="11">
+<div id="6466a6c5" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> typing <span class="im">import</span> Dict, Optional</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -551,7 +551,7 @@ window.Quarto = {
 <span id="cb21-68"><a href="#cb21-68" aria-hidden="true" tabindex="-1"></a>    }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Another faster version uses <code>Numba</code> just-in-time (JIT) compiler Python, which translates a subset of Python and Numpy into fast machine code via LLVM at runtime. A decorator is added to the numeric functions and, after a one-time compile on the first call (“warm-up”), later calls run much faster. One can toggle <code>parallel=True</code> for multi-core speedups.</p>
-<div id="e5e037b3" class="cell" data-execution_count="12">
+<div id="b42d7686" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> typing <span class="im">import</span> Dict, Optional</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> numba <span class="im">import</span> njit, prange</span>
@@ -654,7 +654,7 @@ window.Quarto = {
 </div>
 <p>It wins when <code>n_trials</code> is very large (e.g., 10–100M) where loop overhead is amortized and you give it many threads, or the design avoids massive temporaries (not much in this example).</p>
 <p>Let’s see their time comparison.</p>
-<div id="05f1aa55" class="cell" data-execution_count="13">
+<div id="69f8eb65" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> timeit</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Timing function ---</span></span>
@@ -687,15 +687,15 @@ window.Quarto = {
 <span id="cb23-30"><a href="#cb23-30" aria-hidden="true" tabindex="-1"></a>benchmark(n_doors <span class="op">=</span> <span class="dv">4</span>, n_trials <span class="op">=</span> <span class="dv">1000_000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>n_doors=4, n_trials=1000000
-Original (lists): 38.3069s
-Vectorized NumPy: 0.0758s
-Numba serial:     0.0575s</code></pre>
+Original (lists): 41.1009s
+Vectorized NumPy: 0.0717s
+Numba serial:     0.0586s</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>OMP: Info #276: omp_set_nested routine deprecated, please use omp_set_max_active_levels instead.</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Numba parallel:   0.0305s</code></pre>
+<pre><code>Numba parallel:   0.0399s</code></pre>
 </div>
 </div>
 </section>
@@ -704,7 +704,7 @@ Numba serial:     0.0575s</code></pre>
 <section id="variables-versus-objects" class="level2" data-number="4.5">
 <h2 data-number="4.5" class="anchored" data-anchor-id="variables-versus-objects"><span class="header-section-number">4.5</span> Variables versus Objects</h2>
 <p>In Python, variables and the objects they point to actually live in two different places in the computer memory. Think of variables as pointers to the objects they’re associated with, rather than being those objects. This matters when multiple variables point to the same object.</p>
-<div id="b9ad0ad8" class="cell" data-execution_count="14">
+<div id="22d3448b" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]  <span class="co"># create a list; x points to the list</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> x          <span class="co"># y also points to the same list in the memory</span></span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>y.append(<span class="dv">4</span>)    <span class="co"># append to y</span></span>
@@ -714,16 +714,16 @@ Numba serial:     0.0575s</code></pre>
 </div>
 </div>
 <p>Now check their addresses</p>
-<div id="f848a531" class="cell" data-execution_count="15">
+<div id="3d93410b" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">id</span>(x))   <span class="co"># address of x</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">id</span>(y))   <span class="co"># address of y</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>4861643520
-4861643520</code></pre>
+<pre><code>4855634496
+4855634496</code></pre>
 </div>
 </div>
 <p>Nonetheless, some data types in Python are “immutable”, meaning that their values cannot be changed in place. One such example is strings.</p>
-<div id="c6da392f" class="cell" data-execution_count="16">
+<div id="dfc36a96" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="st">"abc"</span></span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> x</span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="st">"xyz"</span></span>
@@ -733,12 +733,12 @@ Numba serial:     0.0575s</code></pre>
 </div>
 </div>
 <p>Now check their addresses</p>
-<div id="c5abea74" class="cell" data-execution_count="17">
+<div id="c4bfc502" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">id</span>(x))   <span class="co"># address of x</span></span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">id</span>(y))   <span class="co"># address of y</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>4560407312
-4645278256</code></pre>
+<pre><code>4554394384
+4639563840</code></pre>
 </div>
 </div>
 <p>Question: What’s mutable and what’s immutable?</p>
@@ -749,7 +749,7 @@ Numba serial:     0.0575s</code></pre>
 <li><strong>Some</strong> manipulations of mutable types create new objects.</li>
 </ul>
 <p>Different variables may all be pointing at the same object is preserved through function calls (a behavior known as “pass by object-reference”). So if you pass a list to a function, and that function manipulates that list using an in-place mutation, that change will affect any variable that was pointing to that same object outside the function.</p>
-<div id="e5f0cb54" class="cell" data-execution_count="18">
+<div id="e353d769" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> x</span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -770,7 +770,7 @@ Numba serial:     0.0575s</code></pre>
 <section id="integers" class="level3" data-number="4.6.1">
 <h3 data-number="4.6.1" class="anchored" data-anchor-id="integers"><span class="header-section-number">4.6.1</span> Integers</h3>
 <p>If not careful, It is easy to be bitten by overflow with integers when using Numpy and Pandas in Python.</p>
-<div id="a4436646" class="cell" data-execution_count="19">
+<div id="07bda951" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.array(<span class="dv">2</span> <span class="op">**</span> <span class="dv">63</span> <span class="op">-</span> <span class="dv">1</span> , dtype <span class="op">=</span> <span class="st">'int'</span>)</span>
@@ -783,7 +783,7 @@ Numba serial:     0.0575s</code></pre>
 </div>
 <p><em>Note: on Windows and other platforms, <code>dtype = 'int'</code> may have to be changed to <code>dtype = np.int64</code> for the code to execute. Source: <a href="https://stackoverflow.com/questions/38314118/overflowerror-python-int-too-large-to-convert-to-c-long-on-windows-but-not-ma">Stackoverflow</a></em></p>
 <p>What if we increment it by 1?</p>
-<div id="0a33f89c" class="cell" data-execution_count="20">
+<div id="8c2919ea" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> np.array(x <span class="op">+</span> <span class="dv">1</span>, dtype <span class="op">=</span> <span class="st">'int'</span>)</span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>y</span>
 <span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Because of the overflow, it becomes negative!</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -792,7 +792,7 @@ Numba serial:     0.0575s</code></pre>
 </div>
 </div>
 <p>For vanilla Python, the overflow errors are checked and more digits are allocated when needed, at the cost of being slow.</p>
-<div id="75ba1843" class="cell" data-execution_count="21">
+<div id="8be7182c" class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="op">**</span> <span class="dv">63</span> <span class="op">*</span> <span class="dv">1000</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="21">
 <pre><code>9223372036854775808000</code></pre>
@@ -804,7 +804,7 @@ Numba serial:     0.0575s</code></pre>
 <h3 data-number="4.6.2" class="anchored" data-anchor-id="floating-number"><span class="header-section-number">4.6.2</span> Floating Number</h3>
 <p>Standard double-precision floating point number uses 64 bits. Among them, 1 is for sign, 11 is for exponent, and 52 are fraction significand, See <a href="https://en.wikipedia.org/wiki/Double-precision_floating-point_format" class="uri">https://en.wikipedia.org/wiki/Double-precision_floating-point_format</a>. The bottom line is that, of course, not every real number is exactly representable.</p>
 <p>If you have played the Game 24, here is a tricky one:</p>
-<div id="7de3796e" class="cell" data-execution_count="22">
+<div id="55e83615" class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="dv">8</span> <span class="op">/</span> (<span class="dv">3</span> <span class="op">-</span> <span class="dv">8</span> <span class="op">/</span> <span class="dv">3</span>) <span class="op">==</span> <span class="dv">24</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="22">
 <pre><code>False</code></pre>
@@ -812,34 +812,34 @@ Numba serial:     0.0575s</code></pre>
 </div>
 <p>Surprise?</p>
 <p>There are more.</p>
-<div id="3526d071" class="cell" data-execution_count="23">
+<div id="02391db5" class="cell" data-execution_count="23">
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fl">0.1</span> <span class="op">+</span> <span class="fl">0.1</span> <span class="op">+</span> <span class="fl">0.1</span> <span class="op">==</span> <span class="fl">0.3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="23">
 <pre><code>False</code></pre>
 </div>
 </div>
-<div id="8395284c" class="cell" data-execution_count="24">
+<div id="0d3881da" class="cell" data-execution_count="24">
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fl">0.3</span> <span class="op">-</span> <span class="fl">0.2</span> <span class="op">==</span> <span class="fl">0.1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="24">
 <pre><code>False</code></pre>
 </div>
 </div>
 <p>What is really going on?</p>
-<div id="39570e38" class="cell" data-execution_count="25">
+<div id="e23b42f5" class="cell" data-execution_count="25">
 <div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> decimal</span>
 <span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>decimal.Decimal(<span class="fl">0.1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="25">
 <pre><code>Decimal('0.1000000000000000055511151231257827021181583404541015625')</code></pre>
 </div>
 </div>
-<div id="83ca6002" class="cell" data-execution_count="26">
+<div id="f4ca8272" class="cell" data-execution_count="26">
 <div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>decimal.Decimal(<span class="dv">8</span> <span class="op">/</span> (<span class="dv">3</span> <span class="op">-</span> <span class="dv">8</span> <span class="op">/</span> <span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="26">
 <pre><code>Decimal('23.999999999999989341858963598497211933135986328125')</code></pre>
 </div>
 </div>
 <p>Because the mantissa bits are limited, it can not represent a floating point that’s both very big and very precise. Most computers can represent all integers up to <span class="math inline">\(2^{53}\)</span>, after that it starts skipping numbers.</p>
-<div id="02b46f85" class="cell" data-execution_count="27">
+<div id="04e6079f" class="cell" data-execution_count="27">
 <div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fl">2.1</span> <span class="op">**</span> <span class="dv">53</span> <span class="op">+</span> <span class="dv">1</span> <span class="op">==</span> <span class="fl">2.1</span> <span class="op">**</span> <span class="dv">53</span></span>
 <span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Find a number larger than 2 to the 53rd</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -847,7 +847,7 @@ Numba serial:     0.0575s</code></pre>
 <pre><code>True</code></pre>
 </div>
 </div>
-<div id="259ea871" class="cell" data-execution_count="28">
+<div id="9c1ff8ae" class="cell" data-execution_count="28">
 <div class="sourceCode cell-code" id="cb55"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="fl">2.1</span> <span class="op">**</span> <span class="dv">53</span></span>
 <span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1000000</span>):</span>
 <span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> x <span class="op">+</span> <span class="dv">1</span></span>
@@ -858,7 +858,7 @@ Numba serial:     0.0575s</code></pre>
 </div>
 <p>We add 1 to <code>x</code> by 1000000 times, but it still equal to its initial value, <code>2.1 ** 53</code>. This is because this number is too big that computer can’t handle it with precision like add 1.</p>
 <p>Machine epsilon is the smallest positive floating-point number <code>x</code> such that <code>1 + x != 1</code>.</p>
-<div id="b24a7b77" class="cell" data-execution_count="29">
+<div id="53925075" class="cell" data-execution_count="29">
 <div class="sourceCode cell-code" id="cb57"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(np.finfo(<span class="bu">float</span>).eps)</span>
 <span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(np.finfo(np.float32).eps)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">

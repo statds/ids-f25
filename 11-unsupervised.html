@@ -278,6 +278,13 @@ window.Quarto = {
   <li><a href="#interpreting-pca-results" id="toc-interpreting-pca-results" class="nav-link" data-scroll-target="#interpreting-pca-results"><span class="header-section-number">11.1.3</span> Interpreting PCA Results</a></li>
   <li><a href="#example-pca-on-8x8-digit-data" id="toc-example-pca-on-8x8-digit-data" class="nav-link" data-scroll-target="#example-pca-on-8x8-digit-data"><span class="header-section-number">11.1.4</span> Example: PCA on 8x8 Digit Data</a></li>
   </ul></li>
+  <li><a href="#stochastic-neighbor-embedding" id="toc-stochastic-neighbor-embedding" class="nav-link" data-scroll-target="#stochastic-neighbor-embedding"><span class="header-section-number">11.2</span> Stochastic Neighbor Embedding</a>
+  <ul class="collapse">
+  <li><a href="#statistical-rationale" id="toc-statistical-rationale" class="nav-link" data-scroll-target="#statistical-rationale"><span class="header-section-number">11.2.1</span> Statistical Rationale</a></li>
+  <li><a href="#t-sne-variation" id="toc-t-sne-variation" class="nav-link" data-scroll-target="#t-sne-variation"><span class="header-section-number">11.2.2</span> t-SNE Variation</a></li>
+  <li><a href="#supervised-variation" id="toc-supervised-variation" class="nav-link" data-scroll-target="#supervised-variation"><span class="header-section-number">11.2.3</span> Supervised Variation</a></li>
+  <li><a href="#demonstration-with-a-subset-of-the-nist-digits-data" id="toc-demonstration-with-a-subset-of-the-nist-digits-data" class="nav-link" data-scroll-target="#demonstration-with-a-subset-of-the-nist-digits-data"><span class="header-section-number">11.2.4</span> Demonstration with a Subset of the NIST Digits Data</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -509,7 +516,7 @@ Figure&nbsp;11.2: Variance contribution of each principal component and cumulati
 <span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">"3D PCA Projection of Digit Data"</span>)</span>
 <span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>fig.colorbar(scatter, ax<span class="op">=</span>ax, label<span class="op">=</span><span class="st">"Digit Label"</span>)</span>
 <span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="fig-pca-biplot-digits" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-fig-height="6" data-execution_count="3" data-fig-width="8">
+<div id="fig-pca-biplot-digits" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-fig-width="8" data-fig-height="6" data-execution_count="3">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-pca-biplot-digits-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output cell-output-display">
@@ -628,10 +635,97 @@ Figure&nbsp;11.4: Noise filtering using PCA: original, noisy, and reconstructed 
 </ul>
 <p>This example illustrates PCA’s denoising mechanism: by keeping only the components with the largest variance, it suppresses random noise and retains the dominant patterns in the data. This property makes PCA useful for preprocessing, image restoration, and general noise reduction tasks.</p>
 <!-- Stochastic neighbor embedding -->
-<!-- {{< include _sne.qmd >}} -->
-
-
 </section>
+</section>
+</section>
+<section id="stochastic-neighbor-embedding" class="level2" data-number="11.2">
+<h2 data-number="11.2" class="anchored" data-anchor-id="stochastic-neighbor-embedding"><span class="header-section-number">11.2</span> Stochastic Neighbor Embedding</h2>
+<p>Stochastic Neighbor Embedding (SNE) is a dimensionality reduction technique used to project high-dimensional data into a lower-dimensional space (often 2D or 3D) while preserving local neighborhoods of points. It is particularly popular for visualization tasks, helping to reveal clusters or groupings among similar points. Key characteristics include:</p>
+<ul>
+<li>Unsupervised: It does not require labels, relying on similarity or distance metrics among data points.</li>
+<li>Probabilistic framework: Pairwise distances in the original space are interpreted as conditional probabilities, which SNE attempts to replicate in the lower-dimensional space.</li>
+<li>Common for exploratory data analysis: Especially useful for high-dimensional datasets such as images, text embeddings, or genetic data.</li>
+</ul>
+<section id="statistical-rationale" class="level3" data-number="11.2.1">
+<h3 data-number="11.2.1" class="anchored" data-anchor-id="statistical-rationale"><span class="header-section-number">11.2.1</span> Statistical Rationale</h3>
+<p>The core idea behind SNE is to preserve local neighborhoods of each point in the data:</p>
+<ol type="1">
+<li><p>For each point <span class="math inline">\(x_i\)</span> in the high-dimensional space, SNE defines a conditional probability <span class="math inline">\(p_{j|i}\)</span> that represents how likely <span class="math inline">\(x_j\)</span> is a neighbor of <span class="math inline">\(x_i\)</span>.</p></li>
+<li><p>The probability <span class="math inline">\(p_{j|i}\)</span> is modeled using a Gaussian distribution centered on <span class="math inline">\(x_i\)</span>:</p>
+<p><span class="math display">\[
+p_{j|i} = \frac{\exp\left(- \| x_i - x_j \|^2 / 2 \sigma_i^2\right)}{\sum_{k \neq i} \exp\left(- \| x_i - x_k \|^2 / 2 \sigma_i^2\right)},
+\]</span></p>
+<p>where <span class="math inline">\(\sigma_i\)</span> is a variance parameter controlling the neighborhood size.</p></li>
+<li><p>Each point <span class="math inline">\(x_i\)</span> is mapped to a lower-dimensional counterpart <span class="math inline">\(y_i\)</span>, and a corresponding probability <span class="math inline">\(q_{j|i}\)</span> is defined similarly in that space.</p></li>
+<li><p>The objective function minimizes the Kullback–Leibler (KL) divergence between the high-dimensional and low-dimensional conditional probabilities, encouraging a faithful representation of local neighborhoods.</p></li>
+</ol>
+</section>
+<section id="t-sne-variation" class="level3" data-number="11.2.2">
+<h3 data-number="11.2.2" class="anchored" data-anchor-id="t-sne-variation"><span class="header-section-number">11.2.2</span> t-SNE Variation</h3>
+<p>The t-SNE (t-distributed Stochastic Neighbor Embedding) addresses two main issues in the original formulation of SNE:</p>
+<ul>
+<li>The crowding problem: In high dimensions, pairwise distances tend to spread out; in 2D or 3D, they can crowd together. t-SNE uses a Student t-distribution (with one degree of freedom) in the low-dimensional space, which has heavier tails than a Gaussian.</li>
+<li>Symmetric probabilities: t-SNE symmetrizes probabilities <span class="math inline">\(p_{ij} = (p_{j|i} + p_{i|j}) / (2N)\)</span>, simplifying computation.</li>
+</ul>
+<p>The Student t-distribution for low-dimensional similarity is given by:</p>
+<p><span class="math display">\[
+q_{ij} = \frac{\bigl(1 + \| y_i - y_j \|^2 \bigr)^{-1}}{\sum_{k \neq l} \bigl(1 + \| y_k - y_l \|^2 \bigr)^{-1}}.
+\]</span></p>
+<p>This heavier tail ensures that distant points are not forced too close, thus reducing the crowding effect.</p>
+</section>
+<section id="supervised-variation" class="level3" data-number="11.2.3">
+<h3 data-number="11.2.3" class="anchored" data-anchor-id="supervised-variation"><span class="header-section-number">11.2.3</span> Supervised Variation</h3>
+<p>Although SNE and t-SNE are fundamentally unsupervised, it is possible to integrate label information. In a supervised variant, distances between similarly labeled points may be reduced (or differently weighted), and additional constraints can be imposed to promote class separation in the lower-dimensional embedding. These approaches can help when partial label information is available and you want to blend supervised and unsupervised insights.</p>
+</section>
+<section id="demonstration-with-a-subset-of-the-nist-digits-data" class="level3" data-number="11.2.4">
+<h3 data-number="11.2.4" class="anchored" data-anchor-id="demonstration-with-a-subset-of-the-nist-digits-data"><span class="header-section-number">11.2.4</span> Demonstration with a Subset of the NIST Digits Data</h3>
+<p>Below is a brief example in Python using t-SNE on a small subset of the MNIST digits (which is itself a curated subset of the original NIST data).</p>
+<div id="44d60a79" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> fetch_openml</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.manifold <span class="im">import</span> TSNE</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>mnist <span class="op">=</span> fetch_openml(<span class="st">'mnist_784'</span>, version<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> mnist.data[:<span class="dv">2000</span>]</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> mnist.target[:<span class="dv">2000</span>]</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>tsne <span class="op">=</span> TSNE(n_components<span class="op">=</span><span class="dv">2</span>, perplexity<span class="op">=</span><span class="dv">30</span>, learning_rate<span class="op">=</span><span class="st">'auto'</span>, </span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>            init<span class="op">=</span><span class="st">'random'</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>X_embedded <span class="op">=</span> tsne.fit_transform(X)</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a separate scatter plot for each digit to show a legend</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>plt.figure()</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>digits <span class="op">=</span> np.unique(y)</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> digit <span class="kw">in</span> digits:</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    idx <span class="op">=</span> (y <span class="op">==</span> digit)</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>    plt.scatter(</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>        X_embedded[idx, <span class="dv">0</span>],</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>        X_embedded[idx, <span class="dv">1</span>],</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>        label<span class="op">=</span><span class="ss">f"Digit </span><span class="sc">{</span>digit<span class="sc">}</span><span class="ss">"</span>,</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>        alpha<span class="op">=</span><span class="fl">0.5</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"t-SNE on a Subset of MNIST Digits (by class)"</span>)</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Dimension 1"</span>)</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Dimension 2"</span>)</span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="11-unsupervised_files/figure-html/cell-6-output-1.png" width="596" height="449" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>In the visualization:</p>
+<ul>
+<li>Points belonging to the same digit typically cluster together.</li>
+<li>Ambiguous or poorly written digits often end up bridging two clusters.</li>
+<li>Some digits, such as 3 and 5, may be visually similar and can appear partially overlapping in the 2D space.</li>
+</ul>
+
+
 </section>
 </section>
 
