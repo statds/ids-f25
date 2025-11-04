@@ -203,7 +203,6 @@ krige = pk.OrdinaryKriging(
     x=df_train["xcoord"],
     y=df_train["ycoord"],
     z=df_train["pct_voter"],
-    variogram_model="gaussian",
     nlags=10,
     coordinates_type="geographic",
 )
@@ -271,6 +270,37 @@ Kriging seems to accurately capture the general spatial trends. The residuals ha
 ```{python}
 print(pd.DataFrame(df_test["krige_residual"].describe()[1:]).reindex())
 ```
+
+---
+
+With the kriging spatial predictor's performance understood, we can use it to augment regression.
+
+```{python}
+df_train = df_train.reset_index()
+df_test = df_test.reset_index()
+
+p_train = df_train[["pop", "education", "houses", "income"]].to_numpy()
+x_train = df_train[["xcoord", "ycoord"]].to_numpy()
+y_train = df_train["pct_voter"].to_numpy()
+
+p_test = df_test[["pop", "education", "houses", "income"]].to_numpy()
+x_test = df_test[["xcoord", "ycoord"]].to_numpy()
+y_test = df_test["pct_voter"].to_numpy()
+```
+
+```{python}
+#| echo: true
+
+from pykrige.rk import RegressionKriging
+
+model_rk = RegressionKriging(regression_model=LinearRegression())
+
+model_rk.fit(p_train, x_train, y_train)
+print("Regression Score: ", model_rk.regression_model.score(p_test, y_test))
+print("RK score: ", model_rk.score(p_test, x_test, y_test))
+```
+
+\* Note that the linear predictors, point locations, and targets (`p_train`, `x_train`, and `y_train`) must be NumPy arrays, not `pd.DataFrame`.
 
 ## Conclusion
 
