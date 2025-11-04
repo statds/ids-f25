@@ -4,4 +4,4 @@
 {{< include _pca.qmd >}}
 
 <!-- Stochastic neighbor embedding -->
-<!-- {{< include _sne.qmd >}} -->
+{{< include _sne.qmd >}}
