@@ -1,26 +1,21 @@
 ---
 title: "Spatial Statistical Methods"
 author: "Quinn Saltus"
-format:
-  revealjs:
-    smaller: true
-    scrollable: true
+format: revealjs
 ---
 
 <!-- TODO when converting from presentation to section, fix heading levels -->
 
-### Intro
+### Introduction
 
-Spatially dependent data can cause problems for standard statistical methods. Many common statistical tools assume that individual observations are independent, but if location matters, then close data points will be more similar than far data points, violating the assumption. 
+Spatially dependent data can cause problems for standard statistical methods. Many common statistical tools assume that individual observations are independent, but if location matters, then close data points will be more similar than far data points.
 
-Techniques like bootstrap and cross-validation mean that we don't necessarily need to make assumptions of independence in order to make accurate models. But that doesn't mean we should ignore the `latitude` and `longitude` columns of our data. Spatial Statistics can:
+Spatial Statistics can:
 
 + Quantify the spatial dependence among data
 + Improve predictive models' accuracy and statistical rigor
 
----
-
-### Dataset
+## Dataset {.smaller}
 
 The dataset I'll use for demonstration is the [Turnout by County for the 1980 Election](https://www.openml.org/search?type=data&status=active&id=507).
 
@@ -68,9 +63,6 @@ df = gp.GeoDataFrame(
 
 A basic multiple linear regression model will serve as the baseline for non-spatial performance.
 
-:::: {.columns}
-::: {.column width="60%"}
-
 ```{python}
 #| echo: true
 #| output: false
@@ -78,24 +70,15 @@ A basic multiple linear regression model will serve as the baseline for non-spat
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 X_train, X_test, Y_train, Y_test = train_test_split(
-    df[["pop", "education", "houses", "income"]],
-    df["pct_voter"], test_size=0.3, random_state=42
+    X := df[["pop", "education", "houses", "income"]],
+    Y := df["pct_voter"],
+    test_size=0.2, random_state=1234
 )
 model_basic = LinearRegression().fit(X_train, Y_train)
-print(f"Coefficients: {model_basic.coef_}")
-print(f"R-squared: {model_basic.score(X_test, Y_test):.4f}")
 ```
 
-:::
-::: {.column width="40%"}
-
-```{python}
-print(f"Coefficients: {model_basic.coef_}")
-print(f"R-squared: {model_basic.score(X_test, Y_test):.4f}")
-```
-
-:::
-::::
+:::: {.columns}
+::: {.column}
 
 ```{python}
 (ggplot(
@@ -108,36 +91,185 @@ print(f"R-squared: {model_basic.score(X_test, Y_test):.4f}")
     + geom_point(color="#00000088")
     + geom_abline(slope=1, intercept=0, color="red", linetype="dashed")
     + theme_light()
-    + theme(figure_size=(5, 4))
+    + theme(figure_size=(4, 3))
 )
 ```
 
----
-
-### Spatial Autocorrelation
+:::
+::: {.column}
 
 ```{python}
+print(f"Coefficients: {model_basic.coef_}")
+print(f"Test R-squared: {model_basic.score(X_test, Y_test):.4f}")
+```
+
+:::
+::::
+
+## Libraries
+
+The libraries I use are The Python Spatial Analysis Library and PyKrige. We haven't used these in class before, so you'll probably need to install them with Pip.
+
+``` {.shell}
+pip install pykrige
+pip install pysal
+```
+
+I'll also use `Scipy`'s `KDTree` class, which can efficiently find nearby points. This is important for speed with large datasets.
+
+```{python}
+#| echo: true
+
 import libpysal
 from scipy.spatial import KDTree
 from pysal.explore import esda
+from pysal.model import spreg
+import pykrige as pk
+```
+
+## Spatial Weights {.smaller}
+
+Standard regression uses the following model:
+
+$$
+Y_i = \beta X_i + \epsilon_i
+$$
+
+Spatial tools include a term for the weighted average of nearby points ($W_i Y$):
+
+$$
+Y_i = \rho  W_i Y + \beta X_i + \epsilon_i
+$$
+
+With PySAL, we need to precompute the weights matrix to give to analsyis functions. I'll use inverse square distance, but other methods like K-Nearest-Neighbors (`libpysal.weights.KNN`) and [Gabriel Graphs](https://en.wikipedia.org/wiki/Gabriel_graph) (`libpysal.weights.Gabriel`) are available.
+
+```{python}
+#| echo: true
 
 dist_kdtree = KDTree(df[["xcoord", "ycoord"]])
-
 weights = libpysal.weights.DistanceBand(
     dist_kdtree,
-    threshold=5, # limit search to 5 degrees
-    binary=False, 
+    threshold=5, # limit search distance
+    binary=False, # use numeric weights
     alpha=-2 # use inverse square distance
 )
 ```
 
+## Moran's I {.smaller}
+
+:::: {.columns}
+::: {.column width="70%"}
+
+Moran's I is a common measure of spatial autocorrelation, ranging from -1 (values are negatively correlated with nearby data) to 1 (values are positively correlated with nearby data).
+
 ```{python}
+#| echo: true
+
 moran = esda.Moran(y = df["pct_voter"], w=weights)
-
 moran.plot_scatter()
+```
 
-print(f"Moran's I: {moran.I:.4f}")
-print(f"Moran's I p-value (under randomization): {moran.p_rand:.4f}")
+:::
+::: {.column width="30%"}
+
+Some example I-values using weights based on adjacency.
+
+<p><a href="https://commons.wikimedia.org/wiki/File:Moran%27s_I_example.png#/media/File:Moran's_I_example.png"><img src="https://upload.wikimedia.org/wikipedia/commons/f/f0/Moran%27s_I_example.png" alt="Moran's I example.png" height="300" width="500"></a></p>
+
+-------------------------------------------------------------
+
+For this data,
+
+```{python}
+print(f"Moran's I = {moran.I:.4f}")
+print(f"Moran's I p-value = {moran.p_rand:.4f}")
+```
+
+:::
+::::
+
+## Kriging
+
+Kriging is a nonparametric method of interpolation. Using PyKrige, we can estimate the mean of a parameter across the spatial plane.
+
+```{python}
+df_train, df_test = train_test_split(df, test_size=0.2, random_state=1234)
+```
+
+```{python}
+#| echo: true
+
+krige = pk.OrdinaryKriging(
+    x=df_train["xcoord"],
+    y=df_train["ycoord"],
+    z=df_train["pct_voter"],
+    variogram_model="gaussian",
+    nlags=10,
+    coordinates_type="geographic",
+)
+
+# use trained model to estimate test data
+df_test["krige_estimate"], _ = krige.execute(
+    "points", df_test["xcoord"], df_test["ycoord"]
+)
+
+df_test["krige_residual"] = df_test["pct_voter"] - df_test["krige_estimate"]
+```
+
+---
+
+:::: {.columns}
+::: {.column}
+
+```{python}
+(ggplot(df_test, aes(x="xcoord", y="ycoord", color="krige_estimate"))
+    + geom_point(size=0.6)
+    + scale_color_continuous(cmap_name="Spectral")
+    + coord_equal(ratio=1.3)
+    + labs(
+        title="Kriging-Estimated Turnout",
+        x="Longitude",
+        y="Latitude"
+    )
+    + theme_light()
+    + theme(
+        panel_background=element_rect(fill="#aaaaaa"),
+        figure_size=(6, 3)
+    )
+)
+```
+
+:::
+::: {.column}
+
+```{python}
+(ggplot(df_test, aes(x="xcoord", y="ycoord", color="krige_residual"))
+    + geom_point(size=0.6)
+    + scale_color_continuous(
+        cmap_name="PuOr",
+        limits=(max(abs(df_test["krige_residual"])), -max(abs(df_test["krige_residual"])))
+    )
+    + coord_equal(ratio=1.3)
+    + labs(
+        title="Residuals of Kriging Estimates of Turnout",
+        x="Longitude",
+        y="Latitude"
+    )
+    + theme_light()
+    + theme(
+        panel_background=element_rect(fill="#aaaaaa"),
+        figure_size=(6, 3)
+    )
+)
+```
+
+:::
+::::
+
+Kriging seems to accurately capture the general spatial trends. The residuals have the following descriptive statistics:
+
+```{python}
+print(pd.DataFrame(df_test["krige_residual"].describe()[1:]).reindex())
 ```
 
 ## Conclusion
@@ -147,3 +279,4 @@ print(f"Moran's I p-value (under randomization): {moran.p_rand:.4f}")
 [The PyKrige Documentation](https://geostat-framework.readthedocs.io/projects/pykrige/en/stable/)
 
 <!-- TODO cite data -->
+<!-- TODO cite Moran image -->
