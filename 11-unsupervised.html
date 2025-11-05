@@ -283,7 +283,7 @@ window.Quarto = {
   <li><a href="#statistical-rationale" id="toc-statistical-rationale" class="nav-link" data-scroll-target="#statistical-rationale"><span class="header-section-number">11.2.1</span> Statistical Rationale</a></li>
   <li><a href="#t-sne-variation" id="toc-t-sne-variation" class="nav-link" data-scroll-target="#t-sne-variation"><span class="header-section-number">11.2.2</span> t-SNE Variation</a></li>
   <li><a href="#supervised-variation" id="toc-supervised-variation" class="nav-link" data-scroll-target="#supervised-variation"><span class="header-section-number">11.2.3</span> Supervised Variation</a></li>
-  <li><a href="#demonstration-with-a-subset-of-the-nist-digits-data" id="toc-demonstration-with-a-subset-of-the-nist-digits-data" class="nav-link" data-scroll-target="#demonstration-with-a-subset-of-the-nist-digits-data"><span class="header-section-number">11.2.4</span> Demonstration with a Subset of the NIST Digits Data</a></li>
+  <li><a href="#an-example-with-the-nist-digits-data" id="toc-an-example-with-the-nist-digits-data" class="nav-link" data-scroll-target="#an-example-with-the-nist-digits-data"><span class="header-section-number">11.2.4</span> An Example with the NIST Digits Data</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -516,7 +516,7 @@ Figure&nbsp;11.2: Variance contribution of each principal component and cumulati
 <span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">"3D PCA Projection of Digit Data"</span>)</span>
 <span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>fig.colorbar(scatter, ax<span class="op">=</span>ax, label<span class="op">=</span><span class="st">"Digit Label"</span>)</span>
 <span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="fig-pca-biplot-digits" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-fig-width="8" data-execution_count="3" data-fig-height="6">
+<div id="fig-pca-biplot-digits" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-fig-height="6" data-execution_count="3" data-fig-width="8">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-pca-biplot-digits-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output cell-output-display">
@@ -648,82 +648,102 @@ Figure&nbsp;11.4: Noise filtering using PCA: original, noisy, and reconstructed 
 </ul>
 <section id="statistical-rationale" class="level3" data-number="11.2.1">
 <h3 data-number="11.2.1" class="anchored" data-anchor-id="statistical-rationale"><span class="header-section-number">11.2.1</span> Statistical Rationale</h3>
-<p>The core idea behind SNE is to preserve local neighborhoods of each point in the data:</p>
+<p>SNE aims to construct a low-dimensional representation that preserves the local neighborhood relationships observed in the original high-dimensional data. The method achieves this by matching probabilistic similarities between points across the two spaces.</p>
 <ol type="1">
-<li><p>For each point <span class="math inline">\(x_i\)</span> in the high-dimensional space, SNE defines a conditional probability <span class="math inline">\(p_{j|i}\)</span> that represents how likely <span class="math inline">\(x_j\)</span> is a neighbor of <span class="math inline">\(x_i\)</span>.</p></li>
-<li><p>The probability <span class="math inline">\(p_{j|i}\)</span> is modeled using a Gaussian distribution centered on <span class="math inline">\(x_i\)</span>:</p>
+<li><p>For each point <span class="math inline">\(x_i\)</span> in the high-dimensional space, SNE defines a conditional probability <span class="math inline">\(p_{j|i}\)</span> that measures how likely <span class="math inline">\(x_j\)</span> would be chosen as a neighbor of <span class="math inline">\(x_i\)</span>. The probability is modeled as</p>
 <p><span class="math display">\[
-p_{j|i} = \frac{\exp\left(- \| x_i - x_j \|^2 / 2 \sigma_i^2\right)}{\sum_{k \neq i} \exp\left(- \| x_i - x_k \|^2 / 2 \sigma_i^2\right)},
+p_{j|i} =
+\frac{\exp\!\left(-\|x_i - x_j\|^2 / 2\sigma_i^2\right)}
+     {\sum_{k \neq i}\exp\!\left(-\|x_i - x_k\|^2 / 2\sigma_i^2\right)},
 \]</span></p>
-<p>where <span class="math inline">\(\sigma_i\)</span> is a variance parameter controlling the neighborhood size.</p></li>
-<li><p>Each point <span class="math inline">\(x_i\)</span> is mapped to a lower-dimensional counterpart <span class="math inline">\(y_i\)</span>, and a corresponding probability <span class="math inline">\(q_{j|i}\)</span> is defined similarly in that space.</p></li>
-<li><p>The objective function minimizes the Kullback–Leibler (KL) divergence between the high-dimensional and low-dimensional conditional probabilities, encouraging a faithful representation of local neighborhoods.</p></li>
+<p>where the bandwidth <span class="math inline">\(\sigma_i\)</span> controls the neighborhood size and is typically determined to match a specified perplexity.</p></li>
+<li><p>Each high-dimensional point <span class="math inline">\(x_i\)</span> is mapped to a low-dimensional coordinate <span class="math inline">\(y_i\)</span>, from which a corresponding similarity distribution is defined:</p>
+<p><span class="math display">\[
+q_{j|i} =
+\frac{\exp\!\left(-\|y_i - y_j\|^2\right)}
+     {\sum_{k \neq i}\exp\!\left(-\|y_i - y_k\|^2\right)}.
+\]</span></p></li>
+<li><p>Denote by <span class="math inline">\(P_i = \{p_{j|i}\}_{j \neq i}\)</span> and <span class="math inline">\(Q_i = \{q_{j|i}\}_{j \neq i}\)</span> the conditional probability distributions for point <span class="math inline">\(i\)</span> in the high- and low-dimensional spaces, respectively. The optimal embedding <span class="math inline">\(\{y_i\}\)</span> minimizes the Kullback–Leibler (KL) divergence between the two conditional distributions:</p>
+<p><span class="math display">\[
+C = \sum_i \text{KL}(P_i \| Q_i)
+  = \sum_i \sum_j p_{j|i} \log\!\frac{p_{j|i}}{q_{j|i}}.
+\]</span></p>
+<p>This optimization encourages points that are close in the high-dimensional space to remain close in the lower-dimensional map, thus preserving local structure.</p></li>
 </ol>
+<p>The asymmetry of the KL divergence in SNE plays a central role in how local structure is preserved. Because the divergence <span class="math inline">\(\text{KL}(P_i \| Q_i)\)</span> penalizes situations where a true neighbor <span class="math inline">\(x_j\)</span> (with high <span class="math inline">\(p_{j|i}\)</span>) is assigned a low similarity <span class="math inline">\(q_{j|i}\)</span> in the low-dimensional map, the optimization strongly discourages breaking apart neighborhoods that exist in the original space. In contrast, pairs of distant points with small <span class="math inline">\(p_{j|i}\)</span> values contribute little to the objective even if they are mapped close together. This asymmetry biases the optimization toward accurately reproducing local relationships rather than global geometry, emphasizing cluster fidelity over large-scale distances. While this focus on local preservation is desirable for visualizing complex data manifolds, it can also cause points from different neighborhoods to become compressed together, a phenomenon known as the <em>crowding problem</em>.</p>
+<p>The later <em>t</em>-SNE algorithm addresses this issue by symmetrizing the joint probabilities and replacing the Gaussian kernel in the low-dimensional space with a Student-<span class="math inline">\(t\)</span> distribution to allow for heavier tails and better separation of clusters.</p>
 </section>
 <section id="t-sne-variation" class="level3" data-number="11.2.2">
 <h3 data-number="11.2.2" class="anchored" data-anchor-id="t-sne-variation"><span class="header-section-number">11.2.2</span> t-SNE Variation</h3>
-<p>The t-SNE (t-distributed Stochastic Neighbor Embedding) addresses two main issues in the original formulation of SNE:</p>
-<ul>
-<li>The crowding problem: In high dimensions, pairwise distances tend to spread out; in 2D or 3D, they can crowd together. t-SNE uses a Student t-distribution (with one degree of freedom) in the low-dimensional space, which has heavier tails than a Gaussian.</li>
-<li>Symmetric probabilities: t-SNE symmetrizes probabilities <span class="math inline">\(p_{ij} = (p_{j|i} + p_{i|j}) / (2N)\)</span>, simplifying computation.</li>
-</ul>
-<p>The Student t-distribution for low-dimensional similarity is given by:</p>
+<p>The t-distributed Stochastic Neighbor Embedding (t-SNE) modifies SNE to overcome two major limitations: the crowding problem and the asymmetry of conditional probabilities. These refinements improve both optimization stability and visual interpretability of the resulting low-dimensional map.</p>
+<p>The crowding problem arises because, in high-dimensional spaces, pairwise distances are more evenly distributed than can be represented in two or three dimensions. As a result, points that are moderately distant in the original space may become crowded together in the low-dimensional map. To mitigate this issue, t-SNE replaces the Gaussian kernel in the low-dimensional space with a Student-<span class="math inline">\(t\)</span> distribution with one degree of freedom, which has heavier tails and allows distant points to remain farther apart.</p>
+<p>To simplify computation and ensure that similarity is mutual, t-SNE also defines symmetric joint probabilities as <span class="math inline">\(p_{ij} = (p_{j|i} + p_{i|j}) / (2N)\)</span>, producing a symmetric similarity matrix.</p>
+<p>The corresponding similarity in the low-dimensional space is defined as</p>
 <p><span class="math display">\[
-q_{ij} = \frac{\bigl(1 + \| y_i - y_j \|^2 \bigr)^{-1}}{\sum_{k \neq l} \bigl(1 + \| y_k - y_l \|^2 \bigr)^{-1}}.
+q_{ij} =
+\frac{\bigl(1 + \|y_i - y_j\|^2\bigr)^{-1}}
+     {\sum_{k \neq l}\bigl(1 + \|y_k - y_l\|^2\bigr)^{-1}}.
 \]</span></p>
-<p>This heavier tail ensures that distant points are not forced too close, thus reducing the crowding effect.</p>
+<p>t-SNE minimizes the Kullback–Leibler divergence between the joint probabilities <span class="math inline">\(\{p_{ij}\}\)</span> and <span class="math inline">\(\{q_{ij}\}\)</span> with respect to the embedding coordinates <span class="math inline">\(\{y_i\}\)</span>:</p>
+<p><span class="math display">\[
+C = \sum_{i}\sum_{j} p_{ij}\log\!\frac{p_{ij}}{q_{ij}}.
+\]</span></p>
+<p>By combining symmetric similarities and heavy-tailed distributions, t-SNE preserves local structure while providing enough flexibility to separate distant clusters in the low-dimensional representation.</p>
 </section>
 <section id="supervised-variation" class="level3" data-number="11.2.3">
 <h3 data-number="11.2.3" class="anchored" data-anchor-id="supervised-variation"><span class="header-section-number">11.2.3</span> Supervised Variation</h3>
-<p>Although SNE and t-SNE are fundamentally unsupervised, it is possible to integrate label information. In a supervised variant, distances between similarly labeled points may be reduced (or differently weighted), and additional constraints can be imposed to promote class separation in the lower-dimensional embedding. These approaches can help when partial label information is available and you want to blend supervised and unsupervised insights.</p>
+<p>While SNE and t-SNE are fundamentally unsupervised methods, they can be extended to incorporate available label information. In supervised or semi-supervised variants, the similarity structure is adjusted so that points sharing the same label are drawn closer together, whereas points from different classes are pushed apart through modified distance weights or additional penalty terms in the loss function. These extensions preserve the local manifold structure of the data while simultaneously promoting class separation in the low-dimensional embedding. Such hybrid formulations are particularly useful when partial label information is available and the goal is to combine supervised guidance with unsupervised neighborhood discovery.</p>
 </section>
-<section id="demonstration-with-a-subset-of-the-nist-digits-data" class="level3" data-number="11.2.4">
-<h3 data-number="11.2.4" class="anchored" data-anchor-id="demonstration-with-a-subset-of-the-nist-digits-data"><span class="header-section-number">11.2.4</span> Demonstration with a Subset of the NIST Digits Data</h3>
-<p>Below is a brief example in Python using t-SNE on a small subset of the MNIST digits (which is itself a curated subset of the original NIST data).</p>
-<div id="44d60a79" class="cell" data-execution_count="5">
+<section id="an-example-with-the-nist-digits-data" class="level3" data-number="11.2.4">
+<h3 data-number="11.2.4" class="anchored" data-anchor-id="an-example-with-the-nist-digits-data"><span class="header-section-number">11.2.4</span> An Example with the NIST Digits Data</h3>
+<p>Below is a brief example using t-SNE on a small subset of the MNIST digits, which is itself a curated subset of the original NIST handwritten digits data. This example illustrates how t-SNE projects high-dimensional image data—each digit represented by a 784-dimensional vector—onto a two-dimensional space. The resulting visualization reveals clusters corresponding to different digits, providing an intuitive view of how similar handwriting patterns group together in the embedding space.</p>
+<div id="cell-fig-tsne-mnist" class="cell" data-fig-format="svg" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> fetch_openml</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.manifold <span class="im">import</span> TSNE</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>mnist <span class="op">=</span> fetch_openml(<span class="st">'mnist_784'</span>, version<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>mnist <span class="op">=</span> fetch_openml(<span class="st">'mnist_784'</span>, version<span class="op">=</span><span class="dv">1</span>, as_frame<span class="op">=</span><span class="va">False</span>)</span>
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> mnist.data[:<span class="dv">2000</span>]</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> mnist.target[:<span class="dv">2000</span>]</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> mnist.target[:<span class="dv">2000</span>].astype(<span class="bu">int</span>)</span>
 <span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>tsne <span class="op">=</span> TSNE(n_components<span class="op">=</span><span class="dv">2</span>, perplexity<span class="op">=</span><span class="dv">30</span>, learning_rate<span class="op">=</span><span class="st">'auto'</span>, </span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>            init<span class="op">=</span><span class="st">'random'</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>X_embedded <span class="op">=</span> tsne.fit_transform(X)</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a separate scatter plot for each digit to show a legend</span></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>plt.figure()</span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>digits <span class="op">=</span> np.unique(y)</span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> digit <span class="kw">in</span> digits:</span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    idx <span class="op">=</span> (y <span class="op">==</span> digit)</span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>    plt.scatter(</span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>        X_embedded[idx, <span class="dv">0</span>],</span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>        X_embedded[idx, <span class="dv">1</span>],</span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>        label<span class="op">=</span><span class="ss">f"Digit </span><span class="sc">{</span>digit<span class="sc">}</span><span class="ss">"</span>,</span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>        alpha<span class="op">=</span><span class="fl">0.5</span></span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"t-SNE on a Subset of MNIST Digits (by class)"</span>)</span>
-<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Dimension 1"</span>)</span>
-<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Dimension 2"</span>)</span>
-<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
-<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>tsne <span class="op">=</span> TSNE(</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    n_components<span class="op">=</span><span class="dv">2</span>,</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    perplexity<span class="op">=</span><span class="dv">30</span>,</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    learning_rate<span class="op">=</span><span class="st">'auto'</span>,</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    init<span class="op">=</span><span class="st">'random'</span>,</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    random_state<span class="op">=</span><span class="dv">42</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>X_embedded <span class="op">=</span> tsne.fit_transform(X)</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>plt.figure()</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>digits <span class="op">=</span> np.unique(y)</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> digit <span class="kw">in</span> digits:</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>    idx <span class="op">=</span> (y <span class="op">==</span> digit)</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>    plt.scatter(</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>        X_embedded[idx, <span class="dv">0</span>],</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>        X_embedded[idx, <span class="dv">1</span>],</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>        label<span class="op">=</span><span class="ss">f"Digit </span><span class="sc">{</span>digit<span class="sc">}</span><span class="ss">"</span>,</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>        alpha<span class="op">=</span><span class="fl">0.5</span></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Dimension 1"</span>)</span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Dimension 2"</span>)</span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="11-unsupervised_files/figure-html/cell-6-output-1.png" width="596" height="449" class="figure-img"></p>
+<div id="fig-tsne-mnist" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-tsne-mnist-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="11-unsupervised_files/figure-html/fig-tsne-mnist-output-1.png" width="662" height="470" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-tsne-mnist-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;11.5: t-SNE visualization of a subset of MNIST digits. Points belonging to the same digit cluster together, while visually similar digits such as 3 and 5 show partial overlap in the 2D embedding.
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>In the visualization:</p>
-<ul>
-<li>Points belonging to the same digit typically cluster together.</li>
-<li>Ambiguous or poorly written digits often end up bridging two clusters.</li>
-<li>Some digits, such as 3 and 5, may be visually similar and can appear partially overlapping in the 2D space.</li>
-</ul>
+<p>As shown in Figure <span class="citation" data-cites="ref">(<a href="references.html#ref-ref" role="doc-biblioref"><strong>ref?</strong></a>)</span>(fig:tsne-mnist), digits with similar handwriting styles tend to cluster together, forming visually distinct regions in the embedding space. Overlaps occur where digits share structural features, such as 3 and 5 or 4 and 9, reflecting the inherent ambiguity in handwritten data. A few scattered points often correspond to atypically written digits that t-SNE places between clusters. Overall, the visualization provides an interpretable two-dimensional summary of the high-dimensional digit images, illustrating how t-SNE preserves local similarity while maintaining global diversity in the data.</p>
 
 
 </section>
