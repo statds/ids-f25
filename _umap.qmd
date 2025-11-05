@@ -11,7 +11,7 @@ dimensionality reduction technique designed to visualize high-dimensional
 data in a low-dimensional space, such as 2D or 3D. Unlike linear methods
 like PCA, UMAP captures nonlinear structures, preserving local clusters 
 while also maintaining the overall global patterns of the data. UMAP is 
-utilized forclustering, data visualization, and data exploration.
+utilized for clustering, data visualization, and data exploration.
 
 
 ### Other Dimensionality Reduction Techniques
