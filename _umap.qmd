@@ -227,9 +227,9 @@ $$
 
 where:
 
-- \(\|y_i - y_j\|\) is the Euclidean distance between points 
-  \(y_i\) and \(y_j\) in the low-dimensional space (2D or 3D),  
-- \(a\) and \(b\) are hyperparameters that control the shape 
+- $\|y_i - y_j\|$ is the Euclidean distance between points 
+  $y_i$ and $y_j$ in the low-dimensional space (2D or 3D),  
+- $a$ and $b$ are hyperparameters that control the shape 
   of the attraction/repulsion curve.  
 
 The cross-entropy cost function is then defined as:
@@ -252,71 +252,86 @@ UMAP uses **stochastic gradient descent** to minimize this cost function,
 adjusting the coordinates of points in low dimensions so that the embedding 
 preserves both **local neighborhoods** and **global manifold structure**.
 
-### Practical Example: UMAP on 8x8 digit data
+### Practical Example: UMAP on 28x28 digit data
 First, install the necessary dependency:
 `pip install umap-learn`
 
-Before applying UMAP, let’s take a look at the raw data. The Digits 
-dataset from sklearn contains 1,797 images of handwritten digits, 
-each represented as an 8×8 grayscale image (64 features per sample).
+Before applying UMAP, let’s look at the raw data.
+The MNIST dataset from scikit-learn contains 70,000 images of 
+handwritten digits, each represented as a 28×28 grayscale 
+image (784 features per sample).
 ```{python}
 #| echo: true
 #| message: false
 #| warning: false
-#| fig-cap: "handwritten digit images(8x8 pixels) from digits dataset"
+#| fig-cap: "Handwritten digit images (28×28) from MNIST dataset"
 import matplotlib.pyplot as plt
-from sklearn.datasets import load_digits
+import numpy as np
+from sklearn.datasets import fetch_openml
 
-digits = load_digits()
+# Load MNIST
+mnist = fetch_openml("mnist_784", version=1, as_frame=False)
+X = mnist.data
+y = mnist.target.astype(int)
 
-# Show first 16 digits in a 3x4 grid
+# Reshape to 28×28 images
+images = X.reshape(-1, 28, 28)
+
+# Show first 12 digits in a 3×4 grid
 fig, axes = plt.subplots(3, 4, figsize=(6, 6))
 for i, ax in enumerate(axes.flat):
-    ax.imshow(digits.images[i], cmap='gray')
-    ax.set_title(digits.target[i])
+    ax.imshow(images[i], cmap='gray')
+    ax.set_title(y[i])
     ax.axis('off')
 
 plt.tight_layout()
 plt.show()
+
 ```
-We now project the 64-dimensional data into a 2D embedding using UMAP.
+We now project the 784-dimensional data into a 2D embedding using UMAP.
 The parameters below control the embedding:
 
 - n_neighbors: how many nearby points are used to estimate local structure.
 
 - min_dist: how tightly UMAP packs points in the low-dimensional space.
 ```{python}
-#| label: umap-digits-2d
+#| label: umap-mnist-2d
 #| echo: true
 #| message: false
 #| warning: false
-#| fig-cap: "2D UMAP of Digits dataset"
+#| fig-cap: "2D UMAP of MNIST dataset"
 import umap
 import matplotlib.pyplot as plt
-from sklearn.datasets import load_digits
+import numpy as np
+from sklearn.datasets import fetch_openml
 
-# Load digits dataset
-digits = load_digits()
-X = digits.data
-y = digits.target
+# Load MNIST
+mnist = fetch_openml("mnist_784", version=1, as_frame=False)
+X = mnist.data
+y = mnist.target.astype(int)
 
 # 2D UMAP projection
-reducer = umap.UMAP(n_components=2, 
-                    n_neighbors=15, 
-                    min_dist=0.1, 
-                    random_state=42)
+reducer = umap.UMAP(
+    n_components=2,
+    n_neighbors=15,
+    min_dist=0.1,
+    random_state=42
+)
 X_umap = reducer.fit_transform(X)
 
 # 2D scatter plot
 plt.figure(figsize=(8, 6))
-scatter = plt.scatter(X_umap[:, 0], X_umap[:, 1],
-                      c=y, cmap='tab10', s=20)
+scatter = plt.scatter(
+    X_umap[:, 0], X_umap[:, 1],
+    c=y, cmap='tab10', s=5
+)
 
-plt.title("2D UMAP projection of Digits dataset")
+plt.title("2D UMAP projection of MNIST (28×28)")
 plt.xlabel("UMAP 1")
 plt.ylabel("UMAP 2")
 plt.colorbar(scatter, label='Digit')
 plt.show()
+
 ```
 In the 2D UMAP embedding of the digits dataset, each point represents a
 digit image, colored by its label. The plot shows that UMAP successfully 
