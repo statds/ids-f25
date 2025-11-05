@@ -162,6 +162,7 @@ space.
 
 
 ```{python}
+#| label: fig-tsne-mnist
 #| fig-cap: |
 #|   t-SNE visualization of a subset of MNIST digits.
 #|   Points belonging to the same digit cluster together,
@@ -204,10 +205,14 @@ plt.tight_layout()
 ```
 
 
-In the resulting visualization, points representing the same digit
-typically form compact clusters, indicating that t-SNE effectively
-captures the local similarity among handwriting patterns. Ambiguous or
-poorly written digits often appear between clusters, reflecting their
-uncertain visual identity. Digits with similar shapes, such as 3 and 5,
-may exhibit partial overlap in the two-dimensional embedding, showing
-how t-SNE balances local cohesion with global separation.
+As shown in Figure @ref(fig:tsne-mnist), digits with similar
+handwriting styles tend to cluster together, forming visually distinct
+regions in the embedding space. Overlaps occur where digits share
+structural features, such as 3 and 5 or 4 and 9, reflecting the
+inherent ambiguity in handwritten data. A few scattered points often
+correspond to atypically written digits that t-SNE places between
+clusters. Overall, the visualization provides an interpretable
+two-dimensional summary of the high-dimensional digit images,
+illustrating how t-SNE preserves local similarity while maintaining
+global diversity in the data.
+
