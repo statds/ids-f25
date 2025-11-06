@@ -619,5 +619,10 @@ XGBoost is therefore more suitable for large-scale problems and provides
 better generalization performance in many practical tasks.
 
 
-<!-- This section is to be included as a tutorial for geopands data. -->
+<!-- This section is for nueral network. -->
 {{< include _nnet.qmd >}}
+
+
+<!-- This section is for nueral network with time series. -->
+{{< include _nntemp.qmd >}}
+

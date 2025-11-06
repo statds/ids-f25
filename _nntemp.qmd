@@ -1,0 +1,329 @@
+## Neural Networks for Data with Temporal Dependence
+
+Many real-world datasets are sequential, where earlier observations
+influence what happens later. Examples include electricity demand over
+hours, temperature across days, and stock prices through trading
+sessions. Such data exhibit *temporal dependence*, meaning that
+successive observations are not independent.
+
+
+Traditional supervised learning models, such as linear regression and
+feedforward neural networks, treat each observation as if it were
+independent. When applied directly to time-ordered data, they fail to
+capture how information evolves through time. A prediction for one step
+does not reflect patterns that unfolded earlier.
+
+
+To learn from sequential patterns, we need models that can *remember*
+what has already occurred and use that information to improve
+predictions. Neural networks designed for temporal dependence achieve
+this by introducing internal states that are updated as the sequence
+unfolds. The simplest such model is the *recurrent neural network*
+(RNN), which forms the basis for more advanced architectures such as
+long short-term memory (LSTM) and gated recurrent unit (GRU) networks.
+
+
+### Recurrent Neural Networks (RNNs)
+
+To model data with temporal dependence, a neural network must be able to
+retain information about what has happened previously. A recurrent
+neural network (RNN) accomplishes this by maintaining an internal
+*hidden state* that evolves over time. The hidden state acts as a
+summary of all past inputs and is updated as new data arrive.
+
+At each time step $t$, an RNN receives an input vector $x_t$ and
+produces a hidden state $h_t$ according to
+
+$$
+h_t = \tanh(W_h h_{t-1} + W_x x_t + b_h),
+$$
+
+where $W_h$ and $W_x$ are weight matrices and $b_h$ is a bias term.
+The output at the same step can be expressed as
+
+$$
+\hat{y}_t = \sigma(W_y h_t + b_y),
+$$
+
+with $\sigma(\cdot)$ representing an activation or link function. Because
+$h_t$ depends on $h_{t-1}$, the network can in principle capture
+relationships across time.
+
+
+The initial hidden state $h_0$ must be specified before the sequence
+starts. In most applications, $h_0$ is set to a vector of zeros with the
+same dimension as $h_t$, allowing the network to begin without prior
+memory. This default works well because the recurrent updates quickly
+overwrite the initial state as new inputs arrive. In some advanced or
+stateful applications, $h_0$ can instead be learned during training or
+carried over from the final state of a previous sequence, enabling the
+model to preserve continuity across batches.
+
+
+Before training can begin, an objective function must be defined to
+measure how well the network predicts the target sequence. For a series
+of observations $\{(x_t, y_t)\}_{t=1}^T$, the total loss is typically
+the sum of stepwise prediction errors,
+$$
+\mathcal{L} = \sum_{t=1}^T \ell(y_t, \hat{y}_t),
+$$
+where $\ell$ is a suitable loss such as mean squared error for
+regression or cross-entropy for classification. The gradients of
+$\mathcal{L}$ with respect to the network parameters are then computed
+and used to update the weights through backpropagation through time.
+
+
+```{python}
+#| label: fig-rnn-unrolled
+#| fig-cap: "An unrolled RNN showing how the hidden state connects
+#|            across time steps."
+#| echo: false
+import matplotlib.pyplot as plt
+
+# use a slightly larger figure and ordinary tight_layout
+fig, ax = plt.subplots(figsize=(6, 3))
+steps = range(1, 5)
+for t in steps:
+    ax.plot([t, t + 1], [0, 0], "k--", lw=1)
+    ax.scatter(t, 0, s=200, color="skyblue")
+    ax.text(t, 0.2, f"$h_{{{t}}}$", ha="center", fontsize=11)
+    ax.text(t, -0.3, f"$x_{{{t}}}$", ha="center", fontsize=10)
+
+# give y-range to avoid zero-height layout
+ax.set_ylim(-0.6, 0.4)
+ax.axis("off")
+
+plt.tight_layout()
+plt.show()
+```
+
+
+@fig-rnn-unrolled illustrates how an RNN can be *unrolled* across
+time steps, showing that the same set of weights is reused at each step.
+The hidden state serves as a bridge between past and present inputs,
+allowing the network to accumulate information through time.
+
+
+Training an RNN is done by *backpropagation through time (BPTT)*, which
+unrolls the network over all time steps and applies gradient descent.
+However, when sequences are long, the repeated multiplication of
+gradients can lead to *vanishing* or *exploding* gradients. This makes it
+difficult for a standard RNN to learn long-term dependencies, limiting
+its ability to remember events far in the past.
+
+
+In many applications, temporal dependence is only one part of the
+problem. Alongside the time-varying input $x_t$, there may be additional
+covariates $z$ that describe static or slowly changing characteristics,
+such as a station ID, region, or weather condition. These can be
+incorporated into an RNN by concatenating them with $x_t$ at each time
+step or by feeding them into separate layers whose outputs are combined
+with the recurrent representation. In practice, the design depends on
+whether such covariates are constant across time or vary together with
+the sequence.
+
+
+To address the limitations of standard RNNs, researchers developed
+architectures that explicitly control how information is remembered or
+forgotten. The most influential of these is the LSTM
+network, which introduces a structured memory cell and gating
+mechanisms to stabilize learning over longer sequences.
+
+
+### Long Short-Term Memory (LSTM)
+
+The main limitation of a standard RNN is its inability to retain
+information over long sequences. During backpropagation through time,
+gradients tend to either vanish or explode, preventing effective
+learning of long-term dependencies. The Long Short-Term Memory (LSTM)
+network, proposed by Hochreiter and Schmidhuber (1997), was designed to
+overcome this problem.
+
+An LSTM introduces a separate *cell state* $C_t$ that acts as a highway
+for information to flow across time steps, along with *gating
+mechanisms* that regulate what to remember and what to forget. The gates
+use sigmoid activations to produce values between 0 and 1, allowing the
+network to scale information rather than overwrite it.
+
+The key update equations of an LSTM are
+
+$$
+\begin{aligned}
+f_t &= \sigma(W_f [h_{t-1}, x_t] + b_f), \\
+i_t &= \sigma(W_i [h_{t-1}, x_t] + b_i), \\
+\tilde{C}_t &= \tanh(W_C [h_{t-1}, x_t] + b_C), \\
+C_t &= f_t \odot C_{t-1} + i_t \odot \tilde{C}_t, \\
+o_t &= \sigma(W_o [h_{t-1}, x_t] + b_o), \\
+h_t &= o_t \odot \tanh(C_t),
+\end{aligned}
+$$
+
+where $\odot$ denotes element-wise (Hadamard) multiplication and
+$\sigma(\cdot)$ is the logistic sigmoid function. Each gate $f_t$, $i_t$,
+and $o_t$ outputs values between 0 and 1 that determine how information
+flows through the cell.
+
+
+The activation functions $\tanh(\cdot)$ and $\sigma(\cdot)$ play specific
+roles in the LSTM design. The sigmoid $\sigma$ compresses values to the
+range $(0,1)$, making it suitable for gate control because it behaves
+like a smooth on–off switch. The hyperbolic tangent $\tanh$ maps inputs
+to $(-1,1)$, allowing both positive and negative contributions to the
+cell state. 
+
+
+Other activation functions can in principle replace $\tanh$, such as
+ReLU or Leaky ReLU, but this is uncommon in practice. ReLU may cause the
+cell state to grow without bound, and smooth symmetric activations like
+$\tanh$ are generally more stable for recurrent updates. Some modern
+variants, such as the *Peephole LSTM* and *GRU*, adjust or simplify
+these activations, but the original combination of $\sigma$ and $\tanh$
+remains the standard choice.
+
+
+```{python}
+#| label: fig-lstm-diagram
+#| fig-cap: "Structure of an LSTM cell showing the flow of information
+#|            through the input, forget, and output gates."
+#| echo: false
+import matplotlib.pyplot as plt
+import matplotlib.patches as mpatches
+
+fig, ax = plt.subplots(figsize=(7, 4))
+
+# cell body
+ax.add_patch(mpatches.FancyBboxPatch((0.25, 0.25), 0.5, 0.5,
+                                     boxstyle="round,pad=0.05",
+                                     fill=False, lw=1.5))
+ax.text(0.5, 0.5, "$C_t$", ha="center", va="center", fontsize=12)
+
+# input/output/forget gates (three boxes)
+gate_y = [0.75, 0.5, 0.25]
+gate_names = ["$f_t$", "$i_t$", "$o_t$"]
+for y, g in zip(gate_y, gate_names):
+    ax.add_patch(mpatches.Rectangle((0.05, y - 0.05), 0.1, 0.1,
+                                    edgecolor="black", facecolor="lightgray"))
+    ax.text(0.10, y, g, ha="center", va="center", fontsize=11)
+
+# arrows for gates → cell
+ax.arrow(0.15, 0.75, 0.1, -0.05, width=0.003, head_width=0.03,
+         head_length=0.03, length_includes_head=True, color="k")
+ax.arrow(0.15, 0.5, 0.1, 0.0, width=0.003, head_width=0.03,
+         head_length=0.03, length_includes_head=True, color="k")
+ax.arrow(0.15, 0.25, 0.1, 0.05, width=0.003, head_width=0.03,
+         head_length=0.03, length_includes_head=True, color="k")
+
+# cell state flow (left to right)
+ax.arrow(0.25, 0.5, 0.5, 0.0, width=0.0025, head_width=0.05,
+         head_length=0.04, length_includes_head=True, color="k")
+ax.text(0.5, 0.55, "$C_{t-1} \\rightarrow C_t$", ha="center", fontsize=9)
+
+# hidden state connections
+ax.arrow(0.5, 0.1, 0.0, 0.15, width=0.002, head_width=0.04,
+         head_length=0.04, length_includes_head=True, color="k")
+ax.arrow(0.5, 0.75, 0.0, 0.15, width=0.002, head_width=0.04,
+         head_length=0.04, length_includes_head=True, color="k")
+ax.text(0.53, 0.9, "$h_t$", fontsize=11, va="bottom")
+ax.text(0.53, 0.05, "$h_{t-1}$", fontsize=11, va="top")
+
+# input and output arrows
+ax.arrow(-0.05, 0.5, 0.1, 0.0, width=0.0025, head_width=0.04,
+         head_length=0.03, length_includes_head=True, color="k")
+ax.text(-0.08, 0.5, "$x_t$", va="center", ha="right", fontsize=11)
+ax.arrow(0.75, 0.5, 0.15, 0.0, width=0.0025, head_width=0.04,
+         head_length=0.03, length_includes_head=True, color="k")
+ax.text(0.93, 0.5, "$\\hat{y}_t$", va="center", ha="left", fontsize=11)
+
+ax.set_xlim(-0.2, 1.0)
+ax.set_ylim(0, 1.0)
+ax.axis("off")
+plt.tight_layout()
+plt.show()
+```
+
+Each of the three gates in an LSTM serves a distinct role.  
+The *forget gate* $f_t$ determines how much of the previous cell state
+$C_{t-1}$ should be retained, effectively deciding what information to
+discard. The *input gate* $i_t$ controls how much new information
+$\tilde{C}_t$ enters the cell state, allowing the network to incorporate
+relevant updates. The *output gate* $o_t$ regulates how much of the cell
+state is exposed as the hidden state $h_t$, influencing the network’s
+prediction at the current step. Together, these gates maintain a balance
+between remembering long-term patterns and adapting to new signals.
+Figure @fig-lstm-diagram illustrates how the three gates interact with
+the cell state and hidden states to manage information flow through
+time.
+
+
+### Gated Recurrent Unit (GRU)
+
+The Gated Recurrent Unit (GRU), introduced by Cho et al. (2014), is a
+simplified variant of the LSTM that retains its ability to capture
+long-term dependencies while using fewer parameters. The GRU combines
+the roles of the input and forget gates into a single *update gate* and
+omits the separate cell state $C_t$, relying only on the hidden state
+$h_t$ to store information.
+
+The GRU update equations are
+
+$$
+\begin{aligned}
+z_t &= \sigma(W_z [h_{t-1}, x_t] + b_z), \\
+r_t &= \sigma(W_r [h_{t-1}, x_t] + b_r), \\
+\tilde{h}_t &= \tanh(W_h [r_t \odot h_{t-1}, x_t] + b_h), \\
+h_t &= (1 - z_t) \odot h_{t-1} + z_t \odot \tilde{h}_t,
+\end{aligned}
+$$
+
+where $z_t$ is the *update gate* and $r_t$ is the *reset gate*. The
+update gate controls how much of the previous hidden state to keep,
+while the reset gate determines how strongly past information should
+influence the new candidate state $\tilde{h}_t$.
+
+
+```{python}
+#| label: fig-gru-diagram
+#| fig-cap: "Structure of a GRU cell showing the update and reset gates."
+#| echo: false
+import matplotlib.pyplot as plt
+import matplotlib.patches as mpatches
+
+fig, ax = plt.subplots(figsize=(6, 3))
+ax.add_patch(mpatches.FancyBboxPatch((0.25, 0.25), 0.5, 0.5,
+                                     boxstyle="round,pad=0.05",
+                                     fill=False, lw=1.5))
+ax.text(0.5, 0.5, "$h_t$", ha="center", va="center", fontsize=12)
+
+# gates
+ax.add_patch(mpatches.Rectangle((0.05, 0.65), 0.1, 0.1,
+                                edgecolor="black", facecolor="lightgray"))
+ax.text(0.10, 0.70, "$z_t$", ha="center", va="center", fontsize=10)
+ax.add_patch(mpatches.Rectangle((0.05, 0.35), 0.1, 0.1,
+                                edgecolor="black", facecolor="lightgray"))
+ax.text(0.10, 0.40, "$r_t$", ha="center", va="center", fontsize=10)
+
+# arrows and labels
+ax.arrow(-0.05, 0.5, 0.1, 0.0, head_width=0.05, head_length=0.03,
+         fc="k", ec="k")
+ax.text(-0.08, 0.5, "$x_t$", va="center", ha="right", fontsize=11)
+ax.arrow(0.75, 0.5, 0.15, 0.0, head_width=0.05, head_length=0.03,
+         fc="k", ec="k")
+ax.text(0.93, 0.5, "$\\hat{y}_t$", va="center", ha="left", fontsize=11)
+ax.text(0.5, 0.9, "Update / Reset Gates", ha="center", fontsize=9)
+ax.set_xlim(-0.2, 1.0)
+ax.set_ylim(0, 1.0)
+ax.axis("off")
+plt.tight_layout()
+plt.show()
+```
+
+The structure of a GRU cell is illustrated in
+@fig-gru-diagram. Compared with an LSTM, the GRU is computationally
+simpler because it has no separate cell state and fewer matrix
+operations. Despite this simplification, GRUs often perform as well as
+LSTMs, especially when datasets are smaller or sequence lengths are
+moderate.
+
+
+A demonstration requires Python 3.12 for `torch` or `tensorflow` to
+run. Stay tuned.
