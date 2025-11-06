@@ -4,7 +4,9 @@ author: "Quinn Saltus"
 format: revealjs
 ---
 
-<!-- TODO when converting from presentation to section, fix heading levels -->
+<!-- TODO
+This document is formatted to render slides. Before PR'ing, follow guidelines in classnotes (remove yaml header, fix heading depth, etc)
+-->
 
 ### Introduction
 
@@ -69,11 +71,13 @@ A basic multiple linear regression model will serve as the baseline for non-spat
 
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
+
 X_train, X_test, Y_train, Y_test = train_test_split(
     X := df[["pop", "education", "houses", "income"]],
     Y := df["pct_voter"],
     test_size=0.2, random_state=1234
 )
+
 model_basic = LinearRegression().fit(X_train, Y_train)
 ```
 
@@ -129,19 +133,19 @@ import pykrige as pk
 
 ## Spatial Weights {.smaller}
 
-Standard regression uses the following model:
+Standard regression models errors as completely random:
 
 $$
-Y_i = \beta X_i + \epsilon_i
+Y = \beta X + \epsilon
 $$
 
-Spatial tools include a term for the weighted average of nearby points ($W_i Y$):
+The spatial error model (SEM) formulates residuals as a weighted mean of nearby errors plus a random error term:
 
 $$
-Y_i = \rho  W_i Y + \beta X_i + \epsilon_i
+Y = \beta X + u, u = \lambda W u + \epsilon 
 $$
 
-With PySAL, we need to precompute the weights matrix to give to analsyis functions. I'll use inverse square distance, but other methods like K-Nearest-Neighbors (`libpysal.weights.KNN`) and [Gabriel Graphs](https://en.wikipedia.org/wiki/Gabriel_graph) (`libpysal.weights.Gabriel`) are available.
+With PySAL, we need to precompute the weights matrix $W$ to give to analysis functions. I'll use inverse square distance, but other methods like K-Nearest-Neighbors (`libpysal.weights.KNN`) and [Gabriel Graphs](https://en.wikipedia.org/wiki/Gabriel_graph) (`libpysal.weights.Gabriel`) are available.
 
 ```{python}
 #| echo: true
@@ -160,7 +164,7 @@ weights = libpysal.weights.DistanceBand(
 :::: {.columns}
 ::: {.column width="70%"}
 
-Moran's I is a common measure of spatial autocorrelation, ranging from -1 (values are negatively correlated with nearby data) to 1 (values are positively correlated with nearby data).
+Moran's I is a common measure of spatial autocorrelation, ranging from -1 (perfect negative autocorrelation) to 1 (perfect positive autocorrelation).
 
 ```{python}
 #| echo: true
@@ -203,7 +207,6 @@ krige = pk.OrdinaryKriging(
     x=df_train["xcoord"],
     y=df_train["ycoord"],
     z=df_train["pct_voter"],
-    nlags=10,
     coordinates_type="geographic",
 )
 
@@ -233,7 +236,7 @@ df_test["krige_residual"] = df_test["pct_voter"] - df_test["krige_estimate"]
     + theme_light()
     + theme(
         panel_background=element_rect(fill="#aaaaaa"),
-        figure_size=(6, 3)
+        figure_size=(6, 3.5)
     )
 )
 ```
@@ -257,7 +260,7 @@ df_test["krige_residual"] = df_test["pct_voter"] - df_test["krige_estimate"]
     + theme_light()
     + theme(
         panel_background=element_rect(fill="#aaaaaa"),
-        figure_size=(6, 3)
+        figure_size=(6, 3.5)
     )
 )
 ```
@@ -265,15 +268,27 @@ df_test["krige_residual"] = df_test["pct_voter"] - df_test["krige_estimate"]
 :::
 ::::
 
-Kriging seems to accurately capture the general spatial trends. The residuals have the following descriptive statistics:
+Kriging seems to be capable of controlling spatial effects.
 
 ```{python}
-print(pd.DataFrame(df_test["krige_residual"].describe()[1:]).reindex())
+(ggplot(df_test, aes(x="krige_residual", fill="krige_residual"))
+    + geom_histogram(
+        bins=20,
+        fill="#99bbff",
+        color="#000000"
+    )
+    + labs(
+        title="Residuals of Kriging (No Regression)",
+        x=f"Error (Percentage Points)"
+    )
+    + theme_light()
+    + theme(
+        figure_size=(6, 2.5)
+    )
+)
 ```
 
----
-
-With the kriging spatial predictor's performance understood, we can use it to augment regression.
+## SEM Regression With Kriging {.smaller}
 
 ```{python}
 df_train = df_train.reset_index()
@@ -295,12 +310,35 @@ from pykrige.rk import RegressionKriging
 
 model_rk = RegressionKriging(regression_model=LinearRegression())
 
+# Note that predictors, points, and targets must be np arrays, not pd.DataFrame
 model_rk.fit(p_train, x_train, y_train)
-print("Regression Score: ", model_rk.regression_model.score(p_test, y_test))
-print("RK score: ", model_rk.score(p_test, x_test, y_test))
 ```
 
-\* Note that the linear predictors, point locations, and targets (`p_train`, `x_train`, and `y_train`) must be NumPy arrays, not `pd.DataFrame`.
+```{python}
+(ggplot(
+        pd.DataFrame({
+            "Predicted Value" : model_rk.predict(p_test, x_test),
+            "True Value" : Y_test,
+            }),
+        aes(x="Predicted Value", y="True Value")
+    )
+    + geom_point(color="#00000088")
+    + geom_abline(slope=1, intercept=0, color="red", linetype="dashed")
+    + theme_light()
+    + theme(figure_size=(4, 3))
+)
+```
+
+```{python}
+print(
+    "R-squared (Regression):",
+    f"{model_rk.regression_model.score(p_test, y_test):.4f}"
+)
+print(
+    "R-squared (Regression + Kriging):",
+    f"{model_rk.score(p_test, x_test, y_test):.4f}"
+)
+```
 
 ## Conclusion
 
