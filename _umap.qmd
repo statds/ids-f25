@@ -254,7 +254,9 @@ preserves both **local neighborhoods** and **global manifold structure**.
 
 ### Practical Example: UMAP on 28x28 digit data
 First, install the necessary dependency:
+
 `pip install umap-learn`
+
 
 Before applying UMAP, let’s look at the raw data.
 The MNIST dataset from scikit-learn contains 70,000 images of 
@@ -271,8 +273,8 @@ from sklearn.datasets import fetch_openml
 
 # Load MNIST
 mnist = fetch_openml("mnist_784", version=1, as_frame=False)
-X = mnist.data
-y = mnist.target.astype(int)
+X = mnist.data[:2000]
+y = mnist.target[:2000].astype(int)
 
 # Reshape to 28×28 images
 images = X.reshape(-1, 28, 28)
@@ -307,8 +309,8 @@ from sklearn.datasets import fetch_openml
 
 # Load MNIST
 mnist = fetch_openml("mnist_784", version=1, as_frame=False)
-X = mnist.data
-y = mnist.target.astype(int)
+X = mnist.data[:2000]
+y = mnist.target[:2000].astype(int)
 
 # 2D UMAP projection
 reducer = umap.UMAP(
