@@ -324,6 +324,12 @@ window.Quarto = {
   <li><a href="#regularization-and-overfitting" id="toc-regularization-and-overfitting" class="nav-link" data-scroll-target="#regularization-and-overfitting"><span class="header-section-number">10.4.6</span> Regularization and Overfitting</a></li>
   <li><a href="#example-a-simple-feed-forward-network" id="toc-example-a-simple-feed-forward-network" class="nav-link" data-scroll-target="#example-a-simple-feed-forward-network"><span class="header-section-number">10.4.7</span> Example: A Simple Feed-Forward Network</a></li>
   </ul></li>
+  <li><a href="#neural-networks-for-data-with-temporal-dependence" id="toc-neural-networks-for-data-with-temporal-dependence" class="nav-link" data-scroll-target="#neural-networks-for-data-with-temporal-dependence"><span class="header-section-number">10.5</span> Neural Networks for Data with Temporal Dependence</a>
+  <ul class="collapse">
+  <li><a href="#recurrent-neural-networks-rnns" id="toc-recurrent-neural-networks-rnns" class="nav-link" data-scroll-target="#recurrent-neural-networks-rnns"><span class="header-section-number">10.5.1</span> Recurrent Neural Networks (RNNs)</a></li>
+  <li><a href="#long-short-term-memory-lstm" id="toc-long-short-term-memory-lstm" class="nav-link" data-scroll-target="#long-short-term-memory-lstm"><span class="header-section-number">10.5.2</span> Long Short-Term Memory (LSTM)</a></li>
+  <li><a href="#gated-recurrent-unit-gru" id="toc-gated-recurrent-unit-gru" class="nav-link" data-scroll-target="#gated-recurrent-unit-gru"><span class="header-section-number">10.5.3</span> Gated Recurrent Unit (GRU)</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -469,7 +475,7 @@ H(Q_m) = \frac{1}{n_m} \sum_{i=1}^{n_m} |y_i - \bar{y}_m|.
 <h3 data-number="10.2.4" class="anchored" data-anchor-id="ames-housing-example"><span class="header-section-number">10.2.4</span> Ames Housing Example</h3>
 <p>The Ames Housing data are used to illustrate a regression tree model for predicting log house price.</p>
 <p>As before, we retrive the data from <code>OpenML</code>.</p>
-<div id="ccd458cf" class="cell" data-execution_count="1">
+<div id="f18ee8a7" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> openml</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -480,7 +486,7 @@ H(Q_m) = \frac{1}{n_m} \sum_{i=1}^{n_m} |y_i - \bar{y}_m|.
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"LogPrice"</span>] <span class="op">=</span> np.log(df[<span class="st">"SalePrice"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>A decision tree partitions the feature space into regions where the average log price is relatively constant.</p>
-<div id="454e592e" class="cell" data-execution_count="2">
+<div id="0e5f8758" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.compose <span class="im">import</span> ColumnTransformer</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> OneHotEncoder</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.tree <span class="im">import</span> DecisionTreeRegressor</span>
@@ -529,7 +535,7 @@ H(Q_m) = \frac{1}{n_m} \sum_{i=1}^{n_m} |y_i - \bar{y}_m|.
 </div>
 </div>
 <p>Cross-validation identifies an appropriate tree depth that balances fit and generalization. A too-deep tree overfits, while a shallow tree misses structure.</p>
-<div id="50c57dde" class="cell" data-execution_count="3">
+<div id="5baa561a" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>dt <span class="op">=</span> Pipeline([</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"pre"</span>, preprocessor),</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"model"</span>, DecisionTreeRegressor(max_depth<span class="op">=</span><span class="dv">4</span>, random_state<span class="op">=</span><span class="dv">0</span>))</span>
@@ -611,7 +617,7 @@ F_m(x) = F_{m-1}(x) + \eta\, \gamma_m\, h_m(x),
 <section id="boosted-trees-with-ames-housing" class="level3" data-number="10.3.3">
 <h3 data-number="10.3.3" class="anchored" data-anchor-id="boosted-trees-with-ames-housing"><span class="header-section-number">10.3.3</span> Boosted Trees with Ames Housing</h3>
 <p>Boosted trees apply the gradient boosting framework to decision trees. They build an ensemble of shallow trees, each trained to correct the residual errors of the preceding ones. By sequentially emphasizing observations that are difficult to predict, the model progressively improves its overall predictive accuracy. We now apply gradient boosting using the same preprocessed features. Boosting combines many shallow trees, each correcting the residual errors of its predecessors, to improve predictive accuracy.</p>
-<div id="1970ac01" class="cell" data-execution_count="4">
+<div id="bc7fbd8c" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> GradientBoostingRegressor</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Define a range of tree counts for tuning</span></span>
@@ -641,7 +647,7 @@ F_m(x) = F_{m-1}(x) + \eta\, \gamma_m\, h_m(x),
 </div>
 </div>
 <p>Cross-validation shows how increasing the number of boosting rounds initially improves performance but eventually risks overfitting when too many trees are added.</p>
-<div id="00a8580b" class="cell" data-execution_count="5">
+<div id="10e1562b" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>gb <span class="op">=</span> Pipeline([</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"pre"</span>, preprocessor),</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"model"</span>, GradientBoostingRegressor(</span>
@@ -747,7 +753,7 @@ F_m(x) = F_{m-1}(x) + \eta\, \gamma_m\, h_m(x),
 </tbody>
 </table>
 <p>XGBoost is therefore more suitable for large-scale problems and provides better generalization performance in many practical tasks.</p>
-<!-- This section is to be included as a tutorial for geopands data. -->
+<!-- This section is for nueral network. -->
 </section>
 </section>
 <section id="neural-networks" class="level2" data-number="10.4">
@@ -1043,7 +1049,7 @@ Practical Tips
 <p>The <em>two-moons</em> dataset consists of two interleaving half-circles, forming a pattern that resembles a pair of crescents. Each point represents an observation with two features <span class="math inline">\((x_1, x_2)\)</span>, and the color indicates its class. The two classes overlap slightly due to added random noise.</p>
 <p>A linear classifier such as logistic regression would draw a straight line through the plane, misclassifying many points. In contrast, a neural network can learn the <strong>nonlinear boundary</strong> that curves along the interface between the moons. This problem, although simple, captures the essence of nonlinear learning in higher dimensions.</p>
 <p>We generate the data using <code>make_moons()</code> from <code>scikit-learn</code> and train a feed-forward neural network with two hidden layers. The model’s task is to assign each observation to one of the two moon shapes.</p>
-<div id="38928c47" class="cell" data-execution_count="11">
+<div id="5e613e56" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> make_moons</span>
@@ -1772,6 +1778,113 @@ Try It Yourself
 <p>Increase the noise level in the data to test robustness. Change the hidden layer sizes (e.g., (3,), (20,10)), or the activation function (tanh, logistic). Adjust the regularization parameter alpha to see how it affects smoothness of the boundary.</p>
 </div>
 </div>
+<!-- This section is for nueral network with time series. -->
+</section>
+</section>
+<section id="neural-networks-for-data-with-temporal-dependence" class="level2" data-number="10.5">
+<h2 data-number="10.5" class="anchored" data-anchor-id="neural-networks-for-data-with-temporal-dependence"><span class="header-section-number">10.5</span> Neural Networks for Data with Temporal Dependence</h2>
+<p>Many real-world datasets are sequential, where earlier observations influence what happens later. Examples include electricity demand over hours, temperature across days, and stock prices through trading sessions. Such data exhibit <em>temporal dependence</em>, meaning that successive observations are not independent.</p>
+<p>Traditional supervised learning models, such as linear regression and feedforward neural networks, treat each observation as if it were independent. When applied directly to time-ordered data, they fail to capture how information evolves through time. A prediction for one step does not reflect patterns that unfolded earlier.</p>
+<p>To learn from sequential patterns, we need models that can <em>remember</em> what has already occurred and use that information to improve predictions. Neural networks designed for temporal dependence achieve this by introducing internal states that are updated as the sequence unfolds. The simplest such model is the <em>recurrent neural network</em> (RNN), which forms the basis for more advanced architectures such as long short-term memory (LSTM) and gated recurrent unit (GRU) networks.</p>
+<section id="recurrent-neural-networks-rnns" class="level3" data-number="10.5.1">
+<h3 data-number="10.5.1" class="anchored" data-anchor-id="recurrent-neural-networks-rnns"><span class="header-section-number">10.5.1</span> Recurrent Neural Networks (RNNs)</h3>
+<p>To model data with temporal dependence, a neural network must be able to retain information about what has happened previously. A recurrent neural network (RNN) accomplishes this by maintaining an internal <em>hidden state</em> that evolves over time. The hidden state acts as a summary of all past inputs and is updated as new data arrive.</p>
+<p>At each time step <span class="math inline">\(t\)</span>, an RNN receives an input vector <span class="math inline">\(x_t\)</span> and produces a hidden state <span class="math inline">\(h_t\)</span> according to</p>
+<p><span class="math display">\[
+h_t = \tanh(W_h h_{t-1} + W_x x_t + b_h),
+\]</span></p>
+<p>where <span class="math inline">\(W_h\)</span> and <span class="math inline">\(W_x\)</span> are weight matrices and <span class="math inline">\(b_h\)</span> is a bias term. The output at the same step can be expressed as</p>
+<p><span class="math display">\[
+\hat{y}_t = \sigma(W_y h_t + b_y),
+\]</span></p>
+<p>with <span class="math inline">\(\sigma(\cdot)\)</span> representing an activation or link function. Because <span class="math inline">\(h_t\)</span> depends on <span class="math inline">\(h_{t-1}\)</span>, the network can in principle capture relationships across time.</p>
+<p>The initial hidden state <span class="math inline">\(h_0\)</span> must be specified before the sequence starts. In most applications, <span class="math inline">\(h_0\)</span> is set to a vector of zeros with the same dimension as <span class="math inline">\(h_t\)</span>, allowing the network to begin without prior memory. This default works well because the recurrent updates quickly overwrite the initial state as new inputs arrive. In some advanced or stateful applications, <span class="math inline">\(h_0\)</span> can instead be learned during training or carried over from the final state of a previous sequence, enabling the model to preserve continuity across batches.</p>
+<p>Before training can begin, an objective function must be defined to measure how well the network predicts the target sequence. For a series of observations <span class="math inline">\(\{(x_t, y_t)\}_{t=1}^T\)</span>, the total loss is typically the sum of stepwise prediction errors, <span class="math display">\[
+\mathcal{L} = \sum_{t=1}^T \ell(y_t, \hat{y}_t),
+\]</span> where <span class="math inline">\(\ell\)</span> is a suitable loss such as mean squared error for regression or cross-entropy for classification. The gradients of <span class="math inline">\(\mathcal{L}\)</span> with respect to the network parameters are then computed and used to update the weights through backpropagation through time.</p>
+<div id="cell-fig-rnn-unrolled" class="cell" data-execution_count="13">
+<div class="cell-output cell-output-display">
+<div id="fig-rnn-unrolled" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-rnn-unrolled-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="10-supervised_files/figure-html/fig-rnn-unrolled-output-1.png" width="566" height="278" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rnn-unrolled-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;10.7: An unrolled RNN showing how the hidden state connects across time steps.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><a href="#fig-rnn-unrolled" class="quarto-xref">Figure&nbsp;<span>10.7</span></a> illustrates how an RNN can be <em>unrolled</em> across time steps, showing that the same set of weights is reused at each step. The hidden state serves as a bridge between past and present inputs, allowing the network to accumulate information through time.</p>
+<p>Training an RNN is done by <em>backpropagation through time (BPTT)</em>, which unrolls the network over all time steps and applies gradient descent. However, when sequences are long, the repeated multiplication of gradients can lead to <em>vanishing</em> or <em>exploding</em> gradients. This makes it difficult for a standard RNN to learn long-term dependencies, limiting its ability to remember events far in the past.</p>
+<p>In many applications, temporal dependence is only one part of the problem. Alongside the time-varying input <span class="math inline">\(x_t\)</span>, there may be additional covariates <span class="math inline">\(z\)</span> that describe static or slowly changing characteristics, such as a station ID, region, or weather condition. These can be incorporated into an RNN by concatenating them with <span class="math inline">\(x_t\)</span> at each time step or by feeding them into separate layers whose outputs are combined with the recurrent representation. In practice, the design depends on whether such covariates are constant across time or vary together with the sequence.</p>
+<p>To address the limitations of standard RNNs, researchers developed architectures that explicitly control how information is remembered or forgotten. The most influential of these is the LSTM network, which introduces a structured memory cell and gating mechanisms to stabilize learning over longer sequences.</p>
+</section>
+<section id="long-short-term-memory-lstm" class="level3" data-number="10.5.2">
+<h3 data-number="10.5.2" class="anchored" data-anchor-id="long-short-term-memory-lstm"><span class="header-section-number">10.5.2</span> Long Short-Term Memory (LSTM)</h3>
+<p>The main limitation of a standard RNN is its inability to retain information over long sequences. During backpropagation through time, gradients tend to either vanish or explode, preventing effective learning of long-term dependencies. The Long Short-Term Memory (LSTM) network, proposed by Hochreiter and Schmidhuber (1997), was designed to overcome this problem.</p>
+<p>An LSTM introduces a separate <em>cell state</em> <span class="math inline">\(C_t\)</span> that acts as a highway for information to flow across time steps, along with <em>gating mechanisms</em> that regulate what to remember and what to forget. The gates use sigmoid activations to produce values between 0 and 1, allowing the network to scale information rather than overwrite it.</p>
+<p>The key update equations of an LSTM are</p>
+<p><span class="math display">\[
+\begin{aligned}
+f_t &amp;= \sigma(W_f [h_{t-1}, x_t] + b_f), \\
+i_t &amp;= \sigma(W_i [h_{t-1}, x_t] + b_i), \\
+\tilde{C}_t &amp;= \tanh(W_C [h_{t-1}, x_t] + b_C), \\
+C_t &amp;= f_t \odot C_{t-1} + i_t \odot \tilde{C}_t, \\
+o_t &amp;= \sigma(W_o [h_{t-1}, x_t] + b_o), \\
+h_t &amp;= o_t \odot \tanh(C_t),
+\end{aligned}
+\]</span></p>
+<p>where <span class="math inline">\(\odot\)</span> denotes element-wise (Hadamard) multiplication and <span class="math inline">\(\sigma(\cdot)\)</span> is the logistic sigmoid function. Each gate <span class="math inline">\(f_t\)</span>, <span class="math inline">\(i_t\)</span>, and <span class="math inline">\(o_t\)</span> outputs values between 0 and 1 that determine how information flows through the cell.</p>
+<p>The activation functions <span class="math inline">\(\tanh(\cdot)\)</span> and <span class="math inline">\(\sigma(\cdot)\)</span> play specific roles in the LSTM design. The sigmoid <span class="math inline">\(\sigma\)</span> compresses values to the range <span class="math inline">\((0,1)\)</span>, making it suitable for gate control because it behaves like a smooth on–off switch. The hyperbolic tangent <span class="math inline">\(\tanh\)</span> maps inputs to <span class="math inline">\((-1,1)\)</span>, allowing both positive and negative contributions to the cell state.</p>
+<p>Other activation functions can in principle replace <span class="math inline">\(\tanh\)</span>, such as ReLU or Leaky ReLU, but this is uncommon in practice. ReLU may cause the cell state to grow without bound, and smooth symmetric activations like <span class="math inline">\(\tanh\)</span> are generally more stable for recurrent updates. Some modern variants, such as the <em>Peephole LSTM</em> and <em>GRU</em>, adjust or simplify these activations, but the original combination of <span class="math inline">\(\sigma\)</span> and <span class="math inline">\(\tanh\)</span> remains the standard choice.</p>
+<div id="cell-fig-lstm-diagram" class="cell" data-execution_count="14">
+<div class="cell-output cell-output-display">
+<div id="fig-lstm-diagram" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-lstm-diagram-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="10-supervised_files/figure-html/fig-lstm-diagram-output-1.png" width="662" height="370" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-lstm-diagram-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;10.8: Structure of an LSTM cell showing the flow of information through the input, forget, and output gates.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Each of the three gates in an LSTM serves a distinct role.<br>
+The <em>forget gate</em> <span class="math inline">\(f_t\)</span> determines how much of the previous cell state <span class="math inline">\(C_{t-1}\)</span> should be retained, effectively deciding what information to discard. The <em>input gate</em> <span class="math inline">\(i_t\)</span> controls how much new information <span class="math inline">\(\tilde{C}_t\)</span> enters the cell state, allowing the network to incorporate relevant updates. The <em>output gate</em> <span class="math inline">\(o_t\)</span> regulates how much of the cell state is exposed as the hidden state <span class="math inline">\(h_t\)</span>, influencing the network’s prediction at the current step. Together, these gates maintain a balance between remembering long-term patterns and adapting to new signals. Figure <a href="#fig-lstm-diagram" class="quarto-xref">Figure&nbsp;<span>10.8</span></a> illustrates how the three gates interact with the cell state and hidden states to manage information flow through time.</p>
+</section>
+<section id="gated-recurrent-unit-gru" class="level3" data-number="10.5.3">
+<h3 data-number="10.5.3" class="anchored" data-anchor-id="gated-recurrent-unit-gru"><span class="header-section-number">10.5.3</span> Gated Recurrent Unit (GRU)</h3>
+<p>The Gated Recurrent Unit (GRU), introduced by Cho et al.&nbsp;(2014), is a simplified variant of the LSTM that retains its ability to capture long-term dependencies while using fewer parameters. The GRU combines the roles of the input and forget gates into a single <em>update gate</em> and omits the separate cell state <span class="math inline">\(C_t\)</span>, relying only on the hidden state <span class="math inline">\(h_t\)</span> to store information.</p>
+<p>The GRU update equations are</p>
+<p><span class="math display">\[
+\begin{aligned}
+z_t &amp;= \sigma(W_z [h_{t-1}, x_t] + b_z), \\
+r_t &amp;= \sigma(W_r [h_{t-1}, x_t] + b_r), \\
+\tilde{h}_t &amp;= \tanh(W_h [r_t \odot h_{t-1}, x_t] + b_h), \\
+h_t &amp;= (1 - z_t) \odot h_{t-1} + z_t \odot \tilde{h}_t,
+\end{aligned}
+\]</span></p>
+<p>where <span class="math inline">\(z_t\)</span> is the <em>update gate</em> and <span class="math inline">\(r_t\)</span> is the <em>reset gate</em>. The update gate controls how much of the previous hidden state to keep, while the reset gate determines how strongly past information should influence the new candidate state <span class="math inline">\(\tilde{h}_t\)</span>.</p>
+<div id="cell-fig-gru-diagram" class="cell" data-execution_count="15">
+<div class="cell-output cell-output-display">
+<div id="fig-gru-diagram" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-gru-diagram-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="10-supervised_files/figure-html/fig-gru-diagram-output-1.png" width="566" height="278" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-gru-diagram-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;10.9: Structure of a GRU cell showing the update and reset gates.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The structure of a GRU cell is illustrated in <a href="#fig-gru-diagram" class="quarto-xref">Figure&nbsp;<span>10.9</span></a>. Compared with an LSTM, the GRU is computationally simpler because it has no separate cell state and fewer matrix operations. Despite this simplification, GRUs often perform as well as LSTMs, especially when datasets are smaller or sequence lengths are moderate.</p>
+<p>A demonstration requires Python 3.12 for <code>torch</code> or <code>tensorflow</code> to run. Stay tuned.</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list" style="display: none">
