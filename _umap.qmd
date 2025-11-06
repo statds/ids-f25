@@ -234,8 +234,8 @@ where:
 
 The cross-entropy cost function is then defined as:
 $$
-C = \sum_{i \neq j} \Big[ w_{ij} \log \frac{w_{ij}}{w_{ij}^{(\text{low})}} + 
-(1 - w_{ij}) \log \frac{1 - w_{ij}}{1 - w_{ij}^{(\text{low})}} \Big]
+C = \sum_{i \neq j} \Big[ w_{ij} \log \frac{1}{w_{ij}^{(\text{low})}} + 
+(1 - w_{ij}) \log \frac{1}{1 - w_{ij}^{(\text{low})}} \Big]
 $$
 
 - $w_{ij}$ = high-dimensional fuzzy weight between points $i$ and $j$  
