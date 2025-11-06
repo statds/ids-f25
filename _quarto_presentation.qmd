@@ -24,13 +24,6 @@ Quarto supports several formats for creating presentations including:
 Slides will render as HTML by default, and it is preferred over `beamer` and 
 `pptx` unless you are specifically looking for a LaTeX or Office output.
 
-| Feature | `revealjs` | `beamer`  | `pptx`  |
-|--------------|----------------|------------|---------------|
-| **Output Format** | HTML or PDF |  PDF | Powerpoint |
-| **Pros**      | - Runs in any browser  <br> - Easily sharable with a link <br> - Allows for CSS styling  <br>  - Allows interactive elements <br> - Only requires Quarto and a text editor| - Excellent math rendering <br> - Ensures consistent fonts and equations through LaTeX <br> - Produces high-quality, professional slides | - Fully editable within MS PowerPoint <br> - Familiar interface for non-technical users <br> - Easy template customization | 
-| **Cons**  | - Requires a web browser to present <br> - Offers limited offline functionality | - Requires a LaTeX distribution <br> - Has a more rigid design layout <br> - Harder to customize visually | - Lacks Quarto's interactivity <br> - Manual re-rendering when data changes <br> - Requires MS Office |
-
-
 <table style="width:100%; table-layout:fixed; border-collapse:collapse;">
   <thead>
     <tr style="border-bottom:2px solid #888;">  
