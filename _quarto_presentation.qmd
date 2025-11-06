@@ -31,6 +31,52 @@ Slides will render as HTML by default, and it is preferred over `beamer` and
 | **Cons**  | - Requires a web browser to present <br> - Offers limited offline functionality | - Requires a LaTeX distribution <br> - Has a more rigid design layout <br> - Harder to customize visually | - Lacks Quarto's interactivity <br> - Manual re-rendering when data changes <br> - Requires MS Office |
 
 
+<table style="width:100%; table-layout:fixed; border-collapse:collapse;">
+  <thead>
+    <tr style="border-bottom:2px solid #888;">  
+      <th style="width:20%; text-align:left;">Feature</th>
+      <th style="width:26%; text-align:left;">revealjs</th>
+      <th style="width:26%; text-align:left;">beamer</th>
+      <th style="width:28%; text-align:left;">pptx</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><b>Output Format</b></td>
+      <td>HTML or PDF</td>
+      <td>PDF</td>
+      <td>PowerPoint</td>
+    </tr>
+
+    <!-- PROS -->
+    <tr style="border-top:1px solid #ccc; border-bottom:1px solid #ccc;">
+        <td style="vertical-align:top;"><b>Pros</b></td>
+        <td>• Runs in any browser<br>
+            • Shares easily with a link<br>
+            • Allows for CSS styling<br>
+            • Allows interactive elements</td>
+        <td>• Excellent math rendering<br>
+            • Ensures consistent fonts and equations<br>
+            • Produces high-quality slides</td>
+        <td>• Fully editable within pptx<br>
+            • Familiar for non-technical users<br>
+            • Easy template customization</td>
+    </tr>
+
+    <!-- CONS -->
+    <tr style="border-top:1px solid #ccc; border-bottom:1px solid #ccc;">
+        <td style="vertical-align:top;"><b>Cons</b></td>
+        <td>• Requires a browser to present<br>
+            • Limited offline use</td>
+        <td>• Needs a LaTeX distribution<br>
+            • Rigid layout</td>
+        <td>• Lacks Quarto's interactivity<br>
+            • Manual re-rendering<br>
+            • Requires MS Office</td>
+    </tr>
+  </tbody>
+</table>
+
 ### Creating a Presentation File
 
 In your new `.qmd` file, include a YAML header at the top to tell Quarto to 
