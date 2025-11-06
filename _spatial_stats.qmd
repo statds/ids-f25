@@ -310,9 +310,12 @@ from pykrige.rk import RegressionKriging
 
 model_rk = RegressionKriging(regression_model=LinearRegression())
 
-# Note that predictors, points, and targets must be np arrays, not pd.DataFrame
+# Note that predictors, points, and targets must be np arrays, not DataFrame
 model_rk.fit(p_train, x_train, y_train)
 ```
+
+:::: {.columns}
+::: {.column}
 
 ```{python}
 (ggplot(
@@ -339,6 +342,32 @@ print(
     f"{model_rk.score(p_test, x_test, y_test):.4f}"
 )
 ```
+
+:::
+::: {.column}
+
+```{python}
+df_test["basic_pred"] = model_basic.predict(p_test) - df_test["pct_voter"]
+df_test["krige_pred"] = model_rk.predict(p_test, x_test) - df_test["pct_voter"]
+
+(ggplot(df_test, aes(x="basic_pred", y="krige_pred"))
+    + geom_abline(slope=1, intercept=0, color="#888888", linetype="dashed")
+    + geom_abline(slope=0, intercept=0, color="#888888", linetype="dashed")
+    + geom_point(color="#00000066")
+    + geom_smooth(method="lm", se=False, color="#0099ff", linetype="dashed")
+    + coord_equal()
+    + labs(
+        title="Effect of Kriging on Residuals",
+        x="Regression Residuals",
+        y="Regression + Kriging Residuals"
+    )
+    + theme_light()
+    + theme(figure_size=(4, 4))
+)
+```
+
+:::
+::::
 
 ## Conclusion
 
