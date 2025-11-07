@@ -2,15 +2,17 @@
 title: "Spatial Statistical Methods"
 author: "Quinn Saltus"
 format: revealjs
+bibliography: references.bib
 ---
 
 <!-- TODO
-This document is formatted to render slides. Before PR'ing, follow guidelines in classnotes (remove yaml header, fix heading depth, etc)
+Before PR'ing, follow guidelines in classnotes (newlines for non-wrapping editors, remove yaml header, fix heading depth, etc)
+rendering for presentation -> rendering for class notes
 -->
 
 ### Introduction
 
-Spatially dependent data can cause problems for standard statistical methods. Many common statistical tools assume that individual observations are independent, but if location matters, then close data points will be more similar than far data points.
+Spatially dependent data can cause problems for standard statistical methods. If location matters, then close data points will be more similar than far data points, but standard methods often assume the data are independent.
 
 Spatial Statistics can:
 
@@ -19,7 +21,7 @@ Spatial Statistics can:
 
 ## Dataset {.smaller}
 
-The dataset I'll use for demonstration is the [Turnout by County for the 1980 Election](https://www.openml.org/search?type=data&status=active&id=507).
+The dataset I'll use for demonstration is the [Turnout by County for the 1980 Election](https://www.openml.org/search?type=data&status=active&id=507) from @Pace1997.
 
 ```{python}
 from plotnine import *
@@ -153,7 +155,7 @@ With PySAL, we need to precompute the weights matrix $W$ to give to analysis fun
 dist_kdtree = KDTree(df[["xcoord", "ycoord"]])
 weights = libpysal.weights.DistanceBand(
     dist_kdtree,
-    threshold=5, # limit search distance
+    threshold=2.5, # limit search distance
     binary=False, # use numeric weights
     alpha=-2 # use inverse square distance
 )
@@ -176,7 +178,7 @@ moran.plot_scatter()
 :::
 ::: {.column width="30%"}
 
-Some example I-values using weights based on adjacency.
+Some example I-values using adjacency weights [@MoranExample].
 
 <p><a href="https://commons.wikimedia.org/wiki/File:Moran%27s_I_example.png#/media/File:Moran's_I_example.png"><img src="https://upload.wikimedia.org/wikipedia/commons/f/f0/Moran%27s_I_example.png" alt="Moran's I example.png" height="300" width="500"></a></p>
 
@@ -369,11 +371,22 @@ df_test["krige_pred"] = model_rk.predict(p_test, x_test) - df_test["pct_voter"]
 :::
 ::::
 
-## Conclusion
+## Conclusions
+
+PySAL offers strong tools for exploratory spatial data analysis and visualization. PyKrige lets you drop in spatial predictors or post-processing.
+
+Spatial analysis is flexible. It can augment an existing model if you train on the residuals, or be included as a predictor when creating a new model. 
+
+This being said, you need to validate the method. I initially wanted to demonstrate with the NYC collision data, but it turned out that crashes are independent enough for spatial patterns not to matter.
 
 ## Further Readings
 
-[The PyKrige Documentation](https://geostat-framework.readthedocs.io/projects/pykrige/en/stable/)
+[ESRI's explanation of spatial autoregression](https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-statistics/how-spatial-autoregression-works.htm)
 
-<!-- TODO cite data -->
-<!-- TODO cite Moran image -->
+[The PySAL documentation](https://pysal.org/)
+
+[The PyKrige documentation](https://geostat-framework.readthedocs.io/projects/pykrige/en/stable/)
+
+If you're particularly interested in spatial problems and tools, I recommend GEOG 2500 (Introduction to Geographic Information Systems).
+
+### Citations
