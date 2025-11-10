@@ -1,9 +1,7 @@
 ## Synthetic Minority Over-sampling Technique (SMOTE)
 
-This section was prepared by John Smith.
-
-Use Markdown syntax. If not clear on what to do, learn from the class
-notes sources.
+This section was written by Hannah Levine, a junior majoring in 
+Applied Data Analysis.
 
 + Pay attention to the sectioning levels.
 + Cite references with their bib key.
@@ -14,13 +12,10 @@ notes sources.
 
 ### Introduction
 
-Here is an overview.
 
+### Imbalanced Datasets
 
-### Sub Topic 1
-
-Put materials on topic 1 here
-
+load example dataset
 Python examples can be put into `python` code chunks:
 
 ```{python}
@@ -29,18 +24,19 @@ Python examples can be put into `python` code chunks:
 # do something
 ```
 
-### Sub Topic 2
+### What is SMOTE?
 
 Put materials on topic 2 here.
 
-### Sub Topic 3
+### Variants
 
 Put matreials on topic 3 here.
 
+###
 
 ### Conclusion
 
-Put sumaries here.
+conclude, also mention advantages and disadvantages
 
 ### Further Readings
 
