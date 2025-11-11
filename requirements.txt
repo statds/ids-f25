@@ -95,6 +95,7 @@ notebook==7.4.5
 notebook_shim==0.2.4
 numba==0.61.2
 numpy<2.0.0
+nycflights13==0.0.3
 openml==0.15.1
 opt_einsum==3.4.0
 optree==0.17.0
