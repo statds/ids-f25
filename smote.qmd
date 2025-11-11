@@ -176,28 +176,6 @@ class 1. The rest were actually class 0. Looking at the confusion matrix,
 223 cases were correctly predicted to be class 0 and only 1 case was incorrectly
 predicted to be class 0.
 
-```{python}
-from sklearn.metrics import roc_curve, roc_auc_score
-
-# Compute predicted probabilities for ROC curve
-y_prob_smote = model_smote.predict_proba(X_test)[:, 1]
-
-# Generate ROC curve values
-fpr, tpr, thresholds = roc_curve(y_test, y_prob_smote)
-
-# Plot ROC curve
-plt.figure()
-plt.plot(fpr, tpr, label='Logistic Regression (AUC = {:.2f})'.format(roc_auc_score(y_test, y_prob_smote)))
-plt.plot([0, 1], [0, 1], linestyle='--', label='Random Guessing')
-plt.xlabel('False Positive Rate')
-plt.ylabel('True Positive Rate (Recall)')
-plt.title('ROC Curve')
-plt.legend()
-plt.show()
-
-```
-
-
 ### Variations and Extensions of SMOTE
 
 SMOTE is very helpful in addressing class imbalance, but with larger datasets 
