@@ -22,20 +22,47 @@ who are "healthy" and who are "not healthy", with the "healthy"
 far outnumbering the "not healthy". The "not healthy" class is
 known as the minority class.
 
-This is important because models can become biased towards the majority
-class, and be innacurate in predicting for the minority class. In the case
-of disease diagnosis, this is especially apparent, as the models are used
-to diagnose the unhealthy individuals. Adressing this class imbalance
-helps to improve the accuracy of the model. An easy solution is to just
-oversample the minority class, creating duplicates. However, this doesn't
-really add any new information to the model. Another solution is
+This is important because machine learning models can become biased towards 
+the majority class, and be innacurate in predicting for the minority class. 
+This is especially apparent in problems with multiple classes. Adressing this 
+class imbalance helps to improve the accuracy of the model. An easy solution 
+is to just oversample the minority class, creating duplicates. However, this 
+doesn't really add any new information to the model. Another solution is
 undersampling of the majority class, but then important information
 might be left out. A better technique is Synthetic Minority Over-Sampling
 Technique, or SMOTE.
 
 ### SMOTE
 
-load example dataset
+While random oversampling creates exact replicas of minority observations,
+SMOTE creates synthetic samples based on the existing observations in
+the minority class. 
+    1. SMOTE identifies minority class(es) in the dataset
+    2. For each observation in the minority class, SMOTE identifies
+    the k nearest neighbors, with k being specified prior (usually k=5).
+    3. A line is drawn between the minority observation and one of its
+    k nearest neighbors. 
+    4. The difference is found, multiplied by a random number between 0 and 1, then added to the initial observation to generate the synthetic
+    sample.
+    5. This process is repeated until the desired ratio is
+    reached, usually when the minority class equals the size of the
+    majority class.
+The resulting dataset is more balanced, but there's less of a chance of
+overlapping data points because it's not duplicates.
+
+This can also be demonstrated by the following algorithm:
+$$
+x_{new} = x_{i} + \lambda(x_{neighbor} - x_{i})
+$$
+
+where $x_{i}$ is the selected minority observation, $x_{new}$ is the
+generated synthetic sample, $\lambda$ is a random number between 0 and
+1 sampled from a uniform distribution, and $x_{neighbor}$ is the randomly
+chosen neighbor out of the identified k neearest neighbors.
+
+***maybe include visual diagram showing points and synthetic samples being created??***
+
+### Example: Created Synthetic Dataset
 
 ```{python}
 from sklearn.datasets import make_classification
