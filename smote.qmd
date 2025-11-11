@@ -182,13 +182,25 @@ when dealing with datasets with only numerical variables, but runs into
 problems when there are categorical variables. SMOTE operates in the numerical
 differences between observations and their neighbors, so categorical variables
 don't work with it. SMOTE-NC addresses this by seperately considering
-the categorical variables. SMOTE first handles the numerical variables,
-
+the categorical variables, and ensuring the categorical features of the
+synthetic samples align with those of the original data.
 
 ### Conclusion
 
-conclude, also mention advantages and disadvantages
+SMOTE is a great tool to handle imbalanced classes in datasets. By creating
+synthetic samples from real observations in the minority class, the dataset
+is balanced while still having a good range of information and not overfitting. It's important
+to note that SMOTE does not guaruntee that a model will perform well. It
+can help with prediction on the minority class, but it doesn't always mean
+that the overall performance of the model improves. It also can create
+noisy samples in dense or overlapping regions. It's important to analyze
+the problem to determine if SMOTE is worth applying, or if another
+method might be better.
 
 ### Further Readings
 
-Put links to further materials.
+geeksforgeeks.org [SMOTE for Imbalanced Classification With Python](https://www.geeksforgeeks.org/machine-learning/smote-for-imbalanced-classification-with-python/)
+
+Brownlee, J. (2020) [A Gentle Introduction to Imbalanced Classification](https://machinelearningmastery.com/what-is-imbalanced-classification/)
+
+pannmie (2023) [Oversampling Techniques for Imbalanced Data: SMOTE, Step-by-Step Guide](https://www.kaggle.com/discussions/general/424270)
