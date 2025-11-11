@@ -24,6 +24,7 @@ book:
     - 08-regression.qmd
     - 09-classification.qmd
     - 10-supervised.qmd
+    - 11-unsupervised.qmd
     - 90-advanced.qmd
 #    - stats.qmd
 #    - machinelearning.qmd
