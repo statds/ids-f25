@@ -107,8 +107,7 @@ string, the possible choices are:
     - "auto": same as "not majority", is default 
 `k_neighbors` is an int that defaults to 5.
 
-
-
+Now we can visualize the distribution of the data.
 
 ```{python}
 # visualize before and after
@@ -131,13 +130,21 @@ plt.show()
 
 Looking at the scatter plots, you can see the difference in class size
 before and after using SMOTE. 
-You can also see the synthetic minority points being created between 
-existing minority observations.
+The scatter plot is preferred in this example because only 2 classes
+are being used, and it allows you to see the synthetic minority points
+being created between existing minority observations. With other problems
+with more classes, it might be easier to look at a bar chart.
 
+### Variations and Extensions of SMOTE
 
-### Variants
+SMOTE is very helpful in addressing class imbalance, but with larger datasets 
+and higher-dimensional class spaces other extensions have been 
+developed to help handle those larger scenarios. This includes Borderline SMOTE,
+ADASYN, STOME-ENN (Edited Nearest Neighbors), SMOTE+TOMEK, and SMOTE-NC 
+(Nominal Continuous).
 
-Boredrline, adasyn, tomek,
+ADASYN, or Adaptive Synthetic Sampling Approach, focuses on finding and
+handling regions where the imbalance is more severe. 
 
 when to use plain: moderate imbalance,
 
