@@ -123,6 +123,81 @@ only 2 classes are being used, and it allows you to see the synthetic minority
 points being created between existing minority observations. With other problems
 with more classes, it might be easier to look at a bar chart.
 
+Too see if the application of SMOTE actually made a difference, we can look at
+models for the original dataset and the after SMOTE dataset.
+
+```{python}
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import confusion_matrix, classification_report
+
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.3, random_state=1234, stratify=y
+)
+
+# original
+model_original = LogisticRegression(random_state=1234)
+model_original.fit(X_train, y_train)
+y_pred_original = model_original.predict(X_test)
+
+print("=== Model trained on ORIGINAL data ===\n")
+print(classification_report(y_test, y_pred_original, zero_division=0))
+print("\nConfusion Matrix:")
+print(confusion_matrix(y_test, y_pred_original))
+```
+
+Looking at the report, 98% of the cases that were predicted to be class 0
+were predicted correctly. 100% of the cases that were actually class 0 were
+predicted to be class 0. Meanwhile, 0% of the cases were even predicted to 
+be class 1. This is super unrealistic, and it seems like the model
+completely ignored the minority class. The confusion matrix suppports this,
+it shows that no cases were predicted to be class 1 at all, while 295 cases
+were correctly predicted to be class 0 (True Positive), and 5 cases were
+incorrectly predicted to be class 0 (False Positive).
+
+```{python}
+# SMOTE
+X_train_resampled, y_train_resampled = smote.fit_resample(X_train, y_train)
+model_smote = LogisticRegression(random_state=1234)
+model_smote.fit(X_train_resampled, y_train_resampled)
+y_pred_smote = model_smote.predict(X_test)
+
+print("=== Model trained with SMOTE ===\n")
+print(classification_report(y_test, y_pred_smote))
+print("\nConfusion Matrix:")
+print(confusion_matrix(y_test, y_pred_smote))
+```
+
+Looking at the model trained with SMOTE data, the report is much more realistic.
+80% of the cases that were in class 1 were correctly predicted to be class 1. 
+However, only 5% of the cases that were predicted to be class 1 actually were
+class 1. The rest were actually class 0. Looking at the confusion matrix,
+223 cases were correctly predicted to be class 0 and only 1 case was incorrectly
+predicted to be class 0.
+
+```{python}
+from sklearn.metrics import roc_curve, roc_auc_score
+
+# Compute predicted probabilities for ROC curve
+y_prob_smote = model_smote.predict_proba(X_test)[:, 1]
+
+# Generate ROC curve values
+fpr, tpr, thresholds = roc_curve(y_test, y_prob_smote)
+
+# Plot ROC curve
+plt.figure()
+plt.plot(fpr, tpr, label='Logistic Regression (AUC = {:.2f})'.format(roc_auc_score(y_test, y_prob_smote)))
+plt.plot([0, 1], [0, 1], linestyle='--', label='Random Guessing')
+plt.xlabel('False Positive Rate')
+plt.ylabel('True Positive Rate (Recall)')
+plt.title('ROC Curve')
+plt.legend()
+plt.show()
+
+```
+
+
 ### Variations and Extensions of SMOTE
 
 SMOTE is very helpful in addressing class imbalance, but with larger datasets 
