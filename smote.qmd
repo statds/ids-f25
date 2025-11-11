@@ -177,7 +177,13 @@ the two observations are marked for removal. Once all TOMEK links have been foun
 also reduces overlap between classes, and improves the distinction of classes.
 
 Finally, SMOTE-NC, or SMOTE Nominal Continuous, is used for datasets that
-are mixed nominal (categorical) and continuous classes.
+are mixed nominal (categorical) and continuous variables. SMOTE is great
+when dealing with datasets with only numerical variables, but runs into
+problems when there are categorical variables. SMOTE operates in the numerical
+differences between observations and their neighbors, so categorical variables
+don't work with it. SMOTE-NC addresses this by seperately considering
+the categorical variables. SMOTE first handles the numerical variables,
+
 
 ### Conclusion
 
