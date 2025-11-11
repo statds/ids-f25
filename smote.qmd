@@ -64,32 +64,82 @@ chosen neighbor out of the identified k neearest neighbors.
 
 ### Example: Created Synthetic Dataset
 
+We can generate a random dataset using the `make_classification`
+function from `sklearn.datasets`.
+
 ```{python}
 from sklearn.datasets import make_classification
 from collections import Counter
 from imblearn.over_sampling import SMOTE
 import matplotlib.pyplot as plt
 
+# create imbalanced dataset
 X, y = make_classification(
     n_samples=1000,
-    n_features=10,
-    n_informative=3,
-    n_redundant=1,
-    n_classes=2,
+    n_features=2,
+    n_informative=2,
+    n_redundant=0,
+    n_clusters_per_class=1,
     weights=[0.99, 0.01],
     random_state=1234
 )
 
-print(f"Class distribution: {Counter(y)}")
+print(f"Original class distribution: {Counter(y)}")
 ```
 
-### What is SMOTE?
+```{python}
+# apply SMOTE
+smote = SMOTE(random_state=1234)
+X_resampled, y_resampled = smote.fit_resample(X, y)
 
-Put materials on topic 2 here.
+print("After SMOTE class distribution:", Counter(y_resampled))
+```
+
+For the application of SMOTE, I only specify a random state to ensure
+reproducibility. Other parameters that can be used are
+`sampling_strategy` and `k_neighbors`. `sampling_strategy` can be a float, 
+string, or dict. Float is only usable for problems with 2 classes. For
+string, the possible choices are:
+    - "minority": resample only the minority class
+    - "not minority": resample all but the minority class
+    - "not majority": resample all but the majority class
+    - "all": resample all classes
+    - "auto": same as "not majority", is default 
+`k_neighbors` is an int that defaults to 5.
+
+
+
+
+```{python}
+# visualize before and after
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))
+
+ax1.scatter(X[y==0][:, 0], X[y==0][:, 1], c="#DEA8FF", label="Majority", alpha=0.5)
+ax1.scatter(X[y==1][:, 0], X[y==1][:, 1], c="#A3007D", label="Minority", alpha=0.5)
+ax1.set_title("Original class distribution")
+ax1.legend()
+
+ax2.scatter(X_resampled[y_resampled==0][:, 0], X_resampled[y_resampled==0][:, 1], c="#DEA8FF",
+            label="Majority", alpha=0.5)
+ax2.scatter(X_resampled[y_resampled==1][:, 0], X_resampled[y_resampled==1][:, 1], c="#A3007D",
+            label="Minority (synthetic)", alpha=0.5)
+ax2.set_title("After SMOTE class distribution")
+ax2.legend()
+
+plt.show()
+```
+
+Looking at the scatter plots, you can see the difference in class size
+before and after using SMOTE. 
+You can also see the synthetic minority points being created between 
+existing minority observations.
+
 
 ### Variants
 
-Put matreials on topic 3 here.
+Boredrline, adasyn, tomek,
+
+when to use plain: moderate imbalance,
 
 ###
 
