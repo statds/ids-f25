@@ -1,14 +1,8 @@
 ## Synthetic Minority Over-sampling Technique (SMOTE)
 
+
 This section was written by Hannah Levine, a junior majoring in 
 Applied Data Analysis.
-
-+ Pay attention to the sectioning levels.
-+ Cite references with their bib key.
-+ In examples, maximize usage of data set that the class is familiar with.
-+ Could use datasets in Python packages or downloadable on the fly.
-+ Test your section by `quarto render <filename.qmd>`.
-
 
 ### Introduction
 
