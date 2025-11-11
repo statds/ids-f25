@@ -7,3 +7,6 @@
 
 <!-- ## Animation -->
 <!-- {{< include _animation.qmd >}} -->
+
+<!-- ## Calling R from Python -->
+{{< include _callr.qmd >}}
