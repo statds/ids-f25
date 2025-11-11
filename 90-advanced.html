@@ -105,6 +105,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -250,6 +279,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#an-introduction-to-selenium" id="toc-an-introduction-to-selenium" class="nav-link" data-scroll-target="#an-introduction-to-selenium"><span class="header-section-number">12.1.4</span> An Introduction to Selenium</a></li>
   <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">12.1.5</span> Further Reading</a></li>
   </ul></li>
+  <li><a href="#how-to-call-r-from-python" id="toc-how-to-call-r-from-python" class="nav-link" data-scroll-target="#how-to-call-r-from-python"><span class="header-section-number">12.2</span> How to call R from Python</a>
+  <ul class="collapse">
+  <li><a href="#motivations" id="toc-motivations" class="nav-link" data-scroll-target="#motivations"><span class="header-section-number">12.2.1</span> Motivations</a></li>
+  <li><a href="#corresponding-packages" id="toc-corresponding-packages" class="nav-link" data-scroll-target="#corresponding-packages"><span class="header-section-number">12.2.2</span> Corresponding packages</a></li>
+  <li><a href="#r-python-advantages" id="toc-r-python-advantages" class="nav-link" data-scroll-target="#r-python-advantages"><span class="header-section-number">12.2.3</span> R / Python advantages</a></li>
+  <li><a href="#setup-both-r-and-python" id="toc-setup-both-r-and-python" class="nav-link" data-scroll-target="#setup-both-r-and-python"><span class="header-section-number">12.2.4</span> Setup both R and Python</a></li>
+  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example"><span class="header-section-number">12.2.5</span> Example</a></li>
+  <li><a href="#more-resources" id="toc-more-resources" class="nav-link" data-scroll-target="#more-resources"><span class="header-section-number">12.2.6</span> Additional resources</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -372,7 +410,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h4 data-number="12.1.2.4" class="anchored" data-anchor-id="using-headers-and-user-agent-strings"><span class="header-section-number">12.1.2.4</span> Using Headers and User-Agent Strings</h4>
 <p>Web servers sometimes treat automated requests differently from requests made by real browsers. By adding headers, you can make your requests look more like they are coming from a normal user.</p>
 <p>A common header to include is the User-Agent, which identifies the browser and device making the request. Here is an example of what a header can look like:</p>
-<div id="4bcb2707" class="cell" data-execution_count="1">
+<div id="b42fb464" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">'https://uconn.edu'</span></span>
@@ -411,7 +449,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>To use BeautifulSoup, you first need to install it.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install beautifulsoup4</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Once installed, import it into your Python script:</p>
-<div id="9dfd6878" class="cell" data-execution_count="2">
+<div id="be6ad5d7" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> bs4 <span class="im">import</span> BeautifulSoup</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>BeautifulSoup works well alongside the requests library, creating a simple and efficient way to download and process web pages.</p>
@@ -419,7 +457,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="loading-html-into-beautifulsoup" class="level4" data-number="12.1.3.2">
 <h4 data-number="12.1.3.2" class="anchored" data-anchor-id="loading-html-into-beautifulsoup"><span class="header-section-number">12.1.3.2</span> Loading HTML into BeautifulSoup</h4>
 <p>Once you have downloaded the HTML content of a web page, the next step is to load it into BeautifulSoup.</p>
-<div id="1ed46ec8" class="cell" data-execution_count="3">
+<div id="fbbec3a1" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://decisiondrivers.com/nyc/zip-code/"</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>headers <span class="op">=</span> {</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"User-Agent"</span>: <span class="st">"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "</span></span>
@@ -446,7 +484,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><code>find_all()</code> – finds all instances of a tag</li>
 <li><code>select()</code> – finds elements using CSS selectors</li>
 </ul>
-<div id="1355a725" class="cell" data-execution_count="4">
+<div id="f1d7f2db" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Find the first heading on the page</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>heading <span class="op">=</span> soup.find(<span class="st">'h1'</span>)</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -461,7 +499,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h4 data-number="12.1.3.4" class="anchored" data-anchor-id="extracting-data"><span class="header-section-number">12.1.3.4</span> Extracting Data</h4>
 <p>Before writing any scraping code, it’s helpful to understand where the data actually sits within the webpage. You can right-click anywhere on the site and choose Inspect to open your browser’s developer tools. This reveals the HTML structure of the page, where information is organized using tags such as <code>&lt;table&gt;</code>, <code>&lt;tr&gt;</code>, and <code>&lt;td&gt;</code>. These tags define how the data is arranged, helping you identify exactly which elements you’ll need to target with BeautifulSoup.</p>
 <p>For example, on the [Decision Drivers NYC ZIP Codes] (https://decisiondrivers.com/nyc/zip-code/) page, the ZIP code information is not stored inside a table but listed under each borough heading. Every borough name appears as a heading tag, such as <code>&lt;h2&gt;</code>, followed by a list of ZIP codes written in plain text or inside <code>&lt;ul&gt;</code> and <code>&lt;li&gt;</code> tags. Instead of looping through table rows, you can search for each heading, record the borough name, and then capture the ZIP codes that appear beneath it. This structure works well with <code>BeautifulSoup</code> because it allows you to identify the borough from the heading and pair it with its corresponding ZIP codes by reading the text that follows.</p>
-<div id="9903db6a" class="cell" data-execution_count="5">
+<div id="0d9323f7" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>boroughs <span class="op">=</span> []</span>
@@ -511,7 +549,7 @@ Total ZIP codes found: 179</code></pre>
 <section id="extended-example" class="level4" data-number="12.1.3.5">
 <h4 data-number="12.1.3.5" class="anchored" data-anchor-id="extended-example"><span class="header-section-number">12.1.3.5</span> Extended Example</h4>
 <p>This is an example that will be useful for our midterm assignment. Here, we scrape the addresses of all the precincts in NYC.</p>
-<div id="5e6d4364" class="cell" data-execution_count="6">
+<div id="ef769be0" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://www.nyc.gov/site/nypd/bureaus/patrol/precincts-landing.page"</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>headers <span class="op">=</span> {</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"User-Agent"</span>: <span class="st">"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "</span></span>
@@ -581,14 +619,14 @@ Extracted 78 precincts successfully.
 <div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">xattr</span> <span class="at">-d</span> com.apple.quarantine <span class="va">$(</span><span class="fu">which</span> chromedriver<span class="va">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>After this, your WebDriver should work normally.</p>
 <p>Now we can work on the code itself. This is how we set up Selenium:</p>
-<div id="971f0a7d" class="cell" data-execution_count="7">
+<div id="74a28013" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> selenium <span class="im">import</span> webdriver</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> selenium.webdriver.chrome.service <span class="im">import</span> Service</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> selenium.webdriver.chrome.options <span class="im">import</span> Options</span>
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Before launching Chrome, it’s common to set a few options that control how it behaves. For scraping, “headless” mode is useful because it runs Chrome without opening a window. It is faster and less distracting.</p>
-<div id="196f71b0" class="cell" data-execution_count="8">
+<div id="4a6aeb4e" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create Chrome options to control browser behavior</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>options <span class="op">=</span> Options()</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -602,7 +640,7 @@ Extracted 78 precincts successfully.
 <span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>options.add_argument(<span class="st">"--no-sandbox"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Instead of typing out the full path manually, this function looks through your system’s PATH to find where chromedriver is installed.</p>
-<div id="89e95168" class="cell" data-execution_count="9">
+<div id="9709786a" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> find_chromedriver():</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Loop through all directories listed in the system PATH</span></span>
@@ -633,7 +671,7 @@ Extracted 78 precincts successfully.
 </div>
 </div>
 <p>Once you have the driver path and your browser settings, you can start Chrome.</p>
-<div id="b1d57722" class="cell" data-execution_count="10">
+<div id="1c4f1260" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import the Service class and connect the driver</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>service <span class="op">=</span> Service(chromedriver_path)</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -641,14 +679,14 @@ Extracted 78 precincts successfully.
 <span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>driver <span class="op">=</span> webdriver.Chrome(service<span class="op">=</span>service, options<span class="op">=</span>options)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>At this point, Selenium is ready. You can visit a webpage by calling:</p>
-<div id="ca4ec3cb" class="cell" data-execution_count="11">
+<div id="f168273e" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>driver.get(<span class="st">"https://example.com"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="using-selenium-to-load-dynamic-pages" class="level4" data-number="12.1.4.2">
 <h4 data-number="12.1.4.2" class="anchored" data-anchor-id="using-selenium-to-load-dynamic-pages"><span class="header-section-number">12.1.4.2</span> Using Selenium to Load Dynamic Pages</h4>
 <p>Here is a simple example that shows how Selenium can open a website, wait for it to load, and then pass the content to BeautifulSoup.</p>
-<div id="ca045c5b" class="cell" data-execution_count="12">
+<div id="4ede6eb5" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> selenium <span class="im">import</span> webdriver</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> selenium.webdriver.chrome.options <span class="im">import</span> Options</span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> selenium.webdriver.common.by <span class="im">import</span> By</span>
@@ -805,6 +843,203 @@ Extracted 78 precincts successfully.
 </ol>
 <!-- ## Animation -->
 <!-- {{< include _animation.qmd >}} -->
+<!-- ## Calling R from Python -->
+</section>
+</section>
+<section id="how-to-call-r-from-python" class="level2" data-number="12.2">
+<h2 data-number="12.2" class="anchored" data-anchor-id="how-to-call-r-from-python"><span class="header-section-number">12.2</span> How to call R from Python</h2>
+<p>This section was prepared by Wilson Tang, a undergraduate junior as of fall 2025 pursuing a single degree in statistical data science.</p>
+<section id="motivations" class="level3" data-number="12.2.1">
+<h3 data-number="12.2.1" class="anchored" data-anchor-id="motivations"><span class="header-section-number">12.2.1</span> Motivations</h3>
+<p>R and Python are both languages we have been exposed to the most at UConn. I’ve had moments using one where I think about how the other might be useful, and so one might want to incorporate both languages. I want to show how we can properly incorporate R and Python together and when each language may be better.</p>
+<p><strong>Data science workflow:</strong></p>
+<p>Understanding the data science workflow will help us decide if we want to use R and Python together, or just individually.</p>
+<ul>
+<li>Identify problem<br>
+</li>
+<li>Gather data<br>
+</li>
+<li>Clean &amp; preprocess data<br>
+</li>
+<li>Data exploration<br>
+</li>
+<li>Feature engineering / external data</li>
+<li>Statistical testing<br>
+</li>
+<li>Modeling &amp; machine learning<br>
+</li>
+<li>Evaluation<br>
+</li>
+<li>Visualization</li>
+</ul>
+</section>
+<section id="corresponding-packages" class="level3" data-number="12.2.2">
+<h3 data-number="12.2.2" class="anchored" data-anchor-id="corresponding-packages"><span class="header-section-number">12.2.2</span> Corresponding packages</h3>
+<p>For most tasks, we can find corresponding packages in both Python and R that can generally accomplish the same tasks. Of course, do mind exceptions can occur for very specific tasks and you should make decisions based on the scope of your work.</p>
+<ul>
+<li><strong>Cleaning / Preprocessing Data</strong>
+<ul>
+<li>R: dplyr</li>
+<li>Python: pandas</li>
+</ul></li>
+<li><strong>Exploratory Data Analysis</strong>
+<ul>
+<li>R: built-in functions, dplyr, ggplot2</li>
+<li>Python: pandas, matplotlib, seaborn, plotnine</li>
+</ul></li>
+<li><strong>Feature Engineering</strong>
+<ul>
+<li>R: recipes (tidymodels), forcats, lubridate</li>
+<li>Python: sklearn, pandas</li>
+</ul></li>
+<li><strong>Evaluation</strong>
+<ul>
+<li>R: yardstick, caret</li>
+<li>Python: sklearn, yellowbrick</li>
+</ul></li>
+<li><strong>Visualization</strong>
+<ul>
+<li>R: ggplot2</li>
+<li>Python: plotnine, matplotlib, seaborn</li>
+</ul></li>
+</ul>
+</section>
+<section id="r-python-advantages" class="level3" data-number="12.2.3">
+<h3 data-number="12.2.3" class="anchored" data-anchor-id="r-python-advantages"><span class="header-section-number">12.2.3</span> R / Python advantages</h3>
+<p><strong>R:</strong></p>
+<ul>
+<li>Statistical testing: t-test, ANOVA, chi-squared, Shapiro-wilk are common tests built into R. Durbin Test and a fisher’s test that can work for any r x c contingency table.</li>
+<li>Econometrics, time-series and biostatistics.</li>
+</ul>
+<p><strong>Python:</strong></p>
+<ul>
+<li>Being able to handle bigger data</li>
+<li>Machine learning and AI
+<ul>
+<li>sklearn for machine learning</li>
+<li>Tensor flow / Keras / Pytorch for deep learning</li>
+<li>XGBoost / LightGBM / CatBoost for gradient boosting</li>
+<li>Pipelines<br>
+</li>
+</ul></li>
+<li>Versatile data handling
+<ul>
+<li>APIs - Better for large scale / complex integration (‘requests’, ‘httpx’, ‘aiohttp’)</li>
+<li>Web Scraping - Better for large scale / dynamic web scraping (‘Beautiful’, ‘Scrapy’, ‘Selenium’)</li>
+<li>Databases - SQL, NoSQL and big platforms</li>
+<li>Cloud data - R has limited options for this and sometimes rely on Python libraries</li>
+<li>Real-time data - R can’t really do this</li>
+</ul></li>
+</ul>
+</section>
+<section id="setup-both-r-and-python" class="level3" data-number="12.2.4">
+<h3 data-number="12.2.4" class="anchored" data-anchor-id="setup-both-r-and-python"><span class="header-section-number">12.2.4</span> Setup both R and Python</h3>
+<p><strong>Make sure you have your own python:</strong></p>
+<p>Windows comes with python, however we want to install our own because it will prevent errors in the future steps. (Microsoft sucks)</p>
+<p><a href="https://www.python.org/downloads/">Install python</a></p>
+<p><strong>Download R and Install R extension:</strong></p>
+<p><a href="https://cran.r-project.org/bin/windows/base/">Install R</a></p>
+<p>Find the Extensions tab on the left toolbar, search R language and install the R extension for VS code. And you can use <code>Ctrl+Shift+P</code> and type <code>R: Create R terminal</code>.</p>
+<p><strong>Calling R in Python:</strong></p>
+<p>We will use the package <code>rpy2</code> to call R from Python, there are also other packages that can call R, check <a href="#more-resources">Additional resources</a>.</p>
+<p>Calling R from Python is a Python first method, and is generally recommended if the user is going to be using more python. However, one can also call Python from R as well. Check <a href="#more-resources">Additional resources</a> for packages in R that allows us to call Python from R.</p>
+<p><strong>Reproducibility:</strong></p>
+<p>Since we are trying to use 2 languages at once, there will be packages from both R and Python. Of course, we would never want to compromise on reproducibility so what should we do? The best method would be to use Conda.</p>
+<p>A single Conda environment can specify both versions of Python as well as R, while also allowing us to keep the packages of both in one place.</p>
+</section>
+<section id="example" class="level3" data-number="12.2.5">
+<h3 data-number="12.2.5" class="anchored" data-anchor-id="example"><span class="header-section-number">12.2.5</span> Example</h3>
+<p><strong>Prerequisites:</strong></p>
+<p>In order to render these classnotes you will need to have a Python virtual environment with packages from <a href="https://github.com/statds/ids-f25/blob/main/requirements.txt">requirements.txt</a> and the package <code>gamlss</code> needs to be installed into your R global environment.</p>
+<p><code>GAMLSS</code> or Generalized Additive Models for Location, Scale, and Shape. It allows all parameters of the response distribution to depend on explanatory variables and thus each parameter can be modeled as a function of predictors. This model is useful when variability changes with predictors, skewness / kurtosis change with predictors.</p>
+<p>Load Python libraries:</p>
+<div id="8a43bc4b" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Load <code>rpy2</code> to call R interface:</p>
+<div id="ce84ea0f" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> rpy2 <span class="im">import</span> robjects</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> rpy2.robjects <span class="im">import</span> pandas2ri, Formula</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> rpy2.robjects.packages <span class="im">as</span> rpackages</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> rpy2.robjects.conversion <span class="im">import</span> localconverter</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Error importing in API mode: ImportError("dlopen(/Users/junyan/work/teaching/ids-f25/ids-f25/.ids-f25/lib/python3.13/site-packages/_rinterface_cffi_api.abi3.so, 0x0002): symbol not found in flat namespace '_R_BaseEnv'")
+Trying to import in ABI mode.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Loading custom .RprofileLoading custom .Rprofile</code></pre>
+</div>
+</div>
+<p>Call <code>gamlss</code> from <code>rpy2</code>, <code>rpy2</code> will look for the R global environment is the default location:</p>
+<div id="8f9bb96e" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>gamlss <span class="op">=</span> rpackages.importr(<span class="st">'gamlss'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Load in <code>penguins</code> from <code>seaborn</code> and prepare Data:</p>
+<div id="cadf716a" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="op">=</span> sns.load_dataset(<span class="st">"penguins"</span>).dropna()</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>penguins <span class="op">=</span> penguins.rename(columns<span class="op">=</span>{</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"body_mass_g"</span>: <span class="st">"mass"</span>,</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"bill_length_mm"</span>: <span class="st">"bill"</span>,</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"flipper_length_mm"</span>: <span class="st">"flipper"</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>penguins <span class="op">=</span> penguins[[<span class="st">"mass"</span>, <span class="st">"bill"</span>, <span class="st">"flipper"</span>, <span class="st">"species"</span>, <span class="st">"sex"</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Send data frame from <code>pandas</code> to R and have it be converted to a R data frame using <code>rpy2</code>:</p>
+<div id="7ca5e187" class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> localconverter(robjects.default_converter <span class="op">+</span> pandas2ri.converter):</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>    r_df <span class="op">=</span> robjects.conversion.py2rpy(penguins)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Here we are saying that <code>mass</code> depends on <code>flipper</code>, <code>bill</code>, <code>species</code>, <code>sex</code> and the variability of <code>mass</code> depends on <code>flipper</code>. Run <code>gamlss</code> from the R data frame to extract whatever we need from <code>gamlss</code>, in this case fitted <span class="math inline">\(\sigma\)</span>:</p>
+<div id="02c8c3b3" class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>formula_mu <span class="op">=</span> Formula(<span class="st">"mass ~ flipper + bill + species + sex"</span>)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>formula_sigma <span class="op">=</span> Formula(<span class="st">"~ flipper"</span>)</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> gamlss.gamlss(formula_mu, sigma_formula<span class="op">=</span>formula_sigma,</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>                      data<span class="op">=</span>r_df, family<span class="op">=</span><span class="st">"NO"</span>)</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>fitted_sigma <span class="op">=</span> robjects.r(<span class="st">"fitted.values"</span>)(model, <span class="st">"sigma"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>GAMLSS-RS iteration 1: Global Deviance = 4718.449 
+GAMLSS-RS iteration 2: Global Deviance = 4718.415 
+GAMLSS-RS iteration 3: Global Deviance = 4718.415 </code></pre>
+</div>
+</div>
+<p>Send fitted values or anything extracted from the previous part:</p>
+<div id="594e9bd3" class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> localconverter(robjects.default_converter <span class="op">+</span> pandas2ri.converter):</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>    penguins[<span class="st">"fitted_sigma"</span>] <span class="op">=</span> robjects.conversion.rpy2py(fitted_sigma)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Use extracted values for anything of interest in Python, in this case let’s say for some reason we wanted to use <code>matplotlib</code> and <code>seaborn</code> to plot our fitted <span class="math inline">\(\sigma\)</span>:</p>
+<div id="01fe0e62" class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">6</span>))</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>sns.scatterplot(x<span class="op">=</span><span class="st">"flipper"</span>, y<span class="op">=</span><span class="st">"fitted_sigma"</span>, hue<span class="op">=</span><span class="st">"species"</span>, data<span class="op">=</span>penguins, </span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>                alpha<span class="op">=</span><span class="fl">0.6</span>)</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>sns.lineplot(x<span class="op">=</span><span class="st">"flipper"</span>, y<span class="op">=</span><span class="st">"fitted_sigma"</span>, hue<span class="op">=</span><span class="st">"species"</span>, data<span class="op">=</span>penguins, lw<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"GAMLSS: Predicted Variability vs Flipper Length"</span>)</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Flipper Length (mm)"</span>)</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Predicted Body Mass Variability (grams)"</span>)</span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>plt.legend(title<span class="op">=</span><span class="st">"Species"</span>)</span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="90-advanced_files/figure-html/cell-21-output-1.png" width="668" height="523" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We see here that as flipper length increases, predicted body mass variability tends to decrease.</p>
+</section>
+<section id="more-resources" class="level3" data-number="12.2.6">
+<h3 data-number="12.2.6" class="anchored" data-anchor-id="more-resources"><span class="header-section-number">12.2.6</span> Additional resources</h3>
+<ul>
+<li><p><a href="https://www.datacamp.com/tutorial/using-both-python-r">More packages to call R in Python and vice versa</a></p></li>
+<li><p><a href="https://www.business-science.io/business/2018/10/08/python-and-r.html">More about Python / R strengths and workflow with conda</a></p></li>
+</ul>
 
 
 </section>
