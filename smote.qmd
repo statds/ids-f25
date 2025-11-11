@@ -32,16 +32,16 @@ While random oversampling creates exact replicas of minority observations,
 SMOTE creates synthetic samples based on the existing observations in
 the minority class. 
 
-    1. SMOTE identifies minority class(es) in the dataset
-    2. For each observation in the minority class, SMOTE identifies
-    the k nearest neighbors, with k being specified prior (usually k=5).
-    3. A line is drawn between the minority observation and one of its
-    k nearest neighbors. 
-    4. The difference is found, multiplied by a random number between 0 
-    and 1, then added to the initial observation to generate the synthetic sample.
-    5. This process is repeated until the desired ratio is
-    reached, usually when the minority class equals the size of the
-    majority class.
+1. SMOTE identifies minority class(es) in the dataset
+2. For each observation in the minority class, SMOTE identifies
+the k nearest neighbors, with k being specified prior (usually k=5).
+3. A line is drawn between the minority observation and one of its
+k nearest neighbors. 
+4. The difference is found, multiplied by a random number between 0 
+and 1, then added to the initial observation to generate the synthetic sample.
+5. This process is repeated until the desired ratio is
+reached, usually when the minority class equals the size of the
+majority class.
 
 The resulting dataset is more balanced, but there's less of a chance of
 overlapping data points because it's not duplicates.
@@ -54,8 +54,6 @@ where $x_{i}$ is the selected minority observation, $x_{new}$ is the
 generated synthetic sample, $\lambda$ is a random number between 0 and
 1 sampled from a uniform distribution, and $x_{neighbor}$ is the randomly
 chosen neighbor out of the identified k neearest neighbors.
-
-***maybe include visual diagram showing points and synthetic samples being created??***
 
 ### Example: Created Synthetic Dataset
 
