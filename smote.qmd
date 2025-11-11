@@ -12,11 +12,30 @@ Applied Data Analysis.
 
 ### Introduction
 
+In classification problems, imbalanced data refers to skewed class
+distribution. Classification problems use numerical variables to 
+produce a categorical outcome, like diagnosing a disease based on clinical
+data or detecting fraudulent transactions. In a simple example, you have
+2 classes for a medical diagnosis, "healthy" and "not healthy". For rare
+diseases, there can be a large difference in the amount of individuals
+who are "healthy" and who are "not healthy", with the "healthy"
+far outnumbering the "not healthy". The "not healthy" class is
+known as the minority class.
 
-### Imbalanced Datasets
+This is important because models can become biased towards the majority
+class, and be innacurate in predicting for the minority class. In the case
+of disease diagnosis, this is especially apparent, as the models are used
+to diagnose the unhealthy individuals. Adressing this class imbalance
+helps to improve the accuracy of the model. An easy solution is to just
+oversample the minority class, creating duplicates. However, this doesn't
+really add any new information to the model. Another solution is
+undersampling of the majority class, but then important information
+might be left out. A better technique is Synthetic Minority Over-Sampling
+Technique, or SMOTE.
+
+### SMOTE
 
 load example dataset
-Python examples can be put into `python` code chunks:
 
 ```{python}
 from sklearn.datasets import make_classification
