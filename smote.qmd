@@ -31,6 +31,7 @@ Technique, or SMOTE.
 While random oversampling creates exact replicas of minority observations,
 SMOTE creates synthetic samples based on the existing observations in
 the minority class. 
+
     1. SMOTE identifies minority class(es) in the dataset
     2. For each observation in the minority class, SMOTE identifies
     the k nearest neighbors, with k being specified prior (usually k=5).
@@ -41,6 +42,7 @@ the minority class.
     5. This process is repeated until the desired ratio is
     reached, usually when the minority class equals the size of the
     majority class.
+
 The resulting dataset is more balanced, but there's less of a chance of
 overlapping data points because it's not duplicates.
 
@@ -48,7 +50,6 @@ This can also be demonstrated by the following algorithm:
 $$
 x_{new} = x_{i} + \lambda(x_{neighbor} - x_{i})
 $$
-
 where $x_{i}$ is the selected minority observation, $x_{new}$ is the
 generated synthetic sample, $\lambda$ is a random number between 0 and
 1 sampled from a uniform distribution, and $x_{neighbor}$ is the randomly
