@@ -41,6 +41,7 @@ from plotnine import *
 import pandas as pd
 
 df = pd.read_feather("data/nyc_crashes_cleaned.feather")
+df["borough"] = df["borough"].fillna("Unknown")
 ```
 
 When writing plots in Plotnine, follow a logical order that mirrors the Grammar 
@@ -80,8 +81,7 @@ Most crashes cause injuries but not fatalities.
 
 **Histogram**
 ```{python}
-df["hour"] = pd.to_datetime(df["crash_time"], 
-format="%H:%M", errors="coerce").dt.hour
+df["hour"] = df["crash_datetime"].dt.hour
 
 (ggplot(df, aes(x="hour"))
  + geom_histogram(binwidth=1, color="black", fill="skyblue")
@@ -121,6 +121,7 @@ top_factors = (df["contributing_factor_vehicle_1"]
                .index)
 df_top = df[df["contributing_factor_vehicle_1"].isin(top_factors)]
 
+
 (ggplot(df_top, aes(x="contributing_factor_vehicle_1", fill="borough"))
  + geom_bar(show_legend=False)
  + facet_wrap("~ borough")
@@ -132,9 +133,6 @@ Faceting lets us compare contributing factors side by side across boroughs.
 
 **Facet Grid**
 ```{python}
-df["hour"] = pd.to_datetime(df["crash_time"], 
-errors="coerce").dt.hour
-
 (ggplot(df, aes(x="hour", fill="borough"))
  + geom_histogram(binwidth=1, alpha=0.6, position="identity")
  + facet_grid("borough ~ .")
