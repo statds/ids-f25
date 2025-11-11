@@ -204,3 +204,7 @@ geeksforgeeks.org [SMOTE for Imbalanced Classification With Python](https://www.
 Brownlee, J. (2020) [A Gentle Introduction to Imbalanced Classification](https://machinelearningmastery.com/what-is-imbalanced-classification/)
 
 pannmie (2023) [Oversampling Techniques for Imbalanced Data: SMOTE, Step-by-Step Guide](https://www.kaggle.com/discussions/general/424270)
+
+make_classification [sklearn.datasets](https://scikit-learn.org/stable/modules/generated/sklearn.datasets.make_classification.html#sklearn.datasets.make_classification)
+
+SMOTE [imbalanced-learn, over-sampling methods](https://imbalanced-learn.org/stable/references/generated/imblearn.over_sampling.SMOTE.html)
