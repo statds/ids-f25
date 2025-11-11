@@ -12,7 +12,9 @@ rendering for presentation -> rendering for class notes
 
 ### Introduction
 
-Spatially dependent data can cause problems for standard statistical methods. If location matters, then close data points will be more similar than far data points, but standard methods often assume the data are independent.
+Spatially dependent data can cause problems for standard statistical methods. 
+
+If location matters, then close data points will be more similar than far data points, so you can't assume independence.
 
 Spatial Statistics can:
 
@@ -63,55 +65,6 @@ df = gp.GeoDataFrame(
 )
 ```
 
----
-
-A basic multiple linear regression model will serve as the baseline for non-spatial performance.
-
-```{python}
-#| echo: true
-#| output: false
-
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LinearRegression
-
-X_train, X_test, Y_train, Y_test = train_test_split(
-    X := df[["pop", "education", "houses", "income"]],
-    Y := df["pct_voter"],
-    test_size=0.2, random_state=1234
-)
-
-model_basic = LinearRegression().fit(X_train, Y_train)
-```
-
-:::: {.columns}
-::: {.column}
-
-```{python}
-(ggplot(
-        pd.DataFrame({
-            "Predicted Value" : model_basic.predict(X_test),
-            "True Value" : Y_test,
-            }), 
-        aes(x="Predicted Value", y="True Value")
-    )
-    + geom_point(color="#00000088")
-    + geom_abline(slope=1, intercept=0, color="red", linetype="dashed")
-    + theme_light()
-    + theme(figure_size=(4, 3))
-)
-```
-
-:::
-::: {.column}
-
-```{python}
-print(f"Coefficients: {model_basic.coef_}")
-print(f"Test R-squared: {model_basic.score(X_test, Y_test):.4f}")
-```
-
-:::
-::::
-
 ## Libraries
 
 The libraries I use are The Python Spatial Analysis Library and PyKrige. We haven't used these in class before, so you'll probably need to install them with Pip.
@@ -129,13 +82,12 @@ I'll also use `Scipy`'s `KDTree` class, which can efficiently find nearby points
 import libpysal
 from scipy.spatial import KDTree
 from pysal.explore import esda
-from pysal.model import spreg
 import pykrige as pk
 ```
 
 ## Spatial Weights {.smaller}
 
-Standard regression models errors as completely random:
+Standard regression has error terms that are completely random:
 
 $$
 Y = \beta X + \epsilon
@@ -166,7 +118,7 @@ weights = libpysal.weights.DistanceBand(
 :::: {.columns}
 ::: {.column width="70%"}
 
-Moran's I is a common measure of spatial autocorrelation, ranging from -1 (perfect negative autocorrelation) to 1 (perfect positive autocorrelation).
+Moran's I is a common exploratory measure of spatial autocorrelation based on each point's similarity to its neighbors.
 
 ```{python}
 #| echo: true
@@ -199,6 +151,7 @@ print(f"Moran's I p-value = {moran.p_rand:.4f}")
 Kriging is a nonparametric method of interpolation. Using PyKrige, we can estimate the mean of a parameter across the spatial plane.
 
 ```{python}
+from sklearn.model_selection import train_test_split
 df_train, df_test = train_test_split(df, test_size=0.2, random_state=1234)
 ```
 
@@ -290,7 +243,59 @@ Kriging seems to be capable of controlling spatial effects.
 )
 ```
 
+## Modeling {.smaller}
+
+A basic multiple linear regression model will serve as the baseline for non-spatial performance.
+
+```{python}
+#| echo: true
+#| output: false
+
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+
+X_train, X_test, Y_train, Y_test = train_test_split(
+    X := df[["pop", "education", "houses", "income"]],
+    Y := df["pct_voter"],
+    test_size=0.2, random_state=1234
+)
+
+model_basic = LinearRegression().fit(X_train, Y_train)
+```
+
+:::: {.columns}
+::: {.column}
+
+```{python}
+(ggplot(
+        pd.DataFrame({
+            "Predicted Value" : model_basic.predict(X_test),
+            "True Value" : Y_test,
+            }), 
+        aes(x="Predicted Value", y="True Value")
+    )
+    + geom_point(color="#00000088")
+    + geom_abline(slope=1, intercept=0, color="red", linetype="dashed")
+    + theme_light()
+    + theme(figure_size=(4, 3))
+)
+```
+
+:::
+::: {.column}
+
+```{python}
+print(f"Test R-squared: {model_basic.score(X_test, Y_test):.4f}")
+```
+
+:::
+::::
+
 ## SEM Regression With Kriging {.smaller}
+
+<!-- TODO
+drop fig 2, duplicate old regression scatter plot   
+-->
 
 ```{python}
 df_train = df_train.reset_index()
@@ -320,6 +325,10 @@ model_rk.fit(p_train, x_train, y_train)
 ::: {.column}
 
 ```{python}
+print(
+    "R-squared (Regression + Kriging):",
+    f"{model_rk.score(p_test, x_test, y_test):.4f}"
+)
 (ggplot(
         pd.DataFrame({
             "Predicted Value" : model_rk.predict(p_test, x_test),
@@ -329,19 +338,9 @@ model_rk.fit(p_train, x_train, y_train)
     )
     + geom_point(color="#00000088")
     + geom_abline(slope=1, intercept=0, color="red", linetype="dashed")
+    + labs(title="Regression + Kriging")
     + theme_light()
     + theme(figure_size=(4, 3))
-)
-```
-
-```{python}
-print(
-    "R-squared (Regression):",
-    f"{model_rk.regression_model.score(p_test, y_test):.4f}"
-)
-print(
-    "R-squared (Regression + Kriging):",
-    f"{model_rk.score(p_test, x_test, y_test):.4f}"
 )
 ```
 
@@ -349,22 +348,22 @@ print(
 ::: {.column}
 
 ```{python}
-df_test["basic_pred"] = model_basic.predict(p_test) - df_test["pct_voter"]
-df_test["krige_pred"] = model_rk.predict(p_test, x_test) - df_test["pct_voter"]
-
-(ggplot(df_test, aes(x="basic_pred", y="krige_pred"))
-    + geom_abline(slope=1, intercept=0, color="#888888", linetype="dashed")
-    + geom_abline(slope=0, intercept=0, color="#888888", linetype="dashed")
-    + geom_point(color="#00000066")
-    + geom_smooth(method="lm", se=False, color="#0099ff", linetype="dashed")
-    + coord_equal()
-    + labs(
-        title="Effect of Kriging on Residuals",
-        x="Regression Residuals",
-        y="Regression + Kriging Residuals"
+print(
+    "R-squared (Regression):",
+    f"{model_rk.regression_model.score(p_test, y_test):.4f}"
+)
+(ggplot(
+        pd.DataFrame({
+            "Predicted Value" : model_basic.predict(X_test),
+            "True Value" : Y_test,
+            }), 
+        aes(x="Predicted Value", y="True Value")
     )
+    + geom_point(color="#00000088")
+    + geom_abline(slope=1, intercept=0, color="red", linetype="dashed")
+    + labs(title="Regression Only")
     + theme_light()
-    + theme(figure_size=(4, 4))
+    + theme(figure_size=(4, 3))
 )
 ```
 
@@ -373,11 +372,9 @@ df_test["krige_pred"] = model_rk.predict(p_test, x_test) - df_test["pct_voter"]
 
 ## Conclusions
 
-PySAL offers strong tools for exploratory spatial data analysis and visualization. PyKrige lets you drop in spatial predictors or post-processing.
-
-Spatial analysis is flexible. It can augment an existing model if you train on the residuals, or be included as a predictor when creating a new model. 
-
-This being said, you need to validate the method. I initially wanted to demonstrate with the NYC collision data, but it turned out that crashes are independent enough for spatial patterns not to matter.
+- PySAL offers strong tools for spatial data exploration and visualization. 
+- PyKrige lets you drop in spatial predictors or post-processing.
+- Spatial analysis is flexible, but you have to validate the method.
 
 ## Further Readings
 
