@@ -253,6 +253,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#zip-code-level-for-nyc-crash-data" id="toc-zip-code-level-for-nyc-crash-data" class="nav-link" data-scroll-target="#zip-code-level-for-nyc-crash-data"><span class="header-section-number">6.3.2</span> Zip-Code Level for NYC Crash Data</a></li>
   </ul></li>
   <li><a href="#cross-platform-data-format-arrow" id="toc-cross-platform-data-format-arrow" class="nav-link" data-scroll-target="#cross-platform-data-format-arrow"><span class="header-section-number">6.4</span> Cross-platform Data Format <code>Arrow</code></a></li>
+  <li><a href="#database-operation-with-sql" id="toc-database-operation-with-sql" class="nav-link" data-scroll-target="#database-operation-with-sql"><span class="header-section-number">6.5</span> Database operation with SQL</a>
+  <ul class="collapse">
+  <li><a href="#introduction-1" id="toc-introduction-1" class="nav-link" data-scroll-target="#introduction-1"><span class="header-section-number">6.5.1</span> Introduction</a></li>
+  <li><a href="#setting-up-databases" id="toc-setting-up-databases" class="nav-link" data-scroll-target="#setting-up-databases"><span class="header-section-number">6.5.2</span> Setting up Databases</a></li>
+  <li><a href="#query-basics" id="toc-query-basics" class="nav-link" data-scroll-target="#query-basics"><span class="header-section-number">6.5.3</span> Query Basics</a></li>
+  <li><a href="#conditionals" id="toc-conditionals" class="nav-link" data-scroll-target="#conditionals"><span class="header-section-number">6.5.4</span> Conditionals</a></li>
+  <li><a href="#joins" id="toc-joins" class="nav-link" data-scroll-target="#joins"><span class="header-section-number">6.5.5</span> Joins</a></li>
+  <li><a href="#creating-tables" id="toc-creating-tables" class="nav-link" data-scroll-target="#creating-tables"><span class="header-section-number">6.5.6</span> Creating Tables</a></li>
+  <li><a href="#statement-order" id="toc-statement-order" class="nav-link" data-scroll-target="#statement-order"><span class="header-section-number">6.5.7</span> Statement Order</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">6.5.8</span> Conclusion</a></li>
+  <li><a href="#further-readings" id="toc-further-readings" class="nav-link" data-scroll-target="#further-readings"><span class="header-section-number">6.5.9</span> Further Readings</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -296,7 +308,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="example-nyc-crash-data" class="level2" data-number="6.2">
 <h2 data-number="6.2" class="anchored" data-anchor-id="example-nyc-crash-data"><span class="header-section-number">6.2</span> Example: NYC Crash Data</h2>
 <p>Consider a subset of the NYC Crash Data, which contains all NYC motor vehicle collisions data with documentation from <a href="https://data.cityofnewyork.us/Public-Safety/Motor-Vehicle-Collisions-Crashes/h9gi-nx95">NYC Open Data</a>. We downloaded the crash data for the week of August 31, 2025, on September 11, 2025, in CSC format.</p>
-<div id="9f152edc" class="cell" data-execution_count="2">
+<div id="dcca7217" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -346,7 +358,7 @@ dtype: int64</code></pre>
 </div>
 </div>
 <p>Take a peek at the first five rows:</p>
-<div id="719d9662" class="cell" data-execution_count="3">
+<div id="7fb464ab" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <div>
@@ -508,7 +520,7 @@ dtype: int64</code></pre>
 </div>
 </div>
 <p>A quick summary of the data types of the columns:</p>
-<div id="0455365e" class="cell" data-execution_count="4">
+<div id="166327f6" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
@@ -550,7 +562,7 @@ memory usage: 325.4+ KB</code></pre>
 </div>
 </div>
 <p>Now we can do some cleaning after a quick browse.</p>
-<div id="07012b2e" class="cell" data-execution_count="5">
+<div id="232ab807" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Replace invalid coordinates (latitude=0, longitude=0 or NaN) with NaN</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>df.loc[(df[<span class="st">'latitude'</span>] <span class="op">==</span> <span class="dv">0</span>) <span class="op">&amp;</span> (df[<span class="st">'longitude'</span>] <span class="op">==</span> <span class="dv">0</span>), </span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>       [<span class="st">'latitude'</span>, <span class="st">'longitude'</span>]] <span class="op">=</span> pd.NA</span>
@@ -568,7 +580,7 @@ memory usage: 325.4+ KB</code></pre>
 <span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.drop(columns<span class="op">=</span>[<span class="st">'crash_date'</span>, <span class="st">'crash_time'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s get some basic frequency tables of <code>borough</code> and <code>zip_code</code>, whose values could be used to check their validity against the legitmate values.</p>
-<div id="d16e8067" class="cell" data-execution_count="6">
+<div id="a4d21bb9" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Frequency table for 'borough' without filling missing values</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>borough_freq <span class="op">=</span> df[<span class="st">'borough'</span>].value_counts(dropna<span class="op">=</span><span class="va">False</span>).reset_index()</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>borough_freq.columns <span class="op">=</span> [<span class="st">'borough'</span>, <span class="st">'count'</span>]</span>
@@ -653,7 +665,7 @@ memory usage: 325.4+ KB</code></pre>
 </div>
 </div>
 <p>A comprehensive list of ZIP codes by borough can be obtained, for example, from <a href="https://www.nyc.gov/assets/doh/downloads/pdf/ah/zipcodetable.pdf">the New York City Department of Health’s UHF Codes</a>. We can use this list to check the validity of the zip codes in the data.</p>
-<div id="41f37b3e" class="cell" data-execution_count="7">
+<div id="6e4fee3e" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># List of valid NYC ZIP codes compiled from UHF codes</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Define all_valid_zips based on the earlier extracted ZIP codes</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>all_valid_zips <span class="op">=</span> {</span>
@@ -739,7 +751,7 @@ memory usage: 325.4+ KB</code></pre>
 </div>
 <p>As it turns out, the collection of valid NYC zip codes differ from different sources. From <a href="https://www.unitedstateszipcodes.org/">United States Zip Codes</a>, <code>10065</code> appears to be a valid NYC zip code. Under this circumstance, it might be safer to not remove any zip code from the data.</p>
 <p>To be safe, let’s concatenate valid and invalid zips.</p>
-<div id="bccb6743" class="cell" data-execution_count="8">
+<div id="48e6c669" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert invalid ZIP codes to a set of strings</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>invalid_zips_set <span class="op">=</span> <span class="bu">set</span>(invalid_zip_freq[<span class="st">'zip_code'</span>].dropna().astype(<span class="bu">str</span>))</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -750,7 +762,7 @@ memory usage: 325.4+ KB</code></pre>
 <span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>merged_zips <span class="op">=</span> invalid_zips_set <span class="op">|</span> valid_zips_set  <span class="co"># Union of both sets</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Are missing in zip code and borough always co-occur?</p>
-<div id="d7d1ab6d" class="cell" data-execution_count="9">
+<div id="cf005f24" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check if missing values in 'zip_code' and 'borough' always co-occur</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Count rows where both are missing</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>missing_cooccur <span class="op">=</span> df[[<span class="st">'zip_code'</span>, <span class="st">'borough'</span>]].isnull().<span class="bu">all</span>(axis<span class="op">=</span><span class="dv">1</span>).<span class="bu">sum</span>()</span>
@@ -769,7 +781,7 @@ memory usage: 325.4+ KB</code></pre>
 <p>First make sure <code>geopy</code> is installed.</p>
 <pre class="shell"><code>pip install geopy</code></pre>
 <p>Now we use module <code>Nominatim</code> in package <code>geopy</code> to reverse geocode.</p>
-<div id="e512713b" class="cell" data-execution_count="10">
+<div id="953a6dc4" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> geopy.geocoders <span class="im">import</span> Nominatim</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -779,7 +791,7 @@ memory usage: 325.4+ KB</code></pre>
 <span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>geolocator <span class="op">=</span> Nominatim(user_agent<span class="op">=</span><span class="st">"jyGeopyTry"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We write a function to do the reverse geocoding given lattitude and longitude.</p>
-<div id="b43c8d05" class="cell" data-execution_count="11">
+<div id="da59c9cb" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Function to fill missing zip_code</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_zip_code(latitude, longitude):</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
@@ -797,7 +809,7 @@ memory usage: 325.4+ KB</code></pre>
 <span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>        time.sleep(<span class="dv">1</span>)  <span class="co"># Delay to avoid overwhelming the service</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s try it out:</p>
-<div id="e39674fb" class="cell" data-execution_count="12">
+<div id="171f5c81" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example usage</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>latitude <span class="op">=</span> <span class="fl">40.730610</span></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>longitude <span class="op">=</span> <span class="op">-</span><span class="fl">73.935242</span></span>
@@ -834,7 +846,7 @@ memory usage: 325.4+ KB</code></pre>
 <p>Now that we have NYC crash data, we might want to analyze patterns at the zip-code level to understand whether certain demographic or economic factors correlate with traffic incidents. While the crash dataset provides details about individual accidents, such as location, time, and severity, it does not contain contextual information about the neighborhoods where these crashes occur.</p>
 <p>To perform meaningful zip-code-level analysis, we need additional data sources that provide relevant demographic, economic, and geographic variables. For example, understanding whether high-income areas experience fewer accidents, or whether population density influences crash frequency, requires integrating Census data. Key variables such as population size, median household income, employment rate, and population density can provide valuable context for interpreting crash trends across different zip codes.</p>
 <p>Since the Census Bureau provides detailed estimates for these variables at the zip-code level, we can use the Census API or other tools to retrieve relevant data and merge it with the NYC crash dataset. To access the Census API, you need an API key, which is free and easy to obtain. Visit the <a href="https://api.census.gov/data/key_signup.html">Census API Request page</a> and submit your email address to receive a key. Once you have the key, you must include it in your API requests to access Census data. The following demonstration assumes that you have registered, obtained your API key, and saved it in a file called <code>censusAPIkey.txt</code>.</p>
-<div id="6899d2af" class="cell" data-execution_count="13">
+<div id="3bbf7eeb" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import modules</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -848,7 +860,7 @@ memory usage: 325.4+ KB</code></pre>
 <span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> Census(api_key)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Suppose that we want to get some basic info from ACS data of the year of 2024 for all the NYC zip codes. The variable names can be found in the <a href="https://www.census.gov/programs-surveys/acs/technical-documentation/table-shells.html">ACS variable documentation</a>.</p>
-<div id="2d3e8268" class="cell" data-execution_count="14">
+<div id="32711d0e" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>ACS_YEAR <span class="op">=</span> <span class="dv">2024</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>ACS_DATASET <span class="op">=</span> <span class="st">"acs/acs5"</span></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -870,7 +882,7 @@ memory usage: 325.4+ KB</code></pre>
 <span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>merged_zips <span class="op">=</span> <span class="bu">list</span>(<span class="bu">map</span>(<span class="bu">str</span>, merged_zips))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s set up the query to request the ACS data, and process the returned data.</p>
-<div id="04683cb9" class="cell" data-execution_count="15">
+<div id="9f095846" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>acs_data <span class="op">=</span> c.acs5.get(</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">list</span>(ACS_VARIABLES.keys()), </span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    {<span class="st">'for'</span>: <span class="ss">f'zip code tabulation area:</span><span class="sc">{</span><span class="st">","</span><span class="sc">.</span>join(merged_zips)<span class="sc">}</span><span class="ss">'</span>}</span>
@@ -884,11 +896,11 @@ memory usage: 325.4+ KB</code></pre>
 <span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>df_acs.rename(columns<span class="op">=</span>{<span class="st">"zip code tabulation area"</span>: <span class="st">"ZIP Code"</span>}, inplace<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We could save the ACS data <code>df_acs</code> in feather format (see next Section).</p>
-<div id="47e3a265" class="cell" data-execution_count="16">
+<div id="127c19cf" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>df_acs.to_feather(<span class="st">"data/acs2023.feather"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The population density could be an important factor for crash likelihood. To obtain the population densities, we need the areas of the zip codes. The shape files can be obtained from NYC Open Data.</p>
-<div id="7d7bf694" class="cell" data-execution_count="17">
+<div id="95b9839b" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> zipfile</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
@@ -913,7 +925,7 @@ Shapefile extracted to: tmp/MODZCTA_Shapefile</code></pre>
 </div>
 </div>
 <p>Now we process the shape file to calculate the areas of the polygons.</p>
-<div id="bd5b08cb" class="cell" data-execution_count="18">
+<div id="cf73539b" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2: Automatically detect the correct .shp file</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>shapefile_path <span class="op">=</span> <span class="va">None</span></span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> <span class="bu">file</span> <span class="kw">in</span> os.listdir(extract_dir):</span>
@@ -938,7 +950,7 @@ Shapefile extracted to: tmp/MODZCTA_Shapefile</code></pre>
 <span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(gdf[[<span class="st">'modzcta'</span>, <span class="st">'land_area_sq_miles'</span>]].head())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Using shapefile: tmp/MODZCTA_Shapefile/geo_export_3838b8cb-aa31-44be-8860-873410381e0a.shp
+<pre><code>Using shapefile: tmp/MODZCTA_Shapefile/geo_export_02f6f870-06c5-4647-a884-845de8f40f63.shp
   modzcta  land_area_sq_miles
 0   10001            1.153516
 1   10002            1.534509
@@ -948,11 +960,11 @@ Shapefile extracted to: tmp/MODZCTA_Shapefile</code></pre>
 </div>
 </div>
 <p>Let’s export this data frame for future usage in feather format (see next Section).</p>
-<div id="e3aa5df6" class="cell" data-execution_count="19">
+<div id="8fbebfc2" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>gdf[[<span class="st">'modzcta'</span>, <span class="st">'land_area_sq_miles'</span>]].to_feather(<span class="st">'data/nyc_zip_areas.feather'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now we are ready to merge the two data frames.</p>
-<div id="a24561d2" class="cell" data-execution_count="20">
+<div id="a55c572c" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge ACS data (`df_acs`) directly with MODZCTA land area (`gdf`)</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>gdf <span class="op">=</span> gdf.merge(df_acs, left_on<span class="op">=</span><span class="st">'modzcta'</span>, right_on<span class="op">=</span><span class="st">'ZIP Code'</span>, how<span class="op">=</span><span class="st">'left'</span>)</span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -974,7 +986,7 @@ Shapefile extracted to: tmp/MODZCTA_Shapefile</code></pre>
 </div>
 </div>
 <p>Some visualization of population density.</p>
-<div id="a85c4242" class="cell" data-execution_count="21">
+<div id="d9cdb831" class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1024,7 +1036,7 @@ Shapefile extracted to: tmp/MODZCTA_Shapefile</code></pre>
 <pre class="shell"><code>pip install pyarrow</code></pre>
 <p>Feather is a fast, lightweight, and easy-to-use binary file format for storing data frames, optimized for speed and efficiency, particularly for IPC and data sharing between Python and R or Julia.</p>
 <p>The following code processes the raw data in CSV format and write out in Arrow format.</p>
-<div id="42ce2186" class="cell" data-execution_count="22">
+<div id="f017f7e5" class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># File paths</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>csv_file <span class="op">=</span> <span class="st">'data/nyc_crashes_lbdwk_2025.csv'</span></span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>feather_file <span class="op">=</span> <span class="st">'tmp/nyc_crashes_lbdwk_2025.feather'</span></span>
@@ -1041,7 +1053,7 @@ Shapefile extracted to: tmp/MODZCTA_Shapefile</code></pre>
 <span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>df.to_feather(feather_file)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s compare the file sizes of the feather format and the CSV format.</p>
-<div id="037d25ec" class="cell" data-execution_count="23">
+<div id="61948a5e" class="cell" data-execution_count="23">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1067,10 +1079,1577 @@ Feather file size: 0.13 MB</code></pre>
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>dff.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <!-- This section is to be included as a tutorial for using pandas. -->
 <!-- {{< include _pandas.qmd >}} -->
-<!-- This section is to be included as a tutorial for using SQL. -->
-<!-- {{< include _sql.qmd >}} -->
+<!-- <\!-- This section is to be included as a tutorial for using SQL. -\-> -->
+</section>
+<section id="database-operation-with-sql" class="level2" data-number="6.5">
+<h2 data-number="6.5" class="anchored" data-anchor-id="database-operation-with-sql"><span class="header-section-number">6.5</span> Database operation with SQL</h2>
+<p>This section was prepared by Lewis Milun.</p>
+<section id="introduction-1" class="level3" data-number="6.5.1">
+<h3 data-number="6.5.1" class="anchored" data-anchor-id="introduction-1"><span class="header-section-number">6.5.1</span> Introduction</h3>
+<p>Structured Query Language (SQL) is one of the standard languages that is used to work with large databases. It uses tables to store and display data, creating an organized and comprehensible interface that makes it far easier to track and view your data.</p>
+<p>Some advantages of using SQL include its ability to handle large amounts of data while simultaneously simplifying the process of creating, updating, and retrieving any data you may want.</p>
+<p>The biggest advantage of using SQL for the purposes of this class is that it can very easily connect with Python and R. This makes it so that we can have all of the benefits of working with SQL while still working in the Python environment we already have set up.</p>
+</section>
+<section id="setting-up-databases" class="level3" data-number="6.5.2">
+<h3 data-number="6.5.2" class="anchored" data-anchor-id="setting-up-databases"><span class="header-section-number">6.5.2</span> Setting up Databases</h3>
+<p>In this section, we will be working with two databases, one that’s built into a Python package (nycflights13) and one that we used for our midterm project (311 Service Requests)</p>
+<section id="nycflights13" class="level4" data-number="6.5.2.1">
+<h4 data-number="6.5.2.1" class="anchored" data-anchor-id="nycflights13"><span class="header-section-number">6.5.2.1</span> nycflights13</h4>
+<p>This database uses the pandas package and includes flight data for all flights that left New York City airports in 2013. The database includes several tables including ones that detail each flight, airline, airport, and much more info regarding the flights. The data in this database is contained across several tables. Data stored like this would typically be irritating to deal with however it is proven simple when working with SQL.</p>
+<p>To set up this database, we need to import the proper packages:</p>
+<div id="67a2141e" class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sqlite3</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nycflights13 <span class="im">import</span> flights, airlines, airports</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Here we imported “sqlite3” which is the package to import when working with SQL. We also imported “pandas” which also includes the nycflights13 database and from there imported the three tables we will be working with.</p>
+<p>Now, we want to establish the connection between Python and our SQL database:</p>
+<div id="85fce9cb" class="cell" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>nycconn <span class="op">=</span> sqlite3.<span class="ex">connect</span>(<span class="st">"nycflights13.db"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This snippet both creates the nycflights13.db database and establishes nycconn as our connection to this database.</p>
+<p>Next step is to add the three tables we imported from nycflights13 to the database:</p>
+<div id="156c3b00" class="cell" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>flights.to_sql(<span class="st">"flights"</span>, nycconn, if_exists<span class="op">=</span><span class="st">"replace"</span>, index<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>airlines.to_sql(<span class="st">"airlines"</span>, nycconn, if_exists<span class="op">=</span><span class="st">"replace"</span>, index<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>airports.to_sql(<span class="st">"airports"</span>, nycconn, if_exists<span class="op">=</span><span class="st">"replace"</span>, index<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>What this does is converts the three pandas dataframes into tables in the SQL database. The if_exists argument handles what would happen if there is already a table in the database with the same name. The index argument is determining whether or not the first column of the dataframe should be handled as the index of the table in the dataframe.</p>
+</section>
+<section id="servicerequests-database" class="level4" data-number="6.5.2.2">
+<h4 data-number="6.5.2.2" class="anchored" data-anchor-id="servicerequests-database"><span class="header-section-number">6.5.2.2</span> serviceRequests Database</h4>
+<p>First, we need to import our serviceRequests data from the csv in the data folder:</p>
+<div id="cbdf7bcf" class="cell" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"data/serviceRequests06-09-2025_07-05-2025.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now we need to repeat the process from nycflights13 but for our serviceRequests:</p>
+<div id="24e96d7c" class="cell" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>srconn <span class="op">=</span> sqlite3.<span class="ex">connect</span>(<span class="st">"serviceRequests.db"</span>)</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>df.to_sql(<span class="st">"requests"</span>, srconn, if_exists<span class="op">=</span><span class="st">"replace"</span>, index<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Here we imported the dataframe we got from the csv file as the only table in the serviceRequests.db database.</p>
+</section>
+</section>
+<section id="query-basics" class="level3" data-number="6.5.3">
+<h3 data-number="6.5.3" class="anchored" data-anchor-id="query-basics"><span class="header-section-number">6.5.3</span> Query Basics</h3>
+<p>Now we can move onto working with the data in our SQL databases. The most common use for SQL is writing a “query” which is a statement sent to the SQL database that returns a selection of rows and columns from the tables in a database.</p>
+<p>We will be looking at the “flights” table in our nycflights13 database for this section.</p>
+<section id="select-and-from" class="level4" data-number="6.5.3.1">
+<h4 data-number="6.5.3.1" class="anchored" data-anchor-id="select-and-from"><span class="header-section-number">6.5.3.1</span> SELECT and FROM</h4>
+<p>The following is the most basic possible query one can perform:</p>
+<div id="84d601aa" class="cell" data-execution_count="29">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"""</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT *</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="st">FROM flights;</span></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>pd.read_sql_query(query, nycconn).head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="27">
+<div>
 
 
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">year</th>
+<th data-quarto-table-cell-role="th">month</th>
+<th data-quarto-table-cell-role="th">day</th>
+<th data-quarto-table-cell-role="th">dep_time</th>
+<th data-quarto-table-cell-role="th">sched_dep_time</th>
+<th data-quarto-table-cell-role="th">dep_delay</th>
+<th data-quarto-table-cell-role="th">arr_time</th>
+<th data-quarto-table-cell-role="th">sched_arr_time</th>
+<th data-quarto-table-cell-role="th">arr_delay</th>
+<th data-quarto-table-cell-role="th">carrier</th>
+<th data-quarto-table-cell-role="th">flight</th>
+<th data-quarto-table-cell-role="th">tailnum</th>
+<th data-quarto-table-cell-role="th">origin</th>
+<th data-quarto-table-cell-role="th">dest</th>
+<th data-quarto-table-cell-role="th">air_time</th>
+<th data-quarto-table-cell-role="th">distance</th>
+<th data-quarto-table-cell-role="th">hour</th>
+<th data-quarto-table-cell-role="th">minute</th>
+<th data-quarto-table-cell-role="th">time_hour</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>2013</td>
+<td>1</td>
+<td>1</td>
+<td>517.0</td>
+<td>515</td>
+<td>2.0</td>
+<td>830.0</td>
+<td>819</td>
+<td>11.0</td>
+<td>UA</td>
+<td>1545</td>
+<td>N14228</td>
+<td>EWR</td>
+<td>IAH</td>
+<td>227.0</td>
+<td>1400</td>
+<td>5</td>
+<td>15</td>
+<td>2013-01-01T10:00:00Z</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>2013</td>
+<td>1</td>
+<td>1</td>
+<td>533.0</td>
+<td>529</td>
+<td>4.0</td>
+<td>850.0</td>
+<td>830</td>
+<td>20.0</td>
+<td>UA</td>
+<td>1714</td>
+<td>N24211</td>
+<td>LGA</td>
+<td>IAH</td>
+<td>227.0</td>
+<td>1416</td>
+<td>5</td>
+<td>29</td>
+<td>2013-01-01T10:00:00Z</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>2013</td>
+<td>1</td>
+<td>1</td>
+<td>542.0</td>
+<td>540</td>
+<td>2.0</td>
+<td>923.0</td>
+<td>850</td>
+<td>33.0</td>
+<td>AA</td>
+<td>1141</td>
+<td>N619AA</td>
+<td>JFK</td>
+<td>MIA</td>
+<td>160.0</td>
+<td>1089</td>
+<td>5</td>
+<td>40</td>
+<td>2013-01-01T10:00:00Z</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>2013</td>
+<td>1</td>
+<td>1</td>
+<td>544.0</td>
+<td>545</td>
+<td>-1.0</td>
+<td>1004.0</td>
+<td>1022</td>
+<td>-18.0</td>
+<td>B6</td>
+<td>725</td>
+<td>N804JB</td>
+<td>JFK</td>
+<td>BQN</td>
+<td>183.0</td>
+<td>1576</td>
+<td>5</td>
+<td>45</td>
+<td>2013-01-01T10:00:00Z</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>2013</td>
+<td>1</td>
+<td>1</td>
+<td>554.0</td>
+<td>600</td>
+<td>-6.0</td>
+<td>812.0</td>
+<td>837</td>
+<td>-25.0</td>
+<td>DL</td>
+<td>461</td>
+<td>N668DN</td>
+<td>LGA</td>
+<td>ATL</td>
+<td>116.0</td>
+<td>762</td>
+<td>6</td>
+<td>0</td>
+<td>2013-01-01T11:00:00Z</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>This snippet represents the basic form of writing SQL queries in Python. We create a variable ‘query’ that contains the statement we intend to pass into SQL. The last line then uses the nycconn connection we created earlier to pass our query into SQL and it returns the head() of the result we get back.</p>
+<p>This query is the most basic query, as it returns the entire flights table. The SELECT line of the query is where you put the names of which columns you want from your table. You specify which table you want to work with on the FROM line. We put “*” in our SELECT line which returns all columns. All SQL queries must end with “;”, otherwise you’ll get an error.</p>
+<p>Now let’s try to simplify what we’re seeing by only looking at the origins and destinations of the flights:</p>
+<div id="4b8d3bbf" class="cell" data-execution_count="30">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"""</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT origin, dest</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="st">FROM flights;</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>pd.read_sql_query(query, nycconn).head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="28">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">origin</th>
+<th data-quarto-table-cell-role="th">dest</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>EWR</td>
+<td>IAH</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>LGA</td>
+<td>IAH</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>JFK</td>
+<td>MIA</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>JFK</td>
+<td>BQN</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>LGA</td>
+<td>ATL</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Here we replaced the “*” in our SELECT statement with “origin, dest” This told SQL to only return those two columns from the database.</p>
+</section>
+<section id="order-by" class="level4" data-number="6.5.3.2">
+<h4 data-number="6.5.3.2" class="anchored" data-anchor-id="order-by"><span class="header-section-number">6.5.3.2</span> ORDER BY</h4>
+<p>These columns are quite messy to look at so let’s try sorting them by origin:</p>
+<div id="65471ca1" class="cell" data-execution_count="31">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"""</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT origin, dest</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="st">FROM flights</span></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="st">ORDER BY origin;</span></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>pd.read_sql_query(query, nycconn).head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="29">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">origin</th>
+<th data-quarto-table-cell-role="th">dest</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>EWR</td>
+<td>IAH</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>EWR</td>
+<td>ORD</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>EWR</td>
+<td>FLL</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>EWR</td>
+<td>SFO</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>EWR</td>
+<td>LAS</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Here we added a new “ORDER BY” line. This line tells SQL what columns to sort the list by.</p>
+<p>You can sort by multiple columns just by listing them with commas in between:</p>
+<div id="33617230" class="cell" data-execution_count="32">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"""</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT origin, dest</span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="st">FROM flights</span></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="st">ORDER BY origin, dest;</span></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>pd.read_sql_query(query, nycconn).head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="30">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">origin</th>
+<th data-quarto-table-cell-role="th">dest</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>EWR</td>
+<td>ALB</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>EWR</td>
+<td>ALB</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>EWR</td>
+<td>ALB</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>EWR</td>
+<td>ALB</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>EWR</td>
+<td>ALB</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="select-distinct" class="level4" data-number="6.5.3.3">
+<h4 data-number="6.5.3.3" class="anchored" data-anchor-id="select-distinct"><span class="header-section-number">6.5.3.3</span> SELECT DISTINCT</h4>
+<p>Now that the list is properly sorted, we can see that there are multiple flights from each origin to destination combination. If we want to only see the unique columns, we can do this:</p>
+<div id="6c77035d" class="cell" data-execution_count="33">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"""</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT DISTINCT origin, dest</span></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="st">FROM flights</span></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="st">ORDER BY origin, dest;</span></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>pd.read_sql_query(query, nycconn).head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="31">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">origin</th>
+<th data-quarto-table-cell-role="th">dest</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>EWR</td>
+<td>ALB</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>EWR</td>
+<td>ANC</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>EWR</td>
+<td>ATL</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>EWR</td>
+<td>AUS</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>EWR</td>
+<td>AVL</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Here we replaced our “SELECT” statement with a “SELECT DISTINCT” statement. This tells SQL to only return the unique columns from the query.</p>
+</section>
+</section>
+<section id="conditionals" class="level3" data-number="6.5.4">
+<h3 data-number="6.5.4" class="anchored" data-anchor-id="conditionals"><span class="header-section-number">6.5.4</span> Conditionals</h3>
+<p>Usually you wouldn’t want to just return all rows or all unique rows from a table You instead will have conditions that determine which rows are relevant to your query</p>
+<section id="where" class="level4" data-number="6.5.4.1">
+<h4 data-number="6.5.4.1" class="anchored" data-anchor-id="where"><span class="header-section-number">6.5.4.1</span> WHERE</h4>
+<p>The way you can add conditionals to your query is by adding a “WHERE” line. Let’s take the same list from the last section and filter it so that only the flights that departed from LGA are returned:</p>
+<div id="d4d98b7c" class="cell" data-execution_count="34">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"""</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT DISTINCT origin, dest</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="st">FROM flights</span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="st">WHERE origin = 'LGA'</span></span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a><span class="st">ORDER BY origin, dest;</span></span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>pd.read_sql_query(query, nycconn).head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="32">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">origin</th>
+<th data-quarto-table-cell-role="th">dest</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>LGA</td>
+<td>ATL</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>LGA</td>
+<td>AVL</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>LGA</td>
+<td>BGR</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>LGA</td>
+<td>BHM</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>LGA</td>
+<td>BNA</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>You add conditionals in the “WHERE” line by using the following comparators:</p>
+<ul>
+<li>‘=’</li>
+<li>‘&lt;’</li>
+<li>‘&gt;’</li>
+<li>‘&lt;=’</li>
+<li>‘&gt;=’</li>
+<li>‘!=’</li>
+</ul>
+<p>Be careful of the type of the data in a particular column!</p>
+</section>
+<section id="and-or-and-not" class="level4" data-number="6.5.4.2">
+<h4 data-number="6.5.4.2" class="anchored" data-anchor-id="and-or-and-not"><span class="header-section-number">6.5.4.2</span> AND, OR, and NOT</h4>
+<p>You can add multiple conditionals by using AND, OR, and parentheses</p>
+<div id="aca729cf" class="cell" data-execution_count="35">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"""</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT origin, dest</span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="st">FROM flights</span></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a><span class="st">WHERE origin = 'LGA' AND dest = 'ATL'</span></span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a><span class="st">ORDER BY origin, dest;</span></span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>pd.read_sql_query(query, nycconn).head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="33">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">origin</th>
+<th data-quarto-table-cell-role="th">dest</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>LGA</td>
+<td>ATL</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>LGA</td>
+<td>ATL</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>LGA</td>
+<td>ATL</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>LGA</td>
+<td>ATL</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>LGA</td>
+<td>ATL</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>This uses AND to return all flights that departed from LGA and arrived in ATL</p>
+<p>We can also use OR to return all flights that either departed from LGA or arrived in ATL:</p>
+<div id="0a7b4835" class="cell" data-execution_count="36">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"""</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT DISTINCT origin, dest</span></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="st">FROM flights</span></span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a><span class="st">WHERE origin = 'LGA' OR dest = 'ATL'</span></span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a><span class="st">ORDER BY origin, dest;</span></span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>pd.read_sql_query(query, nycconn).head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="34">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">origin</th>
+<th data-quarto-table-cell-role="th">dest</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>EWR</td>
+<td>ATL</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>JFK</td>
+<td>ATL</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>LGA</td>
+<td>ATL</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>LGA</td>
+<td>AVL</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>LGA</td>
+<td>BGR</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>When you want to get more complicated with your conditionals, parenthesis can be used to ensure SQL is correctly mixing the AND and OR statements.</p>
+<p>Use NOT to return the opposite of a statement:</p>
+<div id="3cdae074" class="cell" data-execution_count="37">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"""</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT DISTINCT origin, dest</span></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="st">FROM flights</span></span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a><span class="st">WHERE NOT (origin = 'LGA' OR dest = 'ATL')</span></span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a><span class="st">ORDER BY origin, dest;</span></span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>pd.read_sql_query(query, nycconn).head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="35">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">origin</th>
+<th data-quarto-table-cell-role="th">dest</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>EWR</td>
+<td>ALB</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>EWR</td>
+<td>ANC</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>EWR</td>
+<td>AUS</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>EWR</td>
+<td>AVL</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>EWR</td>
+<td>BDL</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="count" class="level4" data-number="6.5.4.3">
+<h4 data-number="6.5.4.3" class="anchored" data-anchor-id="count"><span class="header-section-number">6.5.4.3</span> COUNT</h4>
+<p>An easy way in SQL to see the total number of rows that fit the conditions you’ve specified:</p>
+<div id="8a944d5a" class="cell" data-execution_count="38">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"""</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT COUNT(DISTINCT dest)</span></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="st">FROM flights</span></span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a><span class="st">WHERE NOT (origin = 'LGA' OR dest = 'ATL');</span></span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>pd.read_sql_query(query, nycconn).head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="36">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">COUNT(DISTINCT dest)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>97</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>This returns the number of distinct destinations that fit the specified criteria</p>
+</section>
+<section id="limit" class="level4" data-number="6.5.4.4">
+<h4 data-number="6.5.4.4" class="anchored" data-anchor-id="limit"><span class="header-section-number">6.5.4.4</span> LIMIT</h4>
+<p>If you don’t want to use .head() to only display the first few rows, this can be done in SQL using a LIMIT statement:</p>
+<div id="87cd0d14" class="cell" data-execution_count="39">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"""</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT DISTINCT carrier, origin, dest</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="st">FROM flights</span></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="st">WHERE carrier = 'UA'</span></span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a><span class="st">ORDER BY origin, dest</span></span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a><span class="st">LIMIT 5;</span></span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a>pd.read_sql_query(query, nycconn)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="37">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">carrier</th>
+<th data-quarto-table-cell-role="th">origin</th>
+<th data-quarto-table-cell-role="th">dest</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>UA</td>
+<td>EWR</td>
+<td>ANC</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>UA</td>
+<td>EWR</td>
+<td>ATL</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>UA</td>
+<td>EWR</td>
+<td>AUS</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>UA</td>
+<td>EWR</td>
+<td>BDL</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>UA</td>
+<td>EWR</td>
+<td>BOS</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>This query added the “carrier” column that displays the airline that held the flight. We specified that we want all flights from the “UA” airline and limited the result to 5 rows.</p>
+<p>An interesting thing you can do with conditionals in SQL is to filter by values in a column that you are not displaying:</p>
+<div id="9fc1fc15" class="cell" data-execution_count="40">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"""</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT DISTINCT origin, dest</span></span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="st">FROM flights</span></span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a><span class="st">WHERE carrier = 'UA'</span></span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a><span class="st">ORDER BY origin, dest</span></span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a><span class="st">LIMIT 5;</span></span>
+<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
+<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a>pd.read_sql_query(query, nycconn)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="38">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">origin</th>
+<th data-quarto-table-cell-role="th">dest</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>EWR</td>
+<td>ANC</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>EWR</td>
+<td>ATL</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>EWR</td>
+<td>AUS</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>EWR</td>
+<td>BDL</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>EWR</td>
+<td>BOS</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Here we still filter by flights from the “UA” airline but we don’t display the column as that would be very redundant.</p>
+</section>
+</section>
+<section id="joins" class="level3" data-number="6.5.5">
+<h3 data-number="6.5.5" class="anchored" data-anchor-id="joins"><span class="header-section-number">6.5.5</span> Joins</h3>
+<p>The last query that we did was useful, however it isn’t realistic to expect users to memorize the two-digit codes for all airlines. Thankfully, there is the airlines table in our nycflights13.db database. Let’s take a look at it:</p>
+<div id="49d1f1b4" class="cell" data-execution_count="41">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"""</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT *</span></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a><span class="st">FROM airlines;</span></span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>pd.read_sql_query(query, nycconn).head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="39">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">carrier</th>
+<th data-quarto-table-cell-role="th">name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>9E</td>
+<td>Endeavor Air Inc.</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>AA</td>
+<td>American Airlines Inc.</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>AS</td>
+<td>Alaska Airlines Inc.</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>B6</td>
+<td>JetBlue Airways</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>DL</td>
+<td>Delta Air Lines Inc.</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>This table is much simpler than the “flights” table as it only has two columns.</p>
+<section id="inner-join" class="level4" data-number="6.5.5.1">
+<h4 data-number="6.5.5.1" class="anchored" data-anchor-id="inner-join"><span class="header-section-number">6.5.5.1</span> INNER JOIN</h4>
+<p>Logically, we wouldn’t want our outputted table to display the two-digit code that represents each airline but instead we’d want to see the name of the airline. Thankfully, SQL has a way to join the data from the two tables together:</p>
+<div id="ad38a858" class="cell" data-execution_count="42">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"""</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT DISTINCT a.name AS airline_name, f.origin, f.dest</span></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="st">FROM flights AS f</span></span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a><span class="st">INNER JOIN airlines AS a</span></span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a><span class="st">ON f.carrier = a.carrier;</span></span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>pd.read_sql_query(query, nycconn).head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="40">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">airline_name</th>
+<th data-quarto-table-cell-role="th">origin</th>
+<th data-quarto-table-cell-role="th">dest</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>United Air Lines Inc.</td>
+<td>EWR</td>
+<td>IAH</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>United Air Lines Inc.</td>
+<td>LGA</td>
+<td>IAH</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>American Airlines Inc.</td>
+<td>JFK</td>
+<td>MIA</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>JetBlue Airways</td>
+<td>JFK</td>
+<td>BQN</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>Delta Air Lines Inc.</td>
+<td>LGA</td>
+<td>ATL</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>This is a much more complicated query that returns a table of the distinct airline, origin, and destination in the flights database. We introduced three new statements in this query:</p>
+<p>AS is similar to how “as” is used when importing packages in Python. It gives us an opportunity to use a shorthand instead of needing to type out the full table names every time we mention a column. It can also be used in our SELECT line to name columns in our resultant table</p>
+<p>INNER JOIN connects a new table to our query (in this case, the new table is airlines).</p>
+<p>ON lets SQL know what column in each table it should use to connect the tables. Here we told SQL that in every row, when it reaches the carrier column in flights, it should use that as its reference for what row in airlines to use for values in this row. For example, in the first row, SQL saw that the carrier name in flights was “UA”. SQL then looked in the carrier column in airlines and found the row in which “UA” was the value in that table’s carrier column. So when SQL was calculating the value for airline_name in the first row, it knew which column to search in airline to find “United Air Lines Inc.”</p>
+<p>JOIN statements are key when using SQL to display data. This is what allows SQL databases to be in such nice and concise structures.</p>
+<p>Now let’s also add in the values from the “airports” table so that we get the full names of the airports instead of their three-digit codes:</p>
+<div id="1b46499c" class="cell" data-execution_count="43">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"""</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT DISTINCT a.name AS airline_name,</span></span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="st">       orig.name AS origin_name,</span></span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a><span class="st">       dest.name AS dest_name</span></span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a><span class="st">FROM flights AS f</span></span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a><span class="st">INNER JOIN airlines AS a</span></span>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a><span class="st">    ON f.carrier = a.carrier</span></span>
+<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a><span class="st">INNER JOIN airports AS orig</span></span>
+<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a><span class="st">    ON f.origin = orig.faa</span></span>
+<span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a><span class="st">INNER JOIN airports AS dest</span></span>
+<span id="cb53-11"><a href="#cb53-11" aria-hidden="true" tabindex="-1"></a><span class="st">    ON f.dest = dest.faa;</span></span>
+<span id="cb53-12"><a href="#cb53-12" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
+<span id="cb53-13"><a href="#cb53-13" aria-hidden="true" tabindex="-1"></a>pd.read_sql_query(query, nycconn).head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="41">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">airline_name</th>
+<th data-quarto-table-cell-role="th">origin_name</th>
+<th data-quarto-table-cell-role="th">dest_name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>United Air Lines Inc.</td>
+<td>Newark Liberty Intl</td>
+<td>George Bush Intercontinental</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>United Air Lines Inc.</td>
+<td>La Guardia</td>
+<td>George Bush Intercontinental</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>American Airlines Inc.</td>
+<td>John F Kennedy Intl</td>
+<td>Miami Intl</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>Delta Air Lines Inc.</td>
+<td>La Guardia</td>
+<td>Hartsfield Jackson Atlanta Intl</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>United Air Lines Inc.</td>
+<td>Newark Liberty Intl</td>
+<td>Chicago Ohare Intl</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Here we use three different INNER JOIN statements to connect the three tables properly. The reason we use two JOIN statements to connect the same “airports” table is to have SQL be able to look separately for the origin and destination airport names. This query also utilizes indenting to make the query far more readable.</p>
+</section>
+<section id="the-difference-between-the-three-joins" class="level4" data-number="6.5.5.2">
+<h4 data-number="6.5.5.2" class="anchored" data-anchor-id="the-difference-between-the-three-joins"><span class="header-section-number">6.5.5.2</span> The difference between the three JOINs</h4>
+<p>SQL has three different versions of JOIN statements: + INNER JOIN + LEFT JOIN + RIGHT JOIN</p>
+<p>This allows the user to determine what rows get included as a result of joining two tables. Let’s take a look at the differences:</p>
+<div id="cfc0c093" class="cell" data-execution_count="44">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"""</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT DISTINCT f.flight,</span></span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a><span class="st">       a.name AS airline_name,</span></span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a><span class="st">       orig.name AS origin_name,</span></span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a><span class="st">       dest.name AS dest_name</span></span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a><span class="st">FROM flights AS f</span></span>
+<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a><span class="st">INNER JOIN airlines AS a</span></span>
+<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a><span class="st">    ON f.carrier = a.carrier</span></span>
+<span id="cb54-9"><a href="#cb54-9" aria-hidden="true" tabindex="-1"></a><span class="st">INNER JOIN airports AS orig</span></span>
+<span id="cb54-10"><a href="#cb54-10" aria-hidden="true" tabindex="-1"></a><span class="st">    ON f.origin = orig.faa</span></span>
+<span id="cb54-11"><a href="#cb54-11" aria-hidden="true" tabindex="-1"></a><span class="st">INNER JOIN airports AS dest</span></span>
+<span id="cb54-12"><a href="#cb54-12" aria-hidden="true" tabindex="-1"></a><span class="st">    ON f.dest = dest.faa;</span></span>
+<span id="cb54-13"><a href="#cb54-13" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
+<span id="cb54-14"><a href="#cb54-14" aria-hidden="true" tabindex="-1"></a>pd.read_sql_query(query, nycconn).head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="42">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">flight</th>
+<th data-quarto-table-cell-role="th">airline_name</th>
+<th data-quarto-table-cell-role="th">origin_name</th>
+<th data-quarto-table-cell-role="th">dest_name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>1545</td>
+<td>United Air Lines Inc.</td>
+<td>Newark Liberty Intl</td>
+<td>George Bush Intercontinental</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>1714</td>
+<td>United Air Lines Inc.</td>
+<td>La Guardia</td>
+<td>George Bush Intercontinental</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>1141</td>
+<td>American Airlines Inc.</td>
+<td>John F Kennedy Intl</td>
+<td>Miami Intl</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>461</td>
+<td>Delta Air Lines Inc.</td>
+<td>La Guardia</td>
+<td>Hartsfield Jackson Atlanta Intl</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>1696</td>
+<td>United Air Lines Inc.</td>
+<td>Newark Liberty Intl</td>
+<td>Chicago Ohare Intl</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>INNER JOIN is the most common. This is because the result will only include rows in which the values in question are included in both tables. For example, if there was a row in flights that included an airline code that was not present in airlines, then SQL will not include that row in the result.</p>
+<div id="b848b349" class="cell" data-execution_count="45">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"""</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT DISTINCT f.flight,</span></span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a><span class="st">    a.name AS airline_name,</span></span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a><span class="st">    orig.name AS origin_name,</span></span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a><span class="st">    dest.name AS dest_name</span></span>
+<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a><span class="st">FROM flights AS f</span></span>
+<span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a><span class="st">LEFT JOIN airlines AS a</span></span>
+<span id="cb55-8"><a href="#cb55-8" aria-hidden="true" tabindex="-1"></a><span class="st">    ON f.carrier = a.carrier</span></span>
+<span id="cb55-9"><a href="#cb55-9" aria-hidden="true" tabindex="-1"></a><span class="st">LEFT JOIN airports AS orig</span></span>
+<span id="cb55-10"><a href="#cb55-10" aria-hidden="true" tabindex="-1"></a><span class="st">    ON f.origin = orig.faa</span></span>
+<span id="cb55-11"><a href="#cb55-11" aria-hidden="true" tabindex="-1"></a><span class="st">LEFT JOIN airports AS dest</span></span>
+<span id="cb55-12"><a href="#cb55-12" aria-hidden="true" tabindex="-1"></a><span class="st">    ON f.dest = dest.faa;</span></span>
+<span id="cb55-13"><a href="#cb55-13" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
+<span id="cb55-14"><a href="#cb55-14" aria-hidden="true" tabindex="-1"></a>pd.read_sql_query(query, nycconn).head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="43">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">flight</th>
+<th data-quarto-table-cell-role="th">airline_name</th>
+<th data-quarto-table-cell-role="th">origin_name</th>
+<th data-quarto-table-cell-role="th">dest_name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>1545</td>
+<td>United Air Lines Inc.</td>
+<td>Newark Liberty Intl</td>
+<td>George Bush Intercontinental</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>1714</td>
+<td>United Air Lines Inc.</td>
+<td>La Guardia</td>
+<td>George Bush Intercontinental</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>1141</td>
+<td>American Airlines Inc.</td>
+<td>John F Kennedy Intl</td>
+<td>Miami Intl</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>725</td>
+<td>JetBlue Airways</td>
+<td>John F Kennedy Intl</td>
+<td>None</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>461</td>
+<td>Delta Air Lines Inc.</td>
+<td>La Guardia</td>
+<td>Hartsfield Jackson Atlanta Intl</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>LEFT JOIN will return all rows that are in flights regardless of if SQL was able to find matching rows on the other tables. This is perfectly represented in the fourth row of the output. On flights, the destination for flight 725 is “BQN” which is not an airport on the airports table. If you look back to the result of the INNER JOIN, this row was removed from the result however it is present here because we used flights as our only reference for rows and therefore the row is included but the destination name is left as “None”</p>
+<div id="7a2fefd5" class="cell" data-execution_count="46">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"""</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT DISTINCT f.flight,</span></span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a><span class="st">    f.origin,</span></span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a><span class="st">    dest.name AS dest_name</span></span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a><span class="st">FROM flights AS f</span></span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a><span class="st">RIGHT JOIN airports AS dest</span></span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a><span class="st">    ON f.dest = dest.faa;</span></span>
+<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
+<span id="cb56-9"><a href="#cb56-9" aria-hidden="true" tabindex="-1"></a>pd.read_sql_query(query, nycconn)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="44">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">flight</th>
+<th data-quarto-table-cell-role="th">origin</th>
+<th data-quarto-table-cell-role="th">dest_name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>1545.0</td>
+<td>EWR</td>
+<td>George Bush Intercontinental</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>1714.0</td>
+<td>LGA</td>
+<td>George Bush Intercontinental</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>1141.0</td>
+<td>JFK</td>
+<td>Miami Intl</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>461.0</td>
+<td>LGA</td>
+<td>Hartsfield Jackson Atlanta Intl</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>1696.0</td>
+<td>EWR</td>
+<td>Chicago Ohare Intl</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">13275</td>
+<td>NaN</td>
+<td>None</td>
+<td>Boston Back Bay Station</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">13276</td>
+<td>NaN</td>
+<td>None</td>
+<td>Black Rock</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">13277</td>
+<td>NaN</td>
+<td>None</td>
+<td>New Haven Rail Station</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">13278</td>
+<td>NaN</td>
+<td>None</td>
+<td>Wilmington Amtrak Station</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">13279</td>
+<td>NaN</td>
+<td>None</td>
+<td>Washington Union Station</td>
+</tr>
+</tbody>
+</table>
+
+<p>13280 rows × 3 columns</p>
+</div>
+</div>
+</div>
+<p>RIGHT JOIN is basically the opposite of LEFT JOIN. Instead of using flights as its basis for what rows to include, RIGHT JOIN uses the joined tables instead. As you can see, the fourth row is being skipped again because the airports table is being used as reference instead. Also, the table ends with rows for all destinations from the airports table. SQL includes them because it is looking for all rows that include destinations from the airports table. This includes all rows from the airports table itself.</p>
+</section>
+</section>
+<section id="creating-tables" class="level3" data-number="6.5.6">
+<h3 data-number="6.5.6" class="anchored" data-anchor-id="creating-tables"><span class="header-section-number">6.5.6</span> Creating Tables</h3>
+<p>Let’s take a look at our serviceRequests.db’s requests table:</p>
+<div id="964c69a3" class="cell" data-execution_count="47">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"""</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT *</span></span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a><span class="st">FROM requests;</span></span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>pd.read_sql_query(query, srconn).head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="45">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Unique Key</th>
+<th data-quarto-table-cell-role="th">Created Date</th>
+<th data-quarto-table-cell-role="th">Closed Date</th>
+<th data-quarto-table-cell-role="th">Agency</th>
+<th data-quarto-table-cell-role="th">Agency Name</th>
+<th data-quarto-table-cell-role="th">Complaint Type</th>
+<th data-quarto-table-cell-role="th">Descriptor</th>
+<th data-quarto-table-cell-role="th">Location Type</th>
+<th data-quarto-table-cell-role="th">Incident Zip</th>
+<th data-quarto-table-cell-role="th">Incident Address</th>
+<th data-quarto-table-cell-role="th">...</th>
+<th data-quarto-table-cell-role="th">Vehicle Type</th>
+<th data-quarto-table-cell-role="th">Taxi Company Borough</th>
+<th data-quarto-table-cell-role="th">Taxi Pick Up Location</th>
+<th data-quarto-table-cell-role="th">Bridge Highway Name</th>
+<th data-quarto-table-cell-role="th">Bridge Highway Direction</th>
+<th data-quarto-table-cell-role="th">Road Ramp</th>
+<th data-quarto-table-cell-role="th">Bridge Highway Segment</th>
+<th data-quarto-table-cell-role="th">Latitude</th>
+<th data-quarto-table-cell-role="th">Longitude</th>
+<th data-quarto-table-cell-role="th">Location</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>65477840</td>
+<td>07/05/2025 11:59:51 AM</td>
+<td>None</td>
+<td>EDC</td>
+<td>Economic Development Corporation</td>
+<td>Noise - Helicopter</td>
+<td>Other</td>
+<td>Above Address</td>
+<td>11414.0</td>
+<td>88-12 151 AVENUE</td>
+<td>...</td>
+<td>None</td>
+<td>None</td>
+<td>None</td>
+<td>None</td>
+<td>None</td>
+<td>None</td>
+<td>None</td>
+<td>40.668478</td>
+<td>-73.846874</td>
+<td>(40.6684777987759, -73.84687384879807)</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>65473303</td>
+<td>07/05/2025 11:59:38 AM</td>
+<td>07/05/2025 12:53:29 PM</td>
+<td>NYPD</td>
+<td>New York City Police Department</td>
+<td>Blocked Driveway</td>
+<td>Partial Access</td>
+<td>Street/Sidewalk</td>
+<td>11207.0</td>
+<td>737 CHAUNCEY STREET</td>
+<td>...</td>
+<td>None</td>
+<td>None</td>
+<td>None</td>
+<td>None</td>
+<td>None</td>
+<td>None</td>
+<td>None</td>
+<td>40.685343</td>
+<td>-73.907410</td>
+<td>(40.685343220141434, -73.90741025722555)</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>65479182</td>
+<td>07/05/2025 11:59:30 AM</td>
+<td>07/05/2025 07:24:47 PM</td>
+<td>DHS</td>
+<td>Department of Homeless Services</td>
+<td>Homeless Person Assistance</td>
+<td>Chronic</td>
+<td>Store/Commercial</td>
+<td>10014.0</td>
+<td>11 LITTLE WEST 12 STREET</td>
+<td>...</td>
+<td>None</td>
+<td>None</td>
+<td>None</td>
+<td>None</td>
+<td>None</td>
+<td>None</td>
+<td>None</td>
+<td>40.739795</td>
+<td>-74.006708</td>
+<td>(40.739795176046364, -74.00670839867178)</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>65472680</td>
+<td>07/05/2025 11:59:27 AM</td>
+<td>07/05/2025 02:28:38 PM</td>
+<td>NYPD</td>
+<td>New York City Police Department</td>
+<td>Abandoned Vehicle</td>
+<td>With License Plate</td>
+<td>Street/Sidewalk</td>
+<td>10039.0</td>
+<td>2743 FREDERICK DOUGLASS BOULEVARD</td>
+<td>...</td>
+<td>Car</td>
+<td>None</td>
+<td>None</td>
+<td>None</td>
+<td>None</td>
+<td>None</td>
+<td>None</td>
+<td>40.823646</td>
+<td>-73.941340</td>
+<td>(40.82364581471349, -73.94134045287531)</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>65479165</td>
+<td>07/05/2025 11:59:20 AM</td>
+<td>07/06/2025 01:13:50 AM</td>
+<td>NYPD</td>
+<td>New York City Police Department</td>
+<td>Encampment</td>
+<td>None</td>
+<td>Residential Building/House</td>
+<td>10456.0</td>
+<td>1398 GRAND CONCOURSE</td>
+<td>...</td>
+<td>None</td>
+<td>None</td>
+<td>None</td>
+<td>None</td>
+<td>None</td>
+<td>None</td>
+<td>None</td>
+<td>40.838557</td>
+<td>-73.913883</td>
+<td>(40.83855707927812, -73.91388286014495)</td>
+</tr>
+</tbody>
+</table>
+
+<p>5 rows × 41 columns</p>
+</div>
+</div>
+</div>
+<p>This table is incredibly complicated and redundant through repeated information such as each row having both “Agency” and “Agency Name”. This redundancy clutters the table, making it difficult to read. It would be much better if the database wasn’t just one table and instead was formatted like the nycflights13.db</p>
+<p>Take note that we have begun using our other connection (srconn instead of nycconn) because we are working with our other database.</p>
+<p>Thankfully, SQL makes it very simple to create new tables from the results of a query. Looking back at the redundancy with agencies, we can create the following query to see all the agency codes and their corresponding names:</p>
+<div id="46e7ce45" class="cell" data-execution_count="48">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"""</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT DISTINCT Agency, "Agency Name"</span></span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="st">FROM requests</span></span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a><span class="st">ORDER BY Agency;</span></span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
+<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a>pd.read_sql_query(query, srconn).head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="46">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Agency</th>
+<th data-quarto-table-cell-role="th">Agency Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>DCWP</td>
+<td>Department of Consumer and Worker Protection</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>DEP</td>
+<td>Department of Environmental Protection</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>DHS</td>
+<td>Department of Homeless Services</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>DOB</td>
+<td>Department of Buildings</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>DOE</td>
+<td>Department of Education</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Something to note here is how one can handle a column name that includes a space or a comma. If you put the name of the column in quotes, then SQL will handle everything inside the quotes as the name of the column.</p>
+<p>Now that we have created this query, we can make the result into its own table in the database:</p>
+<div id="a963c0b8" class="cell" data-execution_count="49">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"""</span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="st">CREATE TABLE IF NOT EXISTS agencies AS</span></span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT DISTINCT Agency, "Agency Name"</span></span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a><span class="st">FROM requests</span></span>
+<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a><span class="st">ORDER BY Agency;</span></span>
+<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
+<span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a>srconn.execute(query)</span>
+<span id="cb59-8"><a href="#cb59-8" aria-hidden="true" tabindex="-1"></a>srconn.commit()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>There are a few key parts to this query:</p>
+<p>Firstly, we have the first line which tells SQL to create a table named agencies and the AS works here to tell SQL to make the table be the result of the query that follows the first line.</p>
+<p>Second, there is the statement “IF NOT EXISTS”. This is incredibly useful to include in the query as it ensures that you do not override any tables that you have previously made.</p>
+<p>Lastly, we use different commands outside of creating the query variable. Instead of pd.read_sql_query(query, srconn), we have our connection to SQL execute the query we created, then commit the changes to the database.</p>
+<p>Now that we have added the table to our database, we can query it:</p>
+<div id="7ba28dbc" class="cell" data-execution_count="50">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"""</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT *</span></span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a><span class="st">FROM agencies;</span></span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a>pd.read_sql_query(query, srconn).head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="48">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Agency</th>
+<th data-quarto-table-cell-role="th">Agency Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>DCWP</td>
+<td>Department of Consumer and Worker Protection</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>DEP</td>
+<td>Department of Environmental Protection</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>DHS</td>
+<td>Department of Homeless Services</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>DOB</td>
+<td>Department of Buildings</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>DOE</td>
+<td>Department of Education</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>This process can be repeated to clean up messy tables and messy databases.</p>
+</section>
+<section id="statement-order" class="level3" data-number="6.5.7">
+<h3 data-number="6.5.7" class="anchored" data-anchor-id="statement-order"><span class="header-section-number">6.5.7</span> Statement Order</h3>
+<p>Statements in a SQL query must go in a certain order, otherwise the query will return an error. The order is as follows:</p>
+<ol type="1">
+<li>SELECT</li>
+<li>FROM</li>
+<li>JOIN</li>
+<li>WHERE</li>
+<li>GROUP BY</li>
+<li>HAVING</li>
+<li>ORDER BY</li>
+<li>LIMIT/OFFSET</li>
+</ol>
+</section>
+<section id="conclusion" class="level3" data-number="6.5.8">
+<h3 data-number="6.5.8" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">6.5.8</span> Conclusion</h3>
+<p>SQL makes working with large datasets much easier by organizing databases and simplifying the process of displaying data. Using either the queries shown here as well as much more complicated queries, one can turn complex tables into databases that don’t unnecessarily repeat data, and that consist of easily read tables.</p>
+</section>
+<section id="further-readings" class="level3" data-number="6.5.9">
+<h3 data-number="6.5.9" class="anchored" data-anchor-id="further-readings"><span class="header-section-number">6.5.9</span> Further Readings</h3>
+<ol type="1">
+<li><a href="https://www.w3schools.com/sql/default.asp">W3 Schools SQL Tutorial</a></li>
+<li>[SQLite Tutorial (installing SQLite not necessary)] (https://www.sqlitetutorial.net/)</li>
+</ol>
+
+
+</section>
 </section>
 
 </main> <!-- /main -->

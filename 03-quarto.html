@@ -319,6 +319,30 @@ window.Quarto = {
   <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">3.4.15</span> Conclusion</a></li>
   <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">3.4.16</span> Further Reading</a></li>
   </ul></li>
+  <li><a href="#presentations-with-quarto" id="toc-presentations-with-quarto" class="nav-link" data-scroll-target="#presentations-with-quarto"><span class="header-section-number">3.5</span> Presentations with Quarto</a>
+  <ul class="collapse">
+  <li><a href="#introduction-1" id="toc-introduction-1" class="nav-link" data-scroll-target="#introduction-1"><span class="header-section-number">3.5.1</span> Introduction</a></li>
+  <li><a href="#presentation-formatting" id="toc-presentation-formatting" class="nav-link" data-scroll-target="#presentation-formatting"><span class="header-section-number">3.5.2</span> Presentation Formatting</a></li>
+  <li><a href="#creating-a-presentation-file" id="toc-creating-a-presentation-file" class="nav-link" data-scroll-target="#creating-a-presentation-file"><span class="header-section-number">3.5.3</span> Creating a Presentation File</a></li>
+  <li><a href="#yaml-customizations-for-revealjs" id="toc-yaml-customizations-for-revealjs" class="nav-link" data-scroll-target="#yaml-customizations-for-revealjs"><span class="header-section-number">3.5.4</span> YAML Customizations for <code>revealjs</code></a></li>
+  <li><a href="#creating-a-new-slide" id="toc-creating-a-new-slide" class="nav-link" data-scroll-target="#creating-a-new-slide"><span class="header-section-number">3.5.5</span> Creating a New Slide</a></li>
+  <li><a href="#code-blocks-1" id="toc-code-blocks-1" class="nav-link" data-scroll-target="#code-blocks-1"><span class="header-section-number">3.5.6</span> Code Blocks</a></li>
+  <li><a href="#code-highlighting" id="toc-code-highlighting" class="nav-link" data-scroll-target="#code-highlighting"><span class="header-section-number">3.5.7</span> Code Highlighting</a></li>
+  <li><a href="#code-echo" id="toc-code-echo" class="nav-link" data-scroll-target="#code-echo"><span class="header-section-number">3.5.8</span> Code Echo</a></li>
+  <li><a href="#output-location" id="toc-output-location" class="nav-link" data-scroll-target="#output-location"><span class="header-section-number">3.5.9</span> Output Location</a></li>
+  <li><a href="#images-1" id="toc-images-1" class="nav-link" data-scroll-target="#images-1"><span class="header-section-number">3.5.10</span> Images</a></li>
+  <li><a href="#hyperlinks" id="toc-hyperlinks" class="nav-link" data-scroll-target="#hyperlinks"><span class="header-section-number">3.5.11</span> Hyperlinks</a></li>
+  <li><a href="#math" id="toc-math" class="nav-link" data-scroll-target="#math"><span class="header-section-number">3.5.12</span> Math</a></li>
+  <li><a href="#div-containers" id="toc-div-containers" class="nav-link" data-scroll-target="#div-containers"><span class="header-section-number">3.5.13</span> Div Containers</a></li>
+  <li><a href="#incremental-lists" id="toc-incremental-lists" class="nav-link" data-scroll-target="#incremental-lists"><span class="header-section-number">3.5.14</span> Incremental Lists</a></li>
+  <li><a href="#columns" id="toc-columns" class="nav-link" data-scroll-target="#columns"><span class="header-section-number">3.5.15</span> Columns</a></li>
+  <li><a href="#overflow" id="toc-overflow" class="nav-link" data-scroll-target="#overflow"><span class="header-section-number">3.5.16</span> Overflow</a></li>
+  <li><a href="#speaker-notes" id="toc-speaker-notes" class="nav-link" data-scroll-target="#speaker-notes"><span class="header-section-number">3.5.17</span> Speaker Notes</a></li>
+  <li><a href="#multiplexing" id="toc-multiplexing" class="nav-link" data-scroll-target="#multiplexing"><span class="header-section-number">3.5.18</span> Multiplexing</a></li>
+  <li><a href="#chalkboard" id="toc-chalkboard" class="nav-link" data-scroll-target="#chalkboard"><span class="header-section-number">3.5.19</span> Chalkboard</a></li>
+  <li><a href="#rendering" id="toc-rendering" class="nav-link" data-scroll-target="#rendering"><span class="header-section-number">3.5.20</span> Rendering</a></li>
+  <li><a href="#additional-reading" id="toc-additional-reading" class="nav-link" data-scroll-target="#additional-reading"><span class="header-section-number">3.5.21</span> Additional Reading</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -853,7 +877,7 @@ print('some python code')
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Some python code"</span>)</span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>    ```</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>Output</strong>:</p>
-<div id="5c2d042b" class="cell" data-execution_count="1">
+<div id="63eaf3bf" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'some python code'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>some python code</code></pre>
@@ -1082,7 +1106,420 @@ Table&nbsp;3.1: Sample Table 1
 <li><a href="https://daringfireball.net/projects/markdown/syntax#precode">Markdown: Synatx by John Gruber</a></li>
 </ol>
 <!-- This section is to be included as a tutorial for Quarto Presentations. -->
-<!-- {{< include _quarto_presentation.qmd >}} -->
+</section>
+</section>
+<section id="presentations-with-quarto" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="presentations-with-quarto"><span class="header-section-number">3.5</span> Presentations with Quarto</h2>
+<p>This section is written by Irene Chen, a Senior majoring in Statistical Data Science at the University of Connecticut.</p>
+<section id="introduction-1" class="level3" data-number="3.5.1">
+<h3 data-number="3.5.1" class="anchored" data-anchor-id="introduction-1"><span class="header-section-number">3.5.1</span> Introduction</h3>
+<p>Quarto allows you to create dynamic, reproducible, and visually appealing presentations from a single source file. You can generate interactive slides with code, visuals, and math without having to switch between multiple tools. It works smoothly with Git for collaboration and can update automatically as your data changes. Quarto support multiple programming languages, and allows multiple output formats.</p>
+</section>
+<section id="presentation-formatting" class="level3" data-number="3.5.2">
+<h3 data-number="3.5.2" class="anchored" data-anchor-id="presentation-formatting"><span class="header-section-number">3.5.2</span> Presentation Formatting</h3>
+<p>Quarto supports several formats for creating presentations including:</p>
+<ul>
+<li><p><code>revealjs</code> - reveal.js (HTML)</p></li>
+<li><p><code>beamer</code> - Beamer (LaTex/PDF)</p></li>
+<li><p><code>pptx</code> - PowerPoint (Microsoft Office)</p></li>
+</ul>
+<p>Slides will render as HTML by default, and it is preferred over <code>beamer</code> and <code>pptx</code> unless you are specifically looking for a LaTeX or Office output.</p>
+<table style="width:100%; table-layout:fixed; border-collapse:collapse;">
+<thead>
+<tr style="border-bottom:2px solid #888;">
+<th style="width:20%; text-align:left;">
+Feature
+</th>
+<th style="width:26%; text-align:left;">
+revealjs
+</th>
+<th style="width:26%; text-align:left;">
+beamer
+</th>
+<th style="width:28%; text-align:left;">
+pptx
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<b>Output Format</b>
+</td>
+<td>
+HTML or PDF
+</td>
+<td>
+PDF
+</td>
+<td>
+PowerPoint
+</td>
+</tr>
+<!-- PROS -->
+<tr style="border-top:1px solid #ccc; border-bottom:1px solid #ccc;">
+<td style="vertical-align:top;">
+<b>Pros</b>
+</td>
+<td>
+• Runs in any browser<br> • Shares easily with a link<br> • Allows for CSS styling<br> • Allows interactive elements
+</td>
+<td>
+• Excellent math rendering<br> • Ensures consistent fonts and equations<br> • Produces high-quality slides
+</td>
+<td>
+• Fully editable within pptx<br> • Familiar for non-technical users<br> • Easy template customization
+</td>
+</tr>
+<!-- CONS -->
+<tr style="border-top:1px solid #ccc; border-bottom:1px solid #ccc;">
+<td style="vertical-align:top;">
+<b>Cons</b>
+</td>
+<td>
+• Requires a browser to present<br> • Limited offline use
+</td>
+<td>
+• Needs a LaTeX distribution<br> • Rigid layout
+</td>
+<td>
+• Lacks Quarto’s interactivity<br> • Manual re-rendering<br> • Requires MS Office
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="creating-a-presentation-file" class="level3" data-number="3.5.3">
+<h3 data-number="3.5.3" class="anchored" data-anchor-id="creating-a-presentation-file"><span class="header-section-number">3.5.3</span> Creating a Presentation File</h3>
+<p>In your new <code>.qmd</code> file, include a YAML header at the top to tell Quarto to render slides instead of a document.</p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="op">---</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>title: <span class="st">"Presentations with Quarto"</span></span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a><span class="bu">format</span>: revealjs </span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a><span class="op">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="yaml-header-example" class="level4" data-number="3.5.3.1">
+<h4 data-number="3.5.3.1" class="anchored" data-anchor-id="yaml-header-example"><span class="header-section-number">3.5.3.1</span> YAML Header Example</h4>
+<div class="sourceCode" id="cb55"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="op">---</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>title: <span class="st">"Presentations with Quarto"</span></span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>author: <span class="st">"Irene Chen"</span></span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a><span class="bu">format</span>:</span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>  revealjs: </span>
+<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a>    embed<span class="op">-</span>resources: true</span>
+<span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a>    multiplex: true</span>
+<span id="cb55-8"><a href="#cb55-8" aria-hidden="true" tabindex="-1"></a>    preview<span class="op">-</span>links: true</span>
+<span id="cb55-9"><a href="#cb55-9" aria-hidden="true" tabindex="-1"></a>    theme: [simple, custom.css]</span>
+<span id="cb55-10"><a href="#cb55-10" aria-hidden="true" tabindex="-1"></a>    transition: concave</span>
+<span id="cb55-11"><a href="#cb55-11" aria-hidden="true" tabindex="-1"></a>    footer: <span class="st">"STAT 3255/5255, Fall 2025"</span></span>
+<span id="cb55-12"><a href="#cb55-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-13"><a href="#cb55-13" aria-hidden="true" tabindex="-1"></a><span class="op">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="yaml-customizations-for-revealjs" class="level3" data-number="3.5.4">
+<h3 data-number="3.5.4" class="anchored" data-anchor-id="yaml-customizations-for-revealjs"><span class="header-section-number">3.5.4</span> YAML Customizations for <code>revealjs</code></h3>
+<section id="functional-yaml-customizations" class="level4" data-number="3.5.4.1">
+<h4 data-number="3.5.4.1" class="anchored" data-anchor-id="functional-yaml-customizations"><span class="header-section-number">3.5.4.1</span> Functional YAML Customizations</h4>
+<ul>
+<li><p><code>embed-resources: true</code> - Creates self-contained file HTML files that bundles images, fonts, and CSS for easy sharing.</p></li>
+<li><p><code>multiplex: true</code> - Allows live audience synchronization.</p></li>
+<li><p><code>preview-links: true</code> - Opens link previews directly within the slide.</p></li>
+<li><p><code>toc: true</code> - Generates a table of contents slide automatically.</p></li>
+<li><p><code>center: false</code> - Aligns content at the top rather than centering on the slides.</p></li>
+</ul>
+</section>
+<section id="stylistic-yaml-customizations" class="level4" data-number="3.5.4.2">
+<h4 data-number="3.5.4.2" class="anchored" data-anchor-id="stylistic-yaml-customizations"><span class="header-section-number">3.5.4.2</span> Stylistic YAML Customizations</h4>
+<ul>
+<li><p><code>theme: [slide theme]</code> - Configures the theme as one of the 12 included with Reveal (or one of your own as a <code>.css</code>).</p>
+<ul>
+<li><code>default</code>, <code>white</code>, <code>league</code>, <code>night</code>, <code>beige</code>, <code>simple</code>, <code>serif</code>, <code>solarized</code>, <code>moon</code>, <code>dracula</code>, <code>sky</code>, <code>blood</code></li>
+<li>Note: <code>default</code> is automatically used, so this header is only used for alternative themes.</li>
+</ul></li>
+<li><p><code>transition: [transition]</code> - Adds transitions in between the slides.</p>
+<ul>
+<li><code>none</code>, <code>slide</code>, <code>fade</code>, <code>convex</code>, <code>concave</code>, <code>zoom</code></li>
+</ul></li>
+<li><p><code>footer: "Footer Note"</code> - Adds a footer or tagline to bottom of each slide.</p></li>
+<li><p><code>slide-number: true</code> - Displays the slide number at bottom of each slide.</p></li>
+<li><p><code>incrimental: true</code> - Reveals bullet points one by one.</p></li>
+</ul>
+</section>
+<section id="css-files" class="level4" data-number="3.5.4.3">
+<h4 data-number="3.5.4.3" class="anchored" data-anchor-id="css-files"><span class="header-section-number">3.5.4.3</span> CSS files</h4>
+<p>A CSS file (short for Cascading Style Sheets) is a styling file used to control how your content looks (colors, fonts, layout, spacing, etc…). In the same folder as your <code>.qmd</code>, make a file called <code>custom.css</code> (or <code>custom.scss</code>). An example could look like this:</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode css code-with-copy"><code class="sourceCode css"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="in">:root</span>{ </span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>    <span class="va">--r-background-color</span><span class="ch">:</span> <span class="cn">#ffffff</span><span class="op">;</span></span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>    <span class="va">--r-main-color</span><span class="ch">:</span> <span class="cn">#ffffff</span><span class="op">;</span></span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a><span class="fu">.reveal</span> p<span class="op">,</span> <span class="fu">.reveal</span> li {</span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">font-family</span><span class="ch">:</span> <span class="st">"Open Sans"</span><span class="op">,</span> <span class="dv">sans-serif</span><span class="op">;</span></span>
+<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">font-size</span> 1<span class="fu">.1m</span>;</span>
+<span id="cb56-9"><a href="#cb56-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb56-10"><a href="#cb56-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-11"><a href="#cb56-11" aria-hidden="true" tabindex="-1"></a><span class="fu">.reveal</span> code {</span>
+<span id="cb56-12"><a href="#cb56-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">background</span><span class="ch">:</span> <span class="cn">#ffffff</span><span class="op">;</span></span>
+<span id="cb56-13"><a href="#cb56-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">color</span><span class="ch">:</span> <span class="cn">#ffffff</span><span class="op">;</span></span>
+<span id="cb56-14"><a href="#cb56-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">padding</span><span class="ch">:</span> <span class="dv">2</span><span class="dt">px</span> <span class="dv">4</span><span class="dt">px</span><span class="op">;</span></span>
+<span id="cb56-15"><a href="#cb56-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">border-radius</span><span class="ch">:</span> <span class="dv">4</span><span class="dt">px</span><span class="op">;</span></span>
+<span id="cb56-16"><a href="#cb56-16" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Add the file name to the YAML heading like <code>theme: [custom.css]</code>. You can also make a cascading theme like <code>theme: [simple, custom.css]</code>, which starts with the simple theme and applies the custom design rules on top.</p>
+<p><strong>Note</strong>: Order matters because style sheets cascade. A sheet with multiple rules for the same element creates a hierarchy of specificity.</p>
+</section>
+</section>
+<section id="creating-a-new-slide" class="level3" data-number="3.5.5">
+<h3 data-number="3.5.5" class="anchored" data-anchor-id="creating-a-new-slide"><span class="header-section-number">3.5.5</span> Creating a New Slide</h3>
+<ul>
+<li><p>Each level 1 header (<code>#</code>) creates a new title slide section.</p></li>
+<li><p>Each level 2 header (<code>##</code>) creates a sub-slide that will appear when you press the down arrow.</p></li>
+<li><p>Adding (<code>###</code>) will create a subheading in the slide, not a new slide.</p></li>
+<li><p>Horizontal rules (<code>---</code>) are used to create a slide when you don’t want to add a heading or title.</p></li>
+</ul>
+</section>
+<section id="code-blocks-1" class="level3" data-number="3.5.6">
+<h3 data-number="3.5.6" class="anchored" data-anchor-id="code-blocks-1"><span class="header-section-number">3.5.6</span> Code Blocks</h3>
+<p>If you want Quarto to run the Python code and show the output, add curly brackets:</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>```{python}</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Hello World!"</span>)</span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>```</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="118e9746" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Hello World!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Hello World!</code></pre>
+</div>
+</div>
+<p>If you want Quarto to show the code on the slide as text, but not execute it, remove the curly brackets. Quarto will treat this as plain Markdown code and not recognize it as executable. This is perfect for simple code display to show examples or syntax:</p>
+<div class="sourceCode" id="cb60"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="in">```python</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Hello World!"</span>)</span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb61"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Hello World!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Similarly, Quarto will show the code on the slide without running it, but Quarto will treat it as a code cell that is part of your document even though the code isn’t evaluated. This is perfect for code display that stays consistently styled with other executable blocks.</p>
+<div class="sourceCode" id="cb62"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{.python}</span></span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Hello World!"</span>)</span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Hello World!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>If you want Quarto to display the raw code block, add two lines of <code>markdown</code>. This is perfect for tutorials.</p>
+<div class="sourceCode" id="cb64"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="in">```` markdown</span></span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="in">```` markdown</span></span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a><span class="in">```python</span></span>
+<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Hello World!"</span>)</span>
+<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb65"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="in">```` markdown</span></span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a><span class="in">```python</span></span>
+<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Hello World!"</span>)</span>
+<span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="code-highlighting" class="level3" data-number="3.5.7">
+<h3 data-number="3.5.7" class="anchored" data-anchor-id="code-highlighting"><span class="header-section-number">3.5.7</span> Code Highlighting</h3>
+<p>To highlight specific lines of code output, you can use <code>code-line-numbers</code>.</p>
+<p>For example:</p>
+<div class="sourceCode" id="cb66"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{.python code-line-numbers="2-3"}</span></span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]</span>
+<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> [<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>]</span>
+<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a>plt.plot(x, y)</span>
+<span id="cb66-6"><a href="#cb66-6" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb66-7"><a href="#cb66-7" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>You can also highlight disparate ranges of lines by using <code>,</code> to separate rather than <code>-</code>.</p>
+<p>For example,</p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{.python code-line-numbers="2, 4"}</span></span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]</span>
+<span id="cb67-4"><a href="#cb67-4" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> [<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>]</span>
+<span id="cb67-5"><a href="#cb67-5" aria-hidden="true" tabindex="-1"></a>plt.plot(x, y)</span>
+<span id="cb67-6"><a href="#cb67-6" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb67-7"><a href="#cb67-7" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Finally, you can highlight different line ranges. For example, here we show all the lines highlighted, then only line 1, and finally only line 4 is highlighted:</p>
+<div class="sourceCode" id="cb68"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{.python code-line-numbers="|1|4"}</span></span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]</span>
+<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> [<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>]</span>
+<span id="cb68-5"><a href="#cb68-5" aria-hidden="true" tabindex="-1"></a>plt.plot(x, y)</span>
+<span id="cb68-6"><a href="#cb68-6" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb68-7"><a href="#cb68-7" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="code-echo" class="level3" data-number="3.5.8">
+<h3 data-number="3.5.8" class="anchored" data-anchor-id="code-echo"><span class="header-section-number">3.5.8</span> Code Echo</h3>
+<p>By default, executable code blocks within Quarto presentations do not <code>echo</code> their source code. To override this, add <code>#| echo: true</code> inside the code fence at the top.</p>
+<p>Ex: <code>echo: false</code></p>
+<div class="sourceCode" id="cb69"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{.python}</span></span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Hello World!"</span>)</span>
+<span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="05092a87" class="cell" data-execution_count="3">
+<div class="cell-output cell-output-stdout">
+<pre><code>Hello World!</code></pre>
+</div>
+</div>
+<p>Ex: <code>echo: true</code></p>
+<div class="sourceCode" id="cb71"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{.python}</span></span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: true</span></span>
+<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Hello World!"</span>)</span>
+<span id="cb71-4"><a href="#cb71-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="86b62662" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Hello World!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Hello World!</code></pre>
+</div>
+</div>
+</section>
+<section id="output-location" class="level3" data-number="3.5.9">
+<h3 data-number="3.5.9" class="anchored" data-anchor-id="output-location"><span class="header-section-number">3.5.9</span> Output Location</h3>
+<p>By default, outputs from code blocks are displayed immediately after the code. To change this, you can use <code>#| output-location: [output location]</code>. The location options include:</p>
+<ul>
+<li><p><code>column</code> : Displays the output in a column next to the code</p></li>
+<li><p><code>slide</code> : Displays the output on the following slide</p></li>
+<li><p><code>fragment</code> : Displays the output as a Fragment (delays displaying the output until you advance the slide)</p></li>
+<li><p><code>column-fragment</code> : Displays the output in a column next to the code as a Fragment</p></li>
+</ul>
+<p><strong>Note</strong>: <code>output-location</code> only works for code cells that echo (<code>#| echo: true</code>).</p>
+</section>
+<section id="images-1" class="level3" data-number="3.5.10">
+<h3 data-number="3.5.10" class="anchored" data-anchor-id="images-1"><span class="header-section-number">3.5.10</span> Images</h3>
+<div class="sourceCode" id="cb74"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="al">![Quarto Logo](https://quarto.org/docs/get-started/hello/images/quarto.png)</span></span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a>{width=300px}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li><p>The caption for the figure is enclosed in <code>[]</code>.</p></li>
+<li><p>The file path for the saved image file is enclosed in <code>()</code>.</p></li>
+<li><p>Any optional stylistic attributes like size, alignment, and class are enclosed in <code>{}</code>.</p></li>
+</ul>
+<p><strong>Note</strong>: Remember to use relative references when specifying the file path to ensure seamless reproducibility, not absolute references.</p>
+</section>
+<section id="hyperlinks" class="level3" data-number="3.5.11">
+<h3 data-number="3.5.11" class="anchored" data-anchor-id="hyperlinks"><span class="header-section-number">3.5.11</span> Hyperlinks</h3>
+<div class="sourceCode" id="cb75"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Quarto</span><span class="co">](https://quarto.org)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li><p>The text/caption for the link is enclosed in <code>[]</code>.</p></li>
+<li><p>The URL link is enclosed in <code>()</code>.</p></li>
+</ul>
+</section>
+<section id="math" class="level3" data-number="3.5.12">
+<h3 data-number="3.5.12" class="anchored" data-anchor-id="math"><span class="header-section-number">3.5.12</span> Math</h3>
+<p>You can use <code>\( ... \)</code> for inline math, which appears in the line of text. For example,</p>
+<div class="sourceCode" id="cb76"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>The Pythagorean theorem equation is <span class="sc">\(</span>a^2 + b^2 = c^2 <span class="sc">\)</span>.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The Pythagorean theorem equation is (a^2 + b^2 = c^2 ).</p>
+<p><br></p>
+<p>With LaTeX, you can use <code>$ ... $</code> to show in-text math. For example,</p>
+<div class="sourceCode" id="cb77"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>The Pythagorean theorem equation is $a^2 + b^2 = c^2$.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The Pythagorean theorem equation is <span class="math inline">\(a^2 + b^2 = c^2\)</span>.</p>
+<p><br></p>
+<p>With LaTeX, you can also use <code>$$ ... $$</code> to display math, which centers the equation in its own line. For example,</p>
+<div class="sourceCode" id="cb78"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>The quadratic formula is given by</span>
+<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a>x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}.</span>
+<span id="cb78-4"><a href="#cb78-4" aria-hidden="true" tabindex="-1"></a>$$</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The quadratic formula is given by <span class="math display">\[
+x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}.
+\]</span></p>
+</section>
+<section id="div-containers" class="level3" data-number="3.5.13">
+<h3 data-number="3.5.13" class="anchored" data-anchor-id="div-containers"><span class="header-section-number">3.5.13</span> Div Containers</h3>
+<p>Div containers are special blocks that allow you to add attributes or structure to specific parts of your presentation. They start and end with triple colons (<code>:::</code>) and include classes like <code>.incremental</code> or attributes like <code>width="50%"</code> .</p>
+</section>
+<section id="incremental-lists" class="level3" data-number="3.5.14">
+<h3 data-number="3.5.14" class="anchored" data-anchor-id="incremental-lists"><span class="header-section-number">3.5.14</span> Incremental Lists</h3>
+<p>Bulleted lists by default are displayed all at once. You can change this globally by using <code>incremental: true</code> in the YAML header, or explicitly change it by slide using <code>{.incremental}</code>.</p>
+<p>To make a list incremental:</p>
+<div class="sourceCode" id="cb79"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a>::: {.incremental}</span>
+<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-3"><a href="#cb79-3" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Bullet 1</span>
+<span id="cb79-4"><a href="#cb79-4" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Bullet 2</span>
+<span id="cb79-5"><a href="#cb79-5" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Bullet 3</span>
+<span id="cb79-6"><a href="#cb79-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-7"><a href="#cb79-7" aria-hidden="true" tabindex="-1"></a>:::</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Similarly, to make a list non-incremental:</p>
+<div class="sourceCode" id="cb80"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>::: {.nonincremental}</span>
+<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb80-3"><a href="#cb80-3" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Bullet 1</span>
+<span id="cb80-4"><a href="#cb80-4" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Bullet 2</span>
+<span id="cb80-5"><a href="#cb80-5" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Bullet 3</span>
+<span id="cb80-6"><a href="#cb80-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb80-7"><a href="#cb80-7" aria-hidden="true" tabindex="-1"></a>:::</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="columns" class="level3" data-number="3.5.15">
+<h3 data-number="3.5.15" class="anchored" data-anchor-id="columns"><span class="header-section-number">3.5.15</span> Columns</h3>
+<p>Use <code>{.columns}</code> to create columns in your slides. Each <code>.column</code> can be given a specific width percentage to control how much space is taken up.</p>
+<div class="sourceCode" id="cb81"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a>::::{.columns}</span>
+<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb81-3"><a href="#cb81-3" aria-hidden="true" tabindex="-1"></a>:::{.column width="30%"}</span>
+<span id="cb81-4"><a href="#cb81-4" aria-hidden="true" tabindex="-1"></a>Left Column</span>
+<span id="cb81-5"><a href="#cb81-5" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb81-6"><a href="#cb81-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb81-7"><a href="#cb81-7" aria-hidden="true" tabindex="-1"></a>:::{.column wideth="70%"}</span>
+<span id="cb81-8"><a href="#cb81-8" aria-hidden="true" tabindex="-1"></a>Right Column</span>
+<span id="cb81-9"><a href="#cb81-9" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb81-10"><a href="#cb81-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb81-11"><a href="#cb81-11" aria-hidden="true" tabindex="-1"></a>::::</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="columns">
+<div class="column" style="width:30%;">
+<p><strong>Left Column</strong></p>
+<ul>
+<li>Item 1</li>
+<li>Item 2</li>
+</ul>
+</div><div class="column" data-wideth="70%">
+<p><strong>Right Column</strong></p>
+<ul>
+<li>Item 1</li>
+<li>Item 2</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="overflow" class="level3" data-number="3.5.16">
+<h3 data-number="3.5.16" class="anchored" data-anchor-id="overflow"><span class="header-section-number">3.5.16</span> Overflow</h3>
+<p>Some slides may contain more content than can be displayed in a single slide. You can fix this with <code>{.smaller}</code>, which will use a smaller typeface so that more text fits on the slide. You can also use <code>{.scrollable}</code>, to make any content that ends up off the slide available when you scroll.</p>
+<p>Both of these overlay classes can also be applied globally in the YAML header:</p>
+<div class="sourceCode" id="cb82"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="op">---</span></span>
+<span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a><span class="bu">format</span>: </span>
+<span id="cb82-3"><a href="#cb82-3" aria-hidden="true" tabindex="-1"></a>    revealjs:</span>
+<span id="cb82-4"><a href="#cb82-4" aria-hidden="true" tabindex="-1"></a>        smaller: true</span>
+<span id="cb82-5"><a href="#cb82-5" aria-hidden="true" tabindex="-1"></a>        scrollable: true</span>
+<span id="cb82-6"><a href="#cb82-6" aria-hidden="true" tabindex="-1"></a><span class="op">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="speaker-notes" class="level3" data-number="3.5.17">
+<h3 data-number="3.5.17" class="anchored" data-anchor-id="speaker-notes"><span class="header-section-number">3.5.17</span> Speaker Notes</h3>
+<p>Add notes using a div with class <code>{.notes}</code> that will only be visible to the presenter, not the audience. Press S during the presentation to open Speaker View (which displays your notes, the current slide, and the next slide). You can also see a timer and slide navigation tools.</p>
+<div class="sourceCode" id="cb83"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a>::: {.notes}</span>
+<span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a>Speaker Notes 1</span>
+<span id="cb83-3"><a href="#cb83-3" aria-hidden="true" tabindex="-1"></a>:::</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="notes">
+<p>Speaker Notes 1</p>
+</div>
+</section>
+<section id="multiplexing" class="level3" data-number="3.5.18">
+<h3 data-number="3.5.18" class="anchored" data-anchor-id="multiplexing"><span class="header-section-number">3.5.18</span> Multiplexing</h3>
+<p>Adding <code>multiplex: true</code> in your YAML enables a live audience mode:</p>
+<ul>
+<li><p><code>presentations.html</code> - Audience slides that you publish.</p></li>
+<li><p><code>presentations-speaker.html</code> - Presenter’s version that is used to control the slides.</p></li>
+</ul>
+</section>
+<section id="chalkboard" class="level3" data-number="3.5.19">
+<h3 data-number="3.5.19" class="anchored" data-anchor-id="chalkboard"><span class="header-section-number">3.5.19</span> Chalkboard</h3>
+<p>Annotate directly on your slides while presenting by enabling the option under your YAML settings with <code>chalkboard:true</code>. Some shortcuts include:</p>
+<ul>
+<li><p>B : Toggles the chalkboard on and off.</p></li>
+<li><p>C : Toggles the notes canvas on and off.</p></li>
+<li><p>DEL/ BACKSPACE : Clears the board.</p></li>
+<li><p>X : Cycles the colors forward.</p></li>
+<li><p>Y : Cycles the colors backward.</p></li>
+<li><p>D : Downloads the drawings.</p></li>
+</ul>
+</section>
+<section id="rendering" class="level3" data-number="3.5.20">
+<h3 data-number="3.5.20" class="anchored" data-anchor-id="rendering"><span class="header-section-number">3.5.20</span> Rendering</h3>
+<p>Render the Quarto presentation by entering the following code in your terminal and it will reveal presentation.html which can be opened in a browser.</p>
+<div class="sourceCode" id="cb84"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a>quarto render presentation.qmd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Temporarily override the YAML format to test how it looks in other formats. For example:</p>
+<div class="sourceCode" id="cb85"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a>quarto render presentation.qmd <span class="op">--</span>to beamer</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="additional-reading" class="level3" data-number="3.5.21">
+<h3 data-number="3.5.21" class="anchored" data-anchor-id="additional-reading"><span class="header-section-number">3.5.21</span> Additional Reading</h3>
+<ul>
+<li><a href="https://quarto.org/docs/presentations/">Quarto Presentations</a></li>
+<li><a href="https://quarto.org/docs/reference/formats/presentations/revealjs.html">Quarto Revealjs</a></li>
+<li><a href="https://quarto.org/docs/presentations/beamer.html">Quarto Beamer</a></li>
+<li><a href="https://quarto.org/docs/reference/formats/presentations/pptx.html">Quarto PowerPoint</a></li>
+</ul>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list" style="display: none">
