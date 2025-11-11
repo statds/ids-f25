@@ -1,20 +1,19 @@
 ## Synthetic Minority Over-sampling Technique (SMOTE)
 
 
-This section was written by Hannah Levine, a junior majoring in 
-Applied Data Analysis.
+This section was written by Hannah Levine, a junior majoring in Applied 
+Data Analysis.
 
 ### Introduction
 
-In classification problems, imbalanced data refers to skewed class
-distribution. Classification problems use numerical variables to 
-produce a categorical outcome, like diagnosing a disease based on clinical
-data or detecting fraudulent transactions. In a simple example, you have
-2 classes for a medical diagnosis, "healthy" and "not healthy". For rare
-diseases, there can be a large difference in the amount of individuals
-who are "healthy" and who are "not healthy", with the "healthy"
-far outnumbering the "not healthy". The "not healthy" class is
-known as the minority class.
+In classification problems, imbalanced data refers to skewed class distribution. 
+Classification problems use numerical variables to produce a categorical outcome, 
+like diagnosing a disease based on clinical data or detecting fraudulent 
+transactions. In a simple example, you have 2 classes for a medical diagnosis, 
+"healthy" and "not healthy". For rare diseases, there can be a large 
+difference in the amount of individuals who are "healthy" and who are "not 
+healthy", with the "healthy" far outnumbering the "not healthy". The 
+"not healthy" class is known as the minority class.
 
 This is important because machine learning models can become biased towards 
 the majority class, and be innacurate in predicting for the minority class. 
@@ -22,26 +21,22 @@ This is especially apparent in problems with multiple classes. Adressing this
 class imbalance helps to improve the accuracy of the model. An easy solution 
 is to just oversample the minority class, creating duplicates. However, this 
 doesn't really add any new information to the model. Another solution is
-undersampling of the majority class, but then important information
-might be left out. A better technique is Synthetic Minority Over-Sampling
-Technique, or SMOTE.
+undersampling of the majority class, but then important information might be left 
+out. A better technique is Synthetic Minority Over-Sampling Technique, or SMOTE.
 
 ### SMOTE
 
-While random oversampling creates exact replicas of minority observations,
-SMOTE creates synthetic samples based on the existing observations in
-the minority class. 
+While random oversampling creates exact replicas of minority observations, SMOTE
+creates synthetic samples based on the existing observations in the minority class. 
 
 1. SMOTE identifies minority class(es) in the dataset
-2. For each observation in the minority class, SMOTE identifies
-the k nearest neighbors, with k being specified prior (usually k=5).
-3. A line is drawn between the minority observation and one of its
-k nearest neighbors. 
-4. The difference is found, multiplied by a random number between 0 
-and 1, then added to the initial observation to generate the synthetic sample.
-5. This process is repeated until the desired ratio is
-reached, usually when the minority class equals the size of the
-majority class.
+2. For each observation in the minority class, SMOTE identifies the k nearest 
+neighbors, with k being specified prior (usually k=5).
+3. A line is drawn between the minority observation and one of its k nearest neighbors. 
+4. The difference is found, multiplied by a random number between 0 and 1, then 
+added to the initial observation to generate the synthetic sample.
+5. This process is repeated until the desired ratio is reached, usually when 
+the minority class equals the size of the majority class.
 
 The resulting dataset is more balanced, but there's less of a chance of
 overlapping data points because it's not duplicates.
@@ -50,15 +45,15 @@ This can also be demonstrated by the following algorithm:
 $$
 x_{new} = x_{i} + \lambda(x_{neighbor} - x_{i})
 $$
-where $x_{i}$ is the selected minority observation, $x_{new}$ is the
-generated synthetic sample, $\lambda$ is a random number between 0 and
-1 sampled from a uniform distribution, and $x_{neighbor}$ is the randomly
-chosen neighbor out of the identified k neearest neighbors.
+where $x_{i}$ is the selected minority observation, $x_{new}$ is the generated 
+synthetic sample, $\lambda$ is a random number between 0 and 1 sampled from a 
+uniform distribution, and $x_{neighbor}$ is the randomly chosen neighbor out 
+of the identified k neearest neighbors.
 
 ### Example: Created Synthetic Dataset
 
-We can generate a random dataset using the `make_classification`
-function from `sklearn.datasets`.
+We can generate a random dataset using the `make_classification` function 
+from `sklearn.datasets`.
 
 ```{python}
 from sklearn.datasets import make_classification
@@ -88,16 +83,15 @@ X_resampled, y_resampled = smote.fit_resample(X, y)
 print("After SMOTE class distribution:", Counter(y_resampled))
 ```
 
-For the application of SMOTE, I only specify a random state to ensure
-reproducibility. Other parameters that can be used are
-`sampling_strategy` and `k_neighbors`. `sampling_strategy` can be a float, 
-string, or dict. Float is only usable for problems with 2 classes. For
-string, the possible choices are:
-    - "minority": resample only the minority class
-    - "not minority": resample all but the minority class
-    - "not majority": resample all but the majority class
-    - "all": resample all classes
-    - "auto": same as "not majority", is default 
+For the application of SMOTE, I only specify a random state to ensure reproducibility. 
+Other parameters that can be used are `sampling_strategy` and `k_neighbors`. 
+`sampling_strategy` can be a float, string, or dict. Float is only usable for 
+problems with 2 classes. For string, the possible choices are:
+- "minority": resample only the minority class
+- "not minority": resample all but the minority class
+- "not majority": resample all but the majority class
+- "all": resample all classes
+- "auto": same as "not majority", is default 
 `k_neighbors` is an int that defaults to 5.
 
 Now we can visualize the distribution of the data.
@@ -121,11 +115,10 @@ ax2.legend()
 plt.show()
 ```
 
-Looking at the scatter plots, you can see the difference in class size
-before and after using SMOTE. 
-The scatter plot is preferred in this example because only 2 classes
-are being used, and it allows you to see the synthetic minority points
-being created between existing minority observations. With other problems
+Looking at the scatter plots, you can see the difference in class size before 
+and after using SMOTE. The scatter plot is preferred in this example because 
+only 2 classes are being used, and it allows you to see the synthetic minority
+points being created between existing minority observations. With other problems
 with more classes, it might be easier to look at a bar chart.
 
 ### Variations and Extensions of SMOTE
@@ -148,10 +141,9 @@ handling regions where the imbalance is more severe. For each minority
 class observation, ADASYN measures how many of its k nearest neighbors
 belong to the majority class. If the minority observation has more nearest
 neighbors that are a part of the majority class, it is considered a
-high density area. The algorithm then generates more synthetic
-samples in the higher density regions, which are the regions with a
-greater imbalance. This allows the dataset to become more uniform by
-balancing more severely imbalanced areas.
+high density area. The algorithm then generates more synthetic samples in the 
+higher density regions, which are the regions with a greater imbalance. This 
+allows the dataset to become more uniform by balancing more severely imbalanced areas.
 
 SMOTE-ENN, or SMOTE Edited Nearest Neighbors, combines SMOTE with the 
 ENN rule. The ENN rule is used to remove misclassified samples. The point
@@ -165,9 +157,11 @@ SMOTE-TOMEK links combine SMOTE and TOMEK links. TOMEK links are pairs of
 very close instances that are in opposite classes. By removing these links,
 overlap between classes is reduced and the classes are more distinct.
 For every observation in the dataset, the nearest neighbor from the same class
-and the nearest neighbor from the opposite class is found. Each pair of observations is analyzed to see if it forms a TOMEK link. If a link is found,
-the two observations are marked for removal. Once all TOMEK links have been found, the observations that are involved are removed. This technique
-also reduces overlap between classes, and improves the distinction of classes.
+and the nearest neighbor from the opposite class is found. Each pair of 
+observations is analyzed to see if it forms a TOMEK link. If a link is found,
+the two observations are marked for removal. Once all TOMEK links have been found, 
+the observations that are involved are removed. This technique also reduces 
+overlap between classes, and improves the distinction of classes.
 
 Finally, SMOTE-NC, or SMOTE Nominal Continuous, is used for datasets that
 are mixed nominal (categorical) and continuous variables. SMOTE is great
@@ -182,13 +176,12 @@ synthetic samples align with those of the original data.
 
 SMOTE is a great tool to handle imbalanced classes in datasets. By creating
 synthetic samples from real observations in the minority class, the dataset
-is balanced while still having a good range of information and not overfitting. It's important
-to note that SMOTE does not guaruntee that a model will perform well. It
-can help with prediction on the minority class, but it doesn't always mean
-that the overall performance of the model improves. It also can create
-noisy samples in dense or overlapping regions. It's important to analyze
-the problem to determine if SMOTE is worth applying, or if another
-method might be better.
+is balanced while still having a good range of information and not overfitting. 
+It's important to note that SMOTE does not guaruntee that a model will perform 
+well. It can help with prediction on the minority class, but it doesn't always 
+mean that the overall performance of the model improves. It also can create
+noisy samples in dense or overlapping regions. It's important to analyze the 
+problem to determine if SMOTE is worth applying, or if another method might be better.
 
 ### Further Readings
 
