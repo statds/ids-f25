@@ -87,7 +87,7 @@ Understanding how these requests work is key to effective web scraping.
 
 If you haven't done so already, you will need install requests to your terminal.
 
-```{bash}
+```bash
 pip install requests
 ```
 
@@ -168,7 +168,7 @@ from static websites such as news articles, course lists, or research archives.
 
 To use BeautifulSoup, you first need to install it.
 
-```{bash}
+```bash
 pip install beautifulsoup4
 ```
 
@@ -351,7 +351,7 @@ parsing.
 
 To use Selenium, you first need to install it.
 
-```{bash}
+```bash
 pip install selenium
 ```
 
@@ -360,14 +360,14 @@ your browser. If you are using Google Chrome, download ChromeDriver and make
 sure it is installed correctly. You can verify this by typing the following 
 command in your terminal:
 
-```{bash}
+```bash
 chromedriver --version
 ```
 
 If you are on macOS and see the error “chromedriver cannot be opened because the 
 developer cannot be verified,” you can fix it by running this command:
 
-```{bash}
+```bash
 xattr -d com.apple.quarantine $(which chromedriver)
 ```
 
