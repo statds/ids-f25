@@ -130,7 +130,7 @@ moran.plot_scatter()
 :::
 ::: {.column width="30%"}
 
-Some example I-values using adjacency weights [@MoranExample].
+Some example I-values using adjacency weights.
 
 <p><a href="https://commons.wikimedia.org/wiki/File:Moran%27s_I_example.png#/media/File:Moran's_I_example.png"><img src="https://upload.wikimedia.org/wikipedia/commons/f/f0/Moran%27s_I_example.png" alt="Moran's I example.png" height="300" width="500"></a></p>
 
@@ -386,4 +386,6 @@ print(
 
 If you're particularly interested in spatial problems and tools, I recommend GEOG 2500 (Introduction to Geographic Information Systems).
 
-### Citations
+[The example image for Moran's I](https://commons.wikimedia.org/w/index.php?title=File:Moran%27s_I_example.png&oldid=869123079) and [the Wikipedia article](https://en.wikipedia.org/wiki/Moran%27s_I) I got it from. 
+
+### Data Citation
