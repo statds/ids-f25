@@ -42,8 +42,8 @@ the minority class.
     the k nearest neighbors, with k being specified prior (usually k=5).
     3. A line is drawn between the minority observation and one of its
     k nearest neighbors. 
-    4. The difference is found, multiplied by a random number between 0 and 1, then added to the initial observation to generate the synthetic
-    sample.
+    4. The difference is found, multiplied by a random number between 0 
+    and 1, then added to the initial observation to generate the synthetic sample.
     5. This process is repeated until the desired ratio is
     reached, usually when the minority class equals the size of the
     majority class.
@@ -140,10 +140,10 @@ with more classes, it might be easier to look at a bar chart.
 SMOTE is very helpful in addressing class imbalance, but with larger datasets 
 and higher-dimensional class spaces other extensions have been 
 developed to help handle those larger scenarios. This includes Borderline 
-SMOTE, ADASYN, STOME-ENN, SMOTE+TOMEK, and SMOTE-NC.
+SMOTE, ADASYN, SMOTE-ENN, SMOTE+TOMEK, and SMOTE-NC.
 
 Borderline SMOTE was desgined to address the misclassification of minority
-class observations that are near on the borderline between classes.
+class observations that are near or on the borderline between classes.
 Because they are on or near the borderlines, they are harder to classify
 and more likely to be mislabeled. Borderline SMOTE generates more synthetic
 samples near the borderlines between the majority and minority classes,
