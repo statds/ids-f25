@@ -87,11 +87,13 @@ For the application of SMOTE, I only specify a random state to ensure reproducib
 Other parameters that can be used are `sampling_strategy` and `k_neighbors`. 
 `sampling_strategy` can be a float, string, or dict. Float is only usable for 
 problems with 2 classes. For string, the possible choices are:
+
 - "minority": resample only the minority class
 - "not minority": resample all but the minority class
 - "not majority": resample all but the majority class
 - "all": resample all classes
 - "auto": same as "not majority", is default 
+
 `k_neighbors` is an int that defaults to 5.
 
 Now we can visualize the distribution of the data.
@@ -128,7 +130,7 @@ and higher-dimensional class spaces other extensions have been
 developed to help handle those larger scenarios. This includes Borderline 
 SMOTE, ADASYN, SMOTE-ENN, SMOTE+TOMEK, and SMOTE-NC.
 
-Borderline SMOTE was desgined to address the misclassification of minority
+**Borderline SMOTE** was desgined to address the misclassification of minority
 class observations that are near or on the borderline between classes.
 Because they are on or near the borderlines, they are harder to classify
 and more likely to be mislabeled. Borderline SMOTE generates more synthetic
@@ -136,7 +138,7 @@ samples near the borderlines between the majority and minority classes,
 providing more challenging observations to classify in hopes that it will
 improve the performance of classifiers.
 
-ADASYN, or Adaptive Synthetic Sampling Approach, focuses on finding and
+**ADASYN**, or Adaptive Synthetic Sampling Approach, focuses on finding and
 handling regions where the imbalance is more severe. For each minority
 class observation, ADASYN measures how many of its k nearest neighbors
 belong to the majority class. If the minority observation has more nearest
@@ -145,7 +147,7 @@ high density area. The algorithm then generates more synthetic samples in the
 higher density regions, which are the regions with a greater imbalance. This 
 allows the dataset to become more uniform by balancing more severely imbalanced areas.
 
-SMOTE-ENN, or SMOTE Edited Nearest Neighbors, combines SMOTE with the 
+**SMOTE-ENN**, or SMOTE Edited Nearest Neighbors, combines SMOTE with the 
 ENN rule. The ENN rule is used to remove misclassified samples. The point
 of combining these techniques is to improve the overall quality of the
 dataset. SMOTE is applied first to generate synthetic samples, then ENN 
@@ -153,7 +155,7 @@ is used to remove both synthetic and original samples that have a majority
 of their nearest neighbors that are the opposite class. This provides a cleaner
 dataset with more distinct classes.
 
-SMOTE-TOMEK links combine SMOTE and TOMEK links. TOMEK links are pairs of
+**SMOTE-TOMEK** links combine SMOTE and TOMEK links. TOMEK links are pairs of
 very close instances that are in opposite classes. By removing these links,
 overlap between classes is reduced and the classes are more distinct.
 For every observation in the dataset, the nearest neighbor from the same class
@@ -163,7 +165,7 @@ the two observations are marked for removal. Once all TOMEK links have been foun
 the observations that are involved are removed. This technique also reduces 
 overlap between classes, and improves the distinction of classes.
 
-Finally, SMOTE-NC, or SMOTE Nominal Continuous, is used for datasets that
+**SMOTE-NC**, or SMOTE Nominal Continuous, is used for datasets that
 are mixed nominal (categorical) and continuous variables. SMOTE is great
 when dealing with datasets with only numerical variables, but runs into
 problems when there are categorical variables. SMOTE operates in the numerical
