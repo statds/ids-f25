@@ -3,7 +3,7 @@
 This section was prepared by Jessica Yoon, an undergraduate senior pursuing a
 degree in Biological Data Science 
 
-### What is Hypothesis Testing?
+### Wat is Hypothesis Testing?
 
 - **Hypothesis testing** is a statistical method used to make decisions or
 draw conclusions about a population based on sample data.  
