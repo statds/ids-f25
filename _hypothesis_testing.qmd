@@ -13,8 +13,6 @@ reflect a **real effect**.
   - **Null hypothesis (H₀):** No effect, no difference, or no relationship.  
   - **Alternative hypothesis (H₁):** There *is* an effect, difference, or relationship.  
 
----
-
 ### Why Hypothesis Testing is Important
 
 - Provides a **structured, objective framework** for decision-making under uncertainty.  
@@ -23,8 +21,6 @@ reflect a **real effect**.
   - Compare **treatments or interventions** (e.g., drug vs placebo)  
   - Evaluate **policy changes** (e.g., new traffic laws on crash rates)  
   - Detect **patterns or associations** (e.g., weather vs accident frequency)  
-
----
 
 ### The Logic Behind It
 
@@ -35,8 +31,6 @@ reflect a **real effect**.
 5. Decision rule:  
    - If *p* < α (usually 0.05): reject H₀ → evidence of an effect.  
    - If *p* ≥ α: fail to reject H₀ → no strong evidence against H₀.
-
----
 
 ### Example Context: Housing Data 
 
@@ -49,8 +43,6 @@ lead to higher prices?
 - Hypothesis testing provides **quantitative evidence** for these questions — 
 helping us determine which factors truly influence housing prices rather than relying 
 on assumptions.   
-
----
 
 ### Load, Clean and Preview the Data 
 
@@ -99,8 +91,6 @@ housing.head()
 ```{python}
 housing.describe()
 ```
-
----
 
 ### One-Sample T-test 
 
@@ -153,8 +143,6 @@ plt.show()
 line at μ = 20 (\$20,000).
 - Most home fall to the left of this line, showing that the actual mean is significantly 
 higher than $20,000, which is consistent with the t-test result 
-
----
 
 - If the data were not normally distributed, meaning the data was skewed or had outliers, 
 we'd use the Wilcoxon Signed-Rank Test instead.
@@ -220,8 +208,6 @@ else:
 - We would reject the null hypothesis so we can conclude that homes near the Charles River 
 have significantly different mean values than those farther away 
 
----
-
 - We can visualize these differences using boxplots 
 - The boxes represent interquartile ranges, so if they barely overlap that's a visual 
 clue of statisticla difference 
@@ -238,8 +224,6 @@ plt.show()
 (chas =1 ) versus those not near the river (chas = 0) 
 - The orange box is visibly higher than the blue box, showing that homes near the 
 Charles river tend to have high median values 
-
----
 
 - If the data don't meet the t-test assumptions (normality, equal variance), 
 we use the Mann-Whitney U test between two groups 
@@ -266,8 +250,6 @@ else:
     print(f"Fail to reject H₀ (p = {p_value:.4f}) → "
           f"No significant difference in median home values based on proximity to the Charles River.")
 ```
-
---- 
 
 ### ANOVA 
 
@@ -302,8 +284,6 @@ else:
 
 - groupby("rad") splits data into groups based on accessibility index 
 - f_oneway() performs the one-way ANOVA test 
-
----
 
 - To see this visually: 
 
@@ -342,8 +322,6 @@ else:
           f"No significant difference in median home values across highway accessibility levels.")
 ```
 
----
-
 ### Chi-Square Test of Independence 
 
 - The Chi-Square Test of Independence checks whether two categorical variables 
@@ -373,8 +351,6 @@ else:
 - pd.crosstab() creates a contingency table 
 - chi2_contingency() tests independence of two categorical variables 
 
----
-
 - Visual
 
 ```{python}
@@ -389,8 +365,6 @@ plt.show()
 
 - Chi-square tests are great for frequency data, think of them as testing whether 
 "categories are distributed as expected"
-
----
 
 ### Proportion Test  
 
@@ -422,8 +396,6 @@ else:
 - nobs is the total homes 
 - p0 is the hypothesized proportionn 
 - proportions_ztest() is the z-test for proportions (like t-test but for percentages) 
-
----
 
 ### Correlation Test 
 
@@ -462,8 +434,6 @@ plt.ylabel("Median Home Value ($1000s)")
 plt.show()
 ```
 
----
-
 - The Spearman correlation coefficient (ρ) measures the strength and direction 
 of a monotonic relationship between two continuous variables.
 - Unlike Pearson’s correlation, it doesn’t assume normality or a linear relationship.
@@ -486,8 +456,6 @@ if p_value < alpha:
 else:
     print(f"Fail to reject H₀ (p = {p_value:.4f}) → No significant monotonic relationship between rooms and home value.")
 ```
-
----
 
 ### Summary of Tests 
 
@@ -548,8 +516,6 @@ data = {
 df = pd.DataFrame(data)
 df
 ```
-
---- 
 
 ### Discussions and Takeaways 
 
