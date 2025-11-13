@@ -1,0 +1,533 @@
+## Database operation with SQL
+
+This section was prepared by Lewis Milun.
+
+### Introduction
+Structured Query Language (SQL) is one of the standard languages that is used 
+to work with large databases. It uses tables to store and display data, 
+creating an organized and comprehensible interface that makes it far easier to
+track and view your data.
+
+Some advantages of using SQL include its ability to handle large amounts of data
+while simultaneously simplifying the process of creating, updating, and 
+retrieving any data you may want.
+
+The biggest advantage of using SQL for the purposes of this class is that it
+can very easily connect with Python and R. This makes it so that we can have
+all of the benefits of working with SQL while still working in the Python
+environment we already have set up.
+
+### Setting up Databases
+In this section, we will be working with two databases, one that's built into
+a Python package (nycflights13) and one that we used for our midterm project 
+(311 Service Requests)
+
+#### nycflights13
+This database uses the pandas package and includes flight data for all
+flights that left New York City airports in 2013. The database includes several
+tables including ones that detail each flight, airline, airport, and much more
+info regarding the flights. The data in this database is contained across 
+several tables. Data stored like this would typically be irritating to deal with
+however it is proven simple when working with SQL.
+
+To set up this database, we need to import the proper packages:
+```{python}
+#| output: false
+import sqlite3
+import pandas as pd
+from nycflights13 import flights, airlines, airports
+```
+
+Here we imported "sqlite3" which is the package to import when working with SQL.
+We also imported "pandas" which also includes the nycflights13 database and from
+there imported the three tables we will be working with.
+
+Now, we want to establish the connection between Python and our SQL database:
+```{python}
+nycconn = sqlite3.connect("nycflights13.db")
+```
+
+This snippet both creates the nycflights13.db database and establishes nycconn as
+our connection to this database.
+
+Next step is to add the three tables we imported from nycflights13 to the 
+database:
+```{python}
+#| output: false
+flights.to_sql("flights", nycconn, if_exists="replace", index=False)
+airlines.to_sql("airlines", nycconn, if_exists="replace", index=False)
+airports.to_sql("airports", nycconn, if_exists="replace", index=False)
+```
+
+What this does is converts the three pandas dataframes into tables in the SQL
+database. The if_exists argument handles what would happen if there is already
+a table in the database with the same name. The index argument is determining
+whether or not the first column of the dataframe should be handled as the 
+index of the table in the dataframe.
+
+#### serviceRequests Database
+First, we need to import our serviceRequests data from the csv in the data
+folder:
+```{python}
+df = pd.read_csv("data/serviceRequests06-09-2025_07-05-2025.csv")
+```
+
+Now we need to repeat the process from nycflights13 but for our serviceRequests:
+```{python}
+#| output: false
+srconn = sqlite3.connect("serviceRequests.db")
+
+df.to_sql("requests", srconn, if_exists="replace", index=False)
+```
+
+Here we imported the dataframe we got from the csv file as the only table in the
+serviceRequests.db database.
+
+### Query Basics
+Now we can move onto working with the data in our SQL databases. The most common
+use for SQL is writing a "query" which is a statement sent to the SQL database
+that returns a selection of rows and columns from the tables in a database.
+
+We will be looking at the "flights" table in our nycflights13 database for this
+section.
+
+#### SELECT and FROM
+The following is the most basic possible query one can perform:
+```{python}
+query = """
+SELECT *
+FROM flights;
+"""
+pd.read_sql_query(query, nycconn).head()
+```
+
+This snippet represents the basic form of writing SQL queries in Python. We
+create a variable 'query' that contains the statement we intend to pass into 
+SQL. The last line then uses the nycconn connection we created earlier to pass
+our query into SQL and it returns the head() of the result we get back.
+
+This query is the most basic query, as it returns the entire flights table. The
+SELECT line of the query is where you put the names of which columns you want 
+from your table. You specify which table you want to work with on the FROM line.
+We put "*" in our SELECT line which returns all columns.
+All SQL queries must end with ";", otherwise you'll get an error.
+
+Now let's try to simplify what we're seeing by only looking at the origins and
+destinations of the flights:
+```{python}
+query = """
+SELECT origin, dest
+FROM flights;
+"""
+pd.read_sql_query(query, nycconn).head()
+```
+
+Here we replaced the "*" in our SELECT statement with "origin, dest"
+This told SQL to only return those two columns from the database.
+
+#### ORDER BY
+These columns are quite messy to look at so let's try sorting them by origin:
+```{python}
+query = """
+SELECT origin, dest
+FROM flights
+ORDER BY origin;
+"""
+pd.read_sql_query(query, nycconn).head()
+```
+
+Here we added a new "ORDER BY" line. This line tells SQL what columns to sort 
+the list by.
+
+You can sort by multiple columns just by listing them with commas in between:
+```{python}
+query = """
+SELECT origin, dest
+FROM flights
+ORDER BY origin, dest;
+"""
+pd.read_sql_query(query, nycconn).head()
+```
+
+#### SELECT DISTINCT
+Now that the list is properly sorted, we can see that there are multiple flights
+from each origin to destination combination. If we want to only see the unique
+columns, we can do this:
+```{python}
+query = """
+SELECT DISTINCT origin, dest
+FROM flights
+ORDER BY origin, dest;
+"""
+pd.read_sql_query(query, nycconn).head()
+```
+
+Here we replaced our "SELECT" statement with a "SELECT DISTINCT" statement. This
+tells SQL to only return the unique columns from the query.
+
+### Conditionals
+Usually you wouldn't want to just return all rows or all unique rows from a table
+You instead will have conditions that determine which rows are relevant to your
+query
+
+#### WHERE
+The way you can add conditionals to your query is by adding a "WHERE" line.
+Let's take the same list from the last section and filter it so that only the
+flights that departed from LGA are returned:
+```{python}
+query = """
+SELECT DISTINCT origin, dest
+FROM flights
+WHERE origin = 'LGA'
+ORDER BY origin, dest;
+"""
+pd.read_sql_query(query, nycconn).head()
+```
+
+You add conditionals in the "WHERE" line by using the following comparators:
+
++ '='
++ '<'
++ '>'
++ '<='
++ '>='
++ '!='
+
+Be careful of the type of the data in a particular column!
+
+#### AND, OR, and NOT
+You can add multiple conditionals by using AND, OR, and parentheses
+```{python}
+query = """
+SELECT origin, dest
+FROM flights
+WHERE origin = 'LGA' AND dest = 'ATL'
+ORDER BY origin, dest;
+"""
+pd.read_sql_query(query, nycconn).head()
+```
+
+This uses AND to return all flights that departed from LGA and arrived in ATL
+
+We can also use OR to return all flights that either departed from LGA or 
+arrived in ATL:
+```{python}
+query = """
+SELECT DISTINCT origin, dest
+FROM flights
+WHERE origin = 'LGA' OR dest = 'ATL'
+ORDER BY origin, dest;
+"""
+pd.read_sql_query(query, nycconn).head()
+```
+
+When you want to get more complicated with your conditionals, parenthesis can
+be used to ensure SQL is correctly mixing the AND and OR statements.
+
+Use NOT to return the opposite of a statement:
+```{python}
+query = """
+SELECT DISTINCT origin, dest
+FROM flights
+WHERE NOT (origin = 'LGA' OR dest = 'ATL')
+ORDER BY origin, dest;
+"""
+pd.read_sql_query(query, nycconn).head()
+```
+
+#### COUNT
+An easy way in SQL to see the total number of rows that fit the conditions you've specified:
+```{python}
+query = """
+SELECT COUNT(DISTINCT dest)
+FROM flights
+WHERE NOT (origin = 'LGA' OR dest = 'ATL');
+"""
+pd.read_sql_query(query, nycconn).head()
+```
+
+This returns the number of distinct destinations that fit the specified criteria
+
+#### LIMIT
+If you don't want to use .head() to only display the first few rows, this can be
+done in SQL using a LIMIT statement:
+```{python}
+query = """
+SELECT DISTINCT carrier, origin, dest
+FROM flights
+WHERE carrier = 'UA'
+ORDER BY origin, dest
+LIMIT 5;
+"""
+pd.read_sql_query(query, nycconn)
+```
+
+This query added the "carrier" column that displays the airline that held the flight. We specified that we want all flights from the "UA" airline and limited
+the result to 5 rows.
+
+An interesting thing you can do with conditionals in SQL is to filter by values
+in a column that you are not displaying:
+```{python}
+query = """
+SELECT DISTINCT origin, dest
+FROM flights
+WHERE carrier = 'UA'
+ORDER BY origin, dest
+LIMIT 5;
+"""
+pd.read_sql_query(query, nycconn)
+```
+
+Here we still filter by flights from the "UA" airline but we don't display the
+column as that would be very redundant.
+
+### Joins
+The last query that we did was useful, however it isn't realistic to expect
+users to memorize the two-digit codes for all airlines. Thankfully, there is the
+airlines table in our nycflights13.db database. Let's take a look at it:
+```{python} 
+query = """
+SELECT *
+FROM airlines;
+"""
+pd.read_sql_query(query, nycconn).head()
+```
+
+This table is much simpler than the "flights" table as it only has two columns.
+
+#### INNER JOIN
+Logically, we wouldn't want our outputted table to display the two-digit code 
+that represents each airline but instead we'd want to see the name of the 
+airline. Thankfully, SQL has a way to join the data from the two tables 
+together:
+```{python}
+query = """
+SELECT DISTINCT a.name AS airline_name, f.origin, f.dest
+FROM flights AS f
+INNER JOIN airlines AS a
+ON f.carrier = a.carrier;
+"""
+pd.read_sql_query(query, nycconn).head()
+```
+
+This is a much more complicated query that returns a table of the distinct
+airline, origin, and destination in the flights database. We introduced three
+new statements in this query:
+
+AS is similar to how "as" is used when importing packages in Python. It
+gives us an opportunity to use a shorthand instead of needing to type out the
+full table names every time we mention a column. It can also be used in our 
+SELECT line to name columns in our resultant table
+
+INNER JOIN connects a new table to our query (in this case, the new table is
+airlines).
+
+ON lets SQL know what column in each table it should use to connect the 
+tables. Here we told SQL that in every row, when it reaches the carrier column
+in flights, it should use that as its reference for what row in airlines to use
+for values in this row. For example, in the first row, SQL saw that the carrier
+name in flights was "UA". SQL then looked in the carrier column in airlines and
+found the row in which "UA" was the value in that table's carrier column. So 
+when SQL was calculating the value for airline_name in the first row, it knew 
+which column to search in airline to find "United Air Lines Inc."
+
+JOIN statements are key when using SQL to display data. This is what allows SQL
+databases to be in such nice and concise structures.
+
+Now let's also add in the values from the "airports" table so that we get the 
+full names of the airports instead of their three-digit codes:
+```{python}
+query = """
+SELECT DISTINCT a.name AS airline_name,
+       orig.name AS origin_name,
+       dest.name AS dest_name
+FROM flights AS f
+INNER JOIN airlines AS a
+    ON f.carrier = a.carrier
+INNER JOIN airports AS orig
+    ON f.origin = orig.faa
+INNER JOIN airports AS dest
+    ON f.dest = dest.faa;
+"""
+pd.read_sql_query(query, nycconn).head()
+```
+
+Here we use three different INNER JOIN statements to connect the three tables
+properly. The reason we use two JOIN statements to connect the same "airports"
+table is to have SQL be able to look separately for the origin and destination
+airport names. This query also utilizes indenting to make the query far more
+readable.
+
+#### The difference between the three JOINs
+SQL has three different versions of JOIN statements:
++ INNER JOIN
++ LEFT JOIN
++ RIGHT JOIN
+
+This allows the user to determine what rows get included as a result of joining
+two tables. Let's take a look at the differences:
+```{python}
+query = """
+SELECT DISTINCT f.flight,
+       a.name AS airline_name,
+       orig.name AS origin_name,
+       dest.name AS dest_name
+FROM flights AS f
+INNER JOIN airlines AS a
+    ON f.carrier = a.carrier
+INNER JOIN airports AS orig
+    ON f.origin = orig.faa
+INNER JOIN airports AS dest
+    ON f.dest = dest.faa;
+"""
+pd.read_sql_query(query, nycconn).head()
+```
+
+INNER JOIN is the most common. This is because the result will only include rows
+in which the values in question are included in both tables. For example, if 
+there was a row in flights that included an airline code that was not present in
+airlines, then SQL will not include that row in the result.
+
+```{python}
+query = """
+SELECT DISTINCT f.flight,
+    a.name AS airline_name,
+    orig.name AS origin_name,
+    dest.name AS dest_name
+FROM flights AS f
+LEFT JOIN airlines AS a
+    ON f.carrier = a.carrier
+LEFT JOIN airports AS orig
+    ON f.origin = orig.faa
+LEFT JOIN airports AS dest
+    ON f.dest = dest.faa;
+"""
+pd.read_sql_query(query, nycconn).head()
+```
+
+LEFT JOIN will return all rows that are in flights regardless of if SQL was able
+to find matching rows on the other tables. This is perfectly represented in the
+fourth row of the output. On flights, the destination for flight 725 is "BQN"
+which is not an airport on the airports table. If you look back to the result of
+the INNER JOIN, this row was removed from the result however it is present here
+because we used flights as our only reference for rows and therefore the row is
+included but the destination name is left as "None"
+
+```{python}
+query = """
+SELECT DISTINCT f.flight,
+    f.origin,
+    dest.name AS dest_name
+FROM flights AS f
+RIGHT JOIN airports AS dest
+    ON f.dest = dest.faa;
+"""
+pd.read_sql_query(query, nycconn)
+```
+
+RIGHT JOIN is basically the opposite of LEFT JOIN. Instead of using flights as
+its basis for what rows to include, RIGHT JOIN uses the joined tables instead.
+As you can see, the fourth row is being skipped again because the airports 
+table is being used as reference instead. Also, the table ends with rows for all
+destinations from the airports table. SQL includes them because it is looking 
+for all rows that include destinations from the airports table. This includes 
+all rows from the airports table itself.
+
+### Creating Tables
+Let's take a look at our serviceRequests.db's requests table:
+```{python}
+query = """
+SELECT *
+FROM requests;
+"""
+pd.read_sql_query(query, srconn).head()
+```
+
+This table is incredibly complicated and redundant through repeated information
+such as each row having both "Agency" and "Agency Name". This redundancy 
+clutters the table, making it difficult to read. It would be much better if the 
+database wasn't just one table and instead was formatted like the 
+nycflights13.db
+
+Take note that we have begun using our other connection (srconn instead of 
+nycconn) because we are working with our other database.
+
+Thankfully, SQL makes it very simple to create new tables from the results of a
+query. Looking back at the redundancy with agencies, we can create the following
+query to see all the agency codes and their corresponding names:
+```{python}
+query = """
+SELECT DISTINCT Agency, "Agency Name"
+FROM requests
+ORDER BY Agency;
+"""
+pd.read_sql_query(query, srconn).head()
+```
+
+Something to note here is how one can handle a column name that includes a space
+or a comma. If you put the name of the column in quotes, then SQL will handle
+everything inside the quotes as the name of the column.
+
+Now that we have created this query, we can make the result into its own table 
+in the database:
+```{python}
+query = """
+CREATE TABLE IF NOT EXISTS agencies AS
+SELECT DISTINCT Agency, "Agency Name"
+FROM requests
+ORDER BY Agency;
+"""
+srconn.execute(query)
+srconn.commit()
+```
+
+There are a few key parts to this query:
+
+Firstly, we have the first line which tells SQL to create a table named agencies
+and the AS works here to tell SQL to make the table be the result of the query
+that follows the first line.
+
+Second, there is the statement "IF NOT EXISTS". This is incredibly useful to
+include in the query as it ensures that you do not override any tables that you
+have previously made.
+
+Lastly, we use different commands outside of creating the query variable. 
+Instead of pd.read_sql_query(query, srconn), we have our connection to SQL
+execute the query we created, then commit the changes to the database.
+
+Now that we have added the table to our database, we can query it:
+```{python}
+
+query = """
+SELECT *
+FROM agencies;
+"""
+pd.read_sql_query(query, srconn).head()
+```
+
+This process can be repeated to clean up messy tables and messy databases.
+
+### Statement Order
+Statements in a SQL query must go in a certain order, otherwise the query will
+return an error. The order is as follows:
+
+1. SELECT
+2. FROM
+3. JOIN
+4. WHERE
+5. GROUP BY
+6. HAVING
+7. ORDER BY
+8. LIMIT/OFFSET
+
+### Conclusion
+SQL makes working with large datasets much easier by organizing databases and 
+simplifying the process of displaying data. Using either the queries shown here
+as well as much more complicated queries, one can turn complex tables into 
+databases that don't unnecessarily repeat data, and that consist of easily read
+tables.
+
+### Further Readings
+1. [W3 Schools SQL Tutorial](https://www.w3schools.com/sql/default.asp)
+2. [SQLite Tutorial (installing SQLite not necessary)]
+ (https://www.sqlitetutorial.net/)

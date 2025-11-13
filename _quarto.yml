@@ -6,7 +6,11 @@ book:
   subtitle: "STAT 3255/5255 @ UConn, Fall 2025"
   author:
     - name: "[Jun Yan](https://statcomp.org) and Students in Fall 2025"
-    - name: Jingang Chen, Alejandro Haerter
+    - name: Irene Chen, Jingang Chen,
+    - name: Alejandro Haerter
+    - name: Sonia Lucey
+    - name: Lewis Milun
+    - name: Sahil Patel
   date: today
 
 #  sidebar:
@@ -24,6 +28,7 @@ book:
     - 08-regression.qmd
     - 09-classification.qmd
     - 10-supervised.qmd
+    - 11-unsupervised.qmd
     - 90-advanced.qmd
 #    - stats.qmd
 #    - machinelearning.qmd
