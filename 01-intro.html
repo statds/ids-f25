@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 /* CSS for citations */
 div.csl-bib-body { }
 div.csl-entry {
@@ -272,6 +307,20 @@ window.Quarto = {
   <li><a href="#ensuring-ethics-in-practice" id="toc-ensuring-ethics-in-practice" class="nav-link" data-scroll-target="#ensuring-ethics-in-practice"><span class="header-section-number">1.4.3</span> Ensuring Ethics in Practice</a></li>
   <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">1.4.4</span> Conclusion</a></li>
   </ul></li>
+  <li><a href="#effective-data-science-communication" id="toc-effective-data-science-communication" class="nav-link" data-scroll-target="#effective-data-science-communication"><span class="header-section-number">1.5</span> Effective Data Science Communication</a>
+  <ul class="collapse">
+  <li><a href="#introduction-1" id="toc-introduction-1" class="nav-link" data-scroll-target="#introduction-1"><span class="header-section-number">1.5.1</span> Introduction</a></li>
+  <li><a href="#why-communication-matters" id="toc-why-communication-matters" class="nav-link" data-scroll-target="#why-communication-matters"><span class="header-section-number">1.5.2</span> Why Communication Matters</a></li>
+  <li><a href="#clarity-and-context" id="toc-clarity-and-context" class="nav-link" data-scroll-target="#clarity-and-context"><span class="header-section-number">1.5.3</span> Clarity and Context</a></li>
+  <li><a href="#visual-storytelling" id="toc-visual-storytelling" class="nav-link" data-scroll-target="#visual-storytelling"><span class="header-section-number">1.5.4</span> Visual Storytelling</a></li>
+  <li><a href="#choosing-the-right-chart-type" id="toc-choosing-the-right-chart-type" class="nav-link" data-scroll-target="#choosing-the-right-chart-type"><span class="header-section-number">1.5.5</span> Choosing the Right Chart Type</a></li>
+  <li><a href="#reproducibility-and-transparency" id="toc-reproducibility-and-transparency" class="nav-link" data-scroll-target="#reproducibility-and-transparency"><span class="header-section-number">1.5.6</span> Reproducibility and Transparency</a></li>
+  <li><a href="#ethical-and-responsible-communication" id="toc-ethical-and-responsible-communication" class="nav-link" data-scroll-target="#ethical-and-responsible-communication"><span class="header-section-number">1.5.7</span> Ethical and Responsible Communication</a></li>
+  <li><a href="#connecting-insights-to-action" id="toc-connecting-insights-to-action" class="nav-link" data-scroll-target="#connecting-insights-to-action"><span class="header-section-number">1.5.8</span> Connecting Insights to Action</a></li>
+  <li><a href="#recommendations-for-effective-communication-and-presentation" id="toc-recommendations-for-effective-communication-and-presentation" class="nav-link" data-scroll-target="#recommendations-for-effective-communication-and-presentation"><span class="header-section-number">1.5.9</span> Recommendations for Effective Communication and Presentation</a></li>
+  <li><a href="#conclusion-1" id="toc-conclusion-1" class="nav-link" data-scroll-target="#conclusion-1"><span class="header-section-number">1.5.10</span> Conclusion</a></li>
+  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">1.5.11</span> Further Reading</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -447,7 +496,545 @@ window.Quarto = {
 <section id="conclusion" class="level3" data-number="1.4.4">
 <h3 data-number="1.4.4" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">1.4.4</span> Conclusion</h3>
 <p>Data science ethics is a dynamic and integral aspect of the discipline. By adhering to principles of privacy, fairness, transparency, social responsibility, and integrity, data scientists can ensure their work contributes positively to society. Implementing these principles through structured workflows, stakeholder engagement, and continuous improvement establishes a foundation for trustworthy and impactful data science.</p>
-<!-- {{< include _communication.qmd >}} -->
+</section>
+</section>
+<section id="effective-data-science-communication" class="level2" data-number="1.5">
+<h2 data-number="1.5" class="anchored" data-anchor-id="effective-data-science-communication"><span class="header-section-number">1.5</span> Effective Data Science Communication</h2>
+<p>This section is by Abby White, a senior majoring in Statistical Data Science with a concentration in Advanced Statistics.</p>
+<section id="introduction-1" class="level3" data-number="1.5.1">
+<h3 data-number="1.5.1" class="anchored" data-anchor-id="introduction-1"><span class="header-section-number">1.5.1</span> Introduction</h3>
+<p>Data science communication is about more than presenting results; it is about helping others understand and act on them. A clear visualization, a well-phrased sentence, or a reproducible workflow can determine whether your analysis makes an impact or gets lost in translation.</p>
+<p>In this presentation, I will discuss:<br>
+1. Why communication matters in data science.<br>
+2. Key principles for clarity and transparency.<br>
+3. How visualization and storytelling improve understanding.<br>
+4. The role of reproducibility and ethics in reporting results.<br>
+5. How to connect insights to action.</p>
+</section>
+<section id="why-communication-matters" class="level3" data-number="1.5.2">
+<h3 data-number="1.5.2" class="anchored" data-anchor-id="why-communication-matters"><span class="header-section-number">1.5.2</span> Why Communication Matters</h3>
+<p>Even the best analysis doesn’t mean much if people cannot understand it. Clarity, honesty, and reproducibility are what make results useful.</p>
+<section id="example-framing-a-finding-clearly" class="level4" data-number="1.5.2.1">
+<h4 data-number="1.5.2.1" class="anchored" data-anchor-id="example-framing-a-finding-clearly"><span class="header-section-number">1.5.2.1</span> Example: Framing a Finding Clearly</h4>
+<div id="b1de349b" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the cleaned NYC crash data</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>crash_df <span class="op">=</span> pd.read_feather(<span class="st">"../ids-f25/data/nyc_crashes_cleaned.feather"</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Count crashes by borough</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>borough_counts <span class="op">=</span> crash_df[<span class="st">"borough"</span>].value_counts().reset_index()</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>borough_counts.columns <span class="op">=</span> [<span class="st">"borough"</span>, <span class="st">"crash_count"</span>]</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>sns.barplot(</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>borough_counts,</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"borough"</span>, y<span class="op">=</span><span class="st">"crash_count"</span>,</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    order<span class="op">=</span>borough_counts.sort_values(<span class="st">"crash_count"</span>, ascending<span class="op">=</span><span class="va">False</span>)[<span class="st">"borough"</span>],</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"NYC Motor Vehicle Collisions by Borough (Labor Day Week, 2025)"</span>)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Borough"</span>)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Crash Count"</span>)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Add labels above bars</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, val <span class="kw">in</span> <span class="bu">enumerate</span>(borough_counts[<span class="st">"crash_count"</span>]):</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    plt.text(i, val <span class="op">+</span> (<span class="fl">0.01</span> <span class="op">*</span> borough_counts[<span class="st">"crash_count"</span>].<span class="bu">max</span>()),</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>             <span class="ss">f"</span><span class="sc">{</span>val<span class="sc">:,}</span><span class="ss">"</span>, ha<span class="op">=</span><span class="st">"center"</span>, fontsize<span class="op">=</span><span class="dv">9</span>)</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Add 5% headroom above the tallest bar</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>plt.ylim(<span class="dv">0</span>, borough_counts[<span class="st">"crash_count"</span>].<span class="bu">max</span>() <span class="op">*</span> <span class="fl">1.05</span>)</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01-intro_files/figure-html/cell-2-output-1.png" width="662" height="470" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>This bar chart shows total crashes by borough. Without labels, the pattern is visible but vague. Adding numbers and sorting by count makes the trend clear. Brooklyn and Queens lead due to population and road density.</p>
+<p>Visuals that highlight why something happens, not just that it happens, communicate far more effectively.</p>
+<blockquote class="blockquote">
+<p>Poor phrasing:<br>
+“Brooklyn has the highest number of crashes.”</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>Better phrasing:<br>
+“During Labor Day week 2025, Brooklyn recorded the most motor vehicle collisions, followed by Queens and Manhattan. This pattern likely reflects each borough’s larger population, higher traffic volume, and denser road networks.”</p>
+</blockquote>
+<p>The first sentence is technically correct but empty of insight. The second version connects data to why it matters. It is specific, comparative, and interpretable.</p>
+<p>Good communication translates data into meaning. When presenting findings, always lead with a clear takeaway before showing details.</p>
+</section>
+</section>
+<section id="clarity-and-context" class="level3" data-number="1.5.3">
+<h3 data-number="1.5.3" class="anchored" data-anchor-id="clarity-and-context"><span class="header-section-number">1.5.3</span> Clarity and Context</h3>
+<p>Clarity comes from balancing accuracy with accessibility. The goal is to make complex analysis understandable without oversimplifying it.</p>
+<p>Guidelines for clear communication:<br>
+- Lead with the main takeaway before showing details.<br>
+- Define all technical terms (e.g., “injury severity index”).<br>
+- Provide relative comparisons, not just counts.<br>
+- Add short interpretations under visuals.</p>
+<section id="example-turning-output-into-insight" class="level4" data-number="1.5.3.1">
+<h4 data-number="1.5.3.1" class="anchored" data-anchor-id="example-turning-output-into-insight"><span class="header-section-number">1.5.3.1</span> Example: Turning Output into Insight</h4>
+<div id="e441444a" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the average number of people injured per crash by borough</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>injury_summary <span class="op">=</span> (</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    crash_df.groupby(<span class="st">"borough"</span>)[<span class="st">"number_of_persons_injured"</span>]</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    .mean()</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    .sort_values()</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>injury_summary</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<pre><code>borough
+STATEN ISLAND    0.562500
+MANHATTAN        0.620087
+QUEENS           0.634146
+BROOKLYN         0.664557
+BRONX            0.800000
+Name: number_of_persons_injured, dtype: float64</code></pre>
+</div>
+</div>
+<blockquote class="blockquote">
+<p>Technical phrasing:<br>
+“Mean injuries per crash differ by borough.”</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>Clear phrasing:<br>
+“On average, crashes in the Bronx result in the highest injury rates (about 0.8 people injured per crash), while Staten Island has the lowest (around 0.56). Differences are modest but suggest slightly greater crash severity in more densely populated areas.”</p>
+</blockquote>
+<p>The first phrasing is correct but vague. It does not tell the audience how or by how much boroughs differ. The clearer version adds real numbers, ranks, and a hint of interpretation (density and traffic volume). Good phrasing gives context so the audience immediately grasps what the data shows.</p>
+<p>To make this pattern easier to see visually:</p>
+<div id="2a6d47ad" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>sns.barplot(</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span>injury_summary.values,</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span>injury_summary.index,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    color<span class="op">=</span><span class="st">"steelblue"</span>  <span class="co"># same color for all bars</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Average Injuries per Crash by Borough"</span>)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Average Number of Injured People"</span>)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Borough"</span>)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01-intro_files/figure-html/cell-4-output-1.png" width="662" height="470" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The bar chart shows that the Bronx leads with the highest average injuries per crash, while Staten Island has the lowest. Clear labeling, ordered categories, and a clean layout make the trend easy to interpret without visually exaggerating small differences.</p>
+</section>
+</section>
+<section id="visual-storytelling" class="level3" data-number="1.5.4">
+<h3 data-number="1.5.4" class="anchored" data-anchor-id="visual-storytelling"><span class="header-section-number">1.5.4</span> Visual Storytelling</h3>
+<p>Visuals are often the clearest way to communicate a pattern. Strong visual design helps people notice relationships quickly and remember them longer.</p>
+<p>A good graphic should make the takeaway obvious in a few seconds. Titles, captions, and color choices all guide the audience toward what matters most.</p>
+<section id="example-highlighting-a-trend" class="level4" data-number="1.5.4.1">
+<h4 data-number="1.5.4.1" class="anchored" data-anchor-id="example-highlighting-a-trend"><span class="header-section-number">1.5.4.1</span> Example: Highlighting a Trend</h4>
+<div id="069d743b" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make sure datetime is parsed</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>crash_df[<span class="st">"crash_datetime"</span>] <span class="op">=</span> pd.to_datetime(</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    crash_df[<span class="st">"crash_datetime"</span>], errors<span class="op">=</span><span class="st">"coerce"</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Group by day </span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>daily <span class="op">=</span> (</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    crash_df.groupby(crash_df[<span class="st">"crash_datetime"</span>].dt.date)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    .size()</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    .reset_index(name<span class="op">=</span><span class="st">"count"</span>)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    .rename(columns<span class="op">=</span>{<span class="st">"crash_datetime"</span>: <span class="st">"date"</span>})</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert date column back to datetime64[ns] for plotting</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>daily[<span class="st">"date"</span>] <span class="op">=</span> pd.to_datetime(daily[<span class="st">"date"</span>])</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>sns.lineplot(</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>daily.sort_values(<span class="st">"date"</span>),</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"date"</span>,</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">"count"</span>,</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>    marker<span class="op">=</span><span class="st">"o"</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Daily NYC Crashes (Labor Day Week, 2025)"</span>)</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Date"</span>)</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Crash Count"</span>)</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>plt.xticks(rotation<span class="op">=</span><span class="dv">45</span>)</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01-intro_files/figure-html/cell-5-output-1.png" width="659" height="470" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>This line chart shows how crash frequency changed across Labor Day week 2025. The dataset covers a short time window, so we see day-to-day variation rather than long-term trends. Clear labeling and a simple layout make the pattern easy to interpret without overstating the limited time frame.</p>
+<p>A clear title, readable x-axis, and minimal clutter make the trend easy to interpret.</p>
+<blockquote class="blockquote">
+<p>A short caption might read:<br>
+“Daily crash counts fluctuate slightly over the observed period, reflecting normal day-to-day variation in traffic volume.”</p>
+</blockquote>
+<p>That single sentence turns a small snapshot of data into an understandable story without overstating what the time range can show. Once we understand how visuals convey meaning, the next step is choosing the chart type that best fits our data.</p>
+</section>
+</section>
+<section id="choosing-the-right-chart-type" class="level3" data-number="1.5.5">
+<h3 data-number="1.5.5" class="anchored" data-anchor-id="choosing-the-right-chart-type"><span class="header-section-number">1.5.5</span> Choosing the Right Chart Type</h3>
+<p>Selecting the right chart is just as important as making it look clean. The wrong type can hide a pattern or even mislead the audience, while the right one highlights exactly what matters.</p>
+<p>When deciding how to visualize data, start with the question you want to answer. Every chart should answer one specific question rather than trying to show everything at once. Different chart types serve different purposes:</p>
+<p><strong>Compare Categories:</strong><br>
+- Chart: Bar or column chart<br>
+- Example: Average injuries per crash by borough shows differences clearly without exaggeration.</p>
+<p><strong>Show Change Over Time:</strong><br>
+- Chart: Line chart<br>
+- Example: Daily or hourly crash counts reveal rush-hour spikes or weekend dips.</p>
+<p><strong>Display Proportions:</strong><br>
+- Chart: Pie or stacked bar chart<br>
+- Example: Percent of crashes involving pedestrians vs.&nbsp;motorists shows relative risk.</p>
+<p><strong>Reveal Relationships:</strong><br>
+- Chart: Scatter plot<br>
+- Example: Plotting vehicle speed vs.&nbsp;injury severity could show how risk increases with speed.</p>
+<p><strong>Show Distributions:</strong><br>
+- Chart: Histogram or box plot<br>
+- Example: A histogram of crash times shows when collisions are most common across a day.</p>
+<p>These choices matter because each chart highlights a specific relationship between variables. For instance, the line chart of hourly injuries works better than a bar chart because it emphasizes flow and continuity across time. Conversely, comparing borough averages suits a bar chart since categories are discrete.</p>
+<p>When in doubt, simplicity and intent guide good design. Avoid flashy visuals or 3D effects that distract from the message. Instead, use consistent colors, clear labels, and honest axes to help the audience see what you want them to see.</p>
+</section>
+<section id="reproducibility-and-transparency" class="level3" data-number="1.5.6">
+<h3 data-number="1.5.6" class="anchored" data-anchor-id="reproducibility-and-transparency"><span class="header-section-number">1.5.6</span> Reproducibility and Transparency</h3>
+<p>Reproducibility builds trust in your analysis. Transparent workflows including data sources, software versions, and assumptions, allow others to verify and extend your work. In data science, reproducibility isn’t just about rerunning code; it’s about clear communication of process.</p>
+<p>Good practices for transparency:<br>
+- Combine code and writing in a single Quarto or Jupyter file.<br>
+- Record where and when data was retrieved.<br>
+- Comment on all major data-cleaning steps.<br>
+- Use readable variable names and consistent file structure.</p>
+<section id="example-adding-reproducible-metadata" class="level4" data-number="1.5.6.1">
+<h4 data-number="1.5.6.1" class="anchored" data-anchor-id="example-adding-reproducible-metadata"><span class="header-section-number">1.5.6.1</span> Example: Adding Reproducible Metadata</h4>
+<div id="41b38e08" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Data source: NYC Open Data (accessed October 2025)</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># File: ids-f25/data/nyc_crashes_cleaned.feather</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Environment: Python 3.11 | pandas 2.2 | seaborn 0.13</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(crash_df.info())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
+Index: 1381 entries, 0 to 1380
+Data columns (total 30 columns):
+ #   Column                         Non-Null Count  Dtype         
+---  ------                         --------------  -----         
+ 0   borough                        1367 non-null   object        
+ 1   zip_code                       1365 non-null   object        
+ 2   latitude                       1345 non-null   float32       
+ 3   longitude                      1345 non-null   float32       
+ 4   on_street_name                 953 non-null    object        
+ 5   cross_street_name              839 non-null    object        
+ 6   off_street_name                428 non-null    object        
+ 7   number_of_persons_injured      1381 non-null   int64         
+ 8   number_of_persons_killed       1381 non-null   int64         
+ 9   number_of_pedestrians_injured  1381 non-null   int64         
+ 10  number_of_pedestrians_killed   1381 non-null   int64         
+ 11  number_of_cyclist_injured      1381 non-null   int64         
+ 12  number_of_cyclist_killed       1381 non-null   int64         
+ 13  number_of_motorist_injured     1381 non-null   int64         
+ 14  number_of_motorist_killed      1381 non-null   int64         
+ 15  contributing_factor_vehicle_1  1372 non-null   object        
+ 16  contributing_factor_vehicle_2  1059 non-null   object        
+ 17  contributing_factor_vehicle_3  118 non-null    object        
+ 18  contributing_factor_vehicle_4  33 non-null     object        
+ 19  contributing_factor_vehicle_5  12 non-null     object        
+ 20  collision_id                   1381 non-null   int64         
+ 21  vehicle_type_code_1            1364 non-null   object        
+ 22  vehicle_type_code_2            945 non-null    object        
+ 23  vehicle_type_code_3            112 non-null    object        
+ 24  vehicle_type_code_4            30 non-null     object        
+ 25  vehicle_type_code_5            12 non-null     object        
+ 26  was_fillable                   1381 non-null   bool          
+ 27  zip_code_numeric               1365 non-null   float64       
+ 28  zip_filled                     1381 non-null   bool          
+ 29  crash_datetime                 1381 non-null   datetime64[ns]
+dtypes: bool(2), datetime64[ns](1), float32(2), float64(1), int64(9), object(15)
+memory usage: 304.8+ KB
+None</code></pre>
+</div>
+</div>
+<p>Including the info() output and environment details helps document your data’s structure. Anyone revisiting your project can quickly see how the dataset was formatted and what columns were used. This kind of metadata makes collaboration and replication straightforward.</p>
+</section>
+</section>
+<section id="ethical-and-responsible-communication" class="level3" data-number="1.5.7">
+<h3 data-number="1.5.7" class="anchored" data-anchor-id="ethical-and-responsible-communication"><span class="header-section-number">1.5.7</span> Ethical and Responsible Communication</h3>
+<p>Ethical communication means presenting your data truthfully and clearly. When data visuals or summaries are misleading, even unintentionally, they can distort public understanding. Effective communicators focus on honesty and clarity.</p>
+<p>Common pitfalls:<br>
+- Cropping or compressing axes to exaggerate trends.<br>
+- Omitting missing data or uncertainty.<br>
+- Implying causation when showing correlation.</p>
+<p>Better habits:<br>
+- Start axes at zero when showing counts.<br>
+- Provide notes or error ranges when possible.<br>
+- Write captions that clarify context and limitations.</p>
+<section id="example-1-cropped-axis" class="level4" data-number="1.5.7.1">
+<h4 data-number="1.5.7.1" class="anchored" data-anchor-id="example-1-cropped-axis"><span class="header-section-number">1.5.7.1</span> Example 1: Cropped Axis</h4>
+<div id="8879977a" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example 1: Cropped Axis</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>ymin <span class="op">=</span> borough_counts[<span class="st">"crash_count"</span>].<span class="bu">min</span>()</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>ymax <span class="op">=</span> borough_counts[<span class="st">"crash_count"</span>].<span class="bu">max</span>()</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>second_lowest <span class="op">=</span> <span class="bu">sorted</span>(borough_counts[<span class="st">"crash_count"</span>])[<span class="dv">1</span>]</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">7</span>, <span class="dv">7</span>))</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Misleading chart (top)</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>sns.barplot(</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>borough_counts,</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"borough"</span>,</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">"crash_count"</span>,</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    ax<span class="op">=</span>axes[<span class="dv">0</span>],</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    color<span class="op">=</span><span class="st">"steelblue"</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_ylim(second_lowest <span class="op">*</span> <span class="fl">0.9</span>, ymax <span class="op">*</span> <span class="fl">1.02</span>)</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_title(<span class="st">"Misleading Chart: Axis Cropped Too High"</span>)</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_xlabel(<span class="st">""</span>)</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_ylabel(<span class="st">"Crash Count"</span>)</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].tick_params(axis<span class="op">=</span><span class="st">"x"</span>, rotation<span class="op">=</span><span class="dv">45</span>)</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Honest chart (bottom)</span></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>sns.barplot(</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>borough_counts,</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"borough"</span>,</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">"crash_count"</span>,</span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>    ax<span class="op">=</span>axes[<span class="dv">1</span>],</span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>    color<span class="op">=</span><span class="st">"steelblue"</span></span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_ylim(<span class="dv">0</span>, ymax <span class="op">*</span> <span class="fl">1.02</span>)</span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_title(<span class="st">"Honest Chart: Axis Starts at Zero"</span>)</span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_xlabel(<span class="st">"Borough"</span>)</span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_ylabel(<span class="st">"Crash Count"</span>)</span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].tick_params(axis<span class="op">=</span><span class="st">"x"</span>, rotation<span class="op">=</span><span class="dv">45</span>)</span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a>plt.tight_layout(pad<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01-intro_files/figure-html/cell-7-output-1.png" width="638" height="638" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>When the y-axis is cropped so it starts just below the smaller bars, Brooklyn’s crash count looks dramatically higher than the other boroughs. The honest version, which starts the y-axis at zero, shows that the differences are real but not as extreme. This demonstrates how axis limits can exaggerate scale, even when the underlying data is unchanged.</p>
+</section>
+<section id="example-2-distorted-aspect-ratio" class="level4" data-number="1.5.7.2">
+<h4 data-number="1.5.7.2" class="anchored" data-anchor-id="example-2-distorted-aspect-ratio"><span class="header-section-number">1.5.7.2</span> Example 2: Distorted Aspect Ratio</h4>
+<div id="74297b8e" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example 2: Distorted Aspect Ratio</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="fl">3.5</span>))</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>sns.lineplot(x<span class="op">=</span>[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>], y<span class="op">=</span>[<span class="dv">100</span>, <span class="dv">200</span>, <span class="dv">300</span>, <span class="dv">400</span>, <span class="dv">500</span>],</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>             ax<span class="op">=</span>axes[<span class="dv">0</span>], marker<span class="op">=</span><span class="st">"o"</span>)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_box_aspect(<span class="fl">1.8</span>)  <span class="co"># misleading proportions</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_title(<span class="st">"Misleading: Distorted Aspect Ratio"</span>)</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_xlabel(<span class="st">"Time"</span>)</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_ylabel(<span class="st">"Value"</span>)</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>sns.lineplot(x<span class="op">=</span>[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>], y<span class="op">=</span>[<span class="dv">100</span>, <span class="dv">200</span>, <span class="dv">300</span>, <span class="dv">400</span>, <span class="dv">500</span>],</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>             ax<span class="op">=</span>axes[<span class="dv">1</span>], marker<span class="op">=</span><span class="st">"o"</span>)</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_box_aspect(<span class="dv">1</span>)  <span class="co"># normal proportions</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_title(<span class="st">"Honest: Equal Scaling"</span>)</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_xlabel(<span class="st">"Time"</span>)</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_ylabel(<span class="st">"Value"</span>)</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01-intro_files/figure-html/cell-8-output-1.png" width="711" height="326" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Changing the aspect ratio alters the apparent steepness of trends. The left plot exaggerates change by compressing the x-axis, while the right plot uses consistent scaling to display the real rate of change. Aspect distortion is subtle but powerful, it can make normal variation seem dramatic.</p>
+</section>
+<section id="example-3-misleading-color-emphasis" class="level4" data-number="1.5.7.3">
+<h4 data-number="1.5.7.3" class="anchored" data-anchor-id="example-3-misleading-color-emphasis"><span class="header-section-number">1.5.7.3</span> Example 3: Misleading Color Emphasis</h4>
+<div id="d755870c" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example 3: Misleading Color Emphasis</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Sample data </span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"borough"</span>: [<span class="st">"Brooklyn"</span>, <span class="st">"Queens"</span>, <span class="st">"Manhattan"</span>, <span class="st">"Bronx"</span>],</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"crash_rate"</span>: [<span class="fl">8.1</span>, <span class="fl">7.9</span>, <span class="fl">7.7</span>, <span class="fl">7.5</span>]</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">3</span>))</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Misleading chart: overemphasized colors </span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>sns.barplot(</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>data,</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"borough"</span>,</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">"crash_rate"</span>,</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>    hue<span class="op">=</span><span class="st">"borough"</span>,</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>    palette<span class="op">=</span>[<span class="st">"darkred"</span>, <span class="st">"red"</span>, <span class="st">"salmon"</span>, <span class="st">"pink"</span>],</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>    legend<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>    ax<span class="op">=</span>axes[<span class="dv">0</span>]</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_title(<span class="st">"Misleading: Color Overemphasis"</span>)</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Honest chart: consistent, neutral color</span></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>sns.barplot(</span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>data,</span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"borough"</span>,</span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">"crash_rate"</span>,</span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>    color<span class="op">=</span><span class="st">"steelblue"</span>,</span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>    ax<span class="op">=</span>axes[<span class="dv">1</span>]</span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_title(<span class="st">"Honest: Neutral Colors"</span>)</span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01-intro_files/figure-html/cell-9-output-1.png" width="758" height="278" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Color choices can easily mislead. The chart on the left uses intense red tones to suggest large differences between boroughs, even though the variation is small. The right chart uses a neutral palette to draw attention to data values instead of emotional cues.</p>
+<p>Ethical visualization respects the audience’s ability to interpret data fairly. This connects to the broader issue of abusing a plot which involves using design choices to distort perception. Such misuse can involve altering aspect ratios, exaggerating colors, omitting context, or adjusting baselines to amplify change. True integrity in visualization means clarity over drama. We should show data as it is, not as we wish it looked.</p>
+</section>
+</section>
+<section id="connecting-insights-to-action" class="level3" data-number="1.5.8">
+<h3 data-number="1.5.8" class="anchored" data-anchor-id="connecting-insights-to-action"><span class="header-section-number">1.5.8</span> Connecting Insights to Action</h3>
+<p>Great communication doesn’t stop at describing what happened, it explains what should happen next. Visuals paired with short, concrete takeaways make insights actionable.</p>
+<section id="example-turning-findings-into-decisions" class="level4" data-number="1.5.8.1">
+<h4 data-number="1.5.8.1" class="anchored" data-anchor-id="example-turning-findings-into-decisions"><span class="header-section-number">1.5.8.1</span> Example: Turning Findings into Decisions</h4>
+<div id="b4df6b71" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter crashes with any injuries (pedestrians, cyclists, or motorists)</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>injury_df <span class="op">=</span> crash_df[</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    (crash_df[<span class="st">"number_of_pedestrians_injured"</span>] <span class="op">&gt;</span> <span class="dv">0</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">|</span> (crash_df[<span class="st">"number_of_cyclist_injured"</span>] <span class="op">&gt;</span> <span class="dv">0</span>)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">|</span> (crash_df[<span class="st">"number_of_motorist_injured"</span>] <span class="op">&gt;</span> <span class="dv">0</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>].copy()</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract hour of day</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>injury_df[<span class="st">"hour"</span>] <span class="op">=</span> injury_df[<span class="st">"crash_datetime"</span>].dt.hour</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a combined total injury column</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>injury_df[<span class="st">"total_injuries"</span>] <span class="op">=</span> (</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>    injury_df[<span class="st">"number_of_pedestrians_injured"</span>]</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> injury_df[<span class="st">"number_of_cyclist_injured"</span>]</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> injury_df[<span class="st">"number_of_motorist_injured"</span>]</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Group by borough and hour</span></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>injuries_by_hour <span class="op">=</span> (</span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>    injury_df.groupby([<span class="st">"borough"</span>, <span class="st">"hour"</span>])[<span class="st">"total_injuries"</span>]</span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>    .<span class="bu">sum</span>()</span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>    .reset_index()</span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot total injuries by hour for each borough</span></span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>sns.lineplot(</span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>injuries_by_hour,</span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"hour"</span>,</span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">"total_injuries"</span>,</span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a>    hue<span class="op">=</span><span class="st">"borough"</span>,</span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a>    marker<span class="op">=</span><span class="st">"o"</span></span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Hourly Injuries (Pedestrians, Cyclists, and Motorists) by Borough"</span>)</span>
+<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Hour of Day"</span>)</span>
+<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Total Injuries"</span>)</span>
+<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a>plt.xticks(<span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">24</span>, <span class="dv">2</span>))</span>
+<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01-intro_files/figure-html/cell-10-output-1.png" width="662" height="470" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>This plot shows how total traffic-related injuries (pedestrians, cyclists, and motorists combined) change by hour in each borough. Injuries stay relatively low overnight, then rise during the afternoon and peak in the late day and early evening; most noticeably in Brooklyn and Queens, with a smaller but similar bump in the Bronx and Manhattan. Staten Island stays consistently lower overall. These rush-hour spikes line up with high activity on the roads where there are more cars, more people moving, and more chances for conflict. That suggests a clear intervention window.</p>
+<blockquote class="blockquote">
+<p>“Injuries across Brooklyn and Queens jump in the late afternoon and evening, which lines up with commuting traffic. Targeted enforcement, traffic calming, and signal timing changes during these peak hours could help reduce harm.”</p>
+</blockquote>
+<p>Here, the analysis leads directly to a recommendation. That bridge from insight to action turns analysis into impact. Communicating findings this way helps decision-makers use data effectively.</p>
+</section>
+</section>
+<section id="recommendations-for-effective-communication-and-presentation" class="level3" data-number="1.5.9">
+<h3 data-number="1.5.9" class="anchored" data-anchor-id="recommendations-for-effective-communication-and-presentation"><span class="header-section-number">1.5.9</span> Recommendations for Effective Communication and Presentation</h3>
+<p>Good data communication does not end with a well-designed chart. It extends to how findings are framed, timed, and delivered. Clear, focused communication helps turn technical results into insights that people can actually use.</p>
+<section id="general-recommendations" class="level4" data-number="1.5.9.1">
+<h4 data-number="1.5.9.1" class="anchored" data-anchor-id="general-recommendations"><span class="header-section-number">1.5.9.1</span> General Recommendations</h4>
+<ul>
+<li>Lead with purpose by explaining why the data matters before discussing details.<br>
+</li>
+<li>Show the story, not the spreadsheet, visuals should clarify, not overwhelm.<br>
+</li>
+<li>Keep design elements consistent so colors, scales, and fonts feel cohesive.<br>
+</li>
+<li>Anticipate how non-technical audiences might interpret results and add context when needed.<br>
+</li>
+<li>Connect each chart or finding to its real-world relevance or next steps.</li>
+</ul>
+</section>
+<section id="being-time-aware" class="level4" data-number="1.5.9.2">
+<h4 data-number="1.5.9.2" class="anchored" data-anchor-id="being-time-aware"><span class="header-section-number">1.5.9.2</span> Being Time-Aware</h4>
+<ul>
+<li>Know your total time and plan the pacing of your talk accordingly.<br>
+</li>
+<li>Prioritize the most important findings, it’s better to explain a few points clearly than to rush through many.<br>
+</li>
+<li>Practice transitions between sections so the flow feels natural and on schedule.<br>
+</li>
+<li>Keep visuals simple so they can be understood quickly without overexplaining.<br>
+</li>
+<li>Leave a few minutes for questions or discussion at the end if possible.<br>
+</li>
+<li>If you run short on time, skip details that don’t change the main takeaway.</li>
+</ul>
+</section>
+<section id="giving-a-strong-presentation" class="level4" data-number="1.5.9.3">
+<h4 data-number="1.5.9.3" class="anchored" data-anchor-id="giving-a-strong-presentation"><span class="header-section-number">1.5.9.3</span> Giving a Strong Presentation</h4>
+<ul>
+<li>Start with a clear message so your audience knows what to expect.<br>
+</li>
+<li>Guide the audience through each visual: what to notice and why it matters.<br>
+</li>
+<li>Keep slides uncluttered, focusing on one key idea at a time.<br>
+</li>
+<li>Speak at a steady pace, pausing briefly after key visuals to let points sink in.<br>
+</li>
+<li>Avoid jargon and tailor explanations to your audience’s background.<br>
+</li>
+<li>End with a short summary that reinforces the main insight and next step.</li>
+</ul>
+<p>Delivering data effectively means combining clarity, timing, and empathy for your audience. When visuals, pacing, and delivery align, data becomes insight rather than just information.</p>
+</section>
+</section>
+<section id="conclusion-1" class="level3" data-number="1.5.10">
+<h3 data-number="1.5.10" class="anchored" data-anchor-id="conclusion-1"><span class="header-section-number">1.5.10</span> Conclusion</h3>
+<p>Effective data science communication blends clarity, accuracy, reproducibility, and ethics. When practiced together, these elements transform complex analyses into stories people can understand and act on.</p>
+<p>The NYC crash dataset shows how simple design, transparent documentation, and ethical framing make results meaningful far beyond the numbers.</p>
+</section>
+<section id="further-reading" class="level3" data-number="1.5.11">
+<h3 data-number="1.5.11" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">1.5.11</span> Further Reading</h3>
+<p>eazyBI Blog. (2025). Data Visualization: How to Pick the Right Chart Type.<br>
+<a href="https://eazybi.com/blog/data-visualization-how-to-pick-the-right-chart-type" class="uri">https://eazybi.com/blog/data-visualization-how-to-pick-the-right-chart-type</a></p>
+<p>Franconeri, S. L., Padilla, L. M. K., Shah, P., Zacks, J. M., &amp; Hullman, J. (2021).<br>
+<em>The science of visual data communication: What works.</em> <em>Psychological Science in<br>
+the Public Interest, 22</em>(3), 110-161.<br>
+<a href="https://faculty.sites.iastate.edu/tesfatsi/archive/tesfatsi/ScienceOfVisualDataCommunication.FranconeriEtAl2021.pdf" class="uri">https://faculty.sites.iastate.edu/tesfatsi/archive/tesfatsi/ScienceOfVisualDataCommunication.FranconeriEtAl2021.pdf</a></p>
+<p>Ofori, E., et al.&nbsp;(2025). <em>Visual communication of public health data:<br>
+A scoping review.</em> <em>Public Health Reviews.</em><br>
+<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12060258/" class="uri">https://pmc.ncbi.nlm.nih.gov/articles/PMC12060258/</a></p>
+<p>Pragmatic Editorial Team. (2025). <em>Communication Skills for Data Science.</em><br>
+<a href="https://www.pragmaticinstitute.com/resources/articles/data/communication-skills-for-data-science/" class="uri">https://www.pragmaticinstitute.com/resources/articles/data/communication-skills-for-data-science/</a></p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list" style="display: none">
