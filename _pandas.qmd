@@ -64,7 +64,7 @@ injured = df[df["number_of_persons_injured"] > 0]
 print(injured.head(5))
 ```
 
-#### Using Boolean and .loc
+### Using Boolean and .loc
 - '.loc' is used to **access groups of rows and columns** by 
 *labels* or *Boolean conditions*.
 ```{python}
@@ -72,16 +72,15 @@ print(injured.head(5))
 df.loc[0:5, ["borough", "number_of_persons_injured"]]
 ```
 
-### Data Structures
-
-#### DataFrame
+### DataFrame, Series, and Selecting Columns
+**DataFrame**
 
 - 2D labeled data structure
 - Like a table in Excel
 - Each column is a **Series**
 - df.head() is how you view the first few rows
 
-#### Series
+**Series**
 
 - One-dimensional labeled array
 - Can hold any data type: integers, floats, strings, etc.
@@ -95,9 +94,7 @@ df["borough"].nunique() # Number of unique values
 df["borough"].value_counts().head() # Frequency of top categories
 ```
 
-
-
-#### Selecting Columns
+**Selecting Columns**
 
 - Selecting one column returns a **Series**,
 selecting multiple returns a **DataFrame**
