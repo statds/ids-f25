@@ -1,53 +1,35 @@
----
-title: "Spatial Statistical Methods"
-author: "Quinn Saltus"
-format: revealjs
-bibliography: references.bib
----
+## Spatial Statistical Methods
 
-<!-- TODO
-Before PR'ing, follow guidelines in classnotes (newlines for non-wrapping editors, remove yaml header, fix heading depth, etc)
-rendering for presentation -> rendering for class notes
--->
+This section was written by Quinn Saltus, an undergraduate student pursuing a dual degree in Applied Data Analysis and Geograpic Information Systems. They were motivated to write about this topic because they wanted to bridge the geographic and statistical approaches to problem solving.
 
 ### Introduction
 
-Spatially dependent data can cause problems for standard statistical methods. 
+Spatially dependent data can cause problems for standard statistical methods. Independence of errors is an assumption for most commonly-used tools, but if location affects your data, that assumption is untenable. Spatial Statistics can quantify the spatial dependence among data and improve predictive models' accuracy / statistical rigor.
 
-If location matters, then close data points will be more similar than far data points, so you can't assume independence.
+### Dataset
 
-Spatial Statistics can:
-
-+ Quantify the spatial dependence among data
-+ Improve predictive models' accuracy and statistical rigor
-
-## Dataset {.smaller}
-
-The dataset I'll use for demonstration is the [Turnout by County for the 1980 Election](https://www.openml.org/search?type=data&status=active&id=507) from @Pace1997.
+The dataset used in this demonstration is the [Turnout by County for the 1980 Election](https://www.openml.org/search?type=data&status=active&id=507) from @Pace1997.
 
 ```{python}
 from plotnine import *
 import pandas as pd
-import geopandas as gp
 import numpy as np
 from sklearn.datasets import fetch_openml
 
-data = fetch_openml(name='space_ga', version=1)
+dataset = fetch_openml(name='space_ga', version=1)
 
-df = data.data
+df = dataset.data
 df.columns = df.columns.str.lower()
 
-df["pct_voter"] = np.exp(data.target) * 100
+# convert log-proportion to percentage for ease of understanding
+df["pct_voter"] = np.exp(dataset.target) * 100
 
-# convert to degrees
+# convert coordinates to degrees
 df["xcoord"] = df["xcoord"] / 10**6
 df["ycoord"] = df["ycoord"] / 10**6
-
-df = gp.GeoDataFrame(
-    data=df,
-    geometry=gp.points_from_xy(df["xcoord"], df["ycoord"]),
-    crs="EPSG:4269"
-)
+```
+```{python}
+#| code-fold: true
 
 (ggplot(df, aes(x="xcoord", y="ycoord", color="pct_voter"))
     + geom_point(size=0.6)
