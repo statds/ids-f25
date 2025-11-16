@@ -47,19 +47,19 @@ df["ycoord"] = df["ycoord"] / 10**6
 )
 ```
 
-## Libraries
+### Libraries
 
-The libraries I use are The Python Spatial Analysis Library and PyKrige. We haven't used these in class before, so you'll probably need to install them with Pip.
+The libraries used are The Python Spatial Analysis Library and PyKrige. These libraries haven't been used before in this course, so you may need to install them yourself.
 
 ``` {.shell}
 pip install pykrige
 pip install pysal
 ```
 
-I'll also use `Scipy`'s `KDTree` class, which can efficiently find nearby points. This is important for speed with large datasets.
+I'll also use `Scipy`'s `KDTree` class, which greatly reduces the amount of computation required to compare data points' distances. This is important for speed with large datasets.
 
 ```{python}
-#| echo: true
+#| output: false
 
 import libpysal
 from scipy.spatial import KDTree
@@ -67,7 +67,7 @@ from pysal.explore import esda
 import pykrige as pk
 ```
 
-## Spatial Weights {.smaller}
+### Spatial Weights
 
 Standard regression has error terms that are completely random:
 
@@ -81,11 +81,9 @@ $$
 Y = \beta X + u, u = \lambda W u + \epsilon 
 $$
 
-With PySAL, we need to precompute the weights matrix $W$ to give to analysis functions. I'll use inverse square distance, but other methods like K-Nearest-Neighbors (`libpysal.weights.KNN`) and [Gabriel Graphs](https://en.wikipedia.org/wiki/Gabriel_graph) (`libpysal.weights.Gabriel`) are available.
+With PySAL, we need to precompute the weights matrix $W$ to give to analysis functions. Inverse square distance is the most popular and will be used here. Other methods like K-Nearest-Neighbors (`libpysal.weights.KNN`) and [Gabriel Graphs](https://en.wikipedia.org/wiki/Gabriel_graph) (`libpysal.weights.Gabriel`) are available.
 
 ```{python}
-#| echo: true
-
 dist_kdtree = KDTree(df[["xcoord", "ycoord"]])
 weights = libpysal.weights.DistanceBand(
     dist_kdtree,
