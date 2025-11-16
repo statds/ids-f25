@@ -110,7 +110,7 @@ print(f"Moran's I p-value = {moran.p_rand:.4f}")
 
 Moran's I is significant and positive, indicating that this dataset has positive spatial autocorrelation. The Moran Scatterplot compares the (standardized) target variable to the weighted mean of nearby values (spatial lag). It confirms the I-value's assessment of positive autocorrelation.
 
-## Kriging
+### Kriging
 
 Kriging is a nonparametric method of interpolation. Using the `OrdinaryKriging` class from PyKrige, we can estimate the mean of a parameter over the spatial plane.
 
@@ -206,9 +206,9 @@ With the model trained, we can check that it performs as expected on the test se
 
 Variance seems to be higher in the west, where counties are farther apart, but the overall trend seems to be fit well. The errors seem approximately normal and the geographic patterns seen in the full dataset seem to be captured accurately by the method.
 
-## Modeling {.smaller}
+### SEM Regression With Kriging
 
-A basic multiple linear regression model will serve as the baseline for non-spatial performance.
+To compare performance with and without spatial components, we will use a basic linear regression model.
 
 ```{python}
 #| echo: true
@@ -226,10 +226,11 @@ X_train, X_test, Y_train, Y_test = train_test_split(
 model_basic = LinearRegression().fit(X_train, Y_train)
 ```
 
-:::: {.columns}
-::: {.column}
-
 ```{python}
+#| code-fold: true
+
+print(f"Test R-squared: {model_basic.score(X_test, Y_test):.4f}")
+
 (ggplot(
         pd.DataFrame({
             "Predicted Value" : model_basic.predict(X_test),
@@ -244,23 +245,11 @@ model_basic = LinearRegression().fit(X_train, Y_train)
 )
 ```
 
-:::
-::: {.column}
+The data seem generally well fit, but there is a lot of unexplained variability. We can use Kriging on the residuals of the basic model to augment its performance.
 
 ```{python}
-print(f"Test R-squared: {model_basic.score(X_test, Y_test):.4f}")
-```
+#| code-fold: true
 
-:::
-::::
-
-## SEM Regression With Kriging {.smaller}
-
-<!-- TODO
-drop fig 2, duplicate old regression scatter plot   
--->
-
-```{python}
 df_train = df_train.reset_index()
 df_test = df_test.reset_index()
 
@@ -274,20 +263,18 @@ y_test = df_test["pct_voter"].to_numpy()
 ```
 
 ```{python}
-#| echo: true
-
 from pykrige.rk import RegressionKriging
 
+# any sklearn machine learning model can be used as the regression_model
 model_rk = RegressionKriging(regression_model=LinearRegression())
 
 # Note that predictors, points, and targets must be np arrays, not DataFrame
 model_rk.fit(p_train, x_train, y_train)
 ```
 
-:::: {.columns}
-::: {.column}
-
 ```{python}
+#| code-fold: true
+
 print(
     "R-squared (Regression + Kriging):",
     f"{model_rk.score(p_test, x_test, y_test):.4f}"
@@ -307,31 +294,7 @@ print(
 )
 ```
 
-:::
-::: {.column}
-
-```{python}
-print(
-    "R-squared (Regression):",
-    f"{model_rk.regression_model.score(p_test, y_test):.4f}"
-)
-(ggplot(
-        pd.DataFrame({
-            "Predicted Value" : model_basic.predict(X_test),
-            "True Value" : Y_test,
-            }), 
-        aes(x="Predicted Value", y="True Value")
-    )
-    + geom_point(color="#00000088")
-    + geom_abline(slope=1, intercept=0, color="red", linetype="dashed")
-    + labs(title="Regression Only")
-    + theme_light()
-    + theme(figure_size=(4, 3))
-)
-```
-
-:::
-::::
+Spatially modeling the errors of the basic model allowed us to improve test-set performance by over 40%.
 
 ## Conclusions
 
