@@ -774,3 +774,6 @@ disp = ConfusionMatrixDisplay(confusion_matrix=cm,
 display_labels=["Not Expensive", "Expensive"])
 disp.plot(cmap="Blues")
 ```
+
+<!-- Spatial Statistical Methods -->
+{{< include _spatial_stats.qmd >}}
