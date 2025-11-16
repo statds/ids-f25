@@ -1,0 +1,7 @@
+# Unsupervised Learning
+
+<!-- Principal component analysis -->
+{{< include _pca.qmd >}}
+
+<!-- Stochastic neighbor embedding -->
+{{< include _sne.qmd >}}

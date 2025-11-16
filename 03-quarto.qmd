@@ -203,8 +203,8 @@ patterns discovered during exploration are mistaken for reliable truths.
 Applying PCS ensures that results are not only technically sound but
 also trustworthy and interpretable across the life cycle.
 
-<!-- <\!-- This section is to be included as a Primer of Markdown. -\-> -->
+<!-- This section is to be included as a Primer of Markdown. -->
 {{< include _markdown.qmd >}}
 
-<!-- <\!-- This section is to be included as a tutorial for Quarto Presentations. -\-> -->
-<!-- {{< include _quarto_presentation.qmd >}} -->
+<!-- This section is to be included as a tutorial for Quarto Presentations. -->
+{{< include _quarto_presentation.qmd >}}

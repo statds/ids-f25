@@ -1,0 +1,12 @@
+# Advanced Topics
+
+
+<!-- ## Web Scraping -->
+{{< include _webscraping.qmd >}}
+
+
+<!-- ## Animation -->
+<!-- {{< include _animation.qmd >}} -->
+
+<!-- ## Calling R from Python -->
+{{< include _callr.qmd >}}

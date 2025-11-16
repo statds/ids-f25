@@ -1,0 +1,581 @@
+## Neural Networks
+
+
+Neural networks learn flexible, nonlinear relationships by composing
+simple computational units. Each unit (or *neuron*) applies an affine
+transformation to its inputs followed by a nonlinearity; stacking
+layers of such units yields a **feed-forward** mapping from features to
+predictions. A helpful anchor is logistic regression: it can be viewed
+as a one-layer neural network with a sigmoid activation. Hidden layers
+generalize this idea by transforming inputs into progressively more
+useful internal representations, enabling the model to capture complex
+patterns beyond linear decision boundaries.
+
+
+Historically, the field traces back to the early formal model of a
+neuron by @mcculloch1943logical, followed by
+Rosenblatt’s perceptron [@rosenblatt1958perceptron], which was the
+first trainable linear classifier. The limitations of single-layer
+perceptrons, notably their inability to model nonlinearly separable
+functions, were rigorously analyzed by
+@minsky1969perceptrons, leading to a temporary decline in interest.
+The introduction of the backpropagation algorithm by
+@rumelhart1986learning revived the study of neural
+networks in the 1980s. With the growth of data, advances in hardware,
+and improved optimization methods, neural networks became the
+foundation for modern deep learning. 
+Multilayer networks are universal function approximators in
+principle; in practice, their success depends on careful architectural
+design, efficient optimization, and appropriate regularization.
+
+
+::: callout-tip
+#### Dimensions and Shapes
+For an input vector $x \in \mathbb{R}^d$, a hidden layer with $m$
+neurons computes $h = \sigma(Wx + b)$ through an activation function $\sigma$
+$W \in \mathbb{R}^{m\times d}$ and $b \in \mathbb{R}^m$. The output
+layer applies another affine map (and possibly a final activation) to
+$h$. Keeping track of these shapes prevents many implementation bugs.
+:::
+
+
+The figure below shows an input layer, one hidden layer, and an output
+layer with directed connections. (We will formalize the mathematics in
+the next subsection.)
+
+```{python}
+#| echo: false
+#| label: fig-basic-network
+#| fig-cap: "A minimal feed-forward neural network with an input layer \
+#|           (3 nodes), one hidden layer (4 nodes), and an output layer \
+#|           (1 node). Edges indicate the direction of information flow."
+#| fig-width: 7
+#| fig-height: 5
+
+import matplotlib.pyplot as plt
+
+def draw_network(layer_sizes, node_radius=0.18, horiz_gap=2.5, vert_gap=0.9):
+    """
+    Draw a simple feed-forward network given a list of layer sizes.
+    Example: layer_sizes=[3, 4, 1]
+    """
+    n_layers = len(layer_sizes)
+
+    # Compute layer x-positions
+    xs = [i * horiz_gap for i in range(n_layers)]
+
+    # Compute y-positions per layer so nodes are vertically centered
+    ys_per_layer = []
+    for L in layer_sizes:
+        height = (L - 1) * vert_gap
+        ys = [(-height / 2.0) + j * vert_gap for j in range(L)]
+        ys_per_layer.append(ys)
+
+    fig, ax = plt.subplots()
+    ax.set_aspect("equal")
+    ax.axis("off")
+
+    # Draw edges layer by layer
+    for li in range(n_layers - 1):
+        for j, y_left in enumerate(ys_per_layer[li]):
+            for k, y_right in enumerate(ys_per_layer[li + 1]):
+                ax.annotate(
+                    "",
+                    xy=(xs[li + 1] - node_radius, y_right),
+                    xytext=(xs[li] + node_radius, y_left),
+                    arrowprops=dict(arrowstyle="-", lw=0.8, alpha=0.7),
+                )
+
+    # Draw nodes
+    for li, (x, ys) in enumerate(zip(xs, ys_per_layer)):
+        for idx, y in enumerate(ys):
+            circle = plt.Circle((x, y), node_radius, fill=False, lw=1.5)
+            ax.add_patch(circle)
+            # optional labels: I1, I2,... / H1,... / O1,...
+            if li == 0:
+                label = f"I{idx+1}"
+            elif li == n_layers - 1:
+                label = f"O{idx+1}"
+            else:
+                label = f"H{idx+1}"
+            ax.text(x, y, label, ha="center", va="center", fontsize=9)
+
+    # Layer titles
+    titles = ["Input"] + [f"Hidden {i}" for i in range(1, n_layers - 1)] + ["Output"]
+    for li, x in enumerate(xs):
+        ax.text(x, max(ys_per_layer[li]) + 1.1 * node_radius + 0.3,
+                titles[li], ha="center", va="bottom", fontsize=10)
+
+    # Frame the drawing nicely
+    x_min, x_max = xs[0] - 1.2, xs[-1] + 1.2
+    y_all = sum(ys_per_layer, [])
+    y_min, y_max = min(y_all) - 1.0, max(y_all) + 1.2
+    ax.set_xlim(x_min, x_max)
+    ax.set_ylim(y_min, y_max)
+
+    return fig, ax
+
+_ = draw_network([3, 4, 1])
+plt.show()
+```
+
+### Structure of a Neural Network
+
+A neural network is composed of **layers** of interconnected processing
+units called *neurons* or *nodes*. Each neuron receives inputs, applies
+a linear transformation, and passes the result through a nonlinear
+**activation function**. The layers are arranged sequentially so that
+information flows from input features to intermediate representations
+and finally to the output.
+
+### Mathematical Formulation
+
+Let the input vector be $x \in \mathbb{R}^{d}$. A hidden layer with
+$m$ neurons computes
+
+$$
+h = \sigma(Wx + b),
+$$
+
+where $W \in \mathbb{R}^{m \times d}$ is the weight matrix,
+$b \in \mathbb{R}^{m}$ is the bias vector, and
+$\sigma(\cdot)$ is an activation function applied element-wise.  
+Subsequent layers take $h$ as input and repeat the same computation,
+producing successively transformed representations.  
+If the output layer contains $k$ neurons with linear activations,
+the network computes
+
+$$
+\hat{y} = Vh + c,
+$$
+
+where $V \in \mathbb{R}^{k \times m}$ and $c \in \mathbb{R}^{k}$ are
+the output weights and biases.  
+Collectively, these parameters define the model’s trainable structure.
+
+::: callout-tip
+#### Feed-Forward Flow
+During a forward pass, inputs propagate layer by layer:
+$x \rightarrow h^{(1)} \rightarrow h^{(2)} \rightarrow \cdots
+\rightarrow \hat{y}$.  
+Backward propagation of gradients (discussed later) updates all weights
+based on prediction error.
+:::
+
+### Network Diagram
+
+@fig-deep-network illustrates a feed-forward neural network with
+two hidden layers. Arrows indicate the direction of information flow
+from one layer to the next. Each connection carries a learnable weight,
+and nonlinear activations transform the signals as they propagate
+forward.
+
+
+```{python}
+#| echo: false
+#| label: fig-deep-network
+#| fig-cap: "A feed-forward neural network with two hidden layers. \
+#| Directed arrows represent weighted connections; one example weight \
+#| $w^{(1)}_{23}$ is annotated to indicate its origin and destination neurons."
+#| fig-align: center
+#| fig-format: svg
+#| fig-width: 8
+#| fig-height: 4
+
+import matplotlib.pyplot as plt
+
+def draw_network(layer_sizes, node_radius=0.35, horiz_gap=2.3, vert_gap=1.0):
+    """Draw a feed-forward neural network with arrows and subscripts."""
+    n_layers = len(layer_sizes)
+    xs = [i * horiz_gap for i in range(n_layers)]
+
+    ys_layers = []
+    for n in layer_sizes:
+        height = (n - 1) * vert_gap
+        ys_layers.append([(-height / 2) + j * vert_gap for j in range(n)])
+
+    fig, ax = plt.subplots(figsize=(8, 4))
+    ax.set_aspect("equal")
+    ax.axis("off")
+
+    # --- Draw directed edges ---
+    for i in range(n_layers - 1):
+        for j, y1 in enumerate(ys_layers[i]):
+            for k, y2 in enumerate(ys_layers[i + 1]):
+                ax.annotate(
+                    "",
+                    xy=(xs[i + 1] - node_radius, y2),
+                    xytext=(xs[i] + node_radius, y1),
+                    arrowprops=dict(arrowstyle="->", lw=0.8, alpha=0.6)
+                )
+
+    # --- Draw nodes with proper labels ---
+    for i, (x, ys) in enumerate(zip(xs, ys_layers)):
+        for j, y in enumerate(ys):
+            circle = plt.Circle((x, y), node_radius, fill=False, lw=1.5)
+            ax.add_patch(circle)
+            if i == 0:
+                label = f"$I_{{{j+1}}}$"
+            elif i == n_layers - 1:
+                label = f"$O_{{{j+1}}}$"
+            else:
+                label = f"$H_{{{i}{j+1}}}$"
+            ax.text(x, y, label, ha="center", va="center", fontsize=11)
+
+    # --- Annotate one example weight with layer information ---
+    ax.text((xs[0] + xs[1]) / 2 - 0.05,
+            (ys_layers[0][1] + ys_layers[1][2]) / 2 + 0.12,
+            "$w^{(1)}_{23}$", fontsize=11, color="black", alpha=0.85)
+
+    # --- Layer titles ---
+    titles = ["Input"] + [f"Hidden {i}" for i in range(1, n_layers - 1)] + ["Output"]
+    for i, x in enumerate(xs):
+        ax.text(x, max(ys_layers[i]) + 1.1, titles[i],
+                ha="center", va="bottom", fontsize=11)
+
+    # --- Frame and layout ---
+    ax.set_xlim(xs[0] - 1.0, xs[-1] + 1.0)
+    all_y = [y for ys in ys_layers for y in ys]
+    ax.set_ylim(min(all_y) - 1.0, max(all_y) + 1.0)
+
+    plt.show()
+
+_ = draw_network([3, 5, 4, 2])
+```
+
+
+::: callout-note
+Each connection (edge) has an associated weight adjusted during
+training. The depth of a network refers to the number of hidden
+layers, and the width refers to the number of neurons per layer.
+:::
+
+
+### Activation Functions
+
+Activation functions introduce **nonlinearity** into neural networks.
+Without them, the entire network would collapse into a single linear
+transformation, regardless of the number of layers. Nonlinear
+activations allow networks to approximate arbitrary complex functions,
+enabling them to model curved decision boundaries and hierarchical
+representations.
+
+
+Let $z$ denote the input to a neuron before activation. The most common
+choices are:
+
+| Function | Formula | Range | Key Property |
+|-----------|----------|--------|---------------|
+| **Sigmoid** | $\displaystyle \sigma(z) = \frac{1}{1 + e^{-z}}$ | $(0,1)$ | Smooth, bounded; used in early networks and binary outputs |
+| **Tanh** | $\displaystyle \tanh(z) = \frac{e^z - e^{-z}}{e^z + e^{-z}}$ | $(-1,1)$ | Zero-centered; stronger gradients than sigmoid |
+| **ReLU** | $\displaystyle \mathrm{ReLU}(z) = \max(0, z)$ | $[0, \infty)$ | Sparse activations; efficient to compute |
+| **Leaky ReLU** | $\displaystyle \mathrm{LReLU}(z) = \max(0.01z, z)$ | $(-\infty, \infty)$ | Avoids “dead” neurons of ReLU |
+
+
+@fig-activation-curves shows the shape of these activation
+functions. Notice how ReLU sharply truncates negative values while
+sigmoid and tanh saturate for large magnitudes.
+
+```{python}
+#| echo: false
+#| label: fig-activation-curves
+#| fig-cap: "Activation functions commonly used in neural networks. \
+#| ReLU and its variants introduce sparsity, while sigmoid and tanh \
+#| are smooth and saturating."
+#| fig-align: center
+#| fig-format: svg
+#| fig-width: 7
+#| fig-height: 4
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+z = np.linspace(-5, 5, 400)
+
+sigmoid = 1 / (1 + np.exp(-z))
+tanh = np.tanh(z)
+relu = np.maximum(0, z)
+leaky_relu = np.where(z > 0, z, 0.01 * z)
+
+fig, ax = plt.subplots(figsize=(7, 4))
+ax.plot(z, sigmoid, label="Sigmoid", lw=2)
+ax.plot(z, tanh, label="Tanh", lw=2)
+ax.plot(z, relu, label="ReLU", lw=2)
+ax.plot(z, leaky_relu, label="Leaky ReLU", lw=2)
+ax.set_xlabel("$z$")
+ax.set_ylabel("Activation")
+ax.legend()
+ax.grid(True, alpha=0.3)
+ax.set_title("Activation Function Curves")
+plt.show()
+```
+
+
+### Training Neural Networks
+
+Training a neural network means adjusting its parameters so that its
+predictions $\hat{y}$ align closely with the true outputs $y$. This is
+done by minimizing a **loss function** that quantifies prediction error.
+Optimization proceeds iteratively through **forward** and **backward**
+passes.
+
+#### Loss Functions
+
+The choice of loss depends on the task:
+
+| Task | Typical Loss Function | Expression |
+|------|-----------------------|-------------|
+| Regression | Mean squared error (MSE) | $\displaystyle L = \frac{1}{n}\sum_{i=1}^{n} (y_i - \hat{y}_i)^2$ |
+| Binary classification | Binary cross-entropy | $\displaystyle L = -\frac{1}{n}\sum_{i=1}^{n} \left[y_i \log \hat{y}_i + (1-y_i)\log(1-\hat{y}_i)\right]$ |
+| Multiclass classification | Categorical cross-entropy | $\displaystyle L = -\frac{1}{n}\sum_{i=1}^{n} \sum_{k=1}^{K} y_{ik}\log \hat{y}_{ik}$ |
+
+The loss function $L(\theta)$ depends on all network parameters
+$\theta = \{W, b, V, c, \ldots\}$ and guides the optimization.
+
+#### Gradient Descent
+
+Neural networks are trained by **gradient descent**, which updates
+parameters in the opposite direction of the gradient of the loss:
+
+$$
+\theta^{(t+1)} = \theta^{(t)} - \eta \nabla_\theta L(\theta^{(t)}),
+$$
+
+where $\eta > 0$ is the **learning rate** controlling the step
+size. Choosing $\eta$ too  small leads to slow convergence; too large
+can cause divergence. 
+
+
+Variants such as *stochastic* and *mini-batch* gradient descent compute
+gradients on subsets of data to speed learning and improve generalization.
+
+
+@fig-loss-landscape gives a two-dimensional analogy of gradient
+descent. In practice, a neural network may contain millions of
+parameters, meaning the loss function is defined over an extremely
+high-dimensional space. The contours shown here merely represent a
+projection of that space onto two dimensions for illustration.  
+The true optimization surface is much more complex---full of flat regions,
+sharp valleys, and numerous local minima---but the intuition of moving
+“downhill” along the loss gradient remains valid.
+
+```{python}
+#| echo: false
+#| label: fig-loss-landscape
+#| fig-cap: "Conceptual illustration of gradient descent. The optimizer \
+#| iteratively moves parameters down the loss surface toward a local minimum."
+#| fig-align: center
+#| fig-format: svg
+#| fig-width: 6
+#| fig-height: 4
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+x = np.linspace(-3, 3, 200)
+y = np.linspace(-3, 3, 200)
+X, Y = np.meshgrid(x, y)
+Z = X**2 + 0.5 * Y**2 + np.sin(3*X)*0.3
+
+fig, ax = plt.subplots(figsize=(6, 4))
+cs = ax.contourf(X, Y, Z, levels=30, cmap="viridis", alpha=0.85)
+ax.set_xlabel("Parameter 1")
+ax.set_ylabel("Parameter 2")
+
+# simple trajectory
+theta_path = np.array([[-2.5, 2.5], [-2, 1.5], [-1, 0.8],
+                       [-0.5, 0.4], [-0.2, 0.2], [0, 0]])
+ax.plot(theta_path[:, 0], theta_path[:, 1], "w.-", lw=2, ms=8)
+ax.text(-2.5, 2.6, "Start", color="white")
+ax.text(0.1, 0.1, "Minimum", color="white")
+plt.show()
+```
+
+### Regularization and Overfitting
+
+Because neural networks contain large numbers of parameters, they can
+easily **overfit** training data—capturing noise or random fluctuations
+rather than generalizable patterns. A model that overfits performs well
+on the training set but poorly on new data. Regularization techniques
+introduce constraints or randomness that help the network generalize.
+
+#### The Bias–Variance Trade-Off
+
+Adding model complexity (more layers or neurons) reduces bias but
+increases variance. The goal of regularization is to find a balance
+between these forces. @fig-overfitting-illustration provides a
+schematic view: the unregularized model follows every data fluctuation,
+while a regularized model captures only the underlying trend.
+
+```{python}
+#| echo: false
+#| label: fig-overfitting-illustration
+#| fig-cap: "Illustration of overfitting and regularization. \
+#| The unregularized model follows noise in the data, whereas \
+#| the regularized model captures the broader pattern."
+#| fig-align: center
+#| fig-format: svg
+#| fig-width: 6
+#| fig-height: 4
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+np.random.seed(42)
+x = np.linspace(0, 10, 25)
+y_true = np.sin(x) + 0.2 * np.cos(2 * x)
+y_noisy = y_true + np.random.normal(scale=0.2, size=len(x))
+
+# simulate "unregularized" (wiggly) and "regularized" (smooth) fits
+x_dense = np.linspace(0, 10, 300)
+unreg = np.sin(x_dense) + 0.2 * np.cos(3.5 * x_dense)
+reg = np.sin(x_dense) + 0.2 * np.cos(2 * x_dense)
+
+fig, ax = plt.subplots(figsize=(6, 4))
+ax.scatter(x, y_noisy, color="black", s=25, label="Training data")
+ax.plot(x_dense, unreg, "r--", lw=2, label="Unregularized")
+ax.plot(x_dense, reg, "b-", lw=2, label="Regularized")
+ax.legend()
+ax.set_xlabel("x")
+ax.set_ylabel("y")
+ax.set_title("Overfitting vs. Regularization")
+plt.show()
+```
+
+
+#### Common Regularization Techniques
+
+Among the simplest and most widely used techniques is **L2 weight
+decay**, which adds a penalty term to discourage large weights:
+
+$$
+L_{\text{total}} = L_{\text{data}} + \lambda \sum_{l}\sum_{i,j} (w_{ij}^{(l)})^2,
+$$
+
+where $\lambda$ controls the strength of the constraint. Other general
+approaches include **dropout**, which randomly deactivates neurons
+during training to prevent reliance on any single pathway, and **early
+stopping**, which halts training once the validation loss stops
+improving. These ideas apply to networks of all depths and form the
+foundation for more advanced regularization strategies discussed later
+in the deep learning section.
+
+::: callout-note
+#### Why Regularization Works
+Regularization methods restrict how freely the model parameters can
+adapt to training data. This constraint encourages smoother mappings,
+reduces sensitivity to noise, and improves generalization to unseen
+inputs.
+:::
+
+::: callout-tip
+#### Practical Tips
+- Start with small $\lambda$ for L2 weight decay.  
+- Use dropout (e.g., $p = 0.2$–$0.5$) between dense layers.  
+- Always track training vs. validation loss curves to detect overfitting.  
+:::
+
+
+### Example: A Simple Feed-Forward Network
+
+To illustrate how a neural network operates in practice, we train a
+simple **multilayer perceptron (MLP)** on a two-dimensional nonlinear
+dataset. The model learns a curved decision boundary that cannot be
+captured by linear classifiers.
+
+
+The *two-moons* dataset consists of two interleaving half-circles,
+forming a pattern that resembles a pair of crescents. Each point
+represents an observation with two features $(x_1, x_2)$, and the color
+indicates its class. The two classes overlap slightly due to added
+random noise.
+
+
+A linear classifier such as logistic regression would draw a straight
+line through the plane, misclassifying many points. In contrast, a
+neural network can learn the **nonlinear boundary** that curves along
+the interface between the moons. This problem, although simple, captures
+the essence of nonlinear learning in higher dimensions.
+
+
+We generate the data using `make_moons()` from `scikit-learn` and train
+a feed-forward neural network with two hidden layers. The model’s task
+is to assign each observation to one of the two moon shapes.
+
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.datasets import make_moons
+from sklearn.model_selection import train_test_split
+from sklearn.neural_network import MLPClassifier
+
+# Generate synthetic data
+X, y = make_moons(n_samples=500, noise=0.25, random_state=1023)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=0)
+
+# Define and train a small neural network
+mlp = MLPClassifier(hidden_layer_sizes=(10, 5),
+                    activation='relu',
+                    solver='adam',
+                    alpha=0.001,
+                    max_iter=2000,
+                    random_state=1023)
+mlp.fit(X_train, y_train)
+```
+
+
+Afer the model is trained, we evaluate its accuracy.
+
+```{python}
+#| label: fig-mlp-training
+#| fig-cap: "Decision boundary learned by a simple multilayer perceptron on \
+#| the two-moons dataset. The network captures the nonlinear separation \
+#| between the classes."
+#| fig-align: center
+#| fig-format: svg
+#| fig-width: 6
+#| fig-height: 5
+
+# Evaluate accuracy
+acc_train = mlp.score(X_train, y_train)
+acc_test = mlp.score(X_test, y_test)
+
+# Prepare grid for decision boundary
+xx, yy = np.meshgrid(np.linspace(-2, 3, 300),
+                     np.linspace(-1.5, 2, 300))
+Z = mlp.predict(np.c_[xx.ravel(), yy.ravel()]).reshape(xx.shape)
+
+# Plot
+fig, ax = plt.subplots(figsize=(6, 5))
+ax.contourf(xx, yy, Z, cmap="coolwarm", alpha=0.3)
+scatter = ax.scatter(X_train[:, 0], X_train[:, 1], c=y_train, cmap="coolwarm", edgecolor="k", s=40)
+ax.set_xlabel("$x_1$")
+ax.set_ylabel("$x_2$")
+ax.set_title(f"Two-Moons Classification (Train Acc: {acc_train:.2f}, Test Acc: {acc_test:.2f})")
+plt.show()
+```
+
+The trained network achieves high accuracy on both the training and test
+sets, demonstrating good generalization. The contour regions in
+Figure @fig-mlp-training reveal the curved boundary the network has
+learned. Each hidden layer transforms the input coordinates into a new
+representation where the two classes become more separable. After a few
+layers of nonlinear transformations, the output layer can classify the
+points with a simple linear threshold.
+
+
+::: callout-note
+Even this small network, with only a few dozen parameters, can learn a
+highly nonlinear decision surface. This illustrates the expressive power
+of multilayer neural networks, even in low-dimensional spaces.
+:::
+
+
+::: callout-tip
+#### Try It Yourself
+Increase the noise level in the data to test robustness.
+Change the hidden layer sizes (e.g., (3,), (20,10)), or the
+activation function (tanh, logistic).
+Adjust the regularization parameter alpha to see how it affects
+smoothness of the boundary.
+:::

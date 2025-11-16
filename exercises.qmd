@@ -193,3 +193,65 @@
 	   performance of the two logistic models in terms of accuracy, 
 	   precision, recall, F1-score, and AUC.
 
+1. **Midterm project: Noise complaints in NYC**
+   The [NYC Open Data of 311 Service Requests](https://data.cityofnewyork.us/Social-Service
+s/311-Service-Requests-from-2010-to-Present/erm2-nwe9) contains
+   all requests from 2010 to present. We consider a subset of it with
+   requests to NYPD on noise complaints that are created from
+   12:00:00 AM 06/29/2025 to 12:00:00 PM 07/05/2025. The subset is
+   available in CSV format as
+   `data/nypd311w062925noise_by100625.csv`. 
+   Read the data dictionary online to understand the meaning of the
+   variables. **For a clean workflow, this data is not to be uploaded
+   to your GitHub repo.** You will lose style points if you do. 
+   Instead, it should be placed in an untracked
+   local folder `data`, so your analysis is reproducible as long as I
+   have the same folder on my computer. 
+    a.  Data cleaning.
+        i.  Import the data, rename the columns with our preferred styles.
+        i.   Summarize the missing information. Are there variables that
+       are close to completely missing? 
+        i.  Are there redundant information in the data? Try storing the
+          data using the Arrow format and comment on the efficiency
+          gain.
+        i.  Are there invalid NYC zipcode or borough? Justify and clean
+          them if yes.
+        i.  Are there date errors? Examples are earlier `closed_date`
+          than `created_date`; `closed_date` and `created_date`
+          matching to the second; dates exactly at midnight or noon to
+          the second; `action_update_date` after `closed_date`.
+        i.  Summarize your suggestions to the data curator in several
+          bullet points.
+    a.  Data exploration.
+        i.  If we suspect that response time may depend on the time of
+          day when a complaint is made, we can compare the response
+          times for complaints submitted during nighttime and
+          daytime. To do this, we can visualize the comparison by
+          complaint type, borough, and weekday (vs weekend/holiday).
+        i.  Perform a formal hypothesis test to confirm the observations
+          from your visualization. Formally state your hypotheses and
+          summarize your conclusions in plain English.
+        i.  Create a binary variable `over2h` to indicate that a service
+          request took two hours or longer to close. 
+        i. Does `over2h`
+          depend on the complaint type, borough, or weekday (vs
+          weekend/holiday)? State your hypotheses and summarize your
+          conclusions in plain English.
+    a.  Data analysis.
+        i.  The addresses of NYC police precincts are stored in
+       `data/nypd_precincts.csv`. Use geocoding tools to find their
+       geocode (longitude and latitude) from the addresses.
+        i.  Create a variable `dist2pp` which represent the distance
+       from each request incidence to the nearest police precinct. 
+        i.  Add zip code level variables by merging with data from
+		US Census.
+        i.  Randomly select 20% of the complaints as testing data with
+          seeds `1234`. Build a logistic model to predict `over2h` for
+          the noise complaints with the training data, using all the
+          variables you can engineer from the available data. If you
+          have tuning parameters, justify how they were selected.
+        i.  Assess the performance of your model in terms of commonly
+          used metrics. Summarize your results to a New Yorker who is
+          not data science savvy.
+
+
