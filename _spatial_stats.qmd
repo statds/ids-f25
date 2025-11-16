@@ -42,7 +42,7 @@ df["ycoord"] = df["ycoord"] / 10**6
     )
     + theme_light()
     + theme(
-        panel_background=element_rect(fill="#aaaaaa")
+        panel_background=element_rect(fill="#cccccc")
     )
 )
 ```
@@ -112,9 +112,11 @@ Moran's I is significant and positive, indicating that this dataset has positive
 
 ## Kriging
 
-Kriging is a nonparametric method of interpolation. Using PyKrige, we can estimate the mean of a parameter across the spatial plane.
+Kriging is a nonparametric method of interpolation. Using the `OrdinaryKriging` class from PyKrige, we can estimate the mean of a parameter over the spatial plane.
 
 ```{python}
+#| code-fold: true
+
 from sklearn.model_selection import train_test_split
 df_train, df_test = train_test_split(df, test_size=0.2, random_state=1234)
 ```
@@ -126,7 +128,7 @@ krige = pk.OrdinaryKriging(
     x=df_train["xcoord"],
     y=df_train["ycoord"],
     z=df_train["pct_voter"],
-    coordinates_type="geographic",
+    coordinates_type="geographic" # use spherical coordinate math
 )
 
 # use trained model to estimate test data
@@ -137,12 +139,11 @@ df_test["krige_estimate"], _ = krige.execute(
 df_test["krige_residual"] = df_test["pct_voter"] - df_test["krige_estimate"]
 ```
 
----
-
-:::: {.columns}
-::: {.column}
+With the model trained, we can check that it performs as expected on the test set.
 
 ```{python}
+#| code-fold: true
+
 (ggplot(df_test, aes(x="xcoord", y="ycoord", color="krige_estimate"))
     + geom_point(size=0.6)
     + scale_color_continuous(cmap_name="Spectral")
@@ -154,16 +155,15 @@ df_test["krige_residual"] = df_test["pct_voter"] - df_test["krige_estimate"]
     )
     + theme_light()
     + theme(
-        panel_background=element_rect(fill="#aaaaaa"),
+        panel_background=element_rect(fill="#cccccc"),
         figure_size=(6, 3.5)
     )
 )
 ```
 
-:::
-::: {.column}
-
 ```{python}
+#| code-fold: true
+
 (ggplot(df_test, aes(x="xcoord", y="ycoord", color="krige_residual"))
     + geom_point(size=0.6)
     + scale_color_continuous(
@@ -178,18 +178,15 @@ df_test["krige_residual"] = df_test["pct_voter"] - df_test["krige_estimate"]
     )
     + theme_light()
     + theme(
-        panel_background=element_rect(fill="#aaaaaa"),
+        panel_background=element_rect(fill="#cccccc"),
         figure_size=(6, 3.5)
     )
 )
 ```
 
-:::
-::::
-
-Kriging seems to be capable of controlling spatial effects.
-
 ```{python}
+#| code-fold: true
+
 (ggplot(df_test, aes(x="krige_residual", fill="krige_residual"))
     + geom_histogram(
         bins=20,
@@ -206,6 +203,8 @@ Kriging seems to be capable of controlling spatial effects.
     )
 )
 ```
+
+Variance seems to be higher in the west, where counties are farther apart, but the overall trend seems to be fit well. The errors seem approximately normal and the geographic patterns seen in the full dataset seem to be captured accurately by the method.
 
 ## Modeling {.smaller}
 
