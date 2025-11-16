@@ -296,13 +296,15 @@ print(
 
 Spatially modeling the errors of the basic model allowed us to improve test-set performance by over 40%.
 
-## Conclusions
+### Conclusions
 
-- PySAL offers strong tools for spatial data exploration and visualization. 
-- PyKrige lets you drop in spatial predictors or post-processing.
-- Spatial analysis is flexible, but you have to validate the method.
+PySAL offers strong tools for spatial data exploration and visualization. PyKrige lets you drop in spatial predictors or post-processing.
 
-## Further Readings
+Spatial analysis is flexible. You can use spatial variables as part of the initial training (run `OrdinaryKriging` and use it as a predictor), or apply it at the end according to the SEM as demonstrated.
+
+That being said, you have to validate the method. I had intended to demonstrate with the NYC Collision Data, but when I checked Moran's I, the dataset had nonsignificant spatial autocorrelation. Crashes are largely independent events, so a spatial analysis would be fruitless. These tools are powerful, but can only be used in appropriate contexts.
+
+### Further Readings
 
 [ESRI's explanation of spatial autoregression](https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-statistics/how-spatial-autoregression-works.htm)
 
@@ -310,8 +312,6 @@ Spatially modeling the errors of the basic model allowed us to improve test-set 
 
 [The PyKrige documentation](https://geostat-framework.readthedocs.io/projects/pykrige/en/stable/)
 
-If you're particularly interested in spatial problems and tools, I recommend GEOG 2500 (Introduction to Geographic Information Systems).
+If you're particularly interested in spatial problems and tools, GEOG 2500 (Introduction to Geographic Information Systems) is a good place to start learning about geographic methods.
 
 [The example image for Moran's I](https://commons.wikimedia.org/w/index.php?title=File:Moran%27s_I_example.png&oldid=869123079) and [the Wikipedia article](https://en.wikipedia.org/wiki/Moran%27s_I) I got it from. 
-
-### Data Citation
