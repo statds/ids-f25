@@ -1,0 +1,317 @@
+## Spatial Statistical Methods
+
+This section was written by Quinn Saltus, an undergraduate student pursuing a dual degree in Applied Data Analysis and Geograpic Information Systems. They were motivated to write about this topic because they wanted to bridge the geographic and statistical approaches to problem solving.
+
+### Introduction
+
+Spatially dependent data can cause problems for standard statistical methods. Independence of errors is an assumption for most commonly-used tools, but if location affects your data, that assumption is untenable. Spatial Statistics can quantify the spatial dependence among data and improve predictive models' accuracy / statistical rigor.
+
+### Dataset
+
+The dataset used in this demonstration is the [Turnout by County for the 1980 Election](https://www.openml.org/search?type=data&status=active&id=507) from @Pace1997.
+
+```{python}
+from plotnine import *
+import pandas as pd
+import numpy as np
+from sklearn.datasets import fetch_openml
+
+dataset = fetch_openml(name='space_ga', version=1)
+
+df = dataset.data
+df.columns = df.columns.str.lower()
+
+# convert log-proportion to percentage for ease of understanding
+df["pct_voter"] = np.exp(dataset.target) * 100
+
+# convert coordinates to degrees
+df["xcoord"] = df["xcoord"] / 10**6
+df["ycoord"] = df["ycoord"] / 10**6
+```
+```{python}
+#| code-fold: true
+
+(ggplot(df, aes(x="xcoord", y="ycoord", color="pct_voter"))
+    + geom_point(size=0.6)
+    + scale_color_continuous(cmap_name="Spectral")
+    + coord_equal(ratio=1.3)
+    + labs(
+        title="Turnout Percentage By County for the 1980 Election",
+        x="Longitude",
+        y="Latitude"
+    )
+    + theme_light()
+    + theme(
+        panel_background=element_rect(fill="#cccccc")
+    )
+)
+```
+
+### Libraries
+
+The libraries used are The Python Spatial Analysis Library and PyKrige. These libraries haven't been used before in this course, so you may need to install them yourself.
+
+``` {.shell}
+pip install pykrige
+pip install pysal
+```
+
+I'll also use `Scipy`'s `KDTree` class, which greatly reduces the amount of computation required to compare data points' distances. This is important for speed with large datasets.
+
+```{python}
+#| output: false
+
+import libpysal
+from scipy.spatial import KDTree
+from pysal.explore import esda
+import pykrige as pk
+```
+
+### Spatial Weights
+
+Standard regression has error terms that are completely random:
+
+$$
+Y = \beta X + \epsilon
+$$
+
+The spatial error model (SEM) formulates residuals as a weighted mean of nearby errors plus a random error term:
+
+$$
+Y = \beta X + u, u = \lambda W u + \epsilon 
+$$
+
+With PySAL, we need to precompute the weights matrix $W$ to give to analysis functions. Inverse square distance is the most popular and will be used here. Other methods like K-Nearest-Neighbors (`libpysal.weights.KNN`) and [Gabriel Graphs](https://en.wikipedia.org/wiki/Gabriel_graph) (`libpysal.weights.Gabriel`) are available.
+
+```{python}
+dist_kdtree = KDTree(df[["xcoord", "ycoord"]])
+weights = libpysal.weights.DistanceBand(
+    dist_kdtree,
+    threshold=2.5, # limit search distance
+    binary=False, # use numeric weights
+    alpha=-2 # use inverse square distance
+)
+```
+
+### Moran's I
+
+Moran's I is a common exploratory measure of spatial autocorrelation based on each point's similarity to its neighbors. Here are some example I-values using adjacency weights. Moran's I is increased when nearby values are similar, and decreased when nearby values are heterogeneous.
+
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/f/f0/Moran%27s_I_example.png" height="300" width="350"></p>
+
+The `pysal.esda` module implements Moran's I for us.
+
+```{python}
+moran = esda.Moran(y = df["pct_voter"], w=weights)
+moran.plot_scatter()
+print(f"Moran's I = {moran.I:.4f}")
+print(f"Moran's I p-value = {moran.p_rand:.4f}")
+```
+
+Moran's I is significant and positive, indicating that this dataset has positive spatial autocorrelation. The Moran Scatterplot compares the (standardized) target variable to the weighted mean of nearby values (spatial lag). It confirms the I-value's assessment of positive autocorrelation.
+
+### Kriging
+
+Kriging is a nonparametric method of interpolation. Using the `OrdinaryKriging` class from PyKrige, we can estimate the mean of a parameter over the spatial plane.
+
+```{python}
+#| code-fold: true
+
+from sklearn.model_selection import train_test_split
+df_train, df_test = train_test_split(df, test_size=0.2, random_state=1234)
+```
+
+```{python}
+#| echo: true
+
+krige = pk.OrdinaryKriging(
+    x=df_train["xcoord"],
+    y=df_train["ycoord"],
+    z=df_train["pct_voter"],
+    coordinates_type="geographic" # use spherical coordinate math
+)
+
+# use trained model to estimate test data
+df_test["krige_estimate"], _ = krige.execute(
+    "points", df_test["xcoord"], df_test["ycoord"]
+)
+
+df_test["krige_residual"] = df_test["pct_voter"] - df_test["krige_estimate"]
+```
+
+With the model trained, we can check that it performs as expected on the test set.
+
+```{python}
+#| code-fold: true
+
+(ggplot(df_test, aes(x="xcoord", y="ycoord", color="krige_estimate"))
+    + geom_point(size=0.6)
+    + scale_color_continuous(cmap_name="Spectral")
+    + coord_equal(ratio=1.3)
+    + labs(
+        title="Kriging-Estimated Turnout",
+        x="Longitude",
+        y="Latitude"
+    )
+    + theme_light()
+    + theme(
+        panel_background=element_rect(fill="#cccccc"),
+        figure_size=(6, 3.5)
+    )
+)
+```
+
+```{python}
+#| code-fold: true
+
+(ggplot(df_test, aes(x="xcoord", y="ycoord", color="krige_residual"))
+    + geom_point(size=0.6)
+    + scale_color_continuous(
+        cmap_name="PuOr",
+        limits=(max(abs(df_test["krige_residual"])), -max(abs(df_test["krige_residual"])))
+    )
+    + coord_equal(ratio=1.3)
+    + labs(
+        title="Residuals of Kriging Estimates of Turnout",
+        x="Longitude",
+        y="Latitude"
+    )
+    + theme_light()
+    + theme(
+        panel_background=element_rect(fill="#cccccc"),
+        figure_size=(6, 3.5)
+    )
+)
+```
+
+```{python}
+#| code-fold: true
+
+(ggplot(df_test, aes(x="krige_residual", fill="krige_residual"))
+    + geom_histogram(
+        bins=20,
+        fill="#99bbff",
+        color="#000000"
+    )
+    + labs(
+        title="Residuals of Kriging (No Regression)",
+        x=f"Error (Percentage Points)"
+    )
+    + theme_light()
+    + theme(
+        figure_size=(6, 2.5)
+    )
+)
+```
+
+Variance seems to be higher in the west, where counties are farther apart, but the overall trend seems to be fit well. The errors seem approximately normal and the geographic patterns seen in the full dataset seem to be captured accurately by the method.
+
+### SEM Regression With Kriging
+
+To compare performance with and without spatial components, we will use a basic linear regression model.
+
+```{python}
+#| echo: true
+#| output: false
+
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+
+X_train, X_test, Y_train, Y_test = train_test_split(
+    X := df[["pop", "education", "houses", "income"]],
+    Y := df["pct_voter"],
+    test_size=0.2, random_state=1234
+)
+
+model_basic = LinearRegression().fit(X_train, Y_train)
+```
+
+```{python}
+#| code-fold: true
+
+print(f"Test R-squared: {model_basic.score(X_test, Y_test):.4f}")
+
+(ggplot(
+        pd.DataFrame({
+            "Predicted Value" : model_basic.predict(X_test),
+            "True Value" : Y_test,
+            }), 
+        aes(x="Predicted Value", y="True Value")
+    )
+    + geom_point(color="#00000088")
+    + geom_abline(slope=1, intercept=0, color="red", linetype="dashed")
+    + theme_light()
+    + theme(figure_size=(4, 3))
+)
+```
+
+The data seem generally well fit, but there is a lot of unexplained variability. We can use Kriging on the residuals of the basic model to augment its performance.
+
+```{python}
+#| code-fold: true
+
+df_train = df_train.reset_index()
+df_test = df_test.reset_index()
+
+p_train = df_train[["pop", "education", "houses", "income"]].to_numpy()
+x_train = df_train[["xcoord", "ycoord"]].to_numpy()
+y_train = df_train["pct_voter"].to_numpy()
+
+p_test = df_test[["pop", "education", "houses", "income"]].to_numpy()
+x_test = df_test[["xcoord", "ycoord"]].to_numpy()
+y_test = df_test["pct_voter"].to_numpy()
+```
+
+```{python}
+from pykrige.rk import RegressionKriging
+
+# any sklearn machine learning model can be used as the regression_model
+model_rk = RegressionKriging(regression_model=LinearRegression())
+
+# Note that predictors, points, and targets must be np arrays, not DataFrame
+model_rk.fit(p_train, x_train, y_train)
+```
+
+```{python}
+#| code-fold: true
+
+print(
+    "R-squared (Regression + Kriging):",
+    f"{model_rk.score(p_test, x_test, y_test):.4f}"
+)
+(ggplot(
+        pd.DataFrame({
+            "Predicted Value" : model_rk.predict(p_test, x_test),
+            "True Value" : Y_test,
+            }),
+        aes(x="Predicted Value", y="True Value")
+    )
+    + geom_point(color="#00000088")
+    + geom_abline(slope=1, intercept=0, color="red", linetype="dashed")
+    + labs(title="Regression + Kriging")
+    + theme_light()
+    + theme(figure_size=(4, 3))
+)
+```
+
+Spatially modeling the errors of the basic model allowed us to improve test-set performance by over 40%.
+
+### Conclusions
+
+PySAL offers strong tools for spatial data exploration and visualization. PyKrige lets you drop in spatial predictors or post-processing.
+
+Spatial analysis is flexible. You can use spatial variables as part of the initial training (run `OrdinaryKriging` and use it as a predictor), or apply it at the end according to the SEM as demonstrated.
+
+That being said, you have to validate the method. I had intended to demonstrate with the NYC Collision Data, but when I checked Moran's I, the dataset had nonsignificant spatial autocorrelation. Crashes are largely independent events, so a spatial analysis would be fruitless. These tools are powerful, but can only be used in appropriate contexts.
+
+### Further Readings
+
+[ESRI's explanation of spatial autoregression](https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-statistics/how-spatial-autoregression-works.htm)
+
+[The PySAL documentation](https://pysal.org/)
+
+[The PyKrige documentation](https://geostat-framework.readthedocs.io/projects/pykrige/en/stable/)
+
+If you're particularly interested in spatial problems and tools, GEOG 2500 (Introduction to Geographic Information Systems) is a good place to start learning about geographic methods.
+
+[The example image for Moran's I](https://commons.wikimedia.org/w/index.php?title=File:Moran%27s_I_example.png&oldid=869123079) and [the Wikipedia article](https://en.wikipedia.org/wiki/Moran%27s_I) I got it from. 
