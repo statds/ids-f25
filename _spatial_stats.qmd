@@ -93,38 +93,22 @@ weights = libpysal.weights.DistanceBand(
 )
 ```
 
-## Moran's I {.smaller}
+### Moran's I
 
-:::: {.columns}
-::: {.column width="70%"}
+Moran's I is a common exploratory measure of spatial autocorrelation based on each point's similarity to its neighbors. Here are some example I-values using adjacency weights. Moran's I is increased when nearby values are similar, and decreased when nearby values are heterogeneous.
 
-Moran's I is a common exploratory measure of spatial autocorrelation based on each point's similarity to its neighbors.
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/f/f0/Moran%27s_I_example.png" height="300" width="350"></p>
+
+The `pysal.esda` module implements Moran's I for us.
 
 ```{python}
-#| echo: true
-
 moran = esda.Moran(y = df["pct_voter"], w=weights)
 moran.plot_scatter()
-```
-
-:::
-::: {.column width="30%"}
-
-Some example I-values using adjacency weights.
-
-<p><a href="https://commons.wikimedia.org/wiki/File:Moran%27s_I_example.png#/media/File:Moran's_I_example.png"><img src="https://upload.wikimedia.org/wikipedia/commons/f/f0/Moran%27s_I_example.png" alt="Moran's I example.png" height="300" width="500"></a></p>
-
--------------------------------------------------------------
-
-For this data,
-
-```{python}
 print(f"Moran's I = {moran.I:.4f}")
 print(f"Moran's I p-value = {moran.p_rand:.4f}")
 ```
 
-:::
-::::
+Moran's I is significant and positive, indicating that this dataset has positive spatial autocorrelation. The Moran Scatterplot compares the (standardized) target variable to the weighted mean of nearby values (spatial lag). It confirms the I-value's assessment of positive autocorrelation.
 
 ## Kriging
 
