@@ -36,7 +36,7 @@ reflect a **real effect**.
 
 - The Ames Housing dataset lets us explore real housing market patterns in Ames, Iowa, 
   and examine how different property features relate to sale price.  
-  - Are sale prices different across **neighborhoods** (e.g., high-end vs more affordable areas)?  
+  - Are sale prices different across **neighborhoods** (ex: high-end vs more affordable areas)?  
   - Do certain features, such as **central air**, a **garage**, or a **larger living area 
     (GrLivArea)**, tend to be associated with higher sale prices?  
   - Is there a relationship between variables like **overall quality (OverallQual)** or 
@@ -58,7 +58,7 @@ import matplotlib.pyplot as plt # visualizations
 import seaborn as sns # visualizations 
 
 # Step 2: Load dataset from csv 
-housing = pd.read_csv("data/housing.csv")
+ames = pd.read_csv("data/AmesHousing.csv")
 ```
 
 - Then, we want to clean the data 
@@ -68,23 +68,26 @@ return NaN results, especially with scipy.stats
 
 ```{python}
 # Step 1: Clean up column names
-housing.columns = (
-    housing.columns
-    .str.strip()                          # remove leading/trailing spaces
-    .str.lower()                          # convert to lowercase
-    .str.replace(' ', '_')                # replace spaces with underscores
-    .str.replace('[^a-z0-9_]', '', regex=True)  # remove special chars
+ames.columns = (
+    ames.columns
+        .str.strip()                     # remove leading/trailing spaces
+        .str.lower()                     # convert to lowercase
+        .str.replace(' ', '_')           # replace spaces with underscores
+        .str.replace('[^a-z0-9_]', '', regex=True)  # remove special characters
 )
 
 # Step 2: Drop columns that are completely empty (all NaN)
-housing = housing.dropna(axis=1, how='all')
+ames = ames.dropna(axis=1, how='all')
 
-# Step 3: Drop rows with any missing values
-housing = housing.dropna(axis=0, how='any')
+# Step 3: Focus on key variables and drop rows with missing values in those
+cols_of_interest = ['saleprice', 'neighborhood', 'grlivarea',
+                    'overallqual', 'centralair']
+
+ames_clean = ames.dropna(subset=cols_of_interest)
 
 # Step 4: Verify the cleaned dataset
-housing.info()
-housing.head()
+ames_clean.info()
+ames_clean.head()
 ```
 
 - We can summarize the dataset using '.describe()' to see its spread and variability before running tests
