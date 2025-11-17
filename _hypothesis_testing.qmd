@@ -32,22 +32,21 @@ reflect a **real effect**.
    - If *p* < α (usually 0.05): reject H₀ → evidence of an effect.  
    - If *p* ≥ α: fail to reject H₀ → no strong evidence against H₀.
 
-### Example Context: Ames Housing Dataset 
+### Example Context: Housing Data 
 
-- The Ames Housing dataset lets us explore real housing market patterns in Ames, Iowa, 
-  and examine how different property features relate to sale price.  
-  - Are sale prices different across **neighborhoods** (ex: high-end vs more affordable areas)?  
-  - Do certain features, such as **central air**, a **garage**, or a **larger living area 
-    (GrLivArea)**, tend to be associated with higher sale prices?  
-  - Is there a relationship between variables like **overall quality (OverallQual)** or 
-    **lot area** and the final **SalePrice**?  
-- Hypothesis testing provides **quantitative evidence** for these questions — helping us decide 
-    which features are truly associated with higher (or lower) prices in Ames, rather than just 
-    relying on intuition or assumptions.  
+- The housing dataset allows us to explore real-world market patterns and relationships 
+between property features and price.   
+  - Are house prices different across neighborhoods?  
+  - Do certain features, like having a driveway, air conditioning, or a larger area, 
+lead to higher prices?
+  - Is there a correlation between the number of bedrooms and the overall cost?  
+- Hypothesis testing provides **quantitative evidence** for these questions — 
+helping us determine which factors truly influence housing prices rather than relying 
+on assumptions.   
 
 ### Load, Clean and Preview the Data 
 
-- Let's begin by loading the data. 
+- Let's begin by loading the data
 
 ```{python}
 # Step 1: import essential packages for analysis and visualization 
@@ -58,7 +57,7 @@ import matplotlib.pyplot as plt # visualizations
 import seaborn as sns # visualizations 
 
 # Step 2: Load dataset from csv 
-ames = pd.read_csv("data/AmesHousing.csv")
+housing = pd.read_csv("data/housing.csv")
 ```
 
 - Then, we want to clean the data 
@@ -68,32 +67,30 @@ return NaN results, especially with scipy.stats
 
 ```{python}
 # Step 1: Clean up column names
-ames.columns = (
-    ames.columns
-        .str.strip()                     # remove leading/trailing spaces
-        .str.lower()                     # convert to lowercase
-        .str.replace(' ', '_')           # replace spaces with underscores
-        .str.replace('[^a-z0-9_]', '', regex=True)  # remove special characters
+housing.columns = (
+    housing.columns
+    .str.strip()                          # remove leading/trailing spaces
+    .str.lower()                          # convert to lowercase
+    .str.replace(' ', '_')                # replace spaces with underscores
+    .str.replace('[^a-z0-9_]', '', regex=True)  # remove special chars
 )
 
 # Step 2: Drop columns that are completely empty (all NaN)
-ames = ames.dropna(axis=1, how='all')
+housing = housing.dropna(axis=1, how='all')
 
-# Step 3: Focus on key variables and drop rows with missing values in those
-cols_of_interest = ['saleprice', 'neighborhood', 'grlivarea',
-                    'overallqual', 'centralair']
-
-ames_clean = ames.dropna(subset=cols_of_interest)
+# Step 3: Drop rows with any missing values
+housing = housing.dropna(axis=0, how='any')
 
 # Step 4: Verify the cleaned dataset
-ames_clean.info()
-ames_clean.head()
+housing.info()
+housing.head()
 ```
 
 - We can summarize the dataset using '.describe()' to see its spread and variability before running tests
 
 ```{python}
 housing.describe()
+housing["medv"]
 ```
 
 ### One-Sample T-test 
