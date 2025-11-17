@@ -1,0 +1,321 @@
+## Making a Personal Webpage on GitHub Pages
+
+This guide will walk you through the process of creating your own personal website using GitHub Pages and Jekyll. We will cover setup to publishing and customizing the look of your site.
+
+---
+
+## Introduction
+
+My name is Jaden Mayer-Costa. I am a senior pursuing a Statistical Data Analysis degree with minors in both Economics and Music.
+
+By the end of this guide, you should have the knowledge to create your own live site.
+
+---
+
+## Why Use GitHub Pages?
+
+GitHub Pages lets you host a website directly from your GitHub repository for free.  
+It’s ideal for portfolios, academic profiles, or blogs. 
+
+**Key benefits:**
+
+- Free hosting with your own custom URL (`username.github.io`)
+- Seamless integration with GitHub
+- Built-in support for Jekyll, a static site generator
+- No server or databases required
+
+---
+
+What is Jekyll?
+
+[Jekyll](https://jekyllrb.com/) is a static site generator that can turn Markdown files into a lightweight website.
+
+- Uses Markdown, templates, HTML, and CSS
+- Generates static pages that load quickly
+- Works easily with GitHub Pages
+- Supports blogs, portfolios, and documentation sites
+
+**Why use it?** 
+
+- You write simple Markdown → Jekyll reads and builds HTML → then push to GitHub Pages to host the site.
+
+---
+
+## Setting Up Jekyll locally
+
+First must install Ruby
+
+Ruby is what Jekyll is written in and is necessary to download. You do not have to code in Ruby to use Jekyll, but it is what is running everything behind the scenes.
+
+1. Visit [RubyInstaller.org](https://rubyinstaller.org/downloads/)
+2. Download the latest **Ruby + Devkit** version.
+3. Run the installer and choose:
+   - **MSYS2 and MINGW development toolchain**
+4. After installation, open a new Command Prompt and check to ensure download was successful:
+   ```powershell
+   ruby -v
+   ```
+---
+
+Next, install Jekyll and Bundler from ruby
+
+In terminal run
+
+```powershell
+gem install jekyll bundler
+```
+**What is a gem?:** 
+A gem is a Ruby package that basically represents a bunch of code or functionality that can be reused. Jekyll is an example of a gem.
+
+Verify installation
+```powershell
+jekyll -v
+```
+
+---
+
+Finally, create a new Jekyll site
+
+In terminal run 
+
+```powershell
+jekyll new personal-site
+```
+
+Jekyll will add all the necessary files for your site to run properly.
+
+---
+
+Run locally before pushing
+
+Navigate to the personal-site file and preview your site locally by executing the code below.
+
+```powershell
+jekyll new personal-site
+cd personal-site
+bundle exec jekyll serve
+```
+bundle exec is a command that runs a tool, in this case Jekyll, using the gems listed in the Gemfile. 
+
+After running and provided there are no errors, you Can then visit [http://localhost:4000](http://localhost:4000) to see your website.
+
+**What is bundler?** 
+bundler is a tool used to manage Ruby gems. It helps ensure your project uses the right versions of each gem that is listed in your Gemfile
+
+**What is a Gemfile?**
+A Gemfile is simply a plain text file that lists all the Ruby gems your project needs in order to run. It is similar to what would be a "requirements.txt" file in Python. Essential to have for reproducibility.
+
+**Note:**
+It is good practice to run your website locally before pushing to GitHub Pages to make sure your website will run before you make changes. Failure to check could result in a broken website.
+
+## Pushing to GitHub Pages
+
+Create a GitHub repository to host files for website
+
+- Go to [GitHub](https://github.com/)
+- Create a repository called: YOUR-USERNAME.github.io
+
+---
+
+Next, push your locally created site to GitHub 
+
+In terminal from the project folder run each of the following:
+```powershell
+git init
+git add .
+git commit -m "GitHub Pages site made with Jekyll"
+git branch -M test
+git remote add origin https://github.com/username/username.github.io.git
+git push -u origin main
+```
+
+Enable GitHub Pages on your repository
+
+- Go to repository on GitHUb
+- Go to Settings then click on pages 
+- Under "Source" click the test branch and / (root) folder
+- Click Save - now website will be live at https://YOUR-USERNAME/github.io
+
+## Customizing Your Page
+
+Now that your site is live, you can design and add personal touches. Jekyll gives control of layout, theme, colors, and structure while using simple files.
+
+**Standard layout**
+```yaml
+
+personal-website/
+    _posts   # Blog posts
+    _site   # Auto generated output
+    .jekyll-cache   #Build cache
+    _config.yml     # Main config file (controls theme, title, etc.)
+    .gitignore      # Files git should ignore
+    404.html    # Custom error page
+    about.markdown      # About page
+    Gemfile     # Lists Ruby dependencies
+    Gemfile.lock    # Auto-generated dependency lock file
+    index.markdown      # Homepage
+```
+
+---
+
+Some different page types:
+
+**About Page:**
+
+- You can open about.markdown and edit this file to include a descriptive statement about yourself.
+```markdown
+---
+layout: page
+title: About
+permalink: /about/
+---
+Hello, my name is Jaden Mayer-Costa and I ...
+```
+
+**Homepage:**
+
+- index.markdown is the landing page for your website. In other words this is the first thing that will be seen when visiting your site. 
+- Blog posts will appear here as well.
+
+**Blog Post:**
+
+- To add a new post navigate to your posts folder, add a markdown file, making sure to name it in YYYY-MM-DD-title.markdown format. Then in the yaml follow this template.
+
+```yaml
+---
+layout: post
+title:  "title"
+date:   YYYY-MM-DD HH-MM-SS
+categories: jekyll update
+---
+```
+- If you do not specify the date, Jekyll will not render the post.
+
+---
+
+**Adding photos:** 
+
+- Create an assets folder in your project root.
+- Create a img folder in your assets folder and simply drop whatever pictures you want into your website there.
+- To render a photo ensure it is in a jpg or png format.
+- Here is the syntax to embed a picture:
+
+```powershell
+![file_name]({{ '/assets/img/file_name' | relative_url }})
+```
+This tells Jekyll where to find your picture.
+
+---
+
+## Themes 
+Jekyll has many different themes that allow you quickly restyle your site. By default Jekyll will use the minima theme, but if you go into the _config file, you can switch out to a different one, such as Cayman or Midnight. A more exhaustive list can be found on [GitHub Pages](https://github.com/topics/jekyll-theme)
+
+Minima is a good theme for beginners because it has everything we need to make a website without the need to create our own layouts, which can be time intensive. That's why for the purposes of this tutorial, we will stick with minima.
+
+**Note:**
+It is vital to pick a theme you like before building your website. Different themes have different layouts and dependencies, meaning you cannot easily change themes once a website is published. 
+
+## Understanding Layouts in minima
+Layouts are HTML templates that define how your pages and posts look. Having one is important to serve as a reusable frame or structure. Minima comes with four different layout options built in:
+
+- default (Base HTML frame for all pages)
+- home (lists posts on the homepage)
+- page (Used for static pages like for an About or Project section)
+- post (Individual blog posts)
+
+**Note:**
+It is possible to override a layout by creating a custom _layouts folder where you can further customize your pages as desired. This is beyond the scope of this tutorial as it involves writing html code.
+
+---
+
+**Adding New Tabs:**
+
+Say that we wanted to add a new tab to showcase the projects we have been working on in this class.
+
+- We can create a projects.markdown file in our root folder.
+- In the yaml add:
+
+    ```yaml
+    ---
+    layout: page
+    title: Projects
+    permalink: /projects/
+    ---
+    ```
+- Add markdown content underneath.
+
+## Customize _config.yml
+The _config file is where site settings are hosted. Things like title, URL, theme, and necessary plugins. Minima will automatically put a generic yaml to be filled out by the user. An example of a _config.yml setup is as follows:
+```yaml
+# Preliminary information
+title: "Personal Webpage on GitHub"
+author: "Jaden Mayer-Costa"
+email: "your@email.com"
+description: "Data Analyst | Economist | Musician"
+baseurl: "" # leave empty for main site
+url: "https://jaden-m-c.github.io"
+
+# Theme and plugins (pulling minima theme)
+theme: minima
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+# Navigation links in the header
+header_pages:
+  - about.markdown
+  - projects.markdown
+  - blog.markdown
+
+# Social media links
+minima:
+  social_links:
+    github: jaden-m-c
+    linkedin: your-linkedin
+```
+
+## Changing colors and fonts
+It is possible to make edits to a themes font and color without changing the entire theme through the use of a Cascading Style Sheet or CSS file. 
+
+- Create a file inside your assets folder called main.scss
+- Import minima base styles into file:
+```scss
+---
+---
+
+@import "minima";
+```
+- Now can override original styles. Below example makes changes to the font weight, style, color, even footer background:
+```scss
+// Custom site styling
+body {
+  background-color: #fafafa;
+  color: #222;
+  font-family: "Inter", "Helvetica Neue", sans-serif;
+}
+
+a {
+  color: #0057b7;
+}
+
+.site-title {
+  font-weight: 700;
+  font-size: 2rem;
+  text-transform: uppercase;
+}
+
+footer {
+  background: #111;
+  color: white;
+  padding: 1em 0;
+}
+```
+
+## Conclusion
+You should know have the knowledge to set up a personal site on GitHub Pages using Jekyll. And any time you need to make an update, you can follow the workflow of makings edits and rendering locally before pushing to Pages. In this way, your page can evolve alongside your career. This overview is the basic setup to get a page, but there are truly so many ways to customize and edit your page to better reflect your personality and style. 
+
+### Further Reading
+- [Using Jekyll in GitHub Pages](https://jekyllrb.com/docs/github-pages/)
+- [Using themes from Jekyll](https://jekyllrb.com/docs/themes/)
+- [GitHub Pages breakdown](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages)
+- [Resource to find themes for webpage](https://github.com/topics/jekyll-theme)
