@@ -366,7 +366,4 @@ tool for **visualization and exploratory data analysis**.
 
 ### Further Readings
 
-- McInnes, L., Healy, J., Saul, N., & Großberger, L. (2018). 
-  *UMAP: Uniform Manifold Approximation and Projection*. 
-  arXiv:1802.03426. 
-  [https://arxiv.org/abs/1802.03426](https://arxiv.org/abs/1802.03426)  
+- [UMAP Paper](https://par.nsf.gov/biblio/10104557)  
