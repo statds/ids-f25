@@ -1,12 +1,14 @@
 # Advanced Topics
 
 
-<!-- ## Web Scraping Tree -->
-<!-- {{< include _webscraping.qmd >}} -->
+<!-- ## Web Scraping -->
+{{< include _webscraping.qmd >}}
 
 
 <!-- ## Animation -->
 <!-- {{< include _animation.qmd >}} -->
 
 <!-- ## UMAP -->
-<!-- {{< include _umap.qmd >}} -->
+{{< include _umap.qmd >}}
+<!-- ## Calling R from Python -->
+{{< include _callr.qmd >}}
