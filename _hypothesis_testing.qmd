@@ -32,17 +32,18 @@ reflect a **real effect**.
    - If *p* < α (usually 0.05): reject H₀ → evidence of an effect.  
    - If *p* ≥ α: fail to reject H₀ → no strong evidence against H₀.
 
-### Example Context: Housing Data 
+### Example Context: Ames Housing Dataset 
 
-- The housing dataset allows us to explore real-world market patterns and relationships 
-between property features and price.   
-  - Are house prices different across neighborhoods?  
-  - Do certain features, like having a driveway, air conditioning, or a larger area, 
-lead to higher prices?
-  - Is there a correlation between the number of bedrooms and the overall cost?  
-- Hypothesis testing provides **quantitative evidence** for these questions — 
-helping us determine which factors truly influence housing prices rather than relying 
-on assumptions.   
+- The Ames Housing dataset lets us explore real housing market patterns in Ames, Iowa, 
+  and examine how different property features relate to sale price.  
+  - Are sale prices different across **neighborhoods** (e.g., high-end vs more affordable areas)?  
+  - Do certain features, such as **central air**, a **garage**, or a **larger living area (GrLivArea)**, 
+tend to be associated with higher sale prices?  
+  - Is there a relationship between variables like **overall quality (OverallQual)** or 
+**lot area** and the final **SalePrice**?  
+- Hypothesis testing provides **quantitative evidence** for these questions — helping us decide 
+which features are truly associated with higher (or lower) prices in Ames, rather than just 
+relying on intuition or assumptions.  
 
 ### Load, Clean and Preview the Data 
 
