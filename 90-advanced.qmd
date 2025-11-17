@@ -7,3 +7,6 @@
 
 <!-- ## Animation -->
 <!-- {{< include _animation.qmd >}} -->
+
+<!-- ## UMAP -->
+<!-- {{< include _umap.qmd >}} -->
