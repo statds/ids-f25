@@ -37,13 +37,13 @@ reflect a **real effect**.
 - The Ames Housing dataset lets us explore real housing market patterns in Ames, Iowa, 
   and examine how different property features relate to sale price.  
   - Are sale prices different across **neighborhoods** (e.g., high-end vs more affordable areas)?  
-  - Do certain features, such as **central air**, a **garage**, or a **larger living area (GrLivArea)**, 
-tend to be associated with higher sale prices?  
+  - Do certain features, such as **central air**, a **garage**, or a **larger living area 
+    (GrLivArea)**, tend to be associated with higher sale prices?  
   - Is there a relationship between variables like **overall quality (OverallQual)** or 
-**lot area** and the final **SalePrice**?  
+    **lot area** and the final **SalePrice**?  
 - Hypothesis testing provides **quantitative evidence** for these questions — helping us decide 
-which features are truly associated with higher (or lower) prices in Ames, rather than just 
-relying on intuition or assumptions.  
+    which features are truly associated with higher (or lower) prices in Ames, rather than just 
+    relying on intuition or assumptions.  
 
 ### Load, Clean and Preview the Data 
 
