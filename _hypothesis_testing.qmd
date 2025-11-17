@@ -96,10 +96,12 @@ housing["medv"]
 
 ### One-Sample T-test 
 
-- A one-sample t-test is a statistical test used to determine whether the mean of 
-a single sample is significantly different from a known or hypothesized population mean.
-- In the context of housing data, we can test whether the average house price differs 
-from a target or benchmark value. For example, $1 million. 
+- A one-sample t-test is a statistical test used to determine whether 
+the mean of a single sample is significantly different from a known 
+or hypothesized population mean.
+- In the context of housing data, we can test whether the average 
+house price differs from a target or benchmark value. 
+For example, $1 million. 
 - H₀: μ = 1,000,000 (average house price = 1)
 - H₁: μ ≠ 1,000,000 (average house price ≠ 1) 
 
@@ -110,9 +112,12 @@ t_stat, p_value = stats.ttest_1samp(prices, popmean=20)
 t_stat, p_value
 ```
 
-- The t_stat tells us how far the sample mean is from the hypothesized value
-- The p_value tells us how unusual that different would be if H₀ were true
-- the ttest_1samp() compares sample's mean to a known population mean 
+- The t_stat tells us how far the sample mean is from the 
+hypothesized value
+- The p_value tells us how unusual that different would be 
+if H₀ were true
+- the ttest_1samp() compares sample's mean to a known 
+population mean 
 
 ```{python}
 alpha = 0.05
@@ -122,13 +127,15 @@ else:
     print(f"Fail to reject H₀ (p = {p_value:.3f}) → No difference from $20,000.")
 ```
 
-- The output (6.19, 1.21e-09) corresponds to the t-statistic and p-value 
-- The t-statistic means that the sample is roughly 6 standard errors away from the 
-hypothesized population mean of $20,000 
-- The p-value is extremely small, far below the 0.05 significance threshold
-- We can conclude that the mean home value is significantly different from 
-$20,000 and we reject the null hypothesis. The average housing prices are not
-centered around $20,000 
+- The output (6.19, 1.21e-09) corresponds to the t-statistic and
+p-value 
+- The t-statistic means that the sample is roughly 6 standard errors 
+away from the hypothesized population mean of $20,000 
+- The p-value is extremely small, far below the 0.05 significance 
+threshold
+- We can conclude that the mean home value is significantly 
+different from $20,000 and we reject the null hypothesis. The average 
+housing prices are not centered around $20,000 
 
 - We can also visualize this by using a histogram
 
@@ -142,14 +149,16 @@ plt.legend()
 plt.show()
 ```
 
-- Notice how most homes cluster below the hypothesized mean value, shown by the red dashed 
-line at μ = 20 (\$20,000).
-- Most home fall to the left of this line, showing that the actual mean is significantly 
-higher than $20,000, which is consistent with the t-test result 
+- Notice how most homes cluster below the hypothesized mean value, 
+shown by the red dashed line at μ = 20 (\$20,000).
+- Most home fall to the left of this line, showing that the actual 
+mean is significantly higher than $20,000, which is consistent 
+with the t-test result 
 
-- If the data were not normally distributed, meaning the data was skewed or had outliers, 
-we'd use the Wilcoxon Signed-Rank Test instead.
-- The Wilcoxon Signed-Rank Test compares the median of the sample to a hypothesized value. 
+- If the data were not normally distributed, meaning the data was 
+skewed or had outliers, we'd use the Wilcoxon Signed-Rank Test instead.
+- The Wilcoxon Signed-Rank Test compares the median of the sample 
+to a hypothesized value. 
 - H₀: median home value = $20,000 
 - H₁: median home value ≠ $20,000
 
@@ -169,22 +178,25 @@ else:
     print(f"Fail to reject H₀ (p = {p_value:.4f}) → No difference from $20,000.")
 ```
 
-- wilcoxon() tests whether the median of the sample differs from a hypothesized value 
+- wilcoxon() tests whether the median of the sample differs 
+from a hypothesized value 
 - alternative="twosided" checks for any difference 
 - Wilcoxon test statistic = 48,214.5 and p <0.001
-- We would reject the null hypothesis and conclude the median home value is significantly higher 
-than $20,000, confiming the t-test results without assuming normality
+- We would reject the null hypothesis and conclude the median home 
+value is significantly higher than $20,000, confiming the t-test 
+results without assuming normality
 
 ### Two Sample T-Test 
 
-- A two-sample t-test (also called an independent samples t-test) is used to compare 
-the means of two independent groups to see if they’re statistically different from 
-each other.
-- Here, we’ll test whether the average home value differs between houses located 
-along the Charles River and those not near the river.
-- H₀: μ₁ = μ₂ (the mean home values are the same for houses near and away from the 
-Charles River.)
-- H₁: μ₁ ≠ μ₂ (the mean home values differ depending on proximity to the Charles River.)
+- A two-sample t-test (also called an independent samples t-test) 
+is used to compare the means of two independent groups to see if 
+they’re statistically different from each other.
+- Here, we’ll test whether the average home value differs between 
+houses located along the Charles River and those not near the river.
+- H₀: μ₁ = μ₂ (the mean home values are the same for houses near and 
+away from the Charles River.)
+- H₁: μ₁ ≠ μ₂ (the mean home values differ depending on proximity 
+to the Charles River.)
 
 ```{python}
 from scipy import stats
@@ -206,14 +218,16 @@ else:
 
 - chas is a binary variable (1 = near river and 0 = away)
 - ttest_ind() compares means of two independent groups 
-- equal_var=False: Welch's t-test version, which doesn't assume equal variances
+- equal_var=False: Welch's t-test version, which doesn't assume 
+equal variances
 - t = 3.11, p = 0.0036 
-- We would reject the null hypothesis so we can conclude that homes near the Charles River 
-have significantly different mean values than those farther away 
+- We would reject the null hypothesis so we can conclude that homes 
+near the Charles River have significantly different mean values 
+than those farther away 
 
 - We can visualize these differences using boxplots 
-- The boxes represent interquartile ranges, so if they barely overlap that's a visual 
-clue of statisticla difference 
+- The boxes represent interquartile ranges, so if they barely overlap 
+that's a visual clue of statisticla difference 
 
 ```{python}
 sns.boxplot(x="chas", y="medv", data=housing, palette="pastel")
@@ -223,15 +237,16 @@ plt.ylabel("Median Home Value ($1000s)")
 plt.show()
 ```
 
-- This boxplot compares the median home values for houses next to the Charles River 
-(chas =1 ) versus those not near the river (chas = 0) 
-- The orange box is visibly higher than the blue box, showing that homes near the 
-Charles river tend to have high median values 
+- This boxplot compares the median home values for houses next to 
+the Charles River (chas =1 ) versus those not near the river 
+(chas = 0) 
+- The orange box is visibly higher than the blue box, showing 
+that homes near the Charles river tend to have high median values 
 
-- If the data don't meet the t-test assumptions (normality, equal variance), 
-we use the Mann-Whitney U test between two groups 
-- In this case, we will test whether the distributions of median home values 
-differ for houses near versus away from the Charles River
+- If the data don't meet the t-test assumptions (normality, 
+equal variance), we use the Mann-Whitney U test between two groups 
+- In this case, we will test whether the distributions of median 
+home values differ for houses near versus away from the Charles River
 - H₀: μ₁ = μ₂ (the distributions of home values are the same for both groups.) 
 - H₁: μ₁ ≠ μ₂ (the distributions of home values differ between the two groups.) 
 
@@ -257,10 +272,11 @@ else:
 ### ANOVA 
 
 - ANOVA stands for Analysis of Variance
-- It’s a statistical method used to compare the means of three or more groups to 
-determine whether at least one of them is significantly different from the others.
-- Here, we’ll compare the average home values (medv) across different levels of
-highway accessibility (rad).
+- It’s a statistical method used to compare the means of three or more 
+groups to determine whether at least one of them is significantly 
+different from the others.
+- Here, we’ll compare the average home values (medv) across different 
+levels of highway accessibility (rad).
 - H₀: All group means are equal.
 - H₁: At least one group mean differs.
 
@@ -327,9 +343,10 @@ else:
 
 ### Chi-Square Test of Independence 
 
-- The Chi-Square Test of Independence checks whether two categorical variables 
-are related or independent of each other.
-- It’s a nonparametric test, meaning it doesn’t assume normality or equal variances.
+- The Chi-Square Test of Independence checks whether two categorical 
+variables are related or independent of each other.
+- It’s a nonparametric test, meaning it doesn’t assume normality or 
+equal variances.
 - Here, we test whether proximity to the Charles River (chas) is related to 
 highway accessibility (rad).
 - H₀: chas and rad are independent.
@@ -366,8 +383,8 @@ plt.legend(title="Next to Charles River (1 = Yes, 0 = No)")
 plt.show()
 ```
 
-- Chi-square tests are great for frequency data, think of them as testing whether 
-"categories are distributed as expected"
+- Chi-square tests are great for frequency data, think of them as 
+testing whether "categories are distributed as expected"
 
 ### Proportion Test  
 
@@ -402,13 +419,13 @@ else:
 
 ### Correlation Test 
 
-- The Correlation Test measures the strength and direction of the relationship 
-between two continuous variables.
+- The Correlation Test measures the strength and direction of the 
+relationship between two continuous variables.
 - r close to +1 means a strong correlation 
 - r close to 0 means little or no correlation 
 - r close to -1 means a strong negative correlation 
-- Here, we test whether there is a linear relationship between the number of rooms 
-per dwelling (rm) and the median home value (medv).
+- Here, we test whether there is a linear relationship between the 
+number of rooms per dwelling (rm) and the median home value (medv).
 - H₀: ρ = 0 (no correlation between rooms and home value._ 
 - H₁: ρ ≠ 0 (a significant correlation exists between rooms and home value.) 
 
@@ -437,13 +454,18 @@ plt.ylabel("Median Home Value ($1000s)")
 plt.show()
 ```
 
-- The Spearman correlation coefficient (ρ) measures the strength and direction 
-of a monotonic relationship between two continuous variables.
-- Unlike Pearson’s correlation, it doesn’t assume normality or a linear relationship.
-- Here, we test whether the number of rooms (rm) and median home value (medv) are 
+- The Spearman correlation coefficient (ρ) measures the strength 
+and direction of a monotonic relationship between two continuous 
+variables.
+- Unlike Pearson’s correlation, it doesn’t assume normality or a 
+linear relationship.
+- Here, we test whether the number of rooms (rm) and median home value
+(medv) are 
 monotonically related.
-- H₀: ρ = 0 (There is no monotonic relationship between the number of rooms and home value.)
-- H₁: ρ ≠ 0 (There is a monotonic relationship between the number of rooms and home value.)
+- H₀: ρ = 0 (There is no monotonic relationship between the number 
+of rooms and home value.)
+- H₁: ρ ≠ 0 (There is a monotonic relationship between the number 
+of rooms and home value.)
 
 ```{python}
 x = housing["rm"].fillna(0)
