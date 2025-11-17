@@ -46,7 +46,7 @@ on assumptions.
 
 ### Load, Clean and Preview the Data 
 
-- Let's begin by loading the data 
+- Let's begin by loading the data. 
 
 ```{python}
 # Step 1: import essential packages for analysis and visualization 
