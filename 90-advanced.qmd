@@ -10,3 +10,6 @@
 
 <!-- ## Calling R from Python -->
 {{< include _callr.qmd >}}
+
+<!-- ## Making Personal Webpage on GitHub Pages -->
+{{< include _personal_webpage.qmd >}}
