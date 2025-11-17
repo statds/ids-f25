@@ -211,9 +211,9 @@ print(f"T-statistic: {t_stat:.3f}, P-value: {p_value:.4f}")
 ```{python}
 alpha = 0.05
 if p_value < alpha:
-    print(f"Reject H₀ (p = {p_value:.4f}) → Mean home values differ based on proximity to the Charles River.")
+    print(f"Reject H₀ (p = {p_value:.4f}) → Mean home values differ.")
 else:
-    print(f"Fail to reject H₀ (p = {p_value:.4f}) → No difference in mean home values based on proximity to the Charles River.")
+    print(f"Fail to reject H₀ (p = {p_value:.4f}) → No difference in mean home values.")
 ```
 
 - chas is a binary variable (1 = near river and 0 = away)
