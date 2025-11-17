@@ -50,7 +50,7 @@ on assumptions.
 
 ```{python}
 # Step 1: import essential packages for analysis and visualization 
-import pandas as pd # used for data manipulation and structuring data in a DataFrame 
+import pandas as pd # used for data manipulation and structuring data 
 import numpy as np # supports numerical operations
 from scipy import stats # provides statistical operations 
 import matplotlib.pyplot as plt # visualizations
@@ -86,7 +86,8 @@ housing.info()
 housing.head()
 ```
 
-- We can summarize the dataset using '.describe()' to see its spread and variability before running tests
+- We can summarize the dataset using '.describe()' to see its spread and 
+variability before running tests
 
 ```{python}
 housing.describe()
@@ -116,17 +117,18 @@ t_stat, p_value
 ```{python}
 alpha = 0.05
 if p_value < alpha:
-    print(f"Reject H₀ (p = {p_value:.3f}) → Mean home value differs significantly from $20,000.")
+    print(f"Reject H₀ (p = {p_value:.3f}) → Mean home value differs from $20,000.")
 else:
-    print(f"Fail to reject H₀ (p = {p_value:.3f}) → No significant difference from $20,000.")
+    print(f"Fail to reject H₀ (p = {p_value:.3f}) → No difference from $20,000.")
 ```
 
 - The output (6.19, 1.21e-09) corresponds to the t-statistic and p-value 
 - The t-statistic means that the sample is roughly 6 standard errors away from the 
 hypothesized population mean of $20,000 
 - The p-value is extremely small, far below the 0.05 significance threshold
-- We can conclude that the mean home value is significantly different from $20,000 and 
-we reject the null hypothesis. The average housing prices are not centered around $20,000 
+- We can conclude that the mean home value is significantly different from 
+$20,000 and we reject the null hypothesis. The average housing prices are not
+centered around $20,000 
 
 - We can also visualize this by using a histogram
 
@@ -162,9 +164,9 @@ wilcoxon(prices - 20, alternative="two-sided")
 ```{python}
 alpha = 0.05
 if p_value < alpha:
-    print(f"Reject H₀ (p = {p_value:.4f}) → Median home value differs significantly from $20,000.")
+    print(f"Reject H₀ (p = {p_value:.4f}) → Median home value differs from $20,000.")
 else:
-    print(f"Fail to reject H₀ (p = {p_value:.4f}) → No significant difference from $20,000.")
+    print(f"Fail to reject H₀ (p = {p_value:.4f}) → No difference from $20,000.")
 ```
 
 - wilcoxon() tests whether the median of the sample differs from a hypothesized value 
@@ -197,9 +199,9 @@ print(f"T-statistic: {t_stat:.3f}, P-value: {p_value:.4f}")
 ```{python}
 alpha = 0.05
 if p_value < alpha:
-    print(f"Reject H₀ (p = {p_value:.4f}) → Mean home values differ significantly based on proximity to the Charles River.")
+    print(f"Reject H₀ (p = {p_value:.4f}) → Mean home values differ based on proximity to the Charles River.")
 else:
-    print(f"Fail to reject H₀ (p = {p_value:.4f}) → No significant difference in mean home values based on proximity to the Charles River.")
+    print(f"Fail to reject H₀ (p = {p_value:.4f}) → No difference in mean home values based on proximity to the Charles River.")
 ```
 
 - chas is a binary variable (1 = near river and 0 = away)
@@ -246,10 +248,10 @@ print(f"Mann-Whitney U statistic: {stat:.3f}, p-value: {p_value:.4f}")
 alpha = 0.05
 if p_value < alpha:
     print(f"Reject H₀ (p = {p_value:.4f}) → "
-          f"Median home values differ significantly based on proximity to the Charles River.")
+          f"Median home values differ based on proximity to the Charles River.")
 else:
     print(f"Fail to reject H₀ (p = {p_value:.4f}) → "
-          f"No significant difference in median home values based on proximity to the Charles River.")
+          f"No difference in median home values based on proximity to the Charles River.")
 ```
 
 ### ANOVA 
@@ -276,10 +278,10 @@ print(f"F-statistic: {f_stat:.3f}, P-value: {p_value:.4f}")
 alpha = 0.05
 if p_value < alpha:
     print(f"Reject H₀ (p = {p_value:.4f}) → "
-          f"Mean home values differ significantly across highway accessibility levels.")
+          f"Mean home values differ across highway accessibility levels.")
 else:
     print(f"Fail to reject H₀ (p = {p_value:.4f}) → "
-          f"No significant difference in mean home values across highway accessibility levels.")
+          f"No difference in mean home values across highway accessibility levels.")
 
 ```
 
@@ -317,10 +319,10 @@ print(f"H-statistic: {h_stat:.3f}, P-value: {p_value:.4f}")
 alpha = 0.05
 if p_value < alpha:
     print(f"Reject H₀ (p = {p_value:.4f}) → "
-          f"Median home values differ significantly across highway accessibility levels.")
+          f"Median home values differ across highway accessibility levels.")
 else:
     print(f"Fail to reject H₀ (p = {p_value:.4f}) → "
-          f"No significant difference in median home values across highway accessibility levels.")
+          f"No difference in median home values across highway accessibility levels.")
 ```
 
 ### Chi-Square Test of Independence 
@@ -420,9 +422,9 @@ print(f"Correlation coefficient (r): {corr:.3f}, P-value: {p_value:.4f}")
 
 alpha = 0.05
 if p_value < alpha:
-    print(f"Reject H₀ (p = {p_value:.4f}) → There is a significant linear correlation between rooms and home value.")
+    print(f"Reject H₀ (p = {p_value:.4f}) → There is a significant linear correlation.")
 else:
-    print(f"Fail to reject H₀ (p = {p_value:.4f}) → No significant correlation between rooms and home value.")
+    print(f"Fail to reject H₀ (p = {p_value:.4f}) → No significant correlation.")
 ```
 
 - Scatterplot for visualization 
@@ -453,9 +455,9 @@ print(f"Spearman’s rho: {rho:.3f}, P-value: {p_value:.4f}")
 
 alpha = 0.05
 if p_value < alpha:
-    print(f"Reject H₀ (p = {p_value:.4f}) → There is a significant monotonic relationship between rooms and home value.")
+    print(f"Reject H₀ (p = {p_value:.4f}) → There is a significant monotonic relationship.")
 else:
-    print(f"Fail to reject H₀ (p = {p_value:.4f}) → No significant monotonic relationship between rooms and home value.")
+    print(f"Fail to reject H₀ (p = {p_value:.4f}) → No significant monotonic relationship.")
 ```
 
 ### Summary of Tests 
