@@ -1,0 +1,442 @@
+## Principal Component Analysis
+
+Principal Component Analysis (PCA) is a dimensionality reduction 
+technique that transforms a dataset with potentially correlated 
+features into a set of uncorrelated components. These components are 
+ordered by the amount of variance each one captures, allowing PCA to 
+summarize the data structure while retaining the most informative 
+features. This approach is widely used in unsupervised learning, 
+particularly for data compression and noise reduction.
+
+### Theory
+
+PCA works by identifying directions, or "principal components," along 
+which the variance of the data is maximized. Let $X$ be a dataset 
+with $n$ observations and $p$ features, represented as an 
+$n \times p$ matrix. The principal components are derived from the 
+eigenvectors of the data’s covariance matrix, representing directions
+of greatest variation.
+
+
+1. Standardization: To ensure each feature contributes equally, 
+   features in $X$ are often standardized to have zero mean and unit 
+   variance. Without this step, variables with larger scales can 
+   dominate the resulting components.
+
+2. Covariance Matrix: Compute the covariance matrix $S$ of the data
+   as:
+
+   $$
+   S = \frac{1}{n-1} X_c^\top X_c,
+   $$
+
+   where $X_c$ is the centered version of $X$. This matrix measures
+   how pairs of features vary together.
+
+3. Eigenvalue Decomposition: The eigenvectors of $S$ represent the 
+   principal components, and the associated eigenvalues quantify the 
+   variance each component captures.
+
+4. Dimensionality Reduction: Select the top $k$ eigenvectors with 
+   the largest eigenvalues and project $X$ onto them:
+   $$
+   X_{\text{reduced}} = X W_k,
+   $$
+   where $W_k$ contains these eigenvectors as columns.  
+   The resulting lower-dimensional data retains most of the variation 
+   in $X$.
+
+### Properties of PCA
+
+PCA has several important properties that make it valuable for 
+unsupervised learning:
+
+1. Variance Maximization: The first principal component is the 
+   direction that maximizes variance in the data. Each subsequent 
+   component maximizes variance under the constraint of being 
+   orthogonal to previous components.
+
+2. Orthogonality: Principal components are orthogonal to each other, 
+   ensuring that each captures unique information. This property 
+   transforms the data into an uncorrelated space, simplifying further 
+   analysis.
+
+3. Dimensionality Reduction: By selecting only components with the 
+   largest eigenvalues, PCA enables dimensionality reduction while 
+   preserving most of the data’s variability. This is especially useful 
+   for large datasets.
+
+4. Reconstruction: If all components are retained, the original data 
+   can be perfectly reconstructed. When fewer components are used, the 
+   reconstruction is approximate but retains the essential structure of 
+   the data.
+
+5. Sensitivity to Scaling: PCA is sensitive to the scale of input 
+   data, so standardization is often necessary to ensure that each 
+   feature contributes equally to the analysis.
+
+### Interpreting PCA Results
+
+The output of PCA provides several insights into the data:
+
+1. Principal Components: Each principal component represents a 
+   linear combination of the original features. The loadings (or 
+   weights) for each feature indicate the contribution of that feature 
+   to the component. Large weights (positive or negative) suggest that 
+   the corresponding feature strongly influences the principal 
+   component.
+
+2. Explained Variance: Each principal component captures a 
+   specific amount of variance in the data. The proportion of variance 
+   explained by each component helps determine how many components are 
+   needed to retain the key information in the data. For example, if 
+   the first two components explain 90% of the variance, then these 
+   two components are likely sufficient to represent the majority of 
+   the data's structure.
+
+3. Selecting the Number of Components: The cumulative explained 
+   variance plot indicates the total variance captured as more 
+   components are included. A common approach is to choose the number 
+   of components such that the cumulative variance reaches an 
+   acceptable threshold (e.g., 95%). This helps in balancing 
+   dimensionality reduction with information retention.
+
+4. Interpretation of Component Scores: The transformed data 
+   points, or "scores," in the principal component space represent 
+   each original observation as a combination of the selected principal 
+   components. Observations close together in this space have similar 
+   values on the selected components and may indicate similar 
+   patterns.
+
+5. Identifying Patterns and Clusters: By visualizing the data in 
+   the reduced space, patterns and clusters may become more apparent, 
+   especially in cases where there are inherent groupings in the data. 
+   These patterns can provide insights into underlying relationships 
+   between observations.
+
+PCA thus offers a powerful tool for both reducing data complexity and 
+enhancing interpretability by transforming data into a simplified 
+structure, with minimal loss of information.
+
+### Example: PCA on 8x8 Digit Data
+
+The 8x8 digit dataset contains grayscale images of handwritten digits
+(0 through 9), each stored as an 8x8 grid of pixel intensities. Each
+pixel intensity serves as a feature, giving 64 features per image. The 
+dataset is thus high-dimensional, yet its underlying structure is 
+visually simple.
+
+#### Loading and Visualizing the Data
+
+
+We begin by loading the data and displaying a few sample images to 
+understand its structure.
+
+```{python}
+#| label: fig-digits-sample
+#| fig-cap: "Sample 8×8 grayscale images from the handwritten digit dataset."
+#| fig-width: 8
+#| fig-height: 4
+
+# Import required libraries
+import matplotlib.pyplot as plt
+from sklearn.datasets import load_digits
+
+# Load the 8x8 digit dataset
+digits = load_digits()
+X = digits.data  # feature matrix: 64 features (8x8 pixels)
+y = digits.target  # target labels (0-9 digit classes)
+
+# Display the shape of the data
+print("Feature matrix shape:", X.shape)
+print("Target vector shape:", y.shape)
+
+# Plot some sample images from the dataset
+fig, axes = plt.subplots(2, 5, figsize=(8, 4))
+for i, ax in enumerate(axes.flat):
+    ax.imshow(X[i].reshape(8, 8), cmap='gray')
+    ax.set_title(f"Digit: {y[i]}")
+    ax.axis('off')
+plt.suptitle("Sample Images from 8x8 Digit Dataset", fontsize=16)
+plt.show()
+```
+
+After visualizing the data, we note:
+
++ Each digit corresponds to an 8×8 grid of pixels, forming a
+  64-dimensional feature space.
++ Despite the high dimensionality, many features (pixels) are
+  correlated or redundant.
++ PCA can therefore help summarize the data while retaining essential
+  structure.
+  
+Because the dataset is high-dimensional, PCA can address several key
+questions:
+
++ Dimensionality Reduction: Can we reduce the dataset’s dimensionality
+   while preserving the essential structure of each digit? This
+   simplification may improve visualization and computational
+   efficiency.
++ Variance Explained: How many principal components are needed to
+   capture most of the variance? Determining this shows how many
+   features meaningfully distinguish digits.
++ Cluster Structure: Do distinct clusters appear in the reduced
+   component space? Plotting the first few components may reveal natural
+   groupings by digit class.
+
+#### Performing PCA and Plotting Variance Contribution
+
+
+We now apply PCA to the digit data and examine how much variance each 
+principal component explains. This analysis helps determine the number 
+of components that provide a good balance between dimensionality 
+reduction and information retention. 
+
+
+Our goal is to identify how many components capture most of the 
+variance. A cumulative explained variance plot will illustrate how the 
+total variance increases as additional components are included.
+
+```{python}
+#| label: fig-pca-scree-digits
+#| fig-cap: >
+#|    Variance contribution of each principal component and cumulative
+#|    explained variance for the digit dataset.
+#| fig-width: 8
+#| fig-height: 4
+
+# Import the PCA module
+from sklearn.decomposition import PCA
+import numpy as np
+
+# Initialize PCA without specifying the number of components
+pca = PCA()
+X_pca = pca.fit_transform(X)
+
+# Calculate the explained variance ratio for each component
+explained_variance = pca.explained_variance_ratio_
+cumulative_variance = np.cumsum(explained_variance)
+
+# Plot variance contributions
+fig, axes = plt.subplots(1, 2, figsize=(8, 4))
+
+# Individual explained variance
+axes[0].plot(
+    np.arange(1, len(explained_variance) + 1),
+    explained_variance,
+    marker="o"
+)
+axes[0].set_xlabel("Principal Component")
+axes[0].set_ylabel("Explained Variance Ratio")
+axes[0].set_title("Variance by Component")
+
+
+# Cumulative explained variance
+axes[1].plot(
+    np.arange(1, len(cumulative_variance) + 1),
+    cumulative_variance,
+    marker="o"
+)
+axes[1].set_xlabel("Number of Components")
+axes[1].set_ylabel("Cumulative Explained Variance")
+axes[1].set_title("Cumulative Variance")
+
+fig.tight_layout()
+plt.show()
+```
+
+The plots in @fig-pca-scree-digits show how variance is distributed
+across components.
+
++ Variance by Component: The left panel displays the variance
+ explained by each component. Components with larger contributions
+ represent the most informative directions of variation.
++ Cumulative Variance: The right panel shows the cumulative variance
+ as the number of components increases. The curve helps
+ identify an efficient cutoff for dimension reduction.
+
+
+To select the number of components:
+
++ Variance Threshold: Select the smallest number of components that
+ explain a desired proportion of variance, such as 90% or 95%. 
++ Elbow Method: Choose the elbow point on the cumulative variance
+ curve, balancing compactness and representational accuracy.
+
+  
+In this dataset, the first 10 components account for roughly 75% of
+the variance, while about 50 components are required to capture nearly
+all variance.
+
+#### PCA in Dimension Reduction
+
+PCA can also be used to visualize high-dimensional data in a lower-
+dimensional space. Here we project the digit data onto the first two 
+and first three principal components to observe how well PCA captures 
+the underlying structure and whether the digits form distinct clusters 
+in reduced dimensions.
+
+
+```{python}
+#| label: fig-pca-biplot-digits
+#| fig-cap: "2D and 3D PCA projections of the 8×8 digit data, showing clustering by digit class."
+#| fig-width: 8
+#| fig-height: 6
+
+
+from mpl_toolkits.mplot3d import Axes3D
+from sklearn.decomposition import PCA
+import matplotlib.pyplot as plt
+
+# Apply PCA for 2D and 3D projections
+pca_2d = PCA(n_components=2)
+X_pca_2d = pca_2d.fit_transform(X)
+
+pca_3d = PCA(n_components=3)
+X_pca_3d = pca_3d.fit_transform(X)
+
+# 2D projection
+plt.figure(figsize=(8, 6))
+scatter = plt.scatter(X_pca_2d[:, 0], X_pca_2d[:, 1], c=y, cmap="tab10",
+                      s=15, alpha=0.7)
+plt.xlabel("Principal Component 1")
+plt.ylabel("Principal Component 2")
+plt.title("2D PCA Projection of Digit Data")
+plt.colorbar(scatter, label="Digit Label")
+plt.show()
+
+# 3D projection
+fig = plt.figure(figsize=(10, 7))
+ax = fig.add_subplot(111, projection="3d")
+scatter = ax.scatter(X_pca_3d[:, 0], X_pca_3d[:, 1], X_pca_3d[:, 2],
+                     c=y, cmap="tab10", s=15, alpha=0.7)
+ax.set_xlabel("PC 1")
+ax.set_ylabel("PC 2")
+ax.set_zlabel("PC 3")
+ax.set_title("3D PCA Projection of Digit Data")
+fig.colorbar(scatter, ax=ax, label="Digit Label")
+plt.show()
+```
+
+The 3D projection in @fig-pca-biplot-digits shows each image’s
+position in the space defined by the first three principal components.
+Several observations emerge:
+
+1. **Cluster Formation**: 
+   Distinct clusters of points represent different digits. Digits with 
+   similar shapes, such as "1" and "7" (both often vertical), may 
+   appear closer to each other in this reduced space. This clustering 
+   suggests that PCA effectively captures structural features, even 
+   when reducing dimensions.
+
+2. **Effectiveness of Dimensionality Reduction**:
+   Despite reducing from 64 dimensions to only three, PCA retains 
+   essential variance, allowing for distinction between different 
+   digits. This demonstrates PCA’s utility in data compression, 
+   providing a simplified representation without losing significant 
+   information.
+
+3. **Exploring Further Dimensions**:
+   Additional components could capture more variance, if required. 
+   However, the first three components often capture most of the 
+   meaningful variance, balancing dimensionality reduction with 
+   information retention.
+
+This PCA projection shows that the digit data has underlying 
+patterns well-represented by the first few components. These findings 
+highlight PCA’s usefulness in compressing high-dimensional data while 
+preserving its structure, making it a valuable tool for visualization, 
+noise reduction, and as a pre-processing step in machine learning 
+tasks.
+
+
+#### PCA in Noise Filtering
+
+PCA can also be applied for denoising data by reconstructing it from a 
+subset of principal components. Components associated with small 
+variance often correspond to noise, so omitting them can yield a 
+cleaner version of the data. We demonstrate this effect using the 
+digit dataset through the following steps:
+
+1. Add Random Noise: Add random noise to the original digit images.
+1. Fit PCA to Noisy Data: Apply PCA to the noisy data, selecting
+   enough components to retain 50% of the variance.
+1. Reconstruct the Digits: Use PCA’s inverse transform to reconstruct
+   the digits from the reduced components, effectively filtering out
+   the noise.
+1. Display the Results: Show a side-by-side comparison of the
+   original, perturbed, and reconstructed images for visual
+   assessment.
+
+```{python}
+
+#| label: fig-pca-noise-digits
+#| fig-cap: "Noise filtering using PCA: original, noisy, and reconstructed digit images."
+#| fig-width: 6
+#| fig-height: 6
+
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.decomposition import PCA
+from sklearn.datasets import load_digits
+
+def plot_digits(datasets, titles):
+    """
+    Display 2×5 grids of digit images for each dataset in `datasets`.
+
+    Parameters
+    ----------
+    datasets : list of np.ndarray
+        Each array has shape (n_samples, 64), representing different 
+        versions of the digit data (e.g., original, noisy, reconstructed).
+    titles : list of str
+        Titles corresponding to each dataset (e.g., ["Original", "Noisy", "Reconstructed"]).
+    """
+    fig, axes = plt.subplots(len(datasets), 10, figsize=(8, 5),
+                             subplot_kw={"xticks": [], "yticks": []},
+                             gridspec_kw=dict(hspace=0.2, wspace=0.1))
+    for row, (data, title) in enumerate(zip(datasets, titles)):
+        for i, ax in enumerate(axes[row]):
+            ax.imshow(data[i].reshape(8, 8), cmap="binary", interpolation="nearest", clim=(0, 16))
+        axes[row, 0].set_ylabel(title, rotation=0, labelpad=25,
+                                fontsize=11, ha="right")
+
+    plt.suptitle("PCA Noise Filtering: Original, Noisy, and Reconstructed Digits",
+                 fontsize=14)
+    plt.show()
+
+# Load the digit dataset
+digits = load_digits()
+X = digits.data
+
+# Add Gaussian noise
+np.random.seed(0)
+noise = np.random.normal(0, 4, X.shape)
+X_noisy = X + noise
+
+# Fit PCA to retain 50% of total variance
+pca_50 = PCA(0.50)
+X_pca_50 = pca_50.fit_transform(X_noisy)
+X_reconstructed_50 = pca_50.inverse_transform(X_pca_50)
+
+# Display results
+plot_digits([X, X_noisy, X_reconstructed_50],
+            ["Original", "Noisy", "Reconstructed"])
+```
+
+The visualization in @fig-pca-noise-digits highlights PCA’s ability to
+filter out random noise:
+
++ Original vs. Noisy Images: The second row shows the effect of added
+  random noise, making the digits less recognizable.
++ Reconstructed Images: In the third row, PCA has filtered out much of
+  the random noise, reconstructing cleaner versions of the digits
+  while preserving important structural features. This illustrates
+  PCA's effectiveness in noise reduction by retaining only the
+  principal components that capture meaningful variance.
+
+This example illustrates PCA’s denoising mechanism: by keeping only
+the components with the largest variance, it suppresses random noise
+and retains the dominant patterns in the data. This property makes PCA
+useful for preprocessing, image restoration, and general noise
+reduction tasks.
