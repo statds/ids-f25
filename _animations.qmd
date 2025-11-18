@@ -1,8 +1,4 @@
----
-title: Animations
-jupyter: python3
----
-
+## Animations
 
 This section was created by Justin Tran, an Undergraduate 
 Junior majoring in Applied Data Analysis with minors in 
@@ -20,8 +16,6 @@ It is commonly used to visualize progress, simulations, or changing datasets, in
 - Simulations like rolling dice.
 - A scatterplot which updates with new data.
 - A line chart that grows over time, like exponential graphs.
-
-[![Mathematica's Animated Bar Chart Race](https://i.sstatic.net/vrU3R.gif)](https://mathematica.stackexchange.com/questions/257802/animated-bar-chart-race-a-popular-data-visualization/)
 
 
 ### Static vs Animated Plots
@@ -81,7 +75,7 @@ import matplotlib.pyplot as plt
 
 Normally, you may want to create a simple plot where you are rolling a dice and see the probability of you rolling a six. So, we will create a line plot.
 
-```
+```{python}
 import random
 import matplotlib.pyplot as plt
 
@@ -110,7 +104,7 @@ plt.show()
 
 You can also use different types of charts, like bar charts. This example will show how many times each number gets rolled when we roll a dice hundreds of times.
 
-```
+```{python}
 import random
 import matplotlib.pyplot as plt
 
@@ -159,7 +153,7 @@ anim = FuncAnimation(
 
 Now, to do the animation on the probability of rolling a 6, this is the code to run.
 
-```
+```{python}
 from matplotlib.animation import FuncAnimation
 
 prop_six = prob_six(500)
@@ -198,7 +192,7 @@ plt.close(fig)
 
 [![Animated Dice Roll, Probabiliity of rolling a 6](dice_prob.gif)]
 
-```
+```{python}
 from matplotlib.animation import FuncAnimation
 
 num_faces = 6
@@ -250,7 +244,7 @@ pixi add contextily                        # Users with pixi
 uv add contextily                          # Users with uv
 ```
 
-```
+```{python}
 import pandas as pd
 import geopandas as gpd
 import matplotlib.pyplot as plt
@@ -258,7 +252,7 @@ from matplotlib.animation import FuncAnimation
 import contextily as cx
 
 
-df = pd.read_feather("ids-f25/data/nyc_crashes_cleaned.feather")
+df = pd.read_feather("../ids-f25/data/nyc_crashes_cleaned.feather")
 df["crash_datetime"] = pd.to_datetime(df["crash_datetime"], errors="coerce")
 df = df.dropna(subset=["latitude", "longitude", "borough"])
 
@@ -338,16 +332,16 @@ plt.close(fig)
 
 Another example that we can use is seeing the proportion of causes of crashes in NYC.
 
-```
+```{python}
 import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 
 
-df = pd.read_feather("ids-f25/data/nyc_crashes_cleaned.feather")
+df = pd.read_feather("../ids-f25/data/nyc_crashes_cleaned.feather")
 df["crash_datetime"] = pd.to_datetime(df["crash_datetime"], errors="coerce")
 
-# Creating daily bins
+# Creating the daily bins
 df["date"] = df["crash_datetime"].dt.date
 
 # Wanting the top causes
@@ -379,29 +373,18 @@ cause_colors = {
 
 
 # Setting up the figure
-fig, ax = plt.subplots(figsize=(8, 8))
-ax.axis("equal")  
+fig, ax = plt.subplots(figsize=(11, 10))
+ax.set_aspect("equal")
 
-# Starting the first frame
-current_data = daily_counts[daily_counts["date"] == dates[0]]
-sizes = current_data["count"]
-labels = current_data["contributing_factor_vehicle_1"]
-colors = [cause_colors.get(label, "gray") for label in labels]  
-wedges, texts = ax.pie(sizes, labels=labels, colors=colors, startangle=90, labeldistance=1.2)
-title = ax.text(0, 1.1, f"Crash Causes — {dates[0]}", ha="center", fontsize=14)
-plt.tight_layout(pad=3.0)  
+# This is trying to fix the white space so labels aren't cut off
+plt.tight_layout(pad=5)
+plt.subplots_adjust(left=0.05, right=0.92, top=0.9, bottom=0.1)
 
-# Creating the update function
-def update(frame):
-    ax.clear()
-    ax.axis("equal")
 
-    current_date = dates[frame]
-    current_data = daily_counts[daily_counts["date"] == current_date]
-
-    # To keep the order consistent
+# Setting the first frame 
+def pie_chart(ax, date):
+    current_data = daily_counts[daily_counts["date"] == date]
     current_data = current_data.set_index("contributing_factor_vehicle_1").reindex(top_causes).fillna(0)
-
     sizes = current_data["count"]
     labels = current_data.index
     colors = [cause_colors.get(label, "gray") for label in labels]
@@ -412,13 +395,24 @@ def update(frame):
         colors=colors,
         startangle=90,
         autopct="%1.1f%%",
-        labeldistance=1.2
+        labeldistance=1.2, 
+        pctdistance=0.8
     )
-    ax.set_title(f"NYC Crash Causes — {current_date}", fontsize=14)
-    plt.tight_layout(pad=3.0)
+    ax.set_title(f"NYC Crash Causes — {date}", fontsize=16, pad=20)
+
+# Draw initial frame
+pie_chart(ax, dates[0])
 
 
-anim = FuncAnimation(fig, update, frames=len(dates), repeat=False, interval=1000)
+# Creating the update function
+def update(frame):
+    ax.clear()
+    ax.set_aspect("equal")
+    pie_chart(ax, dates[frame]) # Calls back first frame layout
+    plt.subplots_adjust(left=0.05, right=0.92, top=0.9, bottom=0.1)
+
+
+anim = FuncAnimation(fig, update, frames=len(dates), interval=1000, repeat=False)
 anim.save("nyc_crash_causes_pie.gif", writer="pillow", fps=1)
 
 plt.close(fig)
