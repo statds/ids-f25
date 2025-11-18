@@ -6,7 +6,12 @@ book:
   subtitle: "STAT 3255/5255 @ UConn, Fall 2025"
   author:
     - name: "[Jun Yan](https://statcomp.org) and Students in Fall 2025"
-    - name: Jingang Chen, Alejandro Haerter
+    - name: Irene Chen, Jingang Chen,
+    - name: Alejandro Haerter
+    - name: Sonia Lucey
+    - name: Lewis Milun
+    - name: Sahil Patel
+    - name: Wilson Tang
   date: today
 
 #  sidebar:

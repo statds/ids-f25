@@ -324,6 +324,163 @@ operations. Despite this simplification, GRUs often perform as well as
 LSTMs, especially when datasets are smaller or sequence lengths are
 moderate.
 
+### Example: Forecasting a Synthetic Sequential Signal (PyTorch)
 
-A demonstration requires Python 3.12 for `torch` or `tensorflow` to
-run. Stay tuned.
+To compare recurrent architectures in a reproducible way, we use a
+synthetic sine-wave signal with random noise. This allows us to train
+RNN, LSTM, and GRU models side-by-side without large datasets or
+external dependencies.
+
+#### Step 1. Generate the data
+
+```{python}
+#| label: synth-data
+#| fig-cap: "Synthetic sine-wave signal with random noise."
+#| fig-width: 6
+#| fig-height: 3
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+np.random.seed(0)
+time = np.arange(0, 200)
+signal = np.sin(time / 6) + 0.3 * np.random.randn(200)
+df = pd.DataFrame({"time": time, "signal": signal})
+
+plt.figure(figsize=(6, 3))
+plt.plot(df["time"], df["signal"])
+plt.xlabel("Time")
+plt.ylabel("Signal")
+plt.tight_layout()
+plt.show()
+```
+
+#### Step 2. Prepare input sequences
+
+Each training example uses the previous 20 observations to predict the
+next value.
+
+```{python}
+#| label: synth-seq
+#| echo: true
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.model_selection import train_test_split
+import torch
+from torch import nn
+
+L = 20
+scaler = MinMaxScaler()
+scaled = scaler.fit_transform(df[["signal"]])
+
+X, y = [], []
+for t in range(L, len(scaled)):
+    X.append(scaled[t-L:t, 0])
+    y.append(scaled[t, 0])
+X, y = np.array(X), np.array(y)
+X = X.reshape(X.shape[0], L, 1)
+
+# split and convert to tensors
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, shuffle=False)
+
+X_train = torch.tensor(X_train, dtype=torch.float32)
+y_train = torch.tensor(y_train, dtype=torch.float32).view(-1, 1)
+X_test  = torch.tensor(X_test, dtype=torch.float32)
+y_test  = torch.tensor(y_test, dtype=torch.float32).view(-1, 1)
+```
+
+#### Step 3. Define recurrent models
+
+```{python}
+#| label: synth-models
+#| echo: true
+class RecurrentModel(nn.Module):
+    def __init__(self, rnn_type="RNN", hidden_size=50):
+        super().__init__()
+        if rnn_type == "LSTM":
+            self.rnn = nn.LSTM(1, hidden_size, batch_first=True)
+        elif rnn_type == "GRU":
+            self.rnn = nn.GRU(1, hidden_size, batch_first=True)
+        else:
+            self.rnn = nn.RNN(1, hidden_size, batch_first=True)
+        self.fc = nn.Linear(hidden_size, 1)
+    def forward(self, x):
+        out, _ = self.rnn(x)
+        return self.fc(out[:, -1, :])
+```
+
+#### Step 4. Train and evaluate
+
+```{python}
+#| label: synth-train
+#| echo: true
+def train_model(model, X, y, epochs=50, lr=0.01):
+    criterion = nn.MSELoss()
+    optimizer = torch.optim.Adam(model.parameters(), lr=lr)
+    for _ in range(epochs):
+        optimizer.zero_grad()
+        loss = criterion(model(X), y)
+        loss.backward()
+        optimizer.step()
+    return loss.item()
+
+def predict(model, X):
+    model.eval()
+    with torch.no_grad():
+        return model(X).numpy()
+
+models = {
+    "RNN":  RecurrentModel("RNN"),
+    "LSTM": RecurrentModel("LSTM"),
+    "GRU":  RecurrentModel("GRU")
+}
+
+for name, m in models.items():
+    final_loss = train_model(m, X_train, y_train)
+    print(f"{name} final training loss: {final_loss:.5f}")
+
+y_preds = {name: predict(m, X_test) for name, m in models.items()}
+```
+
+#### Step 5. Compare RMSE and MAE
+
+```{python}
+#| label: synth-metrics
+#| echo: true
+from sklearn.metrics import mean_squared_error, mean_absolute_error
+
+def metrics(y_true, y_pred):
+    rmse = np.sqrt(mean_squared_error(y_true, y_pred))
+    mae = mean_absolute_error(y_true, y_pred)
+    return rmse, mae
+
+for name, y_hat in y_preds.items():
+    rmse, mae = metrics(y_test, y_hat)
+    print(f"{name:5s} – RMSE: {rmse:.4f}, MAE: {mae:.4f}")
+```
+
+#### Step 6. Visual comparison
+
+```{python}
+#| label: synth-plot
+#| fig-cap: "Observed and predicted values using RNN, LSTM, and GRU (PyTorch)."
+#| fig-width: 6.5
+#| fig-height: 4
+plt.figure(figsize=(6.5, 4))
+plt.plot(y_test[:100], label="Observed", color="black")
+for name, y_hat in y_preds.items():
+    plt.plot(y_hat[:100], label=name, alpha=0.7)
+plt.xlabel("Time index")
+plt.ylabel("Scaled signal")
+plt.legend()
+plt.tight_layout()
+plt.show()
+```
+
+#### Discussion
+
+All three networks capture the oscillatory pattern, but the vanilla RNN
+has difficulty preserving phase alignment when the sequence is long.
+Both the LSTM and GRU learn the dependency structure more reliably. The
+GRU reaches nearly the same accuracy as the LSTM while training faster,
+thanks to its simpler gating design.

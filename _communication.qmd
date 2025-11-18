@@ -1,0 +1,543 @@
+## Effective Data Science Communication
+
+This section is by Abby White, a senior majoring in Statistical Data Science 
+with a concentration in Advanced Statistics.
+
+### Introduction
+
+Data science communication is about more than presenting results; it is about 
+helping others understand and act on them. A clear visualization, a well-phrased 
+sentence, or a reproducible workflow can determine whether your analysis makes 
+an impact or gets lost in translation.
+
+In this presentation, I will discuss:  
+1. Why communication matters in data science.  
+2. Key principles for clarity and transparency.  
+3. How visualization and storytelling improve understanding.  
+4. The role of reproducibility and ethics in reporting results.  
+5. How to connect insights to action.  
+
+### Why Communication Matters
+
+Even the best analysis doesn't mean much if people cannot understand it. 
+Clarity, honesty, and reproducibility are what make results useful.
+
+
+#### Example: Framing a Finding Clearly
+
+```{python}
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# Load the cleaned NYC crash data
+crash_df = pd.read_feather("../ids-f25/data/nyc_crashes_cleaned.feather")
+
+# Count crashes by borough
+borough_counts = crash_df["borough"].value_counts().reset_index()
+borough_counts.columns = ["borough", "crash_count"]
+
+sns.barplot(
+    data=borough_counts,
+    x="borough", y="crash_count",
+    order=borough_counts.sort_values("crash_count", ascending=False)["borough"],
+)
+plt.title("NYC Motor Vehicle Collisions by Borough (Labor Day Week, 2025)")
+plt.xlabel("Borough")
+plt.ylabel("Crash Count")
+
+# Add labels above bars
+for i, val in enumerate(borough_counts["crash_count"]):
+    plt.text(i, val + (0.01 * borough_counts["crash_count"].max()),
+             f"{val:,}", ha="center", fontsize=9)
+
+# Add 5% headroom above the tallest bar
+plt.ylim(0, borough_counts["crash_count"].max() * 1.05)
+
+plt.tight_layout()
+plt.show()
+```
+
+This bar chart shows total crashes by borough. Without labels, the pattern is
+visible but vague. Adding numbers and sorting by count makes the trend clear.
+Brooklyn and Queens lead due to population and road density.
+
+Visuals that highlight why something happens, not just that it happens,
+communicate far more effectively.
+
+>Poor phrasing:  
+    "Brooklyn has the highest number of crashes."
+
+>Better phrasing:  
+    "During Labor Day week 2025, Brooklyn recorded the most motor vehicle 
+    collisions, followed by Queens and Manhattan. This pattern likely reflects 
+    each borough's larger population, higher traffic volume, and denser road 
+    networks."
+
+The first sentence is technically correct but empty of insight. The second 
+version connects data to why it matters. It is specific, comparative, and 
+interpretable. 
+
+Good communication translates data into meaning. When presenting findings, 
+always lead with a clear takeaway before showing details.
+
+### Clarity and Context
+
+Clarity comes from balancing accuracy with accessibility. The goal is to make 
+complex analysis understandable without oversimplifying it.
+
+Guidelines for clear communication:  
+- Lead with the main takeaway before showing details.  
+- Define all technical terms (e.g., "injury severity index").  
+- Provide relative comparisons, not just counts.  
+- Add short interpretations under visuals.
+
+#### Example: Turning Output into Insight
+
+```{python}
+# Calculate the average number of people injured per crash by borough
+injury_summary = (
+    crash_df.groupby("borough")["number_of_persons_injured"]
+    .mean()
+    .sort_values()
+)
+injury_summary
+```
+
+>Technical phrasing:  
+    "Mean injuries per crash differ by borough."
+
+>Clear phrasing:  
+    "On average, crashes in the Bronx result in the highest injury rates (about 
+    0.8 people injured per crash), while Staten Island has the lowest (around 
+    0.56). Differences are modest but suggest slightly greater crash severity 
+    in more densely populated areas."
+
+The first phrasing is correct but vague. It does not tell the audience how or by 
+how much boroughs differ. The clearer version adds real numbers, ranks, and a hint 
+of interpretation (density and traffic volume). Good phrasing gives context so 
+the audience immediately grasps what the data shows.
+
+To make this pattern easier to see visually:
+
+```{python}
+sns.barplot(
+    x=injury_summary.values,
+    y=injury_summary.index,
+    color="steelblue"  # same color for all bars
+)
+plt.title("Average Injuries per Crash by Borough")
+plt.xlabel("Average Number of Injured People")
+plt.ylabel("Borough")
+plt.tight_layout()
+plt.show()
+```
+
+The bar chart shows that the Bronx leads with the highest average injuries per 
+crash, while Staten Island has the lowest. Clear labeling, ordered categories, 
+and a clean layout make the trend easy to interpret without visually 
+exaggerating small differences.
+
+### Visual Storytelling
+
+Visuals are often the clearest way to communicate a pattern. Strong visual 
+design helps people notice relationships quickly and remember them longer.
+
+A good graphic should make the takeaway obvious in a few seconds. Titles, 
+captions, and color choices all guide the audience toward what matters most.
+
+#### Example: Highlighting a Trend
+
+```{python}
+# Make sure datetime is parsed
+crash_df["crash_datetime"] = pd.to_datetime(
+    crash_df["crash_datetime"], errors="coerce"
+)
+
+# Group by day 
+daily = (
+    crash_df.groupby(crash_df["crash_datetime"].dt.date)
+    .size()
+    .reset_index(name="count")
+    .rename(columns={"crash_datetime": "date"})
+)
+
+# Convert date column back to datetime64[ns] for plotting
+daily["date"] = pd.to_datetime(daily["date"])
+
+sns.lineplot(
+    data=daily.sort_values("date"),
+    x="date",
+    y="count",
+    marker="o"
+)
+
+plt.title("Daily NYC Crashes (Labor Day Week, 2025)")
+plt.xlabel("Date")
+plt.ylabel("Crash Count")
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.show()
+```
+This line chart shows how crash frequency changed across Labor Day week 2025.
+The dataset covers a short time window, so we see day-to-day variation rather 
+than long-term trends. Clear labeling and a simple layout make the pattern 
+easy to interpret without overstating the limited time frame.
+
+A clear title, readable x-axis, and minimal clutter make the trend easy to 
+interpret.
+
+> A short caption might read:  
+"Daily crash counts fluctuate slightly over the observed period, reflecting normal 
+day-to-day variation in traffic volume."
+
+That single sentence turns a small snapshot of data into an understandable story
+without overstating what the time range can show. Once we understand how visuals 
+convey meaning, the next step is choosing the chart type that best fits our data.
+
+### Choosing the Right Chart Type
+
+Selecting the right chart is just as important as making it look clean. The 
+wrong type can hide a pattern or even mislead the audience, while the right 
+one highlights exactly what matters.
+
+When deciding how to visualize data, start with the question you want to 
+answer. Every chart should answer one specific question rather than trying to 
+show everything at once. Different chart types serve different purposes:  
+
+**Compare Categories:**  
+- Chart: Bar or column chart  
+- Example: Average injuries per crash by borough shows differences clearly
+  without exaggeration.
+
+**Show Change Over Time:**  
+- Chart: Line chart  
+- Example: Daily or hourly crash counts reveal rush-hour spikes or weekend dips.
+
+**Display Proportions:**  
+- Chart: Pie or stacked bar chart  
+- Example: Percent of crashes involving pedestrians vs. motorists shows
+  relative risk.
+
+**Reveal Relationships:**  
+- Chart: Scatter plot  
+- Example: Plotting vehicle speed vs. injury severity could show how risk
+  increases with speed.
+
+**Show Distributions:**  
+- Chart: Histogram or box plot  
+- Example: A histogram of crash times shows when collisions are most
+  common across a day.
+
+These choices matter because each chart highlights a specific relationship 
+between variables. For instance, the line chart of hourly injuries works better 
+than a bar chart because it emphasizes flow and continuity across time. 
+Conversely, comparing borough averages suits a bar chart since categories are 
+discrete.
+
+When in doubt, simplicity and intent guide good design. Avoid flashy visuals or 
+3D effects that distract from the message. Instead, use consistent colors, clear 
+labels, and honest axes to help the audience see what you want them to see.
+
+### Reproducibility and Transparency
+
+Reproducibility builds trust in your analysis. Transparent workflows including 
+data sources, software versions, and assumptions, allow others to verify and 
+extend your work. In data science, reproducibility isn't just about rerunning 
+code; it's about clear communication of process.
+
+Good practices for transparency:  
+- Combine code and writing in a single Quarto or Jupyter file.  
+- Record where and when data was retrieved.  
+- Comment on all major data-cleaning steps.  
+- Use readable variable names and consistent file structure.
+
+#### Example: Adding Reproducible Metadata
+
+```{python}
+# Data source: NYC Open Data (accessed October 2025)
+# File: ids-f25/data/nyc_crashes_cleaned.feather
+# Environment: Python 3.11 | pandas 2.2 | seaborn 0.13
+
+print(crash_df.info())
+```
+
+Including the info() output and environment details helps document your data's
+structure. Anyone revisiting your project can quickly see how the dataset was
+formatted and what columns were used. This kind of metadata makes collaboration 
+and replication straightforward.
+
+### Ethical and Responsible Communication
+
+Ethical communication means presenting your data truthfully and clearly. When 
+data visuals or summaries are misleading, even unintentionally, they can 
+distort public understanding. Effective communicators focus on honesty and clarity.
+
+Common pitfalls:  
+- Cropping or compressing axes to exaggerate trends.  
+- Omitting missing data or uncertainty.  
+- Implying causation when showing correlation.  
+
+Better habits:  
+- Start axes at zero when showing counts.  
+- Provide notes or error ranges when possible.  
+- Write captions that clarify context and limitations.
+
+#### Example 1: Cropped Axis
+
+```{python}
+# Example 1: Cropped Axis
+ymin = borough_counts["crash_count"].min()
+ymax = borough_counts["crash_count"].max()
+second_lowest = sorted(borough_counts["crash_count"])[1]
+
+fig, axes = plt.subplots(2, 1, figsize=(7, 7))
+
+# Misleading chart (top)
+sns.barplot(
+    data=borough_counts,
+    x="borough",
+    y="crash_count",
+    ax=axes[0],
+    color="steelblue"
+)
+axes[0].set_ylim(second_lowest * 0.9, ymax * 1.02)
+axes[0].set_title("Misleading Chart: Axis Cropped Too High")
+axes[0].set_xlabel("")
+axes[0].set_ylabel("Crash Count")
+axes[0].tick_params(axis="x", rotation=45)
+
+# Honest chart (bottom)
+sns.barplot(
+    data=borough_counts,
+    x="borough",
+    y="crash_count",
+    ax=axes[1],
+    color="steelblue"
+)
+axes[1].set_ylim(0, ymax * 1.02)
+axes[1].set_title("Honest Chart: Axis Starts at Zero")
+axes[1].set_xlabel("Borough")
+axes[1].set_ylabel("Crash Count")
+axes[1].tick_params(axis="x", rotation=45)
+
+plt.tight_layout(pad=2)
+plt.show()
+```
+
+When the y-axis is cropped so it starts just below the smaller bars, Brooklyn's
+crash count looks dramatically higher than the other boroughs. The honest
+version, which starts the y-axis at zero, shows that the differences are real
+but not as extreme. This demonstrates how axis limits can exaggerate scale, even
+when the underlying data is unchanged. 
+
+#### Example 2: Distorted Aspect Ratio
+
+```{python}
+# Example 2: Distorted Aspect Ratio
+fig, axes = plt.subplots(1, 2, figsize=(10, 3.5))
+
+sns.lineplot(x=[1, 2, 3, 4, 5], y=[100, 200, 300, 400, 500],
+             ax=axes[0], marker="o")
+
+axes[0].set_box_aspect(1.8)  # misleading proportions
+axes[0].set_title("Misleading: Distorted Aspect Ratio")
+axes[0].set_xlabel("Time")
+axes[0].set_ylabel("Value")
+
+sns.lineplot(x=[1, 2, 3, 4, 5], y=[100, 200, 300, 400, 500],
+             ax=axes[1], marker="o")
+axes[1].set_box_aspect(1)  # normal proportions
+axes[1].set_title("Honest: Equal Scaling")
+axes[1].set_xlabel("Time")
+axes[1].set_ylabel("Value")
+
+plt.tight_layout()
+plt.show()
+```
+
+Changing the aspect ratio alters the apparent steepness of trends.
+The left plot exaggerates change by compressing the x-axis, while the right plot
+uses consistent scaling to display the real rate of change. Aspect distortion
+is subtle but powerful, it can make normal variation seem dramatic.
+
+#### Example 3: Misleading Color Emphasis
+
+```{python}
+# Example 3: Misleading Color Emphasis
+
+# Sample data 
+data = pd.DataFrame({
+    "borough": ["Brooklyn", "Queens", "Manhattan", "Bronx"],
+    "crash_rate": [8.1, 7.9, 7.7, 7.5]
+})
+
+fig, axes = plt.subplots(1, 2, figsize=(8, 3))
+
+# Misleading chart: overemphasized colors 
+sns.barplot(
+    data=data,
+    x="borough",
+    y="crash_rate",
+    hue="borough",
+    palette=["darkred", "red", "salmon", "pink"],
+    legend=False,
+    ax=axes[0]
+)
+axes[0].set_title("Misleading: Color Overemphasis")
+
+# Honest chart: consistent, neutral color
+sns.barplot(
+    data=data,
+    x="borough",
+    y="crash_rate",
+    color="steelblue",
+    ax=axes[1]
+)
+axes[1].set_title("Honest: Neutral Colors")
+
+plt.tight_layout()
+plt.show()
+```
+
+Color choices can easily mislead. The chart on the left uses intense red tones to
+suggest large differences between boroughs, even though the variation is small.
+The right chart uses a neutral palette to draw attention to data values instead
+of emotional cues.
+
+Ethical visualization respects the audience's ability to interpret data fairly.
+This connects to the broader issue of abusing a plot which involves using 
+design choices to distort perception. Such misuse can involve altering aspect 
+ratios, exaggerating colors, omitting context, or adjusting baselines to 
+amplify change. True integrity in visualization means clarity over drama. We 
+should show data as it is, not as we wish it looked.
+
+### Connecting Insights to Action
+
+Great communication doesn't stop at describing what happened, it explains what 
+should happen next. Visuals paired with short, concrete takeaways make insights 
+actionable.
+
+#### Example: Turning Findings into Decisions
+
+```{python}
+# Filter crashes with any injuries (pedestrians, cyclists, or motorists)
+injury_df = crash_df[
+    (crash_df["number_of_pedestrians_injured"] > 0)
+    | (crash_df["number_of_cyclist_injured"] > 0)
+    | (crash_df["number_of_motorist_injured"] > 0)
+].copy()
+
+# Extract hour of day
+injury_df["hour"] = injury_df["crash_datetime"].dt.hour
+
+# Create a combined total injury column
+injury_df["total_injuries"] = (
+    injury_df["number_of_pedestrians_injured"]
+    + injury_df["number_of_cyclist_injured"]
+    + injury_df["number_of_motorist_injured"]
+)
+
+# Group by borough and hour
+injuries_by_hour = (
+    injury_df.groupby(["borough", "hour"])["total_injuries"]
+    .sum()
+    .reset_index()
+)
+
+# Plot total injuries by hour for each borough
+sns.lineplot(
+    data=injuries_by_hour,
+    x="hour",
+    y="total_injuries",
+    hue="borough",
+    marker="o"
+)
+plt.title("Hourly Injuries (Pedestrians, Cyclists, and Motorists) by Borough")
+plt.xlabel("Hour of Day")
+plt.ylabel("Total Injuries")
+plt.xticks(range(0, 24, 2))
+plt.tight_layout()
+plt.show()
+```
+
+This plot shows how total traffic-related injuries (pedestrians, cyclists, and 
+motorists combined) change by hour in each borough. Injuries stay relatively 
+low overnight, then rise during the afternoon and peak in the late day and early 
+evening; most noticeably in Brooklyn and Queens, with a smaller but similar 
+bump in the Bronx and Manhattan. Staten Island stays consistently lower overall.
+These rush-hour spikes line up with high activity on the roads where there are 
+more cars, more people moving, and more chances for conflict. That suggests a 
+clear intervention window.
+
+> "Injuries across Brooklyn and Queens jump in the late afternoon and evening, 
+which lines up with commuting traffic. Targeted enforcement, traffic calming, 
+and signal timing changes during these peak hours could help reduce harm."
+
+Here, the analysis leads directly to a recommendation. That bridge from insight
+to action turns analysis into impact. Communicating findings this way helps
+decision-makers use data effectively.
+
+### Recommendations for Effective Communication and Presentation
+
+Good data communication does not end with a well-designed chart. It extends to 
+how findings are framed, timed, and delivered. Clear, focused communication helps 
+turn technical results into insights that people can actually use.
+
+#### General Recommendations
+
+- Lead with purpose by explaining why the data matters before discussing details.  
+- Show the story, not the spreadsheet, visuals should clarify, not overwhelm.  
+- Keep design elements consistent so colors, scales, and fonts feel cohesive.  
+- Anticipate how non-technical audiences might interpret results and add context 
+  when needed.  
+- Connect each chart or finding to its real-world relevance or next steps.  
+
+#### Being Time-Aware
+
+- Know your total time and plan the pacing of your talk accordingly.  
+- Prioritize the most important findings, it's better to explain a few points 
+  clearly than to rush through many.  
+- Practice transitions between sections so the flow feels natural and on schedule.  
+- Keep visuals simple so they can be understood quickly without overexplaining.  
+- Leave a few minutes for questions or discussion at the end if possible.  
+- If you run short on time, skip details that don't change the main takeaway.  
+
+#### Giving a Strong Presentation
+
+- Start with a clear message so your audience knows what to expect.  
+- Guide the audience through each visual: what to notice and why it matters.  
+- Keep slides uncluttered, focusing on one key idea at a time.  
+- Speak at a steady pace, pausing briefly after key visuals to let points sink in.  
+- Avoid jargon and tailor explanations to your audience's background.  
+- End with a short summary that reinforces the main insight and next step.  
+
+Delivering data effectively means combining clarity, timing, and empathy for 
+your audience. When visuals, pacing, and delivery align, data becomes insight 
+rather than just information.
+
+### Conclusion
+
+Effective data science communication blends clarity, accuracy, reproducibility, 
+and ethics. When practiced together, these elements transform complex analyses 
+into stories people can understand and act on.
+
+The NYC crash dataset shows how  simple design, transparent documentation, and 
+ethical framing make results meaningful far beyond the numbers.
+
+### Further Reading
+
+eazyBI Blog. (2025). Data Visualization: How to Pick the Right Chart Type.  
+<https://eazybi.com/blog/data-visualization-how-to-pick-the-right-chart-type>
+
+Franconeri, S. L., Padilla, L. M. K., Shah, P., Zacks, J. M., & Hullman, J. (2021).  
+*The science of visual data communication: What works.* *Psychological Science in  
+the Public Interest, 22*(3), 110-161.  
+<https://faculty.sites.iastate.edu/tesfatsi/archive/tesfatsi/ScienceOfVisualDataCommunication.FranconeriEtAl2021.pdf>
+
+Ofori, E., et al. (2025). *Visual communication of public health data:  
+A scoping review.* *Public Health Reviews.*  
+<https://pmc.ncbi.nlm.nih.gov/articles/PMC12060258/>
+
+Pragmatic Editorial Team. (2025). *Communication Skills for Data Science.*  
+<https://www.pragmaticinstitute.com/resources/articles/data/communication-skills-for-data-science/>

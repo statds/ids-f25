@@ -334,7 +334,7 @@ Please use the following table to sign up.
    11/11 | Saltus, Quinn Lloyd Turner | Spatial Statistical Methods
    11/11 | Tran, Justin | Animations |
    11/11 | Levine, Hannah Maya | Synthetic Minority Over-sampling Technique (SMOTE)
-   11/13 | Blake, Roger Cooley |
+   11/13 | Blake, Roger Cooley | Variable importance metrics
    11/13 | Schlessel, Jacob E | Filling missing data with multiple imputation
    11/13 | Agostino, Michael Angelo | 
  
