@@ -1,8 +1,4 @@
----
-title: Animations
-jupyter: python3
----
-
+## Animations
 
 This section was created by Justin Tran, an Undergraduate Junior 
 majoring in Applied Data Analysis with minors in Public Policy and 
@@ -108,8 +104,10 @@ def prob_six(trials):
     results = []
     prop_six = []
     for i in range(trials):
-        roll = random.randint(1, 6)        # roll a 6-sided die
-        results.append(roll == 6)          # Adds a value only if it rolls a 6
+        # roll a 6-sided die
+        roll = random.randint(1, 6)      
+        # Adds a value only if it rolls a 6
+        results.append(roll == 6)          
         prop_six.append(sum(results) / len(results))
     return prop_six
 
@@ -373,7 +371,8 @@ plt.close(fig)
 
 ### Crash Causes Pie Chart
 
-Another example that we can use is seeing the proportion of causes of crashes in NYC.
+Another example that we can use is seeing the proportion of causes 
+of crashes in NYC.
 
 #### Setting up the necessary variables for the Pie Chart
 
