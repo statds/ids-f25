@@ -17,8 +17,8 @@ utilized for clustering, data visualization, and data exploration.
 ### Other Dimensionality Reduction Techniques
 
 #### Principle Component Analysis (PCA)
-- linear technique; projects data along directions of maximum variance
-- Preserves global structure fairly well but may lose local neighborhood 
+- linear technique; projects data along directions of maximum variance.
+- Preserves global structure fairly well but may lose local neighborhood. 
   details.
 - good for visualization of 2-3 PCs but cannot capture nonlinear
   structures.
@@ -27,8 +27,8 @@ utilized for clustering, data visualization, and data exploration.
 #### t-distributed Stochastic Neighbor Embedding (t-SNE)
 - finds distances between pairs of points, maps onto t dist.
 - nonlinear technique; preserves local structure very well.
-- can distort global relationships
-- often slower than UMAP for large datasets
+- can distort global relationships.
+- often slower than UMAP for large datasets.
 
 ### Algorithm Approach and Intuition
 UMAP is a **graph-based dimensionality reduction algorithm** rooted in algebraic
@@ -123,13 +123,13 @@ UMAP represents high-dimensional data as a **fuzzy simplicial set**, capturing
 the local connectivity of points. For each point, a fuzzy membership weight is 
 assigned to its neighbors:
 $$
-w_{ij} = \exp\Bigg(-\frac{d_{ij} - \rho_i}{\sigma_i}\Bigg)
+w_{ij} = \exp\Bigg(-\frac{d_{ij} - \rho_i}{\sigma_i}\Bigg),
 $$
 
 where:
 
-- $d_{ij}$ is the distance between points $i$ and $j$
-- $\rho_i$ is the distance to the closest neighbor of $i$
+- $d_{ij}$ is the distance between points $i$ and $j$,
+- $\rho_i$ is the distance to the closest neighbor of $i$,
 - $\sigma_i$ is a local scaling factor. 
 
 In other words, each point adjusts its influence based on the local density of
@@ -143,7 +143,7 @@ Since $w_{i \to j}$ and $w_{j \to i}$ can differ, UMAP combines them
 using a probabilistic union:
 
 $$
-w_{ij}^{(final)} = w_{i \to j} + w_{j \to i} - w_{i \to j} \cdot w_{j \to i}
+w_{ij}^{(final)} = w_{i \to j} + w_{j \to i} - w_{i \to j} \cdot w_{j \to i}.
 $$
 
 This produces a symmetric weight between 0 and 1 that preserves local 
@@ -222,24 +222,24 @@ embedding, UMAP defines a corresponding low-dimensional weight
 for each pair of points:
 
 $$
-w_{ij}^{(\text{low})} = \frac{1}{1 + a \|y_i - y_j\|^{2b}}
+w_{ij}^{(\text{low})} = \frac{1}{1 + a \|y_i - y_j\|^{2b}},
 $$
 
 where:
 
 - $\|y_i - y_j\|$ is the Euclidean distance between points 
-  $y_i$ and $y_j$ in the low-dimensional space (2D or 3D),  
+  $y_i$ and $y_j$ in the low-dimensional space (2D or 3D),
 - $a$ and $b$ are hyperparameters that control the shape 
   of the attraction/repulsion curve.  
 
 The cross-entropy cost function is then defined as:
 $$
 C = \sum_{i \neq j} \Big[ w_{ij} \log \frac{1}{w_{ij}^{(\text{low})}} + 
-(1 - w_{ij}) \log \frac{1}{1 - w_{ij}^{(\text{low})}} \Big]
+(1 - w_{ij}) \log \frac{1}{1 - w_{ij}^{(\text{low})}} \Big],
 $$
-
-- $w_{ij}$ = high-dimensional fuzzy weight between points $i$ and $j$  
-- $w_{ij}^{(\text{low})}$ = corresponding low-dimensional embedding weight  
+where:
+- $w_{ij}$ = high-dimensional fuzzy weight between points $i$ and $j$,
+- $w_{ij}^{(\text{low})}$ = corresponding low-dimensional embedding weight.
 
 **Intuition:**  
 
@@ -302,7 +302,7 @@ The parameters below control the embedding:
 #| message: false
 #| warning: false
 #| fig-cap: "2D UMAP of MNIST dataset"
-import umap
+from umap.umap_ import UMAP
 import matplotlib.pyplot as plt
 import numpy as np
 from sklearn.datasets import fetch_openml
@@ -313,7 +313,7 @@ X = mnist.data[:2000]
 y = mnist.target[:2000].astype(int)
 
 # 2D UMAP projection
-reducer = umap.UMAP(
+reducer = UMAP(
     n_components=2,
     n_neighbors=15,
     min_dist=0.1,
