@@ -172,4 +172,4 @@ widgetsnbextension==4.0.14
 wrapt==2.0.1
 xmltodict==1.0.2
 xyzservices==2025.4.0
-umap-learn==0.5.9
+umap-learn==0.5.8
