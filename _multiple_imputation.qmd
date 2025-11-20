@@ -1,0 +1,630 @@
+## Filling Missing Data With Multiple Imputation
+
+This section was prepared by Jacob Schlessel, a junior double majoring 
+in Statistical Data Science and Economics.
+
+### Introduction
+
+It is rare to work with a dataset that does not have missing values. 
+This section will introduce multiple imputation as a method of 
+filling these values and justify its use over other methods of 
+imputation. The following topics will be covered:
+
+1. Assessing Missingness
+
+2. Benefits of Imputation
+
+3. Limitations of Imputation
+
+4. Methods of Single Imputation
+
+5. Multiple Imputation
+
+
+### Assessing Missingness
+
+Before filling in missing values, we must determine whether imputation 
+makes sense given the context of the data. As a starting point, we can 
+classify the missingness of the data into one of three different types. 
+To illustrate the differences between these cases, we will use the 
+following example:
+
+A lab technician conducts a study on the relationship between age and 
+blood pressure. Measurements are taken from a randomly selected group 
+of 1000 volunteers, with all age groups being included in the study.
+
+1. **Missing completely at random (MCAR)**: the ideal case - 
+missingness is independent of both observed and unobserved data
+    - A lab technician accidentally forgets to record 10 patients' blood
+    pressure values because of a computer glitch
+    - Missingness is random noise - estimates are not biased
+
+2. **Missing at random (MAR)**: the second best case - missingness 
+depends only observed variables
+    - Older patients are more likely to skip the blood pressure test 
+    because the cuff feels uncomfortable
+    - Results are biased if you ignore the missing values
+
+3. **Missing not at random (MNAR)**: the missing values depend on the
+ unobserved(missing) value itself
+    - Patients with very high blood pressure intentionally refuse the 
+    test for fear of bad news
+    - Imputation is not possible - requires advanced techniques like 
+    sensitivity analyses or pattern-mixture modes 
+
+Once we understand what type of missingness exists in the data, we have
+ two options:
+
+- Complete Case Analysis: Drop all rows with missing data and only 
+include complete rows in analysis
+- Imputation: Replace missing values with specific values, include 
+filled values in analysis
+
+#### Application in Python:
+
+We wll use the `airquality` dataset from `statsmodels` as 
+an example of working with missing data. 
+
+```{python}
+import statsmodels.api as sm
+import pandas as pd
+
+# Load the dataset
+df = sm.datasets.get_rdataset("airquality").data
+
+# Summarize missing data
+missing_count = df.isna().sum()
+
+missing_percent = (df.isna().mean() * 100).round(2)
+
+missing_summary = pd.DataFrame({
+    'Missing Count': missing_count,
+    'Missing %': missing_percent
+}).sort_values('Missing %', ascending=False)
+
+print(missing_summary)
+```
+
+We cannot perform imputation if the data is MNAR. Therefore, to disprove that 
+a dataset is MNAR, a good starting point is to look for evidence for MCAR or 
+MAR, as a dataset cannot exhibit two different types of missingness. We do not 
+actually need to know which of these two cases apply since imputation works 
+with both, we just need to be able to confidently claim that the missing values 
+are not associated with unobserved values and thus will not affect inference.
+
+To find evidence of MCAR or MAR, we can use the following framework to analyze
+patterns of missingness:
+
+1. Define the missingness target (the variable with missing values)
+
+2. Perform statistical tests (t-tests for numeric, chi-squared
+tests for categorical) - note: this is not always conclusive
+
+3. Find correlations between the target and other variables. If the correlation
+is above 0.2, this could be evidence of MAR and warrants further investigation
+
+4. Use domain knowledge to perform in-depth analysis to rule out the possibility
+of MNAR missingness. Note: it is impossible to definitively prove or disprove 
+MNAR based on the data because by definition, we do not have data to analyze. 
+
+Null hypothesis: The means for each variable are the same for the in the 
+missing/nonmissing `Ozone` groups
+
+Alternative hypothesis: The means for each variable are different for the in the 
+missing/nonmissing `Ozone` groups
+```{python}
+from scipy.stats import ttest_ind
+
+# Create indicator: 1 if Ozone is missing, else 0
+df['Ozone_missing'] = df['Ozone'].isna().astype(int)
+
+for col in ['Solar.R', 'Wind', 'Temp']:
+    group1 = df.loc[df['Ozone_missing'] == 0, col].dropna() 
+    group2 = df.loc[df['Ozone_missing'] == 1, col].dropna()  
+    stat, p = ttest_ind(group1, group2, equal_var=False)
+    
+    mean1 = group1.mean()
+    mean2 = group2.mean()
+    
+    print(f"{col}:")
+    print(f"  Mean (Ozone observed) = {mean1:.2f}")
+    print(f"  Mean (Ozone missing)  = {mean2:.2f}")
+    print(f"  p-value = {p:.4f}\n")
+```
+
+The pvalues are all large, meaning the means are the same for each variable
+regardless of whether `ozone` is missing.
+
+Since `Month` is a categorical variable, we can perform a chi-squared test to 
+check if the number of missing values depend on the month:
+
+Null hypothesis: The number of missing `Ozone` values does not depend on the 
+month
+Alternative hypothesis: The number of missing `Ozone` values does depend on the 
+month in some way
+```{python}
+from scipy.stats import chi2_contingency
+
+# Create contingency table: Month × Missingness
+contingency = pd.crosstab(df["Month"], df["Ozone_missing"])
+print("Contingency Table (Month vs. Ozone Missingness):\n")
+print(contingency)
+
+# Perform Chi-square test of independence
+chi2, p, dof, expected = chi2_contingency(contingency)
+
+print("\nChi-square test results:")
+print(f"Chi-square statistic = {chi2:.3f}")
+print(f"Degrees of freedom    = {dof}")
+print(f"p-value               = {p:.4f}")
+```
+
+June has noticeably more missing `Ozone` values than the other months, so we 
+confirm that this difference is statistically significant by observing a pvalue
+of 0. We can confirm this visually as well:
+
+```{python}
+import matplotlib.pyplot as plt
+
+# Plot number of missing ozone observations by month
+missing_counts = (
+    df[df["Ozone_missing"] == 1]["Month"]
+    .value_counts()
+    .sort_index()
+)
+missing_counts = (
+    missing_counts.reindex([5, 6, 7, 8, 9], fill_value=0)
+)
+plt.figure(figsize=(6, 4))
+plt.bar(
+    missing_counts.index.astype(str),
+    missing_counts.values,
+    color="lightsteelblue",
+    edgecolor="black"
+)
+plt.xlabel("Month (May = 5, ..., September = 9)")
+plt.ylabel("Number of Missing Ozone Values")
+plt.title("Missing Ozone Values by Month")
+plt.grid(axis="y", linestyle="--", alpha=0.6)
+plt.tight_layout()
+plt.show()
+```
+
+Since the number of missing values of `Ozone` depends on observed data, we have
+determined that the missingness is MAR and we can continue with imputation. 
+
+We can follow the same process for analyzing the missingness of `Solar.R`. 
+
+```{python}
+df['Solar_missing'] = df['Solar.R'].isna().astype(int) #1 = Missing
+
+#t test for numeric variables
+for col in ['Ozone', 'Wind', 'Temp']:
+    g1 = df.loc[df['Solar_missing']==0, col].dropna()
+    g2 = df.loc[df['Solar_missing']==1, col].dropna()
+    stat, p = ttest_ind(g1, g2, equal_var=False)
+    print(col)
+    print(f"Mean (Solar.R observed) = {g1.mean():.2f}")
+    print(f"Mean: (Solar.R missing) = {g2.mean():.2f}")
+    print(f"p-value = {p:.4f}\n")
+
+#chi squared test for categorical variable (month)
+cont = pd.crosstab(df['Month'], df['Solar_missing'])
+chi2, p, dof, exp = chi2_contingency(cont)
+print(f"Month vs Solar.R missingness: chi2={chi2:.2f}, p={p:.4f}")
+
+
+# Bar chart of counts by month
+missing_counts = (
+    df[df["Solar_missing"] == 1]["Month"]
+    .value_counts()
+    .sort_index()
+)
+missing_counts = (
+    missing_counts.reindex([5, 6, 7, 8, 9], fill_value=0)
+)
+plt.figure(figsize=(6, 4))
+plt.bar(
+    missing_counts.index.astype(str),
+    missing_counts.values,
+    color="lightsteelblue",
+    edgecolor="black"
+)
+plt.xlabel("Month (May = 5, ..., September = 9)")
+plt.ylabel("Number of Missing Solar.R Values")
+plt.title("Missing Solar.R Values by Month")
+plt.grid(axis="y", linestyle="--", alpha=0.6)
+plt.tight_layout()
+plt.show()
+```
+
+Similarly to `Ozone`, it appears that `Solar.R` is MAR since the missing values
+are related to the month during which the data was measured.
+
+#### Important Notes
+
+- Consider MNAR if domain knowledge suggests it
+
+- Make sure to evaluate case-specific context to ensure imputation is
+appropriate. For example, using statistical imputation methods for the 
+missing zip codes in the NYC Crash Data would not have made sense
+
+- Proportion of missing data alone should not dictate whether imputation is used
+or not, need to use best judgement
+
+### Benefits of Imputation
+
+Impututation replaces missing values with estimated ones to create a complete
+dataset. This process offers a number of benefits for modeling and analysis.
+
+#### Preserving information
+
+If we were to perform complete case analysis, we would lose the valuable 
+information provided by the rows that may be missing values for one or two
+variables. By making an educated guess as to what the value would have been, we 
+can
+
+- Maintain real-world relationships observed among variables
+- Preserve sample size to build models with higher precision
+- Conduct robust analysis with messy data
+- Enables use of statistical methods and machine learning models
+
+#### Reducing bias
+
+If the data are MAR, deletion will bias the results of any statistical
+modeling because the missing cases are systematically different from observed 
+cases. To ensure that our data is representative of what we are studying, we 
+can use fill missing values using estimates based on relationships that 
+exist in our observed data. Imputation preserves covariances and joint 
+distributions, so the result is lower bias in model coefficients.
+
+Note: not all imputation methods have the same effect on reducing bias. 
+Multiple imputation tends to minimize bias more than single imputation methods 
+when data is MAR.
+
+### Limitations of Imputation
+
+Imputation does not completely solve issues caused by missing data, it only 
+alleviates them. It is important to note the following limitations of imputation 
+to better understand when it is appropriate to use:
+
+- Simple imputation methods distort distributions and can impact visualizations
+- Need to acknowledge that imputing missing data adds some uncertainty
+- Cannot correct cases where data are MNAR
+- Can be very computationally expensive depending on method of imputation and
+complexity of data
+
+### Methods of Single Imputation
+
+**Single Imputation**: Replacing each missing value with a single, fixed 
+estimate
+
+Types of single imputation:
+
+1. Mean Imputation: Replacing missing values with the mean of the observed 
+data
+2. Median Imputation: Replacing missing values with the median of observed data
+3. Mode Imputation: Replace missing values with the mode (for filling 
+categorical data)
+4. Hot-Deck Imputation: Replace a missing value with an observed value (a 
+"donor" from a similar case)
+
+For each method, we will fit a regression model with `Temp` as the response 
+variable and `Ozone`, `Solar.R`, `Wind`, and `Month` as predictors. We will 
+find the value of the coefficients and their standard errors after applying each 
+method of imputation to compare the results.
+
+#### Mean Imputation
+
+We will replace all missing `Ozone` and `Solar.R` values with the respective 
+means from the observed data:
+```{python}
+# Encode Month as categorical and create dummy variables
+df["Month"] = df["Month"].astype("category")
+df= pd.get_dummies(df, columns=["Month"], drop_first=True)
+df = df.astype(float)
+
+# Assign predictor and response variables
+x_var = [
+    "Ozone", "Solar.R", "Wind", "Month_6", "Month_7", "Month_8", "Month_9"]
+
+# Apply mean imputation and fit the regression model
+df_mean = df.copy()
+
+for col in ["Ozone", "Solar.R"]:
+    df_mean[col] = df_mean[col].fillna(df_mean[col].mean())
+
+y = df_mean["Temp"]
+X = sm.add_constant(df_mean[x_var])
+model = sm.OLS(y, X).fit()
+results = pd.DataFrame({
+    "Coefficient": model.params.round(4),
+    "Std_Error": model.bse.round(4)
+})
+
+print(results)
+```
+
+Benefits:
+
+- Is sufficient if less than 5% of a particular variable is missing
+
+Limitations:
+
+- Underestimates variances -> does not add any spread to the data, standard 
+errors and confidence intervals are too small
+- Reduces natural variability
+- Performs poorly if data is not MCAR
+- Shrinks covariance -> coefficients are biased towards zero
+
+#### Median Imputation
+
+We can fit the same model, this time using median imputation:
+```{python}
+df_median = df.copy()
+
+# Apply median imputation and fit the model
+for col in ["Ozone", "Solar.R"]:
+    df_median[col] = df_median[col].fillna(df_median[col].median())
+
+# 4) Define predictors and response
+y = df_median["Temp"]
+X = sm.add_constant(df_median[x_var])
+
+# 5) Fit OLS regression
+model = sm.OLS(y, X).fit()
+
+# 6) Display coefficients and standard errors only
+results = pd.DataFrame({
+    "Coefficient": model.params.round(4),
+    "Std_Error": model.bse.round(4)
+})
+
+print(results)
+```
+
+Benefits:
+
+- More robust to outliers than mean imputation
+
+Limitations:
+
+- Underestimates uncertainty
+- Flattens the distribution by clustering values at the center
+
+#### Hot-Deck Imputation
+
+Hot-Deck imputation chooses the value from a similar observation in the current 
+dataset to fill the missing values with. The "donor" can be chosen randomly or 
+conditionally. Here. we will fill missing values with similar observations from 
+the same month, since earlier we found that `Month` was related to the number of 
+missing values of both `Ozone` and `Solar.R`.
+
+```{python}
+import numpy as np
+
+df_hot = df.copy()
+rng = np.random.default_rng(42)
+
+def hot_deck_impute(df, target_col, month_dummies):
+    # Reconstruct Month number from dummies (5–9)
+    df = df.copy()
+    df["Month_num"] = 5
+    for i, col in enumerate(month_dummies, start=6):
+        df.loc[df[col] == 1, "Month_num"] = i
+
+    # Impute missing values within same month
+    for i in df[df[target_col].isna()].index:
+        month = df.at[i, "Month_num"]
+        donor_pool = df.loc[
+            (df["Month_num"] == month) & (~df[target_col].isna()), target_col
+        ]
+        if donor_pool.empty:
+            donor_pool = df.loc[~df[target_col].isna(), target_col]
+        df.at[i, target_col] = rng.choice(donor_pool.values)
+    return df.drop(columns="Month_num")
+
+# Apply to missing targets and fit model
+month_dummies = ["Month_6", "Month_7", "Month_8", "Month_9"]
+for col in ["Ozone", "Solar.R"]:
+    df_hot = hot_deck_impute(df_hot, col, month_dummies)
+
+y = df_hot["Temp"]
+X = sm.add_constant(df_hot[x_var])
+model = sm.OLS(y, X).fit()
+results = pd.DataFrame({
+    "Coefficient": model.params.round(4),
+    "Std_Error": model.bse.round(4)
+})
+print(results)
+```
+
+Benefits:
+
+- Preserves real data values -> borrowed from observed "donors"
+- Retains covariance structure, keeping relationships realistic
+- Works well in MAR cases
+
+Limitations:
+
+- Requires enough donor candidates to avoid highly biased results
+- Can propagate outliers
+
+### Multiple Imputation
+
+Instead of replacing the missing cases with a single guess, multiple imputation 
+creates multiple guesses to incorporate some randomness that mimics real world 
+uncertainty.
+
+**Multiple Imputation by Chained Equations (MICE)**: the most widely used 
+implementation of multiple imputation
+
+1. Define one target variable and start with simple guesses (mean/median 
+imputation) for missing cases of the non-target variable
+
+2. Fit a regression model for the target using all other variables as predictors
+
+3. Impute the missing values of the target variable with the estimate generated 
+by the regression
+
+4. Repeat for all variables that have missing data, using your newly found 
+imputations as training data
+
+5. Repeat the process m times using different random draws to create m complete 
+datasets. For each cycle, the coefficients for the regression models are sampled 
+from the posterior distribution - essentially, the coefficients are randomly 
+selected from their respective distributions of their plausible values
+
+6. Fit the final model m times using the complete datasets and pool results 
+using Rubin's Rules to combine estimates and obtain valid inference
+
+**Rubin's Rules**: formulas for combining m regression results into one final 
+set of estimates, correctly accounts for within-imputation variance and 
+between-imputation variance.
+
+**Pooled Estimate (Mean of Coefficients)**  
+
+$$
+\bar{Q} = \frac{1}{m} \sum_{i=1}^{m} Q_i
+$$
+
+- $Q_i$: estimate (regression coefficient) from imputed dataset *i*  
+- $\bar{Q}$: overall pooled estimate (average of all estimates)  
+
+---
+
+**Within-Imputation Variance**: captures the uncertainty within each model  
+
+$$
+\bar{U} = \frac{1}{m} \sum_{i=1}^{m} U_i
+$$
+
+- $U_i$: estimated variance from dataset *i*  
+
+---
+
+**Between-Imputation Variance**: captures uncertainty across imputations  
+
+$$
+B = \frac{1}{m - 1} \sum_{i=1}^{m} (Q_i - \bar{Q})^2
+$$
+
+---
+
+**Total Variance (Rubin’s Combined Uncertainty)**: combines both within- and  
+between-imputation uncertainty  
+
+$$
+T = \bar{U} + \left(1 + \frac{1}{m}\right) B
+$$
+
+---
+
+**Pooled Standard Error**: the final standard error that accounts for both  
+model uncertainty and missing-data uncertainty, useful for inference  
+
+$$
+SE(\bar{Q}) = \sqrt{T}
+$$
+
+
+#### Summary Table
+
+| Symbol        | Meaning                        | Interpretation              |
+|:-------------:|:-------------------------------|:----------------------------|
+| $Q_i$         | Estimate from imputation *i*   | e.g., regression coefficient |
+| $U_i$         | Variance from imputation *i*   | $SE^2$ from that model       |
+| $\bar{Q}$     | Mean of all $Q_i$              | Final pooled estimate        |
+| $\bar{U}$     | Mean of all $U_i$              | Within-imputation variance   |
+| $B$           | Between-imputation variance    | Variability across datasets  |
+| $T$           | Total variance                 | Combined uncertainty         |
+| $SE(\bar{Q})$ | Pooled standard error          | $\sqrt{T}$, used in inference |
+
+
+Scikit-learn's `IterativeImputer` class simplifies this process.
+
+Example using the airquality data:
+```{python}
+from sklearn.experimental import enable_iterative_imputer 
+from sklearn.impute import IterativeImputer
+
+# Variables for imputation regression models
+month_dummies = [c for c in df.columns if c.startswith("Month_")]
+num_cols = ["Ozone", "Solar.R", "Wind", "Temp"] + month_dummies
+
+# Variables for final regression omdel
+x_vars = ["Ozone", "Solar.R", "Wind"] + month_dummies
+y_var = "Temp"
+
+
+# Number of imputations
+M = 10
+
+# To store results
+coef_list, var_list = [], []
+
+# Perform MICE 10 times
+for m in range(M):
+    imp = IterativeImputer(  # Performs chained equations 
+        random_state=42 + m, # Different random seed every time
+        sample_posterior=True, # Adds random noise
+        max_iter=20 # Iterates thru models 20 times or until convergence
+    )
+    imputed = imp.fit_transform(df[num_cols])
+
+    df_imp = df.copy()
+    df_imp[num_cols] = imputed
+
+    X = sm.add_constant(df_imp[x_vars])
+    y = df_imp[y_var]
+    model = sm.OLS(y, X).fit()
+
+    coef_list.append(model.params)
+    var_list.append(model.bse ** 2)
+
+# Rubin’s Rules
+coefs_df = pd.DataFrame(coef_list)
+vars_df  = pd.DataFrame(var_list)
+
+Q_bar = coefs_df.mean()
+U_bar = vars_df.mean()
+B     = coefs_df.var(ddof=1)
+T_var = U_bar + (1 + 1/len(coef_list)) * B
+SE    = np.sqrt(T_var)
+
+pooled = pd.DataFrame({"MI Coefficient": Q_bar.round(4),
+                       "MI Std_Error": SE.round(4)})
+print(pooled)
+```
+
+Notice that the standard errors for this method are larger than those from the 
+single imputation methods. This is good -> we are correctly accounting for the 
+increased uncertainty caused by missing data
+
+
+### Conclusion
+
+- Imputation is an excellent tool for producing valid inference from datasets 
+with missing data
+
+- Before performing any type of imputation, you should get very familiar with 
+your data and assess what type of missingness it exhibits
+
+- The model results generated from using MICE have less bias but increased 
+variance
+
+### Further Readings
+
+- [Overview of Multiple Imputation]( 
+    https://pmc.ncbi.nlm.nih.gov/articles/PMC4638176/)
+
+- [Multiple Imputation With Varying Proportions of Missing Data](
+    https://pmc.ncbi.nlm.nih.gov/articles/PMC8426774/?utm_source)
+
+- [Workflow of Performing Imputation](
+  https://bmcmedresmethodol.biomedcentral.com/articles/10.1186/s12874-017-0442-1?)
+
+
+
+
+
