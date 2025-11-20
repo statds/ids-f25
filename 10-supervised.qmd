@@ -366,7 +366,9 @@ captures nonlinear effects and interactions, though its predictions are
 piecewise constant, producing visible step patterns.
 
 
-<!-- {{< include _random_forest.qmd >}} -->
+
+{{< include _random_forest.qmd >}}
+
 
 
 ## Gradient-Boosted Models
