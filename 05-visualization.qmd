@@ -24,3 +24,5 @@ project workflow.
 
 
 <!-- Interesting topics: gmplot, folium -->
+
+{{< include _animations.qmd >}}
