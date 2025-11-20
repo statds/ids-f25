@@ -1,0 +1,251 @@
+---
+title: "Random Forest Class Notes"
+author: "Alexander Plotnikov"
+toc: true
+number-sections: true
+highlight-style: pygments
+format: 
+  html: 
+    code-fold: false
+    html-math-method: katex
+    embed-resources: true
+    self-contained-math: true	
+  pdf: 
+    geometry: 
+      - top=30mm
+      - left=20mm
+##  docx: Never, unless to accommodate a collaborator
+---
+
+## Random Forest
+
+This section was prepared by Alex Plotnikov, first-year master's student in 
+statistics.
+
+### Random Forest Algorithm
+
+Random forests are an ensemble method that was developed by Leo Breiman in 
+[2001](https://www.stat.berkeley.edu/~breiman/randomforest2001.pdf) to improve 
+the performance of tree-based models.  This model creates multiple trees 
+in parallel.  There are a few key differences in how trees in a random forest 
+are constructed compared to the decision tree algorithm.  The main differences 
+are:
+
+ - Sample of data used for each tree.
+ - Number of features selected at each node.
+ - Trees are allowed to grow deep in random forests.
+ - Prediction is made based on aggregating results from all trees.
+
+```{python}
+#| echo: false
+#| fig-align: center
+
+import matplotlib.pyplot as plt
+from sklearn import tree
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+
+# Load a dataset
+iris = load_iris()
+X, y = iris.data, iris.target
+
+# Split data into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=42)
+
+# Train a Random Forest Classifier
+rf = RandomForestClassifier(n_estimators=10, random_state=42)
+rf.fit(X_train, y_train)
+
+individual_trees = rf.estimators_
+
+# Define feature and class names for better readability
+feature_names = iris.feature_names
+class_names = iris.target_names
+
+fig, axes = plt.subplots(nrows=1, ncols=3, figsize=(8, 3), dpi=80)
+
+# Plot the first three trees
+for i in range(3):
+    tree.plot_tree(rf.estimators_[i],
+                   feature_names=iris.feature_names,
+                   class_names=iris.target_names,
+                   filled=True,
+                   ax=axes[i])
+    axes[i].set_title(f'Tree {i+1}')
+
+plt.tight_layout() # Adjust subplot parameters for a tight layout
+plt.show()
+
+```
+
+
+#### Bagging (Bootstrap Aggregation)
+
+Unlike decision trees which are trained on the entire dataset, random forests 
+use bagging to create a sample for each tree.  Afterwards, the tree is trained 
+on that specific sample.
+
+The term bagging comes from bootstrap aggregation.  This process involves creating 
+a sample set with the same number of records as the original by sampling 
+from the original dataset *with* replacement.  This means that observations may 
+appear multiple times in the sample dataset.
+
+For one draw:
+
+$$
+P(\text{not selected}) = 1 - \frac{1}{N}.
+$$
+
+For N draws (since we sample N times with replacement):
+
+$$
+P(\text{not selected in entire sample}) = \left(1 - \frac{1}{N}\right)^N.
+$$
+
+As N approaches infinity:
+
+$$
+\left(1 - \frac{1}{N}\right)^N \approx e^{-1} \approx 0.3679.
+$$
+
+So, about **36.8%** of the original observations are *not included* in a 
+given bootstrap sample.
+
+Therefore, the remaining portion is:
+
+$$
+1 - e^{-1} \approx 0.632.
+$$
+
+On average, 63.2% of the values in each sample are non-repeated.  Bagging helps 
+reduce overfitting to noise and reducing variance of the outcome for a more 
+stable model.
+
+#### Feature Sampling and Tree Depth
+
+Random forests also calculate impurity on a subset of all features rather than all 
+features as in a decision tree.  At each node, the algorithm selects a *random* 
+subset of features and calculates the impurity metric for these features.  At 
+the next node, the algorithm takes another sample of the entire feature set and 
+calculates the metric on this new set of features.
+
+For $p$ features, the algorithm uses ($\sqrt{p}$) features for classification and 
+($\frac{p}{3}$) features for regression.
+
+Trees in random forests are also usually allowed to grow to max depth.  The goal 
+of having multiple trees is reducing variance of output and overfitting, and 
+this is achieved through averaging of trees.
+
+#### Prediction
+
+Random forests make predictions by aggregating results from all trees.
+
+For classification, this is done by each tree predicting a label and then the 
+forest combines predictions from all trees to output a label based on a 
+majority vote.
+
+For regression, the forest takes the numerical value predicted by each tree 
+and then calculates the average for the output.
+
+
+#### Algorithm Comparison
+
+|  |Decision Trees| Random Forests | 
+|----------|----------|---------|
+|**Data Set**|Entire dataset|Bootstrap sample for each tree|
+|**Features**|All features|Random subset at each node|
+|**Tree Size**|Based on input|Can be modified with input but usually until tree fully grows|
+|**Prediction**|Leaf where new data lands|Majority vote of all trees for classification, average for regression|
+
+
+
+### RandomForestClassifier Parameters
+
+These concepts can be adjusted as parameters in the RandomForestClassifier 
+class in Python.  Not all parameters are shown here as they are similar to 
+decision tree parameters:
+
+ - ```n_estimators```: number of trees to train in forest.
+ - ```max_depth```: max depth of the tree in the forest, default value is set 
+ to ```None``` which allows the tree to grow to max depth.
+ - ```max_features```: number of features to use at each node.  Default value 
+ is ```'sqrt'``` and can also be set to ```'log2'``` and ```None```.
+ - ```bootstrap```: whether or not to use bootstrap for each tree, if ```False``` 
+ then each tree will use the entire dataset.
+ - ```max_samples```: the maximum number of samples for each tree can be adjusted 
+ rather than the same size as the dataset.
+
+### Random Forests in Python (Ames Data)
+
+The below example shows a random forest regression on the Ames data.  We construct 
+a plot to show the observed log price against the predicted log price.
+
+```{python}
+
+import openml
+import os
+
+import pandas as pd
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier # For classification
+from sklearn.ensemble import RandomForestRegressor # For regression
+from sklearn.metrics import accuracy_score, mean_squared_error # For evaluation
+import plotnine as gg
+
+
+# Load Ames Housing (OpenML ID 42165)
+dataset = openml.datasets.get_dataset(42165)
+df, *_ = dataset.get_data()
+
+df["LogPrice"] = np.log(df["SalePrice"])
+
+ind_columns = df.columns.drop(['Id','SalePrice','LogPrice']).tolist()
+df_encoded = pd.get_dummies(df[ind_columns], drop_first=True)
+
+X = df_encoded 
+y = df['LogPrice']
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, 
+                                    test_size=0.2, random_state=42)
+
+# # For Classification
+# model = RandomForestClassifier(n_estimators=100, random_state=42)
+# model.fit(X_train, y_train)
+
+# For Regression (if 'target' was continuous)
+model = RandomForestRegressor(n_estimators=100, random_state=42)
+model.fit(X_train, y_train)
+
+y_pred = model.predict(X_test)
+
+
+# For graph
+dt = RandomForestRegressor(n_estimators=100, random_state=42)
+
+dt.fit(X, y)
+y_pred = dt.predict(X)
+
+df_pred = pd.DataFrame({"Observed": y, "Predicted": y_pred})
+
+(gg.ggplot(df_pred, gg.aes(x="Observed", y="Predicted")) +
+ gg.geom_point(alpha=0.5) +
+ gg.geom_abline(slope=1, intercept=0, linetype="dashed") +
+ gg.labs(title="Random Forest Regression on Ames Housing",
+         x="Observed Log Price", y="Predicted Log Price"))
+
+
+
+
+```
+
+
+### Further Reading
+
+ - Classification and Regression Trees. [Brieman, Friedman, Olshen, Stone 1986.](https://www.taylorfrancis.com/books/mono/10.1201/9781315139470/classification-regression-trees-leo-breiman-jerome-friedman-olshen-charles-stone)
+ - Bagging Predictors. [Brieman 1994.](https://www.stat.berkeley.edu/~breiman/bagging.pdf)
+ - Random Forests. [Brieman 2001.](https://www.stat.berkeley.edu/~breiman/randomforest2001.pdf)
+ - Random Forest Class - [scikit](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html)
+
+
