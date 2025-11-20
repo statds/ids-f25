@@ -1,0 +1,512 @@
+## Naive Bayes
+
+Naive Bayes classifier is a supervised learning algorithm based on **Bayes' 
+Theorem** for solving classification problems [@domingos1997optimal]. This 
+method determines which category a sample belongs to by calculating the 
+posterior probability of each category, and assumes that each feature is 
+independent of each other under the conditions of the given category.
+
+This "naive" assumption greatly simplifies the model computation and makes 
+naive Bayes a classical algorithm that is both fast and stable.
+
+In statistical learning and machine learning, naive Bayes is widely used for 
+tasks such as text classification, medical diagnosis, credit risk assessment, 
+and anomaly detection. Despite its relatively strict assumptions, it still 
+performs well in high dimensional data scenarios due to its robustness, low 
+computational cost, and good interpretability [@rish2001empirical].
+
+### Theoretical basis
+
+#### Bayes theorem
+
+The theoretical basis of Naive Bayes classifier is **Bayes' Theorem**. It 
+describes how to update our level of trust in an event after new observation 
+information is available.
+
+##### Basic form
+
+The basic form of Bayes theorem is:
+
+$$
+P(A|B) = \frac{P(B|A)\,P(A)}{P(B)}.
+$$
+
+Among them:
+
+-   $P(A)$: **Prior Probability** of event $A$, representing the initial belief 
+about event $A$ in the absence of any additional information.
+-   $P(B|A)$: **Likelihood**, denotes the probability of observing $B$ given 
+the occurrence of $A$.
+-   $P(A|B)$: **Posterior Probability**, which is the updated probability of 
+event $A$ occurring after the observation of $B$.
+-   $P(B)$: **Marginal Probability** of event $B$, which represents the overall 
+probability of observing $B$ under all possible scenarios.
+
+##### Application to classification problems
+
+In the classification task, we let:
+
+-   $Y$ is the category variable (e.g., "Is it a serious accident", "is it 
+spam");
+-   $X = (x_1, x_2, \ldots, x_n)$ is the observed eigenvector.
+
+Bayes theorem can be rewritten as follows.
+
+$$
+P(Y|X) = \frac{P(X|Y)\,P(Y)}{P(X)}.
+$$
+
+Here:
+
+-   $P(Y)$: prior probability, reflecting the distribution of each category in 
+the population sample;
+-   $P(X|Y)$: likelihood function, which represents the probability of 
+occurrence of feature $X$ under the category $Y$;
+-   $P(X)$: the normalization term, which is used to ensure that the posterior 
+probabilities of all categories sum to one;
+-   $P(Y|X)$: posterior probability, which represents the likelihood that the 
+sample after a given feature $X$ belongs to the class $Y$.
+
+Because $P(X)$ is the same for all categories, it can be ignored when comparing 
+which category has a greater probability. The prediction criteria of the model 
+are therefore simplified as follows.
+
+$$
+\hat{Y} = \arg\max_Y P(Y|X) = \arg\max_Y P(X|Y)\,P(Y).
+$$
+
+In other words: Instead of calculating all probabilities, we can simply compare 
+the "prior × likelihood" of each category which is greater.
+
+##### Intuitive explanation
+
+Bayes' theorem can be understood as a "belief update formula" : When we obtain 
+new observational information $X$, our belief about a certain category $Y$ 
+changes.
+
+| stage | concept | meaning |
+|------------------------|------------------------|------------------------|
+| Prior $P(Y)$ | Our original knowledge of the category $Y$ | For example: 30% <br> of serious accidents |
+| Likelihood $P(X|Y)$ | probability of feature $X$ under category $Y$ | For example: a higher proportion of <br> serious accidents in nighttime accidents |
+| A posterior $P(Y|X)$ | update probability after combining observations | For example, if it is at night, <br> the probability of a serious accident rises to about 56% |
+
+
+In other words, Bayes' theorem lets us **update beliefs** with data. It is this 
+updating mechanism that naive Bayes uses for classification.
+
+#### Conditional independence assumption
+
+Naive Bayes' "naive" comes from a key assumption: Given the category $Y$, the 
+individual features $x_i$ are **conditionally independent** among each other 
+[@domingos1997optimal]. Namely:
+
+$$
+P(X|Y) = \prod_{i=1}^{n} P(x_i|Y)
+$$
+
+This assumption greatly simplifies the calculation of the joint distribution. 
+Originally we needed to estimate $P(x_1,x_2,... x_n|Y)$ such a high-dimensional 
+joint probability, But with the independence assumption, one only needs to 
+estimate the conditional probability $P(x_i|Y)$ of each individual feature.
+
+This is not always true in real data, but in most scenarios it is still 
+satisfactory, This is especially the case when the correlation between features 
+is weak or the sample size is large enough.
+
+#### Parameter estimates with likelihood functions
+
+The core of model training is the estimation of two types of parameters:
+
+I.  **Prior probability** $P(Y)$
+
+Represents the proportion of categories occurring in the population:
+
+$$
+    \hat{P}(Y_k) = \frac{N_k}{N},
+$$
+
+Where $N_k$ is the number of samples for category $k$ and $N$ is the total 
+number of samples.
+
+II. **Conditional probability** $P(x_i|Y)$
+
+-   If the feature is discrete:
+
+$$
+    \hat{P}(x_i|Y) = \frac{\text{count}(x_i,Y)}{\text{count}(Y)}.
+$$
+
+-   If the feature is continuous, assume that it follows a Gaussian 
+distribution under each category:
+
+$$
+    P(x_i|Y) = \frac{1}{\sqrt{2\pi\sigma_{Y,i}^2}}
+    \exp\! \left(-\frac{(x_i-\mu_{Y,i})^2}{2\sigma_{Y,i}^2}\right)
+$$
+
+where $\mu_{Y,i}$ and $\sigma_{Y,i}^2$ are the mean and variance of feature 
+$x_i$ among all samples in class $Y$, respectively.
+
+These parameters are usually obtained by Maximum Likelihood Estimation (MLE).
+
+#### Class Prediction and Log Form
+
+The goal of model prediction is to find the class that maximizes the posterior 
+probability:
+
+$$
+\hat{Y} = \arg\max_Y P(Y) \prod_{i=1}^n P(x_i|Y)
+$$
+
+However, in practice, because continuous multiplication can lead to numerical 
+underflow, We usually take logarithms and turn multiplication into addition:
+
+$$
+\log P(Y|X) = \log P(Y) + \sum_{i=1}^{n} \log P(x_i|Y)
+$$
+
+The final output of the model is:
+
+$$
+\hat{Y} = \arg\max_Y \big[\log P(Y) + \sum_i \log P(x_i|Y)\big].
+$$
+
+In this way, not only accuracy problems can be avoided, but also the 
+contribution of each feature to the classification result can be observed more 
+intuitively.
+
+#### Theoretical Performance and Advantages and Limitations
+
+I.  **Advantages**
+
+-   The algorithm is simple, the computational complexity is linear, and the 
+training and prediction speed is extremely fast;
+-   Good performance on high dimensional data (such as bag-of-words model);
+-   Good performance on small sample data; The model results are highly 
+interpretable; Certain robustness against noisy data and missing data.
+
+II. **Limitations**
+
+Conditional independence assumption is often not true, and performance may 
+decrease when feature correlation is strong; Inability to capture feature 
+interaction effects; For the values of features that have not appeared before, 
+there may be a zero probability problem; Output probability estimates are not 
+necessarily reliable (often biased toward 0 or 1).
+
+#### Laplace Smoothing
+
+In naive Bayes, if a feature value never occurs in the training set, its 
+corresponding probability is estimated to be zero. As a result, the whole 
+product is 0 and the classifier outputs the wrong result. To avoid this 
+situation, **Laplace Smoothing** is introduced.
+
+That is to add a constant $\alpha > 0$ (usually 1) to the probability estimate:
+
+$$
+\hat{P}(x_i|Y) =
+\frac{\text{count}(x_i,Y) + \alpha}
+{\sum_{x_i'}(\text{count}(x_i',Y) + \alpha)}.
+$$
+
+So even if a value doesn't appear in the training set, the probability is not 
+zero, The model is thus more stable and robust.
+
+#### Surprisingly Good Performance
+
+Although the conditional independence assumption is often not strictly true, 
+naive Bayes still performs surprisingly well in practice. This is mainly due to 
+the following:
+
+-   **Robustness** : Even if there is some correlation between features, the 
+classification result is still accurate as long as the dependence between 
+different categories is not very different.
+
+-   **Error Compensation** : The bias caused by conditional independence 
+assumption often cancerates each other when multiple features are combined.
+
+-   **Implicit Regularization** : Feature independence makes the model 
+complexity low and can effectively prevent overfitting.
+
+-   **High-dimensional Advantage** : In scenarios where the number of features 
+is much larger than the number of samples, such as text classification, naive 
+Bayes is almost always more stable than linear models.
+
+### Types of Naive Bayes
+
+There is not just one form of naive Bayesian algorithm. According to the type 
+of feature variable (continuous or discrete), the value characteristics of the 
+feature (Boolean, count, frequency, etc.) and the distribution assumption of 
+the data, naive Bayes can be divided into the following main types:
+
+#### Gaussian Naive Bayes
+
+When the data feature is **continuous variable**, each feature is assumed to 
+follow **Gaussian distribution** under a given category:
+
+$$
+P(x_i|Y) = \frac{1}{\sqrt{2\pi\sigma_{Y,i}^2}}
+\exp\! \left(-\frac{(x_i - \mu_{Y,i})^2}{2\sigma_{Y,i}^2}\right)
+$$
+
+The advantages of Gaussian naive Bayes are:
+
+-   suitable for continuous characteristics (e.g. age, temperature, price, 
+etc.).
+-   Computationally efficient.
+-   Parameter estimation only requires sample mean and variance.
+-   Good results can still be achieved for nonlinear separable data.
+
+#### Categorical Naive Bayes
+
+Categorical naive Bayes is used when the feature is **discrete (categorical) 
+variable**. Assume that each feature follows a **categorical distribution** 
+under the category $Y$:
+
+$$
+P(x_i|Y) = \frac{\text{count}(x_i,Y) + \alpha}
+{\sum_{x_i'} (\text{count}(x_i',Y) + \alpha)}
+$$
+
+Where $\alpha$ is the smoothing coefficient (usually 1) and is used to avoid 
+the zero-probability problem. It is often used to analyze categorical 
+characteristic data, such as region, color, occupation type, etc.
+
+#### Bernoulli Naive Bayes
+
+Bernoulli naive Bayes is used when the features take only two values, such as 
+0/1, True/False. It assumes that each feature follows a **Bernoulli 
+Distribution** under the category $Y$:
+
+$$
+P(x_i|Y) = P_i^{x_i} (1-P_i)^{(1-x_i)},
+$$
+
+Where $P_i = P(x_i=1|Y)$. Often used in "word presence or absence" models for 
+text classification (e.g., spam detection). Compared with the polynomial model, 
+the Bernoulli model pays more attention to "whether a certain feature is 
+included" rather than "the number of occurrences of features".
+
+#### Multinomial Naive Bayes
+
+Polynomial naive Bayes is often used for text analysis or document 
+classification tasks. It assumes that features are represented as discrete 
+frequencies or counts such as word frequency TF. Conditional probabilities are 
+calculated as follows:
+
+$$
+P(X|Y) = \frac{(\sum_i x_i)! }{\prod_i x_i! } \prod_i P(x_i|Y)^{x_i},
+$$
+
+Where $x_i$ is the number of occurrences of the $i$word in the document. This 
+model is particularly suitable for "Bag-of-Words" models, such as news 
+classification, comment sentiment analysis, etc.
+
+#### Complement Naive Bayes
+
+Complement NB is an improvement of the polynomial model, It is mainly used for 
+**class imbalanced** datasets [@zhang2004complement]. It estimates conditional 
+probabilities by considering "samples outside of one category", reducing the 
+bias of the model by mainstream categories:
+
+$$
+P(x_i|\bar{Y}) = \frac{\text{count}(x_i,\bar{Y}) + \alpha}
+{\sum_{x_i'}(\text{count}(x_i',\bar{Y}) + \alpha)}
+$$
+
+This method works well when there are large differences in category 
+proportions, For example, it is often used in tasks such as "accident severity 
+classification" and "fraud detection".
+
+#### Model comparison and application scenario summary
+
+| Model type | Feature type | Common applications | Distributional assumptions | Remarks |
+|-------------|---------------|----------------------|-----------------------------|----------|
+| **Gaussian NB** | Continuous variables | medical diagnosis, price prediction | Gaussian distribution | more sensitive to outliers |
+| **Categorical NB** | Categorical variables | Questionnaire, demographic analysis | Categorical distribution | fit discrete features |
+| **Bernoulli NB** | Binary variables | Spam classification, whether the text <br> contains keywords | Bernoulli distribution | Focus on "presence or absence" |
+| **Multinomial NB** | Count / frequency | text classification, sentiment analysis | Multinomial distribution | Fit for high dimensional sparse data |
+| **Complement NB** | Imbalanced sample | fraud detection, traffic accident prediction | Polynomial complementary distribution | Improved imbalanced problem |
+
+
+### Naive Bayesian application: NYC Crash Data
+
+In this section, we will use the accident data set provided in the course to 
+demonstrate how naive Bayesian models can be used to predict whether an 
+accident is a "serious accident".
+
+The goal here is to classify an original traffic accident record into:
+
+-   severe (severe = 1) : Someone is injured or killed
+-   No severe (severe = 0) : no injuries or deaths
+
+This is a typical real world task: we want to quickly determine the severity of 
+an accident as soon as it occurs or is recorded, so that we can direct 
+resources, do risk monitoring, and observe patterns.
+
+#### Modeling objectives
+
+The task we are going to complete is a **binary classification problem** :
+
+-   **Response variable (Y)** : 'severe_flag' Definition rule: If 
+'persons_injured \> 0' or 'persons_killed \> 0', it is considered a serious 
+accident and marked as 1, otherwise it is 0.
+
+-   **Independent variable (X)** : We will use some features that can be 
+extracted/discretized from accident records such as 
+`borough`,`zip_code`,`crash_datetime`, 
+`vehicle_type_code_1`,`contributing_factor_vehicle_1`... Most of these features 
+are categorical factors, which are suitable for conditional probability based 
+modeling in naive Bayes.
+
+-   Load packages
+
+```{python, message=FALSE, warning=FALSE}
+import pandas as pd
+import numpy as np
+from datetime import datetime
+from sklearn.model_selection import train_test_split
+from sklearn.naive_bayes import CategoricalNB
+from sklearn.metrics import confusion_matrix, classification_report
+from sklearn.preprocessing import LabelEncoder
+```
+
+-   Read our data
+
+```{python}
+# 1.
+df = pd.read_feather("data/nyc_crashes_cleaned.feather")
+```
+
+-   Create the target variable severe_flag (severe accident =1, otherwise =0)
+
+```{python}
+df['number_of_persons_injured'] = df['number_of_persons_injured'].fillna(0)
+df['number_of_persons_killed'] = df['number_of_persons_killed'].fillna(0)
+
+df['severe_flag'] = np.where(
+    (df['number_of_persons_injured'] > 0) | (df['number_of_persons_killed'] > 0),
+    1,
+    0
+)
+
+```
+
+-   Extract hours from time and divide periods
+
+```{python}
+df['crash_datetime'] = pd.to_datetime(df['crash_datetime'], errors='coerce')
+df['hour'] = df['crash_datetime'].dt.hour
+
+def time_period(hour):
+    if 0 <= hour < 6:
+        return "Late Night"
+    elif 6 <= hour < 12:
+        return "Morning"
+    elif 12 <= hour < 18:
+        return "Afternoon"
+    elif 18 <= hour < 24:
+        return "Evening"
+    return "Unknown"
+
+df['time_category'] = df['hour'].apply(time_period)
+
+```
+
+-   Select features
+
+```{python}
+# borough: What borough is it in
+# zip_code/zip_filled: Location code information
+# time_category: Approximate time period when the accident occurred
+# contributing_factor_vehicle_1: The primary contributing_factor for vehicle 1
+# vehicle_type_code_1: Type of vehicle involved
+
+# Note: We do not directly use the latitude and longitude, street names, these 
+# are high base text/continuous values, not suitable for direct feeding naive 
+# Bayes for classification.
+
+model_df = df[[
+    'borough',
+    'zip_filled',
+    'time_category',
+    'contributing_factor_vehicle_1',
+    'vehicle_type_code_1',
+    'severe_flag'
+]].dropna()
+
+# Label encode
+label_encoders = {}
+for col in model_df.columns:
+    if model_df[col].dtype == 'object':
+        le = LabelEncoder()
+        model_df[col] = le.fit_transform(model_df[col])
+        label_encoders[col] = le
+```
+
+-   Split data into training/testing sets and Train the Naive Bayes model.
+
+```{python}
+X = model_df.drop('severe_flag', axis=1)
+y = model_df['severe_flag']
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.3, random_state=42, stratify=y
+)
+
+```
+
+-   Make predictions and evaluate the model.
+
+```{python, message=FALSE, warning=FALSE}
+nb_model = CategoricalNB(alpha=1)   # laplace smoothing
+nb_model.fit(X_train, y_train)
+
+y_pred = nb_model.predict(X_test)
+y_prob = nb_model.predict_proba(X_test)
+
+print(confusion_matrix(y_test, y_pred))
+print(classification_report(y_test, y_pred))
+```
+
+##### Interpretation of our model results
+
+From the results, the overall performance of our Naive Bayes model is only
+moderate. The accuracy of the model is about **64%**, which means that it is 
+better than random guess, but the predictive power is not strong. Especially in
+distinguishing serious and non-serious accidents, the model identifies 
+non-serious accidents relatively well (0), but its ability to capture serious
+accidents (1) is relatively weak, and many real serious accidents still cannot
+be successfully identified.
+
+It can also be seen from the average values of precision, recall and F1 that
+the overall classification ability of the model is about 0.63 to 0.64, which is
+relatively general. In general, the Naive Bayes model can provide a certain 
+reference, but it is not enough to establish a high-precision accident severity
+prediction system. More complex or stronger models may be needed to improve 
+performance in practical applications.
+
+The main reasons for this may include:
+
+-   **Imbalanced Data** : The samples of non-serious accidents are far more 
+than those of serious accidents, resulting in the model being biased towards 
+the majority class.
+
+-   **Naive Assumption** : Naive Bayes assumes that each feature is independent 
+of each other, but this assumption is often not true in real traffic accident 
+data.
+
+-   **Limited feature information** : The variables used (such as time period, 
+vehicle type, causative factors, etc.) are relatively macroscopic and lack 
+continuity or quantitative characteristics, which limits the accuracy of the 
+model.
+
+Nevertheless, the naive Bayesian model has the following advantages:
+
+-   fast training and prediction.
+-   strong interpretation of parameters
+-   Suitable as a baseline model (baseline) for more complex models (e.g. 
+Random Forest, XGBoost).
+
+Therefore, the results of this model can be used as a reference basis for 
+subsequent improvements, and further improvements in model performance are 
+expected after the introduction of more features or balanced samples.
