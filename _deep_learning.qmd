@@ -1,61 +1,149 @@
 ## Deep Learning (DL)
 
-This section was prepared by Matthew Anzalone: final semester MsQE (Master of Science in Quantitative Economics) student. His research interests include community cohesion as predictors of economic outcomes, market concentration, and health economics.
+This section was prepared by Matthew Anzalone: final semester MsQE 
+(Master of Science in Quantitative Economics) student. His research 
+interests include community cohesion as predictors of economic 
+outcomes, market concentration, and health economics.
 
 ### Early DL History
 
-Deep learning owes its existence to the original 1943 work of Warren McCulloch and Walter Pitts, who built the first artificial, electronic neural network. Although, it was not until the 1970s that deep learning got its start, following the work of Alexy Ivakhnenko and V. G. Lapa in 1967. 1979 saw the development of the first functional deep learning model in Kunihiko Fukushima's "Neocognitron".
+Deep learning owes its existence to the original 1943 work of Warren 
+McCulloch and Walter Pitts, who built the first artificial, electronic 
+neural network. Although, it was not until the 1970s that deep 
+learning got its start, following the work of Alexy Ivakhnenko and 
+V. G. Lapa in 1967. 1979 saw the development of the first functional 
+deep learning model in Kunihiko Fukushima's "Neocognitron".
 
 ### Modern DL History
-However, this was just the primordial roots of deep learning. It was not until 1989, when Yann LeChun, et al. implemented backpropagation into neural networks that the deep learning we are familiar with today got its start. There were still hurdles, though. The hardware of the 1990s was not up to speed with what was required to run deep learning models at anything resembling an acceptable speed. The modern advent and improvement of GPUs (graphical processing units), especially by Nvidia, allowed for the eventual explosion of machine learning and AI that we observe today. Such GPUs allow for running calculations simultaneously and in parallel, thus increasing speed and making calculations feasible. 
+However, this was just the primordial roots of deep learning. It was 
+not until 1989, when Yann LeChun, et al. implemented backpropagation 
+into neural networks that the deep learning we are familiar with today 
+got its start. There were still hurdles, though. The hardware of the 
+1990s was not up to speed with what was required to run deep learning 
+models at anything resembling an acceptable speed. The modern advent 
+and improvement of GPUs (graphical processing units), especially by 
+Nvidia, allowed for the eventual explosion of machine learning and AI 
+that we observe today. Such GPUs allow for running calculations 
+simultaneously and in parallel, thus increasing speed and 
+making calculations feasible. 
 
 ### Neural Networks vs. Deep Learning
-How are deep learning models different from neural networks? Neural networks are not different from deep learning models, and are, in fact, the principle building block of DL models. The scope and depth of the neural networks are the only thing that separates neural networks from Deep learning models. DL models are defined (according to IBM) as the training of neural network models with at least four layers. 
+How are deep learning models different from neural networks? 
+Neural networks are not different from deep learning models, 
+and are, in fact, the principle building block of DL models. The scope 
+and depth of the neural networks are the only thing that separates 
+neural networks from Deep learning models. DL models are defined 
+(according to IBM) as the training of neural network models with at 
+least four layers. 
 
-The advantage of DL models comes from the intermediate, hidden layers, where most of the delicate comparisons take place. These intermediate layers allow for a much more rigorous understanding of the input data, concentrating the essence of the interactions from the broader surface-layer nodes' values to increasingly accurate outputs (depending on the number of intermediate layers).
+The advantage of DL models comes from the intermediate, hidden layers, 
+where most of the delicate comparisons take place. These intermediate 
+layers allow for a much more rigorous understanding of the input data, 
+concentrating the essence of the interactions from the broader 
+surface-layer nodes' values to increasingly accurate outputs (depending 
+on the number of intermediate layers).
 
-Because deep learning is an extension of neural networks, training DL models also rely on backpropagation and gradient descent. 
+Because deep learning is an extension of neural networks, 
+training DL models also rely on backpropagation and gradient descent. 
 
 ### Types of Deep-learning Models
 
 #### Convolutional Neural Networks
-In essence, this method concentrates information down from a large number of nodes to a smaller sub-selection of nodes, that is, it creates convolution layers. These convolution layers are then used to preserve information on a larger scale, resulting in dimension reduction and allowing for efficient calculations from large, multi-factor datasets. One of the things this method is historically used for is image classification and recognition, as it allows one to break up images into many large parts, rather than looking at each pixel individually. 
+In essence, this method concentrates information down from a large 
+number of nodes to a smaller sub-selection of nodes, that is, it 
+creates convolution layers. These convolution layers are then used 
+to preserve information on a larger scale, resulting in dimension 
+reduction and allowing for efficient calculations from large, 
+multi-factor datasets. One of the things this method is historically 
+used for is image classification and recognition, as it allows one to 
+break up images into many large parts, rather than looking at each 
+pixel individually. 
 
 #### Recurrent Neural Networks
-This method allows for sequential calculations from one node to the next. Therefore, it is useful for time-sequenced data or language recognition. For example, in a subject such as education economics, data might be years of education for individuals over time. Each additional year of education might depend on the GPA of the last year of education (IE: one will pursue a bachelors degree if they receive consistently high grades in an associates degree). Therefore, the model would need to understand each previous year in sequence to be able to predict the eventual final years of education for an individual. 
+This method allows for sequential calculations from one node to the next. 
+Therefore, it is useful for time-sequenced data or language recognition. 
+For example, in a subject such as education economics, data might be 
+years of education for individuals over time. Each additional year of 
+education might depend on the GPA of the last year of education 
+(IE: one will pursue a bachelors degree if they receive consistently high 
+grades in an associates degree). Therefore, the model would need to 
+understand each previous year in sequence to be able to predict the 
+eventual final years of education for an individual. 
 
 #### Generative adversarial networks
-These are used to generate new data, based on some example training data. The implementation is extremely interesting, in that the model pits two neural networks against one another until the testing network cannot accurately decide whether the data is artificially generated or part of the training set. This sounds amazing, but training such a model is, according to IBM, difficult and unstable. This method can be used with image generation and, arguably, seals our collective fate for eventually not being able to tell real pictures from AI-generated ones. 
+These are used to generate new data, based on some example training data. 
+The implementation is extremely interesting, in that the model pits two 
+neural networks against one another until the testing network cannot accurately 
+decide whether the data is artificially generated or part of the training set. 
+This sounds amazing, but training such a model is, according to IBM, difficult 
+and unstable. This method can be used with image generation and, arguably, seals 
+our collective fate for eventually not being able to tell real pictures 
+from AI-generated ones. 
 
 ### Current AI Surge and Transformer Models
-The current surge in AI infrastructure and consumer AI models can be traced back to the 2017 Google paper ["Attention is All You Need"](https://arxiv.org/abs/1706.03762). (Nearly all of the authors of the paper went on to found, co-found, or become CEO of highly successful AI companies). The paper outlines a new architecture for deep learning: the transformer model. The new methods are responsible for the existence of GPT (generative pre-trained transformer) models, such as ChatGPT. The advantage of the transformer model is its attention layers, which specify which nodes are closely related to other nodes. That is, the attention layer specifies which parts of the data interact with one another, meaning it can focus on certain interactions as more important to final output, increasing efficiency and accuracy. According to IBM, "...transformers don’t use recurrent layers; a standard transformer architecture uses only attention layers and standard feedforward layers, leveraging a novel structure inspired by the logic of relational databases." That is, transformer models are more efficient than the recurrent neural networks which they succeeded. 
+The current surge in AI infrastructure and consumer AI models can be traced back 
+to the 2017 Google paper ["Attention is All You Need"](https://arxiv.org/abs/1706.03762). 
+(Nearly all of the authors of the paper went on to found, co-found, or become 
+CEO of highly successful AI companies). The paper outlines a new architecture 
+for deep learning: the transformer model. The new methods are responsible for 
+the existence of GPT (generative pre-trained transformer) models, such as 
+ChatGPT. The advantage of the transformer model is its attention layers, which 
+specify which nodes are closely related to other nodes. That is, the attention 
+layer specifies which parts of the data interact with one another, meaning it 
+can focus on certain interactions as more important to final output, increasing 
+efficiency and accuracy. According to IBM, "...transformers don’t use recurrent 
+layers; a standard transformer architecture uses only attention layers and 
+standard feedforward layers, leveraging a novel structure inspired by the logic 
+of relational databases." That is, transformer models are more efficient than 
+the recurrent neural networks which they succeeded. 
 
 ### Why Transformers?
-Recurrent networks can only focus on one part of a sequence at a time, making them less scalable. However, transformers allow for a model to examine an entire sequence at once, and then focus on the most meaningful interactions for final output. This ability of transformers fits perfectly with the function of GPUs, as it allows for the simultaneous calculations of the transformer to run on the simultaneous hardware of the GPU. 
+Recurrent networks can only focus on one part of a sequence at a time, making 
+them less scalable. However, transformers allow for a model to examine an entire 
+sequence at once, and then focus on the most meaningful interactions for final 
+output. This ability of transformers fits perfectly with the function of GPUs, 
+as it allows for the simultaneous calculations of the transformer to run on the 
+simultaneous hardware of the GPU. 
 
-In simple terms, the attention mechanism of transformers runs in a few successive steps:  
+The attention mechanism of transformers runs in a few successive steps:  
 + reading data and converting into vector features,  
 + determining interactions between vector features,  
 + assigning interactions scores for feature combinations,  
 + and finally assigning an attention weights for features.   
-This continues until the model arrives at accurate attention weights for final outputs, via backpropagation and gradient descent. 
+This continues until the model arrives at accurate attention weights for final 
+outputs, via backpropagation and gradient descent. 
 
-Queries and keys are used to compare a data sequence. The query is used as the starting point for retrieval of attention interactions. Keys represent the value of the token or "cell". The output is then scaled by the attention weight, and the final output is passed on to the next node/layer, or the final output. (Tokens are how models like LLMs store information, such as words.)
+Queries and keys are used to compare a data sequence. The query is used as the 
+starting point for retrieval of attention interactions. Keys represent the value 
+of the token or "cell". The output is then scaled by the attention weight, and 
+the final output is passed on to the next node/layer, or the final output. 
+(Tokens are how models like LLMs store information, such as words.)
 
-This method can be extended to examples of image classification, which is used here to demonstrate the meaning of attention, query, and key. 
+This method can be extended to examples of image classification, which is used 
+here to demonstrate the meaning of attention, query, and key. 
 
 ### Pytorch and implementation of transformer model
 
 ##### Installation of Pytorch
-Go to [the installation and startup documentation page](https://pytorch.org/get-started/locally/) and follow the installation steps, then run the code below, as outlined by the installation page. 
+Go to [the installation and startup documentation page](https://pytorch.org/get-started/locally/) 
+and follow the installation steps, then run the code below, 
+as outlined by the installation page. 
 
-The documentation states that a NVidia GPU is suggested for GPU processing, so this overview will use the CPU installation for accessibility. The GPU version can be installed by selecting one of the "CUDA" options on the installation page, then running the given pip-command in Python. This install command will run on both Mac and Windows (the Linux command is slightly different). When selecting the CPU option on Mac, the option reads "default".
+The documentation states that a NVidia GPU is suggested for GPU processing, so 
+this overview will use the CPU installation for accessibility. The GPU version 
+can be installed by selecting one of the "CUDA" options on the installation page, 
+then running the given pip-command in Python. This install command will run on 
+both Mac and Windows (the Linux command is slightly different). When selecting 
+the CPU option on Mac, the option reads "default".
 
 ```{python}
-pip install torch torchvision
+
+#pip install torch torchvision
 ```
 
-To verify whether torch installed correctly, the suggested test code from the installation page is run below, showing that the torch data-structure is functional.
+To verify whether torch installed correctly, the suggested test code from the 
+installation page is run below, showing that the torch data-structure 
+is functional.
 ```{python}
 import torch
 x = torch.rand(5, 3)
@@ -66,9 +154,19 @@ print(x)
 
 #### Data Importation 
 
-To highlight the uses and behaviors of the transformer model and attention weighting, we will use the same digit data used in the neural network implementation example. The model will aim to classify the given hand-drawn digits, and will focus on certain pixels in the 8x8 grid as more important in reaching a final output/conclusion as to the correct classification. This uses a simplified example generated from ChatGPT (fitting as the exact model demonstrated will ultimately create the code).
+To highlight the uses and behaviors of the transformer model and attention 
+weighting, we will use the same digit data used in the neural network 
+implementation example. The model will aim to classify the given hand-drawn 
+digits, and will focus on certain pixels in the 8x8 grid as more important 
+in reaching a final output/conclusion as to the correct classification. 
+This uses a simplified example generated from ChatGPT (fitting as the exact 
+model demonstrated will ultimately create the code).
 
-Below, the digit data is imported from the sklearn module, and is then split into training and testing subsets using the sklearn splitting package. Importantly, the train-test split is then passed to the `torch` datatype, which makes it usable in the transformer model. The "tensors" are simply another type of array which is used in AI architecture. 
+Below, the digit data is imported from the sklearn module, and is then split 
+into training and testing subsets using the sklearn splitting package. 
+Importantly, the train-test split is then passed to the `torch` datatype, 
+which makes it usable in the transformer model. The "tensors" are simply 
+another type of array which is used in AI architecture. 
 ```{python}
 import torch
 import torch.nn as nn
@@ -101,7 +199,15 @@ test_loader = DataLoader(TensorDataset(X_test, y_test), batch_size=128)
 
 ```
 
-This code builds the transformer model implementation for this example. It uses 4 heads, where each head represents one type of interaction between the given queries and keys. For example, one head could compare the shade of a key pixel to the query pixel, where another head might compare proximity. It is unspecified what type of interaction the model chooses for each of the heads. `d_model` describes the number of values in each token vector. `num_layers` represents the number of attention layers used in the model, where each attention layer has multiple linear layers and normalization layers, where each layer has at least 32 nodes (specified in `d_model`).
+This code builds the transformer model implementation for this example. 
+It uses 4 heads, where each head represents one type of interaction between the 
+given queries and keys. For example, one head could compare the shade of a key 
+pixel to the query pixel, where another head might compare proximity. It is 
+unspecified what type of interaction the model chooses for each of the heads. 
+`d_model` describes the number of values in each token vector. `num_layers` 
+represents the number of attention layers used in the model, where each 
+attention layer has multiple linear layers and normalization layers, where 
+each layer has at least 32 nodes (specified in `d_model`).
 ```{python}
 class TinyVisionTransformer(nn.Module):
     def __init__(
@@ -138,7 +244,11 @@ class TinyVisionTransformer(nn.Module):
         return self.classifier(x)
 ```
 
-Now we train the model, prioritizing using the GPU "cuda" method, and the CPU method if GPU is not available. It will successively train over multiple runs, lowering the loss value each time, using entropy to compare the predicted values to actual values. `lr=1e-3` is the learning rate of the model. 
+Now we train the model, prioritizing using the GPU "cuda" method, and the 
+CPU method if GPU is not available. It will successively train over multiple 
+runs, lowering the loss value each time, using entropy to compare the 
+predicted values to actual values. `lr=1e-3` is the learning 
+rate of the model. 
 ```{python}
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model = TinyVisionTransformer().to(device)
@@ -159,7 +269,8 @@ for epoch in range(5):
     print(f"Epoch {epoch+1}, loss={total_loss/len(train_loader):.4f}")
 ```
 
-Then, the test accuracy is calculated as a decimal representing the proportion of successful classifications to total classifications.
+Then, the test accuracy is calculated as a decimal representing the 
+proportion of successful classifications to total classifications.
 ```{python}
 model.eval()
 correct = 0
@@ -170,7 +281,11 @@ with torch.no_grad():
 print(f"Test accuracy: {correct / len(y_test):.3f}")
 ```
 
-Below is shown a figure of the attention scores between each of the 64 pixels (the query) to the same pixels (as a key). The figure represent a single "head" of the model. The tendency to show a vertical line represents the fact that certain pixels are important to classification no matter which pixel is queried. 
+Below is shown a figure of the attention scores between each of the 
+64 pixels (the query) to the same pixels (as a key). The figure 
+represent a single "head" of the model. The tendency to show a 
+vertical line represents the fact that certain pixels are important 
+to classification no matter which pixel is queried. 
 ```{python}
 encoder_layer = model.transformer.layers[0]
 
@@ -197,7 +312,12 @@ plt.colorbar(label="Attention weight")
 plt.show()
 ```
 
-This graph overlays the heatmap from the previous graph onto an 8x8 graph like that of the digits. It averages out the attention scores for each query pixel which gives the overall importance of each pixel in determining which digit each image is classified as. The lighter pixels in this graph represent the vertical lines of high attention from the heatmap above.
+This graph overlays the heatmap from the previous graph onto an 8x8 
+graph like that of the digits. It averages out the attention scores 
+for each query pixel which gives the overall importance of each pixel 
+in determining which digit each image is classified as. The lighter 
+pixels in this graph represent the vertical lines of high attention 
+from the heatmap above.
 ```{python}
 attn_avg = attn.mean(axis=0)  # average over query positions -> 64
 attn_img = attn_avg.reshape(8,8)
@@ -211,7 +331,16 @@ plt.show()
 ```
 
 ### Conclusion
-Deep learning models are varied, and cutting edge, having only picked up speed in the past 20 years or so. Much of their surge in popularity and use can be attributed to the transformer-attention method, unveiled in 2017 by Google. This led to increased efficiency of DL models, far surpassing CNN and RNN models, allowing them to create the GPT models which are now seen in almost every aspect of industry and academics. The attention method assigns an attention weight to interactions between input queries and keys, and allows the model to efficiently focus on relevant data interactions. This can be applied to the image classification example above, extending the example already given in the neural network section. 
+Deep learning models are varied, and cutting edge, having only picked up 
+speed in the past 20 years or so. Much of their surge in popularity and 
+use can be attributed to the transformer-attention method, unveiled in 2017 
+by Google. This led to increased efficiency of DL models, far surpassing 
+CNN and RNN models, allowing them to create the GPT models which are now 
+seen in almost every aspect of industry and academics. The attention 
+method assigns an attention weight to interactions between input queries 
+and keys, and allows the model to efficiently focus on relevant data 
+interactions. This can be applied to the image classification example above, 
+extending the example already given in the neural network section. 
 
 ### Further Readings
 #### History and Overview
