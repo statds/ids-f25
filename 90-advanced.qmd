@@ -8,5 +8,7 @@
 <!-- ## Animation -->
 <!-- {{< include _animation.qmd >}} -->
 
+<!-- ## UMAP -->
+{{< include _umap.qmd >}}
 <!-- ## Calling R from Python -->
 {{< include _callr.qmd >}}
