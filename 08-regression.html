@@ -320,6 +320,18 @@ window.Quarto = {
   <li><a href="#regularized-glm" id="toc-regularized-glm" class="nav-link" data-scroll-target="#regularized-glm"><span class="header-section-number">8.4.5</span> Regularized GLM</a></li>
   <li><a href="#example-regularized-glm-with-ames-housing-data" id="toc-example-regularized-glm-with-ames-housing-data" class="nav-link" data-scroll-target="#example-regularized-glm-with-ames-housing-data"><span class="header-section-number">8.4.6</span> Example: Regularized GLM with Ames Housing Data</a></li>
   </ul></li>
+  <li><a href="#spatial-statistical-methods" id="toc-spatial-statistical-methods" class="nav-link" data-scroll-target="#spatial-statistical-methods"><span class="header-section-number">8.5</span> Spatial Statistical Methods</a>
+  <ul class="collapse">
+  <li><a href="#introduction-2" id="toc-introduction-2" class="nav-link" data-scroll-target="#introduction-2"><span class="header-section-number">8.5.1</span> Introduction</a></li>
+  <li><a href="#dataset" id="toc-dataset" class="nav-link" data-scroll-target="#dataset"><span class="header-section-number">8.5.2</span> Dataset</a></li>
+  <li><a href="#libraries" id="toc-libraries" class="nav-link" data-scroll-target="#libraries"><span class="header-section-number">8.5.3</span> Libraries</a></li>
+  <li><a href="#spatial-weights" id="toc-spatial-weights" class="nav-link" data-scroll-target="#spatial-weights"><span class="header-section-number">8.5.4</span> Spatial Weights</a></li>
+  <li><a href="#morans-i" id="toc-morans-i" class="nav-link" data-scroll-target="#morans-i"><span class="header-section-number">8.5.5</span> Moran’s I</a></li>
+  <li><a href="#kriging" id="toc-kriging" class="nav-link" data-scroll-target="#kriging"><span class="header-section-number">8.5.6</span> Kriging</a></li>
+  <li><a href="#sem-regression-with-kriging" id="toc-sem-regression-with-kriging" class="nav-link" data-scroll-target="#sem-regression-with-kriging"><span class="header-section-number">8.5.7</span> SEM Regression With Kriging</a></li>
+  <li><a href="#conclusions" id="toc-conclusions" class="nav-link" data-scroll-target="#conclusions"><span class="header-section-number">8.5.8</span> Conclusions</a></li>
+  <li><a href="#further-readings" id="toc-further-readings" class="nav-link" data-scroll-target="#further-readings"><span class="header-section-number">8.5.9</span> Further Readings</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -353,7 +365,7 @@ window.Quarto = {
 <h3 data-number="8.1.1" class="anchored" data-anchor-id="ames-housing-data-cleaning"><span class="header-section-number">8.1.1</span> Ames Housing Data Cleaning</h3>
 <p>The Ames housing data will be used for illustration, but it requires careful preprocessing. A distinctive feature of this dataset is that many <code>NA</code> values do not represent missing information but instead denote the absence of a feature. Treating them as missing would discard useful signals, so they should be recoded explicitly.</p>
 <p>First, we retrieve the data to ensure reproducibility.</p>
-<div id="77eb5e85" class="cell" data-execution_count="1">
+<div id="0c5854ba" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> openml</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -362,7 +374,7 @@ window.Quarto = {
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>df, <span class="op">*</span>_ <span class="op">=</span> dataset.get_data()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>For categorical variables, <code>NA</code> often means that the property does not have the feature. For example, <code>Alley</code> is <code>NA</code> when no alley access exists, <code>FireplaceQu</code> is <code>NA</code> when no fireplace is present, and <code>PoolQC</code> is <code>NA</code> when the house does not have a pool. In these cases, <code>NA</code> should be replaced with an explicit category such as “None.”</p>
-<div id="d9f9df4a" class="cell" data-execution_count="2">
+<div id="ecf36c57" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>none_cols <span class="op">=</span> [</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Alley"</span>, <span class="st">"FireplaceQu"</span>, <span class="st">"PoolQC"</span>, <span class="st">"Fence"</span>, <span class="st">"MiscFeature"</span>,</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"GarageType"</span>, <span class="st">"GarageFinish"</span>, <span class="st">"GarageQual"</span>, <span class="st">"GarageCond"</span>,</span>
@@ -373,7 +385,7 @@ window.Quarto = {
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    df[col] <span class="op">=</span> df[col].fillna(<span class="st">"None"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>For numeric variables, <code>NA</code> may also indicate absence. Examples include <code>GarageCars</code>, <code>GarageArea</code>, and basement square footage variables. When no garage or basement is present, the correct encoding is zero. Thus, these columns should be filled with 0 rather than treated as missing.</p>
-<div id="252aba2a" class="cell" data-execution_count="3">
+<div id="c36ad772" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>zero_cols <span class="op">=</span> [</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"GarageCars"</span>, <span class="st">"GarageArea"</span>,</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"BsmtFinSF1"</span>, <span class="st">"BsmtFinSF2"</span>, <span class="st">"BsmtUnfSF"</span>,</span>
@@ -384,7 +396,7 @@ window.Quarto = {
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    df[col] <span class="op">=</span> df[col].fillna(<span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Finally, some variables contain genuinely missing data. A common example is <code>LotFrontage</code>, which records the linear feet of street connected to a property. Here <code>NA</code> values reflect unavailable measurements. These can be imputed using summary statistics such as the median or by more advanced methods if desired.</p>
-<div id="7223a25b" class="cell" data-execution_count="4">
+<div id="8cda4e66" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"LotFrontage"</span>] <span class="op">=</span> df[<span class="st">"LotFrontage"</span>].fillna(df[<span class="st">"LotFrontage"</span>].median())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>This structured cleaning step ensures that absence is distinguished from missingness, numeric zero values are meaningful, and true missing values are handled appropriately. Only after this preparation is the dataset ready for modeling.</p>
@@ -411,14 +423,14 @@ L(\beta) = \sum_{i=1}^n (Y_i - \beta_0 - \beta_1 X_{i1} - \cdots - \beta_p X_{ip
 Y_i = \log(\text{SalePrice}_i).
 \]</span></p>
 <p>We add this transformed response to the dataset.</p>
-<div id="270dc9cc" class="cell" data-execution_count="5">
+<div id="5d5d7f0e" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"LogPrice"</span>] <span class="op">=</span> np.log(df[<span class="st">"SalePrice"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Many studies and analyses of the Ames data have found certain variables to be consistently important for predicting sale price. These include <code>OverallQual</code> (overall material and finish quality), <code>GrLivArea</code> (above- ground living area), <code>GarageCars</code> (garage capacity), <code>TotalBsmtSF</code> (total basement area), <code>YearBuilt</code> (construction year), <code>FullBath</code> (number of full bathrooms), and <code>KitchenQual</code> (kitchen quality). We will focus on these predictors to illustrate model fitting.</p>
 <p>Instead of manually creating dummy variables, we can use the formula API from <code>statsmodels</code>, which handles categorical predictors internally.</p>
-<div id="44eb6844" class="cell" data-execution_count="6">
+<div id="80e80427" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.formula.api <span class="im">as</span> smf</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>formula <span class="op">=</span> (</span>
@@ -427,11 +439,11 @@ Y_i = \log(\text{SalePrice}_i).
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We then fit the regression model directly with the formula.</p>
-<div id="48215e84" class="cell" data-execution_count="7">
+<div id="daac4996" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> smf.ols(formula, data<span class="op">=</span>df).fit()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Finally, we examine the regression results, which highlight the most important predictors of log sale price.</p>
-<div id="9a265bdf" class="cell" data-execution_count="8">
+<div id="3560ee04" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>model.summary()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
 <table class="simpletable caption-top table table-sm table-striped small" data-quarto-postprocess="true">
@@ -457,13 +469,13 @@ Y_i = \log(\text{SalePrice}_i).
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">Date:</td>
-<td>Tue, 04 Nov 2025</td>
+<td>Tue, 18 Nov 2025</td>
 <td data-quarto-table-cell-role="th">Prob (F-statistic):</td>
 <td>0.00</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">Time:</td>
-<td>12:55:34</td>
+<td>15:23:41</td>
 <td data-quarto-table-cell-role="th">Log-Likelihood:</td>
 <td>515.19</td>
 </tr>
@@ -649,7 +661,7 @@ Y_i = \log(\text{SalePrice}_i).
 \hat{\varepsilon}_i = Y_i - \hat{Y}_i.
 \]</span></p>
 <p>Plotting residuals against fitted values reveals whether variance is constant and whether systematic patterns remain.</p>
-<div id="2fa8e840" class="cell" data-execution_count="9">
+<div id="4df18607" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>fitted_vals <span class="op">=</span> model.fittedvalues</span>
@@ -670,7 +682,7 @@ Y_i = \log(\text{SalePrice}_i).
 </div>
 </div>
 <p>Another check is the distribution of residuals. A histogram or Q-Q plot can indicate whether residuals are approximately normal, which is most relevant for inference in small samples.</p>
-<div id="da71a6ac" class="cell" data-execution_count="10">
+<div id="b84ea1c8" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>plt.hist(residuals, bins<span class="op">=</span><span class="dv">30</span>, edgecolor<span class="op">=</span><span class="st">"black"</span>)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Residuals"</span>)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Histogram of residuals"</span>)</span>
@@ -699,7 +711,7 @@ Y_i = \log(\text{SalePrice}_i).
 </div>
 </div>
 <p>Influential observations can distort regression results. Leverage and Cook’s distance are standard measures to detect such points.</p>
-<div id="0b22b42b" class="cell" data-execution_count="11">
+<div id="0a9eac92" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>cooks <span class="op">=</span> influence.cooks_distance[<span class="dv">0</span>]</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>plt.scatter(fitted_vals, cooks, alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
@@ -753,7 +765,7 @@ P(\beta) = \sum_j |\beta_j|.
 <h3 data-number="8.3.3" class="anchored" data-anchor-id="algorithms"><span class="header-section-number">8.3.3</span> Algorithms</h3>
 <p>Ridge regression has a closed-form solution obtained by modifying the normal equations. Lasso and elastic net require iterative algorithms, with coordinate descent being the most widely used. In practice, these algorithms are efficient and scale well to high-dimensional data.</p>
 <p>When using scikit-learn, predictors must be numeric. Since the Ames data include categorical variables such as <code>KitchenQual</code>, we need to encode them. We use a <code>OneHotEncoder</code> inside a <code>ColumnTransformer</code>. This transforms categorical variables into binary indicator columns while keeping numeric variables unchanged. The <code>drop="first"</code> option avoids perfect collinearity by omitting one reference category.</p>
-<div id="06d40e2e" class="cell" data-execution_count="12">
+<div id="b87353e0" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> OneHotEncoder</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.compose <span class="im">import</span> ColumnTransformer</span>
@@ -797,7 +809,7 @@ P(\beta) = \sum_j |\beta_j|.
 <p>As the penalty parameter <span class="math inline">\(\lambda\)</span> decreases, the behavior of coefficients changes. Ridge coefficients approach ordinary least squares estimates, while lasso coefficients enter the model sequentially, illustrating variable selection.</p>
 <p>Because predictors must be on the same scale for a fair comparison, it is important to standardize the numeric variables before computing the lasso path. Without standardization, some coefficients can appear flat or dominate others due to differences in scale.</p>
 <p>In our Ames example, we have six numeric predictors and three dummy variables for <code>KitchenQual</code> (since one category was dropped). This means we are estimating nine coefficients in total, excluding the intercept. All nine should appear in the solution path once variables are properly scaled.</p>
-<div id="74dac53e" class="cell" data-execution_count="13">
+<div id="961f3aa3" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> lasso_path</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -860,7 +872,7 @@ P(\beta) = \sum_j |\beta_j|.
 <li><p>Grid: values are log-spaced between <span class="math inline">\(\lambda_{\max}\)</span> and <span class="math inline">\(\lambda_{\min}\)</span> (default 100 points in <code>scikit-learn</code>).</p></li>
 </ul>
 <p>In the Ames example, we can use <span class="math inline">\(k\)</span>-fold cross-validation to evaluate ridge and lasso models.</p>
-<div id="fd705ad7" class="cell" data-execution_count="14">
+<div id="005bfd53" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LassoCV</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> Pipeline</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> KFold</span>
@@ -883,7 +895,7 @@ P(\beta) = \sum_j |\beta_j|.
 <span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>best_lambda <span class="op">=</span> pipe.named_steps[<span class="st">"model"</span>].alpha_</span>
 <span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Best lambda (alpha) selected by CV:"</span>, best_lambda)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Best lambda (alpha) selected by CV: 0.0003263140336320298</code></pre>
+<pre><code>Best lambda (alpha) selected by CV: 0.00032631403363203007</code></pre>
 </div>
 </div>
 <p>This process identifies the tuning parameter that balances bias and variance most effectively, yielding a model that generalizes well beyond the training data.</p>
@@ -971,7 +983,7 @@ Y_i \sim N(\mu_i, \sigma^2), \qquad g(\mu_i) = \mu_i.
 <section id="example-regularized-glm-with-ames-housing-data" class="level3" data-number="8.4.6">
 <h3 data-number="8.4.6" class="anchored" data-anchor-id="example-regularized-glm-with-ames-housing-data"><span class="header-section-number">8.4.6</span> Example: Regularized GLM with Ames Housing Data</h3>
 <p>We continue with the processed Ames housing dataset (OpenML id 42165) from earlier in the regression chapter. The task is to predict whether a home is “expensive” (above the median sale price) using selected predictors. We fit a logistic regression model with an <span class="math inline">\(L_1\)</span> (lasso) penalty to enable variable selection.</p>
-<div id="b48d8e58" class="cell" data-execution_count="15">
+<div id="199ec4ce" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegressionCV</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> Pipeline</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1022,7 +1034,7 @@ Best C (inverse of lambda): 1.623776739188721</code></pre>
 </div>
 <p>This example demonstrates how lasso-penalized logistic regression can be used within the GLM framework. The penalty shrinks coefficients toward zero, with some set exactly to zero if uninformative, thereby improving interpretability and predictive stability.</p>
 <p>We can evaluate classification performance by computing the confusion matrix:</p>
-<div id="ca308a2b" class="cell" data-execution_count="16">
+<div id="681c045a" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> confusion_matrix, ConfusionMatrixDisplay</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Predictions</span></span>
@@ -1041,11 +1053,367 @@ Best C (inverse of lambda): 1.623776739188721</code></pre>
 </div>
 </div>
 </div>
+<!-- Spatial Statistical Methods -->
+</section>
+</section>
+<section id="spatial-statistical-methods" class="level2" data-number="8.5">
+<h2 data-number="8.5" class="anchored" data-anchor-id="spatial-statistical-methods"><span class="header-section-number">8.5</span> Spatial Statistical Methods</h2>
+<p>This section was written by Quinn Saltus, an undergraduate student pursuing a dual degree in Applied Data Analysis and Geograpic Information Systems. They were motivated to write about this topic because they wanted to bridge the geographic and statistical approaches to problem solving.</p>
+<section id="introduction-2" class="level3" data-number="8.5.1">
+<h3 data-number="8.5.1" class="anchored" data-anchor-id="introduction-2"><span class="header-section-number">8.5.1</span> Introduction</h3>
+<p>Spatially dependent data can cause problems for standard statistical methods. Independence of errors is an assumption for most commonly-used tools, but if location affects your data, that assumption is untenable. Spatial Statistics can quantify the spatial dependence among data and improve predictive models’ accuracy / statistical rigor.</p>
+</section>
+<section id="dataset" class="level3" data-number="8.5.2">
+<h3 data-number="8.5.2" class="anchored" data-anchor-id="dataset"><span class="header-section-number">8.5.2</span> Dataset</h3>
+<p>The dataset used in this demonstration is the <a href="https://www.openml.org/search?type=data&amp;status=active&amp;id=507">Turnout by County for the 1980 Election</a> from <span class="citation" data-cites="Pace1997">Pace &amp; Barry (<a href="references.html#ref-Pace1997" role="doc-biblioref">1997</a>)</span>.</p>
+<div id="edc1a5c8" class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> plotnine <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> fetch_openml</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>dataset <span class="op">=</span> fetch_openml(name<span class="op">=</span><span class="st">'space_ga'</span>, version<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> dataset.data</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>df.columns <span class="op">=</span> df.columns.<span class="bu">str</span>.lower()</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="co"># convert log-proportion to percentage for ease of understanding</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"pct_voter"</span>] <span class="op">=</span> np.exp(dataset.target) <span class="op">*</span> <span class="dv">100</span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="co"># convert coordinates to degrees</span></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"xcoord"</span>] <span class="op">=</span> df[<span class="st">"xcoord"</span>] <span class="op">/</span> <span class="dv">10</span><span class="op">**</span><span class="dv">6</span></span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"ycoord"</span>] <span class="op">=</span> df[<span class="st">"ycoord"</span>] <span class="op">/</span> <span class="dv">10</span><span class="op">**</span><span class="dv">6</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="e1137773" class="cell" data-execution_count="18">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>(ggplot(df, aes(x<span class="op">=</span><span class="st">"xcoord"</span>, y<span class="op">=</span><span class="st">"ycoord"</span>, color<span class="op">=</span><span class="st">"pct_voter"</span>))</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> geom_point(size<span class="op">=</span><span class="fl">0.6</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> scale_color_continuous(cmap_name<span class="op">=</span><span class="st">"Spectral"</span>)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> coord_equal(ratio<span class="op">=</span><span class="fl">1.3</span>)</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> labs(</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>        title<span class="op">=</span><span class="st">"Turnout Percentage By County for the 1980 Election"</span>,</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>        x<span class="op">=</span><span class="st">"Longitude"</span>,</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>        y<span class="op">=</span><span class="st">"Latitude"</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> theme_light()</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> theme(</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>        panel_background<span class="op">=</span>element_rect(fill<span class="op">=</span><span class="st">"#cccccc"</span>)</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="08-regression_files/figure-html/cell-19-output-1.png" width="672" height="480" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="libraries" class="level3" data-number="8.5.3">
+<h3 data-number="8.5.3" class="anchored" data-anchor-id="libraries"><span class="header-section-number">8.5.3</span> Libraries</h3>
+<p>The libraries used are The Python Spatial Analysis Library and PyKrige. These libraries haven’t been used before in this course, so you may need to install them yourself.</p>
+<pre class="shell"><code>pip install pykrige
+pip install pysal</code></pre>
+<p>I’ll also use <code>Scipy</code>‘s <code>KDTree</code> class, which greatly reduces the amount of computation required to compare data points’ distances. This is important for speed with large datasets.</p>
+<div id="3676edcd" class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> libpysal</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.spatial <span class="im">import</span> KDTree</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pysal.explore <span class="im">import</span> esda</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pykrige <span class="im">as</span> pk</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="spatial-weights" class="level3" data-number="8.5.4">
+<h3 data-number="8.5.4" class="anchored" data-anchor-id="spatial-weights"><span class="header-section-number">8.5.4</span> Spatial Weights</h3>
+<p>Standard regression has error terms that are completely random:</p>
+<p><span class="math display">\[
+Y = \beta X + \epsilon
+\]</span></p>
+<p>The spatial error model (SEM) formulates residuals as a weighted mean of nearby errors plus a random error term:</p>
+<p><span class="math display">\[
+Y = \beta X + u, u = \lambda W u + \epsilon
+\]</span></p>
+<p>With PySAL, we need to precompute the weights matrix <span class="math inline">\(W\)</span> to give to analysis functions. Inverse square distance is the most popular and will be used here. Other methods like K-Nearest-Neighbors (<code>libpysal.weights.KNN</code>) and <a href="https://en.wikipedia.org/wiki/Gabriel_graph">Gabriel Graphs</a> (<code>libpysal.weights.Gabriel</code>) are available.</p>
+<div id="26173c06" class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>dist_kdtree <span class="op">=</span> KDTree(df[[<span class="st">"xcoord"</span>, <span class="st">"ycoord"</span>]])</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>weights <span class="op">=</span> libpysal.weights.DistanceBand(</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    dist_kdtree,</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    threshold<span class="op">=</span><span class="fl">2.5</span>, <span class="co"># limit search distance</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    binary<span class="op">=</span><span class="va">False</span>, <span class="co"># use numeric weights</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    alpha<span class="op">=-</span><span class="dv">2</span> <span class="co"># use inverse square distance</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="morans-i" class="level3" data-number="8.5.5">
+<h3 data-number="8.5.5" class="anchored" data-anchor-id="morans-i"><span class="header-section-number">8.5.5</span> Moran’s I</h3>
+<p>Moran’s I is a common exploratory measure of spatial autocorrelation based on each point’s similarity to its neighbors. Here are some example I-values using adjacency weights. Moran’s I is increased when nearby values are similar, and decreased when nearby values are heterogeneous.</p>
+<p>
+<img src="https://upload.wikimedia.org/wikipedia/commons/f/f0/Moran%27s_I_example.png" height="300" width="350">
+</p>
+<p>The <code>pysal.esda</code> module implements Moran’s I for us.</p>
+<div id="7ba292a9" class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>moran <span class="op">=</span> esda.Moran(y <span class="op">=</span> df[<span class="st">"pct_voter"</span>], w<span class="op">=</span>weights)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>moran.plot_scatter()</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Moran's I = </span><span class="sc">{</span>moran<span class="sc">.</span>I<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Moran's I p-value = </span><span class="sc">{</span>moran<span class="sc">.</span>p_rand<span class="sc">:.4f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Moran's I = 0.5780
+Moran's I p-value = 0.0000</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="08-regression_files/figure-html/cell-22-output-2.png" width="587" height="381" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Moran’s I is significant and positive, indicating that this dataset has positive spatial autocorrelation. The Moran Scatterplot compares the (standardized) target variable to the weighted mean of nearby values (spatial lag). It confirms the I-value’s assessment of positive autocorrelation.</p>
+</section>
+<section id="kriging" class="level3" data-number="8.5.6">
+<h3 data-number="8.5.6" class="anchored" data-anchor-id="kriging"><span class="header-section-number">8.5.6</span> Kriging</h3>
+<p>Kriging is a nonparametric method of interpolation. Using the <code>OrdinaryKriging</code> class from PyKrige, we can estimate the mean of a parameter over the spatial plane.</p>
+<div id="ff58f2ce" class="cell" data-execution_count="22">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>df_train, df_test <span class="op">=</span> train_test_split(df, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">1234</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div id="aac67a02" class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>krige <span class="op">=</span> pk.OrdinaryKriging(</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span>df_train[<span class="st">"xcoord"</span>],</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span>df_train[<span class="st">"ycoord"</span>],</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    z<span class="op">=</span>df_train[<span class="st">"pct_voter"</span>],</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>    coordinates_type<span class="op">=</span><span class="st">"geographic"</span> <span class="co"># use spherical coordinate math</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="co"># use trained model to estimate test data</span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>df_test[<span class="st">"krige_estimate"</span>], _ <span class="op">=</span> krige.execute(</span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"points"</span>, df_test[<span class="st">"xcoord"</span>], df_test[<span class="st">"ycoord"</span>]</span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>df_test[<span class="st">"krige_residual"</span>] <span class="op">=</span> df_test[<span class="st">"pct_voter"</span>] <span class="op">-</span> df_test[<span class="st">"krige_estimate"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>With the model trained, we can check that it performs as expected on the test set.</p>
+<div id="ad2fc383" class="cell" data-execution_count="24">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>(ggplot(df_test, aes(x<span class="op">=</span><span class="st">"xcoord"</span>, y<span class="op">=</span><span class="st">"ycoord"</span>, color<span class="op">=</span><span class="st">"krige_estimate"</span>))</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> geom_point(size<span class="op">=</span><span class="fl">0.6</span>)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> scale_color_continuous(cmap_name<span class="op">=</span><span class="st">"Spectral"</span>)</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> coord_equal(ratio<span class="op">=</span><span class="fl">1.3</span>)</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> labs(</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>        title<span class="op">=</span><span class="st">"Kriging-Estimated Turnout"</span>,</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>        x<span class="op">=</span><span class="st">"Longitude"</span>,</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>        y<span class="op">=</span><span class="st">"Latitude"</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> theme_light()</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> theme(</span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>        panel_background<span class="op">=</span>element_rect(fill<span class="op">=</span><span class="st">"#cccccc"</span>),</span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>        figure_size<span class="op">=</span>(<span class="dv">6</span>, <span class="fl">3.5</span>)</span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="08-regression_files/figure-html/cell-25-output-1.png" width="576" height="336" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="60cd5eb8" class="cell" data-execution_count="25">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>(ggplot(df_test, aes(x<span class="op">=</span><span class="st">"xcoord"</span>, y<span class="op">=</span><span class="st">"ycoord"</span>, color<span class="op">=</span><span class="st">"krige_residual"</span>))</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> geom_point(size<span class="op">=</span><span class="fl">0.6</span>)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> scale_color_continuous(</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>        cmap_name<span class="op">=</span><span class="st">"PuOr"</span>,</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>        limits<span class="op">=</span>(</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>            <span class="bu">max</span>(<span class="bu">abs</span>(df_test[<span class="st">"krige_residual"</span>])),</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>            <span class="op">-</span><span class="bu">max</span>(<span class="bu">abs</span>(df_test[<span class="st">"krige_residual"</span>]))</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> coord_equal(ratio<span class="op">=</span><span class="fl">1.3</span>)</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> labs(</span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>        title<span class="op">=</span><span class="st">"Residuals of Kriging Estimates of Turnout"</span>,</span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>        x<span class="op">=</span><span class="st">"Longitude"</span>,</span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>        y<span class="op">=</span><span class="st">"Latitude"</span></span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> theme_light()</span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> theme(</span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a>        panel_background<span class="op">=</span>element_rect(fill<span class="op">=</span><span class="st">"#cccccc"</span>),</span>
+<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a>        figure_size<span class="op">=</span>(<span class="dv">6</span>, <span class="fl">3.5</span>)</span>
+<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="08-regression_files/figure-html/cell-26-output-1.png" width="576" height="336" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="ece6f40f" class="cell" data-execution_count="26">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>(ggplot(df_test, aes(x<span class="op">=</span><span class="st">"krige_residual"</span>, fill<span class="op">=</span><span class="st">"krige_residual"</span>))</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> geom_histogram(</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>        bins<span class="op">=</span><span class="dv">20</span>,</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>        fill<span class="op">=</span><span class="st">"#99bbff"</span>,</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>        color<span class="op">=</span><span class="st">"#000000"</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> labs(</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>        title<span class="op">=</span><span class="st">"Residuals of Kriging (No Regression)"</span>,</span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>        x<span class="op">=</span><span class="ss">f"Error (Percentage Points)"</span></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> theme_light()</span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> theme(</span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>        figure_size<span class="op">=</span>(<span class="dv">6</span>, <span class="fl">2.5</span>)</span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="08-regression_files/figure-html/cell-27-output-1.png" width="576" height="240" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Variance seems to be higher in the west, where counties are farther apart, but the overall trend seems to be fit well. The errors seem approximately normal and the geographic patterns seen in the full dataset seem to be captured accurately by the method.</p>
+</section>
+<section id="sem-regression-with-kriging" class="level3" data-number="8.5.7">
+<h3 data-number="8.5.7" class="anchored" data-anchor-id="sem-regression-with-kriging"><span class="header-section-number">8.5.7</span> SEM Regression With Kriging</h3>
+<p>To compare performance with and without spatial components, we will use a basic linear regression model.</p>
+<div id="3b9fa6e9" class="cell" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>X_train, X_test, Y_train, Y_test <span class="op">=</span> train_test_split(</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>    X <span class="op">:=</span> df[[<span class="st">"pop"</span>, <span class="st">"education"</span>, <span class="st">"houses"</span>, <span class="st">"income"</span>]],</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>    Y <span class="op">:=</span> df[<span class="st">"pct_voter"</span>],</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>    test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">1234</span></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>model_basic <span class="op">=</span> LinearRegression().fit(X_train, Y_train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="e743c6a8" class="cell" data-execution_count="28">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Test R-squared: </span><span class="sc">{</span>model_basic<span class="sc">.</span>score(X_test, Y_test)<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>(ggplot(</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>        pd.DataFrame({</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Predicted Value"</span> : model_basic.predict(X_test),</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>            <span class="st">"True Value"</span> : Y_test,</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>            }), </span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>        aes(x<span class="op">=</span><span class="st">"Predicted Value"</span>, y<span class="op">=</span><span class="st">"True Value"</span>)</span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> geom_point(color<span class="op">=</span><span class="st">"#00000088"</span>)</span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> geom_abline(slope<span class="op">=</span><span class="dv">1</span>, intercept<span class="op">=</span><span class="dv">0</span>, color<span class="op">=</span><span class="st">"red"</span>, linetype<span class="op">=</span><span class="st">"dashed"</span>)</span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> theme_light()</span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> theme(figure_size<span class="op">=</span>(<span class="dv">4</span>, <span class="dv">3</span>))</span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Test R-squared: 0.4694</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="08-regression_files/figure-html/cell-29-output-2.png" width="384" height="288" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The data seem generally well fit, but there is a lot of unexplained variability. We can use Kriging on the residuals of the basic model to augment its performance.</p>
+<div id="8fa580c0" class="cell" data-execution_count="29">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>df_train <span class="op">=</span> df_train.reset_index()</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>df_test <span class="op">=</span> df_test.reset_index()</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>p_train <span class="op">=</span> df_train[[<span class="st">"pop"</span>, <span class="st">"education"</span>, <span class="st">"houses"</span>, <span class="st">"income"</span>]].to_numpy()</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>x_train <span class="op">=</span> df_train[[<span class="st">"xcoord"</span>, <span class="st">"ycoord"</span>]].to_numpy()</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>y_train <span class="op">=</span> df_train[<span class="st">"pct_voter"</span>].to_numpy()</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>p_test <span class="op">=</span> df_test[[<span class="st">"pop"</span>, <span class="st">"education"</span>, <span class="st">"houses"</span>, <span class="st">"income"</span>]].to_numpy()</span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>x_test <span class="op">=</span> df_test[[<span class="st">"xcoord"</span>, <span class="st">"ycoord"</span>]].to_numpy()</span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>y_test <span class="op">=</span> df_test[<span class="st">"pct_voter"</span>].to_numpy()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div id="d4b86912" class="cell" data-execution_count="30">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pykrige.rk <span class="im">import</span> RegressionKriging</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="co"># any sklearn machine learning model can be used as the regression_model</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>model_rk <span class="op">=</span> RegressionKriging(regression_model<span class="op">=</span>LinearRegression())</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Note that predictors, points, and targets must be np arrays, not DataFrame</span></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>model_rk.fit(p_train, x_train, y_train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Finished learning regression model
+Finished kriging residuals</code></pre>
+</div>
+</div>
+<div id="245698e8" class="cell" data-execution_count="31">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"R-squared (Regression + Kriging):"</span>,</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>model_rk<span class="sc">.</span>score(p_test, x_test, y_test)<span class="sc">:.4f}</span><span class="ss">"</span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>(ggplot(</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>        pd.DataFrame({</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Predicted Value"</span> : model_rk.predict(p_test, x_test),</span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>            <span class="st">"True Value"</span> : Y_test,</span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>            }),</span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>        aes(x<span class="op">=</span><span class="st">"Predicted Value"</span>, y<span class="op">=</span><span class="st">"True Value"</span>)</span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> geom_point(color<span class="op">=</span><span class="st">"#00000088"</span>)</span>
+<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> geom_abline(slope<span class="op">=</span><span class="dv">1</span>, intercept<span class="op">=</span><span class="dv">0</span>, color<span class="op">=</span><span class="st">"red"</span>, linetype<span class="op">=</span><span class="st">"dashed"</span>)</span>
+<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> labs(title<span class="op">=</span><span class="st">"Regression + Kriging"</span>)</span>
+<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> theme_light()</span>
+<span id="cb37-16"><a href="#cb37-16" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> theme(figure_size<span class="op">=</span>(<span class="dv">4</span>, <span class="dv">3</span>))</span>
+<span id="cb37-17"><a href="#cb37-17" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>R-squared (Regression + Kriging): 0.6684</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="08-regression_files/figure-html/cell-32-output-2.png" width="384" height="288" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Spatially modeling the errors of the basic model allowed us to improve test set performance by over 40%.</p>
+</section>
+<section id="conclusions" class="level3" data-number="8.5.8">
+<h3 data-number="8.5.8" class="anchored" data-anchor-id="conclusions"><span class="header-section-number">8.5.8</span> Conclusions</h3>
+<p>PySAL offers strong tools for spatial data exploration and visualization. PyKrige lets you drop in spatial predictors or post-processing.</p>
+<p>Spatial analysis is flexible. You can use spatial variables as part of the initial training (run <code>OrdinaryKriging</code> and use it as a predictor), or apply it at the end according to the SEM as demonstrated.</p>
+<p>That being said, you have to validate the method. I had intended to demonstrate with the NYC Collision Data, but when I checked Moran’s I, the dataset had nonsignificant spatial autocorrelation. Crashes are largely independent events, so a spatial analysis would be fruitless. These tools are powerful, but can only be used in appropriate contexts.</p>
+</section>
+<section id="further-readings" class="level3" data-number="8.5.9">
+<h3 data-number="8.5.9" class="anchored" data-anchor-id="further-readings"><span class="header-section-number">8.5.9</span> Further Readings</h3>
+<p><a href="https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-statistics/how-spatial-autoregression-works.htm">ESRI’s explanation of spatial autoregression</a></p>
+<p><a href="https://pysal.org/">The PySAL documentation</a></p>
+<p><a href="https://geostat-framework.readthedocs.io/projects/pykrige/en/stable/">The PyKrige documentation</a></p>
+<p>If you’re particularly interested in spatial problems and tools, GEOG 2500 (Introduction to Geographic Information Systems) is a good place to start learning about geographic methods.</p>
+<p><a href="https://commons.wikimedia.org/w/index.php?title=File:Moran%27s_I_example.png&amp;oldid=869123079">The example image for Moran’s I</a> and <a href="https://en.wikipedia.org/wiki/Moran%27s_I">the Wikipedia article</a> I got it from.</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list" style="display: none">
 <div id="ref-nelder1972generalized" class="csl-entry" role="listitem">
 Nelder, J. A., &amp; Wedderburn, R. W. M. (1972). Generalized linear models. <em>Journal of the Royal Statistical Society Series A: Statistics in Society</em>, <em>135</em>(3), 370–384.
+</div>
+<div id="ref-Pace1997" class="csl-entry" role="listitem">
+Pace, R. K., &amp; Barry, R. (1997). Quick computation of regressions with a spatially autoregressive dependent variable. <em>Geographical Analysis</em>, <em>29</em>(3), 232–247.
 </div>
 </div>
 </section>
