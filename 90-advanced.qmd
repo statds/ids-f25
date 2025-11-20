@@ -1,12 +1,17 @@
 # Advanced Topics
 
 
+<!-- ## multiple imputation -->
+{{< include _multiple_imputation.qmd >}}
+
 <!-- ## Web Scraping -->
 {{< include _webscraping.qmd >}}
 
-
 <!-- ## Animation -->
 <!-- {{< include _animation.qmd >}} -->
+
+<!-- ## UMAP -->
+{{< include _umap.qmd >}}
 
 <!-- ## Calling R from Python -->
 {{< include _callr.qmd >}}
