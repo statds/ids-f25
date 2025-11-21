@@ -5,3 +5,4 @@
 
 <!-- Stochastic neighbor embedding -->
 {{< include _sne.qmd >}}
+{{< include _kmeans.qmd >}}
