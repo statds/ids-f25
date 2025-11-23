@@ -1,0 +1,369 @@
+## Uniform Manifold Approximation and Projection                               
+
+This section was prepared by Mark Zhang, an undergraduate at UCONN.
+
+### Introduction
+
+Uniform Manifold Approximation and Projection (UMAP) was introduced by 
+Leland McInnes, John Healy, and James Melville in 2018
+[@mcinnes2020umapuniformmanifoldapproximation]. UMAP is a powerful 
+dimensionality reduction technique designed to visualize high-dimensional 
+data in a low-dimensional space, such as 2D or 3D. Unlike linear methods
+like PCA, UMAP captures nonlinear structures, preserving local clusters 
+while also maintaining the overall global patterns of the data. UMAP is 
+utilized for clustering, data visualization, and data exploration.
+
+
+### Other Dimensionality Reduction Techniques
+
+#### Principle Component Analysis (PCA)
+- linear technique; projects data along directions of maximum variance.
+- Preserves global structure fairly well but may lose local neighborhood. 
+  details.
+- good for visualization of 2-3 PCs but cannot capture nonlinear
+  structures.
+
+
+#### t-distributed Stochastic Neighbor Embedding (t-SNE)
+- finds distances between pairs of points, maps onto t dist.
+- nonlinear technique; preserves local structure very well.
+- can distort global relationships.
+- often slower than UMAP for large datasets.
+
+### Algorithm Approach and Intuition
+UMAP is a **graph-based dimensionality reduction algorithm** rooted in algebraic
+topology. It represents data as a fuzzy graph and finds a low-dimensional
+embedding that preserves both **local neighborhoods** and **global structure**.
+
+#### Mathematical Foundations
+
+1. **Riemannian Manifold** -
+UMAP assumes the data lies on a Riemannian manifold, 
+a smoothly curved surface embedded in high-dimensional space.
+
+1. **Simplicial Sets** - 
+From algebraic topology, a simplex is the simplest geometric building 
+block (a point, line, triangle, etc.), and a simplicial complex describes
+how these pieces connect to form a space. Geometrically a k-simplex is a 
+very simple way to build a k-dimensional object.
+
+#### Learning the manifold structure
+UMAP builds a graph as a discrete approximation of the manifold’s structure.
+To aid in visualizing the concepts, I will show how they apply to a noisy
+sin wave data set.
+```{python}
+#| fig-cap: "Test data set of a noisy sin wave"
+#| echo: false
+#| message: false
+import matplotlib.pyplot as plt
+import numpy as np
+np.random.seed(3255)
+
+# 25 points along sin waves
+x = np.sort(np.random.rand(25) * 8)
+y = np.sin(x) + 0.1 * np.random.randn(len(x))
+xlim = (0, 8)
+
+fig, ax = plt.subplots(figsize=(10,6)) 
+ax.scatter(x, y, color='blue')
+ax.set_aspect('equal',adjustable='datalim')
+ax.set_xlim(xlim)
+plt.axis('off')
+plt.show()
+```
+
+How do we represent this data as a manifold? UMAP uses the concept of 
+simplicial sets and topology and adapts them to **fuzzy simplicial sets** 
+and metric space.
+
+
+##### Finding nearest neighbors
+For each point we find the nearest neighbors. The `nneighbors` hyperparameter 
+controls how local or global we want our structure to be. A large amount of 
+neighbors represent the manifold more accurately as a whole and a smaller 
+number would capture fine details of the structure.
+```{python}
+#| fig-cap: "Fuzzy circles to 4th nearest neighbor"
+#| echo: false
+#| message: false
+#| warning: false
+from sklearn.neighbors import NearestNeighbors
+
+X = np.column_stack((x, y))
+
+# Find 4 nearest neighbors for each point
+k = 4
+nbrs = NearestNeighbors(n_neighbors=k+1).fit(X)
+distances, indices = nbrs.kneighbors(X)
+
+# Plot base points
+fig, ax = plt.subplots(figsize=(10,6))
+ax.scatter(x, y, color='blue', zorder=3)
+
+# Compute sigma = mean of neighbor distances (for fuzziness decay)
+sigma = np.mean(distances[:, 1:])
+
+# Draw fuzzy balls for each point (to its 4th neighbor)
+for i, (xi, yi) in enumerate(X):
+    for j in range(1, k+1):  # skip self (j=0)
+        d = distances[i, j]
+        w = np.exp(-d / sigma)  # fuzzy weight between 0 and 1
+        circle = plt.Circle((xi, yi), d, color='blue', alpha=w * 0.15, lw=0)
+        ax.add_patch(circle)
+
+ax.set_aspect('equal', adjustable="datalim")
+ax.set_xlim(xlim)
+ax.axis('off')
+plt.show()
+```
+
+##### Constructing a neighborhood graph
+
+UMAP represents high-dimensional data as a **fuzzy simplicial set**, capturing 
+the local connectivity of points. For each point, a fuzzy membership weight is 
+assigned to its neighbors:
+$$
+w_{ij} = \exp\Bigg(-\frac{d_{ij} - \rho_i}{\sigma_i}\Bigg),
+$$
+
+where:
+
+- $d_{ij}$ is the distance between points $i$ and $j$,
+- $\rho_i$ is the distance to the closest neighbor of $i$,
+- $\sigma_i$ is a local scaling factor. 
+
+In other words, each point adjusts its influence based on the local density of
+its neighborhood. Dense regions, where points are very close together, have
+ smaller $\sigma_i$, which reduces the weight of individual connections.
+ Sparse regions, with points farther apart, have larger $\sigma_i$.
+, increasing the weight of each connection.
+
+
+Since $w_{i \to j}$ and $w_{j \to i}$ can differ, UMAP combines them 
+using a probabilistic union:
+
+$$
+w_{ij}^{(final)} = w_{i \to j} + w_{j \to i} - w_{i \to j} \cdot w_{j \to i}.
+$$
+
+This produces a symmetric weight between 0 and 1 that preserves local 
+topology, balances contributions across dense and sparse regions, and 
+yields a **uniform manifold** representation.
+
+```{python}
+#| fig-cap: "Fuzzy weighted graph with UMAP-style combined weights"
+#| echo: false
+#| message: false
+#| warning: false
+
+# Compute local rho_i (distance to closest neighbor) and sigma_i (local scaling)
+rho = distances[:, 1]  # skip self (index 0)
+sigma = np.zeros(len(X))
+for i in range(len(X)):
+    # sigma_i = mean distance to nearest neighbors (excluding self)
+    sigma[i] = np.mean(distances[i, 1:])
+
+fig, ax = plt.subplots(figsize=(10,6))
+ax.scatter(x, y, color='blue', zorder=3)
+
+# Compute combined fuzzy weights w_ij^final   
+for i, (xi, yi) in enumerate(X):
+    for j in range(1, k+1):  # skip self
+        neighbor_idx = indices[i, j]
+        xj, yj = X[neighbor_idx]
+        d = distances[i, j]
+
+        # directional weights
+        w_i_to_j = np.exp(-(d - rho[i]) / sigma[i])
+        w_j_to_i = np.exp(-(d - rho[neighbor_idx]) / sigma[neighbor_idx])
+
+        # combined symmetric weight
+        w_final = w_i_to_j + w_j_to_i - w_i_to_j * w_j_to_i
+
+        # draw edge with alpha and width proportional to w_final
+        ax.plot([xi, xj], 
+                [yi, yj], 
+                color='blue', 
+                alpha=w_final, 
+                lw=w_final*3, 
+                zorder=1)
+
+ax.set_aspect('equal', adjustable='datalim')
+ax.set_xlim(xlim)
+ax.axis('off')
+plt.show()
+```
+
+#### Finding a low-dimensional representation
+After building the fuzzy simplicial set (the weighted neighborhood graph), 
+UMAP tries to embed the points in a low-dimensional space (e.g., 2D or 3D) 
+while preserving the relationships encoded in the graph. This is done by 
+optimizing a cost function.
+
+##### Minimum Distance
+The `min_dist` parameter controls how close points can be in the 
+low-dimensional embedding:  
+
+- **Small `min_dist`** - points can be closer together, resulting in 
+  **dense clusters** that preserve fine local structure.  
+- **Large `min_dist`** - points are forced farther apart, producing 
+  **spread-out clusters** that highlight global relationships.  
+
+In other words, `min_dist` adjusts the **tightness of clusters** in 
+the embedding without changing the underlying topology of the data.  
+
+##### Minimizing the cost function (Cross-Entropy)
+After constructing the fuzzy simplicial set and initializing 
+the low-dimensional embedding, UMAP positions the points by 
+**minimizing a cross-entropy-like cost function**:
+
+To compute the similarity between points in the low-dimensional 
+embedding, UMAP defines a corresponding low-dimensional weight 
+for each pair of points:
+
+$$
+w_{ij}^{(\text{low})} = \frac{1}{1 + a \|y_i - y_j\|^{2b}},
+$$
+
+where:
+
+- $\|y_i - y_j\|$ is the Euclidean distance between points 
+  $y_i$ and $y_j$ in the low-dimensional space (2D or 3D),
+- $a$ and $b$ are hyperparameters that control the shape 
+  of the attraction/repulsion curve.  
+
+The cross-entropy cost function is then defined as:
+$$
+C = \sum_{i \neq j} \Big[ w_{ij} \log \frac{1}{w_{ij}^{(\text{low})}} + 
+(1 - w_{ij}) \log \frac{1}{1 - w_{ij}^{(\text{low})}} \Big],
+$$
+where:
+- $w_{ij}$ = high-dimensional fuzzy weight between points $i$ and $j$,
+- $w_{ij}^{(\text{low})}$ = corresponding low-dimensional embedding weight.
+
+**Intuition:**  
+
+1. If two points are **strongly connected** in high dimensions 
+  (large $w_{ij}$), the embedding tries to place them **close together**.  
+1. If two points are **weakly connected** (small $w_{ij}$), the embedding tries 
+   to place them **far apart**.  
+
+UMAP uses **stochastic gradient descent** to minimize this cost function, 
+adjusting the coordinates of points in low dimensions so that the embedding 
+preserves both **local neighborhoods** and **global manifold structure**.
+
+### Practical Example: UMAP on 28x28 digit data
+First, install the necessary dependency:
+
+`pip install umap-learn`
+
+
+Before applying UMAP, let’s look at the raw data.
+The MNIST dataset from scikit-learn contains 70,000 images of 
+handwritten digits, each represented as a 28×28 grayscale 
+image (784 features per sample).
+```{python}
+#| echo: true
+#| message: false
+#| warning: false
+#| fig-cap: "Handwritten digit images (28×28) from MNIST dataset"
+import matplotlib.pyplot as plt
+import numpy as np
+from sklearn.datasets import fetch_openml
+
+# Load MNIST
+mnist = fetch_openml("mnist_784", version=1, as_frame=False)
+X = mnist.data[:2000]
+y = mnist.target[:2000].astype(int)
+
+# Reshape to 28×28 images
+images = X.reshape(-1, 28, 28)
+
+# Show first 12 digits in a 3×4 grid
+fig, axes = plt.subplots(3, 4, figsize=(6, 6))
+for i, ax in enumerate(axes.flat):
+    ax.imshow(images[i], cmap='gray')
+    ax.set_title(y[i])
+    ax.axis('off')
+
+plt.tight_layout()
+plt.show()
+
+```
+We now project the 784-dimensional data into a 2D embedding using UMAP.
+The parameters below control the embedding:
+
+- n_neighbors: how many nearby points are used to estimate local structure.
+
+- min_dist: how tightly UMAP packs points in the low-dimensional space.
+```{python}
+#| label: umap-mnist-2d
+#| echo: true
+#| message: false
+#| warning: false
+#| fig-cap: "2D UMAP of MNIST dataset"
+from umap.umap_ import UMAP
+import matplotlib.pyplot as plt
+import numpy as np
+from sklearn.datasets import fetch_openml
+
+# Load MNIST
+mnist = fetch_openml("mnist_784", version=1, as_frame=False)
+X = mnist.data[:2000]
+y = mnist.target[:2000].astype(int)
+
+# 2D UMAP projection
+reducer = UMAP(
+    n_components=2,
+    n_neighbors=15,
+    min_dist=0.1,
+    random_state=42
+)
+X_umap = reducer.fit_transform(X)
+
+# 2D scatter plot
+plt.figure(figsize=(8, 6))
+scatter = plt.scatter(
+    X_umap[:, 0], X_umap[:, 1],
+    c=y, cmap='tab10', s=5
+)
+
+plt.title("2D UMAP projection of MNIST (28×28)")
+plt.xlabel("UMAP 1")
+plt.ylabel("UMAP 2")
+plt.colorbar(scatter, label='Digit')
+plt.show()
+
+```
+In the 2D UMAP embedding of the digits dataset, each point represents a
+digit image, colored by its label. The plot shows that UMAP successfully 
+captures the structure of high-dimensional data: points of the same digit 
+cluster tightly, while visually similar digits appear near each other, 
+preserving meaningful relationships.
+
+- **Same digits** - form tight clusters, showing that UMAP preserves 
+  **local neighborhood structure** and keeps similar points together.  
+- **Similar digits** (e.g., 3 & 8) - positioned near each other, 
+  reflecting their **visual similarity** in shape and style.  
+- **Different clusters** - mostly separate, indicating 
+  **clear class separation** and that UMAP maintains 
+  distinctions between digit types.  
+- **Global layout** - reflects the relative positions of all clusters
+  , preserving **overall structure** of the dataset.
+
+
+> **Takeaway:** UMAP reveals both **local and global patterns**, 
+> making high-dimensional data interpretable in 2D.
+
+### Conclusion
+UMAP is a nonlinear dimensionality reduction technique that 
+effectively captures both **local and global structure** in 
+high-dimensional data. By constructing a fuzzy neighborhood graph 
+and optimizing a low-dimensional embedding, it preserves cluster 
+relationships, highlights visually similar points, and maintains 
+overall manifold structure. This makes UMAP a powerful, interpretable 
+tool for **visualization and exploratory data analysis**.
+
+### Further Readings
+
+- [UMAP Paper](https://par.nsf.gov/biblio/10104557)  

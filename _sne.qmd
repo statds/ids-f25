@@ -19,86 +19,175 @@ points. Key characteristics include:
 
 ### Statistical Rationale
 
-The core idea behind SNE is to preserve local neighborhoods of each
-point in the data:
+SNE aims to construct a low-dimensional representation that preserves
+the local neighborhood relationships observed in the original
+high-dimensional data. The method achieves this by matching
+probabilistic similarities between points across the two spaces.
 
 1. For each point $x_i$ in the high-dimensional space, SNE defines a
-   conditional probability $p_{j|i}$ that represents how likely
-   $x_j$ is a neighbor of $x_i$.
-2. The probability $p_{j|i}$ is modeled using a Gaussian distribution
-   centered on $x_i$:
+   conditional probability $p_{j|i}$ that measures how likely $x_j$
+   would be chosen as a neighbor of $x_i$. The probability is modeled
+   as
 
    $$
-   p_{j|i} = \frac{\exp\left(- \| x_i - x_j \|^2 / 2 \sigma_i^2\right)}{\sum_{k \neq i} \exp\left(- \| x_i - x_k \|^2 / 2 \sigma_i^2\right)},
+   p_{j|i} =
+   \frac{\exp\!\left(-\|x_i - x_j\|^2 / 2\sigma_i^2\right)}
+        {\sum_{k \neq i}\exp\!\left(-\|x_i - x_k\|^2 / 2\sigma_i^2\right)},
    $$
 
-   where $\sigma_i$ is a variance parameter controlling the
-   neighborhood size.
-3. Each point $x_i$ is mapped to a lower-dimensional counterpart
-   $y_i$, and a corresponding probability $q_{j|i}$ is defined
-   similarly in that space.
-4. The objective function minimizes the Kullback–Leibler (KL)
-   divergence between the high-dimensional and low-dimensional
-   conditional probabilities, encouraging a faithful representation of
-   local neighborhoods.
+   where the bandwidth $\sigma_i$ controls the neighborhood size and
+   is typically determined to match a specified perplexity.
+
+1. Each high-dimensional point $x_i$ is mapped to a low-dimensional
+   coordinate $y_i$, from which a corresponding similarity
+   distribution is defined:
+
+   $$
+   q_{j|i} =
+   \frac{\exp\!\left(-\|y_i - y_j\|^2\right)}
+        {\sum_{k \neq i}\exp\!\left(-\|y_i - y_k\|^2\right)}.
+   $$
+
+1. Denote by $P_i = \{p_{j|i}\}_{j \neq i}$ and
+   $Q_i = \{q_{j|i}\}_{j \neq i}$ the conditional probability
+   distributions for point $i$ in the high- and low-dimensional
+   spaces, respectively. 
+   The optimal embedding $\{y_i\}$ minimizes the Kullback–Leibler (KL)
+   divergence between the two conditional distributions:
+
+   $$
+   C = \sum_i \text{KL}(P_i \| Q_i)
+     = \sum_i \sum_j p_{j|i} \log\!\frac{p_{j|i}}{q_{j|i}}.
+   $$
+
+   This optimization encourages points that are close in the
+   high-dimensional space to remain close in the lower-dimensional
+   map, thus preserving local structure.
+
+
+The asymmetry of the KL divergence in SNE plays a central role in how
+local structure is preserved. Because the divergence
+$\text{KL}(P_i \| Q_i)$ penalizes situations where a true neighbor
+$x_j$ (with high $p_{j|i}$) is assigned a low similarity $q_{j|i}$ in
+the low-dimensional map, the optimization strongly discourages breaking
+apart neighborhoods that exist in the original space. In contrast,
+pairs of distant points with small $p_{j|i}$ values contribute little to
+the objective even if they are mapped close together. This asymmetry
+biases the optimization toward accurately reproducing local
+relationships rather than global geometry, emphasizing cluster fidelity
+over large-scale distances. While this focus on local preservation is
+desirable for visualizing complex data manifolds, it can also cause
+points from different neighborhoods to become compressed together, a
+phenomenon known as the *crowding problem*.
+
+
+The later *t*-SNE algorithm addresses this issue by symmetrizing
+the joint probabilities and replacing the Gaussian kernel in the
+low-dimensional space with a Student-$t$ distribution to allow for
+heavier tails and better separation of clusters.
 
 
 ### t-SNE Variation
 
-The t-SNE (t-distributed Stochastic Neighbor Embedding) addresses two
-main issues in the original formulation of SNE:
 
-- The crowding problem: In high dimensions, pairwise distances tend to
-  spread out; in 2D or 3D, they can crowd together. t-SNE uses a
-  Student t-distribution (with one degree of freedom) in the
-  low-dimensional space, which has heavier tails than a Gaussian.
-- Symmetric probabilities: t-SNE symmetrizes probabilities
-  $p_{ij} = (p_{j|i} + p_{i|j}) / (2N)$, simplifying computation.
-  
+The t-distributed Stochastic Neighbor Embedding (t-SNE) modifies SNE
+to overcome two major limitations: the crowding problem and the
+asymmetry of conditional probabilities. These refinements improve both
+optimization stability and visual interpretability of the resulting
+low-dimensional map.
 
-The Student t-distribution for low-dimensional similarity is given by:
+
+The crowding problem arises because, in high-dimensional spaces,
+pairwise distances are more evenly distributed than can be represented
+in two or three dimensions. As a result, points that are moderately
+distant in the original space may become crowded together in the
+low-dimensional map. To mitigate this issue, t-SNE replaces the
+Gaussian kernel in the low-dimensional space with a Student-$t$
+distribution with one degree of freedom, which has heavier tails and
+allows distant points to remain farther apart.
+
+
+To simplify computation and ensure that similarity is mutual, t-SNE
+also defines symmetric joint probabilities as
+$p_{ij} = (p_{j|i} + p_{i|j}) / (2N)$, producing a symmetric
+similarity matrix.
+
+The corresponding similarity in the low-dimensional space is defined
+as
 
 $$
-q_{ij} = \frac{\bigl(1 + \| y_i - y_j \|^2 \bigr)^{-1}}{\sum_{k \neq l} \bigl(1 + \| y_k - y_l \|^2 \bigr)^{-1}}.
+q_{ij} =
+\frac{\bigl(1 + \|y_i - y_j\|^2\bigr)^{-1}}
+     {\sum_{k \neq l}\bigl(1 + \|y_k - y_l\|^2\bigr)^{-1}}.
 $$
 
-This heavier tail ensures that distant points are not forced too
-close, thus reducing the crowding effect.
+t-SNE minimizes the Kullback–Leibler divergence between the joint
+probabilities $\{p_{ij}\}$ and $\{q_{ij}\}$ with respect to the
+embedding coordinates $\{y_i\}$:
+
+$$
+C = \sum_{i}\sum_{j} p_{ij}\log\!\frac{p_{ij}}{q_{ij}}.
+$$
+
+By combining symmetric similarities and heavy-tailed distributions,
+t-SNE preserves local structure while providing enough flexibility to
+separate distant clusters in the low-dimensional representation.
 
 
 ### Supervised Variation
 
-Although SNE and t-SNE are fundamentally unsupervised, it is possible
-to integrate label information. In a supervised variant, distances
-between similarly labeled points may be reduced (or differently
-weighted), and additional constraints can be imposed to promote class
-separation in the lower-dimensional embedding. These approaches can
-help when partial label information is available and you want to blend
-supervised and unsupervised insights.
+While SNE and t-SNE are fundamentally unsupervised methods, they can
+be extended to incorporate available label information. In supervised
+or semi-supervised variants, the similarity structure is adjusted so
+that points sharing the same label are drawn closer together, whereas
+points from different classes are pushed apart through modified
+distance weights or additional penalty terms in the loss function.
+These extensions preserve the local manifold structure of the data
+while simultaneously promoting class separation in the
+low-dimensional embedding. Such hybrid formulations are particularly
+useful when partial label information is available and the goal is to
+combine supervised guidance with unsupervised neighborhood discovery.
 
 
-### Demonstration with a Subset of the NIST Digits Data
+### An Example with the NIST Digits Data
 
-Below is a brief example in Python using t-SNE on a small subset of
-the MNIST digits (which is itself a curated subset of the original
-NIST data).
+Below is a brief example using t-SNE on a small subset of the
+MNIST digits, which is itself a curated subset of the original NIST
+handwritten digits data. This example illustrates how t-SNE projects
+high-dimensional image data—each digit represented by a 784-dimensional
+vector—onto a two-dimensional space. The resulting visualization reveals
+clusters corresponding to different digits, providing an intuitive view
+of how similar handwriting patterns group together in the embedding
+space.
 
 
 ```{python}
+#| label: fig-tsne-mnist
+#| fig-cap: |
+#|   t-SNE visualization of a subset of MNIST digits.
+#|   Points belonging to the same digit cluster together,
+#|   while visually similar digits such as 3 and 5 show
+#|   partial overlap in the 2D embedding.
+#| fig-format: svg
+
 import numpy as np
 from sklearn.datasets import fetch_openml
 from sklearn.manifold import TSNE
 import matplotlib.pyplot as plt
 
-mnist = fetch_openml('mnist_784', version=1)
+mnist = fetch_openml('mnist_784', version=1, as_frame=False)
 X = mnist.data[:2000]
-y = mnist.target[:2000]
+y = mnist.target[:2000].astype(int)
 
-tsne = TSNE(n_components=2, perplexity=30, learning_rate='auto', 
-            init='random', random_state=42)
+tsne = TSNE(
+    n_components=2,
+    perplexity=30,
+    learning_rate='auto',
+    init='random',
+    random_state=42
+)
 X_embedded = tsne.fit_transform(X)
 
-# Create a separate scatter plot for each digit to show a legend
 plt.figure()
 digits = np.unique(y)
 for digit in digits:
@@ -109,17 +198,21 @@ for digit in digits:
         label=f"Digit {digit}",
         alpha=0.5
     )
-plt.title("t-SNE on a Subset of MNIST Digits (by class)")
 plt.xlabel("Dimension 1")
 plt.ylabel("Dimension 2")
 plt.legend()
-plt.show()
+plt.tight_layout()
 ```
 
-In the visualization:
 
-+ Points belonging to the same digit typically cluster together.
-+ Ambiguous or poorly written digits often end up bridging two
-  clusters.
-+ Some digits, such as 3 and 5, may be visually similar and can appear
-  partially overlapping in the 2D space.
+As shown in Figure @ref(fig:tsne-mnist), digits with similar
+handwriting styles tend to cluster together, forming visually distinct
+regions in the embedding space. Overlaps occur where digits share
+structural features, such as 3 and 5 or 4 and 9, reflecting the
+inherent ambiguity in handwritten data. A few scattered points often
+correspond to atypically written digits that t-SNE places between
+clusters. Overall, the visualization provides an interpretable
+two-dimensional summary of the high-dimensional digit images,
+illustrating how t-SNE preserves local similarity while maintaining
+global diversity in the data.
+
