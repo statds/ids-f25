@@ -131,7 +131,9 @@ labels[:10], centers
 
 ### Visualize Clusters and Centroids
 
-Let’s plot our K-Means results to observe how the algorithm groups points and positions its centroids.
+Let’s plot our K-Means results to 
+observe how the algorithm groups 
+points and positions its centroids.
 
 ```{python}
 #| echo: false
@@ -157,7 +159,11 @@ plt.tight_layout()
 plt.show()
 ```
 
-The previous plot shows how K-Means behaves when clusters overlap. To better understand where the algorithm succeeds and where it struggles, we now contrast this noisy example with an ideal, well-separated dataset.
+The previous plot shows how K-Means behaves 
+when clusters overlap. To better understand 
+where the algorithm succeeds and where it struggles, 
+we now contrast this noisy example with an ideal, 
+well-separated dataset.
 
 ```{python}
 #| echo: false
@@ -224,17 +230,25 @@ plt.tight_layout()
 plt.show()
 ```
 
-The plot on the left shows a clean, ideal setting where K-Means performs extremely well.  
-The plot on the right reveals how noise and overlap complicate the clustering process, making real-world data more challenging to separate cleanly.
+The plot on the left shows a clean, 
+ideal setting where K-Means performs extremely well.  
+The plot on the right reveals how noise and 
+overlap complicate the clustering process, 
+making real-world data more challenging to separate cleanly.
 
 
 ### Why Show Overlap?
 
-Even simple-looking data can be messy in reality, and this helps us understand the limitations of K-Means. Overlapping clusters highlight situations where the algorithm struggles and why careful interpretation is important.
+Even simple-looking data can be messy in reality, 
+and this helps us understand the limitations of K-Means. 
+Overlapping clusters highlight situations where the 
+algorithm struggles and why careful interpretation is important.
 
 - Real data rarely forms **perfect, round clusters**  
 - K-Means can **misclassify** points near fuzzy or ambiguous boundaries  
-- It’s useful to understand what the algorithm **can’t easily capture**, especially when clusters overlap or have irregular shapes  
+- It’s useful to understand what the algorithm 
+**can’t easily capture**, especially when 
+clusters overlap or have irregular shapes  
 
 ### Choosing K
 
@@ -672,6 +686,3 @@ crosstab
 - **Elements of Statistical Learning (ESL)** — Clustering Overview
   (Chapter 14)  
   <https://hastie.su.domains/ElemStatLearn/>
-
-- **Comparisons of K-Means, DBSCAN, and Spectral Clustering**  
-  <https://towardsdatascience.com/clustering-algorithms-and-how-to-compare-them-3b0d1c3bda9a>
