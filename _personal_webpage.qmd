@@ -1,20 +1,25 @@
 ## Making a Personal Webpage on GitHub Pages
 
-This guide will walk you through the process of creating your own personal website using GitHub Pages and Jekyll. We will cover setup to publishing and customizing the look of your site.
+This guide will walk you through the process of creating your own personal
+website using GitHub Pages and Jekyll. We will cover setup to publishing and
+customizing the look of your site.
 
 ---
 
 ## Introduction
 
-My name is Jaden Mayer-Costa. I am a senior pursuing a Statistical Data Analysis degree with minors in both Economics and Music.
+My name is Jaden Mayer-Costa. I am a senior pursuing a Statistical Data Analysis
+degree with minors in both Economics and Music.
 
-By the end of this guide, you should have the knowledge to create your own live site.
+By the end of this guide, you should have the knowledge to create your own live
+site.
 
 ---
 
 ## Why Use GitHub Pages?
 
-GitHub Pages lets you host a website directly from your GitHub repository for free.  
+GitHub Pages lets you host a website directly from your GitHub repository for
+free.  
 It’s ideal for portfolios, academic profiles, or blogs. 
 
 **Key benefits:**
@@ -28,7 +33,8 @@ It’s ideal for portfolios, academic profiles, or blogs.
 
 What is Jekyll?
 
-[Jekyll](https://jekyllrb.com/) is a static site generator that can turn Markdown files into a lightweight website.
+[Jekyll](https://jekyllrb.com/) is a static site generator that can turn
+Markdown files into a lightweight website.
 
 - Uses Markdown, templates, HTML, and CSS
 - Generates static pages that load quickly
@@ -37,7 +43,8 @@ What is Jekyll?
 
 **Why use it?** 
 
-- You write simple Markdown → Jekyll reads and builds HTML → then push to GitHub Pages to host the site.
+- You write simple Markdown → Jekyll reads and builds HTML → then push to GitHub
+  Pages to host the site.
 
 ---
 
@@ -45,13 +52,16 @@ What is Jekyll?
 
 First must install Ruby
 
-Ruby is what Jekyll is written in and is necessary to download. You do not have to code in Ruby to use Jekyll, but it is what is running everything behind the scenes.
+Ruby is what Jekyll is written in and is necessary to download. You do not have
+to code in Ruby to use Jekyll, but it is what is running everything behind the
+scenes.
 
 1. Visit [RubyInstaller.org](https://rubyinstaller.org/downloads/)
 2. Download the latest **Ruby + Devkit** version.
 3. Run the installer and choose:
    - **MSYS2 and MINGW development toolchain**
-4. After installation, open a new Command Prompt and check to ensure download was successful:
+4. After installation, open a new Command Prompt and check to ensure download
+   was successful:
    ```powershell
    ruby -v
    ```
@@ -64,8 +74,8 @@ In terminal run
 ```powershell
 gem install jekyll bundler
 ```
-**What is a gem?:** 
-A gem is a Ruby package that basically represents a bunch of code or functionality that can be reused. Jekyll is an example of a gem.
+**What is a gem?:** A gem is a Ruby package that basically represents a bunch of
+code or functionality that can be reused. Jekyll is an example of a gem.
 
 Verify installation
 ```powershell
@@ -88,25 +98,30 @@ Jekyll will add all the necessary files for your site to run properly.
 
 Run locally before pushing
 
-Navigate to the personal-site file and preview your site locally by executing the code below.
+Navigate to the personal-site file and preview your site locally by executing
+the code below.
 
 ```powershell
 jekyll new personal-site
 cd personal-site
 bundle exec jekyll serve
 ```
-bundle exec is a command that runs a tool, in this case Jekyll, using the gems listed in the Gemfile. 
+bundle exec is a command that runs a tool, in this case Jekyll, using the gems
+listed in the Gemfile. 
 
-After running and provided there are no errors, you Can then visit [http://localhost:4000](http://localhost:4000) to see your website.
+After running and provided there are no errors, you Can then visit
+[http://localhost:4000](http://localhost:4000) to see your website.
 
-**What is bundler?** 
-bundler is a tool used to manage Ruby gems. It helps ensure your project uses the right versions of each gem that is listed in your Gemfile
+**What is bundler?** bundler is a tool used to manage Ruby gems. It helps ensure
+your project uses the right versions of each gem that is listed in your Gemfile
 
-**What is a Gemfile?**
-A Gemfile is simply a plain text file that lists all the Ruby gems your project needs in order to run. It is similar to what would be a "requirements.txt" file in Python. Essential to have for reproducibility.
+**What is a Gemfile?** A Gemfile is simply a plain text file that lists all the
+Ruby gems your project needs in order to run. It is similar to what would be a
+"requirements.txt" file in Python. Essential to have for reproducibility.
 
-**Note:**
-It is good practice to run your website locally before pushing to GitHub Pages to make sure your website will run before you make changes. Failure to check could result in a broken website.
+**Note:** It is good practice to run your website locally before pushing to
+GitHub Pages to make sure your website will run before you make changes. Failure
+to check could result in a broken website.
 
 ## Pushing to GitHub Pages
 
@@ -138,7 +153,8 @@ Enable GitHub Pages on your repository
 
 ## Customizing Your Page
 
-Now that your site is live, you can design and add personal touches. Jekyll gives control of layout, theme, colors, and structure while using simple files.
+Now that your site is live, you can design and add personal touches. Jekyll
+gives control of layout, theme, colors, and structure while using simple files.
 
 **Standard layout**
 ```yaml
@@ -162,7 +178,8 @@ Some different page types:
 
 **About Page:**
 
-- You can open about.markdown and edit this file to include a descriptive statement about yourself.
+- You can open about.markdown and edit this file to include a descriptive
+  statement about yourself.
 ```markdown
 ---
 layout: page
@@ -174,12 +191,15 @@ Hello, my name is Jaden Mayer-Costa and I ...
 
 **Homepage:**
 
-- index.markdown is the landing page for your website. In other words this is the first thing that will be seen when visiting your site. 
+- index.markdown is the landing page for your website. In other words this is
+  the first thing that will be seen when visiting your site. 
 - Blog posts will appear here as well.
 
 **Blog Post:**
 
-- To add a new post navigate to your posts folder, add a markdown file, making sure to name it in YYYY-MM-DD-title.markdown format. Then in the yaml follow this template.
+- To add a new post navigate to your posts folder, add a markdown file, making
+  sure to name it in YYYY-MM-DD-title.markdown format. Then in the yaml follow
+  this template.
 
 ```yaml
 ---
@@ -196,7 +216,8 @@ categories: jekyll update
 **Adding photos:** 
 
 - Create an assets folder in your project root.
-- Create a img folder in your assets folder and simply drop whatever pictures you want into your website there.
+- Create a img folder in your assets folder and simply drop whatever pictures
+  you want into your website there.
 - To render a photo ensure it is in a jpg or png format.
 - Here is the syntax to embed a picture:
 
@@ -208,29 +229,40 @@ This tells Jekyll where to find your picture.
 ---
 
 ## Themes 
-Jekyll has many different themes that allow you quickly restyle your site. By default Jekyll will use the minima theme, but if you go into the _config file, you can switch out to a different one, such as Cayman or Midnight. A more exhaustive list can be found on [GitHub Pages](https://github.com/topics/jekyll-theme)
+Jekyll has many different themes that allow you quickly restyle your site. By
+default Jekyll will use the minima theme, but if you go into the _config file,
+you can switch out to a different one, such as Cayman or Midnight. A more
+exhaustive list can be found on [GitHub
+Pages](https://github.com/topics/jekyll-theme)
 
-Minima is a good theme for beginners because it has everything we need to make a website without the need to create our own layouts, which can be time intensive. That's why for the purposes of this tutorial, we will stick with minima.
+Minima is a good theme for beginners because it has everything we need to make a
+website without the need to create our own layouts, which can be time intensive.
+That's why for the purposes of this tutorial, we will stick with minima.
 
-**Note:**
-It is vital to pick a theme you like before building your website. Different themes have different layouts and dependencies, meaning you cannot easily change themes once a website is published. 
+**Note:** It is vital to pick a theme you like before building your website.
+Different themes have different layouts and dependencies, meaning you cannot
+easily change themes once a website is published. 
 
 ## Understanding Layouts in minima
-Layouts are HTML templates that define how your pages and posts look. Having one is important to serve as a reusable frame or structure. Minima comes with four different layout options built in:
+Layouts are HTML templates that define how your pages and posts look. Having one
+is important to serve as a reusable frame or structure. Minima comes with four
+different layout options built in:
 
 - default (Base HTML frame for all pages)
 - home (lists posts on the homepage)
 - page (Used for static pages like for an About or Project section)
 - post (Individual blog posts)
 
-**Note:**
-It is possible to override a layout by creating a custom _layouts folder where you can further customize your pages as desired. This is beyond the scope of this tutorial as it involves writing html code.
+**Note:** It is possible to override a layout by creating a custom _layouts
+folder where you can further customize your pages as desired. This is beyond the
+scope of this tutorial as it involves writing html code.
 
 ---
 
 **Adding New Tabs:**
 
-Say that we wanted to add a new tab to showcase the projects we have been working on in this class.
+Say that we wanted to add a new tab to showcase the projects we have been
+working on in this class.
 
 - We can create a projects.markdown file in our root folder.
 - In the yaml add:
@@ -245,7 +277,9 @@ Say that we wanted to add a new tab to showcase the projects we have been workin
 - Add markdown content underneath.
 
 ## Customize _config.yml
-The _config file is where site settings are hosted. Things like title, URL, theme, and necessary plugins. Minima will automatically put a generic yaml to be filled out by the user. An example of a _config.yml setup is as follows:
+The _config file is where site settings are hosted. Things like title, URL,
+theme, and necessary plugins. Minima will automatically put a generic yaml to be
+filled out by the user. An example of a _config.yml setup is as follows:
 ```yaml
 # Preliminary information
 title: "Personal Webpage on GitHub"
@@ -275,7 +309,8 @@ minima:
 ```
 
 ## Changing colors and fonts
-It is possible to make edits to a themes font and color without changing the entire theme through the use of a Cascading Style Sheet or CSS file. 
+It is possible to make edits to a themes font and color without changing the
+entire theme through the use of a Cascading Style Sheet or CSS file. 
 
 - Create a file inside your assets folder called main.scss
 - Import minima base styles into file:
@@ -285,7 +320,8 @@ It is possible to make edits to a themes font and color without changing the ent
 
 @import "minima";
 ```
-- Now can override original styles. Below example makes changes to the font weight, style, color, even footer background:
+- Now can override original styles. Below example makes changes to the font
+  weight, style, color, even footer background:
 ```scss
 // Custom site styling
 body {
@@ -312,10 +348,16 @@ footer {
 ```
 
 ## Conclusion
-You should know have the knowledge to set up a personal site on GitHub Pages using Jekyll. And any time you need to make an update, you can follow the workflow of makings edits and rendering locally before pushing to Pages. In this way, your page can evolve alongside your career. This overview is the basic setup to get a page, but there are truly so many ways to customize and edit your page to better reflect your personality and style. 
+You should know have the knowledge to set up a personal site on GitHub Pages
+using Jekyll. And any time you need to make an update, you can follow the
+workflow of makings edits and rendering locally before pushing to Pages. In this
+way, your page can evolve alongside your career. This overview is the basic
+setup to get a page, but there are truly so many ways to customize and edit your
+page to better reflect your personality and style. 
 
 ### Further Reading
 - [Using Jekyll in GitHub Pages](https://jekyllrb.com/docs/github-pages/)
 - [Using themes from Jekyll](https://jekyllrb.com/docs/themes/)
-- [GitHub Pages breakdown](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages)
+- [GitHub Pages
+  breakdown](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages)
 - [Resource to find themes for webpage](https://github.com/topics/jekyll-theme)
