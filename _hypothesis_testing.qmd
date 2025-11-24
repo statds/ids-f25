@@ -32,8 +32,9 @@ reflect a **real effect**.
    - If *p* < α (usually 0.05): reject H₀ → evidence of an effect.  
    - If *p* ≥ α: fail to reject H₀ → no strong evidence against H₀.
 
-### Example Context: Housing Data 
+---
 
+### Example Context: Boston Housing Data 
 - The housing dataset allows us to explore real-world market patterns and relationships 
 between property features and price.   
   - Are house prices different across neighborhoods?  
