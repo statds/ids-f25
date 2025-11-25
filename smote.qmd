@@ -123,7 +123,7 @@ only 2 classes are being used, and it allows you to see the synthetic minority
 points being created between existing minority observations. With other problems
 with more classes, it might be easier to look at a bar chart.
 
-Too see if the application of SMOTE actually made a difference, we can look at
+To see if the application of SMOTE actually made a difference, we can look at
 models for the original dataset and the after SMOTE dataset.
 
 ```{python}
