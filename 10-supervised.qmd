@@ -1,5 +1,108 @@
 # Supervised Learning
 
+## Introduction
+
+Machine Learning (ML) is a branch of artificial intelligence that
+enables systems to learn from data and improve their performance over
+time without being explicitly programmed. At its core, machine
+learning algorithms aim to identify patterns in data and use those
+patterns to make decisions or predictions.
+
+
+Machine learning can be categorized into three main types: 
+supervised learning, unsupervised learning, and reinforcement
+learning. Each type differs in the data it uses and the learning tasks
+it performs, addressing addresses different tasks and
+problems. Supervised learning aims to predict outcomes based on
+labeled data, unsupervised learning focuses on discovering hidden
+patterns within the data, and reinforcement learning centers around
+learning optimal actions through interaction with an environment.
+
+
+Let's define some notations to introduce them:
+
+- $X$: A set of feature vectors representing the input data. Each
+  element $X_i$ corresponds to a set of features or attributes that
+  describe an instance of data.
+  
+- $Y$: A set of labels or rewards associated with outcomes. In
+  supervised learning, $Y$ is used to evaluate the correctness of the
+  model’s predictions. In reinforcement learning, $Y$ represents the
+  rewards that guide the learning process.
+  
+- $A$: A set of possible actions in a given context. In reinforcement
+  learning, actions $A$ represent choices that can be made in response
+  to a given situation, with the goal of maximizing a reward.
+
+### Supervised Learning
+Supervised learning is the most widely used type of machine
+learning. In supervised learning, we have both feature vectors $X$ and
+their corresponding labels $Y$. The objective is to train a model that
+can predict $Y$ based on $X$. This model is trained on labeled
+examples, where the correct outcome is known, and it adjusts its
+internal parameters to minimize the error in its predictions, which
+occurs as part of the cross-validation process.
+
+
+Key tasks in supervised learning include:
+
+- Classification: Assigning data points to predefined categories or classes.
+- Regression: Predicting a continuous value based on input data.
+
+In supervised learning, the data consists of both feature vectors $X$
+and labels $Y$, namely, $(X, Y)$.
+
+
+### Unsupervised Learning
+Unsupervised learning involves learning patterns from data without any
+associated labels or outcomes. The objective is to explore and
+identify hidden structures in the feature vectors $X$. Since there are
+no ground-truth labels $Y$ to guide the learning process, the
+algorithm must discover patterns on its own. This is particularly useful
+when subject matter experts are unsure of common properties within a
+data set.
+
+
+
+Common tasks in unsupervised learning include:
+
+- Clustering: Grouping similar data points together based on certain
+  features.
+  
+- Dimension Reduction: Simplifying the input data by reducing the
+  number of features while preserving essential patterns.
+
+
+In unsupervised learning, the data consists solely of feature vectors
+$X$.
+
+
+
+### Reinforcement Learning
+Reinforcement learning involves learning how to make a sequence of
+decisions to maximize a cumulative reward. Unlike supervised learning,
+where the model learns from a static dataset of labeled examples,
+reinforcement learning involves an agent that interacts with an
+environment by taking actions $A$, receiving feedback in the form of
+rewards $Y$, and learning over time which actions lead to the highest
+cumulative reward.
+
+The process in reinforcement learning involves:
+
+- States: The context or environment the agent is in, represented by
+  feature vectors $X$.
+
+- Actions: The set of possible choices the agent can make in response
+  to the current state, denoted as $A$.
+  
+- Rewards: Feedback the agent receives after taking an action, which
+  guides the learning process.
+  
+
+In reinforcement learning, the data consists of feature vectors $X$,
+actions $A$, and rewards $Y$, namely, $(X, A, Y)$.
+
+
 ## Decision Trees
 
 Decision trees are widely used supervised learning models that predict 
@@ -263,9 +366,6 @@ captures nonlinear effects and interactions, though its predictions are
 piecewise constant, producing visible step patterns.
 
 
-<!-- {{< include _random_forest.qmd >}} -->
-
-
 ## Gradient-Boosted Models
 
 Gradient boosting is a powerful ensemble technique in machine learning
@@ -364,9 +464,9 @@ The gradient boosting algorithm proceeds as follows:
     L\bigl(y_i,\, F_{m-1}(x_i) + \gamma\, h_m(x_i)\bigr),
    $$
    leading to an updated model of the form
-   \[
+   $$
     F_m(x) = F_{m-1}(x) + \eta\, \gamma_m\, h_m(x),
-   \]
+   $$
    where $\eta$ remains a shrinkage factor controlling the overall
    rate of learning, while $\gamma_m$ adjusts the step size adaptively
    at each iteration.
@@ -514,4 +614,16 @@ but introduces a number of enhancements:
 
 XGBoost is therefore more suitable for large-scale problems and provides 
 better generalization performance in many practical tasks.
+
+
+<!-- This section is for random forest. -->
+{{< include _random_forest.qmd >}}
+
+
+<!-- This section is for nueral network. -->
+{{< include _nnet.qmd >}}
+
+
+<!-- This section is for nueral network with time series. -->
+{{< include _nntemp.qmd >}}
 

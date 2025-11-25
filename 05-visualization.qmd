@@ -1,11 +1,26 @@
 # Data Visualization
 
+In this chapter we embrace visualization as a cornerstone of modern
+data-analysis workflows: turning raw numbers into meaningful visuals
+that support insight, decision-making and communication. We begin by
+exploring static and information-rich graphics through `plotnine`,
+building on the grammar‐of-graphics approach. Next we extend into
+spatial data-visualisation using `GeoPandas`, equipping you to map,
+project and interpret geospatial patterns. Later sections will
+introduce further tools and techniques (for example interactive maps
+or dashboards), but throughout we emphasise the same core questions:
+Which visual form fits the data and question? How do our design and
+implementation choices influence what the viewer sees — and what they
+don’t see? With the tools and principles in hand, you’ll be prepared
+to insert clear, effective visualisation into your data-science
+project workflow.
+
 
 <!-- This section is to be included as a tutorial for ggplot with plotnine. -->
-<!-- {{< include _plotnine.qmd >}} -->
+{{< include _plotnine.qmd >}}
 
 <!-- This section is to be included as a tutorial for geopands data. -->
-<!-- {{< include _geopandas.qmd >}} -->
+{{< include _geopandas.qmd >}}
 
 
 <!-- Interesting topics: gmplot, folium -->
