@@ -38,8 +38,44 @@ added to the initial observation to generate the synthetic sample.
 5. This process is repeated until the desired ratio is reached, usually when 
 the minority class equals the size of the majority class.
 
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+
+# small dataset
+X_majority = np.array([[1,1], [2,1], [1,2], [1.3, 0.9], [0.9, 1.5], [1.6, 1.6], [2, 2], [1.5, 1.3]])
+X_minority = np.array([[3,3], [4,4]])
+
+# manually create synthetic points for illustration
+# 2 minority points generate 3 synthetic points each
+X_synthetic = np.array([
+    [3.2, 3.2], [3.3, 3.3], [3.5, 3.4],  # synthetic from first minority
+    [3.6, 3.6], [3.9, 3.7], [3.8, 3.8]   # synthetic from second minority
+])
+
+plt.figure(figsize=(5,5))
+
+# Plot majority points
+plt.scatter(X_majority[:,0], X_majority[:,1], color='#9335E5', s=120, label='Majority')
+
+# Plot original minority points
+plt.scatter(X_minority[:,0], X_minority[:,1], color='#E00083', s=150, label='Minority')
+
+# Plot synthetic points
+plt.scatter(X_synthetic[:,0], X_synthetic[:,1], color='#FF9CD8', s=120, label='Synthetic')
+
+# Draw curved arrows from each minority point to its synthetic points
+
+# Labels, limits, grid
+plt.xlim(0,5)
+plt.ylim(0,5)
+plt.title("Illustrative SMOTE Process")
+plt.legend(loc='upper left')
+plt.show()
+```
+
 The resulting dataset is more balanced, but there's less of a chance of
-overlapping data points because it's not duplicates.
+overlapping data points with the originals because it's not duplicates.
 
 This can also be demonstrated by the following algorithm:
 $$
@@ -125,42 +161,6 @@ ax2.set_xlabel("Class")
 ax2.set_ylabel("Count")
 ax2.set_xticks([0, 1], ["Majority (0)", "Minority (1)"])
 plt.tight_layout()
-plt.show()
-```
-
-```{python}
-import numpy as np
-import matplotlib.pyplot as plt
-
-# small dataset
-X_majority = np.array([[1,1], [2,1], [1,2], [1.3, 0.9], [0.9, 1.5], [1.6, 1.6], [2, 2]])
-X_minority = np.array([[3,3], [4,4]])
-
-# manually create synthetic points for illustration
-# 2 minority points generate 3 synthetic points each
-X_synthetic = np.array([
-    [3.2, 3.2], [3.3, 3.3], [3.5, 3.4],  # synthetic from first minority
-    [3.6, 3.6], [3.9, 3.7], [3.8, 3.8]   # synthetic from second minority
-])
-
-plt.figure(figsize=(5,5))
-
-# Plot majority points
-plt.scatter(X_majority[:,0], X_majority[:,1], color='#9335E5', s=120, label='Majority')
-
-# Plot original minority points
-plt.scatter(X_minority[:,0], X_minority[:,1], color='#E00083', s=150, label='Minority')
-
-# Plot synthetic points
-plt.scatter(X_synthetic[:,0], X_synthetic[:,1], color='#FF9CD8', s=120, label='Synthetic')
-
-# Draw curved arrows from each minority point to its synthetic points
-
-# Labels, limits, grid
-plt.xlim(0,5)
-plt.ylim(0,5)
-plt.title("Illustrative SMOTE Process")
-plt.legend(loc='upper left')
 plt.show()
 ```
 
