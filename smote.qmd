@@ -39,6 +39,8 @@ added to the initial observation to generate the synthetic sample.
 the minority class equals the size of the majority class.
 
 ```{python}
+#| echo: false
+#| fig.show: true
 import numpy as np
 import matplotlib.pyplot as plt
 
