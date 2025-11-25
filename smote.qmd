@@ -85,16 +85,6 @@ print("After SMOTE class distribution:", Counter(y_resampled))
 
 For the application of SMOTE, I only specify a random state to ensure reproducibility. 
 Other parameters that can be used are `sampling_strategy` and `k_neighbors`. 
-`sampling_strategy` can be a float, string, or dict. Float is only usable for 
-problems with 2 classes. For string, the possible choices are:
-
-- "minority": resample only the minority class
-- "not minority": resample all but the minority class
-- "not majority": resample all but the majority class
-- "all": resample all classes
-- "auto": same as "not majority", is default 
-
-`k_neighbors` is an int that defaults to 5.
 
 Now we can visualize the distribution of the data.
 
@@ -103,7 +93,7 @@ Now we can visualize the distribution of the data.
 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))
 
 ax1.scatter(X[y==0][:, 0], X[y==0][:, 1], c="#DEA8FF", label="Majority", alpha=0.5)
-ax1.scatter(X[y==1][:, 0], X[y==1][:, 1], c="#A3007D", label="Minority", alpha=0.5)
+ax1.scatter(X[y==1][:, 0], X[y==1][:, 1], c="#A3007D", label="Minority", alpha=0.85)
 ax1.set_title("Original class distribution")
 ax1.legend()
 
@@ -114,6 +104,63 @@ ax2.scatter(X_resampled[y_resampled==1][:, 0], X_resampled[y_resampled==1][:, 1]
 ax2.set_title("After SMOTE class distribution")
 ax2.legend()
 
+plt.show()
+```
+
+```{python}
+orig_counts = Counter(y)
+smote_counts = Counter(y_resampled)
+
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))
+
+ax1.bar(orig_counts.keys(), orig_counts.values(), color=['#DEA8FF', '#A3007D'])
+ax1.set_title("Class Distribution Before SMOTE")
+ax1.set_xlabel("Class")
+ax1.set_ylabel("Count")
+ax1.set_xticks([0, 1], ["Majority (0)", "Minority (1)"])
+
+ax2.bar(smote_counts.keys(), smote_counts.values(), color=['#DEA8FF', '#A3007D'])
+ax2.set_title("Class Distribution After SMOTE")
+ax2.set_xlabel("Class")
+ax2.set_ylabel("Count")
+ax2.set_xticks([0, 1], ["Majority (0)", "Minority (1)"])
+plt.tight_layout()
+plt.show()
+```
+
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+
+# small dataset
+X_majority = np.array([[1,1], [2,1], [1,2], [1.3, 0.9], [0.9, 1.5], [1.6, 1.6], [2, 2]])
+X_minority = np.array([[3,3], [4,4]])
+
+# manually create synthetic points for illustration
+# 2 minority points generate 3 synthetic points each
+X_synthetic = np.array([
+    [3.2, 3.2], [3.3, 3.3], [3.5, 3.4],  # synthetic from first minority
+    [3.6, 3.6], [3.9, 3.7], [3.8, 3.8]   # synthetic from second minority
+])
+
+plt.figure(figsize=(5,5))
+
+# Plot majority points
+plt.scatter(X_majority[:,0], X_majority[:,1], color='#9335E5', s=120, label='Majority')
+
+# Plot original minority points
+plt.scatter(X_minority[:,0], X_minority[:,1], color='#E00083', s=150, label='Minority')
+
+# Plot synthetic points
+plt.scatter(X_synthetic[:,0], X_synthetic[:,1], color='#FF9CD8', s=120, label='Synthetic')
+
+# Draw curved arrows from each minority point to its synthetic points
+
+# Labels, limits, grid
+plt.xlim(0,5)
+plt.ylim(0,5)
+plt.title("Illustrative SMOTE Process")
+plt.legend(loc='upper left')
 plt.show()
 ```
 
@@ -240,12 +287,10 @@ problem to determine if SMOTE is worth applying, or if another method might be b
 
 ### Further Readings
 
-geeksforgeeks.org [SMOTE for Imbalanced Classification With Python](https://www.geeksforgeeks.org/machine-learning/smote-for-imbalanced-classification-with-python/)
+Gudluri, S. (2025) [SMOTE for Imbalanced Classification With Python](https://www.geeksforgeeks.org/machine-learning/smote-for-imbalanced-classification-with-python/)
 
 Brownlee, J. (2020) [A Gentle Introduction to Imbalanced Classification](https://machinelearningmastery.com/what-is-imbalanced-classification/)
 
-pannmie (2023) [Oversampling Techniques for Imbalanced Data: SMOTE, Step-by-Step Guide](https://www.kaggle.com/discussions/general/424270)
-
-make_classification [sklearn.datasets](https://scikit-learn.org/stable/modules/generated/sklearn.datasets.make_classification.html#sklearn.datasets.make_classification)
+Devanathan, H. (2024) [Creating SMOTE Oversampling from Scratch](https://towardsdatascience.com/creating-smote-oversampling-from-scratch-64af1712a3be/)
 
 SMOTE [imbalanced-learn, over-sampling methods](https://imbalanced-learn.org/stable/references/generated/imblearn.over_sampling.SMOTE.html)
