@@ -76,13 +76,9 @@ print(importances.head(10))
     - Importance of related variables can be split -- `GrLivArea` and `1stFlrSF`, for example.
 - No exact threshold or cutoff point
 
-[@nicodemus2011MDI]
-
 ### SHAP values
 
 SHAP values are an application of game theory that has found a role in data science. Each feature is assigned an importance value representing its contribution to the model's output. Predictors with higher SHAP values contribute more to the model's predictions. In general, SHAP values can be used to "look inside" the black box models and provide some explanation as to how the model is making decisions and which features it is putting more weight on.
-
-[@molnar2025]
 
 For our purposes, we will use SHAP values for variable importance. I decided to use a random forest so we can compare the results to the results from the MDI method.
 
@@ -143,4 +139,10 @@ print(shap_importance.head(10))
 
 Using your own, or an expert's, domain knowledge can also be crucial in analyzing variable importance. It is extremely difficult to gather the exact variables necessary to create the ideal model using just statistics and computer science, and using any domain knowledge available can help this process tremedously. For example, variables like latitude and longitude almost certainly tell us nothing about housing price in a specific city. If our methods are claiming these variables are important, we might need to look at our process again. 
 
-### references
+### Further Readings
+
+- [Letter to the editor: on the stability and ranking of predictors from random forest variable importance measures]( 
+    https://pubmed.ncbi.nlm.nih.gov/21498552/)
+
+- [Interpretable Machine Learning: a guide for making black box models interpretable](
+    https://christophm.github.io/interpretable-ml-book)
