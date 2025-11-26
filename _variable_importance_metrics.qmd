@@ -1,0 +1,146 @@
+## Variable importance metrics
+This section was prepared by Roger Blake, a junior majoring in statistical data science with a minor in economics. 
+
+### What is variable importance & why is it important?
+
+Variable importance is a way to measure how useful a variable is in predicting the target. This can be useful for both creating and analyzing models. Real world data often contains many potential predictors, and it can be difficult to know which variables should be considered important; variable importance metrics can help solve this problem.
+
+Questions to consider when analyzing variable importance:
+
+1) What features are the most "important"?
+2) How do we measure "importance"?
+3) How can this help us create the most accurate model possible?
+
+There are many ways to measure which variables are important. In this presentation, I'll go over 2 methods that I hope will be helpful for everyone:
+
+1) Random forest feature importance (MDI)
+2) SHAP values
+
+### Random forest feature importance
+
+Please refer to the previous presentation on random forests for a more in-depth explanation of the algorithm. For this presentation, I will simply be talking about how to use the random forest algorithm for help with variable importance. 
+
+Using a method called Mean Decrease in Impurity (MDI), we can quantify how important each variable is in a random forest model.
+
+Steps:
+
+1) Fit a random forest regressor
+2) Compute MDI for each variable
+    - Each time a variable is used to split a node, calculate the reduction in impurity caused by that split
+    - Sum the impurity decreases for each variable across all nodes in that tree
+    - Average the importance for each variable for all the trees 
+
+
+General idea: if a variable is consistently causing significant drops in impurity, it is an important variable to include in your model. 
+
+Let's see this in action with some code. Scikit-learn has a `RandomForestRegressor.feature_importances_` attribute that can calculate the MDI values for each variable for us, making it relatively easy to code.
+
+```{python}
+from sklearn.ensemble import RandomForestRegressor
+import openml
+import pandas as pd
+
+# Load Ames Housing
+dataset = openml.datasets.get_dataset(42165)
+df, *_ = dataset.get_data()
+
+df = df.dropna(subset=['SalePrice'])
+X = pd.get_dummies(df.drop(columns=['SalePrice']), drop_first=True)
+y = df['SalePrice']
+
+rf = RandomForestRegressor(n_estimators=100, random_state=5)
+rf.fit(X, y)
+
+# Get MDI values
+importances = pd.Series(rf.feature_importances_, index=X.columns)
+importances = importances.sort_values(ascending=False)
+
+print(importances.head(10))
+```
+
+**Pros:**
+
+- All the benefits of random forests are included in ranking variables by MDI score
+    - Captures nonlinear relationships well
+    - Captures interactions between variables well
+- Can easily handle large number of potential variables
+- Handles numerical and categorical variables (through one-hot encoding)
+
+**Cons:**
+
+- Favors variables with many categories
+    - Each additional category is another chance to split and reduce impurity. This can cause inflated MDI values even when the variable has little predictive power.
+- Biased towards variables that have a caregory with a high frequency
+    - A split that separates the dominant category often leads to a large drop in impurity
+- Biased in presence of correlated features
+    - Importance of related variables can be split -- `GrLivArea` and `1stFlrSF`, for example.
+- No exact threshold or cutoff point
+
+[@nicodemus2011MDI]
+
+### SHAP values
+
+SHAP values are an application of game theory that has found a role in data science. Each feature is assigned an importance value representing its contribution to the model's output. Predictors with higher SHAP values contribute more to the model's predictions. In general, SHAP values can be used to "look inside" the black box models and provide some explanation as to how the model is making decisions and which features it is putting more weight on.
+
+[@molnar2025]
+
+For our purposes, we will use SHAP values for variable importance. I decided to use a random forest so we can compare the results to the results from the MDI method.
+
+Steps:
+
+1) Compute the SHAP value for each variable at every data point
+2) Take the average of the absolute value of the SHAP value for each variable
+3) Variables with a higher average SHAP value are more important to the model.
+
+```{python}
+import openml
+import pandas as pd
+from sklearn.ensemble import RandomForestRegressor
+import shap
+
+dataset = openml.datasets.get_dataset(42165)
+df, *_ = dataset.get_data()
+
+df = df.dropna(subset=['SalePrice'])
+y = df['SalePrice']
+X = pd.get_dummies(df.drop(columns=['SalePrice']), drop_first=True)
+
+rf = RandomForestRegressor(n_estimators=100, random_state=5)
+rf.fit(X, y)
+
+# find SHAP values
+explainer = shap.TreeExplainer(rf)
+shap_values = explainer.shap_values(X)
+
+# find average of abs of SHAP values for each variable
+shap_importance = pd.DataFrame({
+    'feature': X.columns,
+    'importance': abs(shap_values).mean(axis=0)
+}).sort_values(by='importance', ascending=False)
+
+print(shap_importance.head(10))
+```
+
+
+**Pros:**
+
+- Can be used for any model-- not just restricted to random forest
+- Handles variable interaction well
+- Tells you direction and magnitude, not just how important
+
+**Cons:**
+
+- No exact threshold
+- Splits importance between correlated variables
+    - handles this better than MDI, however
+- Although it can be used for any model, non-tree based models have slow computational times
+
+
+
+
+
+### Use your domain knowledge!
+
+Using your own, or an expert's, domain knowledge can also be crucial in analyzing variable importance. It is extremely difficult to gather the exact variables necessary to create the ideal model using just statistics and computer science, and using any domain knowledge available can help this process tremedously. For example, variables like latitude and longitude almost certainly tell us nothing about housing price in a specific city. If our methods are claiming these variables are important, we might need to look at our process again. 
+
+### references
