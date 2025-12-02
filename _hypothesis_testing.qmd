@@ -1,7 +1,7 @@
 ## Hypothesis Testing with 'scipy.stats' 
 
 This section was prepared by Jessica Yoon, an undergraduate senior pursuing a
-degree in Biological Data Science 
+degree in Biological Data Science. 
 
 ### What is Hypothesis Testing?
 
