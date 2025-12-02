@@ -156,12 +156,8 @@ plt.tight_layout()
 plt.show()
 ```
 
-Looking at the scatter plots, you can see the difference in class size before 
-and after using SMOTE. The scatter plot is preferred in this example because 
-only 2 classes are being used, and it allows you to see the synthetic minority
-points being created between existing minority observations. With other problems
-with more classes, it might be easier to look at a bar chart.
-
+Looking at the bar charts, you can see the difference in class size before 
+and after using SMOTE. 
 To see if the application of SMOTE actually made a difference, we can look at
 models for the original dataset and the after SMOTE dataset.
 
