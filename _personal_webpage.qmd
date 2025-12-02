@@ -6,7 +6,7 @@ customizing the look of your site.
 
 ---
 
-## Introduction
+### Introduction
 
 My name is Jaden Mayer-Costa. I am a senior pursuing a Statistical Data Analysis
 degree with minors in both Economics and Music.
@@ -16,7 +16,7 @@ site.
 
 ---
 
-## Why Use GitHub Pages?
+### Why Use GitHub Pages?
 
 GitHub Pages lets you host a website directly from your GitHub repository for
 free.  
@@ -48,7 +48,7 @@ Markdown files into a lightweight website.
 
 ---
 
-## Setting Up Jekyll locally
+### Setting Up Jekyll locally
 
 First must install Ruby
 
@@ -123,7 +123,7 @@ Ruby gems your project needs in order to run. It is similar to what would be a
 GitHub Pages to make sure your website will run before you make changes. Failure
 to check could result in a broken website.
 
-## Pushing to GitHub Pages
+### Pushing to GitHub Pages
 
 Create a GitHub repository to host files for website
 
@@ -151,7 +151,7 @@ Enable GitHub Pages on your repository
 - Under "Source" click the test branch and / (root) folder
 - Click Save - now website will be live at https://YOUR-USERNAME/github.io
 
-## Customizing Your Page
+### Customizing Your Page
 
 Now that your site is live, you can design and add personal touches. Jekyll
 gives control of layout, theme, colors, and structure while using simple files.
@@ -228,7 +228,7 @@ This tells Jekyll where to find your picture.
 
 ---
 
-## Themes 
+### Themes 
 Jekyll has many different themes that allow you quickly restyle your site. By
 default Jekyll will use the minima theme, but if you go into the _config file,
 you can switch out to a different one, such as Cayman or Midnight. A more
@@ -243,7 +243,7 @@ That's why for the purposes of this tutorial, we will stick with minima.
 Different themes have different layouts and dependencies, meaning you cannot
 easily change themes once a website is published. 
 
-## Understanding Layouts in minima
+### Understanding Layouts in minima
 Layouts are HTML templates that define how your pages and posts look. Having one
 is important to serve as a reusable frame or structure. Minima comes with four
 different layout options built in:
@@ -276,7 +276,7 @@ working on in this class.
     ```
 - Add markdown content underneath.
 
-## Customize _config.yml
+### Customize _config.yml
 The _config file is where site settings are hosted. Things like title, URL,
 theme, and necessary plugins. Minima will automatically put a generic yaml to be
 filled out by the user. An example of a _config.yml setup is as follows:
@@ -308,7 +308,7 @@ minima:
     linkedin: your-linkedin
 ```
 
-## Changing colors and fonts
+### Changing colors and fonts
 It is possible to make edits to a themes font and color without changing the
 entire theme through the use of a Cascading Style Sheet or CSS file. 
 
@@ -347,7 +347,7 @@ footer {
 }
 ```
 
-## Conclusion
+### Conclusion
 You should know have the knowledge to set up a personal site on GitHub Pages
 using Jekyll. And any time you need to make an update, you can follow the
 workflow of makings edits and rendering locally before pushing to Pages. In this
