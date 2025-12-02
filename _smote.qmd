@@ -79,9 +79,9 @@ plt.show()
 The resulting dataset is more balanced, but there's less of a chance of
 overlapping data points with the originals because it's not duplicates.
 
-This can also be demonstrated by the following algorithm:
+This can also be demonstrated by:
 $$
-x_{new} = x_{i} + \lambda(x_{neighbor} - x_{i})
+x_{new} = x_{i} + \lambda(x_{neighbor} - x_{i}),
 $$
 where $x_{i}$ is the selected minority observation, $x_{new}$ is the generated 
 synthetic sample, $\lambda$ is a random number between 0 and 1 sampled from a 
@@ -125,25 +125,6 @@ For the application of SMOTE, I only specify a random state to ensure reproducib
 Other parameters that can be used are `sampling_strategy` and `k_neighbors`. 
 
 Now we can visualize the distribution of the data.
-
-```{python}
-# visualize before and after
-fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))
-
-ax1.scatter(X[y==0][:, 0], X[y==0][:, 1], c="#DEA8FF", label="Majority", alpha=0.5)
-ax1.scatter(X[y==1][:, 0], X[y==1][:, 1], c="#A3007D", label="Minority", alpha=0.85)
-ax1.set_title("Original class distribution")
-ax1.legend()
-
-ax2.scatter(X_resampled[y_resampled==0][:, 0], X_resampled[y_resampled==0][:, 1], c="#DEA8FF",
-            label="Majority", alpha=0.5)
-ax2.scatter(X_resampled[y_resampled==1][:, 0], X_resampled[y_resampled==1][:, 1], c="#A3007D",
-            label="Minority (synthetic)", alpha=0.5)
-ax2.set_title("After SMOTE class distribution")
-ax2.legend()
-
-plt.show()
-```
 
 ```{python}
 orig_counts = Counter(y)
