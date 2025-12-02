@@ -1,0 +1,284 @@
+## Synthetic Minority Over-sampling Technique (SMOTE)
+
+
+This section was written by Hannah Levine, a junior majoring in Applied 
+Data Analysis.
+
+### Introduction
+
+In classification problems, imbalanced data refers to skewed class distribution. 
+Classification problems use numerical variables to produce a categorical outcome, 
+like diagnosing a disease based on clinical data or detecting fraudulent 
+transactions. In a simple example, you have 2 classes for a medical diagnosis, 
+"healthy" and "not healthy". For rare diseases, there can be a large 
+difference in the amount of individuals who are "healthy" and who are "not 
+healthy", with the "healthy" far outnumbering the "not healthy". The 
+"not healthy" class is known as the minority class.
+
+This is important because machine learning models can become biased towards 
+the majority class, and be innacurate in predicting for the minority class. 
+This is especially apparent in problems with multiple classes. Adressing this 
+class imbalance helps to improve the accuracy of the model. An easy solution 
+is to just oversample the minority class, creating duplicates. However, this 
+doesn't really add any new information to the model. Another solution is
+undersampling of the majority class, but then important information might be left 
+out. A better technique is Synthetic Minority Over-Sampling Technique, or SMOTE.
+
+### SMOTE
+
+While random oversampling creates exact replicas of minority observations, SMOTE
+creates synthetic samples based on the existing observations in the minority class. 
+
+1. SMOTE identifies minority class(es) in the dataset
+2. For each observation in the minority class, SMOTE identifies the k nearest 
+neighbors, with k being specified prior (usually k=5).
+3. A line is drawn between the minority observation and one of its k nearest neighbors. 
+4. The difference is found, multiplied by a random number between 0 and 1, then 
+added to the initial observation to generate the synthetic sample.
+5. This process is repeated until the desired ratio is reached, usually when 
+the minority class equals the size of the majority class.
+
+This process is shown by the figure below:
+
+```{python}
+#| echo: false
+#| fig.show: true
+import numpy as np
+import matplotlib.pyplot as plt
+
+# small dataset
+X_majority = np.array([[1,1], [2,1], [1,2], [1.3, 0.9], [0.9, 1.5], [1.6, 1.6], [2, 2], [1.5, 1.3]])
+X_minority = np.array([[3,3], [4,4]])
+
+# manually create synthetic points for illustration
+# 2 minority points generate 3 synthetic points each
+X_synthetic = np.array([
+    [3.2, 3.2], [3.3, 3.3], [3.5, 3.4],  # synthetic from first minority
+    [3.6, 3.6], [3.9, 3.7], [3.8, 3.8]   # synthetic from second minority
+])
+
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))
+
+# pre smote
+ax1.scatter(X_majority[:,0], X_majority[:,1], color='#9335E5', s=120, label='Majority')
+ax1.scatter(X_minority[:,0], X_minority[:,1], color='#E00083', s=150, label='Minority')
+ax1.set_xlim(0,5)
+ax1.set_ylim(0,5)
+ax1.set_title("Before SMOTE is applied")
+ax1.legend(loc='upper left')
+
+# post smote
+ax2.scatter(X_majority[:,0], X_majority[:,1], color='#9335E5', s=120, label='Majority')
+ax2.scatter(X_minority[:,0], X_minority[:,1], color='#E00083', s=150, label='Minority')
+ax2.scatter(X_synthetic[:,0], X_synthetic[:,1], color='#FF9CD8', s=120, label='Synthetic')
+ax2.set_xlim(0,5)
+ax2.set_ylim(0,5)
+ax2.set_title("After SMOTE is applied")
+ax2.legend(loc='upper left')
+
+plt.show()
+```
+
+The initial majority and minority classes are imbalanced, with the minority only
+having 2 points and the majority having 8. After SMOTE is applied, the total
+of minority and synthetic points equals the number of majority points.
+You can see how the synthetic points are all between the initial 2 minority
+points. In larger datasets, this can look almost like lines drawn between multiple
+sets of minority points. The resulting dataset is more balanced, but there's 
+less of a chance of overlapping data points with the originals because it's 
+not duplicates.
+
+This can also be demonstrated by:
+$$
+x_{new} = x_{i} + \lambda(x_{neighbor} - x_{i}),
+$$
+where $x_{i}$ is the selected minority observation, $x_{new}$ is the generated 
+synthetic sample, $\lambda$ is a random number between 0 and 1 sampled from a 
+uniform distribution, and $x_{neighbor}$ is the randomly chosen neighbor out 
+of the identified k neearest neighbors.
+
+### Example: Created Synthetic Dataset
+
+We can generate a random dataset using the `make_classification` function 
+from `sklearn.datasets`.
+
+```{python}
+from sklearn.datasets import make_classification
+from collections import Counter
+from imblearn.over_sampling import SMOTE
+import matplotlib.pyplot as plt
+
+# create imbalanced dataset
+X, y = make_classification(
+    n_samples=1000,
+    n_features=2,
+    n_informative=2,
+    n_redundant=0,
+    n_clusters_per_class=1,
+    weights=[0.99, 0.01],
+    random_state=1234
+)
+
+print(f"Original class distribution: {Counter(y)}")
+```
+
+```{python}
+# apply SMOTE
+smote = SMOTE(random_state=1234)
+X_resampled, y_resampled = smote.fit_resample(X, y)
+
+print("After SMOTE class distribution:", Counter(y_resampled))
+```
+
+For the application of SMOTE, I only specify a random state to ensure reproducibility. 
+Other parameters that can be used are `sampling_strategy` and `k_neighbors`. 
+
+Now we can visualize the distribution of the data.
+
+```{python}
+orig_counts = Counter(y)
+smote_counts = Counter(y_resampled)
+
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))
+
+ax1.bar(orig_counts.keys(), orig_counts.values(), color=['#DEA8FF', '#A3007D'])
+ax1.set_title("Class Distribution Before SMOTE")
+ax1.set_xlabel("Class")
+ax1.set_ylabel("Count")
+ax1.set_xticks([0, 1], ["Majority (0)", "Minority (1)"])
+
+ax2.bar(smote_counts.keys(), smote_counts.values(), color=['#DEA8FF', '#A3007D'])
+ax2.set_title("Class Distribution After SMOTE")
+ax2.set_xlabel("Class")
+ax2.set_ylabel("Count")
+ax2.set_xticks([0, 1], ["Majority (0)", "Minority (1)"])
+plt.tight_layout()
+plt.show()
+```
+
+Looking at the bar charts, you can see the difference in class size before 
+and after using SMOTE. 
+To see if the application of SMOTE actually made a difference, we can look at
+models for the original dataset and the after SMOTE dataset.
+
+```{python}
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import confusion_matrix, classification_report
+
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.3, random_state=1234, stratify=y
+)
+
+# original
+model_original = LogisticRegression(random_state=1234)
+model_original.fit(X_train, y_train)
+y_pred_original = model_original.predict(X_test)
+
+print("=== Model trained on ORIGINAL data ===\n")
+print(classification_report(y_test, y_pred_original, zero_division=0))
+print("\nConfusion Matrix:")
+print(confusion_matrix(y_test, y_pred_original))
+```
+
+Looking at the report, 98% of the cases that were predicted to be class 0
+were predicted correctly. 100% of the cases that were actually class 0 were
+predicted to be class 0. Meanwhile, 0% of the cases were even predicted to 
+be class 1. This is super unrealistic, and it seems like the model
+completely ignored the minority class. The confusion matrix suppports this,
+it shows that no cases were predicted to be class 1 at all, while 295 cases
+were correctly predicted to be class 0 (True Positive), and 5 cases were
+incorrectly predicted to be class 0 (False Positive).
+
+```{python}
+# SMOTE
+X_train_resampled, y_train_resampled = smote.fit_resample(X_train, y_train)
+model_smote = LogisticRegression(random_state=1234)
+model_smote.fit(X_train_resampled, y_train_resampled)
+y_pred_smote = model_smote.predict(X_test)
+
+print("=== Model trained with SMOTE ===\n")
+print(classification_report(y_test, y_pred_smote))
+print("\nConfusion Matrix:")
+print(confusion_matrix(y_test, y_pred_smote))
+```
+
+Looking at the model trained with SMOTE data, the report is much more realistic.
+80% of the cases that were in class 1 were correctly predicted to be class 1. 
+However, only 5% of the cases that were predicted to be class 1 actually were
+class 1. The rest were actually class 0. Looking at the confusion matrix,
+223 cases were correctly predicted to be class 0 and only 1 case was incorrectly
+predicted to be class 0.
+
+### Variations and Extensions of SMOTE
+
+SMOTE is very helpful in addressing class imbalance, but with larger datasets 
+and higher-dimensional class spaces other extensions have been 
+developed to help handle those larger scenarios. This includes Borderline 
+SMOTE, ADASYN, SMOTE-ENN, SMOTE+TOMEK, and SMOTE-NC.
+
+**Borderline SMOTE** was desgined to address the misclassification of minority
+class observations that are near or on the borderline between classes.
+Because they are on or near the borderlines, they are harder to classify
+and more likely to be mislabeled. Borderline SMOTE generates more synthetic
+samples near the borderlines between the majority and minority classes,
+providing more challenging observations to classify in hopes that it will
+improve the performance of classifiers.
+
+**ADASYN**, or Adaptive Synthetic Sampling Approach, focuses on finding and
+handling regions where the imbalance is more severe. For each minority
+class observation, ADASYN measures how many of its k nearest neighbors
+belong to the majority class. If the minority observation has more nearest
+neighbors that are a part of the majority class, it is considered a
+high density area. The algorithm then generates more synthetic samples in the 
+higher density regions, which are the regions with a greater imbalance. This 
+allows the dataset to become more uniform by balancing more severely imbalanced areas.
+
+**SMOTE-ENN**, or SMOTE Edited Nearest Neighbors, combines SMOTE with the 
+ENN rule. The ENN rule is used to remove misclassified samples. The point
+of combining these techniques is to improve the overall quality of the
+dataset. SMOTE is applied first to generate synthetic samples, then ENN 
+is used to remove both synthetic and original samples that have a majority 
+of their nearest neighbors that are the opposite class. This provides a cleaner
+dataset with more distinct classes.
+
+**SMOTE-TOMEK** links combine SMOTE and TOMEK links. TOMEK links are pairs of
+very close instances that are in opposite classes. By removing these links,
+overlap between classes is reduced and the classes are more distinct.
+For every observation in the dataset, the nearest neighbor from the same class
+and the nearest neighbor from the opposite class is found. Each pair of 
+observations is analyzed to see if it forms a TOMEK link. If a link is found,
+the two observations are marked for removal. Once all TOMEK links have been found, 
+the observations that are involved are removed. This technique also reduces 
+overlap between classes, and improves the distinction of classes.
+
+**SMOTE-NC**, or SMOTE Nominal Continuous, is used for datasets that
+are mixed nominal (categorical) and continuous variables. SMOTE is great
+when dealing with datasets with only numerical variables, but runs into
+problems when there are categorical variables. SMOTE operates in the numerical
+differences between observations and their neighbors, so categorical variables
+don't work with it. SMOTE-NC addresses this by seperately considering
+the categorical variables, and ensuring the categorical features of the
+synthetic samples align with those of the original data.
+
+### Conclusion
+
+SMOTE is a great tool to handle imbalanced classes in datasets. By creating
+synthetic samples from real observations in the minority class, the dataset
+is balanced while still having a good range of information and not overfitting. 
+It's important to note that SMOTE does not guaruntee that a model will perform 
+well. It can help with prediction on the minority class, but it doesn't always 
+mean that the overall performance of the model improves. It also can create
+noisy samples in dense or overlapping regions. It's important to analyze the 
+problem to determine if SMOTE is worth applying, or if another method might be better.
+
+### Further Readings
+
+Gudluri, S. (2025) [SMOTE for Imbalanced Classification With Python](https://www.geeksforgeeks.org/machine-learning/smote-for-imbalanced-classification-with-python/)
+
+Brownlee, J. (2020) [A Gentle Introduction to Imbalanced Classification](https://machinelearningmastery.com/what-is-imbalanced-classification/)
+
+Devanathan, H. (2024) [Creating SMOTE Oversampling from Scratch](https://towardsdatascience.com/creating-smote-oversampling-from-scratch-64af1712a3be/)
+
+SMOTE [imbalanced-learn, over-sampling methods](https://imbalanced-learn.org/stable/references/generated/imblearn.over_sampling.SMOTE.html)
