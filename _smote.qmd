@@ -38,6 +38,8 @@ added to the initial observation to generate the synthetic sample.
 5. This process is repeated until the desired ratio is reached, usually when 
 the minority class equals the size of the majority class.
 
+This process is shown by the figure below:
+
 ```{python}
 #| echo: false
 #| fig.show: true
@@ -55,24 +57,25 @@ X_synthetic = np.array([
     [3.6, 3.6], [3.9, 3.7], [3.8, 3.8]   # synthetic from second minority
 ])
 
-plt.figure(figsize=(5,5))
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))
 
-# Plot majority points
-plt.scatter(X_majority[:,0], X_majority[:,1], color='#9335E5', s=120, label='Majority')
+# pre smote
+ax1.scatter(X_majority[:,0], X_majority[:,1], color='#9335E5', s=120, label='Majority')
+ax1.scatter(X_minority[:,0], X_minority[:,1], color='#E00083', s=150, label='Minority')
+ax1.set_xlim(0,5)
+ax1.set_ylim(0,5)
+ax1.set_title("Before SMOTE is applied")
+ax1.legend(loc='upper left')
 
-# Plot original minority points
-plt.scatter(X_minority[:,0], X_minority[:,1], color='#E00083', s=150, label='Minority')
+# post smote
+ax2.scatter(X_majority[:,0], X_majority[:,1], color='#9335E5', s=120, label='Majority')
+ax2.scatter(X_minority[:,0], X_minority[:,1], color='#E00083', s=150, label='Minority')
+ax2.scatter(X_synthetic[:,0], X_synthetic[:,1], color='#FF9CD8', s=120, label='Synthetic')
+ax2.set_xlim(0,5)
+ax2.set_ylim(0,5)
+ax2.set_title("After SMOTE is applied")
+ax2.legend(loc='upper left')
 
-# Plot synthetic points
-plt.scatter(X_synthetic[:,0], X_synthetic[:,1], color='#FF9CD8', s=120, label='Synthetic')
-
-# Draw curved arrows from each minority point to its synthetic points
-
-# Labels, limits, grid
-plt.xlim(0,5)
-plt.ylim(0,5)
-plt.title("Illustrative SMOTE Process")
-plt.legend(loc='upper left')
 plt.show()
 ```
 
