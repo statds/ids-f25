@@ -79,8 +79,14 @@ ax2.legend(loc='upper left')
 plt.show()
 ```
 
-The resulting dataset is more balanced, but there's less of a chance of
-overlapping data points with the originals because it's not duplicates.
+The initial majority and minority classes are imbalanced, with the minority only
+having 2 points and the majority having 8. After SMOTE is applied, the total
+of minority and synthetic points equals the number of majority points.
+You can see how the synthetic points are all between the initial 2 minority
+points. In larger datasets, this can look almost like lines drawn between multiple
+sets of minority points. The resulting dataset is more balanced, but there's 
+less of a chance of overlapping data points with the originals because it's 
+not duplicates.
 
 This can also be demonstrated by:
 $$
