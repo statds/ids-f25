@@ -38,6 +38,8 @@ added to the initial observation to generate the synthetic sample.
 5. This process is repeated until the desired ratio is reached, usually when 
 the minority class equals the size of the majority class.
 
+This process is shown by the figure below:
+
 ```{python}
 #| echo: false
 #| fig.show: true
@@ -55,29 +57,36 @@ X_synthetic = np.array([
     [3.6, 3.6], [3.9, 3.7], [3.8, 3.8]   # synthetic from second minority
 ])
 
-plt.figure(figsize=(5,5))
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))
 
-# Plot majority points
-plt.scatter(X_majority[:,0], X_majority[:,1], color='#9335E5', s=120, label='Majority')
+# pre smote
+ax1.scatter(X_majority[:,0], X_majority[:,1], color='#9335E5', s=120, label='Majority')
+ax1.scatter(X_minority[:,0], X_minority[:,1], color='#E00083', s=150, label='Minority')
+ax1.set_xlim(0,5)
+ax1.set_ylim(0,5)
+ax1.set_title("Before SMOTE is applied")
+ax1.legend(loc='upper left')
 
-# Plot original minority points
-plt.scatter(X_minority[:,0], X_minority[:,1], color='#E00083', s=150, label='Minority')
+# post smote
+ax2.scatter(X_majority[:,0], X_majority[:,1], color='#9335E5', s=120, label='Majority')
+ax2.scatter(X_minority[:,0], X_minority[:,1], color='#E00083', s=150, label='Minority')
+ax2.scatter(X_synthetic[:,0], X_synthetic[:,1], color='#FF9CD8', s=120, label='Synthetic')
+ax2.set_xlim(0,5)
+ax2.set_ylim(0,5)
+ax2.set_title("After SMOTE is applied")
+ax2.legend(loc='upper left')
 
-# Plot synthetic points
-plt.scatter(X_synthetic[:,0], X_synthetic[:,1], color='#FF9CD8', s=120, label='Synthetic')
-
-# Draw curved arrows from each minority point to its synthetic points
-
-# Labels, limits, grid
-plt.xlim(0,5)
-plt.ylim(0,5)
-plt.title("Illustrative SMOTE Process")
-plt.legend(loc='upper left')
 plt.show()
 ```
 
-The resulting dataset is more balanced, but there's less of a chance of
-overlapping data points with the originals because it's not duplicates.
+The initial majority and minority classes are imbalanced, with the minority only
+having 2 points and the majority having 8. After SMOTE is applied, the total
+of minority and synthetic points equals the number of majority points.
+You can see how the synthetic points are all between the initial 2 minority
+points. In larger datasets, this can look almost like lines drawn between multiple
+sets of minority points. The resulting dataset is more balanced, but there's 
+less of a chance of overlapping data points with the originals because it's 
+not duplicates.
 
 This can also be demonstrated by:
 $$
@@ -147,12 +156,8 @@ plt.tight_layout()
 plt.show()
 ```
 
-Looking at the scatter plots, you can see the difference in class size before 
-and after using SMOTE. The scatter plot is preferred in this example because 
-only 2 classes are being used, and it allows you to see the synthetic minority
-points being created between existing minority observations. With other problems
-with more classes, it might be easier to look at a bar chart.
-
+Looking at the bar charts, you can see the difference in class size before 
+and after using SMOTE. 
 To see if the application of SMOTE actually made a difference, we can look at
 models for the original dataset and the after SMOTE dataset.
 
