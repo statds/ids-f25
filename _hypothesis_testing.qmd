@@ -1,0 +1,556 @@
+## Hypothesis Testing with 'scipy.stats' 
+
+This section was prepared by Jessica Yoon, an undergraduate senior pursuing a
+degree in Biological Data Science. 
+
+### What is Hypothesis Testing?
+
+- **Hypothesis testing** is a statistical method used to make decisions or
+draw conclusions about a population based on sample data.  
+- It helps determine whether results we observe are due to **chance** or 
+reflect a **real effect**.  
+- Every test starts with two statements:  
+  - **Null hypothesis ($H_0$):** No effect, no difference, or no relationship.  
+  - **Alternative hypothesis ($H_1$):** There *is* an effect, difference, or relationship.  
+
+### Why Hypothesis Testing is Important
+
+- Provides a **structured, objective framework** for decision-making under uncertainty.  
+- Separates **signal from noise** — prevents drawing conclusions based on intuition alone.  
+- Commonly used to:  
+  - Compare **treatments or interventions** (e.g., drug vs placebo)  
+  - Evaluate **policy changes** (e.g., new traffic laws on crash rates)  
+  - Detect **patterns or associations** (e.g., weather vs accident frequency)  
+
+### The Logic Behind It
+
+1. Collect sample data from a population.  
+2. Compute a **test statistic** to measure how far our data deviate from H₀.  
+3. Use a **probability distribution** (t, F, or chi-square) to find a **p-value**.  
+4. The **$p$-value** tells us how likely our observed data would occur if $H_0$ were true.  
+5. Decision rule:  
+   - If *$p$* < α (usually $0.05$): reject $H_0$ → evidence of an effect.  
+   - If *$p$* ≥ α: fail to reject $H_0$ → no strong evidence against $H_0$.
+
+### Example Context: California Housing Data 
+- We use the California Housing dataset, accessed via 
+sklearn.datasets.fetch_california_housing(as_frame=True).
+- Each row represents a California census block group with features like:
+    - medinc: median income in the block group
+    - houseage: median house age
+    - averooms: average number of rooms per dwelling
+    - population, aveoccup, latitude, longitude
+    - medv (renamed from MedHouseVal): median house value in units of $100,000
+- Hypothesis testing lets us quantify questions like:
+    - Do higher-income neighborhoods have higher median home values?
+    - Do mean home values differ across income quartiles?
+    - Is there a relationship between average rooms and home value?
+
+### Load, Clean and Preview the Data 
+
+- Let's begin by loading the data
+
+```{python}
+# Step 1: import essential packages for analysis and visualization 
+import pandas as pd # used for data manipulation and structuring data 
+import numpy as np # supports numerical operations
+from scipy import stats # provides statistical operations 
+import matplotlib.pyplot as plt # visualizations
+import seaborn as sns # visualizations 
+
+from sklearn.datasets import fetch_california_housing
+
+# Step 2: Load dataset from csv 
+cal = fetch_california_housing(as_frame=True)
+
+housing = cal.frame
+
+housing = housing.rename(columns={"MedHouseVal": "medv"})
+
+```
+
+- Then, we want to clean the data 
+- Missing or null data (NaNs) can cause statistical test to fail or 
+return NaN results, especially with scipy.stats
+- Cleaning ensures the tests use valid and complete data 
+
+```{python}
+# Step 1: Clean up column names
+housing.columns = (
+    housing.columns
+    .str.strip()                          # remove leading/trailing spaces
+    .str.lower()                          # convert to lowercase
+    .str.replace(' ', '_')                # replace spaces with underscores
+    .str.replace('[^a-z0-9_]', '', regex=True)  # remove special chars
+)
+
+# Step 2: Drop columns that are completely empty (all NaN)
+housing = housing.dropna(axis=1, how='all')
+
+# Step 3: Drop rows with any missing values
+housing = housing.dropna(axis=0, how='any')
+
+# Step 4: Verify the cleaned dataset
+housing.info()
+housing.head()
+```
+
+- We can summarize the dataset using '.describe()' to see its spread and 
+variability before running tests
+
+```{python}
+housing.describe()
+housing["medv"]
+```
+
+### One-Sample T-test 
+
+- A one-sample t-test is a statistical test used to determine whether 
+the mean of a single sample is significantly different from a known 
+or hypothesized population mean.
+- Here, we test whether the average median home value in California
+differs from $200,000.
+- Recall: medv is measured in $100,000s. So $200,000 corresponds to $\mu_0 = 2.0$.
+- Hypotheses:
+    - $H_0: \mu = 2.0$ (average home value = $200{,}000)
+    - $H_1: \mu \ne 2.0$ (average home value $\ne$ $200{,}000)
+
+```{python}
+prices = housing["medv"].dropna()
+
+t_stat, p_value = stats.ttest_1samp(prices, popmean=2.0)  
+t_stat, p_value
+```
+
+- The t_stat tells us how far the sample mean is from the 
+hypothesized value
+- The p_value tells us how unusual that different would be 
+if H₀ were true
+- the ttest_1samp() compares sample's mean to a known 
+population mean 
+
+```{python}
+alpha = 0.05
+if p_value < alpha:
+    print(f"Reject $H_0 (p = {p_value:.3f}) → Mean home value differs from $200,000.")
+else:
+    print(f"Fail to reject $H_0 (p = {p_value:.3f}) → No difference from $200,000.")
+```
+
+- The output (8.54, 1.49e-17) corresponds to the t-statistic and
+p-value 
+- The t-statistic means that the sample is roughly 6 standard errors 
+away from the hypothesized population mean of $200,000 
+- The p-value is extremely small, far below the 0.05 significance 
+threshold
+- We can conclude that the mean home value is significantly 
+different from $20,000 and we reject the null hypothesis. The average 
+housing prices are not centered around $200,000 
+
+- We can also visualize this by using a histogram
+
+```{python}
+plt.hist(prices, bins=30, color="skyblue", edgecolor="black")
+plt.axvline(20, color="red", linestyle="--", label="μ = 2.0 ($200,000)")
+plt.title("Distribution of Median Home Values")
+plt.xlabel("Median Value ($1000s)")
+plt.ylabel("Frequency")
+plt.legend()
+plt.show()
+```
+
+- Notice how most homes cluster below the hypothesized mean value, 
+shown by the red dashed line at μ = 2.0 (\$200,000).
+- Most home fall to the left of this line, showing that the actual 
+mean is significantly higher than $200,000, which is consistent 
+with the t-test result 
+
+- If the data were not normally distributed, meaning the data was 
+skewed or had outliers, we'd use the Wilcoxon Signed-Rank Test instead.
+- The Wilcoxon Signed-Rank Test compares the median of the sample 
+to a hypothesized value. 
+- $H_0$: median home value = $200{,}000
+- $H_1$: median home value $\ne$ $200{,}000
+
+```{python}
+from scipy.stats import wilcoxon
+
+prices = housing["medv"].dropna()
+
+w_stat, p_value = wilcoxon(prices - 2.0, alternative="two-sided")
+w_stat, p_value
+```
+
+```{python}
+alpha = 0.05
+if p_value < alpha:
+    print(f"Reject $H_0$ (p = {p_value:.4f}) → Median home value differs from $200,000.")
+else:
+    print(f"Fail to reject $H_0$ (p = {p_value:.4f}) → No evidence of a difference from $200,000.")
+```
+
+- wilcoxon() tests whether the median of the sample differs 
+from a hypothesized value 
+- alternative="twosided" checks for any difference 
+
+### Two Sample T-Test 
+
+- A two-sample t-test (also called an independent samples t-test) 
+is used to compare the means of two independent groups to see if 
+they’re statistically different from each other.
+- Here, we test whether median home values differ between high-income and
+low-income neighborhoods, based on medinc (median income).
+- Let:
+    - Group 1: tracts with medinc above the median (“high income”)
+    - Group 2: tracts with medinc at or below the median (“low income”)
+- Hypotheses:
+    - $H_0: \mu_{\text{high}} = \mu_{\text{low}}$
+    - $H_1: \mu_{\text{high}} \ne \mu_{\text{low}}$
+
+```{python}
+housing = housing.rename(columns={
+    "MedInc": "medinc",
+    "MedHouseVal": "medv",
+})
+
+income_median = housing["medinc"].median()
+high_income = housing[housing["medinc"] > income_median]["medv"].dropna()
+low_income = housing[housing["medinc"] <= income_median]["medv"].dropna()
+
+t_stat, p_value = stats.ttest_ind(high_income, low_income, equal_var=False)
+print(f"T-statistic: {t_stat:.3f}, P-value: {p_value:.4f}")
+```
+
+```{python}
+alpha = 0.05
+if p_value < alpha:
+    print(f"Reject $H_0 (p = {p_value:.4f}) → Mean home values differ.")
+else:
+    print(f"Fail to reject $H_0 (p = {p_value:.4f}) → No difference in mean home values.")
+```
+
+- ttest_ind() compares means of two independent groups 
+- equal_var=False: Welch's t-test version, which doesn't assume 
+equal variances
+
+- We can visualize these differences using boxplots 
+- The boxes represent interquartile ranges, so if they barely overlap 
+that's a visual clue of statistical difference 
+
+```{python}
+housing["income_group"] = np.where(housing["medinc"] > income_median,
+"High income",
+"Low income")
+
+sns.boxplot(x="income_group", y="medv", data=housing)
+plt.title("Median Home Values – High vs. Low Income Neighborhoods")
+plt.xlabel("Income Group")
+plt.ylabel("Median Home Value (medv)")
+plt.show()
+```
+
+- If the data don't meet the t-test assumptions (normality, 
+equal variance), we use the Mann-Whitney U test between two groups 
+- In this case, we will test whether the distributions of median 
+home values differ for houses near versus away from the Charles River
+- $H_0$: the distributions of medv are the same in high- and low-income tracts
+- $H_1$: the distributions differ
+
+```{python}
+from scipy import stats
+stat, p_value = stats.mannwhitneyu(high_income, low_income, alternative="two-sided")
+
+print(f"Mann-Whitney U statistic: {stat:.3f}, P-value: {p_value:.4f}")
+
+alpha = 0.05
+if p_value < alpha:
+    print(f"Reject $H_0$ (p = {p_value:.4f}) → "f"Median home values differ between income groups.")
+else:
+    print(f"Fail to reject $H_0$ (p = {p_value:.4f}) → " f"No difference in median home values by income group.")
+```
+
+### ANOVA 
+
+- ANOVA stands for Analysis of Variance
+- It’s a statistical method used to compare the means of three or more 
+groups to determine whether at least one of them is significantly 
+different from the others.
+- Here, we’ll compare average home values across income quartiles based on medinc.
+levels of highway accessibility (rad).
+- $H_0$: all income quartiles have the same mean home value
+- $H_1$: at least one quartile mean differs
+
+```{python}
+housing["income_quartile"] = pd.qcut(
+housing["medinc"],
+q=4,
+labels=["Q1 (lowest)", "Q2", "Q3", "Q4 (highest)"]
+)
+
+groups = [group["medv"].dropna() for _, group in housing.groupby("income_quartile")]
+
+f_stat, p_value = stats.f_oneway(*groups)
+
+print(f"F-statistic: {f_stat:.3f}, P-value: {p_value:.4f}")
+
+alpha = 0.05
+if p_value < alpha:
+    print(f"Reject $H_0$ (p = {p_value:.4f}) → " f"Mean home values differ across income quartiles.")
+else:
+    print(f"Fail to reject $H_0$ (p = {p_value:.4f}) → " f"No difference in mean home values across income quartiles.")
+
+```
+
+- f_oneway() performs the one-way ANOVA test 
+
+- To see this visually: 
+
+```{python}
+sns.boxplot(x="income_quartile", y="medv", data=housing)
+plt.title("Home Values Across Income Quartiles")
+plt.xlabel("Income Quartile (medinc)")
+plt.ylabel("Median Home Value (medv)")
+plt.show()
+```
+
+
+- The Kruskal–Wallis test is a nonparametric alternative to one-way ANOVA.
+- It’s used when the normality assumption is violated or the data contain 
+outliers.
+- $H_0$: the distributions of medv are the same across all income quartiles
+- $H_1$: at least one distribution differs
+
+```{python}
+groups = [group["medv"].dropna() for _, group in housing.groupby("income_quartile")]
+
+h_stat, p_value = stats.kruskal(*groups)
+
+print(f"H-statistic: {h_stat:.3f}, P-value: {p_value:.4f}")
+
+alpha = 0.05
+if p_value < alpha:
+    print(f"Reject $H_0$ (p = {p_value:.4f}) → " f"Median home values differ across income quartiles.")
+else:
+    print(f"Fail to reject $H_0$ (p = {p_value:.4f}) → "f"No difference in median home values across income quartiles.")
+
+```
+
+### Chi-Square Test of Independence 
+
+- The Chi-Square Test of Independence checks whether two categorical 
+variables are related or independent of each other.
+- It’s a nonparametric test, meaning it doesn’t assume normality or 
+equal variances.
+- We’ll test whether income level is associated with house age category.
+
+```{python}
+housing = housing.rename(columns={
+    "MedInc": "medinc",
+    "HouseAge": "houseage"
+})
+
+income_median = housing["medinc"].median()
+age_median    = housing["houseage"].median()
+
+housing["high_income"] = np.where(housing["medinc"] > income_median, 1, 0)
+housing["old_house"]   = np.where(housing["houseage"] > age_median, 1, 0)
+```
+
+- Hypotheses:
+    - $H_0$: income level and house age category are independent
+    - $H_1$: there is an association between income level and house age
+
+```{python}
+table = pd.crosstab(housing["high_income"], housing["old_house"])
+
+chi2, p_value, dof, expected = stats.chi2_contingency(table)
+
+print(f"Chi2 Statistic: {chi2:.3f}, P-value: {p_value:.4f}, Degrees of Freedom: {dof}")
+
+alpha = 0.05
+if p_value < alpha:
+    print(f"Reject $H_0$ (p = {p_value:.4f}) → " f"There is a significant association between income level and house age.")
+else:
+    print(f"Fail to reject $H_0$ (p = {p_value:.4f}) → " f"No significant association between income level and house age.")
+```
+
+- pd.crosstab() creates a contingency table 
+- chi2_contingency() tests independence of two categorical variables 
+
+- Visual
+
+```{python}
+sns.countplot(x="old_house", hue="high_income", data=housing)
+plt.title("House Age Category by Income Level")
+plt.xlabel("Old House (1 = older than median age)")
+plt.ylabel("Count of Tracts")
+plt.legend(title="High Income (1 = above median medinc)")
+plt.show()
+```
+
+- Chi-square tests are great for frequency data, think of them as 
+testing whether "categories are distributed as expected"
+
+### Proportion Test  
+
+- A proportion test is used to compare observed proportions to a 
+hypothesized proportion or between two groups.
+- Useful for categorical yes/no variables 
+- Suppose we define high-income neighborhoods as those with medinc ≥ 5.0
+(median income ≥ $50,000 in this dataset’s units).
+- $H_0: p = p_0 = 0.30$ (30% of tracts are high income)
+- $H_1: p \ne p_0$ (the true proportion differs from 30%)
+
+```{python}
+from statsmodels.stats.proportion import proportions_ztest
+
+high_income_flag = housing["medinc"] >= 5.0
+count = high_income_flag.sum()
+nobs = len(housing)
+p0 = 0.30
+
+stat, p_value = proportions_ztest(count, nobs, value=p0, alternative="two-sided")
+print(f"Z-statistic: {stat:.3f}, P-value: {p_value:.4f}")
+
+alpha = 0.05
+if p_value < alpha:
+    print("Reject $H_0$ → The proportion of high-income tracts differs from 30%.")
+else:
+    print("Fail to reject $H_0$ → No significant difference from 30%.")
+```
+
+- nobs is the total homes 
+- p0 is the hypothesized proportionn 
+- proportions_ztest() is the z-test for proportions (like t-test but for percentages) 
+
+### Correlation Test 
+
+- The Correlation Test measures the strength and direction of the 
+relationship between two continuous variables.
+- $r$ close to $+1$ means a strong correlation 
+- $r$ close to $0$ means little or no correlation 
+- $r$ close to $-1$ means a strong negative correlation 
+- Here, we test whether the average number of rooms per dwelling (averooms)
+is linearly related to median home value (medv).
+- H$H_0: \rho = 0$ (no linear correlation)
+- $H_1: \rho \ne 0$ (a significant linear correlation exists)
+
+```{python}
+x = housing["averooms"]
+y = housing["medv"]
+
+corr, p_value = stats.pearsonr(x, y)
+
+print(f"Correlation coefficient (r): {corr:.3f}, P-value: {p_value:.4f}")
+
+alpha = 0.05
+if p_value < alpha:
+    print(f"Reject $H_0$ (p = {p_value:.4f}) → Significant linear correlation.")
+else:
+    print(f"Fail to reject $H_0$ (p = {p_value:.4f}) → No significant linear correlation.")
+
+```
+
+- Scatterplot for visualization 
+
+```{python}
+sns.scatterplot(x=housing["averooms"], y=housing["medv"], alpha=0.4)
+plt.title("Average Rooms vs. Median Home Value")
+plt.xlabel("Average Number of Rooms per Dwelling (averooms)")
+plt.ylabel("Median Home Value (medv)")
+plt.show()
+```
+
+- The Spearman correlation coefficient $\rho$ measures the strength 
+and direction of a monotonic relationship between two continuous 
+variables.
+- Unlike Pearson’s correlation, it doesn’t assume normality or a 
+linear relationship.
+- $H_0: \rho = 0$ (no monotonic relationship)
+- $H_1: \rho \ne 0$ (a monotonic relationship exists)
+```{python}
+x = housing["averooms"]
+y = housing["medv"]
+
+rho, p_value = stats.spearmanr(x, y)
+
+print(f"Spearman’s rho: {rho:.3f}, P-value: {p_value:.4f}")
+
+alpha = 0.05
+if p_value < alpha:
+    print(f"Reject $H_0$ (p = {p_value:.4f}) → Significant monotonic relationship.")
+else:
+    print(f"Fail to reject $H_0$ (p = {p_value:.4f}) → No significant monotonic relationship.")
+```
+
+### Summary of Tests 
+
+- Each statisical test corresponds to a specific research question type: 
+
+```{python}
+data = {
+    "Test": [
+        "One-sample t-test",
+        "Wilcoxon Signed-Rank Test",
+        "Two-sample t-test",
+        "Mann–Whitney U Test",
+        "ANOVA",
+        "Kruskal–Wallis Test",
+        "Chi-Square Test",
+        "Proportion Test (z-test)",
+        "Pearson Correlation",
+        "Spearman Correlation"
+    ],
+    "Purpose": [
+        "Compare sample mean to a known value",
+        "Nonparametric alternative to one-sample t-test",
+        "Compare means between two independent groups",
+        "Nonparametric alternative to two-sample t-test",
+        "Compare means across 3+ groups",
+        "Nonparametric alternative to ANOVA",
+        "Test association between categorical variables",
+        "Compare observed vs expected proportions",
+        "Measure linear relationship between two continuous variables",
+        "Measure monotonic relationship between two continuous variables"
+    ],
+    "Example": [
+        "Avg home value vs $200k",
+        "Median home value vs $200k",
+        "High- vs low-income neighborhoods",
+        "High- vs low-income neighborhoods",
+        "Home values across income quartiles",
+        "Home values across income quartiles",
+        "Income level vs house age category",
+        "Proportion of high-income tracts = 30%",
+        "Average rooms vs home value",
+        "Average rooms vs home value"
+    ],
+    "Interpretation": [
+        "Is mean ≠ hypothesized value?",
+        "Is median ≠ hypothesized value?",
+        "Difference in group means",
+        "Difference in group medians",
+        "At least one mean differs",
+        "At least one median differs",
+        "Are the variables independent?",
+        "Is the proportion different from expected?",
+        "Is there a linear correlation?",
+        "Is there a monotonic correlation?"
+    ]
+}
+
+df = pd.DataFrame(data)
+df
+```
+
+### Discussions and Takeaways 
+
+- Check assumptions: normality, independence, equal variance.
+- Use nonparametric methods when assumptions fail.
+- Statistical significance ≠ practical importance.
+- Clear hypotheses + clean data = valid conclusions.
+
+### Further Readings 
+- SciPy.stats Documentation: https://docs.scipy.org/doc/scipy/reference/stats.html
+- “Practical Statistics for Data Scientists” — Bruce & Gedeck
+- “Think Stats” by Allen B. Downey 
