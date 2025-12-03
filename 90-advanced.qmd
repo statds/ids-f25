@@ -4,14 +4,18 @@
 <!-- ## multiple imputation -->
 {{< include _multiple_imputation.qmd >}}
 
-<!-- ## Web Scraping -->
-{{< include _webscraping.qmd >}}
-
-<!-- ## Animation -->
-<!-- {{< include _animation.qmd >}} -->
-
 <!-- ## UMAP -->
 {{< include _umap.qmd >}}
 
 <!-- ## Calling R from Python -->
 {{< include _callr.qmd >}}
+
+<!-- ## Web Scraping -->
+{{< include _webscraping.qmd >}}
+
+
+<!-- This section is for deep learning network. -->
+{{< include _deep_learning.qmd >}}
+
+<!-- This section is for nueral network with time series. -->
+{{< include _nntemp.qmd >}}

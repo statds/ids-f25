@@ -619,11 +619,12 @@ better generalization performance in many practical tasks.
 <!-- This section is for random forest. -->
 {{< include _random_forest.qmd >}}
 
+<!-- This section is for SMOTE. -->
+{{< include _smote.qmd >}}
+
+<!-- This section is for naive Bayes. -->
+{{< include _naive_bayes.qmd >}}
 
 <!-- This section is for nueral network. -->
 {{< include _nnet.qmd >}}
-
-
-<!-- This section is for nueral network with time series. -->
-{{< include _nntemp.qmd >}}
 

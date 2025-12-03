@@ -6,16 +6,21 @@ book:
   subtitle: "STAT 3255/5255 @ UConn, Fall 2025"
   author:
     - name: "[Jun Yan](https://statcomp.org) and Students in Fall 2025"
-    - name: Irene Chen, Jingang Chen,
+    - name: Matthew Anzalone
+    - name: Irene Chen, Jingang Chen, Enshuo Cao
     - name: Alejandro Haerter
+    - name: Hannah Levine
     - name: Sonia Lucey
+    - name: Jaden Mayer-Costa
     - name: Lewis Milun
     - name: Sahil Patel
+    - name: Alexander Plotnikov
     - name: Quinn Saltus
     - name: Jacob Schlessel
     - name: Owen Sgro
     - name: Wilson Tang
-    - name: Abby White
+    - name: Justin Tran
+    - name: Abigail White
     - name: Mark Zhang
   date: today
 

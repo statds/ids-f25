@@ -23,6 +23,6 @@ project workflow.
 {{< include _geopandas.qmd >}}
 
 
-<!-- Interesting topics: gmplot, folium -->
+{{< include _gmplot.qmd >}}
 
 {{< include _animations.qmd >}}
