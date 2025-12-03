@@ -10,8 +10,8 @@ draw conclusions about a population based on sample data.
 - It helps determine whether results we observe are due to **chance** or 
 reflect a **real effect**.  
 - Every test starts with two statements:  
-  - **Null hypothesis (H₀):** No effect, no difference, or no relationship.  
-  - **Alternative hypothesis (H₁):** There *is* an effect, difference, or relationship.  
+  - **Null hypothesis ($H_0$):** No effect, no difference, or no relationship.  
+  - **Alternative hypothesis ($H_1$):** There *is* an effect, difference, or relationship.  
 
 ### Why Hypothesis Testing is Important
 
@@ -27,23 +27,24 @@ reflect a **real effect**.
 1. Collect sample data from a population.  
 2. Compute a **test statistic** to measure how far our data deviate from H₀.  
 3. Use a **probability distribution** (t, F, or chi-square) to find a **p-value**.  
-4. The **p-value** tells us how likely our observed data would occur if H₀ were true.  
+4. The **$p$-value** tells us how likely our observed data would occur if $H_0$ were true.  
 5. Decision rule:  
-   - If *p* < α (usually 0.05): reject H₀ → evidence of an effect.  
-   - If *p* ≥ α: fail to reject H₀ → no strong evidence against H₀.
-
----
+   - If *$p$* < α (usually $0.05$): reject $H_0$ → evidence of an effect.  
+   - If *$p$* ≥ α: fail to reject $H_0$ → no strong evidence against $H_0$.
 
 ### Example Context: California Housing Data 
-- The housing dataset allows us to explore real-world market patterns and relationships 
-between property features and price.   
-  - Are house prices different across neighborhoods?  
-  - Do certain features, like having a driveway, air conditioning, or a larger area, 
-lead to higher prices?
-  - Is there a correlation between the number of bedrooms and the overall cost?  
-- Hypothesis testing provides **quantitative evidence** for these questions — 
-helping us determine which factors truly influence housing prices rather than relying 
-on assumptions.   
+- We use the California Housing dataset, accessed via 
+sklearn.datasets.fetch_california_housing(as_frame=True).
+- Each row represents a California census block group with features like:
+    - medinc: median income in the block group
+    - houseage: median house age
+    - averooms: average number of rooms per dwelling
+    - population, aveoccup, latitude, longitude
+    - medv (renamed from MedHouseVal): median house value in units of $100,000
+- Hypothesis testing lets us quantify questions like:
+    - Do higher-income neighborhoods have higher median home values?
+    - Do mean home values differ across income quartiles?
+    - Is there a relationship between average rooms and home value?
 
 ### Load, Clean and Preview the Data 
 
@@ -63,6 +64,7 @@ from sklearn.datasets import fetch_california_housing
 cal = fetch_california_housing(as_frame=True)
 
 housing = cal.frame
+
 housing = housing.rename(columns={"MedHouseVal": "medv"})
 
 ```
@@ -106,16 +108,17 @@ housing["medv"]
 - A one-sample t-test is a statistical test used to determine whether 
 the mean of a single sample is significantly different from a known 
 or hypothesized population mean.
-- In the context of housing data, we can test whether the average 
-house price differs from a target or benchmark value. 
-For example, $1 million. 
-- H₀: μ = 1,000,000 (average house price = 1)
-- H₁: μ ≠ 1,000,000 (average house price ≠ 1) 
+- Here, we test whether the average median home value in California
+differs from $200,000.
+- Recall: medv is measured in $100,000s. So $200,000 corresponds to $\mu_0 = 2.0$.
+- Hypotheses:
+    - $H_0: \mu = 2.0$ (average home value = $200{,}000)
+    - $H_1: \mu \ne 2.0$ (average home value $\ne$ $200{,}000)
 
 ```{python}
 prices = housing["medv"].dropna()
 
-t_stat, p_value = stats.ttest_1samp(prices, popmean=20)  
+t_stat, p_value = stats.ttest_1samp(prices, popmean=2.0)  
 t_stat, p_value
 ```
 
@@ -129,26 +132,26 @@ population mean
 ```{python}
 alpha = 0.05
 if p_value < alpha:
-    print(f"Reject H₀ (p = {p_value:.3f}) → Mean home value differs from $20,000.")
+    print(f"Reject $H_0 (p = {p_value:.3f}) → Mean home value differs from $200,000.")
 else:
-    print(f"Fail to reject H₀ (p = {p_value:.3f}) → No difference from $20,000.")
+    print(f"Fail to reject $H_0 (p = {p_value:.3f}) → No difference from $200,000.")
 ```
 
-- The output (6.19, 1.21e-09) corresponds to the t-statistic and
+- The output (8.54, 1.49e-17) corresponds to the t-statistic and
 p-value 
 - The t-statistic means that the sample is roughly 6 standard errors 
-away from the hypothesized population mean of $20,000 
+away from the hypothesized population mean of $200,000 
 - The p-value is extremely small, far below the 0.05 significance 
 threshold
 - We can conclude that the mean home value is significantly 
 different from $20,000 and we reject the null hypothesis. The average 
-housing prices are not centered around $20,000 
+housing prices are not centered around $200,000 
 
 - We can also visualize this by using a histogram
 
 ```{python}
 plt.hist(prices, bins=30, color="skyblue", edgecolor="black")
-plt.axvline(20, color="red", linestyle="--", label="μ = 20 ($20,000)")
+plt.axvline(20, color="red", linestyle="--", label="μ = 2.0 ($200,000)")
 plt.title("Distribution of Median Home Values")
 plt.xlabel("Median Value ($1000s)")
 plt.ylabel("Frequency")
@@ -157,61 +160,64 @@ plt.show()
 ```
 
 - Notice how most homes cluster below the hypothesized mean value, 
-shown by the red dashed line at μ = 20 (\$20,000).
+shown by the red dashed line at μ = 2.0 (\$200,000).
 - Most home fall to the left of this line, showing that the actual 
-mean is significantly higher than $20,000, which is consistent 
+mean is significantly higher than $200,000, which is consistent 
 with the t-test result 
 
 - If the data were not normally distributed, meaning the data was 
 skewed or had outliers, we'd use the Wilcoxon Signed-Rank Test instead.
 - The Wilcoxon Signed-Rank Test compares the median of the sample 
 to a hypothesized value. 
-- H₀: median home value = $20,000 
-- H₁: median home value ≠ $20,000
+- $H_0$: median home value = $200{,}000
+- $H_1$: median home value $\ne$ $200{,}000
 
 ```{python}
 from scipy.stats import wilcoxon
 
 prices = housing["medv"].dropna()
 
-wilcoxon(prices - 20, alternative="two-sided")
+w_stat, p_value = wilcoxon(prices - 2.0, alternative="two-sided")
+w_stat, p_value
 ```
 
 ```{python}
 alpha = 0.05
 if p_value < alpha:
-    print(f"Reject H₀ (p = {p_value:.4f}) → Median home value differs from $20,000.")
+    print(f"Reject $H_0$ (p = {p_value:.4f}) → Median home value differs from $200,000.")
 else:
-    print(f"Fail to reject H₀ (p = {p_value:.4f}) → No difference from $20,000.")
+    print(f"Fail to reject $H_0$ (p = {p_value:.4f}) → No evidence of a difference from $200,000.")
 ```
 
 - wilcoxon() tests whether the median of the sample differs 
 from a hypothesized value 
 - alternative="twosided" checks for any difference 
-- Wilcoxon test statistic = 48,214.5 and p <0.001
-- We would reject the null hypothesis and conclude the median home 
-value is significantly higher than $20,000, confiming the t-test 
-results without assuming normality
 
 ### Two Sample T-Test 
 
 - A two-sample t-test (also called an independent samples t-test) 
 is used to compare the means of two independent groups to see if 
 they’re statistically different from each other.
-- Here, we’ll test whether the average home value differs between 
-houses located along the Charles River and those not near the river.
-- H₀: μ₁ = μ₂ (the mean home values are the same for houses near and 
-away from the Charles River.)
-- H₁: μ₁ ≠ μ₂ (the mean home values differ depending on proximity 
-to the Charles River.)
+- Here, we test whether median home values differ between high-income and
+low-income neighborhoods, based on medinc (median income).
+- Let:
+    - Group 1: tracts with medinc above the median (“high income”)
+    - Group 2: tracts with medinc at or below the median (“low income”)
+- Hypotheses:
+    - $H_0: \mu_{\text{high}} = \mu_{\text{low}}$
+    - $H_1: \mu_{\text{high}} \ne \mu_{\text{low}}$
 
 ```{python}
-from scipy import stats
+housing = housing.rename(columns={
+    "MedInc": "medinc",
+    "MedHouseVal": "medv",
+})
 
-by_river = housing[housing["chas"] == 1]["medv"].dropna()
-not_by_river = housing[housing["chas"] == 0]["medv"].dropna()
+income_median = housing["medinc"].median()
+high_income = housing[housing["medinc"] > income_median]["medv"].dropna()
+low_income = housing[housing["medinc"] <= income_median]["medv"].dropna()
 
-t_stat, p_value = stats.ttest_ind(by_river, not_by_river, equal_var=False)
+t_stat, p_value = stats.ttest_ind(high_income, low_income, equal_var=False)
 print(f"T-statistic: {t_stat:.3f}, P-value: {p_value:.4f}")
 ```
 
@@ -223,57 +229,44 @@ else:
     print(f"Fail to reject H₀ (p = {p_value:.4f}) → No difference in mean home values.")
 ```
 
-- chas is a binary variable (1 = near river and 0 = away)
 - ttest_ind() compares means of two independent groups 
 - equal_var=False: Welch's t-test version, which doesn't assume 
 equal variances
-- t = 3.11, p = 0.0036 
-- We would reject the null hypothesis so we can conclude that homes 
-near the Charles River have significantly different mean values 
-than those farther away 
 
 - We can visualize these differences using boxplots 
 - The boxes represent interquartile ranges, so if they barely overlap 
-that's a visual clue of statisticla difference 
+that's a visual clue of statistical difference 
 
 ```{python}
-sns.boxplot(x="chas", y="medv", data=housing, palette="pastel")
-plt.title("Median Home Values – Near vs. Away from Charles River")
-plt.xlabel("Next to Charles River (1 = Yes, 0 = No)")
-plt.ylabel("Median Home Value ($1000s)")
+housing["income_group"] = np.where(housing["medinc"] > income_median,
+"High income",
+"Low income")
+
+sns.boxplot(x="income_group", y="medv", data=housing)
+plt.title("Median Home Values – High vs. Low Income Neighborhoods")
+plt.xlabel("Income Group")
+plt.ylabel("Median Home Value (medv)")
 plt.show()
 ```
-
-- This boxplot compares the median home values for houses next to 
-the Charles River (chas =1 ) versus those not near the river 
-(chas = 0) 
-- The orange box is visibly higher than the blue box, showing 
-that homes near the Charles river tend to have high median values 
 
 - If the data don't meet the t-test assumptions (normality, 
 equal variance), we use the Mann-Whitney U test between two groups 
 - In this case, we will test whether the distributions of median 
 home values differ for houses near versus away from the Charles River
-- H₀: μ₁ = μ₂ (the distributions of home values are the same for both groups.) 
-- H₁: μ₁ ≠ μ₂ (the distributions of home values differ between the two groups.) 
+- $H_0$: the distributions of medv are the same in high- and low-income tracts
+- $H_1$: the distributions differ
 
 ```{python}
 from scipy import stats
+stat, p_value = stats.mannwhitneyu(high_income, low_income, alternative="two-sided")
 
-by_river = housing[housing["chas"] == 1]["medv"].dropna()
-not_by_river = housing[housing["chas"] == 0]["medv"].dropna()
-
-stat, p_value = stats.mannwhitneyu(by_river, not_by_river, alternative="two-sided")
-
-print(f"Mann-Whitney U statistic: {stat:.3f}, p-value: {p_value:.4f}")
+print(f"Mann-Whitney U statistic: {stat:.3f}, P-value: {p_value:.4f}")
 
 alpha = 0.05
 if p_value < alpha:
-    print(f"Reject H₀ (p = {p_value:.4f}) → "
-          f"Median home values differ based on proximity to the Charles River.")
+    print(f"Reject $H_0$ (p = {p_value:.4f}) → "f"Median home values differ between income groups.")
 else:
-    print(f"Fail to reject H₀ (p = {p_value:.4f}) → "
-          f"No difference in median home values based on proximity to the Charles River.")
+    print(f"Fail to reject $H_0$ (p = {p_value:.4f}) → " f"No difference in median home values by income group.")
 ```
 
 ### ANOVA 
@@ -282,17 +275,19 @@ else:
 - It’s a statistical method used to compare the means of three or more 
 groups to determine whether at least one of them is significantly 
 different from the others.
-- Here, we’ll compare the average home values (medv) across different 
+- Here, we’ll compare average home values across income quartiles based on medinc.
 levels of highway accessibility (rad).
-- H₀: All group means are equal.
-- H₁: At least one group mean differs.
+- $H_0$: all income quartiles have the same mean home value
+- $H_1$: at least one quartile mean differs
 
 ```{python}
-from scipy import stats
-import seaborn as sns
-import matplotlib.pyplot as plt
+housing["income_quartile"] = pd.qcut(
+housing["medinc"],
+q=4,
+labels=["Q1 (lowest)", "Q2", "Q3", "Q4 (highest)"]
+)
 
-groups = [group["medv"].dropna() for name, group in housing.groupby("rad")]
+groups = [group["medv"].dropna() for _, group in housing.groupby("income_quartile")]
 
 f_stat, p_value = stats.f_oneway(*groups)
 
@@ -300,24 +295,21 @@ print(f"F-statistic: {f_stat:.3f}, P-value: {p_value:.4f}")
 
 alpha = 0.05
 if p_value < alpha:
-    print(f"Reject H₀ (p = {p_value:.4f}) → "
-          f"Mean home values differ across highway accessibility levels.")
+    print(f"Reject $H_0$ (p = {p_value:.4f}) → " f"Mean home values differ across income quartiles.")
 else:
-    print(f"Fail to reject H₀ (p = {p_value:.4f}) → "
-          f"No difference in mean home values across highway accessibility levels.")
+    print(f"Fail to reject $H_0$ (p = {p_value:.4f}) → " f"No difference in mean home values across income quartiles.")
 
 ```
 
-- groupby("rad") splits data into groups based on accessibility index 
 - f_oneway() performs the one-way ANOVA test 
 
 - To see this visually: 
 
 ```{python}
-sns.boxplot(x="rad", y="medv", data=housing, palette="pastel")
-plt.title("Home Values Across Highway Accessibility Levels (RAD)")
-plt.xlabel("RAD (Accessibility to Highways)")
-plt.ylabel("Median Home Value ($1000s)")
+sns.boxplot(x="income_quartile", y="medv", data=housing)
+plt.title("Home Values Across Income Quartiles")
+plt.xlabel("Income Quartile (medinc)")
+plt.ylabel("Median Home Value (medv)")
 plt.show()
 ```
 
@@ -325,15 +317,11 @@ plt.show()
 - The Kruskal–Wallis test is a nonparametric alternative to one-way ANOVA.
 - It’s used when the normality assumption is violated or the data contain 
 outliers.
-- Here, we compare median home values (medv) across different levels of highway 
-accessibility (rad).
-- H₀: μ₁ = μ₂ = μ₃ = … (the distributions of home values are the same across all 
-highway accessibility levels)
-- H₁: At least one μᵢ differs (the distributions of home values differ across 
-highway accessibility levels) 
+- $H_0$: the distributions of medv are the same across all income quartiles
+- $H_1$: at least one distribution differs
 
 ```{python}
-groups = [group["medv"].dropna() for name, group in housing.groupby("rad")]
+groups = [group["medv"].dropna() for _, group in housing.groupby("income_quartile")]
 
 h_stat, p_value = stats.kruskal(*groups)
 
@@ -341,11 +329,10 @@ print(f"H-statistic: {h_stat:.3f}, P-value: {p_value:.4f}")
 
 alpha = 0.05
 if p_value < alpha:
-    print(f"Reject H₀ (p = {p_value:.4f}) → "
-          f"Median home values differ across highway accessibility levels.")
+    print(f"Reject $H_0$ (p = {p_value:.4f}) → " f"Median home values differ across income quartiles.")
 else:
-    print(f"Fail to reject H₀ (p = {p_value:.4f}) → "
-          f"No difference in median home values across highway accessibility levels.")
+    print(f"Fail to reject $H_0$ (p = {p_value:.4f}) → "f"No difference in median home values across income quartiles.")
+
 ```
 
 ### Chi-Square Test of Independence 
@@ -354,13 +341,27 @@ else:
 variables are related or independent of each other.
 - It’s a nonparametric test, meaning it doesn’t assume normality or 
 equal variances.
-- Here, we test whether proximity to the Charles River (chas) is related to 
-highway accessibility (rad).
-- H₀: chas and rad are independent.
-- H₁: There is an association between chas and rad.
+- We’ll test whether income level is associated with house age category.
 
 ```{python}
-table = pd.crosstab(housing["chas"], housing["rad"])
+housing = housing.rename(columns={
+    "MedInc": "medinc",
+    "HouseAge": "houseage"
+})
+
+income_median = housing["medinc"].median()
+age_median    = housing["houseage"].median()
+
+housing["high_income"] = np.where(housing["medinc"] > income_median, 1, 0)
+housing["old_house"]   = np.where(housing["houseage"] > age_median, 1, 0)
+```
+
+- Hypotheses:
+    - $H_0$: income level and house age category are independent
+    - $H_1$: there is an association between income level and house age
+
+```{python}
+table = pd.crosstab(housing["high_income"], housing["old_house"])
 
 chi2, p_value, dof, expected = stats.chi2_contingency(table)
 
@@ -368,11 +369,9 @@ print(f"Chi2 Statistic: {chi2:.3f}, P-value: {p_value:.4f}, Degrees of Freedom: 
 
 alpha = 0.05
 if p_value < alpha:
-    print(f"Reject H₀ (p = {p_value:.4f}) → There is a significant association "
-          f"between proximity to the Charles River and highway accessibility.")
+    print(f"Reject $H_0$ (p = {p_value:.4f}) → " f"There is a significant association between income level and house age.")
 else:
-    print(f"Fail to reject H₀ (p = {p_value:.4f}) → No significant association "
-          f"between proximity to the Charles River and highway accessibility.")
+    print(f"Fail to reject $H_0$ (p = {p_value:.4f}) → " f"No significant association between income level and house age.")
 ```
 
 - pd.crosstab() creates a contingency table 
@@ -381,12 +380,11 @@ else:
 - Visual
 
 ```{python}
-sns.countplot(x="rad", hue="chas", data=housing, palette="pastel")
-
-plt.title("Highway Accessibility by Proximity to the Charles River")
-plt.xlabel("RAD (Index of Highway Accessibility)")
-plt.ylabel("Count of Homes")
-plt.legend(title="Next to Charles River (1 = Yes, 0 = No)")
+sns.countplot(x="old_house", hue="high_income", data=housing)
+plt.title("House Age Category by Income Level")
+plt.xlabel("Old House (1 = older than median age)")
+plt.ylabel("Count of Tracts")
+plt.legend(title="High Income (1 = above median medinc)")
 plt.show()
 ```
 
@@ -397,29 +395,30 @@ testing whether "categories are distributed as expected"
 
 - A proportion test is used to compare observed proportions to a 
 hypothesized proportion or between two groups.
-- Useful for categorical yes/no variables, like homes located next 
-to the Charles River (`chas`).
-- H₀: p = p₀ (the true proportion equals the hypothesized value)
-- H₁: p ≠ p₀ (the true proportion differs from the hypothesized value)
+- Useful for categorical yes/no variables 
+- Suppose we define high-income neighborhoods as those with medinc ≥ 5.0
+(median income ≥ $50,000 in this dataset’s units).
+- $H_0: p = p_0 = 0.30$ (30% of tracts are high income)
+- $H_1: p \ne p_0$ (the true proportion differs from 30%)
 
 ```{python}
 from statsmodels.stats.proportion import proportions_ztest
 
-count = (housing["chas"] == 1).sum()
+high_income_flag = housing["medinc"] >= 5.0
+count = high_income_flag.sum()
 nobs = len(housing)
-p0 = 0.10
+p0 = 0.30
 
 stat, p_value = proportions_ztest(count, nobs, value=p0, alternative="two-sided")
 print(f"Z-statistic: {stat:.3f}, P-value: {p_value:.4f}")
 
 alpha = 0.05
 if p_value < alpha:
-    print("Reject H₀ → The proportion of homes near the river differs from 10%.")
+    print("Reject $H_0$ → The proportion of high-income tracts differs from 30%.")
 else:
-    print("Fail to reject H₀ → No significant difference from 10%.")
+    print("Fail to reject $H_0$ → No significant difference from 30%.")
 ```
 
-- count is the number of homes near the river 
 - nobs is the total homes 
 - p0 is the hypothesized proportionn 
 - proportions_ztest() is the z-test for proportions (like t-test but for percentages) 
@@ -428,17 +427,17 @@ else:
 
 - The Correlation Test measures the strength and direction of the 
 relationship between two continuous variables.
-- r close to +1 means a strong correlation 
-- r close to 0 means little or no correlation 
-- r close to -1 means a strong negative correlation 
-- Here, we test whether there is a linear relationship between the 
-number of rooms per dwelling (rm) and the median home value (medv).
-- H₀: ρ = 0 (no correlation between rooms and home value._ 
-- H₁: ρ ≠ 0 (a significant correlation exists between rooms and home value.) 
+- $r$ close to $+1$ means a strong correlation 
+- $r$ close to $0$ means little or no correlation 
+- $r$ close to $-1$ means a strong negative correlation 
+- Here, we test whether the average number of rooms per dwelling (averooms)
+is linearly related to median home value (medv).
+- H$H_0: \rho = 0$ (no linear correlation)
+- $H_1: \rho \ne 0$ (a significant linear correlation exists)
 
 ```{python}
-x = housing["rm"]      # average number of rooms per dwelling
-y = housing["medv"]    # median home value ($1000s)
+x = housing["averooms"]
+y = housing["medv"]
 
 corr, p_value = stats.pearsonr(x, y)
 
@@ -446,37 +445,32 @@ print(f"Correlation coefficient (r): {corr:.3f}, P-value: {p_value:.4f}")
 
 alpha = 0.05
 if p_value < alpha:
-    print(f"Reject H₀ (p = {p_value:.4f}) → There is a significant linear correlation.")
+    print(f"Reject $H_0$ (p = {p_value:.4f}) → Significant linear correlation.")
 else:
-    print(f"Fail to reject H₀ (p = {p_value:.4f}) → No significant correlation.")
+    print(f"Fail to reject $H_0$ (p = {p_value:.4f}) → No significant linear correlation.")
+
 ```
 
 - Scatterplot for visualization 
 
 ```{python}
-sns.scatterplot(x=housing["rm"], y=housing["medv"], alpha=0.4)
-plt.title("Rooms vs. Median Home Value")
-plt.xlabel("Average Number of Rooms per Dwelling (RM)")
-plt.ylabel("Median Home Value ($1000s)")
+sns.scatterplot(x=housing["averooms"], y=housing["medv"], alpha=0.4)
+plt.title("Average Rooms vs. Median Home Value")
+plt.xlabel("Average Number of Rooms per Dwelling (averooms)")
+plt.ylabel("Median Home Value (medv)")
 plt.show()
 ```
 
-- The Spearman correlation coefficient (ρ) measures the strength 
+- The Spearman correlation coefficient $\rho$ measures the strength 
 and direction of a monotonic relationship between two continuous 
 variables.
 - Unlike Pearson’s correlation, it doesn’t assume normality or a 
 linear relationship.
-- Here, we test whether the number of rooms (rm) and median home value
-(medv) are 
-monotonically related.
-- H₀: ρ = 0 (There is no monotonic relationship between the number 
-of rooms and home value.)
-- H₁: ρ ≠ 0 (There is a monotonic relationship between the number 
-of rooms and home value.)
-
+- $H_0: \rho = 0$ (no monotonic relationship)
+- $H_1: \rho \ne 0$ (a monotonic relationship exists)
 ```{python}
-x = housing["rm"].fillna(0)
-y = housing["medv"].fillna(0)
+x = housing["averooms"]
+y = housing["medv"]
 
 rho, p_value = stats.spearmanr(x, y)
 
@@ -484,9 +478,9 @@ print(f"Spearman’s rho: {rho:.3f}, P-value: {p_value:.4f}")
 
 alpha = 0.05
 if p_value < alpha:
-    print(f"Reject H₀ (p = {p_value:.4f}) → There is a significant monotonic relationship.")
+    print(f"Reject $H_0$ (p = {p_value:.4f}) → Significant monotonic relationship.")
 else:
-    print(f"Fail to reject H₀ (p = {p_value:.4f}) → No significant monotonic relationship.")
+    print(f"Fail to reject $H_0$ (p = {p_value:.4f}) → No significant monotonic relationship.")
 ```
 
 ### Summary of Tests 
@@ -520,16 +514,16 @@ data = {
         "Measure monotonic relationship between two continuous variables"
     ],
     "Example": [
-        "Avg home value vs $20k",
-        "Median home value vs $20k",
-        "Homes near vs away from river",
-        "Homes near vs away from river",
-        "Home values across highway access levels",
-        "Home values across highway access levels",
-        "River proximity vs highway access",
-        "Proportion of riverfront homes = 10%",
-        "Rooms vs home value",
-        "Rooms vs home value"
+        "Avg home value vs $200k",
+        "Median home value vs $200k",
+        "High- vs low-income neighborhoods",
+        "High- vs low-income neighborhoods",
+        "Home values across income quartiles",
+        "Home values across income quartiles",
+        "Income level vs house age category",
+        "Proportion of high-income tracts = 30%",
+        "Average rooms vs home value",
+        "Average rooms vs home value"
     ],
     "Interpretation": [
         "Is mean ≠ hypothesized value?",
