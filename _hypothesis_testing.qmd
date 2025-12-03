@@ -34,7 +34,7 @@ reflect a **real effect**.
 
 ---
 
-### Example Context: Boston Housing Data 
+### Example Context: California Housing Data 
 - The housing dataset allows us to explore real-world market patterns and relationships 
 between property features and price.   
   - Are house prices different across neighborhoods?  
@@ -57,8 +57,14 @@ from scipy import stats # provides statistical operations
 import matplotlib.pyplot as plt # visualizations
 import seaborn as sns # visualizations 
 
+from sklearn.datasets import fetch_california_housing
+
 # Step 2: Load dataset from csv 
-housing = pd.read_csv("data/housing.csv")
+cal = fetch_california_housing(as_frame=True)
+
+housing = cal.frame
+housing = housing.rename(columns={"MedHouseVal": "medv"})
+
 ```
 
 - Then, we want to clean the data 
