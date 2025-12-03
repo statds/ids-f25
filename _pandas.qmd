@@ -65,7 +65,7 @@ print(injured.head(5))
 ```
 
 ### Using Boolean and .loc
-- '.loc' is used to **access groups of rows and columns** by 
+- `.loc` is used to **access groups of rows and columns** by 
 *labels* or *Boolean conditions*.
 ```{python}
 # Select first 5 rows and specific columns

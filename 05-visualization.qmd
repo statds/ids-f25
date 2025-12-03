@@ -1,3 +1,11 @@
+---
+resources:
+  _plotnine.qmd
+  _geopandas.qmd
+  _gmplot.qmd
+  _animations.qmd
+---
+
 # Data Visualization
 
 In this chapter we embrace visualization as a cornerstone of modern

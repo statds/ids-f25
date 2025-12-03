@@ -1,3 +1,9 @@
+---
+resources:
+  - _pandas.qmd
+  - _sql.qmd
+---
+
 # Data Manipulation
 
 ```{python}

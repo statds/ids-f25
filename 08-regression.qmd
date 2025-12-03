@@ -1,3 +1,9 @@
+---
+resources: 
+  - _spatial_stats.qmd
+---
+
+
 # Regression Models {# ch-regression}
 
 

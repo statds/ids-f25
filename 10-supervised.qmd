@@ -1,3 +1,11 @@
+---
+resources:
+  - _random_forest.qmd
+  - _smote.qmd
+  - _naive_bayes.qmd
+  - _nnet.qmd
+---
+
 # Supervised Learning
 
 ## Introduction

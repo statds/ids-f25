@@ -1,3 +1,9 @@
+---
+resources:
+  - _ethics.qmd
+  - _communication.qmd
+---
+
 # Introduction {#sec-intro}
 
 ## What Is Data Science?

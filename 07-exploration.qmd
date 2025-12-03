@@ -1,3 +1,8 @@
+---
+resources:
+  - _hypothesis_testing.qmd
+---
+
 # Data Exploration {#ch-exploration}
 
 ## Introduction
@@ -495,4 +500,4 @@ Good practices keep exploration structured and reproducible. They also create a
 record of reasoning that improves collaboration and supports later analysis.
 
 
-<!-- {{< include _hypotest.qmd >}} -->
+{{< include _hypothesis_testing.qmd >}}

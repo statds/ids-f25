@@ -1,3 +1,10 @@
+---
+resources:
+  - _pca.qmd
+  - _sne.qmd
+---
+
+
 # Unsupervised Learning
 
 <!-- Principal component analysis -->

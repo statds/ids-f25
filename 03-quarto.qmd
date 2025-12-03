@@ -1,3 +1,9 @@
+---
+resources: 
+  - _markdown.qmd
+  - _quarto_presentation.qmd
+---
+
 # Reproducible Data Science {#sec-quarto}
 
 Data science projects should be reproducible to be trustworthy. Dynamic
