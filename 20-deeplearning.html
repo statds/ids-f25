@@ -1,0 +1,1273 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.33">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>12&nbsp; Deep Learning – Introduction to Data Science</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./90-advanced.html" rel="next">
+<link href="./11-unsupervised.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-485d01fc63b59abcd3ee1bf1e8e2748d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./20-deeplearning.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Deep Learning</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Introduction to Data Science</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preliminaries</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-git.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Project Management</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Reproducible Data Science</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-python.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Python Refreshment</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-visualization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data Visualization</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-manipulation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data Manipulation</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-exploration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Data Exploration</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Regression Models</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09-classification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Classification</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10-supervised.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Supervised Learning</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11-unsupervised.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Unsupervised Learning</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./20-deeplearning.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Deep Learning</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./90-advanced.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Advanced Topics</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./95-exercises.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Exercises</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./99-references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#deep-learning-dl" id="toc-deep-learning-dl" class="nav-link active" data-scroll-target="#deep-learning-dl"><span class="header-section-number">12.1</span> Deep Learning (DL)</a>
+  <ul class="collapse">
+  <li><a href="#early-dl-history" id="toc-early-dl-history" class="nav-link" data-scroll-target="#early-dl-history"><span class="header-section-number">12.1.1</span> Early DL History</a></li>
+  <li><a href="#modern-dl-history" id="toc-modern-dl-history" class="nav-link" data-scroll-target="#modern-dl-history"><span class="header-section-number">12.1.2</span> Modern DL History</a></li>
+  <li><a href="#neural-networks-vs.-deep-learning" id="toc-neural-networks-vs.-deep-learning" class="nav-link" data-scroll-target="#neural-networks-vs.-deep-learning"><span class="header-section-number">12.1.3</span> Neural Networks vs.&nbsp;Deep Learning</a></li>
+  <li><a href="#types-of-deep-learning-models" id="toc-types-of-deep-learning-models" class="nav-link" data-scroll-target="#types-of-deep-learning-models"><span class="header-section-number">12.1.4</span> Types of Deep-learning Models</a></li>
+  <li><a href="#current-ai-surge-and-transformer-models" id="toc-current-ai-surge-and-transformer-models" class="nav-link" data-scroll-target="#current-ai-surge-and-transformer-models"><span class="header-section-number">12.1.5</span> Current AI Surge and Transformer Models</a></li>
+  <li><a href="#why-transformers" id="toc-why-transformers" class="nav-link" data-scroll-target="#why-transformers"><span class="header-section-number">12.1.6</span> Why Transformers?</a></li>
+  <li><a href="#pytorch-and-implementation-of-transformer-model" id="toc-pytorch-and-implementation-of-transformer-model" class="nav-link" data-scroll-target="#pytorch-and-implementation-of-transformer-model"><span class="header-section-number">12.1.7</span> Pytorch and implementation of transformer model</a></li>
+  <li><a href="#implementation-of-transformer-model" id="toc-implementation-of-transformer-model" class="nav-link" data-scroll-target="#implementation-of-transformer-model"><span class="header-section-number">12.1.8</span> Implementation of Transformer Model</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">12.1.9</span> Conclusion</a></li>
+  <li><a href="#further-readings" id="toc-further-readings" class="nav-link" data-scroll-target="#further-readings"><span class="header-section-number">12.1.10</span> Further Readings</a></li>
+  </ul></li>
+  <li><a href="#neural-networks-for-data-with-temporal-dependence" id="toc-neural-networks-for-data-with-temporal-dependence" class="nav-link" data-scroll-target="#neural-networks-for-data-with-temporal-dependence"><span class="header-section-number">12.2</span> Neural Networks for Data with Temporal Dependence</a>
+  <ul class="collapse">
+  <li><a href="#recurrent-neural-networks-rnns" id="toc-recurrent-neural-networks-rnns" class="nav-link" data-scroll-target="#recurrent-neural-networks-rnns"><span class="header-section-number">12.2.1</span> Recurrent Neural Networks (RNNs)</a></li>
+  <li><a href="#long-short-term-memory-lstm" id="toc-long-short-term-memory-lstm" class="nav-link" data-scroll-target="#long-short-term-memory-lstm"><span class="header-section-number">12.2.2</span> Long Short-Term Memory (LSTM)</a></li>
+  <li><a href="#gated-recurrent-unit-gru" id="toc-gated-recurrent-unit-gru" class="nav-link" data-scroll-target="#gated-recurrent-unit-gru"><span class="header-section-number">12.2.3</span> Gated Recurrent Unit (GRU)</a></li>
+  <li><a href="#example-forecasting-a-synthetic-sequential-signal-pytorch" id="toc-example-forecasting-a-synthetic-sequential-signal-pytorch" class="nav-link" data-scroll-target="#example-forecasting-a-synthetic-sequential-signal-pytorch"><span class="header-section-number">12.2.4</span> Example: Forecasting a Synthetic Sequential Signal (PyTorch)</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Deep Learning</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<!-- This section is for deep learning network. -->
+<section id="deep-learning-dl" class="level2" data-number="12.1">
+<h2 data-number="12.1" class="anchored" data-anchor-id="deep-learning-dl"><span class="header-section-number">12.1</span> Deep Learning (DL)</h2>
+<p>This section was prepared by Matthew Anzalone: final semester MsQE (Master of Science in Quantitative Economics) student. His research interests include community cohesion as predictors of economic outcomes, market concentration, and health economics.</p>
+<section id="early-dl-history" class="level3" data-number="12.1.1">
+<h3 data-number="12.1.1" class="anchored" data-anchor-id="early-dl-history"><span class="header-section-number">12.1.1</span> Early DL History</h3>
+<p>Deep learning owes its existence to the original 1943 work of Warren McCulloch and Walter Pitts, who built the first artificial, electronic neural network. Although, it was not until the 1970s that deep learning got its start, following the work of Alexy Ivakhnenko and V. G. Lapa in 1967. 1979 saw the development of the first functional deep learning model in Kunihiko Fukushima’s “Neocognitron”.</p>
+</section>
+<section id="modern-dl-history" class="level3" data-number="12.1.2">
+<h3 data-number="12.1.2" class="anchored" data-anchor-id="modern-dl-history"><span class="header-section-number">12.1.2</span> Modern DL History</h3>
+<p>However, this was just the primordial roots of deep learning. It was not until 1989, when Yann LeChun, et al.&nbsp;implemented backpropagation into neural networks that the deep learning we are familiar with today got its start. There were still hurdles, though. The hardware of the 1990s was not up to speed with what was required to run deep learning models at anything resembling an acceptable speed. The modern advent and improvement of GPUs (graphical processing units), especially by Nvidia, allowed for the eventual explosion of machine learning and AI that we observe today. Such GPUs allow for running calculations simultaneously and in parallel, thus increasing speed and making calculations feasible.</p>
+</section>
+<section id="neural-networks-vs.-deep-learning" class="level3" data-number="12.1.3">
+<h3 data-number="12.1.3" class="anchored" data-anchor-id="neural-networks-vs.-deep-learning"><span class="header-section-number">12.1.3</span> Neural Networks vs.&nbsp;Deep Learning</h3>
+<p>How are deep learning models different from neural networks? Neural networks are not different from deep learning models, and are, in fact, the principle building block of DL models. The scope and depth of the neural networks are the only thing that separates neural networks from Deep learning models. DL models are defined (according to IBM) as the training of neural network models with at least four layers.</p>
+<p>The advantage of DL models comes from the intermediate, hidden layers, where most of the delicate comparisons take place. These intermediate layers allow for a much more rigorous understanding of the input data, concentrating the essence of the interactions from the broader surface-layer nodes’ values to increasingly accurate outputs (depending on the number of intermediate layers).</p>
+<p>Because deep learning is an extension of neural networks, training DL models also rely on backpropagation and gradient descent.</p>
+</section>
+<section id="types-of-deep-learning-models" class="level3" data-number="12.1.4">
+<h3 data-number="12.1.4" class="anchored" data-anchor-id="types-of-deep-learning-models"><span class="header-section-number">12.1.4</span> Types of Deep-learning Models</h3>
+<section id="convolutional-neural-networks" class="level4" data-number="12.1.4.1">
+<h4 data-number="12.1.4.1" class="anchored" data-anchor-id="convolutional-neural-networks"><span class="header-section-number">12.1.4.1</span> Convolutional Neural Networks</h4>
+<p>In essence, this method concentrates information down from a large number of nodes to a smaller sub-selection of nodes, that is, it creates convolution layers. These convolution layers are then used to preserve information on a larger scale, resulting in dimension reduction and allowing for efficient calculations from large, multi-factor datasets. One of the things this method is historically used for is image classification and recognition, as it allows one to break up images into many large parts, rather than looking at each pixel individually.</p>
+</section>
+<section id="recurrent-neural-networks" class="level4" data-number="12.1.4.2">
+<h4 data-number="12.1.4.2" class="anchored" data-anchor-id="recurrent-neural-networks"><span class="header-section-number">12.1.4.2</span> Recurrent Neural Networks</h4>
+<p>This method allows for sequential calculations from one node to the next. Therefore, it is useful for time-sequenced data or language recognition. For example, in a subject such as education economics, data might be years of education for individuals over time. Each additional year of education might depend on the GPA of the last year of education (IE: one will pursue a bachelors degree if they receive consistently high grades in an associates degree). Therefore, the model would need to understand each previous year in sequence to be able to predict the eventual final years of education for an individual.</p>
+</section>
+<section id="generative-adversarial-networks" class="level4" data-number="12.1.4.3">
+<h4 data-number="12.1.4.3" class="anchored" data-anchor-id="generative-adversarial-networks"><span class="header-section-number">12.1.4.3</span> Generative adversarial networks</h4>
+<p>These are used to generate new data, based on some example training data. The implementation is extremely interesting, in that the model pits two neural networks against one another until the testing network cannot accurately decide whether the data is artificially generated or part of the training set. This sounds amazing, but training such a model is, according to IBM, difficult and unstable. This method can be used with image generation and, arguably, seals our collective fate for eventually not being able to tell real pictures from AI-generated ones.</p>
+</section>
+</section>
+<section id="current-ai-surge-and-transformer-models" class="level3" data-number="12.1.5">
+<h3 data-number="12.1.5" class="anchored" data-anchor-id="current-ai-surge-and-transformer-models"><span class="header-section-number">12.1.5</span> Current AI Surge and Transformer Models</h3>
+<p>The current surge in AI infrastructure and consumer AI models can be traced back to the 2017 Google paper <a href="https://arxiv.org/abs/1706.03762">“Attention is All You Need”</a>. (Nearly all of the authors of the paper went on to found, co-found, or become CEO of highly successful AI companies). The paper outlines a new architecture for deep learning: the transformer model. The new methods are responsible for the existence of GPT (generative pre-trained transformer) models, such as ChatGPT. The advantage of the transformer model is its attention layers, which specify which nodes are closely related to other nodes. That is, the attention layer specifies which parts of the data interact with one another, meaning it can focus on certain interactions as more important to final output, increasing efficiency and accuracy. According to IBM, “…transformers don’t use recurrent layers; a standard transformer architecture uses only attention layers and standard feedforward layers, leveraging a novel structure inspired by the logic of relational databases.” That is, transformer models are more efficient than the recurrent neural networks which they succeeded.</p>
+</section>
+<section id="why-transformers" class="level3" data-number="12.1.6">
+<h3 data-number="12.1.6" class="anchored" data-anchor-id="why-transformers"><span class="header-section-number">12.1.6</span> Why Transformers?</h3>
+<p>Recurrent networks can only focus on one part of a sequence at a time, making them less scalable. However, transformers allow for a model to examine an entire sequence at once, and then focus on the most meaningful interactions for final output. This ability of transformers fits perfectly with the function of GPUs, as it allows for the simultaneous calculations of the transformer to run on the simultaneous hardware of the GPU.</p>
+<p>The attention mechanism of transformers runs in a few successive steps:<br>
++ reading data and converting into vector features,<br>
++ determining interactions between vector features,<br>
++ assigning interactions scores for feature combinations,<br>
++ and finally assigning an attention weights for features.<br>
+This continues until the model arrives at accurate attention weights for final outputs, via backpropagation and gradient descent.</p>
+<p>Queries and keys are used to compare a data sequence. The query is used as the starting point for retrieval of attention interactions. Keys represent the value of the token or “cell”. The output is then scaled by the attention weight, and the final output is passed on to the next node/layer, or the final output. (Tokens are how models like LLMs store information, such as words.)</p>
+<p>This method can be extended to examples of image classification, which is used here to demonstrate the meaning of attention, query, and key.</p>
+</section>
+<section id="pytorch-and-implementation-of-transformer-model" class="level3" data-number="12.1.7">
+<h3 data-number="12.1.7" class="anchored" data-anchor-id="pytorch-and-implementation-of-transformer-model"><span class="header-section-number">12.1.7</span> Pytorch and implementation of transformer model</h3>
+<section id="installation-of-pytorch" class="level5" data-number="12.1.7.0.1">
+<h5 data-number="12.1.7.0.1" class="anchored" data-anchor-id="installation-of-pytorch"><span class="header-section-number">12.1.7.0.1</span> Installation of Pytorch</h5>
+<p>Go to <a href="https://pytorch.org/get-started/locally/">the installation and startup documentation page</a> and follow the installation steps, then run the code below, as outlined by the installation page.</p>
+<p>The documentation states that a NVidia GPU is suggested for GPU processing, so this overview will use the CPU installation for accessibility. The GPU version can be installed by selecting one of the “CUDA” options on the installation page, then running the given pip-command in Python. This install command will run on both Mac and Windows (the Linux command is slightly different). When selecting the CPU option on Mac, the option reads “default”.</p>
+<div id="e7d291bc" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#pip install torch torchvision</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>To verify whether torch installed correctly, the suggested test code from the installation page is run below, showing that the torch data-structure is functional.</p>
+<div id="4878f2fc" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> torch.rand(<span class="dv">5</span>, <span class="dv">3</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>tensor([[0.1455, 0.2358, 0.9807],
+        [0.9555, 0.3236, 0.4520],
+        [0.5870, 0.3663, 0.9071],
+        [0.0139, 0.0278, 0.8538],
+        [0.7208, 0.7525, 0.2415]])</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="implementation-of-transformer-model" class="level3" data-number="12.1.8">
+<h3 data-number="12.1.8" class="anchored" data-anchor-id="implementation-of-transformer-model"><span class="header-section-number">12.1.8</span> Implementation of Transformer Model</h3>
+<section id="data-importation" class="level4" data-number="12.1.8.1">
+<h4 data-number="12.1.8.1" class="anchored" data-anchor-id="data-importation"><span class="header-section-number">12.1.8.1</span> Data Importation</h4>
+<p>To highlight the uses and behaviors of the transformer model and attention weighting, we will use the same digit data used in the neural network implementation example. The model will aim to classify the given hand-drawn digits, and will focus on certain pixels in the 8x8 grid as more important in reaching a final output/conclusion as to the correct classification. This uses a simplified example generated from ChatGPT (fitting as the exact model demonstrated will ultimately create the code).</p>
+<p>Below, the digit data is imported from the sklearn module, and is then split into training and testing subsets using the sklearn splitting package. Importantly, the train-test split is then passed to the <code>torch</code> datatype, which makes it usable in the transformer model. The “tensors” are simply another type of array which is used in AI architecture.</p>
+<div id="c6775183" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch.nn <span class="im">as</span> nn</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_digits</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> torch.utils.data <span class="im">import</span> TensorDataset, DataLoader</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>random.seed(<span class="dv">12345</span>)</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>X, y <span class="op">=</span> load_digits(return_X_y<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> StandardScaler().fit_transform(X)</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    X, y, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">42</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>X_train <span class="op">=</span> torch.tensor(X_train, dtype<span class="op">=</span>torch.float32).view(<span class="op">-</span><span class="dv">1</span>, <span class="dv">64</span>, <span class="dv">1</span>)</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>X_test <span class="op">=</span> torch.tensor(X_test, dtype<span class="op">=</span>torch.float32).view(<span class="op">-</span><span class="dv">1</span>, <span class="dv">64</span>, <span class="dv">1</span>)</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>y_train <span class="op">=</span> torch.tensor(y_train, dtype<span class="op">=</span>torch.<span class="bu">long</span>)</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>y_test <span class="op">=</span> torch.tensor(y_test, dtype<span class="op">=</span>torch.<span class="bu">long</span>)</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>train_loader <span class="op">=</span> DataLoader(</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>    TensorDataset(X_train, y_train), </span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>    batch_size<span class="op">=</span><span class="dv">64</span>, </span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>    shuffle<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>test_loader <span class="op">=</span> DataLoader(TensorDataset(X_test, y_test), batch_size<span class="op">=</span><span class="dv">128</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This code builds the transformer model implementation for this example. It uses 4 heads, where each head represents one type of interaction between the given queries and keys. For example, one head could compare the shade of a key pixel to the query pixel, where another head might compare proximity. It is unspecified what type of interaction the model chooses for each of the heads. <code>d_model</code> describes the number of values in each token vector. <code>num_layers</code> represents the number of attention layers used in the model, where each attention layer has multiple linear layers and normalization layers, where each layer has at least 32 nodes (specified in <code>d_model</code>).</p>
+<div id="92569e80" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> TinyVisionTransformer(nn.Module):</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>, </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>        d_model<span class="op">=</span><span class="dv">32</span>, </span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>        nhead<span class="op">=</span><span class="dv">4</span>, </span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        num_layers<span class="op">=</span><span class="dv">2</span>, </span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>        num_classes<span class="op">=</span><span class="dv">10</span>, </span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>        seq_len<span class="op">=</span><span class="dv">64</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>        ):</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>()</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.embedding <span class="op">=</span> nn.Linear(<span class="dv">1</span>, d_model)</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.pos_encoding <span class="op">=</span> nn.Parameter(</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>            torch.zeros(<span class="dv">1</span>, seq_len, d_model)</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>            )</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>        encoder_layer <span class="op">=</span> nn.TransformerEncoderLayer(</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>            d_model<span class="op">=</span>d_model,</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>            nhead<span class="op">=</span>nhead,</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>            batch_first<span class="op">=</span><span class="va">True</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.transformer <span class="op">=</span> nn.TransformerEncoder(</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>            encoder_layer, num_layers<span class="op">=</span>num_layers</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>            )</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.classifier <span class="op">=</span> nn.Linear(</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>            d_model, num_classes</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>            )</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, x):</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> <span class="va">self</span>.embedding(x) <span class="op">+</span> <span class="va">self</span>.pos_encoding[:, :x.size(<span class="dv">1</span>), :]</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> <span class="va">self</span>.transformer(x)</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> x.mean(dim<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.classifier(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now we train the model, prioritizing using the GPU “cuda” method, and the CPU method if GPU is not available. It will successively train over multiple runs, lowering the loss value each time, using entropy to compare the predicted values to actual values. <code>lr=1e-3</code> is the learning rate of the model.</p>
+<div id="52e9046f" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>device <span class="op">=</span> torch.device(<span class="st">"cuda"</span> <span class="cf">if</span> torch.cuda.is_available() <span class="cf">else</span> <span class="st">"cpu"</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> TinyVisionTransformer().to(device)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>optimizer <span class="op">=</span> torch.optim.Adam(model.parameters(), lr<span class="op">=</span><span class="fl">1e-3</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>criterion <span class="op">=</span> nn.CrossEntropyLoss()</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> epoch <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>):</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    model.train()</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    total_loss <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> xb, yb <span class="kw">in</span> train_loader:</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>        xb, yb <span class="op">=</span> xb.to(device), yb.to(device)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>        optimizer.zero_grad()</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>        preds <span class="op">=</span> model(xb)</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>        loss <span class="op">=</span> criterion(preds, yb)</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>        loss.backward()</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>        optimizer.step()</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>        total_loss <span class="op">+=</span> loss.item()</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Epoch </span><span class="sc">{</span>epoch<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="ss">, loss=</span><span class="sc">{</span>total_loss<span class="op">/</span><span class="bu">len</span>(train_loader)<span class="sc">:.4f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 1, loss=2.3507
+Epoch 2, loss=2.2739
+Epoch 3, loss=2.1617
+Epoch 4, loss=2.0774
+Epoch 5, loss=2.0076</code></pre>
+</div>
+</div>
+<p>Then, the test accuracy is calculated as a decimal representing the proportion of successful classifications to total classifications.</p>
+<div id="0ffc1c53" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>model.<span class="bu">eval</span>()</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>correct <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> torch.no_grad():</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> xb, yb <span class="kw">in</span> test_loader:</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>        preds <span class="op">=</span> model(xb.to(device)).argmax(dim<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>        correct <span class="op">+=</span> (preds.cpu() <span class="op">==</span> yb).<span class="bu">sum</span>().item()</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Test accuracy: </span><span class="sc">{</span>correct <span class="op">/</span> <span class="bu">len</span>(y_test)<span class="sc">:.3f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Test accuracy: 0.236</code></pre>
+</div>
+</div>
+<p>Below is shown a figure of the attention scores between each of the 64 pixels (the query) to the same pixels (as a key). The figure represent a single “head” of the model. The tendency to show a vertical line represents the fact that certain pixels are important to classification no matter which pixel is queried.</p>
+<div id="2576c60d" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>encoder_layer <span class="op">=</span> model.transformer.layers[<span class="dv">0</span>]</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_attention_weights(layer, x):</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> torch.no_grad():</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>        attn_output, attn_weights <span class="op">=</span> layer.self_attn(</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>            x, x, x, need_weights<span class="op">=</span><span class="va">True</span>, average_attn_weights<span class="op">=</span><span class="va">False</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> attn_weights</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>sample_img <span class="op">=</span> X_test[<span class="dv">0</span>:<span class="dv">1</span>].to(device)  <span class="co"># (1, 64, 1)</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>embedded <span class="op">=</span> model.embedding(sample_img) <span class="op">+</span> model.pos_encoding[:, :<span class="dv">64</span>, :]</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>attn_weights <span class="op">=</span> get_attention_weights(encoder_layer, embedded)</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="co"># First sample, first head</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>attn <span class="op">=</span> attn_weights[<span class="dv">0</span>, <span class="dv">0</span>].cpu().numpy()  <span class="co"># shape: (64,64)</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">6</span>,<span class="dv">6</span>))</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>plt.imshow(attn, cmap<span class="op">=</span><span class="st">'hot'</span>, interpolation<span class="op">=</span><span class="st">'nearest'</span>)</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Attention heatmap for one head"</span>)</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Key position"</span>)</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Query position"</span>)</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>plt.colorbar(label<span class="op">=</span><span class="st">"Attention weight"</span>)</span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="20-deeplearning_files/figure-html/cell-8-output-1.png" width="523" height="463" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>This graph overlays the heatmap from the previous graph onto an 8x8 graph like that of the digits. It averages out the attention scores for each query pixel which gives the overall importance of each pixel in determining which digit each image is classified as. The lighter pixels in this graph represent the vertical lines of high attention from the heatmap above.</p>
+<div id="37f10f1b" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>attn_avg <span class="op">=</span> attn.mean(axis<span class="op">=</span><span class="dv">0</span>)  <span class="co"># average over query positions -&gt; 64</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>attn_img <span class="op">=</span> attn_avg.reshape(<span class="dv">8</span>,<span class="dv">8</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>plt.imshow(X_test[<span class="dv">0</span>].view(<span class="dv">8</span>,<span class="dv">8</span>).cpu().numpy(), cmap<span class="op">=</span><span class="st">'gray'</span>)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>plt.imshow(attn_img, cmap<span class="op">=</span><span class="st">'hot'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Average Attention Overlay on Digit"</span>)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>plt.axis(<span class="st">"off"</span>)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>plt.colorbar()</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="20-deeplearning_files/figure-html/cell-9-output-1.png" width="472" height="409" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="conclusion" class="level3" data-number="12.1.9">
+<h3 data-number="12.1.9" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">12.1.9</span> Conclusion</h3>
+<p>Deep learning models are varied, and cutting edge, having only picked up speed in the past 20 years or so. Much of their surge in popularity and use can be attributed to the transformer-attention method, unveiled in 2017 by Google. This led to increased efficiency of DL models, far surpassing CNN and RNN models, allowing them to create the GPT models which are now seen in almost every aspect of industry and academics. The attention method assigns an attention weight to interactions between input queries and keys, and allows the model to efficiently focus on relevant data interactions. This can be applied to the image classification example above, extending the example already given in the neural network section.</p>
+</section>
+<section id="further-readings" class="level3" data-number="12.1.10">
+<h3 data-number="12.1.10" class="anchored" data-anchor-id="further-readings"><span class="header-section-number">12.1.10</span> Further Readings</h3>
+<section id="history-and-overview" class="level4" data-number="12.1.10.1">
+<h4 data-number="12.1.10.1" class="anchored" data-anchor-id="history-and-overview"><span class="header-section-number">12.1.10.1</span> History and Overview</h4>
+<p><a href="https://www.dataversity.net/articles/a-brief-history-of-neural-networks/">History of Neural Networks and Deep Learning</a></p>
+<p><a href="https://arxiv.org/abs/1706.03762">Google paper (<em>Attention is all You Need</em>)</a></p>
+<p><a href="https://www.ibm.com/think/topics/deep-learning">Overview of Neural Networks and Deep Learning by IBM</a></p>
+<p><a href="https://www.deeplearningbook.org/">Deep-Dive in Deep Learning Theory</a></p>
+</section>
+<section id="implementation-with-pytorch" class="level4" data-number="12.1.10.2">
+<h4 data-number="12.1.10.2" class="anchored" data-anchor-id="implementation-with-pytorch"><span class="header-section-number">12.1.10.2</span> Implementation with Pytorch</h4>
+<p><a href="https://isip.piconepress.com/courses/temple/ece_4822/resources/books/Deep-Learning-with-PyTorch.pdf">Pytorch Package and Documentation</a></p>
+<p><a href="https://isip.piconepress.com/courses/temple/ece_4822/resources/books/Deep-Learning-with-PyTorch.pdf">Deep Learning Implementation Book, Using Pytorch</a></p>
+<p><a href="https://course.fast.ai/">Practical Deep Learning Implementation Course</a></p>
+<!-- This section is for nueral network with time series. -->
+</section>
+</section>
+</section>
+<section id="neural-networks-for-data-with-temporal-dependence" class="level2" data-number="12.2">
+<h2 data-number="12.2" class="anchored" data-anchor-id="neural-networks-for-data-with-temporal-dependence"><span class="header-section-number">12.2</span> Neural Networks for Data with Temporal Dependence</h2>
+<p>Many real-world datasets are sequential, where earlier observations influence what happens later. Examples include electricity demand over hours, temperature across days, and stock prices through trading sessions. Such data exhibit <em>temporal dependence</em>, meaning that successive observations are not independent.</p>
+<p>Traditional supervised learning models, such as linear regression and feedforward neural networks, treat each observation as if it were independent. When applied directly to time-ordered data, they fail to capture how information evolves through time. A prediction for one step does not reflect patterns that unfolded earlier.</p>
+<p>To learn from sequential patterns, we need models that can <em>remember</em> what has already occurred and use that information to improve predictions. Neural networks designed for temporal dependence achieve this by introducing internal states that are updated as the sequence unfolds. The simplest such model is the <em>recurrent neural network</em> (RNN), which forms the basis for more advanced architectures such as long short-term memory (LSTM) and gated recurrent unit (GRU) networks.</p>
+<section id="recurrent-neural-networks-rnns" class="level3" data-number="12.2.1">
+<h3 data-number="12.2.1" class="anchored" data-anchor-id="recurrent-neural-networks-rnns"><span class="header-section-number">12.2.1</span> Recurrent Neural Networks (RNNs)</h3>
+<p>To model data with temporal dependence, a neural network must be able to retain information about what has happened previously. A recurrent neural network (RNN) accomplishes this by maintaining an internal <em>hidden state</em> that evolves over time. The hidden state acts as a summary of all past inputs and is updated as new data arrive.</p>
+<p>At each time step <span class="math inline">\(t\)</span>, an RNN receives an input vector <span class="math inline">\(x_t\)</span> and produces a hidden state <span class="math inline">\(h_t\)</span> according to</p>
+<p><span class="math display">\[
+h_t = \tanh(W_h h_{t-1} + W_x x_t + b_h),
+\]</span></p>
+<p>where <span class="math inline">\(W_h\)</span> and <span class="math inline">\(W_x\)</span> are weight matrices and <span class="math inline">\(b_h\)</span> is a bias term. The output at the same step can be expressed as</p>
+<p><span class="math display">\[
+\hat{y}_t = \sigma(W_y h_t + b_y),
+\]</span></p>
+<p>with <span class="math inline">\(\sigma(\cdot)\)</span> representing an activation or link function. Because <span class="math inline">\(h_t\)</span> depends on <span class="math inline">\(h_{t-1}\)</span>, the network can in principle capture relationships across time.</p>
+<p>The initial hidden state <span class="math inline">\(h_0\)</span> must be specified before the sequence starts. In most applications, <span class="math inline">\(h_0\)</span> is set to a vector of zeros with the same dimension as <span class="math inline">\(h_t\)</span>, allowing the network to begin without prior memory. This default works well because the recurrent updates quickly overwrite the initial state as new inputs arrive. In some advanced or stateful applications, <span class="math inline">\(h_0\)</span> can instead be learned during training or carried over from the final state of a previous sequence, enabling the model to preserve continuity across batches.</p>
+<p>Before training can begin, an objective function must be defined to measure how well the network predicts the target sequence. For a series of observations <span class="math inline">\(\{(x_t, y_t)\}_{t=1}^T\)</span>, the total loss is typically the sum of stepwise prediction errors, <span class="math display">\[
+\mathcal{L} = \sum_{t=1}^T \ell(y_t, \hat{y}_t),
+\]</span> where <span class="math inline">\(\ell\)</span> is a suitable loss such as mean squared error for regression or cross-entropy for classification. The gradients of <span class="math inline">\(\mathcal{L}\)</span> with respect to the network parameters are then computed and used to update the weights through backpropagation through time.</p>
+<div id="cell-fig-rnn-unrolled" class="cell" data-execution_count="9">
+<div class="cell-output cell-output-display">
+<div id="fig-rnn-unrolled" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-rnn-unrolled-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="20-deeplearning_files/figure-html/fig-rnn-unrolled-output-1.png" width="566" height="278" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rnn-unrolled-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;12.1: An unrolled RNN showing how the hidden state connects across time steps.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><a href="#fig-rnn-unrolled" class="quarto-xref">Figure&nbsp;<span>12.1</span></a> illustrates how an RNN can be <em>unrolled</em> across time steps, showing that the same set of weights is reused at each step. The hidden state serves as a bridge between past and present inputs, allowing the network to accumulate information through time.</p>
+<p>Training an RNN is done by <em>backpropagation through time (BPTT)</em>, which unrolls the network over all time steps and applies gradient descent. However, when sequences are long, the repeated multiplication of gradients can lead to <em>vanishing</em> or <em>exploding</em> gradients. This makes it difficult for a standard RNN to learn long-term dependencies, limiting its ability to remember events far in the past.</p>
+<p>In many applications, temporal dependence is only one part of the problem. Alongside the time-varying input <span class="math inline">\(x_t\)</span>, there may be additional covariates <span class="math inline">\(z\)</span> that describe static or slowly changing characteristics, such as a station ID, region, or weather condition. These can be incorporated into an RNN by concatenating them with <span class="math inline">\(x_t\)</span> at each time step or by feeding them into separate layers whose outputs are combined with the recurrent representation. In practice, the design depends on whether such covariates are constant across time or vary together with the sequence.</p>
+<p>To address the limitations of standard RNNs, researchers developed architectures that explicitly control how information is remembered or forgotten. The most influential of these is the LSTM network, which introduces a structured memory cell and gating mechanisms to stabilize learning over longer sequences.</p>
+</section>
+<section id="long-short-term-memory-lstm" class="level3" data-number="12.2.2">
+<h3 data-number="12.2.2" class="anchored" data-anchor-id="long-short-term-memory-lstm"><span class="header-section-number">12.2.2</span> Long Short-Term Memory (LSTM)</h3>
+<p>The main limitation of a standard RNN is its inability to retain information over long sequences. During backpropagation through time, gradients tend to either vanish or explode, preventing effective learning of long-term dependencies. The Long Short-Term Memory (LSTM) network, proposed by Hochreiter and Schmidhuber (1997), was designed to overcome this problem.</p>
+<p>An LSTM introduces a separate <em>cell state</em> <span class="math inline">\(C_t\)</span> that acts as a highway for information to flow across time steps, along with <em>gating mechanisms</em> that regulate what to remember and what to forget. The gates use sigmoid activations to produce values between 0 and 1, allowing the network to scale information rather than overwrite it.</p>
+<p>The key update equations of an LSTM are</p>
+<p><span class="math display">\[
+\begin{aligned}
+f_t &amp;= \sigma(W_f [h_{t-1}, x_t] + b_f), \\
+i_t &amp;= \sigma(W_i [h_{t-1}, x_t] + b_i), \\
+\tilde{C}_t &amp;= \tanh(W_C [h_{t-1}, x_t] + b_C), \\
+C_t &amp;= f_t \odot C_{t-1} + i_t \odot \tilde{C}_t, \\
+o_t &amp;= \sigma(W_o [h_{t-1}, x_t] + b_o), \\
+h_t &amp;= o_t \odot \tanh(C_t),
+\end{aligned}
+\]</span></p>
+<p>where <span class="math inline">\(\odot\)</span> denotes element-wise (Hadamard) multiplication and <span class="math inline">\(\sigma(\cdot)\)</span> is the logistic sigmoid function. Each gate <span class="math inline">\(f_t\)</span>, <span class="math inline">\(i_t\)</span>, and <span class="math inline">\(o_t\)</span> outputs values between 0 and 1 that determine how information flows through the cell.</p>
+<p>The activation functions <span class="math inline">\(\tanh(\cdot)\)</span> and <span class="math inline">\(\sigma(\cdot)\)</span> play specific roles in the LSTM design. The sigmoid <span class="math inline">\(\sigma\)</span> compresses values to the range <span class="math inline">\((0,1)\)</span>, making it suitable for gate control because it behaves like a smooth on–off switch. The hyperbolic tangent <span class="math inline">\(\tanh\)</span> maps inputs to <span class="math inline">\((-1,1)\)</span>, allowing both positive and negative contributions to the cell state.</p>
+<p>Other activation functions can in principle replace <span class="math inline">\(\tanh\)</span>, such as ReLU or Leaky ReLU, but this is uncommon in practice. ReLU may cause the cell state to grow without bound, and smooth symmetric activations like <span class="math inline">\(\tanh\)</span> are generally more stable for recurrent updates. Some modern variants, such as the <em>Peephole LSTM</em> and <em>GRU</em>, adjust or simplify these activations, but the original combination of <span class="math inline">\(\sigma\)</span> and <span class="math inline">\(\tanh\)</span> remains the standard choice.</p>
+<div id="cell-fig-lstm-diagram" class="cell" data-execution_count="10">
+<div class="cell-output cell-output-display">
+<div id="fig-lstm-diagram" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-lstm-diagram-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="20-deeplearning_files/figure-html/fig-lstm-diagram-output-1.png" width="662" height="370" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-lstm-diagram-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;12.2: Structure of an LSTM cell showing the flow of information through the input, forget, and output gates.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Each of the three gates in an LSTM serves a distinct role.<br>
+The <em>forget gate</em> <span class="math inline">\(f_t\)</span> determines how much of the previous cell state <span class="math inline">\(C_{t-1}\)</span> should be retained, effectively deciding what information to discard. The <em>input gate</em> <span class="math inline">\(i_t\)</span> controls how much new information <span class="math inline">\(\tilde{C}_t\)</span> enters the cell state, allowing the network to incorporate relevant updates. The <em>output gate</em> <span class="math inline">\(o_t\)</span> regulates how much of the cell state is exposed as the hidden state <span class="math inline">\(h_t\)</span>, influencing the network’s prediction at the current step. Together, these gates maintain a balance between remembering long-term patterns and adapting to new signals. Figure <a href="#fig-lstm-diagram" class="quarto-xref">Figure&nbsp;<span>12.2</span></a> illustrates how the three gates interact with the cell state and hidden states to manage information flow through time.</p>
+</section>
+<section id="gated-recurrent-unit-gru" class="level3" data-number="12.2.3">
+<h3 data-number="12.2.3" class="anchored" data-anchor-id="gated-recurrent-unit-gru"><span class="header-section-number">12.2.3</span> Gated Recurrent Unit (GRU)</h3>
+<p>The Gated Recurrent Unit (GRU), introduced by Cho et al.&nbsp;(2014), is a simplified variant of the LSTM that retains its ability to capture long-term dependencies while using fewer parameters. The GRU combines the roles of the input and forget gates into a single <em>update gate</em> and omits the separate cell state <span class="math inline">\(C_t\)</span>, relying only on the hidden state <span class="math inline">\(h_t\)</span> to store information.</p>
+<p>The GRU update equations are</p>
+<p><span class="math display">\[
+\begin{aligned}
+z_t &amp;= \sigma(W_z [h_{t-1}, x_t] + b_z), \\
+r_t &amp;= \sigma(W_r [h_{t-1}, x_t] + b_r), \\
+\tilde{h}_t &amp;= \tanh(W_h [r_t \odot h_{t-1}, x_t] + b_h), \\
+h_t &amp;= (1 - z_t) \odot h_{t-1} + z_t \odot \tilde{h}_t,
+\end{aligned}
+\]</span></p>
+<p>where <span class="math inline">\(z_t\)</span> is the <em>update gate</em> and <span class="math inline">\(r_t\)</span> is the <em>reset gate</em>. The update gate controls how much of the previous hidden state to keep, while the reset gate determines how strongly past information should influence the new candidate state <span class="math inline">\(\tilde{h}_t\)</span>.</p>
+<div id="cell-fig-gru-diagram" class="cell" data-execution_count="11">
+<div class="cell-output cell-output-display">
+<div id="fig-gru-diagram" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-gru-diagram-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="20-deeplearning_files/figure-html/fig-gru-diagram-output-1.png" width="566" height="278" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-gru-diagram-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;12.3: Structure of a GRU cell showing the update and reset gates.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The structure of a GRU cell is illustrated in <a href="#fig-gru-diagram" class="quarto-xref">Figure&nbsp;<span>12.3</span></a>. Compared with an LSTM, the GRU is computationally simpler because it has no separate cell state and fewer matrix operations. Despite this simplification, GRUs often perform as well as LSTMs, especially when datasets are smaller or sequence lengths are moderate.</p>
+</section>
+<section id="example-forecasting-a-synthetic-sequential-signal-pytorch" class="level3" data-number="12.2.4">
+<h3 data-number="12.2.4" class="anchored" data-anchor-id="example-forecasting-a-synthetic-sequential-signal-pytorch"><span class="header-section-number">12.2.4</span> Example: Forecasting a Synthetic Sequential Signal (PyTorch)</h3>
+<p>To compare recurrent architectures in a reproducible way, we use a synthetic sine-wave signal with random noise. This allows us to train RNN, LSTM, and GRU models side-by-side without large datasets or external dependencies.</p>
+<section id="step-1.-generate-the-data" class="level4" data-number="12.2.4.1">
+<h4 data-number="12.2.4.1" class="anchored" data-anchor-id="step-1.-generate-the-data"><span class="header-section-number">12.2.4.1</span> Step 1. Generate the data</h4>
+<div id="cell-synth-data" class="cell" data-fig-height="3" data-fig-width="6" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">0</span>)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>time <span class="op">=</span> np.arange(<span class="dv">0</span>, <span class="dv">200</span>)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>signal <span class="op">=</span> np.sin(time <span class="op">/</span> <span class="dv">6</span>) <span class="op">+</span> <span class="fl">0.3</span> <span class="op">*</span> np.random.randn(<span class="dv">200</span>)</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame({<span class="st">"time"</span>: time, <span class="st">"signal"</span>: signal})</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">3</span>))</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>plt.plot(df[<span class="st">"time"</span>], df[<span class="st">"signal"</span>])</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Time"</span>)</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Signal"</span>)</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="synth-data" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="20-deeplearning_files/figure-html/synth-data-output-1.png" width="566" height="278" class="figure-img"></p>
+<figcaption>Synthetic sine-wave signal with random noise.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="step-2.-prepare-input-sequences" class="level4" data-number="12.2.4.2">
+<h4 data-number="12.2.4.2" class="anchored" data-anchor-id="step-2.-prepare-input-sequences"><span class="header-section-number">12.2.4.2</span> Step 2. Prepare input sequences</h4>
+<p>Each training example uses the previous 20 observations to predict the next value.</p>
+<div id="synth-seq" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> MinMaxScaler</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> torch <span class="im">import</span> nn</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>L <span class="op">=</span> <span class="dv">20</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> MinMaxScaler()</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>scaled <span class="op">=</span> scaler.fit_transform(df[[<span class="st">"signal"</span>]])</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>X, y <span class="op">=</span> [], []</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> t <span class="kw">in</span> <span class="bu">range</span>(L, <span class="bu">len</span>(scaled)):</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    X.append(scaled[t<span class="op">-</span>L:t, <span class="dv">0</span>])</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    y.append(scaled[t, <span class="dv">0</span>])</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>X, y <span class="op">=</span> np.array(X), np.array(y)</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> X.reshape(X.shape[<span class="dv">0</span>], L, <span class="dv">1</span>)</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="co"># split and convert to tensors</span></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>    X, y, test_size<span class="op">=</span><span class="fl">0.2</span>, shuffle<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>X_train <span class="op">=</span> torch.tensor(X_train, dtype<span class="op">=</span>torch.float32)</span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>y_train <span class="op">=</span> torch.tensor(y_train, dtype<span class="op">=</span>torch.float32).view(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>X_test  <span class="op">=</span> torch.tensor(X_test, dtype<span class="op">=</span>torch.float32)</span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>y_test  <span class="op">=</span> torch.tensor(y_test, dtype<span class="op">=</span>torch.float32).view(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="step-3.-define-recurrent-models" class="level4" data-number="12.2.4.3">
+<h4 data-number="12.2.4.3" class="anchored" data-anchor-id="step-3.-define-recurrent-models"><span class="header-section-number">12.2.4.3</span> Step 3. Define recurrent models</h4>
+<div id="synth-models" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> RecurrentModel(nn.Module):</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, rnn_type<span class="op">=</span><span class="st">"RNN"</span>, hidden_size<span class="op">=</span><span class="dv">50</span>):</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>()</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> rnn_type <span class="op">==</span> <span class="st">"LSTM"</span>:</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.rnn <span class="op">=</span> nn.LSTM(<span class="dv">1</span>, hidden_size, batch_first<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> rnn_type <span class="op">==</span> <span class="st">"GRU"</span>:</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.rnn <span class="op">=</span> nn.GRU(<span class="dv">1</span>, hidden_size, batch_first<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.rnn <span class="op">=</span> nn.RNN(<span class="dv">1</span>, hidden_size, batch_first<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.fc <span class="op">=</span> nn.Linear(hidden_size, <span class="dv">1</span>)</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, x):</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>        out, _ <span class="op">=</span> <span class="va">self</span>.rnn(x)</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.fc(out[:, <span class="op">-</span><span class="dv">1</span>, :])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="step-4.-train-and-evaluate" class="level4" data-number="12.2.4.4">
+<h4 data-number="12.2.4.4" class="anchored" data-anchor-id="step-4.-train-and-evaluate"><span class="header-section-number">12.2.4.4</span> Step 4. Train and evaluate</h4>
+<div id="synth-train" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> train_model(model, X, y, epochs<span class="op">=</span><span class="dv">50</span>, lr<span class="op">=</span><span class="fl">0.01</span>):</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    criterion <span class="op">=</span> nn.MSELoss()</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    optimizer <span class="op">=</span> torch.optim.Adam(model.parameters(), lr<span class="op">=</span>lr)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(epochs):</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>        optimizer.zero_grad()</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>        loss <span class="op">=</span> criterion(model(X), y)</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>        loss.backward()</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>        optimizer.step()</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> loss.item()</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> predict(model, X):</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>    model.<span class="bu">eval</span>()</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> torch.no_grad():</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> model(X).numpy()</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>models <span class="op">=</span> {</span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">"RNN"</span>:  RecurrentModel(<span class="st">"RNN"</span>),</span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">"LSTM"</span>: RecurrentModel(<span class="st">"LSTM"</span>),</span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">"GRU"</span>:  RecurrentModel(<span class="st">"GRU"</span>)</span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, m <span class="kw">in</span> models.items():</span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>    final_loss <span class="op">=</span> train_model(m, X_train, y_train)</span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>name<span class="sc">}</span><span class="ss"> final training loss: </span><span class="sc">{</span>final_loss<span class="sc">:.5f}</span><span class="ss">"</span>)</span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a>y_preds <span class="op">=</span> {name: predict(m, X_test) <span class="cf">for</span> name, m <span class="kw">in</span> models.items()}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>RNN final training loss: 0.01381
+LSTM final training loss: 0.01322
+GRU final training loss: 0.01450</code></pre>
+</div>
+</div>
+</section>
+<section id="step-5.-compare-rmse-and-mae" class="level4" data-number="12.2.4.5">
+<h4 data-number="12.2.4.5" class="anchored" data-anchor-id="step-5.-compare-rmse-and-mae"><span class="header-section-number">12.2.4.5</span> Step 5. Compare RMSE and MAE</h4>
+<div id="synth-metrics" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error, mean_absolute_error</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> metrics(y_true, y_pred):</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    rmse <span class="op">=</span> np.sqrt(mean_squared_error(y_true, y_pred))</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    mae <span class="op">=</span> mean_absolute_error(y_true, y_pred)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> rmse, mae</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, y_hat <span class="kw">in</span> y_preds.items():</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    rmse, mae <span class="op">=</span> metrics(y_test, y_hat)</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>name<span class="sc">:5s}</span><span class="ss"> – RMSE: </span><span class="sc">{</span>rmse<span class="sc">:.4f}</span><span class="ss">, MAE: </span><span class="sc">{</span>mae<span class="sc">:.4f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>RNN   – RMSE: 0.1069, MAE: 0.0859
+LSTM  – RMSE: 0.1071, MAE: 0.0859
+GRU   – RMSE: 0.1102, MAE: 0.0891</code></pre>
+</div>
+</div>
+</section>
+<section id="step-6.-visual-comparison" class="level4" data-number="12.2.4.6">
+<h4 data-number="12.2.4.6" class="anchored" data-anchor-id="step-6.-visual-comparison"><span class="header-section-number">12.2.4.6</span> Step 6. Visual comparison</h4>
+<div id="cell-synth-plot" class="cell" data-fig-height="4" data-fig-width="6.5" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="fl">6.5</span>, <span class="dv">4</span>))</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>plt.plot(y_test[:<span class="dv">100</span>], label<span class="op">=</span><span class="st">"Observed"</span>, color<span class="op">=</span><span class="st">"black"</span>)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, y_hat <span class="kw">in</span> y_preds.items():</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    plt.plot(y_hat[:<span class="dv">100</span>], label<span class="op">=</span>name, alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Time index"</span>)</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Scaled signal"</span>)</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="synth-plot" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="20-deeplearning_files/figure-html/synth-plot-output-1.png" width="614" height="374" class="figure-img"></p>
+<figcaption>Observed and predicted values using RNN, LSTM, and GRU (PyTorch).</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="discussion" class="level4" data-number="12.2.4.7">
+<h4 data-number="12.2.4.7" class="anchored" data-anchor-id="discussion"><span class="header-section-number">12.2.4.7</span> Discussion</h4>
+<p>All three networks capture the oscillatory pattern, but the vanilla RNN has difficulty preserving phase alignment when the sequence is long. Both the LSTM and GRU learn the dependency structure more reliably. The GRU reaches nearly the same accuracy as the LSTM while training faster, thanks to its simpler gating design.</p>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./11-unsupervised.html" class="pagination-link" aria-label="Unsupervised Learning">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Unsupervised Learning</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./90-advanced.html" class="pagination-link" aria-label="Advanced Topics">
+        <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Advanced Topics</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

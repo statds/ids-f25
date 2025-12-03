@@ -128,6 +128,35 @@ div.csl-indent {
 
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -239,19 +268,25 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./20-deeplearning.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Deep Learning</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./90-advanced.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Advanced Topics</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Advanced Topics</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Exercises</span></span></a>
+  <a href="./95-exercises.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Exercises</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link">
+  <a href="./99-references.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">References</span></a>
   </div>
 </li>
@@ -302,6 +337,23 @@ div.csl-indent {
   <li><a href="#effect-sizes-and-intervals" id="toc-effect-sizes-and-intervals" class="nav-link" data-scroll-target="#effect-sizes-and-intervals"><span class="header-section-number">7.7.4</span> Effect sizes and intervals</a></li>
   <li><a href="#transparency" id="toc-transparency" class="nav-link" data-scroll-target="#transparency"><span class="header-section-number">7.7.5</span> Transparency</a></li>
   </ul></li>
+  <li><a href="#hypothesis-testing-with-scipy.stats" id="toc-hypothesis-testing-with-scipy.stats" class="nav-link" data-scroll-target="#hypothesis-testing-with-scipy.stats"><span class="header-section-number">7.8</span> Hypothesis Testing with ‘scipy.stats’</a>
+  <ul class="collapse">
+  <li><a href="#what-is-hypothesis-testing" id="toc-what-is-hypothesis-testing" class="nav-link" data-scroll-target="#what-is-hypothesis-testing"><span class="header-section-number">7.8.1</span> What is Hypothesis Testing?</a></li>
+  <li><a href="#why-hypothesis-testing-is-important" id="toc-why-hypothesis-testing-is-important" class="nav-link" data-scroll-target="#why-hypothesis-testing-is-important"><span class="header-section-number">7.8.2</span> Why Hypothesis Testing is Important</a></li>
+  <li><a href="#the-logic-behind-it" id="toc-the-logic-behind-it" class="nav-link" data-scroll-target="#the-logic-behind-it"><span class="header-section-number">7.8.3</span> The Logic Behind It</a></li>
+  <li><a href="#example-context-california-housing-data" id="toc-example-context-california-housing-data" class="nav-link" data-scroll-target="#example-context-california-housing-data"><span class="header-section-number">7.8.4</span> Example Context: California Housing Data</a></li>
+  <li><a href="#load-clean-and-preview-the-data" id="toc-load-clean-and-preview-the-data" class="nav-link" data-scroll-target="#load-clean-and-preview-the-data"><span class="header-section-number">7.8.5</span> Load, Clean and Preview the Data</a></li>
+  <li><a href="#one-sample-t-test" id="toc-one-sample-t-test" class="nav-link" data-scroll-target="#one-sample-t-test"><span class="header-section-number">7.8.6</span> One-Sample T-test</a></li>
+  <li><a href="#two-sample-t-test" id="toc-two-sample-t-test" class="nav-link" data-scroll-target="#two-sample-t-test"><span class="header-section-number">7.8.7</span> Two Sample T-Test</a></li>
+  <li><a href="#anova" id="toc-anova" class="nav-link" data-scroll-target="#anova"><span class="header-section-number">7.8.8</span> ANOVA</a></li>
+  <li><a href="#chi-square-test-of-independence" id="toc-chi-square-test-of-independence" class="nav-link" data-scroll-target="#chi-square-test-of-independence"><span class="header-section-number">7.8.9</span> Chi-Square Test of Independence</a></li>
+  <li><a href="#proportion-test" id="toc-proportion-test" class="nav-link" data-scroll-target="#proportion-test"><span class="header-section-number">7.8.10</span> Proportion Test</a></li>
+  <li><a href="#correlation-test" id="toc-correlation-test" class="nav-link" data-scroll-target="#correlation-test"><span class="header-section-number">7.8.11</span> Correlation Test</a></li>
+  <li><a href="#summary-of-tests" id="toc-summary-of-tests" class="nav-link" data-scroll-target="#summary-of-tests"><span class="header-section-number">7.8.12</span> Summary of Tests</a></li>
+  <li><a href="#discussions-and-takeaways" id="toc-discussions-and-takeaways" class="nav-link" data-scroll-target="#discussions-and-takeaways"><span class="header-section-number">7.8.13</span> Discussions and Takeaways</a></li>
+  <li><a href="#further-readings" id="toc-further-readings" class="nav-link" data-scroll-target="#further-readings"><span class="header-section-number">7.8.14</span> Further Readings</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -340,8 +392,8 @@ div.csl-indent {
 <li><p>Variables and their types. Columns record attributes of units. These may be continuous measurements, counts, ordered categories, or nominal labels. Recognizing the correct type is essential because it dictates which summary statistics and hypothesis tests are appropriate.</p></li>
 <li><p>Tidy data principles. In a tidy format, each row is one observation and each column is one variable. When data are stored otherwise, reshaping is necessary before analysis can proceed smoothly.</p></li>
 </ul>
-<p>We now illustrate these ideas using a reduced version of the Ames Housing dataset <span class="citation" data-cites="decock2009ames">(<a href="references.html#ref-decock2009ames" role="doc-biblioref">De Cock, 2009</a>)</span>, which is available directly from <code>OpenML</code>. With a filtered subset of ~1460 observations, it drops older sales, keeps only certain years, and removes some variables to make modeling cleaner for beginners.</p>
-<div id="2e9ed4ba" class="cell" data-execution_count="1">
+<p>We now illustrate these ideas using a reduced version of the Ames Housing dataset <span class="citation" data-cites="decock2009ames">(<a href="99-references.html#ref-decock2009ames" role="doc-biblioref">De Cock, 2009</a>)</span>, which is available directly from <code>OpenML</code>. With a filtered subset of ~1460 observations, it drops older sales, keeps only certain years, and removes some variables to make modeling cleaner for beginners.</p>
+<div id="a96bf81b" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> openml</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Load Ames Housing (OpenML ID 42165)</span></span>
@@ -356,7 +408,7 @@ div.csl-indent {
 </div>
 <p>The dataset contains nearly three thousand house sales and eighty variables.</p>
 <p>It is useful to view the first few rows to confirm the structure.</p>
-<div id="4a42feb5" class="cell" data-execution_count="2">
+<div id="24d823a0" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># First few rows</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="2">
@@ -520,7 +572,7 @@ div.csl-indent {
 </div>
 <p>Each row corresponds to one property sale, while columns record attributes such as lot size, neighborhood, and sale price.</p>
 <p>Understanding whether variables are numeric, categorical, or temporal guides later exploration and cleaning.</p>
-<div id="b82b84b8" class="cell" data-execution_count="3">
+<div id="f8b2fb53" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Dtypes in pandas</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>df.dtypes.value_counts()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
@@ -531,7 +583,7 @@ float64     3
 Name: count, dtype: int64</code></pre>
 </div>
 </div>
-<div id="baa0a2e5" class="cell" data-execution_count="4">
+<div id="26682fb5" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example: show a few variables with types</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>df.dtypes.head(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
@@ -550,7 +602,7 @@ dtype: object</code></pre>
 </div>
 <p>Most features are numeric or categorical. Some, such as <code>YearBuilt</code>, are integers but represent calendar years.</p>
 <p>The outcome of interest is the sale price.</p>
-<div id="1b74e689" class="cell" data-execution_count="5">
+<div id="1f701f4a" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The default target from OpenML</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>dataset.default_target_attribute</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
@@ -558,7 +610,7 @@ dtype: object</code></pre>
 </div>
 </div>
 <p>Numeric summaries highlight scale and possible outliers.</p>
-<div id="6d01a253" class="cell" data-execution_count="6">
+<div id="b8305e4d" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Summary statistics for numeric columns</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>df.describe().T.head(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
@@ -697,7 +749,7 @@ dtype: object</code></pre>
 </div>
 </div>
 <p>Categorical summaries reveal balance among levels.</p>
-<div id="bbd552a7" class="cell" data-execution_count="7">
+<div id="0189318e" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Frequency counts for categorical columns</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Neighborhood'</span>].value_counts().head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
@@ -710,7 +762,7 @@ Somerst     86
 Name: count, dtype: int64</code></pre>
 </div>
 </div>
-<div id="1b6d4819" class="cell" data-execution_count="8">
+<div id="50c94bad" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Another example</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'GarageType'</span>].value_counts(dropna<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
@@ -726,18 +778,18 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 <p>Simple checks can detect implausible combinations.</p>
-<div id="fb7d84bc" class="cell" data-execution_count="9">
+<div id="2fab61e9" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Houses should not be sold before built</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>(df[<span class="st">'YrSold'</span>] <span class="op">&lt;</span> df[<span class="st">'YearBuilt'</span>]).<span class="bu">sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
-<pre><code>0</code></pre>
+<pre><code>np.int64(0)</code></pre>
 </div>
 </div>
-<div id="37249ab3" class="cell" data-execution_count="10">
+<div id="8f869e61" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Garage year built should not precede house year built</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>(df[<span class="st">'GarageYrBlt'</span>] <span class="op">&lt;</span> df[<span class="st">'YearBuilt'</span>]).<span class="bu">sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="10">
-<pre><code>9</code></pre>
+<pre><code>np.int64(9)</code></pre>
 </div>
 </div>
 <p>These checks confirm that while the dataset is well curated, certain quirks require careful interpretation.</p>
@@ -753,7 +805,7 @@ Name: count, dtype: int64</code></pre>
 <section id="illustration-with-ames-housing" class="level3" data-number="7.3.1">
 <h3 data-number="7.3.1" class="anchored" data-anchor-id="illustration-with-ames-housing"><span class="header-section-number">7.3.1</span> Illustration with Ames Housing</h3>
 <p>We apply these principles to the Ames dataset. The first step is to inspect missing values.</p>
-<div id="37cc2744" class="cell" data-execution_count="11">
+<div id="fc43d7ad" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Count missing values in each column</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>df.isna().<span class="bu">sum</span>().sort_values(ascending<span class="op">=</span><span class="va">False</span>).head(<span class="dv">15</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="11">
@@ -763,29 +815,29 @@ Alley           1369
 Fence           1179
 FireplaceQu      690
 LotFrontage      259
-GarageYrBlt       81
-GarageCond        81
-GarageType        81
 GarageFinish      81
 GarageQual        81
-BsmtFinType2      38
+GarageYrBlt       81
+GarageType        81
+GarageCond        81
 BsmtExposure      38
-BsmtQual          37
+BsmtFinType2      38
 BsmtCond          37
+BsmtFinType1      37
 dtype: int64</code></pre>
 </div>
 </div>
 <p>Several variables, such as <code>PoolQC</code>, <code>MiscFeature</code>, and <code>Alley</code>, contain many missing entries. Documentation shows that these are structural, indicating the absence of the feature.</p>
-<div id="97d822e3" class="cell" data-execution_count="12">
+<div id="1ce7c615" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example: check PoolQC against PoolArea</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>(df[<span class="st">'PoolQC'</span>].isna() <span class="op">&amp;</span> (df[<span class="st">'PoolArea'</span>] <span class="op">&gt;</span> <span class="dv">0</span>)).<span class="bu">sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="12">
-<pre><code>0</code></pre>
+<pre><code>np.int64(0)</code></pre>
 </div>
 </div>
 <p>The result is zero, confirming that missing <code>PoolQC</code> means no pool.</p>
 <p>Consistency can be checked by reviewing categorical labels.</p>
-<div id="f4e1450f" class="cell" data-execution_count="13">
+<div id="7fbf5b51" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Distinct values in Exterior1st</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Exterior1st'</span>].unique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="13">
@@ -796,26 +848,26 @@ dtype: int64</code></pre>
 </div>
 <p>If spelling variants are detected, they should be harmonized.</p>
 <p>Accuracy checks involve searching for implausible values.</p>
-<div id="e5b5a417" class="cell" data-execution_count="14">
+<div id="856d9d9d" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Negative or zero living area</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>(df[<span class="st">'GrLivArea'</span>] <span class="op">&lt;=</span> <span class="dv">0</span>).<span class="bu">sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="14">
-<pre><code>0</code></pre>
+<pre><code>np.int64(0)</code></pre>
 </div>
 </div>
 <p>Integrity checks verify logical relationships.</p>
-<div id="e9b8778d" class="cell" data-execution_count="15">
+<div id="98486578" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Houses sold before they were built</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>(df[<span class="st">'YrSold'</span>] <span class="op">&lt;</span> df[<span class="st">'YearBuilt'</span>]).<span class="bu">sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="15">
-<pre><code>0</code></pre>
+<pre><code>np.int64(0)</code></pre>
 </div>
 </div>
-<div id="37206e38" class="cell" data-execution_count="16">
+<div id="e99c9625" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Garage built before house built</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>(df[<span class="st">'GarageYrBlt'</span>] <span class="op">&lt;</span> df[<span class="st">'YearBuilt'</span>]).<span class="bu">sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="16">
-<pre><code>9</code></pre>
+<pre><code>np.int64(9)</code></pre>
 </div>
 </div>
 <p>These checks help identify issues to document and, if appropriate, correct in a reproducible way.</p>
@@ -827,7 +879,7 @@ dtype: int64</code></pre>
 <section id="univariate-summaries" class="level3" data-number="7.4.1">
 <h3 data-number="7.4.1" class="anchored" data-anchor-id="univariate-summaries"><span class="header-section-number">7.4.1</span> Univariate summaries</h3>
 <p>Simple statistics reveal scale, central tendency, and variability.</p>
-<div id="7d8715bb" class="cell" data-execution_count="17">
+<div id="03012d5e" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sale price distribution</span></span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'SalePrice'</span>].describe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="17">
@@ -843,7 +895,7 @@ Name: SalePrice, dtype: float64</code></pre>
 </div>
 </div>
 <p>The sale price is right-skewed, with a mean higher than the median.</p>
-<div id="30af7746" class="cell" data-execution_count="18">
+<div id="1fab30ea" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lot area distribution</span></span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'LotArea'</span>].describe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="18">
@@ -863,7 +915,7 @@ Name: LotArea, dtype: float64</code></pre>
 <section id="grouped-summaries" class="level3" data-number="7.4.2">
 <h3 data-number="7.4.2" class="anchored" data-anchor-id="grouped-summaries"><span class="header-section-number">7.4.2</span> Grouped summaries</h3>
 <p>Comparisons across categories highlight differences in central tendency.</p>
-<div id="5ced2983" class="cell" data-execution_count="19">
+<div id="2b70316c" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mean sale price by neighborhood</span></span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>df.groupby(<span class="st">'Neighborhood'</span>)[<span class="st">'SalePrice'</span>].mean().sort_values().head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="19">
@@ -877,7 +929,7 @@ Name: SalePrice, dtype: float64</code></pre>
 </div>
 </div>
 <p>Neighborhoods differ substantially in average sale price.</p>
-<div id="5d2c5bba" class="cell" data-execution_count="20">
+<div id="d535d507" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Median sale price by overall quality</span></span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>df.groupby(<span class="st">'OverallQual'</span>)[<span class="st">'SalePrice'</span>].median()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="20">
@@ -900,7 +952,7 @@ Name: SalePrice, dtype: float64</code></pre>
 <section id="cross-tabulations" class="level3" data-number="7.4.3">
 <h3 data-number="7.4.3" class="anchored" data-anchor-id="cross-tabulations"><span class="header-section-number">7.4.3</span> Cross-tabulations</h3>
 <p>Cross-tabulations summarize associations between categorical variables.</p>
-<div id="1e96b2c2" class="cell" data-execution_count="21">
+<div id="3acac006" class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Neighborhood by garage type</span></span>
 <span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>pd.crosstab(df[<span class="st">'Neighborhood'</span>], df[<span class="st">'GarageType'</span>]).head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -986,7 +1038,7 @@ Name: SalePrice, dtype: float64</code></pre>
 <section id="correlations" class="level3" data-number="7.4.4">
 <h3 data-number="7.4.4" class="anchored" data-anchor-id="correlations"><span class="header-section-number">7.4.4</span> Correlations</h3>
 <p>Correlation coefficients capture linear associations between numeric variables.</p>
-<div id="75e93c32" class="cell" data-execution_count="22">
+<div id="2a363666" class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Correlation between living area and sale price</span></span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>df[[<span class="st">'GrLivArea'</span>,<span class="st">'SalePrice'</span>]].corr()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="22">
@@ -1018,7 +1070,7 @@ Name: SalePrice, dtype: float64</code></pre>
 </div>
 </div>
 </div>
-<div id="973fec2c" class="cell" data-execution_count="23">
+<div id="c98d6503" class="cell" data-execution_count="23">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Correlation between lot area and sale price</span></span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>df[[<span class="st">'LotArea'</span>,<span class="st">'SalePrice'</span>]].corr()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="23">
@@ -1055,7 +1107,7 @@ Name: SalePrice, dtype: float64</code></pre>
 <section id="conditional-summaries" class="level3" data-number="7.4.5">
 <h3 data-number="7.4.5" class="anchored" data-anchor-id="conditional-summaries"><span class="header-section-number">7.4.5</span> Conditional summaries</h3>
 <p>Examining distributions within subgroups can surface interaction patterns.</p>
-<div id="d54e0904" class="cell" data-execution_count="24">
+<div id="6b8a937d" class="cell" data-execution_count="24">
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Average sale price by house style</span></span>
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>df.groupby(<span class="st">'HouseStyle'</span>)[<span class="st">'SalePrice'</span>].mean().sort_values()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="24">
@@ -1081,7 +1133,7 @@ Name: SalePrice, dtype: float64</code></pre>
 <section id="neighborhood-and-sale-price" class="level3" data-number="7.5.1">
 <h3 data-number="7.5.1" class="anchored" data-anchor-id="neighborhood-and-sale-price"><span class="header-section-number">7.5.1</span> Neighborhood and sale price</h3>
 <p>Hypothesis: - H0: The mean sale prices are equal across neighborhoods. - H1: At least one neighborhood has a different mean.</p>
-<div id="022d5253" class="cell" data-execution_count="25">
+<div id="382990dc" class="cell" data-execution_count="25">
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.formula.api <span class="im">as</span> smf</span>
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statsmodels.stats.anova <span class="im">import</span> anova_lm</span>
 <span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1128,7 +1180,7 @@ Name: SalePrice, dtype: float64</code></pre>
 <section id="year-built-and-sale-price" class="level3" data-number="7.5.2">
 <h3 data-number="7.5.2" class="anchored" data-anchor-id="year-built-and-sale-price"><span class="header-section-number">7.5.2</span> Year built and sale price</h3>
 <p>Hypothesis: - H0: The slope for YearBuilt is zero; no linear relationship. - H1: The slope is not zero.</p>
-<div id="d9c29b8f" class="cell" data-execution_count="26">
+<div id="9cd38868" class="cell" data-execution_count="26">
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> smf.ols(<span class="st">'SalePrice ~ YearBuilt'</span>, data<span class="op">=</span>df).fit(cov_type<span class="op">=</span><span class="st">'HC3'</span>)</span>
 <span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>model.summary().tables[<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="26">
@@ -1170,12 +1222,12 @@ Name: SalePrice, dtype: float64</code></pre>
 <section id="lot-area-and-sale-price" class="level3" data-number="7.5.3">
 <h3 data-number="7.5.3" class="anchored" data-anchor-id="lot-area-and-sale-price"><span class="header-section-number">7.5.3</span> Lot area and sale price</h3>
 <p>Hypothesis: - H0: The population correlation is zero. - H1: The correlation is not zero.</p>
-<div id="594ca2f3" class="cell" data-execution_count="27">
+<div id="f5cb6a80" class="cell" data-execution_count="27">
 <div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> stats</span>
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>sub <span class="op">=</span> df[[<span class="st">'LotArea'</span>,<span class="st">'SalePrice'</span>]].dropna()</span>
 <span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>stats.pearsonr(sub[<span class="st">'LotArea'</span>], sub[<span class="st">'SalePrice'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="27">
-<pre><code>PearsonRResult(statistic=0.26384335387140573, pvalue=1.123139154918551e-24)</code></pre>
+<pre><code>PearsonRResult(statistic=np.float64(0.2638433538714058), pvalue=np.float64(1.123139154918551e-24))</code></pre>
 </div>
 </div>
 <p>A Pearson correlation tests linear association. A Spearman rank correlation can be used when distributions are skewed.</p>
@@ -1183,7 +1235,7 @@ Name: SalePrice, dtype: float64</code></pre>
 <section id="fireplaces-and-sale-price" class="level3" data-number="7.5.4">
 <h3 data-number="7.5.4" class="anchored" data-anchor-id="fireplaces-and-sale-price"><span class="header-section-number">7.5.4</span> Fireplaces and sale price</h3>
 <p>Hypothesis: - H0: The mean sale price is the same for houses with and without a fireplace. - H1: The mean sale prices differ.</p>
-<div id="81c7702f" class="cell" data-execution_count="28">
+<div id="5fd66403" class="cell" data-execution_count="28">
 <div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>sub <span class="op">=</span> df[[<span class="st">'SalePrice'</span>,<span class="st">'Fireplaces'</span>]].dropna()</span>
 <span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>sub[<span class="st">'has_fp'</span>] <span class="op">=</span> (sub[<span class="st">'Fireplaces'</span>] <span class="op">&gt;</span> <span class="dv">0</span>).astype(<span class="bu">int</span>)</span>
 <span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1192,7 +1244,7 @@ Name: SalePrice, dtype: float64</code></pre>
 <span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>stats.ttest_ind(g1, g0, equal_var<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="28">
-<pre><code>TtestResult(statistic=21.105376324953664, pvalue=4.666259945494159e-84, df=1171.6295727321062)</code></pre>
+<pre><code>TtestResult(statistic=np.float64(21.105376324953664), pvalue=np.float64(4.666259945494159e-84), df=np.float64(1171.6295727321062))</code></pre>
 </div>
 </div>
 <p>Welch’s t-test compares means when variances differ.</p>
@@ -1200,12 +1252,12 @@ Name: SalePrice, dtype: float64</code></pre>
 <section id="garage-type-and-neighborhood" class="level3" data-number="7.5.5">
 <h3 data-number="7.5.5" class="anchored" data-anchor-id="garage-type-and-neighborhood"><span class="header-section-number">7.5.5</span> Garage type and neighborhood</h3>
 <p>Hypothesis: - H0: Garage type and neighborhood are independent. - H1: Garage type and neighborhood are associated.</p>
-<div id="64344068" class="cell" data-execution_count="29">
+<div id="51d37429" class="cell" data-execution_count="29">
 <div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>ct <span class="op">=</span> pd.crosstab(df[<span class="st">'GarageType'</span>], df[<span class="st">'Neighborhood'</span>])</span>
 <span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>stats.chi2_contingency(ct)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="29">
-<pre><code>Chi2ContingencyResult(statistic=794.6871326886048, pvalue=5.179037846292559e-100, dof=120, expected_freq=array([[7.39666425e-02, 8.70195794e-03, 6.52646846e-02, 2.08846991e-01,
+<pre><code>Chi2ContingencyResult(statistic=np.float64(794.6871326886048), pvalue=np.float64(5.179037846292559e-100), dof=120, expected_freq=array([[7.39666425e-02, 8.70195794e-03, 6.52646846e-02, 2.08846991e-01,
         1.17476432e-01, 6.43944888e-01, 2.21899927e-01, 3.39376360e-01,
         3.43727339e-01, 1.26178390e-01, 5.22117476e-02, 1.91443075e-01,
         9.52864394e-01, 3.91588107e-02, 3.17621465e-01, 1.78390138e-01,
@@ -1340,19 +1392,19 @@ Name: SalePrice, dtype: float64</code></pre>
 <section id="example-garage-year-built" class="level3" data-number="7.6.2">
 <h3 data-number="7.6.2" class="anchored" data-anchor-id="example-garage-year-built"><span class="header-section-number">7.6.2</span> Example: Garage year built</h3>
 <p>Initial inspection may suggest that many values of <code>GarageYrBlt</code> are missing. Documentation indicates that missing means no garage.</p>
-<div id="dcad30b3" class="cell" data-execution_count="30">
+<div id="e0128332" class="cell" data-execution_count="30">
 <div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Count missing garage years</span></span>
 <span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'GarageYrBlt'</span>].isna().<span class="bu">sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="30">
-<pre><code>81</code></pre>
+<pre><code>np.int64(81)</code></pre>
 </div>
 </div>
 <p>When checking integrity, we may notice that some garage years precede the house year built.</p>
-<div id="3152bbd2" class="cell" data-execution_count="31">
+<div id="e3857989" class="cell" data-execution_count="31">
 <div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Garage built before house built</span></span>
 <span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>(df[<span class="st">'GarageYrBlt'</span>] <span class="op">&lt;</span> df[<span class="st">'YearBuilt'</span>]).<span class="bu">sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="31">
-<pre><code>9</code></pre>
+<pre><code>np.int64(9)</code></pre>
 </div>
 </div>
 <p>This prompts a decision: treat as data entry error, keep with caution, or exclude in certain analyses.</p>
@@ -1360,7 +1412,7 @@ Name: SalePrice, dtype: float64</code></pre>
 <section id="example-living-area-and-sale-price" class="level3" data-number="7.6.3">
 <h3 data-number="7.6.3" class="anchored" data-anchor-id="example-living-area-and-sale-price"><span class="header-section-number">7.6.3</span> Example: Living area and sale price</h3>
 <p>A strong correlation between <code>GrLivArea</code> and <code>SalePrice</code> may surface.</p>
-<div id="fcb51acc" class="cell" data-execution_count="32">
+<div id="4e32e0fd" class="cell" data-execution_count="32">
 <div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Correlation</span></span>
 <span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>sub <span class="op">=</span> df[[<span class="st">'GrLivArea'</span>,<span class="st">'SalePrice'</span>]].dropna()</span>
 <span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>sub.corr()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1394,7 +1446,7 @@ Name: SalePrice, dtype: float64</code></pre>
 </div>
 </div>
 <p>If a few extremely large houses are driving the correlation, it may be necessary to investigate further.</p>
-<div id="d55f7532" class="cell" data-execution_count="33">
+<div id="773ed4a0" class="cell" data-execution_count="33">
 <div class="sourceCode cell-code" id="cb57"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Identify extreme values</span></span>
 <span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>sub[sub[<span class="st">'GrLivArea'</span>] <span class="op">&gt;</span> <span class="dv">4000</span>][[<span class="st">'GrLivArea'</span>,<span class="st">'SalePrice'</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="33">
@@ -1449,7 +1501,7 @@ Name: SalePrice, dtype: float64</code></pre>
 <li>Keep all work in notebooks or scripts, never only in spreadsheets.</li>
 <li>Ensure that another analyst can rerun the code and obtain identical results.</li>
 </ul>
-<div id="7bc2931a" class="cell" data-execution_count="34">
+<div id="bd3523e0" class="cell" data-execution_count="34">
 <div class="sourceCode cell-code" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example: set a random seed for reproducibility</span></span>
 <span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">20250923</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1461,7 +1513,7 @@ Name: SalePrice, dtype: float64</code></pre>
 <li>Record cleaning decisions explicitly. For example, note that NA in <code>PoolQC</code> means no pool.</li>
 <li>Keep a running log of questions, anomalies, and decisions.</li>
 </ul>
-<div id="b3f0b76b" class="cell" data-execution_count="35">
+<div id="c0af6719" class="cell" data-execution_count="35">
 <div class="sourceCode cell-code" id="cb59"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example: create an indicator for presence of a pool</span></span>
 <span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'HasPool'</span>] <span class="op">=</span> df[<span class="st">'PoolArea'</span>] <span class="op">&gt;</span> <span class="dv">0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -1479,7 +1531,7 @@ Name: SalePrice, dtype: float64</code></pre>
 <li>Report not only p-values but also effect sizes and confidence intervals.</li>
 <li>This practice keeps focus on the magnitude of relationships.</li>
 </ul>
-<div id="03af44aa" class="cell" data-execution_count="36">
+<div id="316e34a4" class="cell" data-execution_count="36">
 <div class="sourceCode cell-code" id="cb60"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example: compute Cohen's d for fireplace vs no fireplace</span></span>
 <span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>sub <span class="op">=</span> df[[<span class="st">'SalePrice'</span>,<span class="st">'Fireplaces'</span>]].dropna()</span>
 <span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>sub[<span class="st">'has_fp'</span>] <span class="op">=</span> (sub[<span class="st">'Fireplaces'</span>] <span class="op">&gt;</span> <span class="dv">0</span>).astype(<span class="bu">int</span>)</span>
@@ -1489,7 +1541,7 @@ Name: SalePrice, dtype: float64</code></pre>
 <span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a>cohens_d <span class="op">=</span> mean_diff <span class="op">/</span> pooled_sd</span>
 <span id="cb60-8"><a href="#cb60-8" aria-hidden="true" tabindex="-1"></a>cohens_d</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="36">
-<pre><code>1.144008229281349</code></pre>
+<pre><code>np.float64(1.144008229281349)</code></pre>
 </div>
 </div>
 </section>
@@ -1500,7 +1552,863 @@ Name: SalePrice, dtype: float64</code></pre>
 <li>Version control with Git helps track changes and decisions.</li>
 </ul>
 <p>Good practices keep exploration structured and reproducible. They also create a record of reasoning that improves collaboration and supports later analysis.</p>
-<!-- {{< include _hypotest.qmd >}} -->
+</section>
+</section>
+<section id="hypothesis-testing-with-scipy.stats" class="level2" data-number="7.8">
+<h2 data-number="7.8" class="anchored" data-anchor-id="hypothesis-testing-with-scipy.stats"><span class="header-section-number">7.8</span> Hypothesis Testing with ‘scipy.stats’</h2>
+<p>This section was prepared by Jessica Yoon, an undergraduate senior pursuing a degree in Biological Data Science.</p>
+<section id="what-is-hypothesis-testing" class="level3" data-number="7.8.1">
+<h3 data-number="7.8.1" class="anchored" data-anchor-id="what-is-hypothesis-testing"><span class="header-section-number">7.8.1</span> What is Hypothesis Testing?</h3>
+<ul>
+<li><strong>Hypothesis testing</strong> is a statistical method used to make decisions or draw conclusions about a population based on sample data.<br>
+</li>
+<li>It helps determine whether results we observe are due to <strong>chance</strong> or reflect a <strong>real effect</strong>.<br>
+</li>
+<li>Every test starts with two statements:
+<ul>
+<li><strong>Null hypothesis (<span class="math inline">\(H_0\)</span>):</strong> No effect, no difference, or no relationship.<br>
+</li>
+<li><strong>Alternative hypothesis (<span class="math inline">\(H_1\)</span>):</strong> There <em>is</em> an effect, difference, or relationship.</li>
+</ul></li>
+</ul>
+</section>
+<section id="why-hypothesis-testing-is-important" class="level3" data-number="7.8.2">
+<h3 data-number="7.8.2" class="anchored" data-anchor-id="why-hypothesis-testing-is-important"><span class="header-section-number">7.8.2</span> Why Hypothesis Testing is Important</h3>
+<ul>
+<li>Provides a <strong>structured, objective framework</strong> for decision-making under uncertainty.<br>
+</li>
+<li>Separates <strong>signal from noise</strong> — prevents drawing conclusions based on intuition alone.<br>
+</li>
+<li>Commonly used to:
+<ul>
+<li>Compare <strong>treatments or interventions</strong> (e.g., drug vs placebo)<br>
+</li>
+<li>Evaluate <strong>policy changes</strong> (e.g., new traffic laws on crash rates)<br>
+</li>
+<li>Detect <strong>patterns or associations</strong> (e.g., weather vs accident frequency)</li>
+</ul></li>
+</ul>
+</section>
+<section id="the-logic-behind-it" class="level3" data-number="7.8.3">
+<h3 data-number="7.8.3" class="anchored" data-anchor-id="the-logic-behind-it"><span class="header-section-number">7.8.3</span> The Logic Behind It</h3>
+<ol type="1">
+<li>Collect sample data from a population.<br>
+</li>
+<li>Compute a <strong>test statistic</strong> to measure how far our data deviate from H₀.<br>
+</li>
+<li>Use a <strong>probability distribution</strong> (t, F, or chi-square) to find a <strong>p-value</strong>.<br>
+</li>
+<li>The <strong><span class="math inline">\(p\)</span>-value</strong> tells us how likely our observed data would occur if <span class="math inline">\(H_0\)</span> were true.<br>
+</li>
+<li>Decision rule:
+<ul>
+<li>If <em><span class="math inline">\(p\)</span></em> &lt; α (usually <span class="math inline">\(0.05\)</span>): reject <span class="math inline">\(H_0\)</span> → evidence of an effect.<br>
+</li>
+<li>If <em><span class="math inline">\(p\)</span></em> ≥ α: fail to reject <span class="math inline">\(H_0\)</span> → no strong evidence against <span class="math inline">\(H_0\)</span>.</li>
+</ul></li>
+</ol>
+</section>
+<section id="example-context-california-housing-data" class="level3" data-number="7.8.4">
+<h3 data-number="7.8.4" class="anchored" data-anchor-id="example-context-california-housing-data"><span class="header-section-number">7.8.4</span> Example Context: California Housing Data</h3>
+<ul>
+<li>We use the California Housing dataset, accessed via sklearn.datasets.fetch_california_housing(as_frame=True).</li>
+<li>Each row represents a California census block group with features like:
+<ul>
+<li>medinc: median income in the block group</li>
+<li>houseage: median house age</li>
+<li>averooms: average number of rooms per dwelling</li>
+<li>population, aveoccup, latitude, longitude</li>
+<li>medv (renamed from MedHouseVal): median house value in units of $100,000</li>
+</ul></li>
+<li>Hypothesis testing lets us quantify questions like:
+<ul>
+<li>Do higher-income neighborhoods have higher median home values?</li>
+<li>Do mean home values differ across income quartiles?</li>
+<li>Is there a relationship between average rooms and home value?</li>
+</ul></li>
+</ul>
+</section>
+<section id="load-clean-and-preview-the-data" class="level3" data-number="7.8.5">
+<h3 data-number="7.8.5" class="anchored" data-anchor-id="load-clean-and-preview-the-data"><span class="header-section-number">7.8.5</span> Load, Clean and Preview the Data</h3>
+<ul>
+<li>Let’s begin by loading the data</li>
+</ul>
+<div id="572ce7d1" class="cell" data-execution_count="37">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1: import essential packages for analysis and visualization </span></span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd <span class="co"># used for data manipulation and structuring data </span></span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np <span class="co"># supports numerical operations</span></span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> stats <span class="co"># provides statistical operations </span></span>
+<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt <span class="co"># visualizations</span></span>
+<span id="cb62-6"><a href="#cb62-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns <span class="co"># visualizations </span></span>
+<span id="cb62-7"><a href="#cb62-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-8"><a href="#cb62-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> fetch_california_housing</span>
+<span id="cb62-9"><a href="#cb62-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-10"><a href="#cb62-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2: Load dataset from csv </span></span>
+<span id="cb62-11"><a href="#cb62-11" aria-hidden="true" tabindex="-1"></a>cal <span class="op">=</span> fetch_california_housing(as_frame<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb62-12"><a href="#cb62-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-13"><a href="#cb62-13" aria-hidden="true" tabindex="-1"></a>housing <span class="op">=</span> cal.frame</span>
+<span id="cb62-14"><a href="#cb62-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-15"><a href="#cb62-15" aria-hidden="true" tabindex="-1"></a>housing <span class="op">=</span> housing.rename(columns<span class="op">=</span>{<span class="st">"MedHouseVal"</span>: <span class="st">"medv"</span>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Then, we want to clean the data</li>
+<li>Missing or null data (NaNs) can cause statistical test to fail or return NaN results, especially with scipy.stats</li>
+<li>Cleaning ensures the tests use valid and complete data</li>
+</ul>
+<div id="705bf0d8" class="cell" data-execution_count="38">
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1: Clean up column names</span></span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>housing.columns <span class="op">=</span> (</span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>    housing.columns</span>
+<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a>    .<span class="bu">str</span>.strip()                          <span class="co"># remove leading/trailing spaces</span></span>
+<span id="cb63-5"><a href="#cb63-5" aria-hidden="true" tabindex="-1"></a>    .<span class="bu">str</span>.lower()                          <span class="co"># convert to lowercase</span></span>
+<span id="cb63-6"><a href="#cb63-6" aria-hidden="true" tabindex="-1"></a>    .<span class="bu">str</span>.replace(<span class="st">' '</span>, <span class="st">'_'</span>)                <span class="co"># replace spaces with underscores</span></span>
+<span id="cb63-7"><a href="#cb63-7" aria-hidden="true" tabindex="-1"></a>    .<span class="bu">str</span>.replace(<span class="st">'[^a-z0-9_]'</span>, <span class="st">''</span>, regex<span class="op">=</span><span class="va">True</span>)  <span class="co"># remove special chars</span></span>
+<span id="cb63-8"><a href="#cb63-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb63-9"><a href="#cb63-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-10"><a href="#cb63-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2: Drop columns that are completely empty (all NaN)</span></span>
+<span id="cb63-11"><a href="#cb63-11" aria-hidden="true" tabindex="-1"></a>housing <span class="op">=</span> housing.dropna(axis<span class="op">=</span><span class="dv">1</span>, how<span class="op">=</span><span class="st">'all'</span>)</span>
+<span id="cb63-12"><a href="#cb63-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-13"><a href="#cb63-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 3: Drop rows with any missing values</span></span>
+<span id="cb63-14"><a href="#cb63-14" aria-hidden="true" tabindex="-1"></a>housing <span class="op">=</span> housing.dropna(axis<span class="op">=</span><span class="dv">0</span>, how<span class="op">=</span><span class="st">'any'</span>)</span>
+<span id="cb63-15"><a href="#cb63-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-16"><a href="#cb63-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 4: Verify the cleaned dataset</span></span>
+<span id="cb63-17"><a href="#cb63-17" aria-hidden="true" tabindex="-1"></a>housing.info()</span>
+<span id="cb63-18"><a href="#cb63-18" aria-hidden="true" tabindex="-1"></a>housing.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
+RangeIndex: 20640 entries, 0 to 20639
+Data columns (total 9 columns):
+ #   Column      Non-Null Count  Dtype  
+---  ------      --------------  -----  
+ 0   medinc      20640 non-null  float64
+ 1   houseage    20640 non-null  float64
+ 2   averooms    20640 non-null  float64
+ 3   avebedrms   20640 non-null  float64
+ 4   population  20640 non-null  float64
+ 5   aveoccup    20640 non-null  float64
+ 6   latitude    20640 non-null  float64
+ 7   longitude   20640 non-null  float64
+ 8   medv        20640 non-null  float64
+dtypes: float64(9)
+memory usage: 1.4 MB</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="38">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">medinc</th>
+<th data-quarto-table-cell-role="th">houseage</th>
+<th data-quarto-table-cell-role="th">averooms</th>
+<th data-quarto-table-cell-role="th">avebedrms</th>
+<th data-quarto-table-cell-role="th">population</th>
+<th data-quarto-table-cell-role="th">aveoccup</th>
+<th data-quarto-table-cell-role="th">latitude</th>
+<th data-quarto-table-cell-role="th">longitude</th>
+<th data-quarto-table-cell-role="th">medv</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>8.3252</td>
+<td>41.0</td>
+<td>6.984127</td>
+<td>1.023810</td>
+<td>322.0</td>
+<td>2.555556</td>
+<td>37.88</td>
+<td>-122.23</td>
+<td>4.526</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>8.3014</td>
+<td>21.0</td>
+<td>6.238137</td>
+<td>0.971880</td>
+<td>2401.0</td>
+<td>2.109842</td>
+<td>37.86</td>
+<td>-122.22</td>
+<td>3.585</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>7.2574</td>
+<td>52.0</td>
+<td>8.288136</td>
+<td>1.073446</td>
+<td>496.0</td>
+<td>2.802260</td>
+<td>37.85</td>
+<td>-122.24</td>
+<td>3.521</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>5.6431</td>
+<td>52.0</td>
+<td>5.817352</td>
+<td>1.073059</td>
+<td>558.0</td>
+<td>2.547945</td>
+<td>37.85</td>
+<td>-122.25</td>
+<td>3.413</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>3.8462</td>
+<td>52.0</td>
+<td>6.281853</td>
+<td>1.081081</td>
+<td>565.0</td>
+<td>2.181467</td>
+<td>37.85</td>
+<td>-122.25</td>
+<td>3.422</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<ul>
+<li>We can summarize the dataset using ‘.describe()’ to see its spread and variability before running tests</li>
+</ul>
+<div id="8be4fa6b" class="cell" data-execution_count="39">
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>housing.describe()</span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>housing[<span class="st">"medv"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="39">
+<pre><code>0        4.526
+1        3.585
+2        3.521
+3        3.413
+4        3.422
+         ...  
+20635    0.781
+20636    0.771
+20637    0.923
+20638    0.847
+20639    0.894
+Name: medv, Length: 20640, dtype: float64</code></pre>
+</div>
+</div>
+</section>
+<section id="one-sample-t-test" class="level3" data-number="7.8.6">
+<h3 data-number="7.8.6" class="anchored" data-anchor-id="one-sample-t-test"><span class="header-section-number">7.8.6</span> One-Sample T-test</h3>
+<ul>
+<li>A one-sample t-test is a statistical test used to determine whether the mean of a single sample is significantly different from a known or hypothesized population mean.</li>
+<li>Here, we test whether the average median home value in California differs from $200,000.</li>
+<li>Recall: medv is measured in $100,000s. So $200,000 corresponds to <span class="math inline">\(\mu_0 = 2.0\)</span>.</li>
+<li>Hypotheses:
+<ul>
+<li><span class="math inline">\(H_0: \mu = 2.0\)</span> (average home value = $200{,}000)</li>
+<li><span class="math inline">\(H_1: \mu \ne 2.0\)</span> (average home value <span class="math inline">\(\ne\)</span> $200{,}000)</li>
+</ul></li>
+</ul>
+<div id="a1221ff4" class="cell" data-execution_count="40">
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>prices <span class="op">=</span> housing[<span class="st">"medv"</span>].dropna()</span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a>t_stat, p_value <span class="op">=</span> stats.ttest_1samp(prices, popmean<span class="op">=</span><span class="fl">2.0</span>)  </span>
+<span id="cb67-4"><a href="#cb67-4" aria-hidden="true" tabindex="-1"></a>t_stat, p_value</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="40">
+<pre><code>(np.float64(8.535417086565511), np.float64(1.4916238327737253e-17))</code></pre>
+</div>
+</div>
+<ul>
+<li>The t_stat tells us how far the sample mean is from the hypothesized value</li>
+<li>The p_value tells us how unusual that different would be if H₀ were true</li>
+<li>the ttest_1samp() compares sample’s mean to a known population mean</li>
+</ul>
+<div id="ac349076" class="cell" data-execution_count="41">
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">0.05</span></span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> p_value <span class="op">&lt;</span> alpha:</span>
+<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Reject $H_0 (p = </span><span class="sc">{</span>p_value<span class="sc">:.3f}</span><span class="ss">) → Mean home value differs from $200,000."</span>)</span>
+<span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb69-5"><a href="#cb69-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Fail to reject $H_0 (p = </span><span class="sc">{</span>p_value<span class="sc">:.3f}</span><span class="ss">) → No difference from $200,000."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Reject $H_0 (p = 0.000) → Mean home value differs from $200,000.</code></pre>
+</div>
+</div>
+<ul>
+<li><p>The output (8.54, 1.49e-17) corresponds to the t-statistic and p-value</p></li>
+<li><p>The t-statistic means that the sample is roughly 6 standard errors away from the hypothesized population mean of $200,000</p></li>
+<li><p>The p-value is extremely small, far below the 0.05 significance threshold</p></li>
+<li><p>We can conclude that the mean home value is significantly different from $20,000 and we reject the null hypothesis. The average housing prices are not centered around $200,000</p></li>
+<li><p>We can also visualize this by using a histogram</p></li>
+</ul>
+<div id="16938e7e" class="cell" data-execution_count="42">
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>plt.hist(prices, bins<span class="op">=</span><span class="dv">30</span>, color<span class="op">=</span><span class="st">"skyblue"</span>, edgecolor<span class="op">=</span><span class="st">"black"</span>)</span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a>plt.axvline(<span class="dv">20</span>, color<span class="op">=</span><span class="st">"red"</span>, linestyle<span class="op">=</span><span class="st">"--"</span>, label<span class="op">=</span><span class="st">"μ = 2.0 ($200,000)"</span>)</span>
+<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Distribution of Median Home Values"</span>)</span>
+<span id="cb71-4"><a href="#cb71-4" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Median Value ($1000s)"</span>)</span>
+<span id="cb71-5"><a href="#cb71-5" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Frequency"</span>)</span>
+<span id="cb71-6"><a href="#cb71-6" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb71-7"><a href="#cb71-7" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="07-exploration_files/figure-html/cell-43-output-1.png" width="601" height="449" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li><p>Notice how most homes cluster below the hypothesized mean value, shown by the red dashed line at μ = 2.0 ($200,000).</p></li>
+<li><p>Most home fall to the left of this line, showing that the actual mean is significantly higher than $200,000, which is consistent with the t-test result</p></li>
+<li><p>If the data were not normally distributed, meaning the data was skewed or had outliers, we’d use the Wilcoxon Signed-Rank Test instead.</p></li>
+<li><p>The Wilcoxon Signed-Rank Test compares the median of the sample to a hypothesized value.</p></li>
+<li><p><span class="math inline">\(H_0\)</span>: median home value = $200{,}000</p></li>
+<li><p><span class="math inline">\(H_1\)</span>: median home value <span class="math inline">\(\ne\)</span> $200{,}000</p></li>
+</ul>
+<div id="06b56b32" class="cell" data-execution_count="43">
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> wilcoxon</span>
+<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a>prices <span class="op">=</span> housing[<span class="st">"medv"</span>].dropna()</span>
+<span id="cb72-4"><a href="#cb72-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-5"><a href="#cb72-5" aria-hidden="true" tabindex="-1"></a>w_stat, p_value <span class="op">=</span> wilcoxon(prices <span class="op">-</span> <span class="fl">2.0</span>, alternative<span class="op">=</span><span class="st">"two-sided"</span>)</span>
+<span id="cb72-6"><a href="#cb72-6" aria-hidden="true" tabindex="-1"></a>w_stat, p_value</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="43">
+<pre><code>(np.float64(99446113.5), np.float64(1.1542596775842864e-14))</code></pre>
+</div>
+</div>
+<div id="70bc27af" class="cell" data-execution_count="44">
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">0.05</span></span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> p_value <span class="op">&lt;</span> alpha:</span>
+<span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Reject $H_0$ (p = </span><span class="sc">{</span>p_value<span class="sc">:.4f}</span><span class="ss">) → Median home value differs from $200,000."</span>)</span>
+<span id="cb74-4"><a href="#cb74-4" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb74-5"><a href="#cb74-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Fail to reject $H_0$ (p = </span><span class="sc">{</span>p_value<span class="sc">:.4f}</span><span class="ss">) → No evidence of a difference from $200,000."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Reject $H_0$ (p = 0.0000) → Median home value differs from $200,000.</code></pre>
+</div>
+</div>
+<ul>
+<li>wilcoxon() tests whether the median of the sample differs from a hypothesized value</li>
+<li>alternative=“twosided” checks for any difference</li>
+</ul>
+</section>
+<section id="two-sample-t-test" class="level3" data-number="7.8.7">
+<h3 data-number="7.8.7" class="anchored" data-anchor-id="two-sample-t-test"><span class="header-section-number">7.8.7</span> Two Sample T-Test</h3>
+<ul>
+<li>A two-sample t-test (also called an independent samples t-test) is used to compare the means of two independent groups to see if they’re statistically different from each other.</li>
+<li>Here, we test whether median home values differ between high-income and low-income neighborhoods, based on medinc (median income).</li>
+<li>Let:
+<ul>
+<li>Group 1: tracts with medinc above the median (“high income”)</li>
+<li>Group 2: tracts with medinc at or below the median (“low income”)</li>
+</ul></li>
+<li>Hypotheses:
+<ul>
+<li><span class="math inline">\(H_0: \mu_{\text{high}} = \mu_{\text{low}}\)</span></li>
+<li><span class="math inline">\(H_1: \mu_{\text{high}} \ne \mu_{\text{low}}\)</span></li>
+</ul></li>
+</ul>
+<div id="fffd22b2" class="cell" data-execution_count="45">
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>housing <span class="op">=</span> housing.rename(columns<span class="op">=</span>{</span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"MedInc"</span>: <span class="st">"medinc"</span>,</span>
+<span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"MedHouseVal"</span>: <span class="st">"medv"</span>,</span>
+<span id="cb76-4"><a href="#cb76-4" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb76-5"><a href="#cb76-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb76-6"><a href="#cb76-6" aria-hidden="true" tabindex="-1"></a>income_median <span class="op">=</span> housing[<span class="st">"medinc"</span>].median()</span>
+<span id="cb76-7"><a href="#cb76-7" aria-hidden="true" tabindex="-1"></a>high_income <span class="op">=</span> housing[housing[<span class="st">"medinc"</span>] <span class="op">&gt;</span> income_median][<span class="st">"medv"</span>].dropna()</span>
+<span id="cb76-8"><a href="#cb76-8" aria-hidden="true" tabindex="-1"></a>low_income <span class="op">=</span> housing[housing[<span class="st">"medinc"</span>] <span class="op">&lt;=</span> income_median][<span class="st">"medv"</span>].dropna()</span>
+<span id="cb76-9"><a href="#cb76-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb76-10"><a href="#cb76-10" aria-hidden="true" tabindex="-1"></a>t_stat, p_value <span class="op">=</span> stats.ttest_ind(high_income, low_income, equal_var<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb76-11"><a href="#cb76-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"T-statistic: </span><span class="sc">{</span>t_stat<span class="sc">:.3f}</span><span class="ss">, P-value: </span><span class="sc">{</span>p_value<span class="sc">:.4f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>T-statistic: 86.363, P-value: 0.0000</code></pre>
+</div>
+</div>
+<div id="2d42210e" class="cell" data-execution_count="46">
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">0.05</span></span>
+<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> p_value <span class="op">&lt;</span> alpha:</span>
+<span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Reject $H_0 (p = </span><span class="sc">{</span>p_value<span class="sc">:.4f}</span><span class="ss">) → Mean home values differ."</span>)</span>
+<span id="cb78-4"><a href="#cb78-4" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb78-5"><a href="#cb78-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Fail to reject $H_0 (p = </span><span class="sc">{</span>p_value<span class="sc">:.4f}</span><span class="ss">) → No difference in mean home values."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Reject $H_0 (p = 0.0000) → Mean home values differ.</code></pre>
+</div>
+</div>
+<ul>
+<li><p>ttest_ind() compares means of two independent groups</p></li>
+<li><p>equal_var=False: Welch’s t-test version, which doesn’t assume equal variances</p></li>
+<li><p>We can visualize these differences using boxplots</p></li>
+<li><p>The boxes represent interquartile ranges, so if they barely overlap that’s a visual clue of statistical difference</p></li>
+</ul>
+<div id="e323cdcd" class="cell" data-execution_count="47">
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>housing[<span class="st">"income_group"</span>] <span class="op">=</span> np.where(housing[<span class="st">"medinc"</span>] <span class="op">&gt;</span> income_median,</span>
+<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a><span class="st">"High income"</span>,</span>
+<span id="cb80-3"><a href="#cb80-3" aria-hidden="true" tabindex="-1"></a><span class="st">"Low income"</span>)</span>
+<span id="cb80-4"><a href="#cb80-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb80-5"><a href="#cb80-5" aria-hidden="true" tabindex="-1"></a>sns.boxplot(x<span class="op">=</span><span class="st">"income_group"</span>, y<span class="op">=</span><span class="st">"medv"</span>, data<span class="op">=</span>housing)</span>
+<span id="cb80-6"><a href="#cb80-6" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Median Home Values – High vs. Low Income Neighborhoods"</span>)</span>
+<span id="cb80-7"><a href="#cb80-7" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Income Group"</span>)</span>
+<span id="cb80-8"><a href="#cb80-8" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Median Home Value (medv)"</span>)</span>
+<span id="cb80-9"><a href="#cb80-9" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="07-exploration_files/figure-html/cell-48-output-1.png" width="576" height="449" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>If the data don’t meet the t-test assumptions (normality, equal variance), we use the Mann-Whitney U test between two groups</li>
+<li>In this case, we will test whether the distributions of median home values differ for houses near versus away from the Charles River</li>
+<li><span class="math inline">\(H_0\)</span>: the distributions of medv are the same in high- and low-income tracts</li>
+<li><span class="math inline">\(H_1\)</span>: the distributions differ</li>
+</ul>
+<div id="95de0fd3" class="cell" data-execution_count="48">
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> stats</span>
+<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a>stat, p_value <span class="op">=</span> stats.mannwhitneyu(high_income, low_income, alternative<span class="op">=</span><span class="st">"two-sided"</span>)</span>
+<span id="cb81-3"><a href="#cb81-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb81-4"><a href="#cb81-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Mann-Whitney U statistic: </span><span class="sc">{</span>stat<span class="sc">:.3f}</span><span class="ss">, P-value: </span><span class="sc">{</span>p_value<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb81-5"><a href="#cb81-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb81-6"><a href="#cb81-6" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">0.05</span></span>
+<span id="cb81-7"><a href="#cb81-7" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> p_value <span class="op">&lt;</span> alpha:</span>
+<span id="cb81-8"><a href="#cb81-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Reject $H_0$ (p = </span><span class="sc">{</span>p_value<span class="sc">:.4f}</span><span class="ss">) → "f"Median home values differ between income groups."</span>)</span>
+<span id="cb81-9"><a href="#cb81-9" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb81-10"><a href="#cb81-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Fail to reject $H_0$ (p = </span><span class="sc">{</span>p_value<span class="sc">:.4f}</span><span class="ss">) → "</span> <span class="ss">f"No difference in median home values by income group."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Mann-Whitney U statistic: 87648425.000, P-value: 0.0000
+Reject $H_0$ (p = 0.0000) → Median home values differ between income groups.</code></pre>
+</div>
+</div>
+</section>
+<section id="anova" class="level3" data-number="7.8.8">
+<h3 data-number="7.8.8" class="anchored" data-anchor-id="anova"><span class="header-section-number">7.8.8</span> ANOVA</h3>
+<ul>
+<li>ANOVA stands for Analysis of Variance</li>
+<li>It’s a statistical method used to compare the means of three or more groups to determine whether at least one of them is significantly different from the others.</li>
+<li>Here, we’ll compare average home values across income quartiles based on medinc. levels of highway accessibility (rad).</li>
+<li><span class="math inline">\(H_0\)</span>: all income quartiles have the same mean home value</li>
+<li><span class="math inline">\(H_1\)</span>: at least one quartile mean differs</li>
+</ul>
+<div id="09e8d1c6" class="cell" data-execution_count="49">
+<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a>housing[<span class="st">"income_quartile"</span>] <span class="op">=</span> pd.qcut(</span>
+<span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a>housing[<span class="st">"medinc"</span>],</span>
+<span id="cb83-3"><a href="#cb83-3" aria-hidden="true" tabindex="-1"></a>q<span class="op">=</span><span class="dv">4</span>,</span>
+<span id="cb83-4"><a href="#cb83-4" aria-hidden="true" tabindex="-1"></a>labels<span class="op">=</span>[<span class="st">"Q1 (lowest)"</span>, <span class="st">"Q2"</span>, <span class="st">"Q3"</span>, <span class="st">"Q4 (highest)"</span>]</span>
+<span id="cb83-5"><a href="#cb83-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb83-6"><a href="#cb83-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb83-7"><a href="#cb83-7" aria-hidden="true" tabindex="-1"></a>groups <span class="op">=</span> [group[<span class="st">"medv"</span>].dropna() <span class="cf">for</span> _, group <span class="kw">in</span> housing.groupby(<span class="st">"income_quartile"</span>)]</span>
+<span id="cb83-8"><a href="#cb83-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb83-9"><a href="#cb83-9" aria-hidden="true" tabindex="-1"></a>f_stat, p_value <span class="op">=</span> stats.f_oneway(<span class="op">*</span>groups)</span>
+<span id="cb83-10"><a href="#cb83-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb83-11"><a href="#cb83-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"F-statistic: </span><span class="sc">{</span>f_stat<span class="sc">:.3f}</span><span class="ss">, P-value: </span><span class="sc">{</span>p_value<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb83-12"><a href="#cb83-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb83-13"><a href="#cb83-13" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">0.05</span></span>
+<span id="cb83-14"><a href="#cb83-14" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> p_value <span class="op">&lt;</span> alpha:</span>
+<span id="cb83-15"><a href="#cb83-15" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Reject $H_0$ (p = </span><span class="sc">{</span>p_value<span class="sc">:.4f}</span><span class="ss">) → "</span> <span class="ss">f"Mean home values differ across income quartiles."</span>)</span>
+<span id="cb83-16"><a href="#cb83-16" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb83-17"><a href="#cb83-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Fail to reject $H_0$ (p = </span><span class="sc">{</span>p_value<span class="sc">:.4f}</span><span class="ss">) → "</span> <span class="ss">f"No difference in mean home values across income quartiles."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>F-statistic: 4277.066, P-value: 0.0000
+Reject $H_0$ (p = 0.0000) → Mean home values differ across income quartiles.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/var/folders/cq/5ysgnwfn7c3g0h46xyzvpj800000gn/T/ipykernel_8983/3497753232.py:7: FutureWarning:
+
+The default of observed=False is deprecated and will be changed to True in a future version of pandas. Pass observed=False to retain current behavior or observed=True to adopt the future default and silence this warning.
+</code></pre>
+</div>
+</div>
+<ul>
+<li><p>f_oneway() performs the one-way ANOVA test</p></li>
+<li><p>To see this visually:</p></li>
+</ul>
+<div id="cfb48689" class="cell" data-execution_count="50">
+<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a>sns.boxplot(x<span class="op">=</span><span class="st">"income_quartile"</span>, y<span class="op">=</span><span class="st">"medv"</span>, data<span class="op">=</span>housing)</span>
+<span id="cb86-2"><a href="#cb86-2" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Home Values Across Income Quartiles"</span>)</span>
+<span id="cb86-3"><a href="#cb86-3" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Income Quartile (medinc)"</span>)</span>
+<span id="cb86-4"><a href="#cb86-4" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Median Home Value (medv)"</span>)</span>
+<span id="cb86-5"><a href="#cb86-5" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="07-exploration_files/figure-html/cell-51-output-1.png" width="576" height="449" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>The Kruskal–Wallis test is a nonparametric alternative to one-way ANOVA.</li>
+<li>It’s used when the normality assumption is violated or the data contain outliers.</li>
+<li><span class="math inline">\(H_0\)</span>: the distributions of medv are the same across all income quartiles</li>
+<li><span class="math inline">\(H_1\)</span>: at least one distribution differs</li>
+</ul>
+<div id="837d6b57" class="cell" data-execution_count="51">
+<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a>groups <span class="op">=</span> [group[<span class="st">"medv"</span>].dropna() <span class="cf">for</span> _, group <span class="kw">in</span> housing.groupby(<span class="st">"income_quartile"</span>)]</span>
+<span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb87-3"><a href="#cb87-3" aria-hidden="true" tabindex="-1"></a>h_stat, p_value <span class="op">=</span> stats.kruskal(<span class="op">*</span>groups)</span>
+<span id="cb87-4"><a href="#cb87-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb87-5"><a href="#cb87-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"H-statistic: </span><span class="sc">{</span>h_stat<span class="sc">:.3f}</span><span class="ss">, P-value: </span><span class="sc">{</span>p_value<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb87-6"><a href="#cb87-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb87-7"><a href="#cb87-7" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">0.05</span></span>
+<span id="cb87-8"><a href="#cb87-8" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> p_value <span class="op">&lt;</span> alpha:</span>
+<span id="cb87-9"><a href="#cb87-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Reject $H_0$ (p = </span><span class="sc">{</span>p_value<span class="sc">:.4f}</span><span class="ss">) → "</span> <span class="ss">f"Median home values differ across income quartiles."</span>)</span>
+<span id="cb87-10"><a href="#cb87-10" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb87-11"><a href="#cb87-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Fail to reject $H_0$ (p = </span><span class="sc">{</span>p_value<span class="sc">:.4f}</span><span class="ss">) → "f"No difference in median home values across income quartiles."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>H-statistic: 8726.603, P-value: 0.0000
+Reject $H_0$ (p = 0.0000) → Median home values differ across income quartiles.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/var/folders/cq/5ysgnwfn7c3g0h46xyzvpj800000gn/T/ipykernel_8983/3871825430.py:1: FutureWarning:
+
+The default of observed=False is deprecated and will be changed to True in a future version of pandas. Pass observed=False to retain current behavior or observed=True to adopt the future default and silence this warning.
+</code></pre>
+</div>
+</div>
+</section>
+<section id="chi-square-test-of-independence" class="level3" data-number="7.8.9">
+<h3 data-number="7.8.9" class="anchored" data-anchor-id="chi-square-test-of-independence"><span class="header-section-number">7.8.9</span> Chi-Square Test of Independence</h3>
+<ul>
+<li>The Chi-Square Test of Independence checks whether two categorical variables are related or independent of each other.</li>
+<li>It’s a nonparametric test, meaning it doesn’t assume normality or equal variances.</li>
+<li>We’ll test whether income level is associated with house age category.</li>
+</ul>
+<div id="2fb302df" class="cell" data-execution_count="52">
+<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a>housing <span class="op">=</span> housing.rename(columns<span class="op">=</span>{</span>
+<span id="cb90-2"><a href="#cb90-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"MedInc"</span>: <span class="st">"medinc"</span>,</span>
+<span id="cb90-3"><a href="#cb90-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"HouseAge"</span>: <span class="st">"houseage"</span></span>
+<span id="cb90-4"><a href="#cb90-4" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb90-5"><a href="#cb90-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb90-6"><a href="#cb90-6" aria-hidden="true" tabindex="-1"></a>income_median <span class="op">=</span> housing[<span class="st">"medinc"</span>].median()</span>
+<span id="cb90-7"><a href="#cb90-7" aria-hidden="true" tabindex="-1"></a>age_median    <span class="op">=</span> housing[<span class="st">"houseage"</span>].median()</span>
+<span id="cb90-8"><a href="#cb90-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb90-9"><a href="#cb90-9" aria-hidden="true" tabindex="-1"></a>housing[<span class="st">"high_income"</span>] <span class="op">=</span> np.where(housing[<span class="st">"medinc"</span>] <span class="op">&gt;</span> income_median, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb90-10"><a href="#cb90-10" aria-hidden="true" tabindex="-1"></a>housing[<span class="st">"old_house"</span>]   <span class="op">=</span> np.where(housing[<span class="st">"houseage"</span>] <span class="op">&gt;</span> age_median, <span class="dv">1</span>, <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Hypotheses:
+<ul>
+<li><span class="math inline">\(H_0\)</span>: income level and house age category are independent</li>
+<li><span class="math inline">\(H_1\)</span>: there is an association between income level and house age</li>
+</ul></li>
+</ul>
+<div id="95b821cc" class="cell" data-execution_count="53">
+<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a>table <span class="op">=</span> pd.crosstab(housing[<span class="st">"high_income"</span>], housing[<span class="st">"old_house"</span>])</span>
+<span id="cb91-2"><a href="#cb91-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-3"><a href="#cb91-3" aria-hidden="true" tabindex="-1"></a>chi2, p_value, dof, expected <span class="op">=</span> stats.chi2_contingency(table)</span>
+<span id="cb91-4"><a href="#cb91-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-5"><a href="#cb91-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Chi2 Statistic: </span><span class="sc">{</span>chi2<span class="sc">:.3f}</span><span class="ss">, P-value: </span><span class="sc">{</span>p_value<span class="sc">:.4f}</span><span class="ss">, Degrees of Freedom: </span><span class="sc">{</span>dof<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb91-6"><a href="#cb91-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-7"><a href="#cb91-7" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">0.05</span></span>
+<span id="cb91-8"><a href="#cb91-8" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> p_value <span class="op">&lt;</span> alpha:</span>
+<span id="cb91-9"><a href="#cb91-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Reject $H_0$ (p = </span><span class="sc">{</span>p_value<span class="sc">:.4f}</span><span class="ss">) → "</span> <span class="ss">f"There is a significant association between income level and house age."</span>)</span>
+<span id="cb91-10"><a href="#cb91-10" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb91-11"><a href="#cb91-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Fail to reject $H_0$ (p = </span><span class="sc">{</span>p_value<span class="sc">:.4f}</span><span class="ss">) → "</span> <span class="ss">f"No significant association between income level and house age."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Chi2 Statistic: 140.180, P-value: 0.0000, Degrees of Freedom: 1
+Reject $H_0$ (p = 0.0000) → There is a significant association between income level and house age.</code></pre>
+</div>
+</div>
+<ul>
+<li><p>pd.crosstab() creates a contingency table</p></li>
+<li><p>chi2_contingency() tests independence of two categorical variables</p></li>
+<li><p>Visual</p></li>
+</ul>
+<div id="3fa49afd" class="cell" data-execution_count="54">
+<div class="sourceCode cell-code" id="cb93"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a>sns.countplot(x<span class="op">=</span><span class="st">"old_house"</span>, hue<span class="op">=</span><span class="st">"high_income"</span>, data<span class="op">=</span>housing)</span>
+<span id="cb93-2"><a href="#cb93-2" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"House Age Category by Income Level"</span>)</span>
+<span id="cb93-3"><a href="#cb93-3" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Old House (1 = older than median age)"</span>)</span>
+<span id="cb93-4"><a href="#cb93-4" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Count of Tracts"</span>)</span>
+<span id="cb93-5"><a href="#cb93-5" aria-hidden="true" tabindex="-1"></a>plt.legend(title<span class="op">=</span><span class="st">"High Income (1 = above median medinc)"</span>)</span>
+<span id="cb93-6"><a href="#cb93-6" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="07-exploration_files/figure-html/cell-55-output-1.png" width="601" height="449" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>Chi-square tests are great for frequency data, think of them as testing whether “categories are distributed as expected”</li>
+</ul>
+</section>
+<section id="proportion-test" class="level3" data-number="7.8.10">
+<h3 data-number="7.8.10" class="anchored" data-anchor-id="proportion-test"><span class="header-section-number">7.8.10</span> Proportion Test</h3>
+<ul>
+<li>A proportion test is used to compare observed proportions to a hypothesized proportion or between two groups.</li>
+<li>Useful for categorical yes/no variables</li>
+<li>Suppose we define high-income neighborhoods as those with medinc ≥ 5.0 (median income ≥ $50,000 in this dataset’s units).</li>
+<li><span class="math inline">\(H_0: p = p_0 = 0.30\)</span> (30% of tracts are high income)</li>
+<li><span class="math inline">\(H_1: p \ne p_0\)</span> (the true proportion differs from 30%)</li>
+</ul>
+<div id="9f2414f3" class="cell" data-execution_count="55">
+<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statsmodels.stats.proportion <span class="im">import</span> proportions_ztest</span>
+<span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb94-3"><a href="#cb94-3" aria-hidden="true" tabindex="-1"></a>high_income_flag <span class="op">=</span> housing[<span class="st">"medinc"</span>] <span class="op">&gt;=</span> <span class="fl">5.0</span></span>
+<span id="cb94-4"><a href="#cb94-4" aria-hidden="true" tabindex="-1"></a>count <span class="op">=</span> high_income_flag.<span class="bu">sum</span>()</span>
+<span id="cb94-5"><a href="#cb94-5" aria-hidden="true" tabindex="-1"></a>nobs <span class="op">=</span> <span class="bu">len</span>(housing)</span>
+<span id="cb94-6"><a href="#cb94-6" aria-hidden="true" tabindex="-1"></a>p0 <span class="op">=</span> <span class="fl">0.30</span></span>
+<span id="cb94-7"><a href="#cb94-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb94-8"><a href="#cb94-8" aria-hidden="true" tabindex="-1"></a>stat, p_value <span class="op">=</span> proportions_ztest(count, nobs, value<span class="op">=</span>p0, alternative<span class="op">=</span><span class="st">"two-sided"</span>)</span>
+<span id="cb94-9"><a href="#cb94-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Z-statistic: </span><span class="sc">{</span>stat<span class="sc">:.3f}</span><span class="ss">, P-value: </span><span class="sc">{</span>p_value<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb94-10"><a href="#cb94-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb94-11"><a href="#cb94-11" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">0.05</span></span>
+<span id="cb94-12"><a href="#cb94-12" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> p_value <span class="op">&lt;</span> alpha:</span>
+<span id="cb94-13"><a href="#cb94-13" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Reject $H_0$ → The proportion of high-income tracts differs from 30%."</span>)</span>
+<span id="cb94-14"><a href="#cb94-14" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb94-15"><a href="#cb94-15" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Fail to reject $H_0$ → No significant difference from 30%."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Z-statistic: -28.351, P-value: 0.0000
+Reject $H_0$ → The proportion of high-income tracts differs from 30%.</code></pre>
+</div>
+</div>
+<ul>
+<li>nobs is the total homes</li>
+<li>p0 is the hypothesized proportionn</li>
+<li>proportions_ztest() is the z-test for proportions (like t-test but for percentages)</li>
+</ul>
+</section>
+<section id="correlation-test" class="level3" data-number="7.8.11">
+<h3 data-number="7.8.11" class="anchored" data-anchor-id="correlation-test"><span class="header-section-number">7.8.11</span> Correlation Test</h3>
+<ul>
+<li>The Correlation Test measures the strength and direction of the relationship between two continuous variables.</li>
+<li><span class="math inline">\(r\)</span> close to <span class="math inline">\(+1\)</span> means a strong correlation</li>
+<li><span class="math inline">\(r\)</span> close to <span class="math inline">\(0\)</span> means little or no correlation</li>
+<li><span class="math inline">\(r\)</span> close to <span class="math inline">\(-1\)</span> means a strong negative correlation</li>
+<li>Here, we test whether the average number of rooms per dwelling (averooms) is linearly related to median home value (medv).</li>
+<li>H<span class="math inline">\(H_0: \rho = 0\)</span> (no linear correlation)</li>
+<li><span class="math inline">\(H_1: \rho \ne 0\)</span> (a significant linear correlation exists)</li>
+</ul>
+<div id="729ea4b7" class="cell" data-execution_count="56">
+<div class="sourceCode cell-code" id="cb96"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> housing[<span class="st">"averooms"</span>]</span>
+<span id="cb96-2"><a href="#cb96-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> housing[<span class="st">"medv"</span>]</span>
+<span id="cb96-3"><a href="#cb96-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb96-4"><a href="#cb96-4" aria-hidden="true" tabindex="-1"></a>corr, p_value <span class="op">=</span> stats.pearsonr(x, y)</span>
+<span id="cb96-5"><a href="#cb96-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb96-6"><a href="#cb96-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Correlation coefficient (r): </span><span class="sc">{</span>corr<span class="sc">:.3f}</span><span class="ss">, P-value: </span><span class="sc">{</span>p_value<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb96-7"><a href="#cb96-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb96-8"><a href="#cb96-8" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">0.05</span></span>
+<span id="cb96-9"><a href="#cb96-9" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> p_value <span class="op">&lt;</span> alpha:</span>
+<span id="cb96-10"><a href="#cb96-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Reject $H_0$ (p = </span><span class="sc">{</span>p_value<span class="sc">:.4f}</span><span class="ss">) → Significant linear correlation."</span>)</span>
+<span id="cb96-11"><a href="#cb96-11" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb96-12"><a href="#cb96-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Fail to reject $H_0$ (p = </span><span class="sc">{</span>p_value<span class="sc">:.4f}</span><span class="ss">) → No significant linear correlation."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Correlation coefficient (r): 0.152, P-value: 0.0000
+Reject $H_0$ (p = 0.0000) → Significant linear correlation.</code></pre>
+</div>
+</div>
+<ul>
+<li>Scatterplot for visualization</li>
+</ul>
+<div id="1b3db48e" class="cell" data-execution_count="57">
+<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a>sns.scatterplot(x<span class="op">=</span>housing[<span class="st">"averooms"</span>], y<span class="op">=</span>housing[<span class="st">"medv"</span>], alpha<span class="op">=</span><span class="fl">0.4</span>)</span>
+<span id="cb98-2"><a href="#cb98-2" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Average Rooms vs. Median Home Value"</span>)</span>
+<span id="cb98-3"><a href="#cb98-3" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Average Number of Rooms per Dwelling (averooms)"</span>)</span>
+<span id="cb98-4"><a href="#cb98-4" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Median Home Value (medv)"</span>)</span>
+<span id="cb98-5"><a href="#cb98-5" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="07-exploration_files/figure-html/cell-58-output-1.png" width="576" height="449" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>The Spearman correlation coefficient <span class="math inline">\(\rho\)</span> measures the strength and direction of a monotonic relationship between two continuous variables.</li>
+<li>Unlike Pearson’s correlation, it doesn’t assume normality or a linear relationship.</li>
+<li><span class="math inline">\(H_0: \rho = 0\)</span> (no monotonic relationship)</li>
+<li><span class="math inline">\(H_1: \rho \ne 0\)</span> (a monotonic relationship exists)</li>
+</ul>
+<div id="5ab68937" class="cell" data-execution_count="58">
+<div class="sourceCode cell-code" id="cb99"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> housing[<span class="st">"averooms"</span>]</span>
+<span id="cb99-2"><a href="#cb99-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> housing[<span class="st">"medv"</span>]</span>
+<span id="cb99-3"><a href="#cb99-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb99-4"><a href="#cb99-4" aria-hidden="true" tabindex="-1"></a>rho, p_value <span class="op">=</span> stats.spearmanr(x, y)</span>
+<span id="cb99-5"><a href="#cb99-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb99-6"><a href="#cb99-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Spearman’s rho: </span><span class="sc">{</span>rho<span class="sc">:.3f}</span><span class="ss">, P-value: </span><span class="sc">{</span>p_value<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb99-7"><a href="#cb99-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb99-8"><a href="#cb99-8" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">0.05</span></span>
+<span id="cb99-9"><a href="#cb99-9" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> p_value <span class="op">&lt;</span> alpha:</span>
+<span id="cb99-10"><a href="#cb99-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Reject $H_0$ (p = </span><span class="sc">{</span>p_value<span class="sc">:.4f}</span><span class="ss">) → Significant monotonic relationship."</span>)</span>
+<span id="cb99-11"><a href="#cb99-11" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb99-12"><a href="#cb99-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Fail to reject $H_0$ (p = </span><span class="sc">{</span>p_value<span class="sc">:.4f}</span><span class="ss">) → No significant monotonic relationship."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Spearman’s rho: 0.263, P-value: 0.0000
+Reject $H_0$ (p = 0.0000) → Significant monotonic relationship.</code></pre>
+</div>
+</div>
+</section>
+<section id="summary-of-tests" class="level3" data-number="7.8.12">
+<h3 data-number="7.8.12" class="anchored" data-anchor-id="summary-of-tests"><span class="header-section-number">7.8.12</span> Summary of Tests</h3>
+<ul>
+<li>Each statisical test corresponds to a specific research question type:</li>
+</ul>
+<div id="1d0381af" class="cell" data-execution_count="59">
+<div class="sourceCode cell-code" id="cb101"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> {</span>
+<span id="cb101-2"><a href="#cb101-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Test"</span>: [</span>
+<span id="cb101-3"><a href="#cb101-3" aria-hidden="true" tabindex="-1"></a>        <span class="st">"One-sample t-test"</span>,</span>
+<span id="cb101-4"><a href="#cb101-4" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Wilcoxon Signed-Rank Test"</span>,</span>
+<span id="cb101-5"><a href="#cb101-5" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Two-sample t-test"</span>,</span>
+<span id="cb101-6"><a href="#cb101-6" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Mann–Whitney U Test"</span>,</span>
+<span id="cb101-7"><a href="#cb101-7" aria-hidden="true" tabindex="-1"></a>        <span class="st">"ANOVA"</span>,</span>
+<span id="cb101-8"><a href="#cb101-8" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Kruskal–Wallis Test"</span>,</span>
+<span id="cb101-9"><a href="#cb101-9" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Chi-Square Test"</span>,</span>
+<span id="cb101-10"><a href="#cb101-10" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Proportion Test (z-test)"</span>,</span>
+<span id="cb101-11"><a href="#cb101-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Pearson Correlation"</span>,</span>
+<span id="cb101-12"><a href="#cb101-12" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Spearman Correlation"</span></span>
+<span id="cb101-13"><a href="#cb101-13" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb101-14"><a href="#cb101-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Purpose"</span>: [</span>
+<span id="cb101-15"><a href="#cb101-15" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Compare sample mean to a known value"</span>,</span>
+<span id="cb101-16"><a href="#cb101-16" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Nonparametric alternative to one-sample t-test"</span>,</span>
+<span id="cb101-17"><a href="#cb101-17" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Compare means between two independent groups"</span>,</span>
+<span id="cb101-18"><a href="#cb101-18" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Nonparametric alternative to two-sample t-test"</span>,</span>
+<span id="cb101-19"><a href="#cb101-19" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Compare means across 3+ groups"</span>,</span>
+<span id="cb101-20"><a href="#cb101-20" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Nonparametric alternative to ANOVA"</span>,</span>
+<span id="cb101-21"><a href="#cb101-21" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Test association between categorical variables"</span>,</span>
+<span id="cb101-22"><a href="#cb101-22" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Compare observed vs expected proportions"</span>,</span>
+<span id="cb101-23"><a href="#cb101-23" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Measure linear relationship between two continuous variables"</span>,</span>
+<span id="cb101-24"><a href="#cb101-24" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Measure monotonic relationship between two continuous variables"</span></span>
+<span id="cb101-25"><a href="#cb101-25" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb101-26"><a href="#cb101-26" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Example"</span>: [</span>
+<span id="cb101-27"><a href="#cb101-27" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Avg home value vs $200k"</span>,</span>
+<span id="cb101-28"><a href="#cb101-28" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Median home value vs $200k"</span>,</span>
+<span id="cb101-29"><a href="#cb101-29" aria-hidden="true" tabindex="-1"></a>        <span class="st">"High- vs low-income neighborhoods"</span>,</span>
+<span id="cb101-30"><a href="#cb101-30" aria-hidden="true" tabindex="-1"></a>        <span class="st">"High- vs low-income neighborhoods"</span>,</span>
+<span id="cb101-31"><a href="#cb101-31" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Home values across income quartiles"</span>,</span>
+<span id="cb101-32"><a href="#cb101-32" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Home values across income quartiles"</span>,</span>
+<span id="cb101-33"><a href="#cb101-33" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Income level vs house age category"</span>,</span>
+<span id="cb101-34"><a href="#cb101-34" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Proportion of high-income tracts = 30%"</span>,</span>
+<span id="cb101-35"><a href="#cb101-35" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Average rooms vs home value"</span>,</span>
+<span id="cb101-36"><a href="#cb101-36" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Average rooms vs home value"</span></span>
+<span id="cb101-37"><a href="#cb101-37" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb101-38"><a href="#cb101-38" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Interpretation"</span>: [</span>
+<span id="cb101-39"><a href="#cb101-39" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Is mean ≠ hypothesized value?"</span>,</span>
+<span id="cb101-40"><a href="#cb101-40" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Is median ≠ hypothesized value?"</span>,</span>
+<span id="cb101-41"><a href="#cb101-41" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Difference in group means"</span>,</span>
+<span id="cb101-42"><a href="#cb101-42" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Difference in group medians"</span>,</span>
+<span id="cb101-43"><a href="#cb101-43" aria-hidden="true" tabindex="-1"></a>        <span class="st">"At least one mean differs"</span>,</span>
+<span id="cb101-44"><a href="#cb101-44" aria-hidden="true" tabindex="-1"></a>        <span class="st">"At least one median differs"</span>,</span>
+<span id="cb101-45"><a href="#cb101-45" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Are the variables independent?"</span>,</span>
+<span id="cb101-46"><a href="#cb101-46" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Is the proportion different from expected?"</span>,</span>
+<span id="cb101-47"><a href="#cb101-47" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Is there a linear correlation?"</span>,</span>
+<span id="cb101-48"><a href="#cb101-48" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Is there a monotonic correlation?"</span></span>
+<span id="cb101-49"><a href="#cb101-49" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb101-50"><a href="#cb101-50" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb101-51"><a href="#cb101-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb101-52"><a href="#cb101-52" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame(data)</span>
+<span id="cb101-53"><a href="#cb101-53" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="59">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Test</th>
+<th data-quarto-table-cell-role="th">Purpose</th>
+<th data-quarto-table-cell-role="th">Example</th>
+<th data-quarto-table-cell-role="th">Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>One-sample t-test</td>
+<td>Compare sample mean to a known value</td>
+<td>Avg home value vs $200k</td>
+<td>Is mean ≠ hypothesized value?</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>Wilcoxon Signed-Rank Test</td>
+<td>Nonparametric alternative to one-sample t-test</td>
+<td>Median home value vs $200k</td>
+<td>Is median ≠ hypothesized value?</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>Two-sample t-test</td>
+<td>Compare means between two independent groups</td>
+<td>High- vs low-income neighborhoods</td>
+<td>Difference in group means</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>Mann–Whitney U Test</td>
+<td>Nonparametric alternative to two-sample t-test</td>
+<td>High- vs low-income neighborhoods</td>
+<td>Difference in group medians</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>ANOVA</td>
+<td>Compare means across 3+ groups</td>
+<td>Home values across income quartiles</td>
+<td>At least one mean differs</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>Kruskal–Wallis Test</td>
+<td>Nonparametric alternative to ANOVA</td>
+<td>Home values across income quartiles</td>
+<td>At least one median differs</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">6</td>
+<td>Chi-Square Test</td>
+<td>Test association between categorical variables</td>
+<td>Income level vs house age category</td>
+<td>Are the variables independent?</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">7</td>
+<td>Proportion Test (z-test)</td>
+<td>Compare observed vs expected proportions</td>
+<td>Proportion of high-income tracts = 30%</td>
+<td>Is the proportion different from expected?</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">8</td>
+<td>Pearson Correlation</td>
+<td>Measure linear relationship between two contin...</td>
+<td>Average rooms vs home value</td>
+<td>Is there a linear correlation?</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">9</td>
+<td>Spearman Correlation</td>
+<td>Measure monotonic relationship between two con...</td>
+<td>Average rooms vs home value</td>
+<td>Is there a monotonic correlation?</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="discussions-and-takeaways" class="level3" data-number="7.8.13">
+<h3 data-number="7.8.13" class="anchored" data-anchor-id="discussions-and-takeaways"><span class="header-section-number">7.8.13</span> Discussions and Takeaways</h3>
+<ul>
+<li>Check assumptions: normality, independence, equal variance.</li>
+<li>Use nonparametric methods when assumptions fail.</li>
+<li>Statistical significance ≠ practical importance.</li>
+<li>Clear hypotheses + clean data = valid conclusions.</li>
+</ul>
+</section>
+<section id="further-readings" class="level3" data-number="7.8.14">
+<h3 data-number="7.8.14" class="anchored" data-anchor-id="further-readings"><span class="header-section-number">7.8.14</span> Further Readings</h3>
+<ul>
+<li><code>SciPy.stats</code> Documentation: <a href="https://docs.scipy.org/doc/scipy/reference/stats.html" class="uri">https://docs.scipy.org/doc/scipy/reference/stats.html</a></li>
+<li>“Practical Statistics for Data Scientists” — Bruce &amp; Gedeck</li>
+<li>“Think Stats” by Allen B. Downey</li>
+</ul>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list" style="display: none">

@@ -268,19 +268,25 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./20-deeplearning.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Deep Learning</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./90-advanced.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Advanced Topics</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Advanced Topics</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Exercises</span></span></a>
+  <a href="./95-exercises.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Exercises</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link">
+  <a href="./99-references.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">References</span></a>
   </div>
 </li>
@@ -321,22 +327,30 @@ window.Quarto = {
   <li><a href="#random-forests-in-python-ames-data" id="toc-random-forests-in-python-ames-data" class="nav-link" data-scroll-target="#random-forests-in-python-ames-data"><span class="header-section-number">10.4.3</span> Random Forests in Python (Ames Data)</a></li>
   <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">10.4.4</span> Further Reading</a></li>
   </ul></li>
-  <li><a href="#neural-networks" id="toc-neural-networks" class="nav-link" data-scroll-target="#neural-networks"><span class="header-section-number">10.5</span> Neural Networks</a>
+  <li><a href="#synthetic-minority-over-sampling-technique-smote" id="toc-synthetic-minority-over-sampling-technique-smote" class="nav-link" data-scroll-target="#synthetic-minority-over-sampling-technique-smote"><span class="header-section-number">10.5</span> Synthetic Minority Over-sampling Technique (SMOTE)</a>
   <ul class="collapse">
-  <li><a href="#structure-of-a-neural-network" id="toc-structure-of-a-neural-network" class="nav-link" data-scroll-target="#structure-of-a-neural-network"><span class="header-section-number">10.5.1</span> Structure of a Neural Network</a></li>
-  <li><a href="#mathematical-formulation" id="toc-mathematical-formulation" class="nav-link" data-scroll-target="#mathematical-formulation"><span class="header-section-number">10.5.2</span> Mathematical Formulation</a></li>
-  <li><a href="#network-diagram" id="toc-network-diagram" class="nav-link" data-scroll-target="#network-diagram"><span class="header-section-number">10.5.3</span> Network Diagram</a></li>
-  <li><a href="#activation-functions" id="toc-activation-functions" class="nav-link" data-scroll-target="#activation-functions"><span class="header-section-number">10.5.4</span> Activation Functions</a></li>
-  <li><a href="#training-neural-networks" id="toc-training-neural-networks" class="nav-link" data-scroll-target="#training-neural-networks"><span class="header-section-number">10.5.5</span> Training Neural Networks</a></li>
-  <li><a href="#regularization-and-overfitting" id="toc-regularization-and-overfitting" class="nav-link" data-scroll-target="#regularization-and-overfitting"><span class="header-section-number">10.5.6</span> Regularization and Overfitting</a></li>
-  <li><a href="#example-a-simple-feed-forward-network" id="toc-example-a-simple-feed-forward-network" class="nav-link" data-scroll-target="#example-a-simple-feed-forward-network"><span class="header-section-number">10.5.7</span> Example: A Simple Feed-Forward Network</a></li>
+  <li><a href="#introduction-2" id="toc-introduction-2" class="nav-link" data-scroll-target="#introduction-2"><span class="header-section-number">10.5.1</span> Introduction</a></li>
+  <li><a href="#smote" id="toc-smote" class="nav-link" data-scroll-target="#smote"><span class="header-section-number">10.5.2</span> SMOTE</a></li>
+  <li><a href="#example-created-synthetic-dataset" id="toc-example-created-synthetic-dataset" class="nav-link" data-scroll-target="#example-created-synthetic-dataset"><span class="header-section-number">10.5.3</span> Example: Created Synthetic Dataset</a></li>
+  <li><a href="#variations-and-extensions-of-smote" id="toc-variations-and-extensions-of-smote" class="nav-link" data-scroll-target="#variations-and-extensions-of-smote"><span class="header-section-number">10.5.4</span> Variations and Extensions of SMOTE</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">10.5.5</span> Conclusion</a></li>
+  <li><a href="#further-readings" id="toc-further-readings" class="nav-link" data-scroll-target="#further-readings"><span class="header-section-number">10.5.6</span> Further Readings</a></li>
   </ul></li>
-  <li><a href="#neural-networks-for-data-with-temporal-dependence" id="toc-neural-networks-for-data-with-temporal-dependence" class="nav-link" data-scroll-target="#neural-networks-for-data-with-temporal-dependence"><span class="header-section-number">10.6</span> Neural Networks for Data with Temporal Dependence</a>
+  <li><a href="#naive-bayes" id="toc-naive-bayes" class="nav-link" data-scroll-target="#naive-bayes"><span class="header-section-number">10.6</span> Naive Bayes</a>
   <ul class="collapse">
-  <li><a href="#recurrent-neural-networks-rnns" id="toc-recurrent-neural-networks-rnns" class="nav-link" data-scroll-target="#recurrent-neural-networks-rnns"><span class="header-section-number">10.6.1</span> Recurrent Neural Networks (RNNs)</a></li>
-  <li><a href="#long-short-term-memory-lstm" id="toc-long-short-term-memory-lstm" class="nav-link" data-scroll-target="#long-short-term-memory-lstm"><span class="header-section-number">10.6.2</span> Long Short-Term Memory (LSTM)</a></li>
-  <li><a href="#gated-recurrent-unit-gru" id="toc-gated-recurrent-unit-gru" class="nav-link" data-scroll-target="#gated-recurrent-unit-gru"><span class="header-section-number">10.6.3</span> Gated Recurrent Unit (GRU)</a></li>
-  <li><a href="#example-forecasting-a-synthetic-sequential-signal-pytorch" id="toc-example-forecasting-a-synthetic-sequential-signal-pytorch" class="nav-link" data-scroll-target="#example-forecasting-a-synthetic-sequential-signal-pytorch"><span class="header-section-number">10.6.4</span> Example: Forecasting a Synthetic Sequential Signal (PyTorch)</a></li>
+  <li><a href="#theoretical-basis" id="toc-theoretical-basis" class="nav-link" data-scroll-target="#theoretical-basis"><span class="header-section-number">10.6.1</span> Theoretical basis</a></li>
+  <li><a href="#types-of-naive-bayes" id="toc-types-of-naive-bayes" class="nav-link" data-scroll-target="#types-of-naive-bayes"><span class="header-section-number">10.6.2</span> Types of Naive Bayes</a></li>
+  <li><a href="#naive-bayesian-application-nyc-crash-data" id="toc-naive-bayesian-application-nyc-crash-data" class="nav-link" data-scroll-target="#naive-bayesian-application-nyc-crash-data"><span class="header-section-number">10.6.3</span> Naive Bayesian application: NYC Crash Data</a></li>
+  </ul></li>
+  <li><a href="#neural-networks" id="toc-neural-networks" class="nav-link" data-scroll-target="#neural-networks"><span class="header-section-number">10.7</span> Neural Networks</a>
+  <ul class="collapse">
+  <li><a href="#structure-of-a-neural-network" id="toc-structure-of-a-neural-network" class="nav-link" data-scroll-target="#structure-of-a-neural-network"><span class="header-section-number">10.7.1</span> Structure of a Neural Network</a></li>
+  <li><a href="#mathematical-formulation" id="toc-mathematical-formulation" class="nav-link" data-scroll-target="#mathematical-formulation"><span class="header-section-number">10.7.2</span> Mathematical Formulation</a></li>
+  <li><a href="#network-diagram" id="toc-network-diagram" class="nav-link" data-scroll-target="#network-diagram"><span class="header-section-number">10.7.3</span> Network Diagram</a></li>
+  <li><a href="#activation-functions" id="toc-activation-functions" class="nav-link" data-scroll-target="#activation-functions"><span class="header-section-number">10.7.4</span> Activation Functions</a></li>
+  <li><a href="#training-neural-networks" id="toc-training-neural-networks" class="nav-link" data-scroll-target="#training-neural-networks"><span class="header-section-number">10.7.5</span> Training Neural Networks</a></li>
+  <li><a href="#regularization-and-overfitting" id="toc-regularization-and-overfitting" class="nav-link" data-scroll-target="#regularization-and-overfitting"><span class="header-section-number">10.7.6</span> Regularization and Overfitting</a></li>
+  <li><a href="#example-a-simple-feed-forward-network" id="toc-example-a-simple-feed-forward-network" class="nav-link" data-scroll-target="#example-a-simple-feed-forward-network"><span class="header-section-number">10.7.7</span> Example: A Simple Feed-Forward Network</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -407,7 +421,7 @@ window.Quarto = {
 </section>
 <section id="decision-trees" class="level2" data-number="10.2">
 <h2 data-number="10.2" class="anchored" data-anchor-id="decision-trees"><span class="header-section-number">10.2</span> Decision Trees</h2>
-<p>Decision trees are widely used supervised learning models that predict the value of a target variable by iteratively splitting the dataset based on decision rules derived from input features. The model functions as a piecewise constant approximation of the target function, producing clear, interpretable rules that are easily visualized and analyzed <span class="citation" data-cites="breiman1984classification">(<a href="references.html#ref-breiman1984classification" role="doc-biblioref">Breiman et al., 1984</a>)</span>. Decision trees are fundamental in both classification and regression tasks, serving as the building blocks for more advanced ensemble models such as Random Forests and Gradient Boosting Machines.</p>
+<p>Decision trees are widely used supervised learning models that predict the value of a target variable by iteratively splitting the dataset based on decision rules derived from input features. The model functions as a piecewise constant approximation of the target function, producing clear, interpretable rules that are easily visualized and analyzed <span class="citation" data-cites="breiman1984classification">(<a href="99-references.html#ref-breiman1984classification" role="doc-biblioref">Breiman et al., 1984</a>)</span>. Decision trees are fundamental in both classification and regression tasks, serving as the building blocks for more advanced ensemble models such as Random Forests and Gradient Boosting Machines.</p>
 <section id="recursive-partition-algorithm" class="level3" data-number="10.2.1">
 <h3 data-number="10.2.1" class="anchored" data-anchor-id="recursive-partition-algorithm"><span class="header-section-number">10.2.1</span> Recursive Partition Algorithm</h3>
 <p>The core mechanism of a decision tree algorithm is the identification of optimal splits that partition the data into subsets that are increasingly homogeneous with respect to the target variable. At any node <span class="math inline">\(m\)</span>, the data subset is denoted as <span class="math inline">\(Q_m\)</span> with a sample size of <span class="math inline">\(n_m\)</span>. The objective is to find a candidate split <span class="math inline">\(\theta\)</span>, defined as a threshold for a given feature, that minimizes an impurity or loss measure <span class="math inline">\(H\)</span>.</p>
@@ -483,7 +497,7 @@ H(Q_m) = \frac{1}{n_m} \sum_{i=1}^{n_m} |y_i - \bar{y}_m|.
 <h3 data-number="10.2.4" class="anchored" data-anchor-id="ames-housing-example"><span class="header-section-number">10.2.4</span> Ames Housing Example</h3>
 <p>The Ames Housing data are used to illustrate a regression tree model for predicting log house price.</p>
 <p>As before, we retrive the data from <code>OpenML</code>.</p>
-<div id="43e0c499" class="cell" data-execution_count="1">
+<div id="42095621" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> openml</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -494,7 +508,7 @@ H(Q_m) = \frac{1}{n_m} \sum_{i=1}^{n_m} |y_i - \bar{y}_m|.
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"LogPrice"</span>] <span class="op">=</span> np.log(df[<span class="st">"SalePrice"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>A decision tree partitions the feature space into regions where the average log price is relatively constant.</p>
-<div id="eae22a0a" class="cell" data-execution_count="2">
+<div id="7fe39031" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.compose <span class="im">import</span> ColumnTransformer</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> OneHotEncoder</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.tree <span class="im">import</span> DecisionTreeRegressor</span>
@@ -531,19 +545,19 @@ H(Q_m) = \frac{1}{n_m} \sum_{i=1}^{n_m} |y_i - \bar{y}_m|.
 <span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="bu">list</span>(<span class="bu">zip</span>(depths, cv_scores))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="2">
-<pre><code>[(2, 0.594134995704976),
- (3, 0.6712972027857058),
- (4, 0.7141792234890973),
- (5, 0.748794485599919),
- (6, 0.7587964739851765),
- (7, 0.7343953839481492),
- (8, 0.7186324525934304),
- (9, 0.7112790937242873),
- (10, 0.6938966980572193)]</code></pre>
+<pre><code>[(2, np.float64(0.594134995704976)),
+ (3, np.float64(0.6712972027857058)),
+ (4, np.float64(0.7141792234890973)),
+ (5, np.float64(0.748794485599919)),
+ (6, np.float64(0.7587964739851765)),
+ (7, np.float64(0.7343953839481492)),
+ (8, np.float64(0.7186324525934304)),
+ (9, np.float64(0.7112790937242873)),
+ (10, np.float64(0.6938966980572193))]</code></pre>
 </div>
 </div>
 <p>Cross-validation identifies an appropriate tree depth that balances fit and generalization. A too-deep tree overfits, while a shallow tree misses structure.</p>
-<div id="f1f1f53f" class="cell" data-execution_count="3">
+<div id="68a9e15d" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>dt <span class="op">=</span> Pipeline([</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"pre"</span>, preprocessor),</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"model"</span>, DecisionTreeRegressor(max_depth<span class="op">=</span><span class="dv">4</span>, random_state<span class="op">=</span><span class="dv">0</span>))</span>
@@ -559,7 +573,7 @@ H(Q_m) = \frac{1}{n_m} \sum_{i=1}^{n_m} |y_i - \bar{y}_m|.
 <span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a> gg.geom_abline(slope<span class="op">=</span><span class="dv">1</span>, intercept<span class="op">=</span><span class="dv">0</span>, linetype<span class="op">=</span><span class="st">"dashed"</span>) <span class="op">+</span></span>
 <span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a> gg.labs(title<span class="op">=</span><span class="st">"Decision Tree Regression on Ames Housing"</span>,</span>
 <span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>         x<span class="op">=</span><span class="st">"Observed Log Price"</span>, y<span class="op">=</span><span class="st">"Predicted Log Price"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display" data-execution_count="3">
 <div>
 <figure class="figure">
 <p><img src="10-supervised_files/figure-html/cell-4-output-1.png" width="672" height="480" class="figure-img"></p>
@@ -572,17 +586,17 @@ H(Q_m) = \frac{1}{n_m} \sum_{i=1}^{n_m} |y_i - \bar{y}_m|.
 </section>
 <section id="gradient-boosted-models" class="level2" data-number="10.3">
 <h2 data-number="10.3" class="anchored" data-anchor-id="gradient-boosted-models"><span class="header-section-number">10.3</span> Gradient-Boosted Models</h2>
-<p>Gradient boosting is a powerful ensemble technique in machine learning that combines multiple weak learners into a strong predictive model. Unlike bagging methods, which train models independently, gradient boosting fits models sequentially, with each new model correcting errors made by the previous ensemble <span class="citation" data-cites="friedman2001greedy">(<a href="references.html#ref-friedman2001greedy" role="doc-biblioref">Friedman, 2001</a>)</span>. While decision trees are commonly used as weak learners, gradient boosting can be generalized to other base models. This iterative method optimizes a specified loss function by repeatedly adding models designed to reduce residual errors.</p>
+<p>Gradient boosting is a powerful ensemble technique in machine learning that combines multiple weak learners into a strong predictive model. Unlike bagging methods, which train models independently, gradient boosting fits models sequentially, with each new model correcting errors made by the previous ensemble <span class="citation" data-cites="friedman2001greedy">(<a href="99-references.html#ref-friedman2001greedy" role="doc-biblioref">Friedman, 2001</a>)</span>. While decision trees are commonly used as weak learners, gradient boosting can be generalized to other base models. This iterative method optimizes a specified loss function by repeatedly adding models designed to reduce residual errors.</p>
 <section id="introduction-1" class="level3" data-number="10.3.1">
 <h3 data-number="10.3.1" class="anchored" data-anchor-id="introduction-1"><span class="header-section-number">10.3.1</span> Introduction</h3>
-<p>Gradient boosting builds on the general concept of boosting, aiming to construct a strong predictor from an ensemble of sequentially trained weak learners. The weak learners are often shallow decision trees (stumps), linear models, or generalized additive models <span class="citation" data-cites="hastie2009elements">(<a href="references.html#ref-hastie2009elements" role="doc-biblioref">Hastie et al., 2009</a>)</span>. Each iteration adds a new learner focusing primarily on the data points poorly predicted by the existing ensemble, thereby progressively enhancing predictive accuracy.</p>
+<p>Gradient boosting builds on the general concept of boosting, aiming to construct a strong predictor from an ensemble of sequentially trained weak learners. The weak learners are often shallow decision trees (stumps), linear models, or generalized additive models <span class="citation" data-cites="hastie2009elements">(<a href="99-references.html#ref-hastie2009elements" role="doc-biblioref">Hastie et al., 2009</a>)</span>. Each iteration adds a new learner focusing primarily on the data points poorly predicted by the existing ensemble, thereby progressively enhancing predictive accuracy.</p>
 <p>Gradient boosting’s effectiveness stems from:</p>
 <ul>
 <li>Error Correction: Each iteration specifically targets previous errors, refining predictive accuracy.</li>
 <li>Weighted Learning: Iteratively focuses more heavily on difficult-to-predict data points.</li>
 <li>Flexibility: Capable of handling diverse loss functions and various types of predictive tasks.</li>
 </ul>
-<p>The effectiveness of gradient-boosted models has made them popular across diverse tasks, including classification, regression, and ranking. Gradient boosting forms the foundation for algorithms such as XGBoost <span class="citation" data-cites="chen2016xgboost">(<a href="references.html#ref-chen2016xgboost" role="doc-biblioref">Chen &amp; Guestrin, 2016</a>)</span>, LightGBM <span class="citation" data-cites="ke2017lightgbm">(<a href="references.html#ref-ke2017lightgbm" role="doc-biblioref">Ke et al., 2017</a>)</span>, and CatBoost <span class="citation" data-cites="prokhorenkova2018catboost">(<a href="references.html#ref-prokhorenkova2018catboost" role="doc-biblioref">Prokhorenkova et al., 2018</a>)</span>, known for their high performance and scalability.</p>
+<p>The effectiveness of gradient-boosted models has made them popular across diverse tasks, including classification, regression, and ranking. Gradient boosting forms the foundation for algorithms such as XGBoost <span class="citation" data-cites="chen2016xgboost">(<a href="99-references.html#ref-chen2016xgboost" role="doc-biblioref">Chen &amp; Guestrin, 2016</a>)</span>, LightGBM <span class="citation" data-cites="ke2017lightgbm">(<a href="99-references.html#ref-ke2017lightgbm" role="doc-biblioref">Ke et al., 2017</a>)</span>, and CatBoost <span class="citation" data-cites="prokhorenkova2018catboost">(<a href="99-references.html#ref-prokhorenkova2018catboost" role="doc-biblioref">Prokhorenkova et al., 2018</a>)</span>, known for their high performance and scalability.</p>
 </section>
 <section id="gradient-boosting-process" class="level3" data-number="10.3.2">
 <h3 data-number="10.3.2" class="anchored" data-anchor-id="gradient-boosting-process"><span class="header-section-number">10.3.2</span> Gradient Boosting Process</h3>
@@ -624,7 +638,7 @@ F_m(x) = F_{m-1}(x) + \eta\, \gamma_m\, h_m(x),
 <section id="boosted-trees-with-ames-housing" class="level3" data-number="10.3.3">
 <h3 data-number="10.3.3" class="anchored" data-anchor-id="boosted-trees-with-ames-housing"><span class="header-section-number">10.3.3</span> Boosted Trees with Ames Housing</h3>
 <p>Boosted trees apply the gradient boosting framework to decision trees. They build an ensemble of shallow trees, each trained to correct the residual errors of the preceding ones. By sequentially emphasizing observations that are difficult to predict, the model progressively improves its overall predictive accuracy. We now apply gradient boosting using the same preprocessed features. Boosting combines many shallow trees, each correcting the residual errors of its predecessors, to improve predictive accuracy.</p>
-<div id="ff0dc7eb" class="cell" data-execution_count="4">
+<div id="5333af3d" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> GradientBoostingRegressor</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Define a range of tree counts for tuning</span></span>
@@ -647,14 +661,14 @@ F_m(x) = F_{m-1}(x) + \eta\, \gamma_m\, h_m(x),
 <span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="bu">list</span>(<span class="bu">zip</span>(n_estimators_list, cv_scores_gb))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
-<pre><code>[(50, 0.8199019428994425),
- (100, 0.8437789746745888),
- (200, 0.8451433195728157),
- (400, 0.8405078307788265)]</code></pre>
+<pre><code>[(50, np.float64(0.8199019428994425)),
+ (100, np.float64(0.8437789746745888)),
+ (200, np.float64(0.8451433195728157)),
+ (400, np.float64(0.8405078307788265))]</code></pre>
 </div>
 </div>
 <p>Cross-validation shows how increasing the number of boosting rounds initially improves performance but eventually risks overfitting when too many trees are added.</p>
-<div id="71e52073" class="cell" data-execution_count="5">
+<div id="a1469b2d" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>gb <span class="op">=</span> Pipeline([</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"pre"</span>, preprocessor),</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"model"</span>, GradientBoostingRegressor(</span>
@@ -674,7 +688,7 @@ F_m(x) = F_{m-1}(x) + \eta\, \gamma_m\, h_m(x),
 <span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a> gg.geom_abline(slope<span class="op">=</span><span class="dv">1</span>, intercept<span class="op">=</span><span class="dv">0</span>, linetype<span class="op">=</span><span class="st">"dashed"</span>) <span class="op">+</span></span>
 <span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a> gg.labs(title<span class="op">=</span><span class="st">"Gradient-Boosted Regression on Ames Housing"</span>,</span>
 <span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>         x<span class="op">=</span><span class="st">"Observed Log Price"</span>, y<span class="op">=</span><span class="st">"Predicted Log Price"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display" data-execution_count="5">
 <div>
 <figure class="figure">
 <p><img src="10-supervised_files/figure-html/cell-6-output-1.png" width="672" height="480" class="figure-img"></p>
@@ -694,8 +708,8 @@ F_m(x) = F_{m-1}(x) + \eta\, \gamma_m\, h_m(x),
 </section>
 <section id="xgboost-extreme-gradient-boosting" class="level3" data-number="10.3.4">
 <h3 data-number="10.3.4" class="anchored" data-anchor-id="xgboost-extreme-gradient-boosting"><span class="header-section-number">10.3.4</span> XGBoost: Extreme Gradient Boosting</h3>
-<p>XGBoost is a scalable and efficient implementation of gradient-boosted decision trees <span class="citation" data-cites="chen2016xgboost">(<a href="references.html#ref-chen2016xgboost" role="doc-biblioref">Chen &amp; Guestrin, 2016</a>)</span>. It has become one of the most widely used machine learning methods for structured data due to its high predictive performance, regularization capabilities, and speed. XGBoost builds an ensemble of decision trees in a stage-wise fashion, minimizing a regularized objective that balances training loss and model complexity.</p>
-<p>The core idea of XGBoost is to fit each new tree to the <em>gradient</em> of the loss function with respect to the model’s predictions. Unlike traditional boosting algorithms like AdaBoost, which use only first-order gradients, XGBoost optionally uses second-order derivatives (Hessians), enabling better convergence and stability <span class="citation" data-cites="friedman2001greedy">(<a href="references.html#ref-friedman2001greedy" role="doc-biblioref">Friedman, 2001</a>)</span>.</p>
+<p>XGBoost is a scalable and efficient implementation of gradient-boosted decision trees <span class="citation" data-cites="chen2016xgboost">(<a href="99-references.html#ref-chen2016xgboost" role="doc-biblioref">Chen &amp; Guestrin, 2016</a>)</span>. It has become one of the most widely used machine learning methods for structured data due to its high predictive performance, regularization capabilities, and speed. XGBoost builds an ensemble of decision trees in a stage-wise fashion, minimizing a regularized objective that balances training loss and model complexity.</p>
+<p>The core idea of XGBoost is to fit each new tree to the <em>gradient</em> of the loss function with respect to the model’s predictions. Unlike traditional boosting algorithms like AdaBoost, which use only first-order gradients, XGBoost optionally uses second-order derivatives (Hessians), enabling better convergence and stability <span class="citation" data-cites="friedman2001greedy">(<a href="99-references.html#ref-friedman2001greedy" role="doc-biblioref">Friedman, 2001</a>)</span>.</p>
 <p>XGBoost is widely used in data science competitions and real-world applications. It supports regularization (L1 and L2), handles missing values internally, and is designed for distributed computing.</p>
 <p>XGBoost builds upon the same foundational idea as gradient boosted machines—sequentially adding trees to improve the predictive model— but introduces a number of enhancements:</p>
 <table class="caption-top table">
@@ -775,7 +789,7 @@ F_m(x) = F_{m-1}(x) + \eta\, \gamma_m\, h_m(x),
 <li>Trees are allowed to grow deep in random forests.</li>
 <li>Prediction is made based on aggregating results from all trees.</li>
 </ul>
-<div id="5c00b243" class="cell" data-execution_count="6">
+<div id="15bd946a" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -873,7 +887,7 @@ P(\text{not selected in entire sample}) = \left(1 - \frac{1}{N}\right)^N.
 <section id="random-forests-in-python-ames-data" class="level3" data-number="10.4.3">
 <h3 data-number="10.4.3" class="anchored" data-anchor-id="random-forests-in-python-ames-data"><span class="header-section-number">10.4.3</span> Random Forests in Python (Ames Data)</h3>
 <p>The below example shows a random forest regression on the Ames data. We construct a plot to show the observed log price against the predicted log price.</p>
-<div id="8898ecc0" class="cell" data-execution_count="7">
+<div id="4ba07259" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> openml</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -925,7 +939,7 @@ P(\text{not selected in entire sample}) = \left(1 - \frac{1}{N}\right)^N.
 <span id="cb8-49"><a href="#cb8-49" aria-hidden="true" tabindex="-1"></a> gg.geom_abline(slope<span class="op">=</span><span class="dv">1</span>, intercept<span class="op">=</span><span class="dv">0</span>, linetype<span class="op">=</span><span class="st">"dashed"</span>) <span class="op">+</span></span>
 <span id="cb8-50"><a href="#cb8-50" aria-hidden="true" tabindex="-1"></a> gg.labs(title<span class="op">=</span><span class="st">"Random Forest Regression on Ames Housing"</span>,</span>
 <span id="cb8-51"><a href="#cb8-51" aria-hidden="true" tabindex="-1"></a>         x<span class="op">=</span><span class="st">"Observed Log Price"</span>, y<span class="op">=</span><span class="st">"Predicted Log Price"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display" data-execution_count="7">
 <div>
 <figure class="figure">
 <p><img src="10-supervised_files/figure-html/cell-8-output-1.png" width="672" height="480" class="figure-img"></p>
@@ -942,13 +956,646 @@ P(\text{not selected in entire sample}) = \left(1 - \frac{1}{N}\right)^N.
 <li>Random Forests. <a href="https://www.stat.berkeley.edu/~breiman/randomforest2001.pdf">Brieman 2001.</a></li>
 <li>Random Forest Class - <a href="https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html">scikit</a></li>
 </ul>
+<!-- This section is for SMOTE. -->
+</section>
+</section>
+<section id="synthetic-minority-over-sampling-technique-smote" class="level2" data-number="10.5">
+<h2 data-number="10.5" class="anchored" data-anchor-id="synthetic-minority-over-sampling-technique-smote"><span class="header-section-number">10.5</span> Synthetic Minority Over-sampling Technique (SMOTE)</h2>
+<p>This section was written by Hannah Levine, a junior majoring in Applied Data Analysis.</p>
+<section id="introduction-2" class="level3" data-number="10.5.1">
+<h3 data-number="10.5.1" class="anchored" data-anchor-id="introduction-2"><span class="header-section-number">10.5.1</span> Introduction</h3>
+<p>In classification problems, imbalanced data refers to skewed class distribution. Classification problems use numerical variables to produce a categorical outcome, like diagnosing a disease based on clinical data or detecting fraudulent transactions. In a simple example, you have 2 classes for a medical diagnosis, “healthy” and “not healthy”. For rare diseases, there can be a large difference in the amount of individuals who are “healthy” and who are “not healthy”, with the “healthy” far outnumbering the “not healthy”. The “not healthy” class is known as the minority class.</p>
+<p>This is important because machine learning models can become biased towards the majority class, and be innacurate in predicting for the minority class. This is especially apparent in problems with multiple classes. Adressing this class imbalance helps to improve the accuracy of the model. An easy solution is to just oversample the minority class, creating duplicates. However, this doesn’t really add any new information to the model. Another solution is undersampling of the majority class, but then important information might be left out. A better technique is Synthetic Minority Over-Sampling Technique, or SMOTE.</p>
+</section>
+<section id="smote" class="level3" data-number="10.5.2">
+<h3 data-number="10.5.2" class="anchored" data-anchor-id="smote"><span class="header-section-number">10.5.2</span> SMOTE</h3>
+<p>While random oversampling creates exact replicas of minority observations, SMOTE creates synthetic samples based on the existing observations in the minority class.</p>
+<ol type="1">
+<li>SMOTE identifies minority class(es) in the dataset</li>
+<li>For each observation in the minority class, SMOTE identifies the k nearest neighbors, with k being specified prior (usually k=5).</li>
+<li>A line is drawn between the minority observation and one of its k nearest neighbors.</li>
+<li>The difference is found, multiplied by a random number between 0 and 1, then added to the initial observation to generate the synthetic sample.</li>
+<li>This process is repeated until the desired ratio is reached, usually when the minority class equals the size of the majority class.</li>
+</ol>
+<p>This process is shown by the figure below:</p>
+<div id="90c329d1" class="cell" data-fig.show="true" data-execution_count="8">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="10-supervised_files/figure-html/cell-9-output-1.png" width="934" height="431" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The initial majority and minority classes are imbalanced, with the minority only having 2 points and the majority having 8. After SMOTE is applied, the total of minority and synthetic points equals the number of majority points. You can see how the synthetic points are all between the initial 2 minority points. In larger datasets, this can look almost like lines drawn between multiple sets of minority points. The resulting dataset is more balanced, but there’s less of a chance of overlapping data points with the originals because it’s not duplicates.</p>
+<p>This can also be demonstrated by: <span class="math display">\[
+x_{new} = x_{i} + \lambda(x_{neighbor} - x_{i}),
+\]</span> where <span class="math inline">\(x_{i}\)</span> is the selected minority observation, <span class="math inline">\(x_{new}\)</span> is the generated synthetic sample, <span class="math inline">\(\lambda\)</span> is a random number between 0 and 1 sampled from a uniform distribution, and <span class="math inline">\(x_{neighbor}\)</span> is the randomly chosen neighbor out of the identified k neearest neighbors.</p>
+</section>
+<section id="example-created-synthetic-dataset" class="level3" data-number="10.5.3">
+<h3 data-number="10.5.3" class="anchored" data-anchor-id="example-created-synthetic-dataset"><span class="header-section-number">10.5.3</span> Example: Created Synthetic Dataset</h3>
+<p>We can generate a random dataset using the <code>make_classification</code> function from <code>sklearn.datasets</code>.</p>
+<div id="67030e12" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> make_classification</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> Counter</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> imblearn.over_sampling <span class="im">import</span> SMOTE</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co"># create imbalanced dataset</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>X, y <span class="op">=</span> make_classification(</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    n_samples<span class="op">=</span><span class="dv">1000</span>,</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    n_features<span class="op">=</span><span class="dv">2</span>,</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    n_informative<span class="op">=</span><span class="dv">2</span>,</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    n_redundant<span class="op">=</span><span class="dv">0</span>,</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    n_clusters_per_class<span class="op">=</span><span class="dv">1</span>,</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    weights<span class="op">=</span>[<span class="fl">0.99</span>, <span class="fl">0.01</span>],</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>    random_state<span class="op">=</span><span class="dv">1234</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Original class distribution: </span><span class="sc">{</span>Counter(y)<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Original class distribution: Counter({np.int64(0): 983, np.int64(1): 17})</code></pre>
+</div>
+</div>
+<div id="9ba315ec" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># apply SMOTE</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>smote <span class="op">=</span> SMOTE(random_state<span class="op">=</span><span class="dv">1234</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>X_resampled, y_resampled <span class="op">=</span> smote.fit_resample(X, y)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"After SMOTE class distribution:"</span>, Counter(y_resampled))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>After SMOTE class distribution: Counter({np.int64(0): 983, np.int64(1): 983})</code></pre>
+</div>
+</div>
+<p>For the application of SMOTE, I only specify a random state to ensure reproducibility. Other parameters that can be used are <code>sampling_strategy</code> and <code>k_neighbors</code>.</p>
+<p>Now we can visualize the distribution of the data.</p>
+<div id="bee437aa" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>orig_counts <span class="op">=</span> Counter(y)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>smote_counts <span class="op">=</span> Counter(y_resampled)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>fig, (ax1, ax2) <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">5</span>))</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>ax1.bar(orig_counts.keys(), orig_counts.values(), color<span class="op">=</span>[<span class="st">'#DEA8FF'</span>, <span class="st">'#A3007D'</span>])</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>ax1.set_title(<span class="st">"Class Distribution Before SMOTE"</span>)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>ax1.set_xlabel(<span class="st">"Class"</span>)</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>ax1.set_ylabel(<span class="st">"Count"</span>)</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>ax1.set_xticks([<span class="dv">0</span>, <span class="dv">1</span>], [<span class="st">"Majority (0)"</span>, <span class="st">"Minority (1)"</span>])</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>ax2.bar(smote_counts.keys(), smote_counts.values(), color<span class="op">=</span>[<span class="st">'#DEA8FF'</span>, <span class="st">'#A3007D'</span>])</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>ax2.set_title(<span class="st">"Class Distribution After SMOTE"</span>)</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>ax2.set_xlabel(<span class="st">"Class"</span>)</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>ax2.set_ylabel(<span class="st">"Count"</span>)</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>ax2.set_xticks([<span class="dv">0</span>, <span class="dv">1</span>], [<span class="st">"Majority (0)"</span>, <span class="st">"Minority (1)"</span>])</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="10-supervised_files/figure-html/cell-12-output-1.png" width="1142" height="470" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Looking at the bar charts, you can see the difference in class size before and after using SMOTE. To see if the application of SMOTE actually made a difference, we can look at models for the original dataset and the after SMOTE dataset.</p>
+<div id="78c790e2" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> confusion_matrix, classification_report</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    X, y, test_size<span class="op">=</span><span class="fl">0.3</span>, random_state<span class="op">=</span><span class="dv">1234</span>, stratify<span class="op">=</span>y</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="co"># original</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>model_original <span class="op">=</span> LogisticRegression(random_state<span class="op">=</span><span class="dv">1234</span>)</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>model_original.fit(X_train, y_train)</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>y_pred_original <span class="op">=</span> model_original.predict(X_test)</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"=== Model trained on ORIGINAL data ===</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(classification_report(y_test, y_pred_original, zero_division<span class="op">=</span><span class="dv">0</span>))</span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Confusion Matrix:"</span>)</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(confusion_matrix(y_test, y_pred_original))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>=== Model trained on ORIGINAL data ===
+
+              precision    recall  f1-score   support
+
+           0       0.98      1.00      0.99       295
+           1       0.00      0.00      0.00         5
+
+    accuracy                           0.98       300
+   macro avg       0.49      0.50      0.50       300
+weighted avg       0.97      0.98      0.98       300
+
+
+Confusion Matrix:
+[[295   0]
+ [  5   0]]</code></pre>
+</div>
+</div>
+<p>Looking at the report, 98% of the cases that were predicted to be class 0 were predicted correctly. 100% of the cases that were actually class 0 were predicted to be class 0. Meanwhile, 0% of the cases were even predicted to be class 1. This is super unrealistic, and it seems like the model completely ignored the minority class. The confusion matrix suppports this, it shows that no cases were predicted to be class 1 at all, while 295 cases were correctly predicted to be class 0 (True Positive), and 5 cases were incorrectly predicted to be class 0 (False Positive).</p>
+<div id="3df742b0" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># SMOTE</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>X_train_resampled, y_train_resampled <span class="op">=</span> smote.fit_resample(X_train, y_train)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>model_smote <span class="op">=</span> LogisticRegression(random_state<span class="op">=</span><span class="dv">1234</span>)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>model_smote.fit(X_train_resampled, y_train_resampled)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>y_pred_smote <span class="op">=</span> model_smote.predict(X_test)</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"=== Model trained with SMOTE ===</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(classification_report(y_test, y_pred_smote))</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Confusion Matrix:"</span>)</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(confusion_matrix(y_test, y_pred_smote))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>=== Model trained with SMOTE ===
+
+              precision    recall  f1-score   support
+
+           0       1.00      0.76      0.86       295
+           1       0.05      0.80      0.10         5
+
+    accuracy                           0.76       300
+   macro avg       0.52      0.78      0.48       300
+weighted avg       0.98      0.76      0.85       300
+
+
+Confusion Matrix:
+[[223  72]
+ [  1   4]]</code></pre>
+</div>
+</div>
+<p>Looking at the model trained with SMOTE data, the report is much more realistic. 80% of the cases that were in class 1 were correctly predicted to be class 1. However, only 5% of the cases that were predicted to be class 1 actually were class 1. The rest were actually class 0. Looking at the confusion matrix, 223 cases were correctly predicted to be class 0 and only 1 case was incorrectly predicted to be class 0.</p>
+</section>
+<section id="variations-and-extensions-of-smote" class="level3" data-number="10.5.4">
+<h3 data-number="10.5.4" class="anchored" data-anchor-id="variations-and-extensions-of-smote"><span class="header-section-number">10.5.4</span> Variations and Extensions of SMOTE</h3>
+<p>SMOTE is very helpful in addressing class imbalance, but with larger datasets and higher-dimensional class spaces other extensions have been developed to help handle those larger scenarios. This includes Borderline SMOTE, ADASYN, SMOTE-ENN, SMOTE+TOMEK, and SMOTE-NC.</p>
+<p><strong>Borderline SMOTE</strong> was desgined to address the misclassification of minority class observations that are near or on the borderline between classes. Because they are on or near the borderlines, they are harder to classify and more likely to be mislabeled. Borderline SMOTE generates more synthetic samples near the borderlines between the majority and minority classes, providing more challenging observations to classify in hopes that it will improve the performance of classifiers.</p>
+<p><strong>ADASYN</strong>, or Adaptive Synthetic Sampling Approach, focuses on finding and handling regions where the imbalance is more severe. For each minority class observation, ADASYN measures how many of its k nearest neighbors belong to the majority class. If the minority observation has more nearest neighbors that are a part of the majority class, it is considered a high density area. The algorithm then generates more synthetic samples in the higher density regions, which are the regions with a greater imbalance. This allows the dataset to become more uniform by balancing more severely imbalanced areas.</p>
+<p><strong>SMOTE-ENN</strong>, or SMOTE Edited Nearest Neighbors, combines SMOTE with the ENN rule. The ENN rule is used to remove misclassified samples. The point of combining these techniques is to improve the overall quality of the dataset. SMOTE is applied first to generate synthetic samples, then ENN is used to remove both synthetic and original samples that have a majority of their nearest neighbors that are the opposite class. This provides a cleaner dataset with more distinct classes.</p>
+<p><strong>SMOTE-TOMEK</strong> links combine SMOTE and TOMEK links. TOMEK links are pairs of very close instances that are in opposite classes. By removing these links, overlap between classes is reduced and the classes are more distinct. For every observation in the dataset, the nearest neighbor from the same class and the nearest neighbor from the opposite class is found. Each pair of observations is analyzed to see if it forms a TOMEK link. If a link is found, the two observations are marked for removal. Once all TOMEK links have been found, the observations that are involved are removed. This technique also reduces overlap between classes, and improves the distinction of classes.</p>
+<p><strong>SMOTE-NC</strong>, or SMOTE Nominal Continuous, is used for datasets that are mixed nominal (categorical) and continuous variables. SMOTE is great when dealing with datasets with only numerical variables, but runs into problems when there are categorical variables. SMOTE operates in the numerical differences between observations and their neighbors, so categorical variables don’t work with it. SMOTE-NC addresses this by seperately considering the categorical variables, and ensuring the categorical features of the synthetic samples align with those of the original data.</p>
+</section>
+<section id="conclusion" class="level3" data-number="10.5.5">
+<h3 data-number="10.5.5" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">10.5.5</span> Conclusion</h3>
+<p>SMOTE is a great tool to handle imbalanced classes in datasets. By creating synthetic samples from real observations in the minority class, the dataset is balanced while still having a good range of information and not overfitting. It’s important to note that SMOTE does not guaruntee that a model will perform well. It can help with prediction on the minority class, but it doesn’t always mean that the overall performance of the model improves. It also can create noisy samples in dense or overlapping regions. It’s important to analyze the problem to determine if SMOTE is worth applying, or if another method might be better.</p>
+</section>
+<section id="further-readings" class="level3" data-number="10.5.6">
+<h3 data-number="10.5.6" class="anchored" data-anchor-id="further-readings"><span class="header-section-number">10.5.6</span> Further Readings</h3>
+<p>Gudluri, S. (2025) <a href="https://www.geeksforgeeks.org/machine-learning/smote-for-imbalanced-classification-with-python/">SMOTE for Imbalanced Classification With Python</a></p>
+<p>Brownlee, J. (2020) <a href="https://machinelearningmastery.com/what-is-imbalanced-classification/">A Gentle Introduction to Imbalanced Classification</a></p>
+<p>Devanathan, H. (2024) <a href="https://towardsdatascience.com/creating-smote-oversampling-from-scratch-64af1712a3be/">Creating SMOTE Oversampling from Scratch</a></p>
+<p>SMOTE <a href="https://imbalanced-learn.org/stable/references/generated/imblearn.over_sampling.SMOTE.html">imbalanced-learn, over-sampling methods</a></p>
+<!-- This section is for naive Bayes. -->
+</section>
+</section>
+<section id="naive-bayes" class="level2" data-number="10.6">
+<h2 data-number="10.6" class="anchored" data-anchor-id="naive-bayes"><span class="header-section-number">10.6</span> Naive Bayes</h2>
+<p>Naive Bayes classifier is a supervised learning algorithm based on <strong>Bayes’ Theorem</strong> for solving classification problems <span class="citation" data-cites="domingos1997optimal">(<a href="99-references.html#ref-domingos1997optimal" role="doc-biblioref">Domingos &amp; Pazzani, 1997</a>)</span>. This method determines which category a sample belongs to by calculating the posterior probability of each category, and assumes that each feature is independent of each other under the conditions of the given category.</p>
+<p>This “naive” assumption greatly simplifies the model computation and makes naive Bayes a classical algorithm that is both fast and stable.</p>
+<p>In statistical learning and machine learning, naive Bayes is widely used for tasks such as text classification, medical diagnosis, credit risk assessment, and anomaly detection. Despite its relatively strict assumptions, it still performs well in high dimensional data scenarios due to its robustness, low computational cost, and good interpretability <span class="citation" data-cites="rish2001empirical">(<a href="99-references.html#ref-rish2001empirical" role="doc-biblioref">Rish, 2001</a>)</span>.</p>
+<section id="theoretical-basis" class="level3" data-number="10.6.1">
+<h3 data-number="10.6.1" class="anchored" data-anchor-id="theoretical-basis"><span class="header-section-number">10.6.1</span> Theoretical basis</h3>
+<section id="bayes-theorem" class="level4" data-number="10.6.1.1">
+<h4 data-number="10.6.1.1" class="anchored" data-anchor-id="bayes-theorem"><span class="header-section-number">10.6.1.1</span> Bayes theorem</h4>
+<p>The theoretical basis of Naive Bayes classifier is <strong>Bayes’ Theorem</strong>. It describes how to update our level of trust in an event after new observation information is available.</p>
+<section id="basic-form" class="level5" data-number="10.6.1.1.1">
+<h5 data-number="10.6.1.1.1" class="anchored" data-anchor-id="basic-form"><span class="header-section-number">10.6.1.1.1</span> Basic form</h5>
+<p>The basic form of Bayes theorem is:</p>
+<p><span class="math display">\[
+P(A|B) = \frac{P(B|A)\,P(A)}{P(B)}.
+\]</span></p>
+<p>Among them:</p>
+<ul>
+<li><span class="math inline">\(P(A)\)</span>: <strong>Prior Probability</strong> of event <span class="math inline">\(A\)</span>, representing the initial belief about event <span class="math inline">\(A\)</span> in the absence of any additional information.</li>
+<li><span class="math inline">\(P(B|A)\)</span>: <strong>Likelihood</strong>, denotes the probability of observing <span class="math inline">\(B\)</span> given the occurrence of <span class="math inline">\(A\)</span>.</li>
+<li><span class="math inline">\(P(A|B)\)</span>: <strong>Posterior Probability</strong>, which is the updated probability of event <span class="math inline">\(A\)</span> occurring after the observation of <span class="math inline">\(B\)</span>.</li>
+<li><span class="math inline">\(P(B)\)</span>: <strong>Marginal Probability</strong> of event <span class="math inline">\(B\)</span>, which represents the overall probability of observing <span class="math inline">\(B\)</span> under all possible scenarios.</li>
+</ul>
+</section>
+<section id="application-to-classification-problems" class="level5" data-number="10.6.1.1.2">
+<h5 data-number="10.6.1.1.2" class="anchored" data-anchor-id="application-to-classification-problems"><span class="header-section-number">10.6.1.1.2</span> Application to classification problems</h5>
+<p>In the classification task, we let:</p>
+<ul>
+<li><span class="math inline">\(Y\)</span> is the category variable (e.g., “Is it a serious accident”, “is it spam”);</li>
+<li><span class="math inline">\(X = (x_1, x_2, \ldots, x_n)\)</span> is the observed eigenvector.</li>
+</ul>
+<p>Bayes theorem can be rewritten as follows.</p>
+<p><span class="math display">\[
+P(Y|X) = \frac{P(X|Y)\,P(Y)}{P(X)}.
+\]</span></p>
+<p>Here:</p>
+<ul>
+<li><span class="math inline">\(P(Y)\)</span>: prior probability, reflecting the distribution of each category in the population sample;</li>
+<li><span class="math inline">\(P(X|Y)\)</span>: likelihood function, which represents the probability of occurrence of feature <span class="math inline">\(X\)</span> under the category <span class="math inline">\(Y\)</span>;</li>
+<li><span class="math inline">\(P(X)\)</span>: the normalization term, which is used to ensure that the posterior probabilities of all categories sum to one;</li>
+<li><span class="math inline">\(P(Y|X)\)</span>: posterior probability, which represents the likelihood that the sample after a given feature <span class="math inline">\(X\)</span> belongs to the class <span class="math inline">\(Y\)</span>.</li>
+</ul>
+<p>Because <span class="math inline">\(P(X)\)</span> is the same for all categories, it can be ignored when comparing which category has a greater probability. The prediction criteria of the model are therefore simplified as follows.</p>
+<p><span class="math display">\[
+\hat{Y} = \arg\max_Y P(Y|X) = \arg\max_Y P(X|Y)\,P(Y).
+\]</span></p>
+<p>In other words: Instead of calculating all probabilities, we can simply compare the “prior × likelihood” of each category which is greater.</p>
+</section>
+<section id="intuitive-explanation" class="level5" data-number="10.6.1.1.3">
+<h5 data-number="10.6.1.1.3" class="anchored" data-anchor-id="intuitive-explanation"><span class="header-section-number">10.6.1.1.3</span> Intuitive explanation</h5>
+<p>Bayes’ theorem can be understood as a “belief update formula” : When we obtain new observational information <span class="math inline">\(X\)</span>, our belief about a certain category <span class="math inline">\(Y\)</span> changes.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>stage</th>
+<th>concept</th>
+<th>meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Prior <span class="math inline">\(P(Y)\)</span></td>
+<td>Our original knowledge of the category <span class="math inline">\(Y\)</span></td>
+<td>For example: 30% <br> of serious accidents</td>
+</tr>
+<tr class="even">
+<td>Likelihood <span class="math inline">\(P(X|Y)\)</span></td>
+<td>probability of feature <span class="math inline">\(X\)</span> under category <span class="math inline">\(Y\)</span></td>
+<td>For example: a higher proportion of <br> serious accidents in nighttime accidents</td>
+</tr>
+<tr class="odd">
+<td>A posterior <span class="math inline">\(P(Y|X)\)</span></td>
+<td>update probability after combining observations</td>
+<td>For example, if it is at night, <br> the probability of a serious accident rises to about 56%</td>
+</tr>
+</tbody>
+</table>
+<p>In other words, Bayes’ theorem lets us <strong>update beliefs</strong> with data. It is this updating mechanism that naive Bayes uses for classification.</p>
+</section>
+</section>
+<section id="conditional-independence-assumption" class="level4" data-number="10.6.1.2">
+<h4 data-number="10.6.1.2" class="anchored" data-anchor-id="conditional-independence-assumption"><span class="header-section-number">10.6.1.2</span> Conditional independence assumption</h4>
+<p>Naive Bayes’ “naive” comes from a key assumption: Given the category <span class="math inline">\(Y\)</span>, the individual features <span class="math inline">\(x_i\)</span> are <strong>conditionally independent</strong> among each other <span class="citation" data-cites="domingos1997optimal">(<a href="99-references.html#ref-domingos1997optimal" role="doc-biblioref">Domingos &amp; Pazzani, 1997</a>)</span>. Namely:</p>
+<p><span class="math display">\[
+P(X|Y) = \prod_{i=1}^{n} P(x_i|Y)
+\]</span></p>
+<p>This assumption greatly simplifies the calculation of the joint distribution. Originally we needed to estimate <span class="math inline">\(P(x_1,x_2,... x_n|Y)\)</span> such a high-dimensional joint probability, But with the independence assumption, one only needs to estimate the conditional probability <span class="math inline">\(P(x_i|Y)\)</span> of each individual feature.</p>
+<p>This is not always true in real data, but in most scenarios it is still satisfactory, This is especially the case when the correlation between features is weak or the sample size is large enough.</p>
+</section>
+<section id="parameter-estimates-with-likelihood-functions" class="level4" data-number="10.6.1.3">
+<h4 data-number="10.6.1.3" class="anchored" data-anchor-id="parameter-estimates-with-likelihood-functions"><span class="header-section-number">10.6.1.3</span> Parameter estimates with likelihood functions</h4>
+<p>The core of model training is the estimation of two types of parameters:</p>
+<ol type="I">
+<li><strong>Prior probability</strong> <span class="math inline">\(P(Y)\)</span></li>
+</ol>
+<p>Represents the proportion of categories occurring in the population:</p>
+<p><span class="math display">\[
+    \hat{P}(Y_k) = \frac{N_k}{N},
+\]</span></p>
+<p>Where <span class="math inline">\(N_k\)</span> is the number of samples for category <span class="math inline">\(k\)</span> and <span class="math inline">\(N\)</span> is the total number of samples.</p>
+<ol start="2" type="I">
+<li><strong>Conditional probability</strong> <span class="math inline">\(P(x_i|Y)\)</span></li>
+</ol>
+<ul>
+<li>If the feature is discrete:</li>
+</ul>
+<p><span class="math display">\[
+    \hat{P}(x_i|Y) = \frac{\text{count}(x_i,Y)}{\text{count}(Y)}.
+\]</span></p>
+<ul>
+<li>If the feature is continuous, assume that it follows a Gaussian distribution under each category:</li>
+</ul>
+<p><span class="math display">\[
+    P(x_i|Y) = \frac{1}{\sqrt{2\pi\sigma_{Y,i}^2}}
+    \exp\! \left(-\frac{(x_i-\mu_{Y,i})^2}{2\sigma_{Y,i}^2}\right)
+\]</span></p>
+<p>where <span class="math inline">\(\mu_{Y,i}\)</span> and <span class="math inline">\(\sigma_{Y,i}^2\)</span> are the mean and variance of feature <span class="math inline">\(x_i\)</span> among all samples in class <span class="math inline">\(Y\)</span>, respectively.</p>
+<p>These parameters are usually obtained by Maximum Likelihood Estimation (MLE).</p>
+</section>
+<section id="class-prediction-and-log-form" class="level4" data-number="10.6.1.4">
+<h4 data-number="10.6.1.4" class="anchored" data-anchor-id="class-prediction-and-log-form"><span class="header-section-number">10.6.1.4</span> Class Prediction and Log Form</h4>
+<p>The goal of model prediction is to find the class that maximizes the posterior probability:</p>
+<p><span class="math display">\[
+\hat{Y} = \arg\max_Y P(Y) \prod_{i=1}^n P(x_i|Y)
+\]</span></p>
+<p>However, in practice, because continuous multiplication can lead to numerical underflow, We usually take logarithms and turn multiplication into addition:</p>
+<p><span class="math display">\[
+\log P(Y|X) = \log P(Y) + \sum_{i=1}^{n} \log P(x_i|Y)
+\]</span></p>
+<p>The final output of the model is:</p>
+<p><span class="math display">\[
+\hat{Y} = \arg\max_Y \big[\log P(Y) + \sum_i \log P(x_i|Y)\big].
+\]</span></p>
+<p>In this way, not only accuracy problems can be avoided, but also the contribution of each feature to the classification result can be observed more intuitively.</p>
+</section>
+<section id="theoretical-performance-and-advantages-and-limitations" class="level4" data-number="10.6.1.5">
+<h4 data-number="10.6.1.5" class="anchored" data-anchor-id="theoretical-performance-and-advantages-and-limitations"><span class="header-section-number">10.6.1.5</span> Theoretical Performance and Advantages and Limitations</h4>
+<ol type="I">
+<li><strong>Advantages</strong></li>
+</ol>
+<ul>
+<li>The algorithm is simple, the computational complexity is linear, and the training and prediction speed is extremely fast;</li>
+<li>Good performance on high dimensional data (such as bag-of-words model);</li>
+<li>Good performance on small sample data; The model results are highly interpretable; Certain robustness against noisy data and missing data.</li>
+</ul>
+<ol start="2" type="I">
+<li><strong>Limitations</strong></li>
+</ol>
+<p>Conditional independence assumption is often not true, and performance may decrease when feature correlation is strong; Inability to capture feature interaction effects; For the values of features that have not appeared before, there may be a zero probability problem; Output probability estimates are not necessarily reliable (often biased toward 0 or 1).</p>
+</section>
+<section id="laplace-smoothing" class="level4" data-number="10.6.1.6">
+<h4 data-number="10.6.1.6" class="anchored" data-anchor-id="laplace-smoothing"><span class="header-section-number">10.6.1.6</span> Laplace Smoothing</h4>
+<p>In naive Bayes, if a feature value never occurs in the training set, its corresponding probability is estimated to be zero. As a result, the whole product is 0 and the classifier outputs the wrong result. To avoid this situation, <strong>Laplace Smoothing</strong> is introduced.</p>
+<p>That is to add a constant <span class="math inline">\(\alpha &gt; 0\)</span> (usually 1) to the probability estimate:</p>
+<p><span class="math display">\[
+\hat{P}(x_i|Y) =
+\frac{\text{count}(x_i,Y) + \alpha}
+{\sum_{x_i'}(\text{count}(x_i',Y) + \alpha)}.
+\]</span></p>
+<p>So even if a value doesn’t appear in the training set, the probability is not zero, The model is thus more stable and robust.</p>
+</section>
+<section id="surprisingly-good-performance" class="level4" data-number="10.6.1.7">
+<h4 data-number="10.6.1.7" class="anchored" data-anchor-id="surprisingly-good-performance"><span class="header-section-number">10.6.1.7</span> Surprisingly Good Performance</h4>
+<p>Although the conditional independence assumption is often not strictly true, naive Bayes still performs surprisingly well in practice. This is mainly due to the following:</p>
+<ul>
+<li><p><strong>Robustness</strong> : Even if there is some correlation between features, the classification result is still accurate as long as the dependence between different categories is not very different.</p></li>
+<li><p><strong>Error Compensation</strong> : The bias caused by conditional independence assumption often cancerates each other when multiple features are combined.</p></li>
+<li><p><strong>Implicit Regularization</strong> : Feature independence makes the model complexity low and can effectively prevent overfitting.</p></li>
+<li><p><strong>High-dimensional Advantage</strong> : In scenarios where the number of features is much larger than the number of samples, such as text classification, naive Bayes is almost always more stable than linear models.</p></li>
+</ul>
+</section>
+</section>
+<section id="types-of-naive-bayes" class="level3" data-number="10.6.2">
+<h3 data-number="10.6.2" class="anchored" data-anchor-id="types-of-naive-bayes"><span class="header-section-number">10.6.2</span> Types of Naive Bayes</h3>
+<p>There is not just one form of naive Bayesian algorithm. According to the type of feature variable (continuous or discrete), the value characteristics of the feature (Boolean, count, frequency, etc.) and the distribution assumption of the data, naive Bayes can be divided into the following main types:</p>
+<section id="gaussian-naive-bayes" class="level4" data-number="10.6.2.1">
+<h4 data-number="10.6.2.1" class="anchored" data-anchor-id="gaussian-naive-bayes"><span class="header-section-number">10.6.2.1</span> Gaussian Naive Bayes</h4>
+<p>When the data feature is <strong>continuous variable</strong>, each feature is assumed to follow <strong>Gaussian distribution</strong> under a given category:</p>
+<p><span class="math display">\[
+P(x_i|Y) = \frac{1}{\sqrt{2\pi\sigma_{Y,i}^2}}
+\exp\! \left(-\frac{(x_i - \mu_{Y,i})^2}{2\sigma_{Y,i}^2}\right)
+\]</span></p>
+<p>The advantages of Gaussian naive Bayes are:</p>
+<ul>
+<li>suitable for continuous characteristics (e.g.&nbsp;age, temperature, price, etc.).</li>
+<li>Computationally efficient.</li>
+<li>Parameter estimation only requires sample mean and variance.</li>
+<li>Good results can still be achieved for nonlinear separable data.</li>
+</ul>
+</section>
+<section id="categorical-naive-bayes" class="level4" data-number="10.6.2.2">
+<h4 data-number="10.6.2.2" class="anchored" data-anchor-id="categorical-naive-bayes"><span class="header-section-number">10.6.2.2</span> Categorical Naive Bayes</h4>
+<p>Categorical naive Bayes is used when the feature is <strong>discrete (categorical) variable</strong>. Assume that each feature follows a <strong>categorical distribution</strong> under the category <span class="math inline">\(Y\)</span>:</p>
+<p><span class="math display">\[
+P(x_i|Y) = \frac{\text{count}(x_i,Y) + \alpha}
+{\sum_{x_i'} (\text{count}(x_i',Y) + \alpha)}
+\]</span></p>
+<p>Where <span class="math inline">\(\alpha\)</span> is the smoothing coefficient (usually 1) and is used to avoid the zero-probability problem. It is often used to analyze categorical characteristic data, such as region, color, occupation type, etc.</p>
+</section>
+<section id="bernoulli-naive-bayes" class="level4" data-number="10.6.2.3">
+<h4 data-number="10.6.2.3" class="anchored" data-anchor-id="bernoulli-naive-bayes"><span class="header-section-number">10.6.2.3</span> Bernoulli Naive Bayes</h4>
+<p>Bernoulli naive Bayes is used when the features take only two values, such as 0/1, True/False. It assumes that each feature follows a <strong>Bernoulli Distribution</strong> under the category <span class="math inline">\(Y\)</span>:</p>
+<p><span class="math display">\[
+P(x_i|Y) = P_i^{x_i} (1-P_i)^{(1-x_i)},
+\]</span></p>
+<p>Where <span class="math inline">\(P_i = P(x_i=1|Y)\)</span>. Often used in “word presence or absence” models for text classification (e.g., spam detection). Compared with the polynomial model, the Bernoulli model pays more attention to “whether a certain feature is included” rather than “the number of occurrences of features”.</p>
+</section>
+<section id="multinomial-naive-bayes" class="level4" data-number="10.6.2.4">
+<h4 data-number="10.6.2.4" class="anchored" data-anchor-id="multinomial-naive-bayes"><span class="header-section-number">10.6.2.4</span> Multinomial Naive Bayes</h4>
+<p>Polynomial naive Bayes is often used for text analysis or document classification tasks. It assumes that features are represented as discrete frequencies or counts such as word frequency TF. Conditional probabilities are calculated as follows:</p>
+<p><span class="math display">\[
+P(X|Y) = \frac{(\sum_i x_i)! }{\prod_i x_i! } \prod_i P(x_i|Y)^{x_i},
+\]</span></p>
+<p>Where <span class="math inline">\(x_i\)</span> is the number of occurrences of the <span class="math inline">\(i\)</span>word in the document. This model is particularly suitable for “Bag-of-Words” models, such as news classification, comment sentiment analysis, etc.</p>
+</section>
+<section id="complement-naive-bayes" class="level4" data-number="10.6.2.5">
+<h4 data-number="10.6.2.5" class="anchored" data-anchor-id="complement-naive-bayes"><span class="header-section-number">10.6.2.5</span> Complement Naive Bayes</h4>
+<p>Complement NB is an improvement of the polynomial model, It is mainly used for <strong>class imbalanced</strong> datasets <span class="citation" data-cites="zhang2004complement">(<a href="99-references.html#ref-zhang2004complement" role="doc-biblioref">Zhang, 2004</a>)</span>. It estimates conditional probabilities by considering “samples outside of one category”, reducing the bias of the model by mainstream categories:</p>
+<p><span class="math display">\[
+P(x_i|\bar{Y}) = \frac{\text{count}(x_i,\bar{Y}) + \alpha}
+{\sum_{x_i'}(\text{count}(x_i',\bar{Y}) + \alpha)}
+\]</span></p>
+<p>This method works well when there are large differences in category proportions, For example, it is often used in tasks such as “accident severity classification” and “fraud detection”.</p>
+</section>
+<section id="model-comparison-and-application-scenario-summary" class="level4" data-number="10.6.2.6">
+<h4 data-number="10.6.2.6" class="anchored" data-anchor-id="model-comparison-and-application-scenario-summary"><span class="header-section-number">10.6.2.6</span> Model comparison and application scenario summary</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 16%">
+<col style="width: 24%">
+<col style="width: 32%">
+<col style="width: 11%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Model type</th>
+<th>Feature type</th>
+<th>Common applications</th>
+<th>Distributional assumptions</th>
+<th>Remarks</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Gaussian NB</strong></td>
+<td>Continuous variables</td>
+<td>medical diagnosis, price prediction</td>
+<td>Gaussian distribution</td>
+<td>more sensitive to outliers</td>
+</tr>
+<tr class="even">
+<td><strong>Categorical NB</strong></td>
+<td>Categorical variables</td>
+<td>Questionnaire, demographic analysis</td>
+<td>Categorical distribution</td>
+<td>fit discrete features</td>
+</tr>
+<tr class="odd">
+<td><strong>Bernoulli NB</strong></td>
+<td>Binary variables</td>
+<td>Spam classification, whether the text <br> contains keywords</td>
+<td>Bernoulli distribution</td>
+<td>Focus on “presence or absence”</td>
+</tr>
+<tr class="even">
+<td><strong>Multinomial NB</strong></td>
+<td>Count / frequency</td>
+<td>text classification, sentiment analysis</td>
+<td>Multinomial distribution</td>
+<td>Fit for high dimensional sparse data</td>
+</tr>
+<tr class="odd">
+<td><strong>Complement NB</strong></td>
+<td>Imbalanced sample</td>
+<td>fraud detection, traffic accident prediction</td>
+<td>Polynomial complementary distribution</td>
+<td>Improved imbalanced problem</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="naive-bayesian-application-nyc-crash-data" class="level3" data-number="10.6.3">
+<h3 data-number="10.6.3" class="anchored" data-anchor-id="naive-bayesian-application-nyc-crash-data"><span class="header-section-number">10.6.3</span> Naive Bayesian application: NYC Crash Data</h3>
+<p>In this section, we will use the accident data set provided in the course to demonstrate how naive Bayesian models can be used to predict whether an accident is a “serious accident”.</p>
+<p>The goal here is to classify an original traffic accident record into:</p>
+<ul>
+<li>severe (severe = 1) : Someone is injured or killed</li>
+<li>No severe (severe = 0) : no injuries or deaths</li>
+</ul>
+<p>This is a typical real world task: we want to quickly determine the severity of an accident as soon as it occurs or is recorded, so that we can direct resources, do risk monitoring, and observe patterns.</p>
+<section id="modeling-objectives" class="level4" data-number="10.6.3.1">
+<h4 data-number="10.6.3.1" class="anchored" data-anchor-id="modeling-objectives"><span class="header-section-number">10.6.3.1</span> Modeling objectives</h4>
+<p>The task we are going to complete is a <strong>binary classification problem</strong> :</p>
+<ul>
+<li><p><strong>Response variable (Y)</strong> : ‘severe_flag’ Definition rule: If ‘persons_injured &gt; 0’ or ‘persons_killed &gt; 0’, it is considered a serious accident and marked as 1, otherwise it is 0.</p></li>
+<li><p><strong>Independent variable (X)</strong> : We will use some features that can be extracted/discretized from accident records such as <code>borough</code>,<code>zip_code</code>,<code>crash_datetime</code>, <code>vehicle_type_code_1</code>,<code>contributing_factor_vehicle_1</code>… Most of these features are categorical factors, which are suitable for conditional probability based modeling in naive Bayes.</p></li>
+<li><p>Load packages</p></li>
+</ul>
+<div id="09c99b1c" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> datetime</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.naive_bayes <span class="im">import</span> CategoricalNB</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> confusion_matrix, classification_report</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> LabelEncoder</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Read our data</li>
+</ul>
+<div id="79e60021" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1.</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_feather(<span class="st">"data/nyc_crashes_cleaned.feather"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Create the target variable severe_flag (severe accident =1, otherwise =0)</li>
+</ul>
+<div id="7701aadb" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'number_of_persons_injured'</span>] <span class="op">=</span> df[<span class="st">'number_of_persons_injured'</span>].fillna(<span class="dv">0</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'number_of_persons_killed'</span>] <span class="op">=</span> df[<span class="st">'number_of_persons_killed'</span>].fillna(<span class="dv">0</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'severe_flag'</span>] <span class="op">=</span> np.where(</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    (df[<span class="st">'number_of_persons_injured'</span>] <span class="op">&gt;</span> <span class="dv">0</span>) <span class="op">|</span> (df[<span class="st">'number_of_persons_killed'</span>] <span class="op">&gt;</span> <span class="dv">0</span>),</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span>,</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    <span class="dv">0</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Extract hours from time and divide periods</li>
+</ul>
+<div id="f975edf7" class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'crash_datetime'</span>] <span class="op">=</span> pd.to_datetime(df[<span class="st">'crash_datetime'</span>], errors<span class="op">=</span><span class="st">'coerce'</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'hour'</span>] <span class="op">=</span> df[<span class="st">'crash_datetime'</span>].dt.hour</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> time_period(hour):</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="dv">0</span> <span class="op">&lt;=</span> hour <span class="op">&lt;</span> <span class="dv">6</span>:</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"Late Night"</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> <span class="dv">6</span> <span class="op">&lt;=</span> hour <span class="op">&lt;</span> <span class="dv">12</span>:</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"Morning"</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> <span class="dv">12</span> <span class="op">&lt;=</span> hour <span class="op">&lt;</span> <span class="dv">18</span>:</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"Afternoon"</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> <span class="dv">18</span> <span class="op">&lt;=</span> hour <span class="op">&lt;</span> <span class="dv">24</span>:</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"Evening"</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="st">"Unknown"</span></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'time_category'</span>] <span class="op">=</span> df[<span class="st">'hour'</span>].<span class="bu">apply</span>(time_period)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Select features</li>
+</ul>
+<div id="55428dbc" class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># borough: What borough is it in</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co"># zip_code/zip_filled: Location code information</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co"># time_category: Approximate time period when the accident occurred</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co"># contributing_factor_vehicle_1: The primary contributing_factor for vehicle 1</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="co"># vehicle_type_code_1: Type of vehicle involved</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Note: We do not directly use the latitude and longitude, street names, these </span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="co"># are high base text/continuous values, not suitable for direct feeding naive </span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Bayes for classification.</span></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>model_df <span class="op">=</span> df[[</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">'borough'</span>,</span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">'zip_filled'</span>,</span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">'time_category'</span>,</span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">'contributing_factor_vehicle_1'</span>,</span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">'vehicle_type_code_1'</span>,</span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">'severe_flag'</span></span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>]].dropna()</span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Label encode</span></span>
+<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a>label_encoders <span class="op">=</span> {}</span>
+<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> col <span class="kw">in</span> model_df.columns:</span>
+<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> model_df[col].dtype <span class="op">==</span> <span class="st">'object'</span>:</span>
+<span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a>        le <span class="op">=</span> LabelEncoder()</span>
+<span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a>        model_df[col] <span class="op">=</span> le.fit_transform(model_df[col])</span>
+<span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a>        label_encoders[col] <span class="op">=</span> le</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Split data into training/testing sets and Train the Naive Bayes model.</li>
+</ul>
+<div id="a2685284" class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> model_df.drop(<span class="st">'severe_flag'</span>, axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> model_df[<span class="st">'severe_flag'</span>]</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    X, y, test_size<span class="op">=</span><span class="fl">0.3</span>, random_state<span class="op">=</span><span class="dv">42</span>, stratify<span class="op">=</span>y</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Make predictions and evaluate the model.</li>
+</ul>
+<div id="c8a9d85e" class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>nb_model <span class="op">=</span> CategoricalNB(alpha<span class="op">=</span><span class="dv">1</span>)   <span class="co"># laplace smoothing</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>nb_model.fit(X_train, y_train)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> nb_model.predict(X_test)</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>y_prob <span class="op">=</span> nb_model.predict_proba(X_test)</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(confusion_matrix(y_test, y_pred))</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(classification_report(y_test, y_pred))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[163  51]
+ [ 94  97]]
+              precision    recall  f1-score   support
+
+           0       0.63      0.76      0.69       214
+           1       0.66      0.51      0.57       191
+
+    accuracy                           0.64       405
+   macro avg       0.64      0.63      0.63       405
+weighted avg       0.64      0.64      0.64       405
+</code></pre>
+</div>
+</div>
+<section id="interpretation-of-our-model-results" class="level5" data-number="10.6.3.1.1">
+<h5 data-number="10.6.3.1.1" class="anchored" data-anchor-id="interpretation-of-our-model-results"><span class="header-section-number">10.6.3.1.1</span> Interpretation of our model results</h5>
+<p>From the results, the overall performance of our Naive Bayes model is only moderate. The accuracy of the model is about <strong>64%</strong>, which means that it is better than random guess, but the predictive power is not strong. Especially in distinguishing serious and non-serious accidents, the model identifies non-serious accidents relatively well (0), but its ability to capture serious accidents (1) is relatively weak, and many real serious accidents still cannot be successfully identified.</p>
+<p>It can also be seen from the average values of precision, recall and F1 that the overall classification ability of the model is about 0.63 to 0.64, which is relatively general. In general, the Naive Bayes model can provide a certain reference, but it is not enough to establish a high-precision accident severity prediction system. More complex or stronger models may be needed to improve performance in practical applications.</p>
+<p>The main reasons for this may include:</p>
+<ul>
+<li><p><strong>Imbalanced Data</strong> : The samples of non-serious accidents are far more than those of serious accidents, resulting in the model being biased towards the majority class.</p></li>
+<li><p><strong>Naive Assumption</strong> : Naive Bayes assumes that each feature is independent of each other, but this assumption is often not true in real traffic accident data.</p></li>
+<li><p><strong>Limited feature information</strong> : The variables used (such as time period, vehicle type, causative factors, etc.) are relatively macroscopic and lack continuity or quantitative characteristics, which limits the accuracy of the model.</p></li>
+</ul>
+<p>Nevertheless, the naive Bayesian model has the following advantages:</p>
+<ul>
+<li>fast training and prediction.</li>
+<li>strong interpretation of parameters</li>
+<li>Suitable as a baseline model (baseline) for more complex models (e.g.&nbsp; Random Forest, XGBoost).</li>
+</ul>
+<p>Therefore, the results of this model can be used as a reference basis for subsequent improvements, and further improvements in model performance are expected after the introduction of more features or balanced samples.</p>
 <!-- This section is for nueral network. -->
 </section>
 </section>
-<section id="neural-networks" class="level2" data-number="10.5">
-<h2 data-number="10.5" class="anchored" data-anchor-id="neural-networks"><span class="header-section-number">10.5</span> Neural Networks</h2>
+</section>
+</section>
+<section id="neural-networks" class="level2" data-number="10.7">
+<h2 data-number="10.7" class="anchored" data-anchor-id="neural-networks"><span class="header-section-number">10.7</span> Neural Networks</h2>
 <p>Neural networks learn flexible, nonlinear relationships by composing simple computational units. Each unit (or <em>neuron</em>) applies an affine transformation to its inputs followed by a nonlinearity; stacking layers of such units yields a <strong>feed-forward</strong> mapping from features to predictions. A helpful anchor is logistic regression: it can be viewed as a one-layer neural network with a sigmoid activation. Hidden layers generalize this idea by transforming inputs into progressively more useful internal representations, enabling the model to capture complex patterns beyond linear decision boundaries.</p>
-<p>Historically, the field traces back to the early formal model of a neuron by <span class="citation" data-cites="mcculloch1943logical">McCulloch &amp; Pitts (<a href="references.html#ref-mcculloch1943logical" role="doc-biblioref">1943</a>)</span>, followed by Rosenblatt’s perceptron <span class="citation" data-cites="rosenblatt1958perceptron">(<a href="references.html#ref-rosenblatt1958perceptron" role="doc-biblioref">Rosenblatt, 1958</a>)</span>, which was the first trainable linear classifier. The limitations of single-layer perceptrons, notably their inability to model nonlinearly separable functions, were rigorously analyzed by <span class="citation" data-cites="minsky1969perceptrons">Minsky &amp; Papert (<a href="references.html#ref-minsky1969perceptrons" role="doc-biblioref">1969</a>)</span>, leading to a temporary decline in interest. The introduction of the backpropagation algorithm by <span class="citation" data-cites="rumelhart1986learning">Rumelhart et al. (<a href="references.html#ref-rumelhart1986learning" role="doc-biblioref">1986</a>)</span> revived the study of neural networks in the 1980s. With the growth of data, advances in hardware, and improved optimization methods, neural networks became the foundation for modern deep learning. Multilayer networks are universal function approximators in principle; in practice, their success depends on careful architectural design, efficient optimization, and appropriate regularization.</p>
+<p>Historically, the field traces back to the early formal model of a neuron by <span class="citation" data-cites="mcculloch1943logical">McCulloch &amp; Pitts (<a href="99-references.html#ref-mcculloch1943logical" role="doc-biblioref">1943</a>)</span>, followed by Rosenblatt’s perceptron <span class="citation" data-cites="rosenblatt1958perceptron">(<a href="99-references.html#ref-rosenblatt1958perceptron" role="doc-biblioref">Rosenblatt, 1958</a>)</span>, which was the first trainable linear classifier. The limitations of single-layer perceptrons, notably their inability to model nonlinearly separable functions, were rigorously analyzed by <span class="citation" data-cites="minsky1969perceptrons">Minsky &amp; Papert (<a href="99-references.html#ref-minsky1969perceptrons" role="doc-biblioref">1969</a>)</span>, leading to a temporary decline in interest. The introduction of the backpropagation algorithm by <span class="citation" data-cites="rumelhart1986learning">Rumelhart et al. (<a href="99-references.html#ref-rumelhart1986learning" role="doc-biblioref">1986</a>)</span> revived the study of neural networks in the 1980s. With the growth of data, advances in hardware, and improved optimization methods, neural networks became the foundation for modern deep learning. Multilayer networks are universal function approximators in principle; in practice, their success depends on careful architectural design, efficient optimization, and appropriate regularization.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -963,7 +1610,7 @@ Dimensions and Shapes
 </div>
 </div>
 <p>The figure below shows an input layer, one hidden layer, and an output layer with directed connections. (We will formalize the mathematics in the next subsection.)</p>
-<div id="cell-fig-basic-network" class="cell" data-fig-height="5" data-fig-width="7" data-execution_count="8">
+<div id="cell-fig-basic-network" class="cell" data-fig-height="5" data-fig-width="7" data-execution_count="21">
 <div class="cell-output cell-output-display">
 <div id="fig-basic-network" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -977,12 +1624,12 @@ Figure&nbsp;10.1: A minimal feed-forward neural network with an input layer (3 n
 </div>
 </div>
 </div>
-<section id="structure-of-a-neural-network" class="level3" data-number="10.5.1">
-<h3 data-number="10.5.1" class="anchored" data-anchor-id="structure-of-a-neural-network"><span class="header-section-number">10.5.1</span> Structure of a Neural Network</h3>
+<section id="structure-of-a-neural-network" class="level3" data-number="10.7.1">
+<h3 data-number="10.7.1" class="anchored" data-anchor-id="structure-of-a-neural-network"><span class="header-section-number">10.7.1</span> Structure of a Neural Network</h3>
 <p>A neural network is composed of <strong>layers</strong> of interconnected processing units called <em>neurons</em> or <em>nodes</em>. Each neuron receives inputs, applies a linear transformation, and passes the result through a nonlinear <strong>activation function</strong>. The layers are arranged sequentially so that information flows from input features to intermediate representations and finally to the output.</p>
 </section>
-<section id="mathematical-formulation" class="level3" data-number="10.5.2">
-<h3 data-number="10.5.2" class="anchored" data-anchor-id="mathematical-formulation"><span class="header-section-number">10.5.2</span> Mathematical Formulation</h3>
+<section id="mathematical-formulation" class="level3" data-number="10.7.2">
+<h3 data-number="10.7.2" class="anchored" data-anchor-id="mathematical-formulation"><span class="header-section-number">10.7.2</span> Mathematical Formulation</h3>
 <p>Let the input vector be <span class="math inline">\(x \in \mathbb{R}^{d}\)</span>. A hidden layer with <span class="math inline">\(m\)</span> neurons computes</p>
 <p><span class="math display">\[
 h = \sigma(Wx + b),
@@ -1011,10 +1658,10 @@ Backward propagation of gradients (discussed later) updates all weights based on
 </div>
 </div>
 </section>
-<section id="network-diagram" class="level3" data-number="10.5.3">
-<h3 data-number="10.5.3" class="anchored" data-anchor-id="network-diagram"><span class="header-section-number">10.5.3</span> Network Diagram</h3>
+<section id="network-diagram" class="level3" data-number="10.7.3">
+<h3 data-number="10.7.3" class="anchored" data-anchor-id="network-diagram"><span class="header-section-number">10.7.3</span> Network Diagram</h3>
 <p><a href="#fig-deep-network" class="quarto-xref">Figure&nbsp;<span>10.2</span></a> illustrates a feed-forward neural network with two hidden layers. Arrows indicate the direction of information flow from one layer to the next. Each connection carries a learnable weight, and nonlinear activations transform the signals as they propagate forward.</p>
-<div id="cell-fig-deep-network" class="cell" data-fig-format="svg" data-fig-height="4" data-fig-width="8" data-execution_count="9">
+<div id="cell-fig-deep-network" class="cell" data-fig-format="svg" data-fig-height="4" data-fig-width="8" data-execution_count="22">
 <div class="cell-output cell-output-display">
 <div id="fig-deep-network" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
@@ -1042,8 +1689,8 @@ Note
 </div>
 </div>
 </section>
-<section id="activation-functions" class="level3" data-number="10.5.4">
-<h3 data-number="10.5.4" class="anchored" data-anchor-id="activation-functions"><span class="header-section-number">10.5.4</span> Activation Functions</h3>
+<section id="activation-functions" class="level3" data-number="10.7.4">
+<h3 data-number="10.7.4" class="anchored" data-anchor-id="activation-functions"><span class="header-section-number">10.7.4</span> Activation Functions</h3>
 <p>Activation functions introduce <strong>nonlinearity</strong> into neural networks. Without them, the entire network would collapse into a single linear transformation, regardless of the number of layers. Nonlinear activations allow networks to approximate arbitrary complex functions, enabling them to model curved decision boundaries and hierarchical representations.</p>
 <p>Let <span class="math inline">\(z\)</span> denote the input to a neuron before activation. The most common choices are:</p>
 <table class="caption-top table">
@@ -1089,7 +1736,7 @@ Note
 </tbody>
 </table>
 <p><a href="#fig-activation-curves" class="quarto-xref">Figure&nbsp;<span>10.3</span></a> shows the shape of these activation functions. Notice how ReLU sharply truncates negative values while sigmoid and tanh saturate for large magnitudes.</p>
-<div id="cell-fig-activation-curves" class="cell" data-fig-format="svg" data-fig-height="4" data-fig-width="7" data-execution_count="10">
+<div id="cell-fig-activation-curves" class="cell" data-fig-format="svg" data-fig-height="4" data-fig-width="7" data-execution_count="23">
 <div class="cell-output cell-output-display">
 <div id="fig-activation-curves" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
@@ -1104,11 +1751,11 @@ Figure&nbsp;10.3: Activation functions commonly used in neural networks. ReLU an
 </div>
 </div>
 </section>
-<section id="training-neural-networks" class="level3" data-number="10.5.5">
-<h3 data-number="10.5.5" class="anchored" data-anchor-id="training-neural-networks"><span class="header-section-number">10.5.5</span> Training Neural Networks</h3>
+<section id="training-neural-networks" class="level3" data-number="10.7.5">
+<h3 data-number="10.7.5" class="anchored" data-anchor-id="training-neural-networks"><span class="header-section-number">10.7.5</span> Training Neural Networks</h3>
 <p>Training a neural network means adjusting its parameters so that its predictions <span class="math inline">\(\hat{y}\)</span> align closely with the true outputs <span class="math inline">\(y\)</span>. This is done by minimizing a <strong>loss function</strong> that quantifies prediction error. Optimization proceeds iteratively through <strong>forward</strong> and <strong>backward</strong> passes.</p>
-<section id="loss-functions" class="level4" data-number="10.5.5.1">
-<h4 data-number="10.5.5.1" class="anchored" data-anchor-id="loss-functions"><span class="header-section-number">10.5.5.1</span> Loss Functions</h4>
+<section id="loss-functions" class="level4" data-number="10.7.5.1">
+<h4 data-number="10.7.5.1" class="anchored" data-anchor-id="loss-functions"><span class="header-section-number">10.7.5.1</span> Loss Functions</h4>
 <p>The choice of loss depends on the task:</p>
 <table class="caption-top table">
 <colgroup>
@@ -1143,8 +1790,8 @@ Figure&nbsp;10.3: Activation functions commonly used in neural networks. ReLU an
 </table>
 <p>The loss function <span class="math inline">\(L(\theta)\)</span> depends on all network parameters <span class="math inline">\(\theta = \{W, b, V, c, \ldots\}\)</span> and guides the optimization.</p>
 </section>
-<section id="gradient-descent" class="level4" data-number="10.5.5.2">
-<h4 data-number="10.5.5.2" class="anchored" data-anchor-id="gradient-descent"><span class="header-section-number">10.5.5.2</span> Gradient Descent</h4>
+<section id="gradient-descent" class="level4" data-number="10.7.5.2">
+<h4 data-number="10.7.5.2" class="anchored" data-anchor-id="gradient-descent"><span class="header-section-number">10.7.5.2</span> Gradient Descent</h4>
 <p>Neural networks are trained by <strong>gradient descent</strong>, which updates parameters in the opposite direction of the gradient of the loss:</p>
 <p><span class="math display">\[
 \theta^{(t+1)} = \theta^{(t)} - \eta \nabla_\theta L(\theta^{(t)}),
@@ -1153,7 +1800,7 @@ Figure&nbsp;10.3: Activation functions commonly used in neural networks. ReLU an
 <p>Variants such as <em>stochastic</em> and <em>mini-batch</em> gradient descent compute gradients on subsets of data to speed learning and improve generalization.</p>
 <p><a href="#fig-loss-landscape" class="quarto-xref">Figure&nbsp;<span>10.4</span></a> gives a two-dimensional analogy of gradient descent. In practice, a neural network may contain millions of parameters, meaning the loss function is defined over an extremely high-dimensional space. The contours shown here merely represent a projection of that space onto two dimensions for illustration.<br>
 The true optimization surface is much more complex—full of flat regions, sharp valleys, and numerous local minima—but the intuition of moving “downhill” along the loss gradient remains valid.</p>
-<div id="cell-fig-loss-landscape" class="cell" data-fig-format="svg" data-fig-height="4" data-fig-width="6" data-execution_count="11">
+<div id="cell-fig-loss-landscape" class="cell" data-fig-format="svg" data-fig-height="4" data-fig-width="6" data-execution_count="24">
 <div class="cell-output cell-output-display">
 <div id="fig-loss-landscape" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
@@ -1169,13 +1816,13 @@ Figure&nbsp;10.4: Conceptual illustration of gradient descent. The optimizer ite
 </div>
 </section>
 </section>
-<section id="regularization-and-overfitting" class="level3" data-number="10.5.6">
-<h3 data-number="10.5.6" class="anchored" data-anchor-id="regularization-and-overfitting"><span class="header-section-number">10.5.6</span> Regularization and Overfitting</h3>
+<section id="regularization-and-overfitting" class="level3" data-number="10.7.6">
+<h3 data-number="10.7.6" class="anchored" data-anchor-id="regularization-and-overfitting"><span class="header-section-number">10.7.6</span> Regularization and Overfitting</h3>
 <p>Because neural networks contain large numbers of parameters, they can easily <strong>overfit</strong> training data—capturing noise or random fluctuations rather than generalizable patterns. A model that overfits performs well on the training set but poorly on new data. Regularization techniques introduce constraints or randomness that help the network generalize.</p>
-<section id="the-biasvariance-trade-off" class="level4" data-number="10.5.6.1">
-<h4 data-number="10.5.6.1" class="anchored" data-anchor-id="the-biasvariance-trade-off"><span class="header-section-number">10.5.6.1</span> The Bias–Variance Trade-Off</h4>
+<section id="the-biasvariance-trade-off" class="level4" data-number="10.7.6.1">
+<h4 data-number="10.7.6.1" class="anchored" data-anchor-id="the-biasvariance-trade-off"><span class="header-section-number">10.7.6.1</span> The Bias–Variance Trade-Off</h4>
 <p>Adding model complexity (more layers or neurons) reduces bias but increases variance. The goal of regularization is to find a balance between these forces. <a href="#fig-overfitting-illustration" class="quarto-xref">Figure&nbsp;<span>10.5</span></a> provides a schematic view: the unregularized model follows every data fluctuation, while a regularized model captures only the underlying trend.</p>
-<div id="cell-fig-overfitting-illustration" class="cell" data-fig-format="svg" data-fig-height="4" data-fig-width="6" data-execution_count="12">
+<div id="cell-fig-overfitting-illustration" class="cell" data-fig-format="svg" data-fig-height="4" data-fig-width="6" data-execution_count="25">
 <div class="cell-output cell-output-display">
 <div id="fig-overfitting-illustration" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
@@ -1190,8 +1837,8 @@ Figure&nbsp;10.5: Illustration of overfitting and regularization. The unregulari
 </div>
 </div>
 </section>
-<section id="common-regularization-techniques" class="level4" data-number="10.5.6.2">
-<h4 data-number="10.5.6.2" class="anchored" data-anchor-id="common-regularization-techniques"><span class="header-section-number">10.5.6.2</span> Common Regularization Techniques</h4>
+<section id="common-regularization-techniques" class="level4" data-number="10.7.6.2">
+<h4 data-number="10.7.6.2" class="anchored" data-anchor-id="common-regularization-techniques"><span class="header-section-number">10.7.6.2</span> Common Regularization Techniques</h4>
 <p>Among the simplest and most widely used techniques is <strong>L2 weight decay</strong>, which adds a penalty term to discourage large weights:</p>
 <p><span class="math display">\[
 L_{\text{total}} = L_{\text{data}} + \lambda \sum_{l}\sum_{i,j} (w_{ij}^{(l)})^2,
@@ -1232,32 +1879,32 @@ Practical Tips
 </div>
 </section>
 </section>
-<section id="example-a-simple-feed-forward-network" class="level3" data-number="10.5.7">
-<h3 data-number="10.5.7" class="anchored" data-anchor-id="example-a-simple-feed-forward-network"><span class="header-section-number">10.5.7</span> Example: A Simple Feed-Forward Network</h3>
+<section id="example-a-simple-feed-forward-network" class="level3" data-number="10.7.7">
+<h3 data-number="10.7.7" class="anchored" data-anchor-id="example-a-simple-feed-forward-network"><span class="header-section-number">10.7.7</span> Example: A Simple Feed-Forward Network</h3>
 <p>To illustrate how a neural network operates in practice, we train a simple <strong>multilayer perceptron (MLP)</strong> on a two-dimensional nonlinear dataset. The model learns a curved decision boundary that cannot be captured by linear classifiers.</p>
 <p>The <em>two-moons</em> dataset consists of two interleaving half-circles, forming a pattern that resembles a pair of crescents. Each point represents an observation with two features <span class="math inline">\((x_1, x_2)\)</span>, and the color indicates its class. The two classes overlap slightly due to added random noise.</p>
 <p>A linear classifier such as logistic regression would draw a straight line through the plane, misclassifying many points. In contrast, a neural network can learn the <strong>nonlinear boundary</strong> that curves along the interface between the moons. This problem, although simple, captures the essence of nonlinear learning in higher dimensions.</p>
 <p>We generate the data using <code>make_moons()</code> from <code>scikit-learn</code> and train a feed-forward neural network with two hidden layers. The model’s task is to assign each observation to one of the two moon shapes.</p>
-<div id="2481ae1a" class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> make_moons</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.neural_network <span class="im">import</span> MLPClassifier</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate synthetic data</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>X, y <span class="op">=</span> make_moons(n_samples<span class="op">=</span><span class="dv">500</span>, noise<span class="op">=</span><span class="fl">0.25</span>, random_state<span class="op">=</span><span class="dv">1023</span>)</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.3</span>, random_state<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Define and train a small neural network</span></span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>mlp <span class="op">=</span> MLPClassifier(hidden_layer_sizes<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">5</span>),</span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>                    activation<span class="op">=</span><span class="st">'relu'</span>,</span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>                    solver<span class="op">=</span><span class="st">'adam'</span>,</span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>                    alpha<span class="op">=</span><span class="fl">0.001</span>,</span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>                    max_iter<span class="op">=</span><span class="dv">2000</span>,</span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>                    random_state<span class="op">=</span><span class="dv">1023</span>)</span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>mlp.fit(X_train, y_train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="13">
+<div id="924f729b" class="cell" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> make_moons</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.neural_network <span class="im">import</span> MLPClassifier</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate synthetic data</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>X, y <span class="op">=</span> make_moons(n_samples<span class="op">=</span><span class="dv">500</span>, noise<span class="op">=</span><span class="fl">0.25</span>, random_state<span class="op">=</span><span class="dv">1023</span>)</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.3</span>, random_state<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Define and train a small neural network</span></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>mlp <span class="op">=</span> MLPClassifier(hidden_layer_sizes<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">5</span>),</span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>                    activation<span class="op">=</span><span class="st">'relu'</span>,</span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>                    solver<span class="op">=</span><span class="st">'adam'</span>,</span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>                    alpha<span class="op">=</span><span class="fl">0.001</span>,</span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a>                    max_iter<span class="op">=</span><span class="dv">2000</span>,</span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a>                    random_state<span class="op">=</span><span class="dv">1023</span>)</span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a>mlp.fit(X_train, y_train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="26">
 <style>#sk-container-id-1 {
   /* Definition of color scheme common for light and dark mode */
   --sklearn-color-text: #000;
@@ -1909,24 +2556,24 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
 </div>
 </div>
 <p>Afer the model is trained, we evaluate its accuracy.</p>
-<div id="cell-fig-mlp-training" class="cell" data-fig-format="svg" data-fig-height="5" data-fig-width="6" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Evaluate accuracy</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>acc_train <span class="op">=</span> mlp.score(X_train, y_train)</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>acc_test <span class="op">=</span> mlp.score(X_test, y_test)</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Prepare grid for decision boundary</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>xx, yy <span class="op">=</span> np.meshgrid(np.linspace(<span class="op">-</span><span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">300</span>),</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>                     np.linspace(<span class="op">-</span><span class="fl">1.5</span>, <span class="dv">2</span>, <span class="dv">300</span>))</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>Z <span class="op">=</span> mlp.predict(np.c_[xx.ravel(), yy.ravel()]).reshape(xx.shape)</span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">5</span>))</span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>ax.contourf(xx, yy, Z, cmap<span class="op">=</span><span class="st">"coolwarm"</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>scatter <span class="op">=</span> ax.scatter(X_train[:, <span class="dv">0</span>], X_train[:, <span class="dv">1</span>], c<span class="op">=</span>y_train, cmap<span class="op">=</span><span class="st">"coolwarm"</span>, edgecolor<span class="op">=</span><span class="st">"k"</span>, s<span class="op">=</span><span class="dv">40</span>)</span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">"$x_1$"</span>)</span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"$x_2$"</span>)</span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="ss">f"Two-Moons Classification (Train Acc: </span><span class="sc">{</span>acc_train<span class="sc">:.2f}</span><span class="ss">, Test Acc: </span><span class="sc">{</span>acc_test<span class="sc">:.2f}</span><span class="ss">)"</span>)</span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-fig-mlp-training" class="cell" data-fig-format="svg" data-fig-height="5" data-fig-width="6" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Evaluate accuracy</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>acc_train <span class="op">=</span> mlp.score(X_train, y_train)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>acc_test <span class="op">=</span> mlp.score(X_test, y_test)</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Prepare grid for decision boundary</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>xx, yy <span class="op">=</span> np.meshgrid(np.linspace(<span class="op">-</span><span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">300</span>),</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>                     np.linspace(<span class="op">-</span><span class="fl">1.5</span>, <span class="dv">2</span>, <span class="dv">300</span>))</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>Z <span class="op">=</span> mlp.predict(np.c_[xx.ravel(), yy.ravel()]).reshape(xx.shape)</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">5</span>))</span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>ax.contourf(xx, yy, Z, cmap<span class="op">=</span><span class="st">"coolwarm"</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>scatter <span class="op">=</span> ax.scatter(X_train[:, <span class="dv">0</span>], X_train[:, <span class="dv">1</span>], c<span class="op">=</span>y_train, cmap<span class="op">=</span><span class="st">"coolwarm"</span>, edgecolor<span class="op">=</span><span class="st">"k"</span>, s<span class="op">=</span><span class="dv">40</span>)</span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">"$x_1$"</span>)</span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"$x_2$"</span>)</span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="ss">f"Two-Moons Classification (Train Acc: </span><span class="sc">{</span>acc_train<span class="sc">:.2f}</span><span class="ss">, Test Acc: </span><span class="sc">{</span>acc_test<span class="sc">:.2f}</span><span class="ss">)"</span>)</span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div id="fig-mlp-training" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
@@ -1967,273 +2614,6 @@ Try It Yourself
 <p>Increase the noise level in the data to test robustness. Change the hidden layer sizes (e.g., (3,), (20,10)), or the activation function (tanh, logistic). Adjust the regularization parameter alpha to see how it affects smoothness of the boundary.</p>
 </div>
 </div>
-<!-- This section is for nueral network with time series. -->
-</section>
-</section>
-<section id="neural-networks-for-data-with-temporal-dependence" class="level2" data-number="10.6">
-<h2 data-number="10.6" class="anchored" data-anchor-id="neural-networks-for-data-with-temporal-dependence"><span class="header-section-number">10.6</span> Neural Networks for Data with Temporal Dependence</h2>
-<p>Many real-world datasets are sequential, where earlier observations influence what happens later. Examples include electricity demand over hours, temperature across days, and stock prices through trading sessions. Such data exhibit <em>temporal dependence</em>, meaning that successive observations are not independent.</p>
-<p>Traditional supervised learning models, such as linear regression and feedforward neural networks, treat each observation as if it were independent. When applied directly to time-ordered data, they fail to capture how information evolves through time. A prediction for one step does not reflect patterns that unfolded earlier.</p>
-<p>To learn from sequential patterns, we need models that can <em>remember</em> what has already occurred and use that information to improve predictions. Neural networks designed for temporal dependence achieve this by introducing internal states that are updated as the sequence unfolds. The simplest such model is the <em>recurrent neural network</em> (RNN), which forms the basis for more advanced architectures such as long short-term memory (LSTM) and gated recurrent unit (GRU) networks.</p>
-<section id="recurrent-neural-networks-rnns" class="level3" data-number="10.6.1">
-<h3 data-number="10.6.1" class="anchored" data-anchor-id="recurrent-neural-networks-rnns"><span class="header-section-number">10.6.1</span> Recurrent Neural Networks (RNNs)</h3>
-<p>To model data with temporal dependence, a neural network must be able to retain information about what has happened previously. A recurrent neural network (RNN) accomplishes this by maintaining an internal <em>hidden state</em> that evolves over time. The hidden state acts as a summary of all past inputs and is updated as new data arrive.</p>
-<p>At each time step <span class="math inline">\(t\)</span>, an RNN receives an input vector <span class="math inline">\(x_t\)</span> and produces a hidden state <span class="math inline">\(h_t\)</span> according to</p>
-<p><span class="math display">\[
-h_t = \tanh(W_h h_{t-1} + W_x x_t + b_h),
-\]</span></p>
-<p>where <span class="math inline">\(W_h\)</span> and <span class="math inline">\(W_x\)</span> are weight matrices and <span class="math inline">\(b_h\)</span> is a bias term. The output at the same step can be expressed as</p>
-<p><span class="math display">\[
-\hat{y}_t = \sigma(W_y h_t + b_y),
-\]</span></p>
-<p>with <span class="math inline">\(\sigma(\cdot)\)</span> representing an activation or link function. Because <span class="math inline">\(h_t\)</span> depends on <span class="math inline">\(h_{t-1}\)</span>, the network can in principle capture relationships across time.</p>
-<p>The initial hidden state <span class="math inline">\(h_0\)</span> must be specified before the sequence starts. In most applications, <span class="math inline">\(h_0\)</span> is set to a vector of zeros with the same dimension as <span class="math inline">\(h_t\)</span>, allowing the network to begin without prior memory. This default works well because the recurrent updates quickly overwrite the initial state as new inputs arrive. In some advanced or stateful applications, <span class="math inline">\(h_0\)</span> can instead be learned during training or carried over from the final state of a previous sequence, enabling the model to preserve continuity across batches.</p>
-<p>Before training can begin, an objective function must be defined to measure how well the network predicts the target sequence. For a series of observations <span class="math inline">\(\{(x_t, y_t)\}_{t=1}^T\)</span>, the total loss is typically the sum of stepwise prediction errors, <span class="math display">\[
-\mathcal{L} = \sum_{t=1}^T \ell(y_t, \hat{y}_t),
-\]</span> where <span class="math inline">\(\ell\)</span> is a suitable loss such as mean squared error for regression or cross-entropy for classification. The gradients of <span class="math inline">\(\mathcal{L}\)</span> with respect to the network parameters are then computed and used to update the weights through backpropagation through time.</p>
-<div id="cell-fig-rnn-unrolled" class="cell" data-execution_count="15">
-<div class="cell-output cell-output-display">
-<div id="fig-rnn-unrolled" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-rnn-unrolled-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="10-supervised_files/figure-html/fig-rnn-unrolled-output-1.png" width="566" height="278" class="figure-img">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rnn-unrolled-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;10.7: An unrolled RNN showing how the hidden state connects across time steps.
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<p><a href="#fig-rnn-unrolled" class="quarto-xref">Figure&nbsp;<span>10.7</span></a> illustrates how an RNN can be <em>unrolled</em> across time steps, showing that the same set of weights is reused at each step. The hidden state serves as a bridge between past and present inputs, allowing the network to accumulate information through time.</p>
-<p>Training an RNN is done by <em>backpropagation through time (BPTT)</em>, which unrolls the network over all time steps and applies gradient descent. However, when sequences are long, the repeated multiplication of gradients can lead to <em>vanishing</em> or <em>exploding</em> gradients. This makes it difficult for a standard RNN to learn long-term dependencies, limiting its ability to remember events far in the past.</p>
-<p>In many applications, temporal dependence is only one part of the problem. Alongside the time-varying input <span class="math inline">\(x_t\)</span>, there may be additional covariates <span class="math inline">\(z\)</span> that describe static or slowly changing characteristics, such as a station ID, region, or weather condition. These can be incorporated into an RNN by concatenating them with <span class="math inline">\(x_t\)</span> at each time step or by feeding them into separate layers whose outputs are combined with the recurrent representation. In practice, the design depends on whether such covariates are constant across time or vary together with the sequence.</p>
-<p>To address the limitations of standard RNNs, researchers developed architectures that explicitly control how information is remembered or forgotten. The most influential of these is the LSTM network, which introduces a structured memory cell and gating mechanisms to stabilize learning over longer sequences.</p>
-</section>
-<section id="long-short-term-memory-lstm" class="level3" data-number="10.6.2">
-<h3 data-number="10.6.2" class="anchored" data-anchor-id="long-short-term-memory-lstm"><span class="header-section-number">10.6.2</span> Long Short-Term Memory (LSTM)</h3>
-<p>The main limitation of a standard RNN is its inability to retain information over long sequences. During backpropagation through time, gradients tend to either vanish or explode, preventing effective learning of long-term dependencies. The Long Short-Term Memory (LSTM) network, proposed by Hochreiter and Schmidhuber (1997), was designed to overcome this problem.</p>
-<p>An LSTM introduces a separate <em>cell state</em> <span class="math inline">\(C_t\)</span> that acts as a highway for information to flow across time steps, along with <em>gating mechanisms</em> that regulate what to remember and what to forget. The gates use sigmoid activations to produce values between 0 and 1, allowing the network to scale information rather than overwrite it.</p>
-<p>The key update equations of an LSTM are</p>
-<p><span class="math display">\[
-\begin{aligned}
-f_t &amp;= \sigma(W_f [h_{t-1}, x_t] + b_f), \\
-i_t &amp;= \sigma(W_i [h_{t-1}, x_t] + b_i), \\
-\tilde{C}_t &amp;= \tanh(W_C [h_{t-1}, x_t] + b_C), \\
-C_t &amp;= f_t \odot C_{t-1} + i_t \odot \tilde{C}_t, \\
-o_t &amp;= \sigma(W_o [h_{t-1}, x_t] + b_o), \\
-h_t &amp;= o_t \odot \tanh(C_t),
-\end{aligned}
-\]</span></p>
-<p>where <span class="math inline">\(\odot\)</span> denotes element-wise (Hadamard) multiplication and <span class="math inline">\(\sigma(\cdot)\)</span> is the logistic sigmoid function. Each gate <span class="math inline">\(f_t\)</span>, <span class="math inline">\(i_t\)</span>, and <span class="math inline">\(o_t\)</span> outputs values between 0 and 1 that determine how information flows through the cell.</p>
-<p>The activation functions <span class="math inline">\(\tanh(\cdot)\)</span> and <span class="math inline">\(\sigma(\cdot)\)</span> play specific roles in the LSTM design. The sigmoid <span class="math inline">\(\sigma\)</span> compresses values to the range <span class="math inline">\((0,1)\)</span>, making it suitable for gate control because it behaves like a smooth on–off switch. The hyperbolic tangent <span class="math inline">\(\tanh\)</span> maps inputs to <span class="math inline">\((-1,1)\)</span>, allowing both positive and negative contributions to the cell state.</p>
-<p>Other activation functions can in principle replace <span class="math inline">\(\tanh\)</span>, such as ReLU or Leaky ReLU, but this is uncommon in practice. ReLU may cause the cell state to grow without bound, and smooth symmetric activations like <span class="math inline">\(\tanh\)</span> are generally more stable for recurrent updates. Some modern variants, such as the <em>Peephole LSTM</em> and <em>GRU</em>, adjust or simplify these activations, but the original combination of <span class="math inline">\(\sigma\)</span> and <span class="math inline">\(\tanh\)</span> remains the standard choice.</p>
-<div id="cell-fig-lstm-diagram" class="cell" data-execution_count="16">
-<div class="cell-output cell-output-display">
-<div id="fig-lstm-diagram" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-lstm-diagram-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="10-supervised_files/figure-html/fig-lstm-diagram-output-1.png" width="662" height="370" class="figure-img">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-lstm-diagram-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;10.8: Structure of an LSTM cell showing the flow of information through the input, forget, and output gates.
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<p>Each of the three gates in an LSTM serves a distinct role.<br>
-The <em>forget gate</em> <span class="math inline">\(f_t\)</span> determines how much of the previous cell state <span class="math inline">\(C_{t-1}\)</span> should be retained, effectively deciding what information to discard. The <em>input gate</em> <span class="math inline">\(i_t\)</span> controls how much new information <span class="math inline">\(\tilde{C}_t\)</span> enters the cell state, allowing the network to incorporate relevant updates. The <em>output gate</em> <span class="math inline">\(o_t\)</span> regulates how much of the cell state is exposed as the hidden state <span class="math inline">\(h_t\)</span>, influencing the network’s prediction at the current step. Together, these gates maintain a balance between remembering long-term patterns and adapting to new signals. Figure <a href="#fig-lstm-diagram" class="quarto-xref">Figure&nbsp;<span>10.8</span></a> illustrates how the three gates interact with the cell state and hidden states to manage information flow through time.</p>
-</section>
-<section id="gated-recurrent-unit-gru" class="level3" data-number="10.6.3">
-<h3 data-number="10.6.3" class="anchored" data-anchor-id="gated-recurrent-unit-gru"><span class="header-section-number">10.6.3</span> Gated Recurrent Unit (GRU)</h3>
-<p>The Gated Recurrent Unit (GRU), introduced by Cho et al.&nbsp;(2014), is a simplified variant of the LSTM that retains its ability to capture long-term dependencies while using fewer parameters. The GRU combines the roles of the input and forget gates into a single <em>update gate</em> and omits the separate cell state <span class="math inline">\(C_t\)</span>, relying only on the hidden state <span class="math inline">\(h_t\)</span> to store information.</p>
-<p>The GRU update equations are</p>
-<p><span class="math display">\[
-\begin{aligned}
-z_t &amp;= \sigma(W_z [h_{t-1}, x_t] + b_z), \\
-r_t &amp;= \sigma(W_r [h_{t-1}, x_t] + b_r), \\
-\tilde{h}_t &amp;= \tanh(W_h [r_t \odot h_{t-1}, x_t] + b_h), \\
-h_t &amp;= (1 - z_t) \odot h_{t-1} + z_t \odot \tilde{h}_t,
-\end{aligned}
-\]</span></p>
-<p>where <span class="math inline">\(z_t\)</span> is the <em>update gate</em> and <span class="math inline">\(r_t\)</span> is the <em>reset gate</em>. The update gate controls how much of the previous hidden state to keep, while the reset gate determines how strongly past information should influence the new candidate state <span class="math inline">\(\tilde{h}_t\)</span>.</p>
-<div id="cell-fig-gru-diagram" class="cell" data-execution_count="17">
-<div class="cell-output cell-output-display">
-<div id="fig-gru-diagram" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-gru-diagram-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="10-supervised_files/figure-html/fig-gru-diagram-output-1.png" width="566" height="278" class="figure-img">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-gru-diagram-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;10.9: Structure of a GRU cell showing the update and reset gates.
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<p>The structure of a GRU cell is illustrated in <a href="#fig-gru-diagram" class="quarto-xref">Figure&nbsp;<span>10.9</span></a>. Compared with an LSTM, the GRU is computationally simpler because it has no separate cell state and fewer matrix operations. Despite this simplification, GRUs often perform as well as LSTMs, especially when datasets are smaller or sequence lengths are moderate.</p>
-</section>
-<section id="example-forecasting-a-synthetic-sequential-signal-pytorch" class="level3" data-number="10.6.4">
-<h3 data-number="10.6.4" class="anchored" data-anchor-id="example-forecasting-a-synthetic-sequential-signal-pytorch"><span class="header-section-number">10.6.4</span> Example: Forecasting a Synthetic Sequential Signal (PyTorch)</h3>
-<p>To compare recurrent architectures in a reproducible way, we use a synthetic sine-wave signal with random noise. This allows us to train RNN, LSTM, and GRU models side-by-side without large datasets or external dependencies.</p>
-<section id="step-1.-generate-the-data" class="level4" data-number="10.6.4.1">
-<h4 data-number="10.6.4.1" class="anchored" data-anchor-id="step-1.-generate-the-data"><span class="header-section-number">10.6.4.1</span> Step 1. Generate the data</h4>
-<div id="cell-synth-data" class="cell" data-fig-height="3" data-fig-width="6" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">0</span>)</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>time <span class="op">=</span> np.arange(<span class="dv">0</span>, <span class="dv">200</span>)</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>signal <span class="op">=</span> np.sin(time <span class="op">/</span> <span class="dv">6</span>) <span class="op">+</span> <span class="fl">0.3</span> <span class="op">*</span> np.random.randn(<span class="dv">200</span>)</span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame({<span class="st">"time"</span>: time, <span class="st">"signal"</span>: signal})</span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">3</span>))</span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>plt.plot(df[<span class="st">"time"</span>], df[<span class="st">"signal"</span>])</span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Time"</span>)</span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Signal"</span>)</span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<div id="synth-data" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="10-supervised_files/figure-html/synth-data-output-1.png" width="566" height="278" class="figure-img"></p>
-<figcaption>Synthetic sine-wave signal with random noise.</figcaption>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="step-2.-prepare-input-sequences" class="level4" data-number="10.6.4.2">
-<h4 data-number="10.6.4.2" class="anchored" data-anchor-id="step-2.-prepare-input-sequences"><span class="header-section-number">10.6.4.2</span> Step 2. Prepare input sequences</h4>
-<p>Each training example uses the previous 20 observations to predict the next value.</p>
-<div id="synth-seq" class="cell" data-execution_count="19">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> MinMaxScaler</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> torch <span class="im">import</span> nn</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>L <span class="op">=</span> <span class="dv">20</span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> MinMaxScaler()</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>scaled <span class="op">=</span> scaler.fit_transform(df[[<span class="st">"signal"</span>]])</span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>X, y <span class="op">=</span> [], []</span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> t <span class="kw">in</span> <span class="bu">range</span>(L, <span class="bu">len</span>(scaled)):</span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    X.append(scaled[t<span class="op">-</span>L:t, <span class="dv">0</span>])</span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>    y.append(scaled[t, <span class="dv">0</span>])</span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>X, y <span class="op">=</span> np.array(X), np.array(y)</span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> X.reshape(X.shape[<span class="dv">0</span>], L, <span class="dv">1</span>)</span>
-<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a><span class="co"># split and convert to tensors</span></span>
-<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(</span>
-<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>    X, y, test_size<span class="op">=</span><span class="fl">0.2</span>, shuffle<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>X_train <span class="op">=</span> torch.tensor(X_train, dtype<span class="op">=</span>torch.float32)</span>
-<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>y_train <span class="op">=</span> torch.tensor(y_train, dtype<span class="op">=</span>torch.float32).view(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>)</span>
-<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>X_test  <span class="op">=</span> torch.tensor(X_test, dtype<span class="op">=</span>torch.float32)</span>
-<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>y_test  <span class="op">=</span> torch.tensor(y_test, dtype<span class="op">=</span>torch.float32).view(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="step-3.-define-recurrent-models" class="level4" data-number="10.6.4.3">
-<h4 data-number="10.6.4.3" class="anchored" data-anchor-id="step-3.-define-recurrent-models"><span class="header-section-number">10.6.4.3</span> Step 3. Define recurrent models</h4>
-<div id="synth-models" class="cell" data-execution_count="20">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> RecurrentModel(nn.Module):</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, rnn_type<span class="op">=</span><span class="st">"RNN"</span>, hidden_size<span class="op">=</span><span class="dv">50</span>):</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>()</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> rnn_type <span class="op">==</span> <span class="st">"LSTM"</span>:</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.rnn <span class="op">=</span> nn.LSTM(<span class="dv">1</span>, hidden_size, batch_first<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> rnn_type <span class="op">==</span> <span class="st">"GRU"</span>:</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.rnn <span class="op">=</span> nn.GRU(<span class="dv">1</span>, hidden_size, batch_first<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.rnn <span class="op">=</span> nn.RNN(<span class="dv">1</span>, hidden_size, batch_first<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.fc <span class="op">=</span> nn.Linear(hidden_size, <span class="dv">1</span>)</span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, x):</span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>        out, _ <span class="op">=</span> <span class="va">self</span>.rnn(x)</span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.fc(out[:, <span class="op">-</span><span class="dv">1</span>, :])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="step-4.-train-and-evaluate" class="level4" data-number="10.6.4.4">
-<h4 data-number="10.6.4.4" class="anchored" data-anchor-id="step-4.-train-and-evaluate"><span class="header-section-number">10.6.4.4</span> Step 4. Train and evaluate</h4>
-<div id="synth-train" class="cell" data-execution_count="21">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> train_model(model, X, y, epochs<span class="op">=</span><span class="dv">50</span>, lr<span class="op">=</span><span class="fl">0.01</span>):</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    criterion <span class="op">=</span> nn.MSELoss()</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    optimizer <span class="op">=</span> torch.optim.Adam(model.parameters(), lr<span class="op">=</span>lr)</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(epochs):</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>        optimizer.zero_grad()</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>        loss <span class="op">=</span> criterion(model(X), y)</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>        loss.backward()</span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>        optimizer.step()</span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> loss.item()</span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> predict(model, X):</span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>    model.<span class="bu">eval</span>()</span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> torch.no_grad():</span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> model(X).numpy()</span>
-<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>models <span class="op">=</span> {</span>
-<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">"RNN"</span>:  RecurrentModel(<span class="st">"RNN"</span>),</span>
-<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">"LSTM"</span>: RecurrentModel(<span class="st">"LSTM"</span>),</span>
-<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">"GRU"</span>:  RecurrentModel(<span class="st">"GRU"</span>)</span>
-<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, m <span class="kw">in</span> models.items():</span>
-<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>    final_loss <span class="op">=</span> train_model(m, X_train, y_train)</span>
-<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>name<span class="sc">}</span><span class="ss"> final training loss: </span><span class="sc">{</span>final_loss<span class="sc">:.5f}</span><span class="ss">"</span>)</span>
-<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>y_preds <span class="op">=</span> {name: predict(m, X_test) <span class="cf">for</span> name, m <span class="kw">in</span> models.items()}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>RNN final training loss: 0.01107
-LSTM final training loss: 0.02883
-GRU final training loss: 0.01470</code></pre>
-</div>
-</div>
-</section>
-<section id="step-5.-compare-rmse-and-mae" class="level4" data-number="10.6.4.5">
-<h4 data-number="10.6.4.5" class="anchored" data-anchor-id="step-5.-compare-rmse-and-mae"><span class="header-section-number">10.6.4.5</span> Step 5. Compare RMSE and MAE</h4>
-<div id="synth-metrics" class="cell" data-execution_count="22">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error, mean_absolute_error</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> metrics(y_true, y_pred):</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    rmse <span class="op">=</span> np.sqrt(mean_squared_error(y_true, y_pred))</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    mae <span class="op">=</span> mean_absolute_error(y_true, y_pred)</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> rmse, mae</span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, y_hat <span class="kw">in</span> y_preds.items():</span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    rmse, mae <span class="op">=</span> metrics(y_test, y_hat)</span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>name<span class="sc">:5s}</span><span class="ss"> – RMSE: </span><span class="sc">{</span>rmse<span class="sc">:.4f}</span><span class="ss">, MAE: </span><span class="sc">{</span>mae<span class="sc">:.4f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>RNN   – RMSE: 0.0992, MAE: 0.0828
-LSTM  – RMSE: 0.1803, MAE: 0.1533
-GRU   – RMSE: 0.1121, MAE: 0.0928</code></pre>
-</div>
-</div>
-</section>
-<section id="step-6.-visual-comparison" class="level4" data-number="10.6.4.6">
-<h4 data-number="10.6.4.6" class="anchored" data-anchor-id="step-6.-visual-comparison"><span class="header-section-number">10.6.4.6</span> Step 6. Visual comparison</h4>
-<div id="cell-synth-plot" class="cell" data-fig-height="4" data-fig-width="6.5" data-execution_count="23">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="fl">6.5</span>, <span class="dv">4</span>))</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>plt.plot(y_test[:<span class="dv">100</span>], label<span class="op">=</span><span class="st">"Observed"</span>, color<span class="op">=</span><span class="st">"black"</span>)</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, y_hat <span class="kw">in</span> y_preds.items():</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    plt.plot(y_hat[:<span class="dv">100</span>], label<span class="op">=</span>name, alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Time index"</span>)</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Scaled signal"</span>)</span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<div id="synth-plot" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="10-supervised_files/figure-html/synth-plot-output-1.png" width="614" height="374" class="figure-img"></p>
-<figcaption>Observed and predicted values using RNN, LSTM, and GRU (PyTorch).</figcaption>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="discussion" class="level4" data-number="10.6.4.7">
-<h4 data-number="10.6.4.7" class="anchored" data-anchor-id="discussion"><span class="header-section-number">10.6.4.7</span> Discussion</h4>
-<p>All three networks capture the oscillatory pattern, but the vanilla RNN has difficulty preserving phase alignment when the sequence is long. Both the LSTM and GRU learn the dependency structure more reliably. The GRU reaches nearly the same accuracy as the LSTM while training faster, thanks to its simpler gating design.</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list" style="display: none">
@@ -2242,6 +2622,9 @@ Breiman, L., Friedman, J. H., Olshen, R., &amp; Stone, C. J. (1984). <em>Classif
 </div>
 <div id="ref-chen2016xgboost" class="csl-entry" role="listitem">
 Chen, T., &amp; Guestrin, C. (2016). XGBoost: A scalable tree boosting system. <em>Proceedings of the 22nd ACM SIGKDD International Conference on Knowledge Discovery and Data Mining</em>, 785–794. <a href="https://doi.org/10.1145/2939672.2939785">https://doi.org/10.1145/2939672.2939785</a>
+</div>
+<div id="ref-domingos1997optimal" class="csl-entry" role="listitem">
+Domingos, P., &amp; Pazzani, M. (1997). On the optimality of the simple <span>B</span>ayesian classifier under zero-one loss. <em>Machine Learning</em>, <em>29</em>(2-3), 103–130.
 </div>
 <div id="ref-friedman2001greedy" class="csl-entry" role="listitem">
 Friedman, J. H. (2001). Greedy function approximation: A gradient boosting machine. <em>The Annals of Statistics</em>, <em>29</em>(5), 1189–1232.
@@ -2261,14 +2644,19 @@ Minsky, M., &amp; Papert, S. A. (1969). <em>Perceptrons: An introduction to comp
 <div id="ref-prokhorenkova2018catboost" class="csl-entry" role="listitem">
 Prokhorenkova, L., Gusev, G., Vorobev, A., Dorogush, A. V., &amp; Gulin, A. (2018). CatBoost: Unbiased boosting with categorical features. <em>Advances in Neural Information Processing Systems</em>, 6638–6648.
 </div>
+<div id="ref-rish2001empirical" class="csl-entry" role="listitem">
+Rish, I. (2001). An empirical study of the naive <span>B</span>ayes classifier. <em>IJCAI 2001 Workshop on Empirical Methods in Artificial Intelligence</em>, 41–46.
+</div>
 <div id="ref-rosenblatt1958perceptron" class="csl-entry" role="listitem">
 Rosenblatt, F. (1958). The perceptron: A probabilistic model for information storage and organization in the brain. <em>Psychological Review</em>, <em>65</em>(6), 386.
 </div>
 <div id="ref-rumelhart1986learning" class="csl-entry" role="listitem">
 Rumelhart, D. E., Hinton, G. E., &amp; Williams, R. J. (1986). Learning representations by back-propagating errors. <em>Nature</em>, <em>323</em>(6088), 533–536. <a href="https://doi.org/10.1038/323533a0">https://doi.org/10.1038/323533a0</a>
 </div>
+<div id="ref-zhang2004complement" class="csl-entry" role="listitem">
+Zhang, H. (2004). The optimality of naive <span>B</span>ayes. <em>AAAI Conference on Artificial Intelligence</em>.
 </div>
-</section>
+</div>
 </section>
 </section>
 

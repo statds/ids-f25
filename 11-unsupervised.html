@@ -65,7 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./90-advanced.html" rel="next">
+<link href="./20-deeplearning.html" rel="next">
 <link href="./10-supervised.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -245,19 +245,25 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./20-deeplearning.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Deep Learning</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./90-advanced.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Advanced Topics</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Advanced Topics</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Exercises</span></span></a>
+  <a href="./95-exercises.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Exercises</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link">
+  <a href="./99-references.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">References</span></a>
   </div>
 </li>
@@ -516,7 +522,7 @@ Figure&nbsp;11.2: Variance contribution of each principal component and cumulati
 <span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">"3D PCA Projection of Digit Data"</span>)</span>
 <span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>fig.colorbar(scatter, ax<span class="op">=</span>ax, label<span class="op">=</span><span class="st">"Digit Label"</span>)</span>
 <span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="fig-pca-biplot-digits" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-fig-width="8" data-execution_count="3" data-fig-height="6">
+<div id="fig-pca-biplot-digits" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-fig-width="8" data-fig-height="6" data-execution_count="3">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-pca-biplot-digits-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output cell-output-display">
@@ -532,7 +538,7 @@ Figure&nbsp;11.2: Variance contribution of each principal component and cumulati
 </div>
 </div>
 <div class="cell-output cell-output-display">
-<div id="fig-pca-biplot-digits-2" class="quarto-float quarto-figure quarto-figure-center anchored" height="565" width="636">
+<div id="fig-pca-biplot-digits-2" class="quarto-float quarto-figure quarto-figure-center anchored" width="636" height="565">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-pca-biplot-digits-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="11-unsupervised_files/figure-html/fig-pca-biplot-digits-output-2.png" id="fig-pca-biplot-digits-2" data-ref-parent="fig-pca-biplot-digits" width="636" height="565" class="figure-img">
@@ -743,7 +749,7 @@ Figure&nbsp;11.5: t-SNE visualization of a subset of MNIST digits. Points belong
 </div>
 </div>
 </div>
-<p>As shown in Figure <span class="citation" data-cites="ref">(<a href="references.html#ref-ref" role="doc-biblioref"><strong>ref?</strong></a>)</span>(fig:tsne-mnist), digits with similar handwriting styles tend to cluster together, forming visually distinct regions in the embedding space. Overlaps occur where digits share structural features, such as 3 and 5 or 4 and 9, reflecting the inherent ambiguity in handwritten data. A few scattered points often correspond to atypically written digits that t-SNE places between clusters. Overall, the visualization provides an interpretable two-dimensional summary of the high-dimensional digit images, illustrating how t-SNE preserves local similarity while maintaining global diversity in the data.</p>
+<p>As shown in <a href="#fig-tsne-mnist" class="quarto-xref">Figure&nbsp;<span>11.5</span></a>, digits with similar handwriting styles tend to cluster together, forming visually distinct regions in the embedding space. Overlaps occur where digits share structural features, such as 3 and 5 or 4 and 9, reflecting the inherent ambiguity in handwritten data. A few scattered points often correspond to atypically written digits that t-SNE places between clusters. Overall, the visualization provides an interpretable two-dimensional summary of the high-dimensional digit images, illustrating how t-SNE preserves local similarity while maintaining global diversity in the data.</p>
 
 
 </section>
@@ -1156,8 +1162,8 @@ Figure&nbsp;11.5: t-SNE visualization of a subset of MNIST digits. Points belong
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./90-advanced.html" class="pagination-link" aria-label="Advanced Topics">
-        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Advanced Topics</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./20-deeplearning.html" class="pagination-link" aria-label="Deep Learning">
+        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Deep Learning</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

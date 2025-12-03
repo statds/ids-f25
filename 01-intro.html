@@ -265,19 +265,25 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./20-deeplearning.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Deep Learning</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./90-advanced.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Advanced Topics</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Advanced Topics</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Exercises</span></span></a>
+  <a href="./95-exercises.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Exercises</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link">
+  <a href="./99-references.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">References</span></a>
   </div>
 </li>
@@ -435,7 +441,7 @@ window.Quarto = {
 <h2 data-number="1.4" class="anchored" data-anchor-id="data-science-ethics"><span class="header-section-number">1.4</span> Data Science Ethics</h2>
 <section id="introduction" class="level3" data-number="1.4.1">
 <h3 data-number="1.4.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">1.4.1</span> Introduction</h3>
-<p>Ethics in data science is a fundamental consideration throughout the lifecycle of any project. Data science ethics refers to the principles and practices that guide responsible and fair use of data to ensure that individual rights are respected, societal welfare is prioritized, and harmful outcomes are avoided. Ethical frameworks like the Belmont Report <span class="citation" data-cites="belmont1979">(<a href="references.html#ref-belmont1979" role="doc-biblioref">Protection of Human Subjects of Biomedical &amp; Research, 1979</a>)</span>} and regulations such as the Health Insurance Portability and Accountability Act (HIPAA) <span class="citation" data-cites="hipaa1996">(<a href="references.html#ref-hipaa1996" role="doc-biblioref">Health &amp; Services, 1996</a>)</span> have established foundational principles that inspire ethical considerations in research and data use. This section explores key principles of ethical data science and provides guidance on implementing these principles in practice.</p>
+<p>Ethics in data science is a fundamental consideration throughout the lifecycle of any project. Data science ethics refers to the principles and practices that guide responsible and fair use of data to ensure that individual rights are respected, societal welfare is prioritized, and harmful outcomes are avoided. Ethical frameworks like the Belmont Report <span class="citation" data-cites="belmont1979">(<a href="99-references.html#ref-belmont1979" role="doc-biblioref">Protection of Human Subjects of Biomedical &amp; Research, 1979</a>)</span>} and regulations such as the Health Insurance Portability and Accountability Act (HIPAA) <span class="citation" data-cites="hipaa1996">(<a href="99-references.html#ref-hipaa1996" role="doc-biblioref">Health &amp; Services, 1996</a>)</span> have established foundational principles that inspire ethical considerations in research and data use. This section explores key principles of ethical data science and provides guidance on implementing these principles in practice.</p>
 </section>
 <section id="principles-of-ethical-data-science" class="level3" data-number="1.4.2">
 <h3 data-number="1.4.2" class="anchored" data-anchor-id="principles-of-ethical-data-science"><span class="header-section-number">1.4.2</span> Principles of Ethical Data Science</h3>
@@ -447,21 +453,21 @@ window.Quarto = {
 <section id="commitment-to-fairness" class="level4" data-number="1.4.2.2">
 <h4 data-number="1.4.2.2" class="anchored" data-anchor-id="commitment-to-fairness"><span class="header-section-number">1.4.2.2</span> Commitment to Fairness</h4>
 <p>Bias can arise at any stage of the data science pipeline, from data collection to algorithm development. Ethical practice requires actively identifying and addressing biases to prevent harm to underrepresented groups. Fairness should guide the design and deployment of models, ensuring equitable treatment across diverse populations.</p>
-<p>To achieve fairness, data scientists must assess datasets for representativeness and use tools to detect potential biases. Regular evaluation of model outcomes against fairness metrics helps ensure that systems remain non-discriminatory. The Americans with Disabilities Act (ADA) <span class="citation" data-cites="ada1990">(<a href="references.html#ref-ada1990" role="doc-biblioref">Congress, 1990</a>)</span> provides a legal framework emphasizing equitable access, which can inspire fairness in algorithmic design. Collaborating with domain experts and stakeholders can provide additional insights into fairness issues.</p>
+<p>To achieve fairness, data scientists must assess datasets for representativeness and use tools to detect potential biases. Regular evaluation of model outcomes against fairness metrics helps ensure that systems remain non-discriminatory. The Americans with Disabilities Act (ADA) <span class="citation" data-cites="ada1990">(<a href="99-references.html#ref-ada1990" role="doc-biblioref">Congress, 1990</a>)</span> provides a legal framework emphasizing equitable access, which can inspire fairness in algorithmic design. Collaborating with domain experts and stakeholders can provide additional insights into fairness issues.</p>
 </section>
 <section id="emphasis-on-transparency" class="level4" data-number="1.4.2.3">
 <h4 data-number="1.4.2.3" class="anchored" data-anchor-id="emphasis-on-transparency"><span class="header-section-number">1.4.2.3</span> Emphasis on Transparency</h4>
 <p>Transparency builds trust and accountability in data science. Models should be interpretable, with clear documentation explaining their design, assumptions, and decision-making processes. Data scientists must communicate results in a way that stakeholders can understand, avoiding unnecessary complexity or obfuscation.</p>
-<p>Transparent practices include providing stakeholders access to relevant information about model performance and limitations. The Federal Data Strategy <span class="citation" data-cites="fds2019">(<a href="references.html#ref-fds2019" role="doc-biblioref">Team, 2019</a>)</span> calls for transparency in public sector data use, offering inspiration for practices in broader contexts. Visualizing decision pathways and using tools like LIME or SHAP can enhance interpretability. Establishing clear communication protocols ensures that non-technical audiences can engage with the findings effectively.</p>
+<p>Transparent practices include providing stakeholders access to relevant information about model performance and limitations. The Federal Data Strategy <span class="citation" data-cites="fds2019">(<a href="99-references.html#ref-fds2019" role="doc-biblioref">Team, 2019</a>)</span> calls for transparency in public sector data use, offering inspiration for practices in broader contexts. Visualizing decision pathways and using tools like LIME or SHAP can enhance interpretability. Establishing clear communication protocols ensures that non-technical audiences can engage with the findings effectively.</p>
 </section>
 <section id="focus-on-social-responsibility" class="level4" data-number="1.4.2.4">
 <h4 data-number="1.4.2.4" class="anchored" data-anchor-id="focus-on-social-responsibility"><span class="header-section-number">1.4.2.4</span> Focus on Social Responsibility</h4>
 <p>Data science projects must align with ethical goals and anticipate their broader societal and environmental impacts. This includes considering how outputs may be used or misused and avoiding harm to vulnerable populations. Data scientists should aim to use their expertise to promote public welfare, addressing critical societal challenges such as health disparities, climate change, and education access.</p>
-<p>Engaging with diverse perspectives helps align projects with societal values. Ethical codes, such as those from the Association for Computing Machinery (ACM) <span class="citation" data-cites="acm2018">(<a href="references.html#ref-acm2018" role="doc-biblioref">Computing Machinery (ACM), 2018</a>)</span>, offer guidance on using technology for social good. Collaborating with policymakers and community representatives ensures that data-driven initiatives address real needs and avoid unintended consequences. Regular impact assessments help measure whether projects meet their ethical objectives.</p>
+<p>Engaging with diverse perspectives helps align projects with societal values. Ethical codes, such as those from the Association for Computing Machinery (ACM) <span class="citation" data-cites="acm2018">(<a href="99-references.html#ref-acm2018" role="doc-biblioref">Computing Machinery (ACM), 2018</a>)</span>, offer guidance on using technology for social good. Collaborating with policymakers and community representatives ensures that data-driven initiatives address real needs and avoid unintended consequences. Regular impact assessments help measure whether projects meet their ethical objectives.</p>
 </section>
 <section id="adherence-to-professional-integrity" class="level4" data-number="1.4.2.5">
 <h4 data-number="1.4.2.5" class="anchored" data-anchor-id="adherence-to-professional-integrity"><span class="header-section-number">1.4.2.5</span> Adherence to Professional Integrity</h4>
-<p>Professional integrity underpins all ethical practices in data science. Adhering to established ethical guidelines, such as those from the American Statistical Association (ASA) <span class="citation" data-cites="asa2018">(<a href="references.html#ref-asa2018" role="doc-biblioref">American Statistical Association (ASA), 2018</a>)</span>, ensures accountability. Practices like maintaining informed consent, avoiding data manipulation, and upholding rigor in analyses are essential for maintaining public trust in the field.</p>
+<p>Professional integrity underpins all ethical practices in data science. Adhering to established ethical guidelines, such as those from the American Statistical Association (ASA) <span class="citation" data-cites="asa2018">(<a href="99-references.html#ref-asa2018" role="doc-biblioref">American Statistical Association (ASA), 2018</a>)</span>, ensures accountability. Practices like maintaining informed consent, avoiding data manipulation, and upholding rigor in analyses are essential for maintaining public trust in the field.</p>
 <p>Ethical integrity also involves fostering a culture of honesty and openness within data science teams. Peer review and independent validation of findings can help identify potential errors or biases. Documenting methodologies and maintaining transparency in reporting further strengthen trust.</p>
 </section>
 </section>
@@ -516,7 +522,7 @@ window.Quarto = {
 <p>Even the best analysis doesn’t mean much if people cannot understand it. Clarity, honesty, and reproducibility are what make results useful.</p>
 <section id="example-framing-a-finding-clearly" class="level4" data-number="1.5.2.1">
 <h4 data-number="1.5.2.1" class="anchored" data-anchor-id="example-framing-a-finding-clearly"><span class="header-section-number">1.5.2.1</span> Example: Framing a Finding Clearly</h4>
-<div id="b1de349b" class="cell" data-execution_count="1">
+<div id="c13558ce" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -579,7 +585,7 @@ window.Quarto = {
 - Add short interpretations under visuals.</p>
 <section id="example-turning-output-into-insight" class="level4" data-number="1.5.3.1">
 <h4 data-number="1.5.3.1" class="anchored" data-anchor-id="example-turning-output-into-insight"><span class="header-section-number">1.5.3.1</span> Example: Turning Output into Insight</h4>
-<div id="e441444a" class="cell" data-execution_count="2">
+<div id="e87a6e77" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the average number of people injured per crash by borough</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>injury_summary <span class="op">=</span> (</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    crash_df.groupby(<span class="st">"borough"</span>)[<span class="st">"number_of_persons_injured"</span>]</span>
@@ -607,7 +613,7 @@ Name: number_of_persons_injured, dtype: float64</code></pre>
 </blockquote>
 <p>The first phrasing is correct but vague. It does not tell the audience how or by how much boroughs differ. The clearer version adds real numbers, ranks, and a hint of interpretation (density and traffic volume). Good phrasing gives context so the audience immediately grasps what the data shows.</p>
 <p>To make this pattern easier to see visually:</p>
-<div id="2a6d47ad" class="cell" data-execution_count="3">
+<div id="62e07ec5" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>sns.barplot(</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span>injury_summary.values,</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span>injury_summary.index,</span>
@@ -635,7 +641,7 @@ Name: number_of_persons_injured, dtype: float64</code></pre>
 <p>A good graphic should make the takeaway obvious in a few seconds. Titles, captions, and color choices all guide the audience toward what matters most.</p>
 <section id="example-highlighting-a-trend" class="level4" data-number="1.5.4.1">
 <h4 data-number="1.5.4.1" class="anchored" data-anchor-id="example-highlighting-a-trend"><span class="header-section-number">1.5.4.1</span> Example: Highlighting a Trend</h4>
-<div id="069d743b" class="cell" data-execution_count="4">
+<div id="e065fb3b" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make sure datetime is parsed</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>crash_df[<span class="st">"crash_datetime"</span>] <span class="op">=</span> pd.to_datetime(</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    crash_df[<span class="st">"crash_datetime"</span>], errors<span class="op">=</span><span class="st">"coerce"</span></span>
@@ -714,7 +720,7 @@ Name: number_of_persons_injured, dtype: float64</code></pre>
 - Use readable variable names and consistent file structure.</p>
 <section id="example-adding-reproducible-metadata" class="level4" data-number="1.5.6.1">
 <h4 data-number="1.5.6.1" class="anchored" data-anchor-id="example-adding-reproducible-metadata"><span class="header-section-number">1.5.6.1</span> Example: Adding Reproducible Metadata</h4>
-<div id="41b38e08" class="cell" data-execution_count="5">
+<div id="93ba69d6" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Data source: NYC Open Data (accessed October 2025)</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># File: ids-f25/data/nyc_crashes_cleaned.feather</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Environment: Python 3.11 | pandas 2.2 | seaborn 0.13</span></span>
@@ -777,7 +783,7 @@ None</code></pre>
 - Write captions that clarify context and limitations.</p>
 <section id="example-1-cropped-axis" class="level4" data-number="1.5.7.1">
 <h4 data-number="1.5.7.1" class="anchored" data-anchor-id="example-1-cropped-axis"><span class="header-section-number">1.5.7.1</span> Example 1: Cropped Axis</h4>
-<div id="8879977a" class="cell" data-execution_count="6">
+<div id="bf836f45" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example 1: Cropped Axis</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>ymin <span class="op">=</span> borough_counts[<span class="st">"crash_count"</span>].<span class="bu">min</span>()</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>ymax <span class="op">=</span> borough_counts[<span class="st">"crash_count"</span>].<span class="bu">max</span>()</span>
@@ -827,7 +833,7 @@ None</code></pre>
 </section>
 <section id="example-2-distorted-aspect-ratio" class="level4" data-number="1.5.7.2">
 <h4 data-number="1.5.7.2" class="anchored" data-anchor-id="example-2-distorted-aspect-ratio"><span class="header-section-number">1.5.7.2</span> Example 2: Distorted Aspect Ratio</h4>
-<div id="74297b8e" class="cell" data-execution_count="7">
+<div id="0e0cda78" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example 2: Distorted Aspect Ratio</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="fl">3.5</span>))</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -860,7 +866,7 @@ None</code></pre>
 </section>
 <section id="example-3-misleading-color-emphasis" class="level4" data-number="1.5.7.3">
 <h4 data-number="1.5.7.3" class="anchored" data-anchor-id="example-3-misleading-color-emphasis"><span class="header-section-number">1.5.7.3</span> Example 3: Misleading Color Emphasis</h4>
-<div id="d755870c" class="cell" data-execution_count="8">
+<div id="a7bb4f12" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example 3: Misleading Color Emphasis</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Sample data </span></span>
@@ -912,7 +918,7 @@ None</code></pre>
 <p>Great communication doesn’t stop at describing what happened, it explains what should happen next. Visuals paired with short, concrete takeaways make insights actionable.</p>
 <section id="example-turning-findings-into-decisions" class="level4" data-number="1.5.8.1">
 <h4 data-number="1.5.8.1" class="anchored" data-anchor-id="example-turning-findings-into-decisions"><span class="header-section-number">1.5.8.1</span> Example: Turning Findings into Decisions</h4>
-<div id="b4df6b71" class="cell" data-execution_count="9">
+<div id="c9490b80" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter crashes with any injuries (pedestrians, cyclists, or motorists)</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>injury_df <span class="op">=</span> crash_df[</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    (crash_df[<span class="st">"number_of_pedestrians_injured"</span>] <span class="op">&gt;</span> <span class="dv">0</span>)</span>
