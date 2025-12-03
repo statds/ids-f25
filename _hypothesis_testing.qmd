@@ -551,6 +551,6 @@ df
 - Clear hypotheses + clean data = valid conclusions.
 
 ### Further Readings 
-- SciPy.stats Documentation: https://docs.scipy.org/doc/scipy/reference/stats.html
+- `SciPy.stats` Documentation: <https://docs.scipy.org/doc/scipy/reference/stats.html>
 - “Practical Statistics for Data Scientists” — Bruce & Gedeck
 - “Think Stats” by Allen B. Downey 
