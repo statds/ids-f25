@@ -7,13 +7,16 @@ book:
   author:
     - name: "[Jun Yan](https://statcomp.org) and Students in Fall 2025"
     - name: Matthew Anzalone
-    - name: Irene Chen, Jingang Chen, Enshuo Cao
+    - name: Irene Chen
+    - name: Jingang Chen
+    - name: Enshuo Cao
     - name: Alejandro Haerter
     - name: Hannah Levine
     - name: Sonia Lucey
     - name: Jaden Mayer-Costa
     - name: Lewis Milun
     - name: Sahil Patel
+    - name: Jack Perkins
     - name: Alexander Plotnikov
     - name: Quinn Saltus
     - name: Jacob Schlessel
@@ -42,13 +45,8 @@ book:
     - 10-supervised.qmd
     - 11-unsupervised.qmd
     - 90-advanced.qmd
-#    - stats.qmd
-#    - machinelearning.qmd
-#    - supervised.qmd
-#    - unsupervised.qmd
-#    - advanced.qmd
-    - exercises.qmd
-    - references.qmd
+    - 95-exercises.qmd
+    - 99-references.qmd
 
 bibliography:
     - references.bib
