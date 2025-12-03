@@ -1,9 +1,3 @@
----
-resources: 
-  - _markdown.qmd
-  - _quarto_presentation.qmd
----
-
 # Reproducible Data Science {#sec-quarto}
 
 Data science projects should be reproducible to be trustworthy. Dynamic
@@ -64,58 +58,6 @@ To compile the classnotes, you need the following tools:
 Git, Quarto, and Python.
 
 
-### Set up your Python Virtual Environment
-
-I suggest that a Python virtual environment for the classnotes
-be set up in the current directory for reproducibility.
-A Python virtual environment is simply a directory with a particular
-file structure, which contains a specific Python interpreter and
-software libraries and binaries needed to support a project. It
-allows us to isolate our Python development projects from our system
-installed Python and other Python environments.
-
-To create a Python virtual environment for our classnotes:
-```
-python3 -m venv .ids-s25-venv
-```
-
-Here `.ids-s25-venv` is the name of the virtual environment 
-to be created. Choose an informative name. This only needs to
-be set up once.
-
-
-To activate this virtual environment:
-
-```
-. .ids-s25-venv/bin/activate
-```
-
-After activating the virtual environment, you will see
-`(.ids-s25-venv)` at the beginning of your shell prompt.
-Then, the Python interpreter and packages needed will be
-the local versions in this virtual environment without
-interfering your system-wide installation or other virtual
-environments.
-
-
-To install the Python packages that are needed to compile
-the classnotes, we have a `requirements.txt` file that specifies
-the packages and their versions. They can be installed
-easily with:
-
-```
-pip install -r requirements.txt
-```
-
-If you are interested in learning how to create the
-`requirements.txt` file, just put your question into a Google search.
-
-
-To exit the virtual environment, simply type `deactivate`
-in your command line. This will return you to your system’s
-global Python environment.
-
-
 ### Clone the Repository
 
 Clone the repository to your own computer. In a terminal (command line),
@@ -126,15 +68,103 @@ if you use `ssh` for authentication:
 git clone git@github.com:statds/ids-s25.git
 ```
 
+
+### Set up your Python Virtual Environment
+
+For reproducibility, the book uses **two Python virtual environments**. A
+virtual environment is a directory containing a self-contained Python
+interpreter and the software packages needed for a project. Using virtual
+environments isolates the dependencies for these classnotes from both the
+system installation and other projects. This happens in the cloned
+project folder.
+
+```
+cd ids-f25
+```
+
+The **default environment** supports all chapters except the one that requires
+deep-learning libraries. The **deep-learning environment** is separate because
+`torch` currently support only Python 3.12. Further, `torch` depends
+on a much older verson of `numpy`, 1.26.4!
+
+#### Default Environment
+
+Create the default environment in the current directory (the Python
+version used for this was 3.13):
+
+```
+python3.13 -m venv .ids-f25
+```
+
+Activate it:
+
+```
+. .ids-f25/bin/activate
+```
+
+Install the required packages:
+
+```
+pip install -r requirements.txt
+```
+
+When activated, your shell prompt begins with `(.ids-f25)`, and Python uses the
+packages installed in this environment. To exit the environment:
+
+```
+deactivate
+```
+
+#### Deep-Learning Environment
+
+Create the deep-learning environment (with Python 3.12):
+
+```
+python3.12 -m venv .ids-f25-py3.12
+```
+
+Activate it:
+
+```
+. .ids-f25-py3.12/bin/activate
+```
+
+Install the required packages:
+
+```
+pip install -r requirements-dl.txt
+```
+
+Exit the environment with:
+
+```
+deactivate
+```
+
+
 ### Render the Classnotes
 
 Assuming `quarto` has been set up, we render 
-the classnotes in the cloned repository
+the classnotes in the cloned repository.
+
+Most chapters are to be rendered under the `.ids-f25` virtual
+environment:
 
 ```
-cd ids-s25
+. .ids-f25/bin/activate
 quarto render
+deactivate
 ```
+
+This will leave the chapter on Advanced Topics unfinished with an
+error, because deep learning relies on Python 3.12:
+
+```
+. .ids-f25-py3.12/bin/activate
+quarto render
+deactivate
+```
+
 
 If there are error messages, search and find solutions to clear
 them. Otherwise, the html version of the notes will be available under
@@ -145,7 +175,7 @@ them. Otherwise, the html version of the notes will be available under
 
 For some illustrations, you need to interact with certain sites that
 require account information. For example, for Google map services,
-you need to save your API key in a file named `api_key.txt` in the
+you need to save your API key in a file named `gmapi.txt` in the
 root folder of the source. Another example is to access the US Census
 API, where you would need to register an account and get your Census
 API Key.

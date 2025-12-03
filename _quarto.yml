@@ -1,6 +1,13 @@
 project:
   type: book
 
+filters:
+  - include-deps.lua
+
+execute:
+  enabled: true
+  freeze: auto
+
 book:
   title: "Introduction to Data Science"
   subtitle: "STAT 3255/5255 @ UConn, Fall 2025"
@@ -44,6 +51,7 @@ book:
     - 09-classification.qmd
     - 10-supervised.qmd
     - 11-unsupervised.qmd
+    - 20-deeplearning.qmd
     - 90-advanced.qmd
     - 95-exercises.qmd
     - 99-references.qmd
@@ -62,6 +70,3 @@ format:
 #    documentclass: scrbook
 #    include-in-header: preamble.tex
 #    prefer-html: true
-
-execute:
-  freeze: auto

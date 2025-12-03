@@ -1,11 +1,3 @@
----
-resources:
-  _plotnine.qmd
-  _geopandas.qmd
-  _gmplot.qmd
-  _animations.qmd
----
-
 # Data Visualization
 
 In this chapter we embrace visualization as a cornerstone of modern
@@ -24,12 +16,9 @@ to insert clear, effective visualisation into your data-science
 project workflow.
 
 
-<!-- This section is to be included as a tutorial for ggplot with plotnine. -->
 {{< include _plotnine.qmd >}}
 
-<!-- This section is to be included as a tutorial for geopands data. -->
 {{< include _geopandas.qmd >}}
-
 
 {{< include _gmplot.qmd >}}
 

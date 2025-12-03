@@ -1,13 +1,3 @@
----
-resources:
-  - _multiple_imputation.qmd
-  - _umap.qmd
-  - _callr.qmd
-  - _webscraping.qmd
-  - _deep_learning.qmd
-  - _nntemp.qmd
----
-
 # Advanced Topics
 
 
@@ -22,10 +12,3 @@ resources:
 
 <!-- ## Web Scraping -->
 {{< include _webscraping.qmd >}}
-
-
-<!-- This section is for deep learning network. -->
-{{< include _deep_learning.qmd >}}
-
-<!-- This section is for nueral network with time series. -->
-{{< include _nntemp.qmd >}}
