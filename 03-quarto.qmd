@@ -175,7 +175,7 @@ them. Otherwise, the html version of the notes will be available under
 
 For some illustrations, you need to interact with certain sites that
 require account information. For example, for Google map services,
-you need to save your API key in a file named `gmapi.txt` in the
+you need to save your API key in a file named `gmKey.txt` in the
 root folder of the source. Another example is to access the US Census
 API, where you would need to register an account and get your Census
 API Key.
