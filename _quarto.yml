@@ -1,9 +1,6 @@
 project:
   type: book
 
-filters:
-  - include-deps.lua
-
 execute:
   enabled: true
   freeze: auto
