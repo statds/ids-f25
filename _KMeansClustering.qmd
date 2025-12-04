@@ -4,7 +4,7 @@ This section was prepared by Sophia Fazzina, an undergraduate senior
 pursuing a degree in Applied Data Analysis.
 
 
-### Overview
+## Overview
 
 - What is **K-Means** and how does it work?
 - Toy example **with overlap** (to show mistakes and limits)
@@ -13,7 +13,7 @@ pursuing a degree in Applied Data Analysis.
 - Pros, cons, and tips
 
 
-What is K-Means?
+## What is K-Means?
 
 **Goal:** Group data points into *K* clusters based on similarity
 (distance).
@@ -84,7 +84,7 @@ cluster centers, which illustrates how K-Means behaves when the data
 follows its assumptions.
 
 
-### Noisy Toy Dataset (with Overlap)
+## Noisy Toy Dataset (with Overlap)
 
 We now generate three clusters with intentional overlap. Because the clusters 
 are less distinct than before, K-Means will sometimes misclassify points. This 
@@ -250,7 +250,7 @@ algorithm struggles and why careful interpretation is important.
 **can’t easily capture**, especially when 
 clusters overlap or have irregular shapes  
 
-### Choosing K
+## Choosing K
 
 The **Elbow Method** (inertia vs. K) is a common but **subjective** way to
 choose the number of clusters.
@@ -406,7 +406,7 @@ Takeaway on Choosing K
   **domain insight**
 
 
-### Iris Dataset (Real, Continuous Features)
+## Iris Dataset (Real, Continuous Features)
 
 We cluster the **Iris flower measurements**—sepal length, sepal width,
 petal length, and petal width. The dataset contains three true species:
@@ -633,7 +633,7 @@ Notes on the Iris Clustering Results
   structure and the **natural limits** it faces when groups are not
   well separated.
 
-#### Strengths & Limitations of K-Means
+## Strengths & Limitations of K-Means
 
 **Strengths**
 - Simple, fast, and scalable  
@@ -674,7 +674,7 @@ Key Takeaways
   groups form, not just that they do.
 
 
-#### Further Reading
+## Further Reading
 
 - **scikit-learn: Clustering User Guide** (K-Means, Silhouette, DBSCAN)  
   <https://scikit-learn.org/stable/modules/clustering.html>
