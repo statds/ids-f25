@@ -175,3 +175,5 @@ censusAPIkey.txt
 gmapKey.txt
 
 .DS_Store
+
+**/*.quarto_ipynb

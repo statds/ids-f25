@@ -4,9 +4,8 @@ This section was prepared by Mark Zhang, an undergraduate at UCONN.
 
 ### Introduction
 
-Uniform Manifold Approximation and Projection (UMAP) was introduced by 
-Leland McInnes, John Healy, and James Melville in 2018
-[@mcinnes2020umapuniformmanifoldapproximation]. UMAP is a powerful 
+Uniform Manifold Approximation and Projection (UMAP) 
+[@mcinnes2018umap] is a powerful 
 dimensionality reduction technique designed to visualize high-dimensional 
 data in a low-dimensional space, such as 2D or 3D. Unlike linear methods
 like PCA, UMAP captures nonlinear structures, preserving local clusters 

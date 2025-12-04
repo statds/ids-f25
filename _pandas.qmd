@@ -10,7 +10,7 @@ For this presentation I'll be using the **NYC Crash Data** we cleaned.
 
 #### What is Pandas?
 - **Pandas** is the primary Python library for 
-**data manipulation and analysis** [@mckinney2010].
+**data manipulation and analysis**
 - It provides tools to load, clean, filter, transform, and summarize datasets.
 
 #### Why Use Pandas?
@@ -65,7 +65,7 @@ print(injured.head(5))
 ```
 
 ### Using Boolean and .loc
-- '.loc' is used to **access groups of rows and columns** by 
+- `.loc` is used to **access groups of rows and columns** by 
 *labels* or *Boolean conditions*.
 ```{python}
 # Select first 5 rows and specific columns
@@ -286,8 +286,3 @@ visualization, and statistical modeling
 - [Real Python – Pandas Tutorials](https://realpython.com)
 - [Kaggle – Pandas Exercises](https://www.kaggle.com)
 - [Towards Data Science – Pandas Articles](https://towardsdatascience.com)
-
-### References
-
-- McKinney, W. (2010). Data Structures for Statistical Computing in Python.
-In Proceedings of the 9th Python in Science Conference.
