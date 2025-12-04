@@ -1,0 +1,765 @@
+## Convolutional Neural Network (CNN)
+
+This section was prepared by Michael Agostino.
+
+### Introduction 
+
+We will use two different neural networks to classify handwritten digits.
+
+The first network is an MLP:
+
+A Multi-Layer Perceptron (MLP) is a feed-forward artificial neural network
+composed of multiple layers of interconnected neurons.
+
+Next, we will extend these concepts to build a CNN:
+
+A Convolutional Neural Network (CNN) is also a feed-forward network. They use
+convolutional layers that make image classification tasks more efficient and
+natural.
+
+Implementation and Data:
+
+Both networks will be implemented using Keras, which runs on top of TensorFlow.
+
+We will train and evaluate both models on the MNIST database (Modified National
+Institute of Standards and Technology database), which provides 70,000
+grayscale images of handwritten digits. Each image is 28 × 28 pixels.
+
+Image Representation:
+
+Each pixel is represented by a single integer value:
+
+- 0 represents pure black
+
+- 255 represents pure white
+
+- Values in between (e.g., 128) represent intermediate shades of gray
+
+Thus, each image is encoded as a set of 28 × 28 = 784 numbers.
+
+### Data Preparation
+
+```{python}
+import os, multiprocessing, numpy as np, tensorflow as tf
+from tensorflow import keras
+multiprocessing.set_start_method("spawn", force=True)
+os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
+
+np.random.seed(42)
+
+(x_train, y_train), (x_test, y_test) = keras.datasets.mnist.load_data()
+x_train = x_train.astype("float32") / 255.0
+x_test  = x_test.astype("float32")  / 255.0
+print(f"x_train: {x_train.shape}, x_test: {x_test.shape}")
+
+```
+
+Each pixel value is scaled to the range 0–1.
+
+Data is pre-split:
+
+- `x_train, y_train` - 60 000 images.
+
+- `x_test, y_test` - 10 000 images.
+
+
+### MLP structure
+
+```{python}
+# define MLP
+from tensorflow.keras import layers
+
+model = keras.Sequential([
+	layers.Dense(256, activation="relu", input_shape=(784,)),
+	layers.Dropout(0.3),
+	layers.Dense(128, activation="relu"),
+	layers.Dropout(0.3),
+	layers.Dense(10, activation="softmax")
+])
+model.compile(optimizer="adam",
+						loss="sparse_categorical_crossentropy",
+						metrics=["accuracy"])
+model.summary()
+```
+
+```{python}
+#| echo: false
+#| label: fig-mlp-shape
+#| fig-cap: "MLP layer topology: Input → Dense → Dense → Output (dropout after first two dense layers)"
+#| fig-width: 6
+#| fig-height: 2.5
+
+import matplotlib.pyplot as plt
+
+def draw_mlp_shape():
+    layers   = [5, 4, 3, 3]          # visual node counts
+    gap      = 2.0                     # horizontal spacing
+    y_spread = 0.40                    # vertical spacing between nodes
+    node_r   = 0.18                    # node radius
+
+    xs = [i * gap for i in range(len(layers))]
+    fig, ax = plt.subplots()
+    ax.set_aspect("equal")
+    ax.axis("off")
+
+    # ---------- edges ----------
+    for i in range(len(layers) - 1):
+        n_left, n_right = layers[i], layers[i+1]
+        ys_left  = [(j - (n_left  - 1) / 2) * y_spread for j in range(n_left)]
+        ys_right = [(j - (n_right - 1) / 2) * y_spread for j in range(n_right)]
+        for y1 in ys_left:
+            for y2 in ys_right:
+                ax.annotate("", xy=(xs[i+1], y2), xytext=(xs[i], y1),
+                            arrowprops=dict(arrowstyle="-", lw=0.7, alpha=0.7))
+
+    # ---------- nodes ----------
+    for x, n in zip(xs, layers):
+        ys = [(j - (n - 1) / 2) * y_spread for j in range(n)]
+        for y in ys:
+            ax.add_patch(plt.Circle((x, y), node_r, fill=False, lw=1.5))
+
+    # ---------- titles ----------
+    titles = ["Input", "Dense\n(Dropout)", "Dense\n(Dropout)", "Output"]
+    for x, title in zip(xs, titles):
+        ax.text(x, 0.9, title, ha="center", va="bottom", fontsize=10)
+
+    # ---------- framing ----------
+    y_low, y_high = -(max(layers) - 1) * y_spread / 2 - 0.5, 1.2
+    ax.set_xlim(xs[0] - 0.8, xs[-1] + 0.8)
+    ax.set_ylim(y_low, y_high)
+    return fig, ax
+
+_ = draw_mlp_shape()
+plt.show()
+```
+
+A dense (fully-connected) layer in Keras means every neuron receives input from
+every neuron in the previous layer.
+
+The first dense layer has 256 neurons; `input_shape=(784,)` tells Keras each
+image supplies 784 values.
+
+For every neuron $j$ $(j = 1 … 256)$ we compute the weighted sum.
+
+$z_j = ( \sum_{i=1}^{784} x_i W_{i,j} ) + b_j$
+
+Where:
+
+- $x_i$ is the normalised pixel value,
+
+- $W_{i,j}$ is the (initially random) weight connecting pixel $i$ to neuron
+	$j$,
+
+- $b_j$ is the bias of neuron $j$.
+
+After the weighted sum we apply the ReLU activation
+
+${output}_j = relu(z_j) = max(0, z_j)$
+
+so the layer returns a vector of 256 non-negative numbers, introducing
+non-linearity rather than normalising them to `[0, 1]`.
+
+A second dense hidden layer (also 256 units) follows, and then the output
+layer.
+
+The output layer contains 10 neurons—one per digit class—followed by the
+softmax activation. Softmax turns the 10 raw scores into probabilities:
+
+1. Each probability lies between 0 and 1.
+
+2. The probabilities sum to 1 across the 10 classes.
+
+Thus the final vector gives an easily interpretable confidence value for each
+digit 0–9.
+
+### MLP Training
+
+```{python}
+import os, keras
+mlp_path = "./.keras/mlp_mnist_model.keras"
+if os.path.exists(mlp_path):
+    mlp = keras.models.load_model(mlp_path)
+    hist  = None
+else:
+    x_flat = x_train.reshape(x_train.shape[0], -1)
+    hist = model.fit(x_flat, y_train,
+                     epochs=10, batch_size=32,
+                     validation_split=0.1, verbose=0)
+    model.save(mlp_path)
+    mlp = model
+```
+
+Note: In this network, each image, for both training and prediction is treaded as
+one-dimensional array of grayscale pixes.
+
+This is a supervised learning technique, meaning we already have each
+handwritten digit correctly labeled as a number. We need a loss funciton, For
+this application, we use `sparse_categorical_crossentropy`, which has the
+formula for a single sample:
+
+$L = -\log(p_y)$
+
+This loss function measures how different our predicted result is from the
+expected result – essentially, the error.
+
+- A higher loss means our model is further from the correct answer.
+
+- A lower loss means our model is closer to the correct answer.
+
+**Note**: Since we use `softmax` as our output layer activation function, the
+model outputs a probability distribution. The `sparse_categorical_crossentropy`
+function is designed to work with integer labels (like 2) – it internally
+converts the true label to a one-hot format, then computes the cross-entropy
+loss. This is more memory-efficient than storing one-hot vectors for large
+datasets.
+
+For example, if the expected digit is 2 and our untrained model outputs:
+
+$$
+\begin{pmatrix}
+	\text{Digit } 0 = 0.2 \\
+	\text{Digit } 1 = 0.1 \\
+	\text{Digit } 2 = 0.3 \\
+	\text{Digit } 3 = 0.05 \\
+	...
+\end{pmatrix}
+$$
+
+Expected value:
+
+$$
+\begin{pmatrix}
+	\text{Digit } 0 = 0 \\
+	\text{Digit } 1 = 0 \\
+	\text{Digit } 2 = 1 \\
+	\text{Digit } 3 = 0 \\
+	...
+\end{pmatrix}
+$$
+
+The loss for a single image would be calculated using only the probability
+assigned to the true class (digit 2): $L = -log(0.3) = 0.5229$. If the model were more
+confident and output 0.9 for digit 2, the loss would be much lower: $L =
+-log(0.9) = 0.0458$.
+
+During training, this loss is computed for each of the 32 images in a batch,
+then averaged to produce the cost. This single number tells us how poorly the
+model is performing overall.
+
+The cost is optimized throught the process of backpropagation, the optimizer
+used in this example is 'Adam'.
+
+`batch_size=32` and `epochs=10` tell Keras how to slice and repeat the 90 %-split
+training subset:
+
+1. Batch (mini-batch)
+
+	- Every 32 samples the gradients are computed and the weights are updated
+		once.
+
+	- If the training subset has N examples, one epoch contains N/32 such weight
+		updates.
+
+
+2. Epoch
+
+	- The complete data set is gone through once.
+
+	- The whole process repeats 10 times, each
+		time starting with the data already shuffled by Keras.
+
+
+So, across the 10 epochs the network will see every training point 10 times,
+and the weights will be updated roughly $10 \cdot (N / 32)$ times in total.
+
+### Evaluating the MLP Model
+
+```{python}
+# evaluate & plot MLP history
+import matplotlib.pyplot as plt
+
+x_flat_test = x_test.reshape(x_test.shape[0], -1)
+test_loss, test_acc = mlp.evaluate(x_flat_test, y_test, verbose=0)
+print(f"MLP Test accuracy: {test_acc:.4f}")
+
+if hist:
+	fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 4))
+	ax1.plot(hist.history['accuracy'], label='train')
+	ax1.plot(hist.history['val_accuracy'], label='val')
+	ax1.set_title("MLP accuracy"); ax1.legend()
+	ax2.plot(hist.history['loss'], label='train')
+	ax2.plot(hist.history['val_loss'], label='val')
+	ax2.set_title("MLP loss"); ax2.legend()
+	plt.show()
+```
+**Note** This graph will only render if you have trained the model yourself.
+
+- accuracy / loss: how well the model learns the 90 % subset it is trained on.
+
+- val_accuracy / val_loss: how well the model generalises to unseen data during
+	training.
+
+```{python}
+# MLP predictions grid
+preds = mlp.predict(x_flat_test, verbose=False)
+fig, axes = plt.subplots(3, 5, figsize=(12, 8))
+axes = axes.ravel()
+for i in range(15):
+	ax = axes[i]
+	ax.imshow(x_test[i], cmap='gray')
+	p, t = preds[i].argmax(), y_test[i]
+	c = 'blue' if p == t else 'red'
+	conf = preds[i].max() * 100
+	ax.set_title(f"P{p} ({conf:.0f}%) T{t}", color=c, fontsize=9)
+	ax.axis('off')
+plt.suptitle("MLP sample predictions"); plt.tight_layout(); plt.show()
+```
+The model is strong enough to classify images within this very simple dataset,
+with a large amount of training data.
+
+```{python}
+wrong_idx = np.where(np.argmax(preds, axis=1) != y_test)[0]
+print(f"Total wrong: {len(wrong_idx)} / {len(y_test)}")
+
+N = 10
+fig, axes = plt.subplots(2, 5, figsize=(12, 6)); axes = axes.ravel()
+for k, idx in enumerate(wrong_idx[:N]):
+	ax = axes[k]
+	ax.imshow(x_test[idx], cmap='gray')
+	p = preds[idx].argmax(); t = y_test[idx]
+	conf = preds[idx].max()*100
+	ax.set_title(f"Idx {idx}: P{p} ({conf:.0f}%)  T{t}", color='red', fontsize=9)
+	ax.axis('off')
+plt.suptitle("First 10 mistakes"); plt.tight_layout(); plt.show()
+```
+Many of these incorrect predictions are human readable, for the most part.
+
+### MLP Weight visualization
+
+Each of the 256 neurons has 784 weights (one per input pixel) We can reshape
+each neuron's weight vector back into a 28x28 image.
+
+We are essentially placing each weight back into the spatial location of the
+input pixel it originated from.
+
+So, the value (and color) at $(x, y)$ in the visualization corresponds to the
+weight connecting the pixel at $(x, y)$ in the original image to this specific
+hidden neuron.
+
+- Red means this weight contributes negatively to the activation function.
+
+- Blue means that the weight contributes positively to the activation function.
+
+```{python}
+# MLP first-layer weights
+w, _ = mlp.layers[0].get_weights()   # shape (784, 256)
+plt.figure(figsize=(10, 10))
+for i in range(16):
+	plt.subplot(4, 4, i + 1)
+	plt.imshow(w[:, i].reshape(28, 28), cmap='RdBu_r', vmin=-.5, vmax=.5)
+	plt.title(f'Neuron {i}'); plt.axis('off')
+plt.suptitle("MLP – what the net 'sees'"); plt.tight_layout(); plt.show()
+```
+MLP does a good job of classifying images in this simple dataset. These images are all
+centered, simple, 28x28 and there are only 10 different possibilities.
+
+However, when we visualize the weights of the hidden neurons, they often appear
+random or noisy, not like recognizable visual features (edges, shapes, etc.).
+
+This suggests the model doesn't "see" in a human-like way. Instead of
+understanding visual structure, the MLP learns complex, non-linear statistical
+correlations between individual pixels and classes. It effectively separates
+the data in a high-dimensional space, even if its internal representation isn't
+directly interpretable to us. It's found a statistically sufficient solution,
+rather than building an intuitive visual model.
+
+### Introduction to convolution
+
+A convolution is a fundamental mathematical operation that combines two
+functions to produce a third, effectively transforming one function based on
+the shape of another. In the context of image processing, it's a powerful tool
+used to filter, detect features, or highlight specific patterns within an input
+image.
+
+For our purposes, we can think of an image as a large 2D array of numerical
+values, where each value represents the brightness or color intensity of a
+single pixel.
+
+The convolution operation involves sliding a smaller 2D array, called a kernel
+(or filter), over the entire image. At each position, the kernel interacts with
+the underlying image pixels to compute a new pixel value for the output image.
+
+For example:
+$$
+\text{Kernel} =
+\begin{bmatrix}
+	1/9 & 1/9 & 1/9 \\ 1/9 & 1/9 & 1/9 \\ 1/9 & 1/9 & 1/9 
+\end{bmatrix}
+$$
+
+We could look at a 9x9 region around a pixel and apply this kernel using this
+formula:
+
+$$
+\text{Output}(i, j) = \sum_{m} \sum_{n} \text{Kernel}(m, n) \times
+\text{Image}(i+m, j+n)
+$$
+
+Where:
+
+- $(i, j)$ = The coordinates of the current pixel being calculated in the
+	output image.
+
+- $(m, n)$ = Offsets within the kernel, typically relative to its center. If
+	using your `m, n` as positive indices from 0, then the `i+m, j+n` form is common.
+	(A small note on `i+m, j+n` vs `i-m, j-n`: The standard mathematical definition
+	of convolution uses `i-m, j-n`. However, in deep learning, the operation is
+	often implemented as a "cross-correlation" which uses `i+m, j+n`, but still
+	referred to as convolution. Both forms achieve similar filtering, but the
+	deep learning convention is usually `i+m, j+n`).
+
+- $\text{Kernel}(m, n)$ = The value of the kernel at its offset position
+	$(m, n)$.
+
+- $\text{Image}(i+m, j+n)$ = The pixel value from the input image located at
+	the position $(i+m, j+n)$, which corresponds to the kernel's current
+	overlap.
+
+We are essentially replacing each pixel in an image with the average of the
+surrounding pixels, using this kernal.
+
+```{python}
+from scipy import signal
+from PIL import Image
+
+img = Image.open("./images/cat.jpg").convert('L')
+arr = np.array(img, dtype=float)
+
+blur_kernel = np.array([[1, 1, 1],
+                      	[1, 1, 1],
+                      	[1, 1, 1]])/9
+blur = signal.convolve2d(arr, blur_kernel, mode='same')
+
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10, 4))
+ax1.imshow(arr, cmap='gray');  ax1.set_title('Original'); ax1.axis('off')
+ax2.imshow(blur, cmap='gray'); ax2.set_title('Blur');   ax2.axis('off')
+plt.tight_layout(); plt.show()
+```
+
+What if we used a different kernel?
+
+$$
+\text{Kernel} =
+\begin{bmatrix}
+	-1 & 0 & 1 \\ -2 & 0 & 2 \\ -1 & 0 & 1
+\end{bmatrix}
+$$
+
+```{python}
+edge_kernel = np.array([[-1, 0, 1],
+                      	[-2, 0, 2],
+                      	[-1, 0, 1]])
+edge = signal.convolve2d(arr, edge_kernel, mode='same')
+
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10, 4))
+ax1.imshow(arr, cmap='gray');  ax1.set_title('Original'); ax1.axis('off')
+ax2.imshow(edge, cmap='gray'); ax2.set_title('Edge');    ax2.axis('off')
+plt.tight_layout(); plt.show()
+```
+We can use kernel to "bring out" certain parts of an image, like a filter. In
+general a section of an image that is more bright is in higer accordance
+with the kernel (matches its pattern), and the reverse for darker spots.
+
+### CNN Structure
+
+```{python}
+#  define CN 
+cnn = keras.Sequential([
+	layers.Conv2D(32, (3, 3), activation='relu', input_shape=(28, 28, 1)),
+	layers.MaxPooling2D((2, 2)),
+	layers.Conv2D(64, (3, 3), activation='relu'),
+	layers.MaxPooling2D((2, 2)),
+	layers.Flatten(),
+	layers.Dropout(0.5),
+	layers.Dense(128, activation='relu'),
+	layers.Dropout(0.5),
+	layers.Dense(10, activation='softmax')
+])
+cnn.compile(optimizer='adam',
+						loss='sparse_categorical_crossentropy',
+						metrics=['accuracy'])
+cnn.summary()
+```
+
+```{python}
+#| echo: false
+#| label: fig-cnn-shape
+#| fig-cap: "CNN layer topology used here: Input → Conv2D → MaxPool → Conv2D → MaxPool → Flatten → Dense → Dense → Output."
+#| fig-width: 7
+#| fig-height: 2.5
+
+import matplotlib.pyplot as plt
+
+def draw_cnn_shape():
+    # visual node counts per layer
+    layers   = [5, 4, 3, 3, 2, 4, 3, 3]
+    gap      = 2.0
+    y_spread = 0.40
+    node_r   = 0.18
+
+    xs = [i * gap for i in range(len(layers))]
+    fig, ax = plt.subplots()
+    ax.set_aspect("equal")
+    ax.axis("off")
+
+    # edges
+    for i in range(len(layers) - 1):
+        n_left, n_right = layers[i], layers[i + 1]
+        ys_left  = [(j - (n_left  - 1) / 2) * y_spread for j in range(n_left)]
+        ys_right = [(j - (n_right - 1) / 2) * y_spread for j in range(n_right)]
+        for y1 in ys_left:
+            for y2 in ys_right:
+                ax.annotate("", xy=(xs[i + 1], y2), xytext=(xs[i], y1),
+                            arrowprops=dict(arrowstyle="-", lw=0.7, alpha=0.7))
+
+    # nodes
+    for x, n in zip(xs, layers):
+        ys = [(j - (n - 1) / 2) * y_spread for j in range(n)]
+        for y in ys:
+            ax.add_patch(plt.Circle((x, y), node_r, fill=False, lw=1.5))
+
+    # layer titles
+    titles = ["Input\n(28×28×1)", "Conv2D\n(ReLU)", "MaxPool2D", "Conv2D\n(ReLU)",
+              "MaxPool2D", "Flatten", "Dense\n(Dropout)", "Dense\n(Output)"]
+    for x, title in zip(xs, titles):
+        ax.text(x, 0.9, title, ha="center", va="bottom", fontsize=9)
+
+    # generous frame
+    y_low, y_high = -(max(layers) - 1) * y_spread / 2 - 0.5, 1.2
+    ax.set_xlim(xs[0] - 0.8, xs[-1] + 0.8)
+    ax.set_ylim(y_low, y_high)
+    return fig, ax
+
+_ = draw_cnn_shape()
+plt.show()
+```
+In a convolutional neural network, our weights are represented by the elements
+in a kernel. In the first layer we have 32 3x3 kernels. Each 3x3 kernel
+contains 9 weights, so in total that is 288 weights in our first layer (32 × 9
+= 288).
+
+At each position during convolution:
+
+$z(x, y) = \sum_{i=1}^{k} w_i \cdot a_i + b$
+
+This computes the pre-activation value by summing the kernel weights $w_i$
+multiplied by the corresponding input pixel values $a_i$, plus a bias $b$.
+
+The full convolution operation:
+
+$Z = W * A + b$
+
+Where $*$ denotes convolution. This applies the dot product at every spatial
+position across the input, producing a feature map $Z$.
+
+The activation in the first layer:
+
+$A_{\text{out}} = \text{ReLU}(Z) = \max(0, Z)$
+
+In the first layer, $a_i$ are the raw pixel values (0–1) from the input image.
+ReLU is applied element-wise to the entire feature map.
+
+After each kernel is applied to the input image, producing a feature map we
+apply max pooling. This step uses a 2x2 kernel which sets the current output
+pixel to whichever pixel in the corresponding 2x2 input area has the highest
+value.
+
+$$
+\text{Output} = 
+\max\begin{pmatrix}
+	1 & 2 \\ 3 & 4 
+\end{pmatrix} = 4
+$$
+
+Max pooling reduces the spatial dimensions by half, while preserving the
+features that the neural network has learned to be important.
+
+**Note** For these max pooling layers there are no weights to update.
+
+There is another convolution layer, which produces even more kernels and
+feature maps.
+
+The purpose of these convolution and pooling layers is to continually extract
+features that define a number or image in general. Early layers learn simple
+features like edges, corners, and diagonal lines. After pooling reduces
+resolution, subsequent layers build on these to learn more complex and
+larger-scale features (like curves, shapes, or patterns).
+
+This hierarchical approach allows the network to progressively abstract the
+image into increasingly meaningful representations.
+
+After these convolution layers, we flatten the resulting feature maps into a 1D
+vector and feed it to a fully connected MLP. The MLP uses these learned
+features to make the final classification decision.
+
+### CNN Training and Results
+
+```{python}
+# train / load CNN
+cnn_path = "./.keras/cnn_mnist_model.keras"
+if os.path.exists(cnn_path):
+	cnn = keras.models.load_model(cnn_path)
+	hist_cnn = None
+else:
+	x_cnn = x_train.reshape(-1, 28, 28, 1)
+	hist_cnn = cnn.fit(x_cnn, y_train,
+										 epochs=10, batch_size=32,
+										 validation_split=0.1, verbose=0)
+	cnn.save(cnn_path)
+```
+In this network, we keep the images as 28x28 greyscale images. The `1` means
+that there is one channel of color.
+
+This is different from MLP, the pixel data per images is not flattened, it is
+preserved.
+
+Now we train the model, the process is conceptually the same as MLP, we use the
+same optimizer and loss function. Remeber we the process of backpropagation
+will ultimately generate kernals in the propagation layers.
+
+```{python}
+# evaluate & plot CNN history
+x_cnn_test = x_test.reshape(-1, 28, 28, 1)
+test_loss, test_acc = cnn.evaluate(x_cnn_test, y_test, verbose=0)
+print(f"CNN Test accuracy: {test_acc:.4f}")
+
+if hist_cnn:
+	fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 4))
+	ax1.plot(hist_cnn.history['accuracy'], label='train')
+	ax1.plot(hist_cnn.history['val_accuracy'], label='val')
+	ax1.set_title("CNN accuracy"); ax1.legend()
+	ax2.plot(hist_cnn.history['loss'], label='train')
+	ax2.plot(hist_cnn.history['val_loss'], label='val')
+	ax2.set_title("CNN loss"); ax2.legend()
+	plt.show()
+```
+**Note** This plot will only show if you have trained the model yourself.
+
+```{python}
+# CNN predictions grid
+preds = cnn.predict(x_cnn_test, verbose=False)
+fig, axes = plt.subplots(3, 5, figsize=(12, 8))
+axes = axes.ravel()
+for i in range(15):
+	ax = axes[i]
+	ax.imshow(x_test[i], cmap='gray')
+	p, t = preds[i].argmax(), y_test[i]
+	c = 'blue' if p == t else 'red'
+	conf = preds[i].max() * 100
+	ax.set_title(f"P{p} ({conf:.0f}%) T{t}", color=c, fontsize=9)
+	ax.axis('off')
+plt.suptitle("CNN sample predictions"); plt.tight_layout(); plt.show()
+```
+This model is more accurate than the MLP model, it has fewer mistakes.
+
+```{python}
+wrong_idx = np.where(np.argmax(preds, axis=1) != y_test)[0]
+print(f"Total wrong: {len(wrong_idx)} / {len(y_test)}")
+
+N = 10
+fig, axes = plt.subplots(2, 5, figsize=(12, 6)); axes = axes.ravel()
+for k, idx in enumerate(wrong_idx[:N]):
+	ax = axes[k]
+	ax.imshow(x_test[idx], cmap='gray')
+	p = preds[idx].argmax(); t = y_test[idx]
+	conf = preds[idx].max()*100
+	ax.set_title(f"Idx {idx}: P{p} ({conf:.0f}%)  T{t}", color='red', fontsize=9)
+	ax.axis('off')
+plt.suptitle("First 10 mistakes"); plt.tight_layout(); plt.show()
+```
+The numbers that this model fails to recognize are very poorly drawn numbers
+that humans would have a hard time classifying. This is a good sign that our
+model is not overfit, or simply memorizing the dataset.
+
+### CNN Weights Visualized as Kernels
+
+```{python}
+# CNN filters 
+filters, _ = cnn.layers[0].get_weights()  # (3,3,1,32)
+filters = (filters - filters.min()) / (filters.max() - filters.min())
+plt.figure(figsize=(10, 10))
+for i in range(filters.shape[-1]):
+	plt.subplot(6, 6, i + 1)
+	plt.imshow(filters[:, :, 0, i], cmap='gray')
+	plt.title(f'Filter {i}', fontsize=8); plt.axis('off')
+plt.suptitle("CNN first-layer filters"); plt.tight_layout(); plt.show()
+```
+
+These feature maps seem to be optimized to recognize specific features, we
+cannot be entirely sure until we see how these kernels are applied to an
+example.
+
+### Feature maps
+
+The code below essentially recreates the first convolution layer of our the
+with the weights that we found in training, and retrieves the outupt of this
+one layer throught "predicting" the given input image.
+
+We take a single image from the set (`x_cnn_test[0]`), adding a batch dimension
+to it (`np.expand_dims`), feeding it into the extractor model to get its
+feature maps (or activations of a specific layer), and then removing the batch
+dimension from the output so `fmaps` holds just the feature maps for that one
+image.
+
+```{python}
+# feature maps for the first test image
+extractor = keras.Model(inputs=cnn.inputs, outputs=cnn.layers[0].output)
+fmaps = extractor.predict(np.expand_dims(x_cnn_test[0], axis=0), verbose=False)[0]
+
+plt.figure(figsize=(12, 12))
+plt.subplot(6, 6, 1); plt.imshow(x_test[0], cmap='gray')
+plt.title("Original"); plt.axis('off')
+for i in range(fmaps.shape[-1]):
+	plt.subplot(6, 6, i + 2)
+	plt.imshow(fmaps[:, :, i], cmap='viridis')
+	plt.title(f'Map {i}', fontsize=8); plt.axis('off')
+plt.suptitle("CNN first-layer feature maps"); plt.tight_layout(); plt.show()
+```
+We can see a clear correspondence between the learned kernels and the resulting
+feature maps: kernels that respond to edges, strokes, or curves produce bright
+regions where those patterns appear in the image. Some maps look blank because
+their kernels have been tuned to features that happen to be absent from this
+particular digit; consequently the neuron’s activation is low (about 0) and the map
+remains dark. Conversely, feature maps with many bright pixels indicate strong
+kernel responses, which—after pooling and downstream layers—drive higher
+activations in the neurons responsible for predicting this digit.
+
+### Conclusion
+
+Ultimately, the CNN model achieves superior image-classification accuracy by
+learning spatially coherent features in a way that mirrors how we naturally
+perceive images—deciphering edges, textures, and shapes through its layered
+convolutional filters.
+
+### Further readings
+
+[Cat Image](https://pixabay.com/photos/cat-red-cat-cats-eyes-lying-cat-3059075/)
+
+[Building CNN using Keras](https://victorzhou.com/blog/keras-cnn-tutorial/)
+
+[Keras documentation](https://keras.io/api/)
+
+3Blue1Brown videos on MLP:
+
+[Introduction](https://www.youtube.com/watch?v=aircAruvnKk&list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi&index=1)
+
+[Gradient Decent](https://www.youtube.com/watch?v=IHZwWFHWa-w&list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi&index=2)
+
+[Backpropagation](https://www.youtube.com/watch?v=Ilg3gGewQ5U&list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi&index=3)
+
+Erai video on CNN:
+
+[CNN from scratch](https://www.youtube.com/watch?v=jDe5BAsT2-Y&t=226s)
+
+[3Blue1Brown convolutions](https://www.youtube.com/watch?v=KuXjwB4LzSA)
+
