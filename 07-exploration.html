@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.33">
+<meta name="generator" content="quarto-1.8.26">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -89,14 +89,15 @@ div.csl-indent {
 <link href="./06-manipulation.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-485d01fc63b59abcd3ee1bf1e8e2748d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-27c261d06b905028a18691de25d09dde.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -142,7 +143,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -394,14 +395,14 @@ window.Quarto = {
 </ul>
 <p>We now illustrate these ideas using a reduced version of the Ames Housing dataset <span class="citation" data-cites="decock2009ames">(<a href="99-references.html#ref-decock2009ames" role="doc-biblioref">De Cock, 2009</a>)</span>, which is available directly from <code>OpenML</code>. With a filtered subset of ~1460 observations, it drops older sales, keeps only certain years, and removes some variables to make modeling cleaner for beginners.</p>
 <div id="a96bf81b" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> openml</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> openml</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Load Ames Housing (OpenML ID 42165)</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>dataset <span class="op">=</span> openml.datasets.get_dataset(<span class="dv">42165</span>)</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>df, <span class="op">*</span>_ <span class="op">=</span> dataset.get_data()</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Basic dimensions</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>df.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>df.shape</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="1">
 <pre><code>(1460, 81)</code></pre>
 </div>
@@ -409,13 +410,13 @@ window.Quarto = {
 <p>The dataset contains nearly three thousand house sales and eighty variables.</p>
 <p>It is useful to view the first few rows to confirm the structure.</p>
 <div id="24d823a0" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># First few rows</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># First few rows</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>df.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="2">
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -444,7 +445,7 @@ window.Quarto = {
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
+<th data-quarto-table-cell-role="th">0</th>
 <td>1</td>
 <td>60</td>
 <td>RL</td>
@@ -468,7 +469,7 @@ window.Quarto = {
 <td>208500</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
+<th data-quarto-table-cell-role="th">1</th>
 <td>2</td>
 <td>20</td>
 <td>RL</td>
@@ -492,7 +493,7 @@ window.Quarto = {
 <td>181500</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
+<th data-quarto-table-cell-role="th">2</th>
 <td>3</td>
 <td>60</td>
 <td>RL</td>
@@ -516,7 +517,7 @@ window.Quarto = {
 <td>223500</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
+<th data-quarto-table-cell-role="th">3</th>
 <td>4</td>
 <td>70</td>
 <td>RL</td>
@@ -540,7 +541,7 @@ window.Quarto = {
 <td>140000</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
+<th data-quarto-table-cell-role="th">4</th>
 <td>5</td>
 <td>60</td>
 <td>RL</td>
@@ -573,8 +574,8 @@ window.Quarto = {
 <p>Each row corresponds to one property sale, while columns record attributes such as lot size, neighborhood, and sale price.</p>
 <p>Understanding whether variables are numeric, categorical, or temporal guides later exploration and cleaning.</p>
 <div id="f8b2fb53" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Dtypes in pandas</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>df.dtypes.value_counts()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Dtypes in pandas</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>df.dtypes.value_counts()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <pre><code>object     43
 int64      22
@@ -584,8 +585,8 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 <div id="26682fb5" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example: show a few variables with types</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>df.dtypes.head(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example: show a few variables with types</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>df.dtypes.head(<span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
 <pre><code>Id               int64
 MSSubClass       uint8
@@ -603,21 +604,21 @@ dtype: object</code></pre>
 <p>Most features are numeric or categorical. Some, such as <code>YearBuilt</code>, are integers but represent calendar years.</p>
 <p>The outcome of interest is the sale price.</p>
 <div id="1f701f4a" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The default target from OpenML</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>dataset.default_target_attribute</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The default target from OpenML</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>dataset.default_target_attribute</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
 <pre><code>'SalePrice'</code></pre>
 </div>
 </div>
 <p>Numeric summaries highlight scale and possible outliers.</p>
 <div id="b8305e4d" class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Summary statistics for numeric columns</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>df.describe().T.head(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Summary statistics for numeric columns</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>df.describe().T.head(<span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -633,7 +634,7 @@ dtype: object</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">Id</td>
+<th data-quarto-table-cell-role="th">Id</th>
 <td>1460.0</td>
 <td>730.500000</td>
 <td>421.610009</td>
@@ -644,7 +645,7 @@ dtype: object</code></pre>
 <td>1460.0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">MSSubClass</td>
+<th data-quarto-table-cell-role="th">MSSubClass</th>
 <td>1460.0</td>
 <td>56.897260</td>
 <td>42.300571</td>
@@ -655,7 +656,7 @@ dtype: object</code></pre>
 <td>190.0</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">LotFrontage</td>
+<th data-quarto-table-cell-role="th">LotFrontage</th>
 <td>1201.0</td>
 <td>70.049958</td>
 <td>24.284752</td>
@@ -666,7 +667,7 @@ dtype: object</code></pre>
 <td>313.0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">LotArea</td>
+<th data-quarto-table-cell-role="th">LotArea</th>
 <td>1460.0</td>
 <td>10516.828082</td>
 <td>9981.264932</td>
@@ -677,7 +678,7 @@ dtype: object</code></pre>
 <td>215245.0</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">OverallQual</td>
+<th data-quarto-table-cell-role="th">OverallQual</th>
 <td>1460.0</td>
 <td>6.099315</td>
 <td>1.382997</td>
@@ -688,7 +689,7 @@ dtype: object</code></pre>
 <td>10.0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">OverallCond</td>
+<th data-quarto-table-cell-role="th">OverallCond</th>
 <td>1460.0</td>
 <td>5.575342</td>
 <td>1.112799</td>
@@ -699,7 +700,7 @@ dtype: object</code></pre>
 <td>9.0</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">YearBuilt</td>
+<th data-quarto-table-cell-role="th">YearBuilt</th>
 <td>1460.0</td>
 <td>1971.267808</td>
 <td>30.202904</td>
@@ -710,7 +711,7 @@ dtype: object</code></pre>
 <td>2010.0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">YearRemodAdd</td>
+<th data-quarto-table-cell-role="th">YearRemodAdd</th>
 <td>1460.0</td>
 <td>1984.865753</td>
 <td>20.645407</td>
@@ -721,7 +722,7 @@ dtype: object</code></pre>
 <td>2010.0</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">MasVnrArea</td>
+<th data-quarto-table-cell-role="th">MasVnrArea</th>
 <td>1452.0</td>
 <td>103.685262</td>
 <td>181.066207</td>
@@ -732,7 +733,7 @@ dtype: object</code></pre>
 <td>1600.0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">BsmtFinSF1</td>
+<th data-quarto-table-cell-role="th">BsmtFinSF1</th>
 <td>1460.0</td>
 <td>443.639726</td>
 <td>456.098091</td>
@@ -750,8 +751,8 @@ dtype: object</code></pre>
 </div>
 <p>Categorical summaries reveal balance among levels.</p>
 <div id="0189318e" class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Frequency counts for categorical columns</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Neighborhood'</span>].value_counts().head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Frequency counts for categorical columns</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Neighborhood'</span>].value_counts().head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
 <pre><code>Neighborhood
 NAmes      225
@@ -763,8 +764,8 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 <div id="50c94bad" class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Another example</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'GarageType'</span>].value_counts(dropna<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Another example</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'GarageType'</span>].value_counts(dropna<span class="op">=</span><span class="va">False</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
 <pre><code>GarageType
 Attchd     870
@@ -779,15 +780,15 @@ Name: count, dtype: int64</code></pre>
 </div>
 <p>Simple checks can detect implausible combinations.</p>
 <div id="2fab61e9" class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Houses should not be sold before built</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>(df[<span class="st">'YrSold'</span>] <span class="op">&lt;</span> df[<span class="st">'YearBuilt'</span>]).<span class="bu">sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Houses should not be sold before built</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>(df[<span class="st">'YrSold'</span>] <span class="op">&lt;</span> df[<span class="st">'YearBuilt'</span>]).<span class="bu">sum</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
 <pre><code>np.int64(0)</code></pre>
 </div>
 </div>
 <div id="8f869e61" class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Garage year built should not precede house year built</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>(df[<span class="st">'GarageYrBlt'</span>] <span class="op">&lt;</span> df[<span class="st">'YearBuilt'</span>]).<span class="bu">sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Garage year built should not precede house year built</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>(df[<span class="st">'GarageYrBlt'</span>] <span class="op">&lt;</span> df[<span class="st">'YearBuilt'</span>]).<span class="bu">sum</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="10">
 <pre><code>np.int64(9)</code></pre>
 </div>
@@ -806,8 +807,8 @@ Name: count, dtype: int64</code></pre>
 <h3 data-number="7.3.1" class="anchored" data-anchor-id="illustration-with-ames-housing"><span class="header-section-number">7.3.1</span> Illustration with Ames Housing</h3>
 <p>We apply these principles to the Ames dataset. The first step is to inspect missing values.</p>
 <div id="fc43d7ad" class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Count missing values in each column</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>df.isna().<span class="bu">sum</span>().sort_values(ascending<span class="op">=</span><span class="va">False</span>).head(<span class="dv">15</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Count missing values in each column</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>df.isna().<span class="bu">sum</span>().sort_values(ascending<span class="op">=</span><span class="va">False</span>).head(<span class="dv">15</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="11">
 <pre><code>PoolQC          1453
 MiscFeature     1406
@@ -829,8 +830,8 @@ dtype: int64</code></pre>
 </div>
 <p>Several variables, such as <code>PoolQC</code>, <code>MiscFeature</code>, and <code>Alley</code>, contain many missing entries. Documentation shows that these are structural, indicating the absence of the feature.</p>
 <div id="1ce7c615" class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example: check PoolQC against PoolArea</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>(df[<span class="st">'PoolQC'</span>].isna() <span class="op">&amp;</span> (df[<span class="st">'PoolArea'</span>] <span class="op">&gt;</span> <span class="dv">0</span>)).<span class="bu">sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example: check PoolQC against PoolArea</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>(df[<span class="st">'PoolQC'</span>].isna() <span class="op">&amp;</span> (df[<span class="st">'PoolArea'</span>] <span class="op">&gt;</span> <span class="dv">0</span>)).<span class="bu">sum</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="12">
 <pre><code>np.int64(0)</code></pre>
 </div>
@@ -838,8 +839,8 @@ dtype: int64</code></pre>
 <p>The result is zero, confirming that missing <code>PoolQC</code> means no pool.</p>
 <p>Consistency can be checked by reviewing categorical labels.</p>
 <div id="7fbf5b51" class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Distinct values in Exterior1st</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Exterior1st'</span>].unique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Distinct values in Exterior1st</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Exterior1st'</span>].unique()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="13">
 <pre><code>array(['VinylSd', 'MetalSd', 'Wd Sdng', 'HdBoard', 'BrkFace', 'WdShing',
        'CemntBd', 'Plywood', 'AsbShng', 'Stucco', 'BrkComm', 'AsphShn',
@@ -849,23 +850,23 @@ dtype: int64</code></pre>
 <p>If spelling variants are detected, they should be harmonized.</p>
 <p>Accuracy checks involve searching for implausible values.</p>
 <div id="856d9d9d" class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Negative or zero living area</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>(df[<span class="st">'GrLivArea'</span>] <span class="op">&lt;=</span> <span class="dv">0</span>).<span class="bu">sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Negative or zero living area</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>(df[<span class="st">'GrLivArea'</span>] <span class="op">&lt;=</span> <span class="dv">0</span>).<span class="bu">sum</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="14">
 <pre><code>np.int64(0)</code></pre>
 </div>
 </div>
 <p>Integrity checks verify logical relationships.</p>
 <div id="98486578" class="cell" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Houses sold before they were built</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>(df[<span class="st">'YrSold'</span>] <span class="op">&lt;</span> df[<span class="st">'YearBuilt'</span>]).<span class="bu">sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Houses sold before they were built</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>(df[<span class="st">'YrSold'</span>] <span class="op">&lt;</span> df[<span class="st">'YearBuilt'</span>]).<span class="bu">sum</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="15">
 <pre><code>np.int64(0)</code></pre>
 </div>
 </div>
 <div id="e99c9625" class="cell" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Garage built before house built</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>(df[<span class="st">'GarageYrBlt'</span>] <span class="op">&lt;</span> df[<span class="st">'YearBuilt'</span>]).<span class="bu">sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Garage built before house built</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>(df[<span class="st">'GarageYrBlt'</span>] <span class="op">&lt;</span> df[<span class="st">'YearBuilt'</span>]).<span class="bu">sum</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="16">
 <pre><code>np.int64(9)</code></pre>
 </div>
@@ -880,8 +881,8 @@ dtype: int64</code></pre>
 <h3 data-number="7.4.1" class="anchored" data-anchor-id="univariate-summaries"><span class="header-section-number">7.4.1</span> Univariate summaries</h3>
 <p>Simple statistics reveal scale, central tendency, and variability.</p>
 <div id="03012d5e" class="cell" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sale price distribution</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'SalePrice'</span>].describe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sale price distribution</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'SalePrice'</span>].describe()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="17">
 <pre><code>count      1460.000000
 mean     180921.195890
@@ -896,8 +897,8 @@ Name: SalePrice, dtype: float64</code></pre>
 </div>
 <p>The sale price is right-skewed, with a mean higher than the median.</p>
 <div id="1fab30ea" class="cell" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lot area distribution</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'LotArea'</span>].describe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lot area distribution</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'LotArea'</span>].describe()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="18">
 <pre><code>count      1460.000000
 mean      10516.828082
@@ -916,8 +917,8 @@ Name: LotArea, dtype: float64</code></pre>
 <h3 data-number="7.4.2" class="anchored" data-anchor-id="grouped-summaries"><span class="header-section-number">7.4.2</span> Grouped summaries</h3>
 <p>Comparisons across categories highlight differences in central tendency.</p>
 <div id="2b70316c" class="cell" data-execution_count="19">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mean sale price by neighborhood</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>df.groupby(<span class="st">'Neighborhood'</span>)[<span class="st">'SalePrice'</span>].mean().sort_values().head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mean sale price by neighborhood</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>df.groupby(<span class="st">'Neighborhood'</span>)[<span class="st">'SalePrice'</span>].mean().sort_values().head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="19">
 <pre><code>Neighborhood
 MeadowV     98576.470588
@@ -930,8 +931,8 @@ Name: SalePrice, dtype: float64</code></pre>
 </div>
 <p>Neighborhoods differ substantially in average sale price.</p>
 <div id="d535d507" class="cell" data-execution_count="20">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Median sale price by overall quality</span></span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>df.groupby(<span class="st">'OverallQual'</span>)[<span class="st">'SalePrice'</span>].median()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Median sale price by overall quality</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>df.groupby(<span class="st">'OverallQual'</span>)[<span class="st">'SalePrice'</span>].median()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="20">
 <pre><code>OverallQual
 1      50150.0
@@ -953,14 +954,14 @@ Name: SalePrice, dtype: float64</code></pre>
 <h3 data-number="7.4.3" class="anchored" data-anchor-id="cross-tabulations"><span class="header-section-number">7.4.3</span> Cross-tabulations</h3>
 <p>Cross-tabulations summarize associations between categorical variables.</p>
 <div id="3acac006" class="cell" data-execution_count="21">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Neighborhood by garage type</span></span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>pd.crosstab(df[<span class="st">'Neighborhood'</span>], df[<span class="st">'GarageType'</span>]).head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>pd.crosstab(df[<span class="st">'Neighborhood'</span>], df[<span class="st">'GarageType'</span>]).head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="21">
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th">GarageType</th>
@@ -983,7 +984,7 @@ Name: SalePrice, dtype: float64</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">Blmngtn</td>
+<th data-quarto-table-cell-role="th">Blmngtn</th>
 <td>0</td>
 <td>17</td>
 <td>0</td>
@@ -992,7 +993,7 @@ Name: SalePrice, dtype: float64</code></pre>
 <td>0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">Blueste</td>
+<th data-quarto-table-cell-role="th">Blueste</th>
 <td>0</td>
 <td>2</td>
 <td>0</td>
@@ -1001,7 +1002,7 @@ Name: SalePrice, dtype: float64</code></pre>
 <td>0</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">BrDale</td>
+<th data-quarto-table-cell-role="th">BrDale</th>
 <td>0</td>
 <td>2</td>
 <td>0</td>
@@ -1010,7 +1011,7 @@ Name: SalePrice, dtype: float64</code></pre>
 <td>13</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">BrkSide</td>
+<th data-quarto-table-cell-role="th">BrkSide</th>
 <td>0</td>
 <td>3</td>
 <td>0</td>
@@ -1019,7 +1020,7 @@ Name: SalePrice, dtype: float64</code></pre>
 <td>44</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">ClearCr</td>
+<th data-quarto-table-cell-role="th">ClearCr</th>
 <td>0</td>
 <td>24</td>
 <td>0</td>
@@ -1039,13 +1040,13 @@ Name: SalePrice, dtype: float64</code></pre>
 <h3 data-number="7.4.4" class="anchored" data-anchor-id="correlations"><span class="header-section-number">7.4.4</span> Correlations</h3>
 <p>Correlation coefficients capture linear associations between numeric variables.</p>
 <div id="2a363666" class="cell" data-execution_count="22">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Correlation between living area and sale price</span></span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>df[[<span class="st">'GrLivArea'</span>,<span class="st">'SalePrice'</span>]].corr()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Correlation between living area and sale price</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>df[[<span class="st">'GrLivArea'</span>,<span class="st">'SalePrice'</span>]].corr()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="22">
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -1055,12 +1056,12 @@ Name: SalePrice, dtype: float64</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">GrLivArea</td>
+<th data-quarto-table-cell-role="th">GrLivArea</th>
 <td>1.000000</td>
 <td>0.708624</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">SalePrice</td>
+<th data-quarto-table-cell-role="th">SalePrice</th>
 <td>0.708624</td>
 <td>1.000000</td>
 </tr>
@@ -1071,13 +1072,13 @@ Name: SalePrice, dtype: float64</code></pre>
 </div>
 </div>
 <div id="c98d6503" class="cell" data-execution_count="23">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Correlation between lot area and sale price</span></span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>df[[<span class="st">'LotArea'</span>,<span class="st">'SalePrice'</span>]].corr()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Correlation between lot area and sale price</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>df[[<span class="st">'LotArea'</span>,<span class="st">'SalePrice'</span>]].corr()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="23">
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -1087,12 +1088,12 @@ Name: SalePrice, dtype: float64</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">LotArea</td>
+<th data-quarto-table-cell-role="th">LotArea</th>
 <td>1.000000</td>
 <td>0.263843</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">SalePrice</td>
+<th data-quarto-table-cell-role="th">SalePrice</th>
 <td>0.263843</td>
 <td>1.000000</td>
 </tr>
@@ -1108,8 +1109,8 @@ Name: SalePrice, dtype: float64</code></pre>
 <h3 data-number="7.4.5" class="anchored" data-anchor-id="conditional-summaries"><span class="header-section-number">7.4.5</span> Conditional summaries</h3>
 <p>Examining distributions within subgroups can surface interaction patterns.</p>
 <div id="6b8a937d" class="cell" data-execution_count="24">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Average sale price by house style</span></span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>df.groupby(<span class="st">'HouseStyle'</span>)[<span class="st">'SalePrice'</span>].mean().sort_values()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Average sale price by house style</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>df.groupby(<span class="st">'HouseStyle'</span>)[<span class="st">'SalePrice'</span>].mean().sort_values()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="24">
 <pre><code>HouseStyle
 1.5Unf    110150.000000
@@ -1134,17 +1135,17 @@ Name: SalePrice, dtype: float64</code></pre>
 <h3 data-number="7.5.1" class="anchored" data-anchor-id="neighborhood-and-sale-price"><span class="header-section-number">7.5.1</span> Neighborhood and sale price</h3>
 <p>Hypothesis: - H0: The mean sale prices are equal across neighborhoods. - H1: At least one neighborhood has a different mean.</p>
 <div id="382990dc" class="cell" data-execution_count="25">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.formula.api <span class="im">as</span> smf</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.formula.api <span class="im">as</span> smf</span>
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statsmodels.stats.anova <span class="im">import</span> anova_lm</span>
 <span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>sub <span class="op">=</span> df[[<span class="st">'SalePrice'</span>,<span class="st">'Neighborhood'</span>]].dropna()</span>
 <span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> smf.ols(<span class="st">'SalePrice ~ C(Neighborhood)'</span>, data<span class="op">=</span>sub).fit()</span>
-<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>anova_lm(model, typ<span class="op">=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>anova_lm(model, typ<span class="op">=</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="25">
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -1156,14 +1157,14 @@ Name: SalePrice, dtype: float64</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">C(Neighborhood)</td>
+<th data-quarto-table-cell-role="th">C(Neighborhood)</th>
 <td>5.023606e+12</td>
 <td>24.0</td>
 <td>71.784865</td>
 <td>1.558600e-225</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">Residual</td>
+<th data-quarto-table-cell-role="th">Residual</th>
 <td>4.184305e+12</td>
 <td>1435.0</td>
 <td>NaN</td>
@@ -1181,22 +1182,22 @@ Name: SalePrice, dtype: float64</code></pre>
 <h3 data-number="7.5.2" class="anchored" data-anchor-id="year-built-and-sale-price"><span class="header-section-number">7.5.2</span> Year built and sale price</h3>
 <p>Hypothesis: - H0: The slope for YearBuilt is zero; no linear relationship. - H1: The slope is not zero.</p>
 <div id="9cd38868" class="cell" data-execution_count="26">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> smf.ols(<span class="st">'SalePrice ~ YearBuilt'</span>, data<span class="op">=</span>df).fit(cov_type<span class="op">=</span><span class="st">'HC3'</span>)</span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>model.summary().tables[<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> smf.ols(<span class="st">'SalePrice ~ YearBuilt'</span>, data<span class="op">=</span>df).fit(cov_type<span class="op">=</span><span class="st">'HC3'</span>)</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>model.summary().tables[<span class="dv">1</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="26">
-<table class="simpletable caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<table class="simpletable caption-top table table-sm table-striped small">
 <tbody>
 <tr class="odd">
 <td></td>
-<td data-quarto-table-cell-role="th">coef</td>
-<td data-quarto-table-cell-role="th">std err</td>
-<td data-quarto-table-cell-role="th">z</td>
-<td data-quarto-table-cell-role="th">P&gt;|z|</td>
-<td data-quarto-table-cell-role="th">[0.025</td>
-<td data-quarto-table-cell-role="th">0.975]</td>
+<th data-quarto-table-cell-role="th">coef</th>
+<th data-quarto-table-cell-role="th">std err</th>
+<th data-quarto-table-cell-role="th">z</th>
+<th data-quarto-table-cell-role="th">P&gt;|z|</th>
+<th data-quarto-table-cell-role="th">[0.025</th>
+<th data-quarto-table-cell-role="th">0.975]</th>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">Intercept</td>
+<th data-quarto-table-cell-role="th">Intercept</th>
 <td>-2.53e+06</td>
 <td>1.36e+05</td>
 <td>-18.667</td>
@@ -1205,7 +1206,7 @@ Name: SalePrice, dtype: float64</code></pre>
 <td>-2.26e+06</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">YearBuilt</td>
+<th data-quarto-table-cell-role="th">YearBuilt</th>
 <td>1375.3735</td>
 <td>68.973</td>
 <td>19.941</td>
@@ -1223,9 +1224,9 @@ Name: SalePrice, dtype: float64</code></pre>
 <h3 data-number="7.5.3" class="anchored" data-anchor-id="lot-area-and-sale-price"><span class="header-section-number">7.5.3</span> Lot area and sale price</h3>
 <p>Hypothesis: - H0: The population correlation is zero. - H1: The correlation is not zero.</p>
 <div id="f5cb6a80" class="cell" data-execution_count="27">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> stats</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> stats</span>
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>sub <span class="op">=</span> df[[<span class="st">'LotArea'</span>,<span class="st">'SalePrice'</span>]].dropna()</span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>stats.pearsonr(sub[<span class="st">'LotArea'</span>], sub[<span class="st">'SalePrice'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>stats.pearsonr(sub[<span class="st">'LotArea'</span>], sub[<span class="st">'SalePrice'</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="27">
 <pre><code>PearsonRResult(statistic=np.float64(0.2638433538714058), pvalue=np.float64(1.123139154918551e-24))</code></pre>
 </div>
@@ -1236,13 +1237,13 @@ Name: SalePrice, dtype: float64</code></pre>
 <h3 data-number="7.5.4" class="anchored" data-anchor-id="fireplaces-and-sale-price"><span class="header-section-number">7.5.4</span> Fireplaces and sale price</h3>
 <p>Hypothesis: - H0: The mean sale price is the same for houses with and without a fireplace. - H1: The mean sale prices differ.</p>
 <div id="5fd66403" class="cell" data-execution_count="28">
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>sub <span class="op">=</span> df[[<span class="st">'SalePrice'</span>,<span class="st">'Fireplaces'</span>]].dropna()</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>sub <span class="op">=</span> df[[<span class="st">'SalePrice'</span>,<span class="st">'Fireplaces'</span>]].dropna()</span>
 <span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>sub[<span class="st">'has_fp'</span>] <span class="op">=</span> (sub[<span class="st">'Fireplaces'</span>] <span class="op">&gt;</span> <span class="dv">0</span>).astype(<span class="bu">int</span>)</span>
 <span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>g1 <span class="op">=</span> sub.loc[sub[<span class="st">'has_fp'</span>]<span class="op">==</span><span class="dv">1</span>, <span class="st">'SalePrice'</span>]</span>
 <span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>g0 <span class="op">=</span> sub.loc[sub[<span class="st">'has_fp'</span>]<span class="op">==</span><span class="dv">0</span>, <span class="st">'SalePrice'</span>]</span>
 <span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>stats.ttest_ind(g1, g0, equal_var<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>stats.ttest_ind(g1, g0, equal_var<span class="op">=</span><span class="va">False</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="28">
 <pre><code>TtestResult(statistic=np.float64(21.105376324953664), pvalue=np.float64(4.666259945494159e-84), df=np.float64(1171.6295727321062))</code></pre>
 </div>
@@ -1253,9 +1254,9 @@ Name: SalePrice, dtype: float64</code></pre>
 <h3 data-number="7.5.5" class="anchored" data-anchor-id="garage-type-and-neighborhood"><span class="header-section-number">7.5.5</span> Garage type and neighborhood</h3>
 <p>Hypothesis: - H0: Garage type and neighborhood are independent. - H1: Garage type and neighborhood are associated.</p>
 <div id="51d37429" class="cell" data-execution_count="29">
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>ct <span class="op">=</span> pd.crosstab(df[<span class="st">'GarageType'</span>], df[<span class="st">'Neighborhood'</span>])</span>
-<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>stats.chi2_contingency(ct)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>stats.chi2_contingency(ct)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="29">
 <pre><code>Chi2ContingencyResult(statistic=np.float64(794.6871326886048), pvalue=np.float64(5.179037846292559e-100), dof=120, expected_freq=array([[7.39666425e-02, 8.70195794e-03, 6.52646846e-02, 2.08846991e-01,
         1.17476432e-01, 6.43944888e-01, 2.21899927e-01, 3.39376360e-01,
@@ -1393,16 +1394,16 @@ Name: SalePrice, dtype: float64</code></pre>
 <h3 data-number="7.6.2" class="anchored" data-anchor-id="example-garage-year-built"><span class="header-section-number">7.6.2</span> Example: Garage year built</h3>
 <p>Initial inspection may suggest that many values of <code>GarageYrBlt</code> are missing. Documentation indicates that missing means no garage.</p>
 <div id="e0128332" class="cell" data-execution_count="30">
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Count missing garage years</span></span>
-<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'GarageYrBlt'</span>].isna().<span class="bu">sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Count missing garage years</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'GarageYrBlt'</span>].isna().<span class="bu">sum</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="30">
 <pre><code>np.int64(81)</code></pre>
 </div>
 </div>
 <p>When checking integrity, we may notice that some garage years precede the house year built.</p>
 <div id="e3857989" class="cell" data-execution_count="31">
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Garage built before house built</span></span>
-<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>(df[<span class="st">'GarageYrBlt'</span>] <span class="op">&lt;</span> df[<span class="st">'YearBuilt'</span>]).<span class="bu">sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Garage built before house built</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>(df[<span class="st">'GarageYrBlt'</span>] <span class="op">&lt;</span> df[<span class="st">'YearBuilt'</span>]).<span class="bu">sum</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="31">
 <pre><code>np.int64(9)</code></pre>
 </div>
@@ -1413,14 +1414,14 @@ Name: SalePrice, dtype: float64</code></pre>
 <h3 data-number="7.6.3" class="anchored" data-anchor-id="example-living-area-and-sale-price"><span class="header-section-number">7.6.3</span> Example: Living area and sale price</h3>
 <p>A strong correlation between <code>GrLivArea</code> and <code>SalePrice</code> may surface.</p>
 <div id="4e32e0fd" class="cell" data-execution_count="32">
-<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Correlation</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Correlation</span></span>
 <span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>sub <span class="op">=</span> df[[<span class="st">'GrLivArea'</span>,<span class="st">'SalePrice'</span>]].dropna()</span>
-<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>sub.corr()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>sub.corr()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="32">
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -1430,12 +1431,12 @@ Name: SalePrice, dtype: float64</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">GrLivArea</td>
+<th data-quarto-table-cell-role="th">GrLivArea</th>
 <td>1.000000</td>
 <td>0.708624</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">SalePrice</td>
+<th data-quarto-table-cell-role="th">SalePrice</th>
 <td>0.708624</td>
 <td>1.000000</td>
 </tr>
@@ -1447,13 +1448,13 @@ Name: SalePrice, dtype: float64</code></pre>
 </div>
 <p>If a few extremely large houses are driving the correlation, it may be necessary to investigate further.</p>
 <div id="773ed4a0" class="cell" data-execution_count="33">
-<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Identify extreme values</span></span>
-<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>sub[sub[<span class="st">'GrLivArea'</span>] <span class="op">&gt;</span> <span class="dv">4000</span>][[<span class="st">'GrLivArea'</span>,<span class="st">'SalePrice'</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Identify extreme values</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>sub[sub[<span class="st">'GrLivArea'</span>] <span class="op">&gt;</span> <span class="dv">4000</span>][[<span class="st">'GrLivArea'</span>,<span class="st">'SalePrice'</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="33">
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -1463,22 +1464,22 @@ Name: SalePrice, dtype: float64</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">523</td>
+<th data-quarto-table-cell-role="th">523</th>
 <td>4676</td>
 <td>184750</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">691</td>
+<th data-quarto-table-cell-role="th">691</th>
 <td>4316</td>
 <td>755000</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">1182</td>
+<th data-quarto-table-cell-role="th">1182</th>
 <td>4476</td>
 <td>745000</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">1298</td>
+<th data-quarto-table-cell-role="th">1298</th>
 <td>5642</td>
 <td>160000</td>
 </tr>
@@ -1502,9 +1503,9 @@ Name: SalePrice, dtype: float64</code></pre>
 <li>Ensure that another analyst can rerun the code and obtain identical results.</li>
 </ul>
 <div id="bd3523e0" class="cell" data-execution_count="34">
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example: set a random seed for reproducibility</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example: set a random seed for reproducibility</span></span>
 <span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">20250923</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">20250923</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="documentation" class="level3" data-number="7.7.2">
@@ -1514,8 +1515,8 @@ Name: SalePrice, dtype: float64</code></pre>
 <li>Keep a running log of questions, anomalies, and decisions.</li>
 </ul>
 <div id="c0af6719" class="cell" data-execution_count="35">
-<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example: create an indicator for presence of a pool</span></span>
-<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'HasPool'</span>] <span class="op">=</span> df[<span class="st">'PoolArea'</span>] <span class="op">&gt;</span> <span class="dv">0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb59"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example: create an indicator for presence of a pool</span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'HasPool'</span>] <span class="op">=</span> df[<span class="st">'PoolArea'</span>] <span class="op">&gt;</span> <span class="dv">0</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="balanced-curiosity-and-rigor" class="level3" data-number="7.7.3">
@@ -1532,14 +1533,14 @@ Name: SalePrice, dtype: float64</code></pre>
 <li>This practice keeps focus on the magnitude of relationships.</li>
 </ul>
 <div id="316e34a4" class="cell" data-execution_count="36">
-<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example: compute Cohen's d for fireplace vs no fireplace</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example: compute Cohen's d for fireplace vs no fireplace</span></span>
 <span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>sub <span class="op">=</span> df[[<span class="st">'SalePrice'</span>,<span class="st">'Fireplaces'</span>]].dropna()</span>
 <span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>sub[<span class="st">'has_fp'</span>] <span class="op">=</span> (sub[<span class="st">'Fireplaces'</span>] <span class="op">&gt;</span> <span class="dv">0</span>).astype(<span class="bu">int</span>)</span>
 <span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a>mean_diff <span class="op">=</span> sub.groupby(<span class="st">'has_fp'</span>)[<span class="st">'SalePrice'</span>].mean().diff().iloc[<span class="op">-</span><span class="dv">1</span>]</span>
 <span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a>pooled_sd <span class="op">=</span> sub.groupby(<span class="st">'has_fp'</span>)[<span class="st">'SalePrice'</span>].std().mean()</span>
 <span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a>cohens_d <span class="op">=</span> mean_diff <span class="op">/</span> pooled_sd</span>
-<span id="cb60-8"><a href="#cb60-8" aria-hidden="true" tabindex="-1"></a>cohens_d</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb60-8"><a href="#cb60-8" aria-hidden="true" tabindex="-1"></a>cohens_d</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="36">
 <pre><code>np.float64(1.144008229281349)</code></pre>
 </div>
@@ -1634,7 +1635,7 @@ Name: SalePrice, dtype: float64</code></pre>
 <li>Let’s begin by loading the data</li>
 </ul>
 <div id="572ce7d1" class="cell" data-execution_count="37">
-<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1: import essential packages for analysis and visualization </span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb62"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1: import essential packages for analysis and visualization </span></span>
 <span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd <span class="co"># used for data manipulation and structuring data </span></span>
 <span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np <span class="co"># supports numerical operations</span></span>
 <span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> stats <span class="co"># provides statistical operations </span></span>
@@ -1648,7 +1649,7 @@ Name: SalePrice, dtype: float64</code></pre>
 <span id="cb62-12"><a href="#cb62-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb62-13"><a href="#cb62-13" aria-hidden="true" tabindex="-1"></a>housing <span class="op">=</span> cal.frame</span>
 <span id="cb62-14"><a href="#cb62-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb62-15"><a href="#cb62-15" aria-hidden="true" tabindex="-1"></a>housing <span class="op">=</span> housing.rename(columns<span class="op">=</span>{<span class="st">"MedHouseVal"</span>: <span class="st">"medv"</span>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb62-15"><a href="#cb62-15" aria-hidden="true" tabindex="-1"></a>housing <span class="op">=</span> housing.rename(columns<span class="op">=</span>{<span class="st">"MedHouseVal"</span>: <span class="st">"medv"</span>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ul>
 <li>Then, we want to clean the data</li>
@@ -1656,7 +1657,7 @@ Name: SalePrice, dtype: float64</code></pre>
 <li>Cleaning ensures the tests use valid and complete data</li>
 </ul>
 <div id="705bf0d8" class="cell" data-execution_count="38">
-<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1: Clean up column names</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb63"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1: Clean up column names</span></span>
 <span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>housing.columns <span class="op">=</span> (</span>
 <span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>    housing.columns</span>
 <span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a>    .<span class="bu">str</span>.strip()                          <span class="co"># remove leading/trailing spaces</span></span>
@@ -1673,7 +1674,7 @@ Name: SalePrice, dtype: float64</code></pre>
 <span id="cb63-15"><a href="#cb63-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb63-16"><a href="#cb63-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 4: Verify the cleaned dataset</span></span>
 <span id="cb63-17"><a href="#cb63-17" aria-hidden="true" tabindex="-1"></a>housing.info()</span>
-<span id="cb63-18"><a href="#cb63-18" aria-hidden="true" tabindex="-1"></a>housing.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb63-18"><a href="#cb63-18" aria-hidden="true" tabindex="-1"></a>housing.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
 RangeIndex: 20640 entries, 0 to 20639
@@ -1696,7 +1697,7 @@ memory usage: 1.4 MB</code></pre>
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -1713,7 +1714,7 @@ memory usage: 1.4 MB</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
+<th data-quarto-table-cell-role="th">0</th>
 <td>8.3252</td>
 <td>41.0</td>
 <td>6.984127</td>
@@ -1725,7 +1726,7 @@ memory usage: 1.4 MB</code></pre>
 <td>4.526</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
+<th data-quarto-table-cell-role="th">1</th>
 <td>8.3014</td>
 <td>21.0</td>
 <td>6.238137</td>
@@ -1737,7 +1738,7 @@ memory usage: 1.4 MB</code></pre>
 <td>3.585</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
+<th data-quarto-table-cell-role="th">2</th>
 <td>7.2574</td>
 <td>52.0</td>
 <td>8.288136</td>
@@ -1749,7 +1750,7 @@ memory usage: 1.4 MB</code></pre>
 <td>3.521</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
+<th data-quarto-table-cell-role="th">3</th>
 <td>5.6431</td>
 <td>52.0</td>
 <td>5.817352</td>
@@ -1761,7 +1762,7 @@ memory usage: 1.4 MB</code></pre>
 <td>3.413</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
+<th data-quarto-table-cell-role="th">4</th>
 <td>3.8462</td>
 <td>52.0</td>
 <td>6.281853</td>
@@ -1782,8 +1783,8 @@ memory usage: 1.4 MB</code></pre>
 <li>We can summarize the dataset using ‘.describe()’ to see its spread and variability before running tests</li>
 </ul>
 <div id="8be4fa6b" class="cell" data-execution_count="39">
-<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>housing.describe()</span>
-<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>housing[<span class="st">"medv"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb65"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>housing.describe()</span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>housing[<span class="st">"medv"</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="39">
 <pre><code>0        4.526
 1        3.585
@@ -1813,10 +1814,10 @@ Name: medv, Length: 20640, dtype: float64</code></pre>
 </ul></li>
 </ul>
 <div id="a1221ff4" class="cell" data-execution_count="40">
-<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>prices <span class="op">=</span> housing[<span class="st">"medv"</span>].dropna()</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb67"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>prices <span class="op">=</span> housing[<span class="st">"medv"</span>].dropna()</span>
 <span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a>t_stat, p_value <span class="op">=</span> stats.ttest_1samp(prices, popmean<span class="op">=</span><span class="fl">2.0</span>)  </span>
-<span id="cb67-4"><a href="#cb67-4" aria-hidden="true" tabindex="-1"></a>t_stat, p_value</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb67-4"><a href="#cb67-4" aria-hidden="true" tabindex="-1"></a>t_stat, p_value</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="40">
 <pre><code>(np.float64(8.535417086565511), np.float64(1.4916238327737253e-17))</code></pre>
 </div>
@@ -1827,11 +1828,11 @@ Name: medv, Length: 20640, dtype: float64</code></pre>
 <li>the ttest_1samp() compares sample’s mean to a known population mean</li>
 </ul>
 <div id="ac349076" class="cell" data-execution_count="41">
-<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">0.05</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb69"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">0.05</span></span>
 <span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> p_value <span class="op">&lt;</span> alpha:</span>
 <span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Reject $H_0 (p = </span><span class="sc">{</span>p_value<span class="sc">:.3f}</span><span class="ss">) → Mean home value differs from $200,000."</span>)</span>
 <span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
-<span id="cb69-5"><a href="#cb69-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Fail to reject $H_0 (p = </span><span class="sc">{</span>p_value<span class="sc">:.3f}</span><span class="ss">) → No difference from $200,000."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb69-5"><a href="#cb69-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Fail to reject $H_0 (p = </span><span class="sc">{</span>p_value<span class="sc">:.3f}</span><span class="ss">) → No difference from $200,000."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Reject $H_0 (p = 0.000) → Mean home value differs from $200,000.</code></pre>
 </div>
@@ -1844,13 +1845,13 @@ Name: medv, Length: 20640, dtype: float64</code></pre>
 <li><p>We can also visualize this by using a histogram</p></li>
 </ul>
 <div id="16938e7e" class="cell" data-execution_count="42">
-<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>plt.hist(prices, bins<span class="op">=</span><span class="dv">30</span>, color<span class="op">=</span><span class="st">"skyblue"</span>, edgecolor<span class="op">=</span><span class="st">"black"</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb71"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>plt.hist(prices, bins<span class="op">=</span><span class="dv">30</span>, color<span class="op">=</span><span class="st">"skyblue"</span>, edgecolor<span class="op">=</span><span class="st">"black"</span>)</span>
 <span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a>plt.axvline(<span class="dv">20</span>, color<span class="op">=</span><span class="st">"red"</span>, linestyle<span class="op">=</span><span class="st">"--"</span>, label<span class="op">=</span><span class="st">"μ = 2.0 ($200,000)"</span>)</span>
 <span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Distribution of Median Home Values"</span>)</span>
 <span id="cb71-4"><a href="#cb71-4" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Median Value ($1000s)"</span>)</span>
 <span id="cb71-5"><a href="#cb71-5" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Frequency"</span>)</span>
 <span id="cb71-6"><a href="#cb71-6" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
-<span id="cb71-7"><a href="#cb71-7" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb71-7"><a href="#cb71-7" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -1868,22 +1869,22 @@ Name: medv, Length: 20640, dtype: float64</code></pre>
 <li><p><span class="math inline">\(H_1\)</span>: median home value <span class="math inline">\(\ne\)</span> $200{,}000</p></li>
 </ul>
 <div id="06b56b32" class="cell" data-execution_count="43">
-<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> wilcoxon</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb72"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> wilcoxon</span>
 <span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a>prices <span class="op">=</span> housing[<span class="st">"medv"</span>].dropna()</span>
 <span id="cb72-4"><a href="#cb72-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb72-5"><a href="#cb72-5" aria-hidden="true" tabindex="-1"></a>w_stat, p_value <span class="op">=</span> wilcoxon(prices <span class="op">-</span> <span class="fl">2.0</span>, alternative<span class="op">=</span><span class="st">"two-sided"</span>)</span>
-<span id="cb72-6"><a href="#cb72-6" aria-hidden="true" tabindex="-1"></a>w_stat, p_value</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb72-6"><a href="#cb72-6" aria-hidden="true" tabindex="-1"></a>w_stat, p_value</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="43">
 <pre><code>(np.float64(99446113.5), np.float64(1.1542596775842864e-14))</code></pre>
 </div>
 </div>
 <div id="70bc27af" class="cell" data-execution_count="44">
-<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">0.05</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb74"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">0.05</span></span>
 <span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> p_value <span class="op">&lt;</span> alpha:</span>
 <span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Reject $H_0$ (p = </span><span class="sc">{</span>p_value<span class="sc">:.4f}</span><span class="ss">) → Median home value differs from $200,000."</span>)</span>
 <span id="cb74-4"><a href="#cb74-4" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
-<span id="cb74-5"><a href="#cb74-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Fail to reject $H_0$ (p = </span><span class="sc">{</span>p_value<span class="sc">:.4f}</span><span class="ss">) → No evidence of a difference from $200,000."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb74-5"><a href="#cb74-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Fail to reject $H_0$ (p = </span><span class="sc">{</span>p_value<span class="sc">:.4f}</span><span class="ss">) → No evidence of a difference from $200,000."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Reject $H_0$ (p = 0.0000) → Median home value differs from $200,000.</code></pre>
 </div>
@@ -1910,7 +1911,7 @@ Name: medv, Length: 20640, dtype: float64</code></pre>
 </ul></li>
 </ul>
 <div id="fffd22b2" class="cell" data-execution_count="45">
-<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>housing <span class="op">=</span> housing.rename(columns<span class="op">=</span>{</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb76"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>housing <span class="op">=</span> housing.rename(columns<span class="op">=</span>{</span>
 <span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"MedInc"</span>: <span class="st">"medinc"</span>,</span>
 <span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"MedHouseVal"</span>: <span class="st">"medv"</span>,</span>
 <span id="cb76-4"><a href="#cb76-4" aria-hidden="true" tabindex="-1"></a>})</span>
@@ -1920,17 +1921,17 @@ Name: medv, Length: 20640, dtype: float64</code></pre>
 <span id="cb76-8"><a href="#cb76-8" aria-hidden="true" tabindex="-1"></a>low_income <span class="op">=</span> housing[housing[<span class="st">"medinc"</span>] <span class="op">&lt;=</span> income_median][<span class="st">"medv"</span>].dropna()</span>
 <span id="cb76-9"><a href="#cb76-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb76-10"><a href="#cb76-10" aria-hidden="true" tabindex="-1"></a>t_stat, p_value <span class="op">=</span> stats.ttest_ind(high_income, low_income, equal_var<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb76-11"><a href="#cb76-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"T-statistic: </span><span class="sc">{</span>t_stat<span class="sc">:.3f}</span><span class="ss">, P-value: </span><span class="sc">{</span>p_value<span class="sc">:.4f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb76-11"><a href="#cb76-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"T-statistic: </span><span class="sc">{</span>t_stat<span class="sc">:.3f}</span><span class="ss">, P-value: </span><span class="sc">{</span>p_value<span class="sc">:.4f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>T-statistic: 86.363, P-value: 0.0000</code></pre>
 </div>
 </div>
 <div id="2d42210e" class="cell" data-execution_count="46">
-<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">0.05</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb78"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">0.05</span></span>
 <span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> p_value <span class="op">&lt;</span> alpha:</span>
 <span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Reject $H_0 (p = </span><span class="sc">{</span>p_value<span class="sc">:.4f}</span><span class="ss">) → Mean home values differ."</span>)</span>
 <span id="cb78-4"><a href="#cb78-4" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
-<span id="cb78-5"><a href="#cb78-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Fail to reject $H_0 (p = </span><span class="sc">{</span>p_value<span class="sc">:.4f}</span><span class="ss">) → No difference in mean home values."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb78-5"><a href="#cb78-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Fail to reject $H_0 (p = </span><span class="sc">{</span>p_value<span class="sc">:.4f}</span><span class="ss">) → No difference in mean home values."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Reject $H_0 (p = 0.0000) → Mean home values differ.</code></pre>
 </div>
@@ -1942,7 +1943,7 @@ Name: medv, Length: 20640, dtype: float64</code></pre>
 <li><p>The boxes represent interquartile ranges, so if they barely overlap that’s a visual clue of statistical difference</p></li>
 </ul>
 <div id="e323cdcd" class="cell" data-execution_count="47">
-<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>housing[<span class="st">"income_group"</span>] <span class="op">=</span> np.where(housing[<span class="st">"medinc"</span>] <span class="op">&gt;</span> income_median,</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb80"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>housing[<span class="st">"income_group"</span>] <span class="op">=</span> np.where(housing[<span class="st">"medinc"</span>] <span class="op">&gt;</span> income_median,</span>
 <span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a><span class="st">"High income"</span>,</span>
 <span id="cb80-3"><a href="#cb80-3" aria-hidden="true" tabindex="-1"></a><span class="st">"Low income"</span>)</span>
 <span id="cb80-4"><a href="#cb80-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -1950,7 +1951,7 @@ Name: medv, Length: 20640, dtype: float64</code></pre>
 <span id="cb80-6"><a href="#cb80-6" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Median Home Values – High vs. Low Income Neighborhoods"</span>)</span>
 <span id="cb80-7"><a href="#cb80-7" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Income Group"</span>)</span>
 <span id="cb80-8"><a href="#cb80-8" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Median Home Value (medv)"</span>)</span>
-<span id="cb80-9"><a href="#cb80-9" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb80-9"><a href="#cb80-9" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -1966,7 +1967,7 @@ Name: medv, Length: 20640, dtype: float64</code></pre>
 <li><span class="math inline">\(H_1\)</span>: the distributions differ</li>
 </ul>
 <div id="95de0fd3" class="cell" data-execution_count="48">
-<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> stats</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb81"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> stats</span>
 <span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a>stat, p_value <span class="op">=</span> stats.mannwhitneyu(high_income, low_income, alternative<span class="op">=</span><span class="st">"two-sided"</span>)</span>
 <span id="cb81-3"><a href="#cb81-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb81-4"><a href="#cb81-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Mann-Whitney U statistic: </span><span class="sc">{</span>stat<span class="sc">:.3f}</span><span class="ss">, P-value: </span><span class="sc">{</span>p_value<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
@@ -1975,7 +1976,7 @@ Name: medv, Length: 20640, dtype: float64</code></pre>
 <span id="cb81-7"><a href="#cb81-7" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> p_value <span class="op">&lt;</span> alpha:</span>
 <span id="cb81-8"><a href="#cb81-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Reject $H_0$ (p = </span><span class="sc">{</span>p_value<span class="sc">:.4f}</span><span class="ss">) → "f"Median home values differ between income groups."</span>)</span>
 <span id="cb81-9"><a href="#cb81-9" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
-<span id="cb81-10"><a href="#cb81-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Fail to reject $H_0$ (p = </span><span class="sc">{</span>p_value<span class="sc">:.4f}</span><span class="ss">) → "</span> <span class="ss">f"No difference in median home values by income group."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb81-10"><a href="#cb81-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Fail to reject $H_0$ (p = </span><span class="sc">{</span>p_value<span class="sc">:.4f}</span><span class="ss">) → "</span> <span class="ss">f"No difference in median home values by income group."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Mann-Whitney U statistic: 87648425.000, P-value: 0.0000
 Reject $H_0$ (p = 0.0000) → Median home values differ between income groups.</code></pre>
@@ -1992,7 +1993,7 @@ Reject $H_0$ (p = 0.0000) → Median home values differ between income groups.</
 <li><span class="math inline">\(H_1\)</span>: at least one quartile mean differs</li>
 </ul>
 <div id="09e8d1c6" class="cell" data-execution_count="49">
-<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a>housing[<span class="st">"income_quartile"</span>] <span class="op">=</span> pd.qcut(</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb83"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a>housing[<span class="st">"income_quartile"</span>] <span class="op">=</span> pd.qcut(</span>
 <span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a>housing[<span class="st">"medinc"</span>],</span>
 <span id="cb83-3"><a href="#cb83-3" aria-hidden="true" tabindex="-1"></a>q<span class="op">=</span><span class="dv">4</span>,</span>
 <span id="cb83-4"><a href="#cb83-4" aria-hidden="true" tabindex="-1"></a>labels<span class="op">=</span>[<span class="st">"Q1 (lowest)"</span>, <span class="st">"Q2"</span>, <span class="st">"Q3"</span>, <span class="st">"Q4 (highest)"</span>]</span>
@@ -2008,7 +2009,7 @@ Reject $H_0$ (p = 0.0000) → Median home values differ between income groups.</
 <span id="cb83-14"><a href="#cb83-14" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> p_value <span class="op">&lt;</span> alpha:</span>
 <span id="cb83-15"><a href="#cb83-15" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Reject $H_0$ (p = </span><span class="sc">{</span>p_value<span class="sc">:.4f}</span><span class="ss">) → "</span> <span class="ss">f"Mean home values differ across income quartiles."</span>)</span>
 <span id="cb83-16"><a href="#cb83-16" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
-<span id="cb83-17"><a href="#cb83-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Fail to reject $H_0$ (p = </span><span class="sc">{</span>p_value<span class="sc">:.4f}</span><span class="ss">) → "</span> <span class="ss">f"No difference in mean home values across income quartiles."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb83-17"><a href="#cb83-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Fail to reject $H_0$ (p = </span><span class="sc">{</span>p_value<span class="sc">:.4f}</span><span class="ss">) → "</span> <span class="ss">f"No difference in mean home values across income quartiles."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>F-statistic: 4277.066, P-value: 0.0000
 Reject $H_0$ (p = 0.0000) → Mean home values differ across income quartiles.</code></pre>
@@ -2025,11 +2026,11 @@ The default of observed=False is deprecated and will be changed to True in a fut
 <li><p>To see this visually:</p></li>
 </ul>
 <div id="cfb48689" class="cell" data-execution_count="50">
-<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a>sns.boxplot(x<span class="op">=</span><span class="st">"income_quartile"</span>, y<span class="op">=</span><span class="st">"medv"</span>, data<span class="op">=</span>housing)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb86"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a>sns.boxplot(x<span class="op">=</span><span class="st">"income_quartile"</span>, y<span class="op">=</span><span class="st">"medv"</span>, data<span class="op">=</span>housing)</span>
 <span id="cb86-2"><a href="#cb86-2" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Home Values Across Income Quartiles"</span>)</span>
 <span id="cb86-3"><a href="#cb86-3" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Income Quartile (medinc)"</span>)</span>
 <span id="cb86-4"><a href="#cb86-4" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Median Home Value (medv)"</span>)</span>
-<span id="cb86-5"><a href="#cb86-5" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb86-5"><a href="#cb86-5" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -2045,7 +2046,7 @@ The default of observed=False is deprecated and will be changed to True in a fut
 <li><span class="math inline">\(H_1\)</span>: at least one distribution differs</li>
 </ul>
 <div id="837d6b57" class="cell" data-execution_count="51">
-<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a>groups <span class="op">=</span> [group[<span class="st">"medv"</span>].dropna() <span class="cf">for</span> _, group <span class="kw">in</span> housing.groupby(<span class="st">"income_quartile"</span>)]</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb87"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a>groups <span class="op">=</span> [group[<span class="st">"medv"</span>].dropna() <span class="cf">for</span> _, group <span class="kw">in</span> housing.groupby(<span class="st">"income_quartile"</span>)]</span>
 <span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb87-3"><a href="#cb87-3" aria-hidden="true" tabindex="-1"></a>h_stat, p_value <span class="op">=</span> stats.kruskal(<span class="op">*</span>groups)</span>
 <span id="cb87-4"><a href="#cb87-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -2055,7 +2056,7 @@ The default of observed=False is deprecated and will be changed to True in a fut
 <span id="cb87-8"><a href="#cb87-8" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> p_value <span class="op">&lt;</span> alpha:</span>
 <span id="cb87-9"><a href="#cb87-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Reject $H_0$ (p = </span><span class="sc">{</span>p_value<span class="sc">:.4f}</span><span class="ss">) → "</span> <span class="ss">f"Median home values differ across income quartiles."</span>)</span>
 <span id="cb87-10"><a href="#cb87-10" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
-<span id="cb87-11"><a href="#cb87-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Fail to reject $H_0$ (p = </span><span class="sc">{</span>p_value<span class="sc">:.4f}</span><span class="ss">) → "f"No difference in median home values across income quartiles."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb87-11"><a href="#cb87-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Fail to reject $H_0$ (p = </span><span class="sc">{</span>p_value<span class="sc">:.4f}</span><span class="ss">) → "f"No difference in median home values across income quartiles."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>H-statistic: 8726.603, P-value: 0.0000
 Reject $H_0$ (p = 0.0000) → Median home values differ across income quartiles.</code></pre>
@@ -2076,7 +2077,7 @@ The default of observed=False is deprecated and will be changed to True in a fut
 <li>We’ll test whether income level is associated with house age category.</li>
 </ul>
 <div id="2fb302df" class="cell" data-execution_count="52">
-<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a>housing <span class="op">=</span> housing.rename(columns<span class="op">=</span>{</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb90"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a>housing <span class="op">=</span> housing.rename(columns<span class="op">=</span>{</span>
 <span id="cb90-2"><a href="#cb90-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"MedInc"</span>: <span class="st">"medinc"</span>,</span>
 <span id="cb90-3"><a href="#cb90-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"HouseAge"</span>: <span class="st">"houseage"</span></span>
 <span id="cb90-4"><a href="#cb90-4" aria-hidden="true" tabindex="-1"></a>})</span>
@@ -2085,7 +2086,7 @@ The default of observed=False is deprecated and will be changed to True in a fut
 <span id="cb90-7"><a href="#cb90-7" aria-hidden="true" tabindex="-1"></a>age_median    <span class="op">=</span> housing[<span class="st">"houseage"</span>].median()</span>
 <span id="cb90-8"><a href="#cb90-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb90-9"><a href="#cb90-9" aria-hidden="true" tabindex="-1"></a>housing[<span class="st">"high_income"</span>] <span class="op">=</span> np.where(housing[<span class="st">"medinc"</span>] <span class="op">&gt;</span> income_median, <span class="dv">1</span>, <span class="dv">0</span>)</span>
-<span id="cb90-10"><a href="#cb90-10" aria-hidden="true" tabindex="-1"></a>housing[<span class="st">"old_house"</span>]   <span class="op">=</span> np.where(housing[<span class="st">"houseage"</span>] <span class="op">&gt;</span> age_median, <span class="dv">1</span>, <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb90-10"><a href="#cb90-10" aria-hidden="true" tabindex="-1"></a>housing[<span class="st">"old_house"</span>]   <span class="op">=</span> np.where(housing[<span class="st">"houseage"</span>] <span class="op">&gt;</span> age_median, <span class="dv">1</span>, <span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ul>
 <li>Hypotheses:
@@ -2095,7 +2096,7 @@ The default of observed=False is deprecated and will be changed to True in a fut
 </ul></li>
 </ul>
 <div id="95b821cc" class="cell" data-execution_count="53">
-<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a>table <span class="op">=</span> pd.crosstab(housing[<span class="st">"high_income"</span>], housing[<span class="st">"old_house"</span>])</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb91"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a>table <span class="op">=</span> pd.crosstab(housing[<span class="st">"high_income"</span>], housing[<span class="st">"old_house"</span>])</span>
 <span id="cb91-2"><a href="#cb91-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb91-3"><a href="#cb91-3" aria-hidden="true" tabindex="-1"></a>chi2, p_value, dof, expected <span class="op">=</span> stats.chi2_contingency(table)</span>
 <span id="cb91-4"><a href="#cb91-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -2105,7 +2106,7 @@ The default of observed=False is deprecated and will be changed to True in a fut
 <span id="cb91-8"><a href="#cb91-8" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> p_value <span class="op">&lt;</span> alpha:</span>
 <span id="cb91-9"><a href="#cb91-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Reject $H_0$ (p = </span><span class="sc">{</span>p_value<span class="sc">:.4f}</span><span class="ss">) → "</span> <span class="ss">f"There is a significant association between income level and house age."</span>)</span>
 <span id="cb91-10"><a href="#cb91-10" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
-<span id="cb91-11"><a href="#cb91-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Fail to reject $H_0$ (p = </span><span class="sc">{</span>p_value<span class="sc">:.4f}</span><span class="ss">) → "</span> <span class="ss">f"No significant association between income level and house age."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb91-11"><a href="#cb91-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Fail to reject $H_0$ (p = </span><span class="sc">{</span>p_value<span class="sc">:.4f}</span><span class="ss">) → "</span> <span class="ss">f"No significant association between income level and house age."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Chi2 Statistic: 140.180, P-value: 0.0000, Degrees of Freedom: 1
 Reject $H_0$ (p = 0.0000) → There is a significant association between income level and house age.</code></pre>
@@ -2117,12 +2118,12 @@ Reject $H_0$ (p = 0.0000) → There is a significant association between income 
 <li><p>Visual</p></li>
 </ul>
 <div id="3fa49afd" class="cell" data-execution_count="54">
-<div class="sourceCode cell-code" id="cb93"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a>sns.countplot(x<span class="op">=</span><span class="st">"old_house"</span>, hue<span class="op">=</span><span class="st">"high_income"</span>, data<span class="op">=</span>housing)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb93"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a>sns.countplot(x<span class="op">=</span><span class="st">"old_house"</span>, hue<span class="op">=</span><span class="st">"high_income"</span>, data<span class="op">=</span>housing)</span>
 <span id="cb93-2"><a href="#cb93-2" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"House Age Category by Income Level"</span>)</span>
 <span id="cb93-3"><a href="#cb93-3" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Old House (1 = older than median age)"</span>)</span>
 <span id="cb93-4"><a href="#cb93-4" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Count of Tracts"</span>)</span>
 <span id="cb93-5"><a href="#cb93-5" aria-hidden="true" tabindex="-1"></a>plt.legend(title<span class="op">=</span><span class="st">"High Income (1 = above median medinc)"</span>)</span>
-<span id="cb93-6"><a href="#cb93-6" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb93-6"><a href="#cb93-6" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -2145,7 +2146,7 @@ Reject $H_0$ (p = 0.0000) → There is a significant association between income 
 <li><span class="math inline">\(H_1: p \ne p_0\)</span> (the true proportion differs from 30%)</li>
 </ul>
 <div id="9f2414f3" class="cell" data-execution_count="55">
-<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statsmodels.stats.proportion <span class="im">import</span> proportions_ztest</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb94"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statsmodels.stats.proportion <span class="im">import</span> proportions_ztest</span>
 <span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb94-3"><a href="#cb94-3" aria-hidden="true" tabindex="-1"></a>high_income_flag <span class="op">=</span> housing[<span class="st">"medinc"</span>] <span class="op">&gt;=</span> <span class="fl">5.0</span></span>
 <span id="cb94-4"><a href="#cb94-4" aria-hidden="true" tabindex="-1"></a>count <span class="op">=</span> high_income_flag.<span class="bu">sum</span>()</span>
@@ -2159,7 +2160,7 @@ Reject $H_0$ (p = 0.0000) → There is a significant association between income 
 <span id="cb94-12"><a href="#cb94-12" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> p_value <span class="op">&lt;</span> alpha:</span>
 <span id="cb94-13"><a href="#cb94-13" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Reject $H_0$ → The proportion of high-income tracts differs from 30%."</span>)</span>
 <span id="cb94-14"><a href="#cb94-14" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
-<span id="cb94-15"><a href="#cb94-15" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Fail to reject $H_0$ → No significant difference from 30%."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb94-15"><a href="#cb94-15" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Fail to reject $H_0$ → No significant difference from 30%."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Z-statistic: -28.351, P-value: 0.0000
 Reject $H_0$ → The proportion of high-income tracts differs from 30%.</code></pre>
@@ -2183,7 +2184,7 @@ Reject $H_0$ → The proportion of high-income tracts differs from 30%.</code></
 <li><span class="math inline">\(H_1: \rho \ne 0\)</span> (a significant linear correlation exists)</li>
 </ul>
 <div id="729ea4b7" class="cell" data-execution_count="56">
-<div class="sourceCode cell-code" id="cb96"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> housing[<span class="st">"averooms"</span>]</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb96"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> housing[<span class="st">"averooms"</span>]</span>
 <span id="cb96-2"><a href="#cb96-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> housing[<span class="st">"medv"</span>]</span>
 <span id="cb96-3"><a href="#cb96-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb96-4"><a href="#cb96-4" aria-hidden="true" tabindex="-1"></a>corr, p_value <span class="op">=</span> stats.pearsonr(x, y)</span>
@@ -2194,7 +2195,7 @@ Reject $H_0$ → The proportion of high-income tracts differs from 30%.</code></
 <span id="cb96-9"><a href="#cb96-9" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> p_value <span class="op">&lt;</span> alpha:</span>
 <span id="cb96-10"><a href="#cb96-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Reject $H_0$ (p = </span><span class="sc">{</span>p_value<span class="sc">:.4f}</span><span class="ss">) → Significant linear correlation."</span>)</span>
 <span id="cb96-11"><a href="#cb96-11" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
-<span id="cb96-12"><a href="#cb96-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Fail to reject $H_0$ (p = </span><span class="sc">{</span>p_value<span class="sc">:.4f}</span><span class="ss">) → No significant linear correlation."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb96-12"><a href="#cb96-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Fail to reject $H_0$ (p = </span><span class="sc">{</span>p_value<span class="sc">:.4f}</span><span class="ss">) → No significant linear correlation."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Correlation coefficient (r): 0.152, P-value: 0.0000
 Reject $H_0$ (p = 0.0000) → Significant linear correlation.</code></pre>
@@ -2204,11 +2205,11 @@ Reject $H_0$ (p = 0.0000) → Significant linear correlation.</code></pre>
 <li>Scatterplot for visualization</li>
 </ul>
 <div id="1b3db48e" class="cell" data-execution_count="57">
-<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a>sns.scatterplot(x<span class="op">=</span>housing[<span class="st">"averooms"</span>], y<span class="op">=</span>housing[<span class="st">"medv"</span>], alpha<span class="op">=</span><span class="fl">0.4</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb98"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a>sns.scatterplot(x<span class="op">=</span>housing[<span class="st">"averooms"</span>], y<span class="op">=</span>housing[<span class="st">"medv"</span>], alpha<span class="op">=</span><span class="fl">0.4</span>)</span>
 <span id="cb98-2"><a href="#cb98-2" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Average Rooms vs. Median Home Value"</span>)</span>
 <span id="cb98-3"><a href="#cb98-3" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Average Number of Rooms per Dwelling (averooms)"</span>)</span>
 <span id="cb98-4"><a href="#cb98-4" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Median Home Value (medv)"</span>)</span>
-<span id="cb98-5"><a href="#cb98-5" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb98-5"><a href="#cb98-5" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -2224,7 +2225,7 @@ Reject $H_0$ (p = 0.0000) → Significant linear correlation.</code></pre>
 <li><span class="math inline">\(H_1: \rho \ne 0\)</span> (a monotonic relationship exists)</li>
 </ul>
 <div id="5ab68937" class="cell" data-execution_count="58">
-<div class="sourceCode cell-code" id="cb99"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> housing[<span class="st">"averooms"</span>]</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb99"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> housing[<span class="st">"averooms"</span>]</span>
 <span id="cb99-2"><a href="#cb99-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> housing[<span class="st">"medv"</span>]</span>
 <span id="cb99-3"><a href="#cb99-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb99-4"><a href="#cb99-4" aria-hidden="true" tabindex="-1"></a>rho, p_value <span class="op">=</span> stats.spearmanr(x, y)</span>
@@ -2235,7 +2236,7 @@ Reject $H_0$ (p = 0.0000) → Significant linear correlation.</code></pre>
 <span id="cb99-9"><a href="#cb99-9" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> p_value <span class="op">&lt;</span> alpha:</span>
 <span id="cb99-10"><a href="#cb99-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Reject $H_0$ (p = </span><span class="sc">{</span>p_value<span class="sc">:.4f}</span><span class="ss">) → Significant monotonic relationship."</span>)</span>
 <span id="cb99-11"><a href="#cb99-11" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
-<span id="cb99-12"><a href="#cb99-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Fail to reject $H_0$ (p = </span><span class="sc">{</span>p_value<span class="sc">:.4f}</span><span class="ss">) → No significant monotonic relationship."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb99-12"><a href="#cb99-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Fail to reject $H_0$ (p = </span><span class="sc">{</span>p_value<span class="sc">:.4f}</span><span class="ss">) → No significant monotonic relationship."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Spearman’s rho: 0.263, P-value: 0.0000
 Reject $H_0$ (p = 0.0000) → Significant monotonic relationship.</code></pre>
@@ -2248,7 +2249,7 @@ Reject $H_0$ (p = 0.0000) → Significant monotonic relationship.</code></pre>
 <li>Each statisical test corresponds to a specific research question type:</li>
 </ul>
 <div id="1d0381af" class="cell" data-execution_count="59">
-<div class="sourceCode cell-code" id="cb101"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> {</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb101"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> {</span>
 <span id="cb101-2"><a href="#cb101-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Test"</span>: [</span>
 <span id="cb101-3"><a href="#cb101-3" aria-hidden="true" tabindex="-1"></a>        <span class="st">"One-sample t-test"</span>,</span>
 <span id="cb101-4"><a href="#cb101-4" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Wilcoxon Signed-Rank Test"</span>,</span>
@@ -2300,12 +2301,12 @@ Reject $H_0$ (p = 0.0000) → Significant monotonic relationship.</code></pre>
 <span id="cb101-50"><a href="#cb101-50" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb101-51"><a href="#cb101-51" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb101-52"><a href="#cb101-52" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame(data)</span>
-<span id="cb101-53"><a href="#cb101-53" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb101-53"><a href="#cb101-53" aria-hidden="true" tabindex="-1"></a>df</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="59">
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -2317,70 +2318,70 @@ Reject $H_0$ (p = 0.0000) → Significant monotonic relationship.</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
+<th data-quarto-table-cell-role="th">0</th>
 <td>One-sample t-test</td>
 <td>Compare sample mean to a known value</td>
 <td>Avg home value vs $200k</td>
 <td>Is mean ≠ hypothesized value?</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
+<th data-quarto-table-cell-role="th">1</th>
 <td>Wilcoxon Signed-Rank Test</td>
 <td>Nonparametric alternative to one-sample t-test</td>
 <td>Median home value vs $200k</td>
 <td>Is median ≠ hypothesized value?</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
+<th data-quarto-table-cell-role="th">2</th>
 <td>Two-sample t-test</td>
 <td>Compare means between two independent groups</td>
 <td>High- vs low-income neighborhoods</td>
 <td>Difference in group means</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
+<th data-quarto-table-cell-role="th">3</th>
 <td>Mann–Whitney U Test</td>
 <td>Nonparametric alternative to two-sample t-test</td>
 <td>High- vs low-income neighborhoods</td>
 <td>Difference in group medians</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
+<th data-quarto-table-cell-role="th">4</th>
 <td>ANOVA</td>
 <td>Compare means across 3+ groups</td>
 <td>Home values across income quartiles</td>
 <td>At least one mean differs</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">5</td>
+<th data-quarto-table-cell-role="th">5</th>
 <td>Kruskal–Wallis Test</td>
 <td>Nonparametric alternative to ANOVA</td>
 <td>Home values across income quartiles</td>
 <td>At least one median differs</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">6</td>
+<th data-quarto-table-cell-role="th">6</th>
 <td>Chi-Square Test</td>
 <td>Test association between categorical variables</td>
 <td>Income level vs house age category</td>
 <td>Are the variables independent?</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">7</td>
+<th data-quarto-table-cell-role="th">7</th>
 <td>Proportion Test (z-test)</td>
 <td>Compare observed vs expected proportions</td>
 <td>Proportion of high-income tracts = 30%</td>
 <td>Is the proportion different from expected?</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">8</td>
+<th data-quarto-table-cell-role="th">8</th>
 <td>Pearson Correlation</td>
 <td>Measure linear relationship between two contin...</td>
 <td>Average rooms vs home value</td>
 <td>Is there a linear correlation?</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">9</td>
+<th data-quarto-table-cell-role="th">9</th>
 <td>Spearman Correlation</td>
 <td>Measure monotonic relationship between two con...</td>
 <td>Average rooms vs home value</td>
@@ -2471,13 +2472,14 @@ De Cock, D. (2009). Ames, <span>I</span>owa: Alternative to the <span>B</span>os
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

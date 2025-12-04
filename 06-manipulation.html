@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.33">
+<meta name="generator" content="quarto-1.8.26">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -69,14 +69,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="./05-visualization.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-485d01fc63b59abcd3ee1bf1e8e2748d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-27c261d06b905028a18691de25d09dde.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -359,20 +360,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>pip install pandas</li>
 </ul>
 <div id="0253cbd6" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="reading-data" class="level4" data-number="6.2.2.2">
 <h4 data-number="6.2.2.2" class="anchored" data-anchor-id="reading-data"><span class="header-section-number">6.2.2.2</span> Reading Data</h4>
 <div id="ed8a836c" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load dataset</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load dataset</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_feather(<span class="st">"data/nyc_crashes_cleaned.feather"</span>)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>df.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -401,7 +402,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
+<th data-quarto-table-cell-role="th">0</th>
 <td>QUEENS</td>
 <td>11101</td>
 <td>40.753113</td>
@@ -425,7 +426,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>2025-08-31 12:49:00</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
+<th data-quarto-table-cell-role="th">1</th>
 <td>MANHATTAN</td>
 <td>10022</td>
 <td>40.760601</td>
@@ -449,7 +450,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>2025-08-31 15:30:00</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
+<th data-quarto-table-cell-role="th">2</th>
 <td>None</td>
 <td>11040</td>
 <td>40.734234</td>
@@ -473,7 +474,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>2025-08-31 19:00:00</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
+<th data-quarto-table-cell-role="th">3</th>
 <td>BROOKLYN</td>
 <td>11220</td>
 <td>40.648075</td>
@@ -497,7 +498,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>2025-08-31 01:19:00</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
+<th data-quarto-table-cell-role="th">4</th>
 <td>MANHATTAN</td>
 <td>10036</td>
 <td>40.756561</td>
@@ -535,7 +536,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>info() –&gt; column types and missing values</li>
 </ul>
 <div id="a8f0d501" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df.info()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
 Index: 1381 entries, 0 to 1380
@@ -580,12 +581,12 @@ memory usage: 304.8+ KB</code></pre>
 <li>describe() –&gt; summary statistics for numeric columns</li>
 </ul>
 <div id="89db3718" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df.describe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df.describe()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -606,7 +607,7 @@ memory usage: 304.8+ KB</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">count</td>
+<th data-quarto-table-cell-role="th">count</th>
 <td>1345.000000</td>
 <td>1345.000000</td>
 <td>1381.000000</td>
@@ -622,7 +623,7 @@ memory usage: 304.8+ KB</code></pre>
 <td>1381</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">mean</td>
+<th data-quarto-table-cell-role="th">mean</th>
 <td>40.715656</td>
 <td>-73.914635</td>
 <td>0.663287</td>
@@ -638,7 +639,7 @@ memory usage: 304.8+ KB</code></pre>
 <td>2025-09-03 08:55:21.853729024</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">min</td>
+<th data-quarto-table-cell-role="th">min</th>
 <td>40.507755</td>
 <td>-74.243088</td>
 <td>0.000000</td>
@@ -654,7 +655,7 @@ memory usage: 304.8+ KB</code></pre>
 <td>2025-08-31 00:00:00</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">25%</td>
+<th data-quarto-table-cell-role="th">25%</th>
 <td>40.657665</td>
 <td>-73.969521</td>
 <td>0.000000</td>
@@ -670,7 +671,7 @@ memory usage: 304.8+ KB</code></pre>
 <td>2025-09-01 17:05:00</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">50%</td>
+<th data-quarto-table-cell-role="th">50%</th>
 <td>40.708607</td>
 <td>-73.921539</td>
 <td>0.000000</td>
@@ -686,7 +687,7 @@ memory usage: 304.8+ KB</code></pre>
 <td>2025-09-03 08:00:00</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">75%</td>
+<th data-quarto-table-cell-role="th">75%</th>
 <td>40.765766</td>
 <td>-73.860085</td>
 <td>1.000000</td>
@@ -702,7 +703,7 @@ memory usage: 304.8+ KB</code></pre>
 <td>2025-09-05 00:23:00</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">max</td>
+<th data-quarto-table-cell-role="th">max</th>
 <td>40.897251</td>
 <td>-73.711029</td>
 <td>10.000000</td>
@@ -718,7 +719,7 @@ memory usage: 304.8+ KB</code></pre>
 <td>2025-09-06 23:33:00</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">std</td>
+<th data-quarto-table-cell-role="th">std</th>
 <td>0.080481</td>
 <td>0.087819</td>
 <td>0.935774</td>
@@ -744,13 +745,13 @@ memory usage: 304.8+ KB</code></pre>
 <h3 data-number="6.2.4" class="anchored" data-anchor-id="selecting-and-filtering-data"><span class="header-section-number">6.2.4</span> Selecting and Filtering Data</h3>
 <p>We can select the rows that we want included in the data.</p>
 <div id="963fe9a1" class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"borough"</span>].head()</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>df[[<span class="st">"borough"</span>, <span class="st">"crash_datetime"</span>, <span class="st">"number_of_persons_injured"</span>]].head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"borough"</span>].head()</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>df[[<span class="st">"borough"</span>, <span class="st">"crash_datetime"</span>, <span class="st">"number_of_persons_injured"</span>]].head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -761,31 +762,31 @@ memory usage: 304.8+ KB</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
+<th data-quarto-table-cell-role="th">0</th>
 <td>QUEENS</td>
 <td>2025-08-31 12:49:00</td>
 <td>0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
+<th data-quarto-table-cell-role="th">1</th>
 <td>MANHATTAN</td>
 <td>2025-08-31 15:30:00</td>
 <td>0</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
+<th data-quarto-table-cell-role="th">2</th>
 <td>None</td>
 <td>2025-08-31 19:00:00</td>
 <td>0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
+<th data-quarto-table-cell-role="th">3</th>
 <td>BROOKLYN</td>
 <td>2025-08-31 01:19:00</td>
 <td>2</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
+<th data-quarto-table-cell-role="th">4</th>
 <td>MANHATTAN</td>
 <td>2025-08-31 02:41:00</td>
 <td>1</td>
@@ -798,8 +799,8 @@ memory usage: 304.8+ KB</code></pre>
 </div>
 <p>In this next text block we filter the data by number_of_persons_injured.</p>
 <div id="bb0fa73b" class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>injured <span class="op">=</span> df[df[<span class="st">"number_of_persons_injured"</span>] <span class="op">&gt;</span> <span class="dv">0</span>]</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(injured.head(<span class="dv">5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>injured <span class="op">=</span> df[df[<span class="st">"number_of_persons_injured"</span>] <span class="op">&gt;</span> <span class="dv">0</span>]</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(injured.head(<span class="dv">5</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      borough zip_code   latitude  longitude on_street_name cross_street_name  \
 3    BROOKLYN    11220  40.648075 -74.007034           None              None   
@@ -853,13 +854,13 @@ memory usage: 304.8+ KB</code></pre>
 <li><code>.loc</code> is used to <strong>access groups of rows and columns</strong> by <em>labels</em> or <em>Boolean conditions</em>.</li>
 </ul>
 <div id="9c94edd4" class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select first 5 rows and specific columns</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>df.loc[<span class="dv">0</span>:<span class="dv">5</span>, [<span class="st">"borough"</span>, <span class="st">"number_of_persons_injured"</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select first 5 rows and specific columns</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>df.loc[<span class="dv">0</span>:<span class="dv">5</span>, [<span class="st">"borough"</span>, <span class="st">"number_of_persons_injured"</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -869,32 +870,32 @@ memory usage: 304.8+ KB</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
+<th data-quarto-table-cell-role="th">0</th>
 <td>QUEENS</td>
 <td>0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
+<th data-quarto-table-cell-role="th">1</th>
 <td>MANHATTAN</td>
 <td>0</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
+<th data-quarto-table-cell-role="th">2</th>
 <td>None</td>
 <td>0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
+<th data-quarto-table-cell-role="th">3</th>
 <td>BROOKLYN</td>
 <td>2</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
+<th data-quarto-table-cell-role="th">4</th>
 <td>MANHATTAN</td>
 <td>1</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">5</td>
+<th data-quarto-table-cell-role="th">5</th>
 <td>BRONX</td>
 <td>1</td>
 </tr>
@@ -920,13 +921,13 @@ memory usage: 304.8+ KB</code></pre>
 <li>Can hold any data type: integers, floats, strings, etc.</li>
 </ul>
 <div id="65b09a45" class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Selecting a Series</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Selecting a Series</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"borough"</span>].head()</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Accessing Series Properties</span></span>
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"borough"</span>].dtype     <span class="co"># Data type</span></span>
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"borough"</span>].nunique() <span class="co"># Number of unique values</span></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"borough"</span>].value_counts().head() <span class="co"># Frequency of top categories</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"borough"</span>].value_counts().head() <span class="co"># Frequency of top categories</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
 <pre><code>borough
 BROOKLYN         474
@@ -942,13 +943,13 @@ Name: count, dtype: int64</code></pre>
 <li>Selecting one column returns a <strong>Series</strong>, selecting multiple returns a <strong>DataFrame</strong></li>
 </ul>
 <div id="171d94f7" class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"borough"</span>].head()</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>df[[<span class="st">"borough"</span>, <span class="st">"crash_datetime"</span>, <span class="st">"number_of_persons_injured"</span>]].head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"borough"</span>].head()</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>df[[<span class="st">"borough"</span>, <span class="st">"crash_datetime"</span>, <span class="st">"number_of_persons_injured"</span>]].head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="10">
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -959,31 +960,31 @@ Name: count, dtype: int64</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
+<th data-quarto-table-cell-role="th">0</th>
 <td>QUEENS</td>
 <td>2025-08-31 12:49:00</td>
 <td>0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
+<th data-quarto-table-cell-role="th">1</th>
 <td>MANHATTAN</td>
 <td>2025-08-31 15:30:00</td>
 <td>0</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
+<th data-quarto-table-cell-role="th">2</th>
 <td>None</td>
 <td>2025-08-31 19:00:00</td>
 <td>0</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
+<th data-quarto-table-cell-role="th">3</th>
 <td>BROOKLYN</td>
 <td>2025-08-31 01:19:00</td>
 <td>2</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
+<th data-quarto-table-cell-role="th">4</th>
 <td>MANHATTAN</td>
 <td>2025-08-31 02:41:00</td>
 <td>1</td>
@@ -999,7 +1000,7 @@ Name: count, dtype: int64</code></pre>
 <h3 data-number="6.2.7" class="anchored" data-anchor-id="transforming-data"><span class="header-section-number">6.2.7</span> Transforming Data</h3>
 <p>Here we extract crash hour from datetime, then create a severity label using a custom rule.</p>
 <div id="c780e2f6" class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract crash hour from datetime</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract crash hour from datetime</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"hour"</span>] <span class="op">=</span> df[<span class="st">"crash_datetime"</span>].dt.hour</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create severity label using a custom rule</span></span>
@@ -1007,12 +1008,12 @@ Name: count, dtype: int64</code></pre>
 <span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">lambda</span> x: <span class="st">"Severe"</span> <span class="cf">if</span> x <span class="op">&gt;</span> <span class="dv">2</span> <span class="cf">else</span> <span class="st">"Minor"</span></span>
 <span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>df[[<span class="st">"borough"</span>, <span class="st">"hour"</span>, <span class="st">"severity"</span>]].head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>df[[<span class="st">"borough"</span>, <span class="st">"hour"</span>, <span class="st">"severity"</span>]].head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="11">
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -1023,31 +1024,31 @@ Name: count, dtype: int64</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
+<th data-quarto-table-cell-role="th">0</th>
 <td>QUEENS</td>
 <td>12</td>
 <td>Minor</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
+<th data-quarto-table-cell-role="th">1</th>
 <td>MANHATTAN</td>
 <td>15</td>
 <td>Minor</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
+<th data-quarto-table-cell-role="th">2</th>
 <td>None</td>
 <td>19</td>
 <td>Minor</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
+<th data-quarto-table-cell-role="th">3</th>
 <td>BROOKLYN</td>
 <td>1</td>
 <td>Minor</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
+<th data-quarto-table-cell-role="th">4</th>
 <td>MANHATTAN</td>
 <td>2</td>
 <td>Minor</td>
@@ -1067,7 +1068,7 @@ Name: count, dtype: int64</code></pre>
 </ul></li>
 </ul>
 <div id="c3fe7603" class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert text to uppercase</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert text to uppercase</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"borough"</span>] <span class="op">=</span> df[<span class="st">"borough"</span>].<span class="bu">str</span>.upper()</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a binary flag column</span></span>
@@ -1076,7 +1077,7 @@ Name: count, dtype: int64</code></pre>
 <span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Rename columns for consistency</span></span>
 <span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.rename(columns<span class="op">=</span>{<span class="st">"number_of_persons_injured"</span>: <span class="st">"persons_injured"</span>})</span>
 <span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df[[<span class="st">"borough"</span>, <span class="st">"injury_flag"</span>]].head(<span class="dv">5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df[[<span class="st">"borough"</span>, <span class="st">"injury_flag"</span>]].head(<span class="dv">5</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     borough  injury_flag
 0     QUEENS            0
@@ -1094,11 +1095,11 @@ Name: count, dtype: int64</code></pre>
 </ul>
 <p>Here we can check the missing values and drop missing entries.</p>
 <div id="29b45d89" class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check missing values per column</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check missing values per column</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>df.isna().<span class="bu">sum</span>()</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Drop missing borough entries</span></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.dropna(subset<span class="op">=</span>[<span class="st">"borough"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.dropna(subset<span class="op">=</span>[<span class="st">"borough"</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ul>
 <li>Fill with a default value</li>
@@ -1107,7 +1108,7 @@ Name: count, dtype: int64</code></pre>
 <li>Check proportion of missingness</li>
 </ul>
 <div id="0e2827c1" class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fill missing categorical values</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fill missing categorical values</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"borough"</span>] <span class="op">=</span> df[<span class="st">"borough"</span>].fillna(<span class="st">"Unknown"</span>)</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Forward fill numberic columns</span></span>
@@ -1117,7 +1118,7 @@ Name: count, dtype: int64</code></pre>
 <span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"hour"</span>].fillna(df[<span class="st">"hour"</span>].mean(), inplace<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Percentage of missing values</span></span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>df.isna().mean() <span class="op">*</span> <span class="dv">100</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>df.isna().mean() <span class="op">*</span> <span class="dv">100</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>/var/folders/cq/5ysgnwfn7c3g0h46xyzvpj800000gn/T/ipykernel_8921/3700694978.py:8: FutureWarning:
 
@@ -1173,8 +1174,8 @@ dtype: float64</code></pre>
 <li>We can compute the <strong>average number of injuries per crash by borough</strong>:</li>
 </ul>
 <div id="f78693c6" class="cell" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Average injuries per crash by borough</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>df.groupby(<span class="st">"borough"</span>)[<span class="st">"persons_injured"</span>].mean().sort_values(ascending<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Average injuries per crash by borough</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>df.groupby(<span class="st">"borough"</span>)[<span class="st">"persons_injured"</span>].mean().sort_values(ascending<span class="op">=</span><span class="va">False</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="15">
 <pre><code>borough
 BRONX            0.800000
@@ -1189,12 +1190,12 @@ Name: persons_injured, dtype: float64</code></pre>
 <li>Groupby can also perform multiple summary statistics at once</li>
 </ul>
 <div id="4e1164a5" class="cell" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>df.groupby(<span class="st">"borough"</span>)[<span class="st">"persons_injured"</span>].agg([<span class="st">"mean"</span>, <span class="st">"max"</span>, <span class="st">"count"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>df.groupby(<span class="st">"borough"</span>)[<span class="st">"persons_injured"</span>].agg([<span class="st">"mean"</span>, <span class="st">"max"</span>, <span class="st">"count"</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="16">
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -1211,31 +1212,31 @@ Name: persons_injured, dtype: float64</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">BRONX</td>
+<th data-quarto-table-cell-role="th">BRONX</th>
 <td>0.800000</td>
 <td>6</td>
 <td>190</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">BROOKLYN</td>
+<th data-quarto-table-cell-role="th">BROOKLYN</th>
 <td>0.664557</td>
 <td>10</td>
 <td>474</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">MANHATTAN</td>
+<th data-quarto-table-cell-role="th">MANHATTAN</th>
 <td>0.620087</td>
 <td>7</td>
 <td>229</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">QUEENS</td>
+<th data-quarto-table-cell-role="th">QUEENS</th>
 <td>0.634146</td>
 <td>8</td>
 <td>410</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">STATEN ISLAND</td>
+<th data-quarto-table-cell-role="th">STATEN ISLAND</th>
 <td>0.562500</td>
 <td>3</td>
 <td>64</td>
@@ -1250,16 +1251,16 @@ Name: persons_injured, dtype: float64</code></pre>
 <li>We have two ways to count crashes:</li>
 </ul>
 <div id="4a79c919" class="cell" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"borough"</span>].value_counts()</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"borough"</span>].value_counts()</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="co"># OR equivalently:</span></span>
 <span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>df.groupby(<span class="st">"borough"</span>).size().reset_index(name<span class="op">=</span><span class="st">"crash_count"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>df.groupby(<span class="st">"borough"</span>).size().reset_index(name<span class="op">=</span><span class="st">"crash_count"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="17">
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -1269,27 +1270,27 @@ Name: persons_injured, dtype: float64</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
+<th data-quarto-table-cell-role="th">0</th>
 <td>BRONX</td>
 <td>190</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
+<th data-quarto-table-cell-role="th">1</th>
 <td>BROOKLYN</td>
 <td>474</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
+<th data-quarto-table-cell-role="th">2</th>
 <td>MANHATTAN</td>
 <td>229</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
+<th data-quarto-table-cell-role="th">3</th>
 <td>QUEENS</td>
 <td>410</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
+<th data-quarto-table-cell-role="th">4</th>
 <td>STATEN ISLAND</td>
 <td>64</td>
 </tr>
@@ -1303,7 +1304,7 @@ Name: persons_injured, dtype: float64</code></pre>
 <li>Pivot tables are great for reshaping summaries</li>
 </ul>
 <div id="083b2740" class="cell" data-results="hide" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>pivot <span class="op">=</span> pd.pivot_table(</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>pivot <span class="op">=</span> pd.pivot_table(</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    df,</span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    values<span class="op">=</span><span class="st">"persons_injured"</span>,</span>
 <span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    index<span class="op">=</span><span class="st">"borough"</span>,</span>
@@ -1315,7 +1316,7 @@ Name: persons_injured, dtype: float64</code></pre>
 <span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>pivot_rounded <span class="op">=</span> pivot.<span class="bu">round</span>(<span class="dv">2</span>)</span>
 <span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Slice for hours 1 to 5</span></span>
-<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>pivot_rounded_subset <span class="op">=</span> pivot_rounded.loc[:, <span class="dv">1</span>:<span class="dv">5</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>pivot_rounded_subset <span class="op">=</span> pivot_rounded.loc[:, <span class="dv">1</span>:<span class="dv">5</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ul>
 <li>We can output a pivot table of, average injuries per hour by Borough (hours 1-5)</li>
@@ -1325,7 +1326,7 @@ Name: persons_injured, dtype: float64</code></pre>
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th">hour</th>
@@ -1346,7 +1347,7 @@ Name: persons_injured, dtype: float64</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">BRONX</td>
+<th data-quarto-table-cell-role="th">BRONX</th>
 <td>0.67</td>
 <td>1.00</td>
 <td>0.88</td>
@@ -1354,7 +1355,7 @@ Name: persons_injured, dtype: float64</code></pre>
 <td>0.67</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">BROOKLYN</td>
+<th data-quarto-table-cell-role="th">BROOKLYN</th>
 <td>0.62</td>
 <td>0.44</td>
 <td>0.33</td>
@@ -1362,7 +1363,7 @@ Name: persons_injured, dtype: float64</code></pre>
 <td>0.36</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">MANHATTAN</td>
+<th data-quarto-table-cell-role="th">MANHATTAN</th>
 <td>0.33</td>
 <td>0.67</td>
 <td>1.80</td>
@@ -1370,7 +1371,7 @@ Name: persons_injured, dtype: float64</code></pre>
 <td>0.55</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">QUEENS</td>
+<th data-quarto-table-cell-role="th">QUEENS</th>
 <td>0.43</td>
 <td>0.22</td>
 <td>0.55</td>
@@ -1378,7 +1379,7 @@ Name: persons_injured, dtype: float64</code></pre>
 <td>0.83</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">STATEN ISLAND</td>
+<th data-quarto-table-cell-role="th">STATEN ISLAND</th>
 <td>NaN</td>
 <td>NaN</td>
 <td>NaN</td>
@@ -1396,12 +1397,12 @@ Name: persons_injured, dtype: float64</code></pre>
 <h3 data-number="6.2.10" class="anchored" data-anchor-id="combining-and-visualizing-data"><span class="header-section-number">6.2.10</span> Combining and Visualizing Data</h3>
 <p>We can merge our borough data with the populatio data of those boroughs.</p>
 <div id="de51232f" class="cell" data-execution_count="20">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>borough_pop <span class="op">=</span> pd.DataFrame({</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>borough_pop <span class="op">=</span> pd.DataFrame({</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"borough"</span>: [<span class="st">"Bronx"</span>, <span class="st">"Brooklyn"</span>, <span class="st">"Manhattan"</span>, <span class="st">"Queens"</span>, <span class="st">"Staten Island"</span>],</span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"population"</span>: [<span class="dv">1472654</span>, <span class="dv">2559903</span>, <span class="dv">1628706</span>, <span class="dv">2253858</span>, <span class="dv">487155</span>]</span>
 <span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>})</span>
 <span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>merged <span class="op">=</span> pd.merge(df, borough_pop, on<span class="op">=</span><span class="st">"borough"</span>, how<span class="op">=</span><span class="st">"inner"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>merged <span class="op">=</span> pd.merge(df, borough_pop, on<span class="op">=</span><span class="st">"borough"</span>, how<span class="op">=</span><span class="st">"inner"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ul>
 <li>Real-world data often needs to be <strong>restructured</strong> for analysis or visualization</li>
@@ -1409,7 +1410,7 @@ Name: persons_injured, dtype: float64</code></pre>
 </ul>
 <p>Here we can convert our data from wide to long format.</p>
 <div id="4a0fb1f5" class="cell" data-execution_count="21">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert from wide to long format</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert from wide to long format</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>long_df <span class="op">=</span> pd.melt(</span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    df,</span>
 <span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    id_vars<span class="op">=</span>[<span class="st">"borough"</span>, <span class="st">"hour"</span>],</span>
@@ -1421,18 +1422,18 @@ Name: persons_injured, dtype: float64</code></pre>
 <span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Export to CSV</span></span>
 <span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
 <span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>os.makedirs(<span class="st">"output"</span>, exist_ok<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>long_df.to_csv(<span class="st">"output/nyc_crash_long.csv"</span>, index<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>long_df.to_csv(<span class="st">"output/nyc_crash_long.csv"</span>, index<span class="op">=</span><span class="va">False</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="visualizing-with-plotnine" class="level3" data-number="6.2.11">
 <h3 data-number="6.2.11" class="anchored" data-anchor-id="visualizing-with-plotnine"><span class="header-section-number">6.2.11</span> Visualizing with Plotnine</h3>
 <p>We can visualize data in Pandas with plotnine. - We can see that Brooklyn and Queens typically have higher crash counts - Reflects both population and traffic density</p>
 <div id="e4696e79" class="cell" data-execution_count="22">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> plotnine <span class="im">import</span> <span class="op">*</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> plotnine <span class="im">import</span> <span class="op">*</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>(ggplot(df, aes(x<span class="op">=</span><span class="st">"borough"</span>, fill<span class="op">=</span><span class="st">"borough"</span>))</span>
 <span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a> <span class="op">+</span> geom_bar(show_legend<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a> <span class="op">+</span> labs(title<span class="op">=</span><span class="st">"Crashes by Borough"</span>, x<span class="op">=</span><span class="st">"Borough"</span>, y<span class="op">=</span><span class="st">"Count"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a> <span class="op">+</span> labs(title<span class="op">=</span><span class="st">"Crashes by Borough"</span>, x<span class="op">=</span><span class="st">"Borough"</span>, y<span class="op">=</span><span class="st">"Count"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="22">
 <div>
 <figure class="figure">
@@ -1443,9 +1444,9 @@ Name: persons_injured, dtype: float64</code></pre>
 </div>
 <p>Here we calculate the crash frequency per hour. - Crash frequency tends to increase during commute hours (rush hour)</p>
 <div id="5a7fa5bc" class="cell" data-execution_count="23">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>(ggplot(df, aes(x<span class="op">=</span><span class="st">"hour"</span>))</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>(ggplot(df, aes(x<span class="op">=</span><span class="st">"hour"</span>))</span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a> <span class="op">+</span> geom_bar(fill<span class="op">=</span><span class="st">"steelblue"</span>)</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a> <span class="op">+</span> labs(title<span class="op">=</span><span class="st">"Crashes by Hour of Day"</span>, x<span class="op">=</span><span class="st">"Hour"</span>, y<span class="op">=</span><span class="st">"Count"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a> <span class="op">+</span> labs(title<span class="op">=</span><span class="st">"Crashes by Hour of Day"</span>, x<span class="op">=</span><span class="st">"Hour"</span>, y<span class="op">=</span><span class="st">"Count"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="23">
 <div>
 <figure class="figure">
@@ -1484,7 +1485,7 @@ Name: persons_injured, dtype: float64</code></pre>
 <h2 data-number="6.3" class="anchored" data-anchor-id="example-nyc-crash-data"><span class="header-section-number">6.3</span> Example: NYC Crash Data</h2>
 <p>Consider a subset of the NYC Crash Data, which contains all NYC motor vehicle collisions data with documentation from <a href="https://data.cityofnewyork.us/Public-Safety/Motor-Vehicle-Collisions-Crashes/h9gi-nx95">NYC Open Data</a>. We downloaded the crash data for the week of August 31, 2025, on September 11, 2025, in CSC format.</p>
 <div id="78dcd64e" class="cell" data-execution_count="24">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the dataset</span></span>
@@ -1498,7 +1499,7 @@ Name: persons_injured, dtype: float64</code></pre>
 <span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>df.columns <span class="op">=</span> df.columns.<span class="bu">str</span>.lower().<span class="bu">str</span>.replace(<span class="st">' '</span>, <span class="st">'_'</span>)</span>
 <span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Check for missing values</span></span>
-<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>df.isnull().<span class="bu">sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>df.isnull().<span class="bu">sum</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="24">
 <pre><code>crash_date                          0
 crash_time                          0
@@ -1534,12 +1535,12 @@ dtype: int64</code></pre>
 </div>
 <p>Take a peek at the first five rows:</p>
 <div id="780425a3" class="cell" data-execution_count="25">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>df.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="25">
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -1568,7 +1569,7 @@ dtype: int64</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
+<th data-quarto-table-cell-role="th">0</th>
 <td>08/31/2025</td>
 <td>12:49</td>
 <td>QUEENS</td>
@@ -1592,7 +1593,7 @@ dtype: int64</code></pre>
 <td>NaN</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
+<th data-quarto-table-cell-role="th">1</th>
 <td>08/31/2025</td>
 <td>15:30</td>
 <td>MANHATTAN</td>
@@ -1616,7 +1617,7 @@ dtype: int64</code></pre>
 <td>NaN</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
+<th data-quarto-table-cell-role="th">2</th>
 <td>08/31/2025</td>
 <td>19:00</td>
 <td>NaN</td>
@@ -1640,7 +1641,7 @@ dtype: int64</code></pre>
 <td>NaN</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
+<th data-quarto-table-cell-role="th">3</th>
 <td>08/31/2025</td>
 <td>1:19</td>
 <td>BROOKLYN</td>
@@ -1664,7 +1665,7 @@ dtype: int64</code></pre>
 <td>NaN</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
+<th data-quarto-table-cell-role="th">4</th>
 <td>08/31/2025</td>
 <td>2:41</td>
 <td>MANHATTAN</td>
@@ -1696,7 +1697,7 @@ dtype: int64</code></pre>
 </div>
 <p>A quick summary of the data types of the columns:</p>
 <div id="a16afe4e" class="cell" data-execution_count="26">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>df.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>df.info()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
 RangeIndex: 1487 entries, 0 to 1486
@@ -1738,7 +1739,7 @@ memory usage: 325.4+ KB</code></pre>
 </div>
 <p>Now we can do some cleaning after a quick browse.</p>
 <div id="ccc77648" class="cell" data-execution_count="27">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Replace invalid coordinates (latitude=0, longitude=0 or NaN) with NaN</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Replace invalid coordinates (latitude=0, longitude=0 or NaN) with NaN</span></span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>df.loc[(df[<span class="st">'latitude'</span>] <span class="op">==</span> <span class="dv">0</span>) <span class="op">&amp;</span> (df[<span class="st">'longitude'</span>] <span class="op">==</span> <span class="dv">0</span>), </span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>       [<span class="st">'latitude'</span>, <span class="st">'longitude'</span>]] <span class="op">=</span> pd.NA</span>
 <span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'latitude'</span>] <span class="op">=</span> df[<span class="st">'latitude'</span>].replace(<span class="dv">0</span>, pd.NA)</span>
@@ -1752,23 +1753,23 @@ memory usage: 325.4+ KB</code></pre>
 <span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>                       <span class="op">+</span> df[<span class="st">'crash_time'</span>], <span class="bu">format</span><span class="op">=</span><span class="st">'%m/</span><span class="sc">%d</span><span class="st">/%Y %H:%M'</span>, errors<span class="op">=</span><span class="st">'coerce'</span>)</span>
 <span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Drop the original 'crash_date' and 'crash_time' columns</span></span>
-<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.drop(columns<span class="op">=</span>[<span class="st">'crash_date'</span>, <span class="st">'crash_time'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.drop(columns<span class="op">=</span>[<span class="st">'crash_date'</span>, <span class="st">'crash_time'</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Let’s get some basic frequency tables of <code>borough</code> and <code>zip_code</code>, whose values could be used to check their validity against the legitmate values.</p>
 <div id="a189e14a" class="cell" data-execution_count="28">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Frequency table for 'borough' without filling missing values</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Frequency table for 'borough' without filling missing values</span></span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>borough_freq <span class="op">=</span> df[<span class="st">'borough'</span>].value_counts(dropna<span class="op">=</span><span class="va">False</span>).reset_index()</span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>borough_freq.columns <span class="op">=</span> [<span class="st">'borough'</span>, <span class="st">'count'</span>]</span>
 <span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Frequency table for 'zip_code' without filling missing values</span></span>
 <span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>zip_code_freq <span class="op">=</span> df[<span class="st">'zip_code'</span>].value_counts(dropna<span class="op">=</span><span class="va">False</span>).reset_index()</span>
 <span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>zip_code_freq.columns <span class="op">=</span> [<span class="st">'zip_code'</span>, <span class="st">'count'</span>]</span>
-<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>zip_code_freq</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>zip_code_freq</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="28">
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -1778,57 +1779,57 @@ memory usage: 325.4+ KB</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
+<th data-quarto-table-cell-role="th">0</th>
 <td>NaN</td>
 <td>284</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
+<th data-quarto-table-cell-role="th">1</th>
 <td>11207</td>
 <td>33</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
+<th data-quarto-table-cell-role="th">2</th>
 <td>11203</td>
 <td>29</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
+<th data-quarto-table-cell-role="th">3</th>
 <td>11212</td>
 <td>23</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
+<th data-quarto-table-cell-role="th">4</th>
 <td>11233</td>
 <td>21</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">...</td>
+<th data-quarto-table-cell-role="th">...</th>
 <td>...</td>
 <td>...</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">159</td>
+<th data-quarto-table-cell-role="th">159</th>
 <td>11379</td>
 <td>1</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">160</td>
+<th data-quarto-table-cell-role="th">160</th>
 <td>10007</td>
 <td>1</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">161</td>
+<th data-quarto-table-cell-role="th">161</th>
 <td>10308</td>
 <td>1</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">162</td>
+<th data-quarto-table-cell-role="th">162</th>
 <td>11362</td>
 <td>1</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">163</td>
+<th data-quarto-table-cell-role="th">163</th>
 <td>11694</td>
 <td>1</td>
 </tr>
@@ -1841,7 +1842,7 @@ memory usage: 325.4+ KB</code></pre>
 </div>
 <p>A comprehensive list of ZIP codes by borough can be obtained, for example, from <a href="https://www.nyc.gov/assets/doh/downloads/pdf/ah/zipcodetable.pdf">the New York City Department of Health’s UHF Codes</a>. We can use this list to check the validity of the zip codes in the data.</p>
 <div id="99e5d8e8" class="cell" data-execution_count="29">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># List of valid NYC ZIP codes compiled from UHF codes</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># List of valid NYC ZIP codes compiled from UHF codes</span></span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Define all_valid_zips based on the earlier extracted ZIP codes</span></span>
 <span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>all_valid_zips <span class="op">=</span> {</span>
 <span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>    <span class="dv">10463</span>, <span class="dv">10471</span>, <span class="dv">10466</span>, <span class="dv">10469</span>, <span class="dv">10470</span>, <span class="dv">10475</span>, <span class="dv">10458</span>, <span class="dv">10467</span>, <span class="dv">10468</span>,</span>
@@ -1879,12 +1880,12 @@ memory usage: 325.4+ KB</code></pre>
 <span id="cb36-36"><a href="#cb36-36" aria-hidden="true" tabindex="-1"></a>invalid_zip_freq <span class="op">=</span> invalid_zips.value_counts(dropna<span class="op">=</span><span class="va">False</span>).reset_index()</span>
 <span id="cb36-37"><a href="#cb36-37" aria-hidden="true" tabindex="-1"></a>invalid_zip_freq.columns <span class="op">=</span> [<span class="st">'zip_code'</span>, <span class="st">'frequency'</span>]</span>
 <span id="cb36-38"><a href="#cb36-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-39"><a href="#cb36-39" aria-hidden="true" tabindex="-1"></a>invalid_zip_freq</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb36-39"><a href="#cb36-39" aria-hidden="true" tabindex="-1"></a>invalid_zip_freq</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="29">
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -1894,27 +1895,27 @@ memory usage: 325.4+ KB</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
+<th data-quarto-table-cell-role="th">0</th>
 <td>NaN</td>
 <td>284</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
+<th data-quarto-table-cell-role="th">1</th>
 <td>10000</td>
 <td>4</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
+<th data-quarto-table-cell-role="th">2</th>
 <td>10065</td>
 <td>3</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
+<th data-quarto-table-cell-role="th">3</th>
 <td>10075</td>
 <td>2</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
+<th data-quarto-table-cell-role="th">4</th>
 <td>11430</td>
 <td>1</td>
 </tr>
@@ -1927,18 +1928,18 @@ memory usage: 325.4+ KB</code></pre>
 <p>As it turns out, the collection of valid NYC zip codes differ from different sources. From <a href="https://www.unitedstateszipcodes.org/">United States Zip Codes</a>, <code>10065</code> appears to be a valid NYC zip code. Under this circumstance, it might be safer to not remove any zip code from the data.</p>
 <p>To be safe, let’s concatenate valid and invalid zips.</p>
 <div id="5e20d665" class="cell" data-execution_count="30">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert invalid ZIP codes to a set of strings</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert invalid ZIP codes to a set of strings</span></span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>invalid_zips_set <span class="op">=</span> <span class="bu">set</span>(invalid_zip_freq[<span class="st">'zip_code'</span>].dropna().astype(<span class="bu">str</span>))</span>
 <span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert all_valid_zips to a set of strings (if not already)</span></span>
 <span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>valid_zips_set <span class="op">=</span> <span class="bu">set</span>(<span class="bu">map</span>(<span class="bu">str</span>, all_valid_zips))</span>
 <span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge both sets</span></span>
-<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>merged_zips <span class="op">=</span> invalid_zips_set <span class="op">|</span> valid_zips_set  <span class="co"># Union of both sets</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>merged_zips <span class="op">=</span> invalid_zips_set <span class="op">|</span> valid_zips_set  <span class="co"># Union of both sets</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Are missing in zip code and borough always co-occur?</p>
 <div id="70416e7a" class="cell" data-execution_count="31">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check if missing values in 'zip_code' and 'borough' always co-occur</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check if missing values in 'zip_code' and 'borough' always co-occur</span></span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Count rows where both are missing</span></span>
 <span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>missing_cooccur <span class="op">=</span> df[[<span class="st">'zip_code'</span>, <span class="st">'borough'</span>]].isnull().<span class="bu">all</span>(axis<span class="op">=</span><span class="dv">1</span>).<span class="bu">sum</span>()</span>
 <span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Count total missing in 'zip_code' and 'borough', respectively</span></span>
@@ -1947,7 +1948,7 @@ memory usage: 325.4+ KB</code></pre>
 <span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a><span class="co"># If missing in both columns always co-occur, the number of missing</span></span>
 <span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a><span class="co"># co-occurrences should be equal to the total missing in either column</span></span>
-<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>np.array([missing_cooccur, total_missing_zip_code, total_missing_borough])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>np.array([missing_cooccur, total_missing_zip_code, total_missing_borough])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="31">
 <pre><code>array([284, 284, 284])</code></pre>
 </div>
@@ -1957,17 +1958,17 @@ memory usage: 325.4+ KB</code></pre>
 <pre class="shell"><code>pip install geopy</code></pre>
 <p>Now we use module <code>Nominatim</code> in package <code>geopy</code> to reverse geocode.</p>
 <div id="f35a3745" class="cell" data-execution_count="32">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> geopy.geocoders <span class="im">import</span> Nominatim</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> geopy.geocoders <span class="im">import</span> Nominatim</span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
 <span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize the geocoder; the `user_agent` is your identifier </span></span>
 <span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="co"># when using the service. Be mindful not to crash the server</span></span>
 <span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a><span class="co"># by unlimited number of queries, especially invalid code.</span></span>
-<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>geolocator <span class="op">=</span> Nominatim(user_agent<span class="op">=</span><span class="st">"jyGeopyTry"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>geolocator <span class="op">=</span> Nominatim(user_agent<span class="op">=</span><span class="st">"jyGeopyTry"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>We write a function to do the reverse geocoding given lattitude and longitude.</p>
 <div id="9f704e59" class="cell" data-execution_count="33">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Function to fill missing zip_code</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Function to fill missing zip_code</span></span>
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_zip_code(latitude, longitude):</span>
 <span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
 <span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>        location <span class="op">=</span> geolocator.reverse((latitude, longitude), timeout<span class="op">=</span><span class="dv">10</span>)</span>
@@ -1981,14 +1982,14 @@ memory usage: 325.4+ KB</code></pre>
 <span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Error: </span><span class="sc">{</span>e<span class="sc">}</span><span class="ss"> for coordinates </span><span class="sc">{</span>latitude<span class="sc">}</span><span class="ss">, </span><span class="sc">{</span>longitude<span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">None</span></span>
 <span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">finally</span>:</span>
-<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a>        time.sleep(<span class="dv">1</span>)  <span class="co"># Delay to avoid overwhelming the service</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a>        time.sleep(<span class="dv">1</span>)  <span class="co"># Delay to avoid overwhelming the service</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Let’s try it out:</p>
 <div id="287ba6e6" class="cell" data-execution_count="34">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example usage</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example usage</span></span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>latitude <span class="op">=</span> <span class="fl">40.730610</span></span>
 <span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>longitude <span class="op">=</span> <span class="op">-</span><span class="fl">73.935242</span></span>
-<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>get_zip_code(latitude, longitude)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>get_zip_code(latitude, longitude)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="34">
 <pre><code>'11101'</code></pre>
 </div>
@@ -2022,7 +2023,7 @@ memory usage: 325.4+ KB</code></pre>
 <p>To perform meaningful zip-code-level analysis, we need additional data sources that provide relevant demographic, economic, and geographic variables. For example, understanding whether high-income areas experience fewer accidents, or whether population density influences crash frequency, requires integrating Census data. Key variables such as population size, median household income, employment rate, and population density can provide valuable context for interpreting crash trends across different zip codes.</p>
 <p>Since the Census Bureau provides detailed estimates for these variables at the zip-code level, we can use the Census API or other tools to retrieve relevant data and merge it with the NYC crash dataset. To access the Census API, you need an API key, which is free and easy to obtain. Visit the <a href="https://api.census.gov/data/key_signup.html">Census API Request page</a> and submit your email address to receive a key. Once you have the key, you must include it in your API requests to access Census data. The following demonstration assumes that you have registered, obtained your API key, and saved it in a file called <code>censusAPIkey.txt</code>.</p>
 <div id="fe640ebe" class="cell" data-execution_count="35">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import modules</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import modules</span></span>
 <span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
@@ -2032,11 +2033,11 @@ memory usage: 325.4+ KB</code></pre>
 <span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> io</span>
 <span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a>api_key <span class="op">=</span> <span class="bu">open</span>(<span class="st">"censusAPIkey.txt"</span>).read().strip()</span>
-<span id="cb45-11"><a href="#cb45-11" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> Census(api_key)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb45-11"><a href="#cb45-11" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> Census(api_key)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Suppose that we want to get some basic info from ACS data of the year of 2024 for all the NYC zip codes. The variable names can be found in the <a href="https://www.census.gov/programs-surveys/acs/technical-documentation/table-shells.html">ACS variable documentation</a>.</p>
 <div id="a90c7f87" class="cell" data-execution_count="36">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>ACS_YEAR <span class="op">=</span> <span class="dv">2024</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>ACS_YEAR <span class="op">=</span> <span class="dv">2024</span></span>
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>ACS_DATASET <span class="op">=</span> <span class="st">"acs/acs5"</span></span>
 <span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Important ACS variables (including land area for density calculation)</span></span>
@@ -2054,11 +2055,11 @@ memory usage: 325.4+ KB</code></pre>
 <span id="cb46-16"><a href="#cb46-16" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb46-17"><a href="#cb46-17" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb46-18"><a href="#cb46-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert set to list of strings</span></span>
-<span id="cb46-19"><a href="#cb46-19" aria-hidden="true" tabindex="-1"></a>merged_zips <span class="op">=</span> <span class="bu">list</span>(<span class="bu">map</span>(<span class="bu">str</span>, merged_zips))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb46-19"><a href="#cb46-19" aria-hidden="true" tabindex="-1"></a>merged_zips <span class="op">=</span> <span class="bu">list</span>(<span class="bu">map</span>(<span class="bu">str</span>, merged_zips))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Let’s set up the query to request the ACS data, and process the returned data.</p>
 <div id="7aa37fa1" class="cell" data-execution_count="37">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>acs_data <span class="op">=</span> c.acs5.get(</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>acs_data <span class="op">=</span> c.acs5.get(</span>
 <span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">list</span>(ACS_VARIABLES.keys()), </span>
 <span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>    {<span class="st">'for'</span>: <span class="ss">f'zip code tabulation area:</span><span class="sc">{</span><span class="st">","</span><span class="sc">.</span>join(merged_zips)<span class="sc">}</span><span class="ss">'</span>}</span>
 <span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>    )</span>
@@ -2068,15 +2069,15 @@ memory usage: 325.4+ KB</code></pre>
 <span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Rename columns</span></span>
 <span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a>df_acs.rename(columns<span class="op">=</span>ACS_VARIABLES, inplace<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a>df_acs.rename(columns<span class="op">=</span>{<span class="st">"zip code tabulation area"</span>: <span class="st">"ZIP Code"</span>}, inplace<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a>df_acs.rename(columns<span class="op">=</span>{<span class="st">"zip code tabulation area"</span>: <span class="st">"ZIP Code"</span>}, inplace<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>We could save the ACS data <code>df_acs</code> in feather format (see next Section).</p>
 <div id="61f9377d" class="cell" data-execution_count="38">
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>df_acs.to_feather(<span class="st">"data/acs2023.feather"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>df_acs.to_feather(<span class="st">"data/acs2023.feather"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The population density could be an important factor for crash likelihood. To obtain the population densities, we need the areas of the zip codes. The shape files can be obtained from NYC Open Data.</p>
 <div id="594eec5d" class="cell" data-execution_count="39">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
 <span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> zipfile</span>
 <span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
 <span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -2093,7 +2094,7 @@ memory usage: 325.4+ KB</code></pre>
 <span id="cb49-15"><a href="#cb49-15" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> zipfile.ZipFile(io.BytesIO(response.content), <span class="st">"r"</span>) <span class="im">as</span> z:</span>
 <span id="cb49-16"><a href="#cb49-16" aria-hidden="true" tabindex="-1"></a>    z.extractall(extract_dir)</span>
 <span id="cb49-17"><a href="#cb49-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-18"><a href="#cb49-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Shapefile extracted to: </span><span class="sc">{</span>extract_dir<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb49-18"><a href="#cb49-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Shapefile extracted to: </span><span class="sc">{</span>extract_dir<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Downloading MODZCTA shapefile...
 Shapefile extracted to: tmp/MODZCTA_Shapefile</code></pre>
@@ -2101,7 +2102,7 @@ Shapefile extracted to: tmp/MODZCTA_Shapefile</code></pre>
 </div>
 <p>Now we process the shape file to calculate the areas of the polygons.</p>
 <div id="1ae7f581" class="cell" data-execution_count="40">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2: Automatically detect the correct .shp file</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2: Automatically detect the correct .shp file</span></span>
 <span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>shapefile_path <span class="op">=</span> <span class="va">None</span></span>
 <span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> <span class="bu">file</span> <span class="kw">in</span> os.listdir(extract_dir):</span>
 <span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">file</span>.endswith(<span class="st">".shp"</span>):</span>
@@ -2123,7 +2124,7 @@ Shapefile extracted to: tmp/MODZCTA_Shapefile</code></pre>
 <span id="cb51-20"><a href="#cb51-20" aria-hidden="true" tabindex="-1"></a>gdf[<span class="st">'land_area_sq_miles'</span>] <span class="op">=</span> gdf[<span class="st">'geometry'</span>].area <span class="op">/</span> <span class="fl">2_589_988.11</span></span>
 <span id="cb51-21"><a href="#cb51-21" aria-hidden="true" tabindex="-1"></a><span class="co"># 1 square mile = 2,589,988.11 square meters</span></span>
 <span id="cb51-22"><a href="#cb51-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-23"><a href="#cb51-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(gdf[[<span class="st">'modzcta'</span>, <span class="st">'land_area_sq_miles'</span>]].head())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb51-23"><a href="#cb51-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(gdf[[<span class="st">'modzcta'</span>, <span class="st">'land_area_sq_miles'</span>]].head())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Using shapefile: tmp/MODZCTA_Shapefile/geo_export_fc839ccd-10c1-440c-b689-2b3d894b1f7a.shp
   modzcta  land_area_sq_miles
@@ -2136,11 +2137,11 @@ Shapefile extracted to: tmp/MODZCTA_Shapefile</code></pre>
 </div>
 <p>Let’s export this data frame for future usage in feather format (see next Section).</p>
 <div id="4e0ed2ca" class="cell" data-execution_count="41">
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>gdf[[<span class="st">'modzcta'</span>, <span class="st">'land_area_sq_miles'</span>]].to_feather(<span class="st">'data/nyc_zip_areas.feather'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>gdf[[<span class="st">'modzcta'</span>, <span class="st">'land_area_sq_miles'</span>]].to_feather(<span class="st">'data/nyc_zip_areas.feather'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Now we are ready to merge the two data frames.</p>
 <div id="6372681a" class="cell" data-execution_count="42">
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge ACS data (`df_acs`) directly with MODZCTA land area (`gdf`)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge ACS data (`df_acs`) directly with MODZCTA land area (`gdf`)</span></span>
 <span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>gdf <span class="op">=</span> gdf.merge(df_acs, left_on<span class="op">=</span><span class="st">'modzcta'</span>, right_on<span class="op">=</span><span class="st">'ZIP Code'</span>, how<span class="op">=</span><span class="st">'left'</span>)</span>
 <span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate Population Density (people per square mile)</span></span>
@@ -2150,7 +2151,7 @@ Shapefile extracted to: tmp/MODZCTA_Shapefile</code></pre>
 <span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb54-9"><a href="#cb54-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Display first few rows</span></span>
 <span id="cb54-10"><a href="#cb54-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(gdf[[<span class="st">'modzcta'</span>, <span class="st">'Total Population'</span>, <span class="st">'land_area_sq_miles'</span>,</span>
-<span id="cb54-11"><a href="#cb54-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">'popdensity_per_sq_mile'</span>]].head())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb54-11"><a href="#cb54-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">'popdensity_per_sq_mile'</span>]].head())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  modzcta  Total Population  land_area_sq_miles  popdensity_per_sq_mile
 0   10001           29079.0            1.153516            25209.019713
@@ -2162,7 +2163,7 @@ Shapefile extracted to: tmp/MODZCTA_Shapefile</code></pre>
 </div>
 <p>Some visualization of population density.</p>
 <div id="be950809" class="cell" data-execution_count="43">
-<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
 <span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Set up figure and axis</span></span>
@@ -2187,7 +2188,7 @@ Shapefile extracted to: tmp/MODZCTA_Shapefile</code></pre>
 <span id="cb56-23"><a href="#cb56-23" aria-hidden="true" tabindex="-1"></a>ax.set_frame_on(<span class="va">False</span>)</span>
 <span id="cb56-24"><a href="#cb56-24" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb56-25"><a href="#cb56-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Show the plot</span></span>
-<span id="cb56-26"><a href="#cb56-26" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb56-26"><a href="#cb56-26" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -2212,7 +2213,7 @@ Shapefile extracted to: tmp/MODZCTA_Shapefile</code></pre>
 <p>Feather is a fast, lightweight, and easy-to-use binary file format for storing data frames, optimized for speed and efficiency, particularly for IPC and data sharing between Python and R or Julia.</p>
 <p>The following code processes the raw data in CSV format and write out in Arrow format.</p>
 <div id="28453f8f" class="cell" data-execution_count="44">
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># File paths</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># File paths</span></span>
 <span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>csv_file <span class="op">=</span> <span class="st">'data/nyc_crashes_lbdwk_2025.csv'</span></span>
 <span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>feather_file <span class="op">=</span> <span class="st">'tmp/nyc_crashes_lbdwk_2025.feather'</span></span>
 <span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -2225,11 +2226,11 @@ Shapefile extracted to: tmp/MODZCTA_Shapefile</code></pre>
 <span id="cb58-11"><a href="#cb58-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb58-12"><a href="#cb58-12" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.sort_values(by<span class="op">=</span><span class="st">'crash_datetime'</span>)</span>
 <span id="cb58-13"><a href="#cb58-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb58-14"><a href="#cb58-14" aria-hidden="true" tabindex="-1"></a>df.to_feather(feather_file)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb58-14"><a href="#cb58-14" aria-hidden="true" tabindex="-1"></a>df.to_feather(feather_file)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Let’s compare the file sizes of the feather format and the CSV format.</p>
 <div id="a95d6984" class="cell" data-execution_count="45">
-<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb59"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
 <span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Get file sizes in bytes</span></span>
@@ -2242,16 +2243,16 @@ Shapefile extracted to: tmp/MODZCTA_Shapefile</code></pre>
 <span id="cb59-11"><a href="#cb59-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb59-12"><a href="#cb59-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the file sizes</span></span>
 <span id="cb59-13"><a href="#cb59-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"CSV file size: </span><span class="sc">{</span>csv_size_mb<span class="sc">:.2f}</span><span class="ss"> MB"</span>)</span>
-<span id="cb59-14"><a href="#cb59-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Feather file size: </span><span class="sc">{</span>feather_size_mb<span class="sc">:.2f}</span><span class="ss"> MB"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb59-14"><a href="#cb59-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Feather file size: </span><span class="sc">{</span>feather_size_mb<span class="sc">:.2f}</span><span class="ss"> MB"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>CSV file size: 0.27 MB
 Feather file size: 0.13 MB</code></pre>
 </div>
 </div>
 <p>Read the feather file back in:</p>
-<div class="sourceCode" id="cb61"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb61"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
 <span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>dff <span class="op">=</span> pd.read_feather(feather_file)</span>
-<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>dff.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>dff.shape</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <!-- This section is to be included as a tutorial for using SQL. -->
 </section>
 <section id="database-operation-with-sql" class="level2" data-number="6.6">
@@ -2271,21 +2272,21 @@ Feather file size: 0.13 MB</code></pre>
 <p>This database uses the pandas package and includes flight data for all flights that left New York City airports in 2013. The database includes several tables including ones that detail each flight, airline, airport, and much more info regarding the flights. The data in this database is contained across several tables. Data stored like this would typically be irritating to deal with however it is proven simple when working with SQL.</p>
 <p>To set up this database, we need to import the proper packages:</p>
 <div id="039e73fa" class="cell" data-execution_count="46">
-<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sqlite3</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb62"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sqlite3</span>
 <span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nycflights13 <span class="im">import</span> flights, airlines, airports</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nycflights13 <span class="im">import</span> flights, airlines, airports</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Here we imported “sqlite3” which is the package to import when working with SQL. We also imported “pandas” which also includes the nycflights13 database and from there imported the three tables we will be working with.</p>
 <p>Now, we want to establish the connection between Python and our SQL database:</p>
 <div id="1b05dd22" class="cell" data-execution_count="47">
-<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>nycconn <span class="op">=</span> sqlite3.<span class="ex">connect</span>(<span class="st">"nycflights13.db"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb63"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>nycconn <span class="op">=</span> sqlite3.<span class="ex">connect</span>(<span class="st">"nycflights13.db"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>This snippet both creates the nycflights13.db database and establishes nycconn as our connection to this database.</p>
 <p>Next step is to add the three tables we imported from nycflights13 to the database:</p>
 <div id="28cf9cab" class="cell" data-execution_count="48">
-<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>flights.to_sql(<span class="st">"flights"</span>, nycconn, if_exists<span class="op">=</span><span class="st">"replace"</span>, index<span class="op">=</span><span class="va">False</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb64"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>flights.to_sql(<span class="st">"flights"</span>, nycconn, if_exists<span class="op">=</span><span class="st">"replace"</span>, index<span class="op">=</span><span class="va">False</span>)</span>
 <span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>airlines.to_sql(<span class="st">"airlines"</span>, nycconn, if_exists<span class="op">=</span><span class="st">"replace"</span>, index<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>airports.to_sql(<span class="st">"airports"</span>, nycconn, if_exists<span class="op">=</span><span class="st">"replace"</span>, index<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>airports.to_sql(<span class="st">"airports"</span>, nycconn, if_exists<span class="op">=</span><span class="st">"replace"</span>, index<span class="op">=</span><span class="va">False</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>What this does is converts the three pandas dataframes into tables in the SQL database. The if_exists argument handles what would happen if there is already a table in the database with the same name. The index argument is determining whether or not the first column of the dataframe should be handled as the index of the table in the dataframe.</p>
 </section>
@@ -2293,13 +2294,13 @@ Feather file size: 0.13 MB</code></pre>
 <h4 data-number="6.6.2.2" class="anchored" data-anchor-id="servicerequests-database"><span class="header-section-number">6.6.2.2</span> serviceRequests Database</h4>
 <p>First, we need to import our serviceRequests data from the csv in the data folder:</p>
 <div id="8a44525e" class="cell" data-execution_count="49">
-<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"data/serviceRequests06-09-2025_07-05-2025.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb65"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"data/serviceRequests06-09-2025_07-05-2025.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Now we need to repeat the process from nycflights13 but for our serviceRequests:</p>
 <div id="d050e10b" class="cell" data-execution_count="50">
-<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>srconn <span class="op">=</span> sqlite3.<span class="ex">connect</span>(<span class="st">"serviceRequests.db"</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb66"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>srconn <span class="op">=</span> sqlite3.<span class="ex">connect</span>(<span class="st">"serviceRequests.db"</span>)</span>
 <span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>df.to_sql(<span class="st">"requests"</span>, srconn, if_exists<span class="op">=</span><span class="st">"replace"</span>, index<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>df.to_sql(<span class="st">"requests"</span>, srconn, if_exists<span class="op">=</span><span class="st">"replace"</span>, index<span class="op">=</span><span class="va">False</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Here we imported the dataframe we got from the csv file as the only table in the serviceRequests.db database.</p>
 </section>
@@ -2312,16 +2313,16 @@ Feather file size: 0.13 MB</code></pre>
 <h4 data-number="6.6.3.1" class="anchored" data-anchor-id="select-and-from"><span class="header-section-number">6.6.3.1</span> SELECT and FROM</h4>
 <p>The following is the most basic possible query one can perform:</p>
 <div id="7a2f7e6d" class="cell" data-execution_count="51">
-<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"""</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb67"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"""</span></span>
 <span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT *</span></span>
 <span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a><span class="st">FROM flights;</span></span>
 <span id="cb67-4"><a href="#cb67-4" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
-<span id="cb67-5"><a href="#cb67-5" aria-hidden="true" tabindex="-1"></a>pd.read_sql_query(query, nycconn).head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb67-5"><a href="#cb67-5" aria-hidden="true" tabindex="-1"></a>pd.read_sql_query(query, nycconn).head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="49">
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -2348,7 +2349,7 @@ Feather file size: 0.13 MB</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
+<th data-quarto-table-cell-role="th">0</th>
 <td>2013</td>
 <td>1</td>
 <td>1</td>
@@ -2370,7 +2371,7 @@ Feather file size: 0.13 MB</code></pre>
 <td>2013-01-01T10:00:00Z</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
+<th data-quarto-table-cell-role="th">1</th>
 <td>2013</td>
 <td>1</td>
 <td>1</td>
@@ -2392,7 +2393,7 @@ Feather file size: 0.13 MB</code></pre>
 <td>2013-01-01T10:00:00Z</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
+<th data-quarto-table-cell-role="th">2</th>
 <td>2013</td>
 <td>1</td>
 <td>1</td>
@@ -2414,7 +2415,7 @@ Feather file size: 0.13 MB</code></pre>
 <td>2013-01-01T10:00:00Z</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
+<th data-quarto-table-cell-role="th">3</th>
 <td>2013</td>
 <td>1</td>
 <td>1</td>
@@ -2436,7 +2437,7 @@ Feather file size: 0.13 MB</code></pre>
 <td>2013-01-01T10:00:00Z</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
+<th data-quarto-table-cell-role="th">4</th>
 <td>2013</td>
 <td>1</td>
 <td>1</td>
@@ -2467,16 +2468,16 @@ Feather file size: 0.13 MB</code></pre>
 <p>This query is the most basic query, as it returns the entire flights table. The SELECT line of the query is where you put the names of which columns you want from your table. You specify which table you want to work with on the FROM line. We put “*” in our SELECT line which returns all columns. All SQL queries must end with “;”, otherwise you’ll get an error.</p>
 <p>Now let’s try to simplify what we’re seeing by only looking at the origins and destinations of the flights:</p>
 <div id="620b310d" class="cell" data-execution_count="52">
-<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"""</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb68"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"""</span></span>
 <span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT origin, dest</span></span>
 <span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a><span class="st">FROM flights;</span></span>
 <span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
-<span id="cb68-5"><a href="#cb68-5" aria-hidden="true" tabindex="-1"></a>pd.read_sql_query(query, nycconn).head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb68-5"><a href="#cb68-5" aria-hidden="true" tabindex="-1"></a>pd.read_sql_query(query, nycconn).head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="50">
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -2486,27 +2487,27 @@ Feather file size: 0.13 MB</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
+<th data-quarto-table-cell-role="th">0</th>
 <td>EWR</td>
 <td>IAH</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
+<th data-quarto-table-cell-role="th">1</th>
 <td>LGA</td>
 <td>IAH</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
+<th data-quarto-table-cell-role="th">2</th>
 <td>JFK</td>
 <td>MIA</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
+<th data-quarto-table-cell-role="th">3</th>
 <td>JFK</td>
 <td>BQN</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
+<th data-quarto-table-cell-role="th">4</th>
 <td>LGA</td>
 <td>ATL</td>
 </tr>
@@ -2522,17 +2523,17 @@ Feather file size: 0.13 MB</code></pre>
 <h4 data-number="6.6.3.2" class="anchored" data-anchor-id="order-by"><span class="header-section-number">6.6.3.2</span> ORDER BY</h4>
 <p>These columns are quite messy to look at so let’s try sorting them by origin:</p>
 <div id="14e170c5" class="cell" data-execution_count="53">
-<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"""</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb69"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"""</span></span>
 <span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT origin, dest</span></span>
 <span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a><span class="st">FROM flights</span></span>
 <span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a><span class="st">ORDER BY origin;</span></span>
 <span id="cb69-5"><a href="#cb69-5" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
-<span id="cb69-6"><a href="#cb69-6" aria-hidden="true" tabindex="-1"></a>pd.read_sql_query(query, nycconn).head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb69-6"><a href="#cb69-6" aria-hidden="true" tabindex="-1"></a>pd.read_sql_query(query, nycconn).head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="51">
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -2542,27 +2543,27 @@ Feather file size: 0.13 MB</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
+<th data-quarto-table-cell-role="th">0</th>
 <td>EWR</td>
 <td>IAH</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
+<th data-quarto-table-cell-role="th">1</th>
 <td>EWR</td>
 <td>ORD</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
+<th data-quarto-table-cell-role="th">2</th>
 <td>EWR</td>
 <td>FLL</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
+<th data-quarto-table-cell-role="th">3</th>
 <td>EWR</td>
 <td>SFO</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
+<th data-quarto-table-cell-role="th">4</th>
 <td>EWR</td>
 <td>LAS</td>
 </tr>
@@ -2575,17 +2576,17 @@ Feather file size: 0.13 MB</code></pre>
 <p>Here we added a new “ORDER BY” line. This line tells SQL what columns to sort the list by.</p>
 <p>You can sort by multiple columns just by listing them with commas in between:</p>
 <div id="6a0bbb88" class="cell" data-execution_count="54">
-<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"""</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb70"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"""</span></span>
 <span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT origin, dest</span></span>
 <span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a><span class="st">FROM flights</span></span>
 <span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a><span class="st">ORDER BY origin, dest;</span></span>
 <span id="cb70-5"><a href="#cb70-5" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
-<span id="cb70-6"><a href="#cb70-6" aria-hidden="true" tabindex="-1"></a>pd.read_sql_query(query, nycconn).head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb70-6"><a href="#cb70-6" aria-hidden="true" tabindex="-1"></a>pd.read_sql_query(query, nycconn).head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="52">
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -2595,27 +2596,27 @@ Feather file size: 0.13 MB</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
+<th data-quarto-table-cell-role="th">0</th>
 <td>EWR</td>
 <td>ALB</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
+<th data-quarto-table-cell-role="th">1</th>
 <td>EWR</td>
 <td>ALB</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
+<th data-quarto-table-cell-role="th">2</th>
 <td>EWR</td>
 <td>ALB</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
+<th data-quarto-table-cell-role="th">3</th>
 <td>EWR</td>
 <td>ALB</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
+<th data-quarto-table-cell-role="th">4</th>
 <td>EWR</td>
 <td>ALB</td>
 </tr>
@@ -2630,17 +2631,17 @@ Feather file size: 0.13 MB</code></pre>
 <h4 data-number="6.6.3.3" class="anchored" data-anchor-id="select-distinct"><span class="header-section-number">6.6.3.3</span> SELECT DISTINCT</h4>
 <p>Now that the list is properly sorted, we can see that there are multiple flights from each origin to destination combination. If we want to only see the unique columns, we can do this:</p>
 <div id="44c81c17" class="cell" data-execution_count="55">
-<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"""</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb71"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"""</span></span>
 <span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT DISTINCT origin, dest</span></span>
 <span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a><span class="st">FROM flights</span></span>
 <span id="cb71-4"><a href="#cb71-4" aria-hidden="true" tabindex="-1"></a><span class="st">ORDER BY origin, dest;</span></span>
 <span id="cb71-5"><a href="#cb71-5" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
-<span id="cb71-6"><a href="#cb71-6" aria-hidden="true" tabindex="-1"></a>pd.read_sql_query(query, nycconn).head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb71-6"><a href="#cb71-6" aria-hidden="true" tabindex="-1"></a>pd.read_sql_query(query, nycconn).head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="53">
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -2650,27 +2651,27 @@ Feather file size: 0.13 MB</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
+<th data-quarto-table-cell-role="th">0</th>
 <td>EWR</td>
 <td>ALB</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
+<th data-quarto-table-cell-role="th">1</th>
 <td>EWR</td>
 <td>ANC</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
+<th data-quarto-table-cell-role="th">2</th>
 <td>EWR</td>
 <td>ATL</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
+<th data-quarto-table-cell-role="th">3</th>
 <td>EWR</td>
 <td>AUS</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
+<th data-quarto-table-cell-role="th">4</th>
 <td>EWR</td>
 <td>AVL</td>
 </tr>
@@ -2690,18 +2691,18 @@ Feather file size: 0.13 MB</code></pre>
 <h4 data-number="6.6.4.1" class="anchored" data-anchor-id="where"><span class="header-section-number">6.6.4.1</span> WHERE</h4>
 <p>The way you can add conditionals to your query is by adding a “WHERE” line. Let’s take the same list from the last section and filter it so that only the flights that departed from LGA are returned:</p>
 <div id="747d5775" class="cell" data-execution_count="56">
-<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"""</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb72"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"""</span></span>
 <span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT DISTINCT origin, dest</span></span>
 <span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a><span class="st">FROM flights</span></span>
 <span id="cb72-4"><a href="#cb72-4" aria-hidden="true" tabindex="-1"></a><span class="st">WHERE origin = 'LGA'</span></span>
 <span id="cb72-5"><a href="#cb72-5" aria-hidden="true" tabindex="-1"></a><span class="st">ORDER BY origin, dest;</span></span>
 <span id="cb72-6"><a href="#cb72-6" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
-<span id="cb72-7"><a href="#cb72-7" aria-hidden="true" tabindex="-1"></a>pd.read_sql_query(query, nycconn).head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb72-7"><a href="#cb72-7" aria-hidden="true" tabindex="-1"></a>pd.read_sql_query(query, nycconn).head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="54">
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -2711,27 +2712,27 @@ Feather file size: 0.13 MB</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
+<th data-quarto-table-cell-role="th">0</th>
 <td>LGA</td>
 <td>ATL</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
+<th data-quarto-table-cell-role="th">1</th>
 <td>LGA</td>
 <td>AVL</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
+<th data-quarto-table-cell-role="th">2</th>
 <td>LGA</td>
 <td>BGR</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
+<th data-quarto-table-cell-role="th">3</th>
 <td>LGA</td>
 <td>BHM</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
+<th data-quarto-table-cell-role="th">4</th>
 <td>LGA</td>
 <td>BNA</td>
 </tr>
@@ -2756,18 +2757,18 @@ Feather file size: 0.13 MB</code></pre>
 <h4 data-number="6.6.4.2" class="anchored" data-anchor-id="and-or-and-not"><span class="header-section-number">6.6.4.2</span> AND, OR, and NOT</h4>
 <p>You can add multiple conditionals by using AND, OR, and parentheses</p>
 <div id="83645cbb" class="cell" data-execution_count="57">
-<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"""</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb73"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"""</span></span>
 <span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT origin, dest</span></span>
 <span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a><span class="st">FROM flights</span></span>
 <span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a><span class="st">WHERE origin = 'LGA' AND dest = 'ATL'</span></span>
 <span id="cb73-5"><a href="#cb73-5" aria-hidden="true" tabindex="-1"></a><span class="st">ORDER BY origin, dest;</span></span>
 <span id="cb73-6"><a href="#cb73-6" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
-<span id="cb73-7"><a href="#cb73-7" aria-hidden="true" tabindex="-1"></a>pd.read_sql_query(query, nycconn).head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb73-7"><a href="#cb73-7" aria-hidden="true" tabindex="-1"></a>pd.read_sql_query(query, nycconn).head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="55">
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -2777,27 +2778,27 @@ Feather file size: 0.13 MB</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
+<th data-quarto-table-cell-role="th">0</th>
 <td>LGA</td>
 <td>ATL</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
+<th data-quarto-table-cell-role="th">1</th>
 <td>LGA</td>
 <td>ATL</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
+<th data-quarto-table-cell-role="th">2</th>
 <td>LGA</td>
 <td>ATL</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
+<th data-quarto-table-cell-role="th">3</th>
 <td>LGA</td>
 <td>ATL</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
+<th data-quarto-table-cell-role="th">4</th>
 <td>LGA</td>
 <td>ATL</td>
 </tr>
@@ -2810,18 +2811,18 @@ Feather file size: 0.13 MB</code></pre>
 <p>This uses AND to return all flights that departed from LGA and arrived in ATL</p>
 <p>We can also use OR to return all flights that either departed from LGA or arrived in ATL:</p>
 <div id="78c03c89" class="cell" data-execution_count="58">
-<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"""</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb74"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"""</span></span>
 <span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT DISTINCT origin, dest</span></span>
 <span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a><span class="st">FROM flights</span></span>
 <span id="cb74-4"><a href="#cb74-4" aria-hidden="true" tabindex="-1"></a><span class="st">WHERE origin = 'LGA' OR dest = 'ATL'</span></span>
 <span id="cb74-5"><a href="#cb74-5" aria-hidden="true" tabindex="-1"></a><span class="st">ORDER BY origin, dest;</span></span>
 <span id="cb74-6"><a href="#cb74-6" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
-<span id="cb74-7"><a href="#cb74-7" aria-hidden="true" tabindex="-1"></a>pd.read_sql_query(query, nycconn).head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb74-7"><a href="#cb74-7" aria-hidden="true" tabindex="-1"></a>pd.read_sql_query(query, nycconn).head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="56">
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -2831,27 +2832,27 @@ Feather file size: 0.13 MB</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
+<th data-quarto-table-cell-role="th">0</th>
 <td>EWR</td>
 <td>ATL</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
+<th data-quarto-table-cell-role="th">1</th>
 <td>JFK</td>
 <td>ATL</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
+<th data-quarto-table-cell-role="th">2</th>
 <td>LGA</td>
 <td>ATL</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
+<th data-quarto-table-cell-role="th">3</th>
 <td>LGA</td>
 <td>AVL</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
+<th data-quarto-table-cell-role="th">4</th>
 <td>LGA</td>
 <td>BGR</td>
 </tr>
@@ -2864,18 +2865,18 @@ Feather file size: 0.13 MB</code></pre>
 <p>When you want to get more complicated with your conditionals, parenthesis can be used to ensure SQL is correctly mixing the AND and OR statements.</p>
 <p>Use NOT to return the opposite of a statement:</p>
 <div id="7b38071c" class="cell" data-execution_count="59">
-<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"""</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb75"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"""</span></span>
 <span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT DISTINCT origin, dest</span></span>
 <span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a><span class="st">FROM flights</span></span>
 <span id="cb75-4"><a href="#cb75-4" aria-hidden="true" tabindex="-1"></a><span class="st">WHERE NOT (origin = 'LGA' OR dest = 'ATL')</span></span>
 <span id="cb75-5"><a href="#cb75-5" aria-hidden="true" tabindex="-1"></a><span class="st">ORDER BY origin, dest;</span></span>
 <span id="cb75-6"><a href="#cb75-6" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
-<span id="cb75-7"><a href="#cb75-7" aria-hidden="true" tabindex="-1"></a>pd.read_sql_query(query, nycconn).head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb75-7"><a href="#cb75-7" aria-hidden="true" tabindex="-1"></a>pd.read_sql_query(query, nycconn).head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="57">
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -2885,27 +2886,27 @@ Feather file size: 0.13 MB</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
+<th data-quarto-table-cell-role="th">0</th>
 <td>EWR</td>
 <td>ALB</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
+<th data-quarto-table-cell-role="th">1</th>
 <td>EWR</td>
 <td>ANC</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
+<th data-quarto-table-cell-role="th">2</th>
 <td>EWR</td>
 <td>AUS</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
+<th data-quarto-table-cell-role="th">3</th>
 <td>EWR</td>
 <td>AVL</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
+<th data-quarto-table-cell-role="th">4</th>
 <td>EWR</td>
 <td>BDL</td>
 </tr>
@@ -2920,17 +2921,17 @@ Feather file size: 0.13 MB</code></pre>
 <h4 data-number="6.6.4.3" class="anchored" data-anchor-id="count"><span class="header-section-number">6.6.4.3</span> COUNT</h4>
 <p>An easy way in SQL to see the total number of rows that fit the conditions you’ve specified:</p>
 <div id="694f63bc" class="cell" data-execution_count="60">
-<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"""</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb76"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"""</span></span>
 <span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT COUNT(DISTINCT dest)</span></span>
 <span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a><span class="st">FROM flights</span></span>
 <span id="cb76-4"><a href="#cb76-4" aria-hidden="true" tabindex="-1"></a><span class="st">WHERE NOT (origin = 'LGA' OR dest = 'ATL');</span></span>
 <span id="cb76-5"><a href="#cb76-5" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
-<span id="cb76-6"><a href="#cb76-6" aria-hidden="true" tabindex="-1"></a>pd.read_sql_query(query, nycconn).head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb76-6"><a href="#cb76-6" aria-hidden="true" tabindex="-1"></a>pd.read_sql_query(query, nycconn).head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="58">
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -2939,7 +2940,7 @@ Feather file size: 0.13 MB</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
+<th data-quarto-table-cell-role="th">0</th>
 <td>97</td>
 </tr>
 </tbody>
@@ -2954,19 +2955,19 @@ Feather file size: 0.13 MB</code></pre>
 <h4 data-number="6.6.4.4" class="anchored" data-anchor-id="limit"><span class="header-section-number">6.6.4.4</span> LIMIT</h4>
 <p>If you don’t want to use .head() to only display the first few rows, this can be done in SQL using a LIMIT statement:</p>
 <div id="d1b1f91b" class="cell" data-execution_count="61">
-<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"""</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb77"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"""</span></span>
 <span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT DISTINCT carrier, origin, dest</span></span>
 <span id="cb77-3"><a href="#cb77-3" aria-hidden="true" tabindex="-1"></a><span class="st">FROM flights</span></span>
 <span id="cb77-4"><a href="#cb77-4" aria-hidden="true" tabindex="-1"></a><span class="st">WHERE carrier = 'UA'</span></span>
 <span id="cb77-5"><a href="#cb77-5" aria-hidden="true" tabindex="-1"></a><span class="st">ORDER BY origin, dest</span></span>
 <span id="cb77-6"><a href="#cb77-6" aria-hidden="true" tabindex="-1"></a><span class="st">LIMIT 5;</span></span>
 <span id="cb77-7"><a href="#cb77-7" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
-<span id="cb77-8"><a href="#cb77-8" aria-hidden="true" tabindex="-1"></a>pd.read_sql_query(query, nycconn)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb77-8"><a href="#cb77-8" aria-hidden="true" tabindex="-1"></a>pd.read_sql_query(query, nycconn)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="59">
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -2977,31 +2978,31 @@ Feather file size: 0.13 MB</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
+<th data-quarto-table-cell-role="th">0</th>
 <td>UA</td>
 <td>EWR</td>
 <td>ANC</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
+<th data-quarto-table-cell-role="th">1</th>
 <td>UA</td>
 <td>EWR</td>
 <td>ATL</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
+<th data-quarto-table-cell-role="th">2</th>
 <td>UA</td>
 <td>EWR</td>
 <td>AUS</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
+<th data-quarto-table-cell-role="th">3</th>
 <td>UA</td>
 <td>EWR</td>
 <td>BDL</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
+<th data-quarto-table-cell-role="th">4</th>
 <td>UA</td>
 <td>EWR</td>
 <td>BOS</td>
@@ -3015,19 +3016,19 @@ Feather file size: 0.13 MB</code></pre>
 <p>This query added the “carrier” column that displays the airline that held the flight. We specified that we want all flights from the “UA” airline and limited the result to 5 rows.</p>
 <p>An interesting thing you can do with conditionals in SQL is to filter by values in a column that you are not displaying:</p>
 <div id="2d1b8c75" class="cell" data-execution_count="62">
-<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"""</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb78"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"""</span></span>
 <span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT DISTINCT origin, dest</span></span>
 <span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a><span class="st">FROM flights</span></span>
 <span id="cb78-4"><a href="#cb78-4" aria-hidden="true" tabindex="-1"></a><span class="st">WHERE carrier = 'UA'</span></span>
 <span id="cb78-5"><a href="#cb78-5" aria-hidden="true" tabindex="-1"></a><span class="st">ORDER BY origin, dest</span></span>
 <span id="cb78-6"><a href="#cb78-6" aria-hidden="true" tabindex="-1"></a><span class="st">LIMIT 5;</span></span>
 <span id="cb78-7"><a href="#cb78-7" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
-<span id="cb78-8"><a href="#cb78-8" aria-hidden="true" tabindex="-1"></a>pd.read_sql_query(query, nycconn)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb78-8"><a href="#cb78-8" aria-hidden="true" tabindex="-1"></a>pd.read_sql_query(query, nycconn)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="60">
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -3037,27 +3038,27 @@ Feather file size: 0.13 MB</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
+<th data-quarto-table-cell-role="th">0</th>
 <td>EWR</td>
 <td>ANC</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
+<th data-quarto-table-cell-role="th">1</th>
 <td>EWR</td>
 <td>ATL</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
+<th data-quarto-table-cell-role="th">2</th>
 <td>EWR</td>
 <td>AUS</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
+<th data-quarto-table-cell-role="th">3</th>
 <td>EWR</td>
 <td>BDL</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
+<th data-quarto-table-cell-role="th">4</th>
 <td>EWR</td>
 <td>BOS</td>
 </tr>
@@ -3074,16 +3075,16 @@ Feather file size: 0.13 MB</code></pre>
 <h3 data-number="6.6.5" class="anchored" data-anchor-id="joins"><span class="header-section-number">6.6.5</span> Joins</h3>
 <p>The last query that we did was useful, however it isn’t realistic to expect users to memorize the two-digit codes for all airlines. Thankfully, there is the airlines table in our nycflights13.db database. Let’s take a look at it:</p>
 <div id="56ec2e86" class="cell" data-execution_count="63">
-<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"""</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb79"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"""</span></span>
 <span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT *</span></span>
 <span id="cb79-3"><a href="#cb79-3" aria-hidden="true" tabindex="-1"></a><span class="st">FROM airlines;</span></span>
 <span id="cb79-4"><a href="#cb79-4" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
-<span id="cb79-5"><a href="#cb79-5" aria-hidden="true" tabindex="-1"></a>pd.read_sql_query(query, nycconn).head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb79-5"><a href="#cb79-5" aria-hidden="true" tabindex="-1"></a>pd.read_sql_query(query, nycconn).head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="61">
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -3093,27 +3094,27 @@ Feather file size: 0.13 MB</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
+<th data-quarto-table-cell-role="th">0</th>
 <td>9E</td>
 <td>Endeavor Air Inc.</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
+<th data-quarto-table-cell-role="th">1</th>
 <td>AA</td>
 <td>American Airlines Inc.</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
+<th data-quarto-table-cell-role="th">2</th>
 <td>AS</td>
 <td>Alaska Airlines Inc.</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
+<th data-quarto-table-cell-role="th">3</th>
 <td>B6</td>
 <td>JetBlue Airways</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
+<th data-quarto-table-cell-role="th">4</th>
 <td>DL</td>
 <td>Delta Air Lines Inc.</td>
 </tr>
@@ -3128,18 +3129,18 @@ Feather file size: 0.13 MB</code></pre>
 <h4 data-number="6.6.5.1" class="anchored" data-anchor-id="inner-join"><span class="header-section-number">6.6.5.1</span> INNER JOIN</h4>
 <p>Logically, we wouldn’t want our outputted table to display the two-digit code that represents each airline but instead we’d want to see the name of the airline. Thankfully, SQL has a way to join the data from the two tables together:</p>
 <div id="06cae6b3" class="cell" data-execution_count="64">
-<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"""</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb80"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"""</span></span>
 <span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT DISTINCT a.name AS airline_name, f.origin, f.dest</span></span>
 <span id="cb80-3"><a href="#cb80-3" aria-hidden="true" tabindex="-1"></a><span class="st">FROM flights AS f</span></span>
 <span id="cb80-4"><a href="#cb80-4" aria-hidden="true" tabindex="-1"></a><span class="st">INNER JOIN airlines AS a</span></span>
 <span id="cb80-5"><a href="#cb80-5" aria-hidden="true" tabindex="-1"></a><span class="st">ON f.carrier = a.carrier;</span></span>
 <span id="cb80-6"><a href="#cb80-6" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
-<span id="cb80-7"><a href="#cb80-7" aria-hidden="true" tabindex="-1"></a>pd.read_sql_query(query, nycconn).head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb80-7"><a href="#cb80-7" aria-hidden="true" tabindex="-1"></a>pd.read_sql_query(query, nycconn).head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="62">
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -3150,31 +3151,31 @@ Feather file size: 0.13 MB</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
+<th data-quarto-table-cell-role="th">0</th>
 <td>United Air Lines Inc.</td>
 <td>EWR</td>
 <td>IAH</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
+<th data-quarto-table-cell-role="th">1</th>
 <td>United Air Lines Inc.</td>
 <td>LGA</td>
 <td>IAH</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
+<th data-quarto-table-cell-role="th">2</th>
 <td>American Airlines Inc.</td>
 <td>JFK</td>
 <td>MIA</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
+<th data-quarto-table-cell-role="th">3</th>
 <td>JetBlue Airways</td>
 <td>JFK</td>
 <td>BQN</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
+<th data-quarto-table-cell-role="th">4</th>
 <td>Delta Air Lines Inc.</td>
 <td>LGA</td>
 <td>ATL</td>
@@ -3192,7 +3193,7 @@ Feather file size: 0.13 MB</code></pre>
 <p>JOIN statements are key when using SQL to display data. This is what allows SQL databases to be in such nice and concise structures.</p>
 <p>Now let’s also add in the values from the “airports” table so that we get the full names of the airports instead of their three-digit codes:</p>
 <div id="538e71fc" class="cell" data-execution_count="65">
-<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"""</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb81"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"""</span></span>
 <span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT DISTINCT a.name AS airline_name,</span></span>
 <span id="cb81-3"><a href="#cb81-3" aria-hidden="true" tabindex="-1"></a><span class="st">       orig.name AS origin_name,</span></span>
 <span id="cb81-4"><a href="#cb81-4" aria-hidden="true" tabindex="-1"></a><span class="st">       dest.name AS dest_name</span></span>
@@ -3204,12 +3205,12 @@ Feather file size: 0.13 MB</code></pre>
 <span id="cb81-10"><a href="#cb81-10" aria-hidden="true" tabindex="-1"></a><span class="st">INNER JOIN airports AS dest</span></span>
 <span id="cb81-11"><a href="#cb81-11" aria-hidden="true" tabindex="-1"></a><span class="st">    ON f.dest = dest.faa;</span></span>
 <span id="cb81-12"><a href="#cb81-12" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
-<span id="cb81-13"><a href="#cb81-13" aria-hidden="true" tabindex="-1"></a>pd.read_sql_query(query, nycconn).head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb81-13"><a href="#cb81-13" aria-hidden="true" tabindex="-1"></a>pd.read_sql_query(query, nycconn).head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="63">
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -3220,31 +3221,31 @@ Feather file size: 0.13 MB</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
+<th data-quarto-table-cell-role="th">0</th>
 <td>United Air Lines Inc.</td>
 <td>Newark Liberty Intl</td>
 <td>George Bush Intercontinental</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
+<th data-quarto-table-cell-role="th">1</th>
 <td>United Air Lines Inc.</td>
 <td>La Guardia</td>
 <td>George Bush Intercontinental</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
+<th data-quarto-table-cell-role="th">2</th>
 <td>American Airlines Inc.</td>
 <td>John F Kennedy Intl</td>
 <td>Miami Intl</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
+<th data-quarto-table-cell-role="th">3</th>
 <td>Delta Air Lines Inc.</td>
 <td>La Guardia</td>
 <td>Hartsfield Jackson Atlanta Intl</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
+<th data-quarto-table-cell-role="th">4</th>
 <td>United Air Lines Inc.</td>
 <td>Newark Liberty Intl</td>
 <td>Chicago Ohare Intl</td>
@@ -3262,7 +3263,7 @@ Feather file size: 0.13 MB</code></pre>
 <p>SQL has three different versions of JOIN statements: + INNER JOIN + LEFT JOIN + RIGHT JOIN</p>
 <p>This allows the user to determine what rows get included as a result of joining two tables. Let’s take a look at the differences:</p>
 <div id="f4360f0c" class="cell" data-execution_count="66">
-<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"""</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb82"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"""</span></span>
 <span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT DISTINCT f.flight,</span></span>
 <span id="cb82-3"><a href="#cb82-3" aria-hidden="true" tabindex="-1"></a><span class="st">       a.name AS airline_name,</span></span>
 <span id="cb82-4"><a href="#cb82-4" aria-hidden="true" tabindex="-1"></a><span class="st">       orig.name AS origin_name,</span></span>
@@ -3275,12 +3276,12 @@ Feather file size: 0.13 MB</code></pre>
 <span id="cb82-11"><a href="#cb82-11" aria-hidden="true" tabindex="-1"></a><span class="st">INNER JOIN airports AS dest</span></span>
 <span id="cb82-12"><a href="#cb82-12" aria-hidden="true" tabindex="-1"></a><span class="st">    ON f.dest = dest.faa;</span></span>
 <span id="cb82-13"><a href="#cb82-13" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
-<span id="cb82-14"><a href="#cb82-14" aria-hidden="true" tabindex="-1"></a>pd.read_sql_query(query, nycconn).head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb82-14"><a href="#cb82-14" aria-hidden="true" tabindex="-1"></a>pd.read_sql_query(query, nycconn).head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="64">
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -3292,35 +3293,35 @@ Feather file size: 0.13 MB</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
+<th data-quarto-table-cell-role="th">0</th>
 <td>1545</td>
 <td>United Air Lines Inc.</td>
 <td>Newark Liberty Intl</td>
 <td>George Bush Intercontinental</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
+<th data-quarto-table-cell-role="th">1</th>
 <td>1714</td>
 <td>United Air Lines Inc.</td>
 <td>La Guardia</td>
 <td>George Bush Intercontinental</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
+<th data-quarto-table-cell-role="th">2</th>
 <td>1141</td>
 <td>American Airlines Inc.</td>
 <td>John F Kennedy Intl</td>
 <td>Miami Intl</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
+<th data-quarto-table-cell-role="th">3</th>
 <td>461</td>
 <td>Delta Air Lines Inc.</td>
 <td>La Guardia</td>
 <td>Hartsfield Jackson Atlanta Intl</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
+<th data-quarto-table-cell-role="th">4</th>
 <td>1696</td>
 <td>United Air Lines Inc.</td>
 <td>Newark Liberty Intl</td>
@@ -3334,7 +3335,7 @@ Feather file size: 0.13 MB</code></pre>
 </div>
 <p>INNER JOIN is the most common. This is because the result will only include rows in which the values in question are included in both tables. For example, if there was a row in flights that included an airline code that was not present in airlines, then SQL will not include that row in the result.</p>
 <div id="fa33f5f3" class="cell" data-execution_count="67">
-<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"""</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb83"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"""</span></span>
 <span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT DISTINCT f.flight,</span></span>
 <span id="cb83-3"><a href="#cb83-3" aria-hidden="true" tabindex="-1"></a><span class="st">    a.name AS airline_name,</span></span>
 <span id="cb83-4"><a href="#cb83-4" aria-hidden="true" tabindex="-1"></a><span class="st">    orig.name AS origin_name,</span></span>
@@ -3347,12 +3348,12 @@ Feather file size: 0.13 MB</code></pre>
 <span id="cb83-11"><a href="#cb83-11" aria-hidden="true" tabindex="-1"></a><span class="st">LEFT JOIN airports AS dest</span></span>
 <span id="cb83-12"><a href="#cb83-12" aria-hidden="true" tabindex="-1"></a><span class="st">    ON f.dest = dest.faa;</span></span>
 <span id="cb83-13"><a href="#cb83-13" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
-<span id="cb83-14"><a href="#cb83-14" aria-hidden="true" tabindex="-1"></a>pd.read_sql_query(query, nycconn).head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb83-14"><a href="#cb83-14" aria-hidden="true" tabindex="-1"></a>pd.read_sql_query(query, nycconn).head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="65">
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -3364,35 +3365,35 @@ Feather file size: 0.13 MB</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
+<th data-quarto-table-cell-role="th">0</th>
 <td>1545</td>
 <td>United Air Lines Inc.</td>
 <td>Newark Liberty Intl</td>
 <td>George Bush Intercontinental</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
+<th data-quarto-table-cell-role="th">1</th>
 <td>1714</td>
 <td>United Air Lines Inc.</td>
 <td>La Guardia</td>
 <td>George Bush Intercontinental</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
+<th data-quarto-table-cell-role="th">2</th>
 <td>1141</td>
 <td>American Airlines Inc.</td>
 <td>John F Kennedy Intl</td>
 <td>Miami Intl</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
+<th data-quarto-table-cell-role="th">3</th>
 <td>725</td>
 <td>JetBlue Airways</td>
 <td>John F Kennedy Intl</td>
 <td>None</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
+<th data-quarto-table-cell-role="th">4</th>
 <td>461</td>
 <td>Delta Air Lines Inc.</td>
 <td>La Guardia</td>
@@ -3406,7 +3407,7 @@ Feather file size: 0.13 MB</code></pre>
 </div>
 <p>LEFT JOIN will return all rows that are in flights regardless of if SQL was able to find matching rows on the other tables. This is perfectly represented in the fourth row of the output. On flights, the destination for flight 725 is “BQN” which is not an airport on the airports table. If you look back to the result of the INNER JOIN, this row was removed from the result however it is present here because we used flights as our only reference for rows and therefore the row is included but the destination name is left as “None”</p>
 <div id="01c79ef6" class="cell" data-execution_count="68">
-<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"""</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb84"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"""</span></span>
 <span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT DISTINCT f.flight,</span></span>
 <span id="cb84-3"><a href="#cb84-3" aria-hidden="true" tabindex="-1"></a><span class="st">    f.origin,</span></span>
 <span id="cb84-4"><a href="#cb84-4" aria-hidden="true" tabindex="-1"></a><span class="st">    dest.name AS dest_name</span></span>
@@ -3414,12 +3415,12 @@ Feather file size: 0.13 MB</code></pre>
 <span id="cb84-6"><a href="#cb84-6" aria-hidden="true" tabindex="-1"></a><span class="st">RIGHT JOIN airports AS dest</span></span>
 <span id="cb84-7"><a href="#cb84-7" aria-hidden="true" tabindex="-1"></a><span class="st">    ON f.dest = dest.faa;</span></span>
 <span id="cb84-8"><a href="#cb84-8" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
-<span id="cb84-9"><a href="#cb84-9" aria-hidden="true" tabindex="-1"></a>pd.read_sql_query(query, nycconn)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb84-9"><a href="#cb84-9" aria-hidden="true" tabindex="-1"></a>pd.read_sql_query(query, nycconn)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="66">
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -3430,67 +3431,67 @@ Feather file size: 0.13 MB</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
+<th data-quarto-table-cell-role="th">0</th>
 <td>1545.0</td>
 <td>EWR</td>
 <td>George Bush Intercontinental</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
+<th data-quarto-table-cell-role="th">1</th>
 <td>1714.0</td>
 <td>LGA</td>
 <td>George Bush Intercontinental</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
+<th data-quarto-table-cell-role="th">2</th>
 <td>1141.0</td>
 <td>JFK</td>
 <td>Miami Intl</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
+<th data-quarto-table-cell-role="th">3</th>
 <td>461.0</td>
 <td>LGA</td>
 <td>Hartsfield Jackson Atlanta Intl</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
+<th data-quarto-table-cell-role="th">4</th>
 <td>1696.0</td>
 <td>EWR</td>
 <td>Chicago Ohare Intl</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">...</td>
+<th data-quarto-table-cell-role="th">...</th>
 <td>...</td>
 <td>...</td>
 <td>...</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">13275</td>
+<th data-quarto-table-cell-role="th">13275</th>
 <td>NaN</td>
 <td>None</td>
 <td>Boston Back Bay Station</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">13276</td>
+<th data-quarto-table-cell-role="th">13276</th>
 <td>NaN</td>
 <td>None</td>
 <td>Black Rock</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">13277</td>
+<th data-quarto-table-cell-role="th">13277</th>
 <td>NaN</td>
 <td>None</td>
 <td>New Haven Rail Station</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">13278</td>
+<th data-quarto-table-cell-role="th">13278</th>
 <td>NaN</td>
 <td>None</td>
 <td>Wilmington Amtrak Station</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">13279</td>
+<th data-quarto-table-cell-role="th">13279</th>
 <td>NaN</td>
 <td>None</td>
 <td>Washington Union Station</td>
@@ -3509,16 +3510,16 @@ Feather file size: 0.13 MB</code></pre>
 <h3 data-number="6.6.6" class="anchored" data-anchor-id="creating-tables"><span class="header-section-number">6.6.6</span> Creating Tables</h3>
 <p>Let’s take a look at our serviceRequests.db’s requests table:</p>
 <div id="cd5ae63d" class="cell" data-execution_count="69">
-<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"""</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb85"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"""</span></span>
 <span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT *</span></span>
 <span id="cb85-3"><a href="#cb85-3" aria-hidden="true" tabindex="-1"></a><span class="st">FROM requests;</span></span>
 <span id="cb85-4"><a href="#cb85-4" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
-<span id="cb85-5"><a href="#cb85-5" aria-hidden="true" tabindex="-1"></a>pd.read_sql_query(query, srconn).head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb85-5"><a href="#cb85-5" aria-hidden="true" tabindex="-1"></a>pd.read_sql_query(query, srconn).head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="67">
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -3547,7 +3548,7 @@ Feather file size: 0.13 MB</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
+<th data-quarto-table-cell-role="th">0</th>
 <td>65477840</td>
 <td>07/05/2025 11:59:51 AM</td>
 <td>None</td>
@@ -3571,7 +3572,7 @@ Feather file size: 0.13 MB</code></pre>
 <td>(40.6684777987759, -73.84687384879807)</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
+<th data-quarto-table-cell-role="th">1</th>
 <td>65473303</td>
 <td>07/05/2025 11:59:38 AM</td>
 <td>07/05/2025 12:53:29 PM</td>
@@ -3595,7 +3596,7 @@ Feather file size: 0.13 MB</code></pre>
 <td>(40.685343220141434, -73.90741025722555)</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
+<th data-quarto-table-cell-role="th">2</th>
 <td>65479182</td>
 <td>07/05/2025 11:59:30 AM</td>
 <td>07/05/2025 07:24:47 PM</td>
@@ -3619,7 +3620,7 @@ Feather file size: 0.13 MB</code></pre>
 <td>(40.739795176046364, -74.00670839867178)</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
+<th data-quarto-table-cell-role="th">3</th>
 <td>65472680</td>
 <td>07/05/2025 11:59:27 AM</td>
 <td>07/05/2025 02:28:38 PM</td>
@@ -3643,7 +3644,7 @@ Feather file size: 0.13 MB</code></pre>
 <td>(40.82364581471349, -73.94134045287531)</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
+<th data-quarto-table-cell-role="th">4</th>
 <td>65479165</td>
 <td>07/05/2025 11:59:20 AM</td>
 <td>07/06/2025 01:13:50 AM</td>
@@ -3677,17 +3678,17 @@ Feather file size: 0.13 MB</code></pre>
 <p>Take note that we have begun using our other connection (srconn instead of nycconn) because we are working with our other database.</p>
 <p>Thankfully, SQL makes it very simple to create new tables from the results of a query. Looking back at the redundancy with agencies, we can create the following query to see all the agency codes and their corresponding names:</p>
 <div id="67f895c1" class="cell" data-execution_count="70">
-<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"""</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb86"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"""</span></span>
 <span id="cb86-2"><a href="#cb86-2" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT DISTINCT Agency, "Agency Name"</span></span>
 <span id="cb86-3"><a href="#cb86-3" aria-hidden="true" tabindex="-1"></a><span class="st">FROM requests</span></span>
 <span id="cb86-4"><a href="#cb86-4" aria-hidden="true" tabindex="-1"></a><span class="st">ORDER BY Agency;</span></span>
 <span id="cb86-5"><a href="#cb86-5" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
-<span id="cb86-6"><a href="#cb86-6" aria-hidden="true" tabindex="-1"></a>pd.read_sql_query(query, srconn).head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb86-6"><a href="#cb86-6" aria-hidden="true" tabindex="-1"></a>pd.read_sql_query(query, srconn).head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="68">
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -3697,27 +3698,27 @@ Feather file size: 0.13 MB</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
+<th data-quarto-table-cell-role="th">0</th>
 <td>DCWP</td>
 <td>Department of Consumer and Worker Protection</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
+<th data-quarto-table-cell-role="th">1</th>
 <td>DEP</td>
 <td>Department of Environmental Protection</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
+<th data-quarto-table-cell-role="th">2</th>
 <td>DHS</td>
 <td>Department of Homeless Services</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
+<th data-quarto-table-cell-role="th">3</th>
 <td>DOB</td>
 <td>Department of Buildings</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
+<th data-quarto-table-cell-role="th">4</th>
 <td>DOE</td>
 <td>Department of Education</td>
 </tr>
@@ -3730,14 +3731,14 @@ Feather file size: 0.13 MB</code></pre>
 <p>Something to note here is how one can handle a column name that includes a space or a comma. If you put the name of the column in quotes, then SQL will handle everything inside the quotes as the name of the column.</p>
 <p>Now that we have created this query, we can make the result into its own table in the database:</p>
 <div id="d41b48b5" class="cell" data-execution_count="71">
-<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"""</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb87"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"""</span></span>
 <span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a><span class="st">CREATE TABLE IF NOT EXISTS agencies AS</span></span>
 <span id="cb87-3"><a href="#cb87-3" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT DISTINCT Agency, "Agency Name"</span></span>
 <span id="cb87-4"><a href="#cb87-4" aria-hidden="true" tabindex="-1"></a><span class="st">FROM requests</span></span>
 <span id="cb87-5"><a href="#cb87-5" aria-hidden="true" tabindex="-1"></a><span class="st">ORDER BY Agency;</span></span>
 <span id="cb87-6"><a href="#cb87-6" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
 <span id="cb87-7"><a href="#cb87-7" aria-hidden="true" tabindex="-1"></a>srconn.execute(query)</span>
-<span id="cb87-8"><a href="#cb87-8" aria-hidden="true" tabindex="-1"></a>srconn.commit()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb87-8"><a href="#cb87-8" aria-hidden="true" tabindex="-1"></a>srconn.commit()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>There are a few key parts to this query:</p>
 <p>Firstly, we have the first line which tells SQL to create a table named agencies and the AS works here to tell SQL to make the table be the result of the query that follows the first line.</p>
@@ -3745,16 +3746,16 @@ Feather file size: 0.13 MB</code></pre>
 <p>Lastly, we use different commands outside of creating the query variable. Instead of pd.read_sql_query(query, srconn), we have our connection to SQL execute the query we created, then commit the changes to the database.</p>
 <p>Now that we have added the table to our database, we can query it:</p>
 <div id="6bf98bea" class="cell" data-execution_count="72">
-<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"""</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb88"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">"""</span></span>
 <span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a><span class="st">SELECT *</span></span>
 <span id="cb88-3"><a href="#cb88-3" aria-hidden="true" tabindex="-1"></a><span class="st">FROM agencies;</span></span>
 <span id="cb88-4"><a href="#cb88-4" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
-<span id="cb88-5"><a href="#cb88-5" aria-hidden="true" tabindex="-1"></a>pd.read_sql_query(query, srconn).head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb88-5"><a href="#cb88-5" aria-hidden="true" tabindex="-1"></a>pd.read_sql_query(query, srconn).head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="70">
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -3764,27 +3765,27 @@ Feather file size: 0.13 MB</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
+<th data-quarto-table-cell-role="th">0</th>
 <td>DCWP</td>
 <td>Department of Consumer and Worker Protection</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
+<th data-quarto-table-cell-role="th">1</th>
 <td>DEP</td>
 <td>Department of Environmental Protection</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
+<th data-quarto-table-cell-role="th">2</th>
 <td>DHS</td>
 <td>Department of Homeless Services</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
+<th data-quarto-table-cell-role="th">3</th>
 <td>DOB</td>
 <td>Department of Buildings</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
+<th data-quarto-table-cell-role="th">4</th>
 <td>DOE</td>
 <td>Department of Education</td>
 </tr>
@@ -3877,13 +3878,14 @@ Feather file size: 0.13 MB</code></pre>
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

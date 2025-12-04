@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.33">
+<meta name="generator" content="quarto-1.8.26">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -89,14 +89,15 @@ div.csl-indent {
 <link href="./20-deeplearning.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-485d01fc63b59abcd3ee1bf1e8e2748d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-27c261d06b905028a18691de25d09dde.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -139,7 +140,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -326,13 +327,27 @@ window.Quarto = {
   <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example"><span class="header-section-number">13.3.5</span> Example</a></li>
   <li><a href="#more-resources" id="toc-more-resources" class="nav-link" data-scroll-target="#more-resources"><span class="header-section-number">13.3.6</span> Additional resources</a></li>
   </ul></li>
-  <li><a href="#web-scraping" id="toc-web-scraping" class="nav-link" data-scroll-target="#web-scraping"><span class="header-section-number">13.4</span> Web Scraping</a>
+  <li><a href="#making-a-personal-webpage-on-github-pages" id="toc-making-a-personal-webpage-on-github-pages" class="nav-link" data-scroll-target="#making-a-personal-webpage-on-github-pages"><span class="header-section-number">13.4</span> Making a Personal Webpage on GitHub Pages</a>
   <ul class="collapse">
-  <li><a href="#an-introduction-to-web-scraping" id="toc-an-introduction-to-web-scraping" class="nav-link" data-scroll-target="#an-introduction-to-web-scraping"><span class="header-section-number">13.4.1</span> An Introduction to Web Scraping</a></li>
-  <li><a href="#basics-of-web-requests" id="toc-basics-of-web-requests" class="nav-link" data-scroll-target="#basics-of-web-requests"><span class="header-section-number">13.4.2</span> Basics of Web Requests</a></li>
-  <li><a href="#an-introduction-to-beautifulsoup" id="toc-an-introduction-to-beautifulsoup" class="nav-link" data-scroll-target="#an-introduction-to-beautifulsoup"><span class="header-section-number">13.4.3</span> An Introduction to BeautifulSoup</a></li>
-  <li><a href="#an-introduction-to-selenium" id="toc-an-introduction-to-selenium" class="nav-link" data-scroll-target="#an-introduction-to-selenium"><span class="header-section-number">13.4.4</span> An Introduction to Selenium</a></li>
-  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">13.4.5</span> Further Reading</a></li>
+  <li><a href="#introduction-2" id="toc-introduction-2" class="nav-link" data-scroll-target="#introduction-2"><span class="header-section-number">13.4.1</span> Introduction</a></li>
+  <li><a href="#why-use-github-pages" id="toc-why-use-github-pages" class="nav-link" data-scroll-target="#why-use-github-pages"><span class="header-section-number">13.4.2</span> Why Use GitHub Pages?</a></li>
+  <li><a href="#setting-up-jekyll-locally" id="toc-setting-up-jekyll-locally" class="nav-link" data-scroll-target="#setting-up-jekyll-locally"><span class="header-section-number">13.4.3</span> Setting Up Jekyll locally</a></li>
+  <li><a href="#pushing-to-github-pages" id="toc-pushing-to-github-pages" class="nav-link" data-scroll-target="#pushing-to-github-pages"><span class="header-section-number">13.4.4</span> Pushing to GitHub Pages</a></li>
+  <li><a href="#customizing-your-page" id="toc-customizing-your-page" class="nav-link" data-scroll-target="#customizing-your-page"><span class="header-section-number">13.4.5</span> Customizing Your Page</a></li>
+  <li><a href="#themes" id="toc-themes" class="nav-link" data-scroll-target="#themes"><span class="header-section-number">13.4.6</span> Themes</a></li>
+  <li><a href="#understanding-layouts-in-minima" id="toc-understanding-layouts-in-minima" class="nav-link" data-scroll-target="#understanding-layouts-in-minima"><span class="header-section-number">13.4.7</span> Understanding Layouts in minima</a></li>
+  <li><a href="#customize-_config.yml" id="toc-customize-_config.yml" class="nav-link" data-scroll-target="#customize-_config.yml"><span class="header-section-number">13.4.8</span> Customize _config.yml</a></li>
+  <li><a href="#changing-colors-and-fonts" id="toc-changing-colors-and-fonts" class="nav-link" data-scroll-target="#changing-colors-and-fonts"><span class="header-section-number">13.4.9</span> Changing colors and fonts</a></li>
+  <li><a href="#conclusion-2" id="toc-conclusion-2" class="nav-link" data-scroll-target="#conclusion-2"><span class="header-section-number">13.4.10</span> Conclusion</a></li>
+  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">13.4.11</span> Further Reading</a></li>
+  </ul></li>
+  <li><a href="#web-scraping" id="toc-web-scraping" class="nav-link" data-scroll-target="#web-scraping"><span class="header-section-number">13.5</span> Web Scraping</a>
+  <ul class="collapse">
+  <li><a href="#an-introduction-to-web-scraping" id="toc-an-introduction-to-web-scraping" class="nav-link" data-scroll-target="#an-introduction-to-web-scraping"><span class="header-section-number">13.5.1</span> An Introduction to Web Scraping</a></li>
+  <li><a href="#basics-of-web-requests" id="toc-basics-of-web-requests" class="nav-link" data-scroll-target="#basics-of-web-requests"><span class="header-section-number">13.5.2</span> Basics of Web Requests</a></li>
+  <li><a href="#an-introduction-to-beautifulsoup" id="toc-an-introduction-to-beautifulsoup" class="nav-link" data-scroll-target="#an-introduction-to-beautifulsoup"><span class="header-section-number">13.5.3</span> An Introduction to BeautifulSoup</a></li>
+  <li><a href="#an-introduction-to-selenium" id="toc-an-introduction-to-selenium" class="nav-link" data-scroll-target="#an-introduction-to-selenium"><span class="header-section-number">13.5.4</span> An Introduction to Selenium</a></li>
+  <li><a href="#further-reading-1" id="toc-further-reading-1" class="nav-link" data-scroll-target="#further-reading-1"><span class="header-section-number">13.5.5</span> Further Reading</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -403,8 +418,8 @@ window.Quarto = {
 <section id="application-in-python" class="level4" data-number="13.1.2.1">
 <h4 data-number="13.1.2.1" class="anchored" data-anchor-id="application-in-python"><span class="header-section-number">13.1.2.1</span> Application in Python:</h4>
 <p>We wll use the <code>airquality</code> dataset from <code>statsmodels</code> as an example of working with missing data.</p>
-<div id="3b6fc56f" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
+<div id="ce70cc5d" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the dataset</span></span>
@@ -420,7 +435,7 @@ window.Quarto = {
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Missing %'</span>: missing_percent</span>
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>}).sort_values(<span class="st">'Missing %'</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(missing_summary)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(missing_summary)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         Missing Count  Missing %
 Ozone               37      24.18
@@ -441,8 +456,8 @@ Day                  0       0.00</code></pre>
 </ol>
 <p>Null hypothesis: The means for each variable are the same for the in the missing/nonmissing <code>Ozone</code> groups</p>
 <p>Alternative hypothesis: The means for each variable are different for the in the missing/nonmissing <code>Ozone</code> groups</p>
-<div id="91b942a9" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> ttest_ind</span>
+<div id="79363f09" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> ttest_ind</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create indicator: 1 if Ozone is missing, else 0</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Ozone_missing'</span>] <span class="op">=</span> df[<span class="st">'Ozone'</span>].isna().astype(<span class="bu">int</span>)</span>
@@ -458,7 +473,7 @@ Day                  0       0.00</code></pre>
 <span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>col<span class="sc">}</span><span class="ss">:"</span>)</span>
 <span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  Mean (Ozone observed) = </span><span class="sc">{</span>mean1<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
 <span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  Mean (Ozone missing)  = </span><span class="sc">{</span>mean2<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  p-value = </span><span class="sc">{</span>p<span class="sc">:.4f}</span><span class="ch">\n</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  p-value = </span><span class="sc">{</span>p<span class="sc">:.4f}</span><span class="ch">\n</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Solar.R:
   Mean (Ozone observed) = 184.80
@@ -480,8 +495,8 @@ Temp:
 <p>The pvalues are all large, meaning the means are the same for each variable regardless of whether <code>ozone</code> is missing.</p>
 <p>Since <code>Month</code> is a categorical variable, we can perform a chi-squared test to check if the number of missing values depend on the month:</p>
 <p>Null hypothesis: The number of missing <code>Ozone</code> values does not depend on the month Alternative hypothesis: The number of missing <code>Ozone</code> values does depend on the month in some way</p>
-<div id="b7961826" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> chi2_contingency</span>
+<div id="250c6785" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> chi2_contingency</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create contingency table: Month × Missingness</span></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>contingency <span class="op">=</span> pd.crosstab(df[<span class="st">"Month"</span>], df[<span class="st">"Ozone_missing"</span>])</span>
@@ -494,7 +509,7 @@ Temp:
 <span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Chi-square test results:"</span>)</span>
 <span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Chi-square statistic = </span><span class="sc">{</span>chi2<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
 <span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Degrees of freedom    = </span><span class="sc">{</span>dof<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"p-value               = </span><span class="sc">{</span>p<span class="sc">:.4f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"p-value               = </span><span class="sc">{</span>p<span class="sc">:.4f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Contingency Table (Month vs. Ozone Missingness):
 
@@ -513,8 +528,8 @@ p-value               = 0.0000</code></pre>
 </div>
 </div>
 <p>June has noticeably more missing <code>Ozone</code> values than the other months, so we confirm that this difference is statistically significant by observing a pvalue of 0. We can confirm this visually as well:</p>
-<div id="e91d73d8" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<div id="52447209" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot number of missing ozone observations by month</span></span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>missing_counts <span class="op">=</span> (</span>
@@ -537,7 +552,7 @@ p-value               = 0.0000</code></pre>
 <span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Missing Ozone Values by Month"</span>)</span>
 <span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>plt.grid(axis<span class="op">=</span><span class="st">"y"</span>, linestyle<span class="op">=</span><span class="st">"--"</span>, alpha<span class="op">=</span><span class="fl">0.6</span>)</span>
 <span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -548,8 +563,8 @@ p-value               = 0.0000</code></pre>
 </div>
 <p>Since the number of missing values of <code>Ozone</code> depends on observed data, we have determined that the missingness is MAR and we can continue with imputation.</p>
 <p>We can follow the same process for analyzing the missingness of <code>Solar.R</code>.</p>
-<div id="8de9e449" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Solar_missing'</span>] <span class="op">=</span> df[<span class="st">'Solar.R'</span>].isna().astype(<span class="bu">int</span>) <span class="co">#1 = Missing</span></span>
+<div id="ffd5d87d" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Solar_missing'</span>] <span class="op">=</span> df[<span class="st">'Solar.R'</span>].isna().astype(<span class="bu">int</span>) <span class="co">#1 = Missing</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">#t test for numeric variables</span></span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> col <span class="kw">in</span> [<span class="st">'Ozone'</span>, <span class="st">'Wind'</span>, <span class="st">'Temp'</span>]:</span>
@@ -588,7 +603,7 @@ p-value               = 0.0000</code></pre>
 <span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Missing Solar.R Values by Month"</span>)</span>
 <span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a>plt.grid(axis<span class="op">=</span><span class="st">"y"</span>, linestyle<span class="op">=</span><span class="st">"--"</span>, alpha<span class="op">=</span><span class="fl">0.6</span>)</span>
 <span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Ozone
 Mean (Solar.R observed) = 42.10
@@ -669,8 +684,8 @@ Month vs Solar.R missingness: chi2=11.14, p=0.0251</code></pre>
 <section id="mean-imputation" class="level4" data-number="13.1.5.1">
 <h4 data-number="13.1.5.1" class="anchored" data-anchor-id="mean-imputation"><span class="header-section-number">13.1.5.1</span> Mean Imputation</h4>
 <p>We will replace all missing <code>Ozone</code> and <code>Solar.R</code> values with the respective means from the observed data:</p>
-<div id="8867db8d" class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Encode Month as categorical and create dummy variables</span></span>
+<div id="81227da6" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Encode Month as categorical and create dummy variables</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"Month"</span>] <span class="op">=</span> df[<span class="st">"Month"</span>].astype(<span class="st">"category"</span>)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>df<span class="op">=</span> pd.get_dummies(df, columns<span class="op">=</span>[<span class="st">"Month"</span>], drop_first<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.astype(<span class="bu">float</span>)</span>
@@ -693,7 +708,7 @@ Month vs Solar.R missingness: chi2=11.14, p=0.0251</code></pre>
 <span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Std_Error"</span>: model.bse.<span class="bu">round</span>(<span class="dv">4</span>)</span>
 <span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>})</span>
 <span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(results)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(results)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         Coefficient  Std_Error
 const        64.6504     2.3474
@@ -721,8 +736,8 @@ Month_9      10.5281     1.4189</code></pre>
 <section id="median-imputation" class="level4" data-number="13.1.5.2">
 <h4 data-number="13.1.5.2" class="anchored" data-anchor-id="median-imputation"><span class="header-section-number">13.1.5.2</span> Median Imputation</h4>
 <p>We can fit the same model, this time using median imputation:</p>
-<div id="adb36872" class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>df_median <span class="op">=</span> df.copy()</span>
+<div id="a28eb191" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>df_median <span class="op">=</span> df.copy()</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply median imputation and fit the model</span></span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> col <span class="kw">in</span> [<span class="st">"Ozone"</span>, <span class="st">"Solar.R"</span>]:</span>
@@ -741,7 +756,7 @@ Month_9      10.5281     1.4189</code></pre>
 <span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Std_Error"</span>: model.bse.<span class="bu">round</span>(<span class="dv">4</span>)</span>
 <span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>})</span>
 <span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(results)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(results)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         Coefficient  Std_Error
 const        64.6857     2.3324
@@ -767,8 +782,8 @@ Month_9      10.4375     1.4178</code></pre>
 <section id="hot-deck-imputation" class="level4" data-number="13.1.5.3">
 <h4 data-number="13.1.5.3" class="anchored" data-anchor-id="hot-deck-imputation"><span class="header-section-number">13.1.5.3</span> Hot-Deck Imputation</h4>
 <p>Hot-Deck imputation chooses the value from a similar observation in the current dataset to fill the missing values with. The “donor” can be chosen randomly or conditionally. Here. we will fill missing values with similar observations from the same month, since earlier we found that <code>Month</code> was related to the number of missing values of both <code>Ozone</code> and <code>Solar.R</code>.</p>
-<div id="12650c27" class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<div id="12f0ccc9" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>df_hot <span class="op">=</span> df.copy()</span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">42</span>)</span>
@@ -803,7 +818,7 @@ Month_9      10.4375     1.4178</code></pre>
 <span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Coefficient"</span>: model.params.<span class="bu">round</span>(<span class="dv">4</span>),</span>
 <span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Std_Error"</span>: model.bse.<span class="bu">round</span>(<span class="dv">4</span>)</span>
 <span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(results)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(results)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         Coefficient  Std_Error
 const        66.0892     2.2664
@@ -931,8 +946,8 @@ SE(\bar{Q}) = \sqrt{T}
 </table>
 <p>Scikit-learn’s <code>IterativeImputer</code> class simplifies this process.</p>
 <p>Example using the airquality data:</p>
-<div id="7bfc65b6" class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.experimental <span class="im">import</span> enable_iterative_imputer </span>
+<div id="69667f78" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.experimental <span class="im">import</span> enable_iterative_imputer </span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.impute <span class="im">import</span> IterativeImputer</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Variables for imputation regression models</span></span>
@@ -981,7 +996,7 @@ SE(\bar{Q}) = \sqrt{T}
 <span id="cb16-47"><a href="#cb16-47" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-48"><a href="#cb16-48" aria-hidden="true" tabindex="-1"></a>pooled <span class="op">=</span> pd.DataFrame({<span class="st">"MI Coefficient"</span>: Q_bar.<span class="bu">round</span>(<span class="dv">4</span>),</span>
 <span id="cb16-49"><a href="#cb16-49" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"MI Std_Error"</span>: SE.<span class="bu">round</span>(<span class="dv">4</span>)})</span>
-<span id="cb16-50"><a href="#cb16-50" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pooled)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb16-50"><a href="#cb16-50" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pooled)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         MI Coefficient  MI Std_Error
 const           64.9348        2.2675
@@ -1055,7 +1070,7 @@ Month_9          9.9381        1.4006</code></pre>
 <section id="learning-the-manifold-structure" class="level4" data-number="13.2.3.2">
 <h4 data-number="13.2.3.2" class="anchored" data-anchor-id="learning-the-manifold-structure"><span class="header-section-number">13.2.3.2</span> Learning the manifold structure</h4>
 <p>UMAP builds a graph as a discrete approximation of the manifold’s structure. To aid in visualizing the concepts, I will show how they apply to a noisy sin wave data set.</p>
-<div id="efae7662" class="cell" data-message="false" data-execution_count="10">
+<div id="c76a5465" class="cell" data-message="false" data-execution_count="10">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -1069,7 +1084,7 @@ Month_9          9.9381        1.4006</code></pre>
 <section id="finding-nearest-neighbors" class="level5" data-number="13.2.3.2.1">
 <h5 data-number="13.2.3.2.1" class="anchored" data-anchor-id="finding-nearest-neighbors"><span class="header-section-number">13.2.3.2.1</span> Finding nearest neighbors</h5>
 <p>For each point we find the nearest neighbors. The <code>nneighbors</code> hyperparameter controls how local or global we want our structure to be. A large amount of neighbors represent the manifold more accurately as a whole and a smaller number would capture fine details of the structure.</p>
-<div id="49d00dc9" class="cell" data-message="false" data-execution_count="11">
+<div id="df1957d6" class="cell" data-message="false" data-execution_count="11">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -1097,7 +1112,7 @@ w_{ij} = \exp\Bigg(-\frac{d_{ij} - \rho_i}{\sigma_i}\Bigg),
 w_{ij}^{(final)} = w_{i \to j} + w_{j \to i} - w_{i \to j} \cdot w_{j \to i}.
 \]</span></p>
 <p>This produces a symmetric weight between 0 and 1 that preserves local topology, balances contributions across dense and sparse regions, and yields a <strong>uniform manifold</strong> representation.</p>
-<div id="015f2d43" class="cell" data-message="false" data-execution_count="12">
+<div id="8543b301" class="cell" data-message="false" data-execution_count="12">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -1153,8 +1168,8 @@ C = \sum_{i \neq j} \Big[ w_{ij} \log \frac{1}{w_{ij}^{(\text{low})}} +
 <p>First, install the necessary dependency:</p>
 <p><code>pip install umap-learn</code></p>
 <p>Before applying UMAP, let’s look at the raw data. The MNIST dataset from scikit-learn contains 70,000 images of handwritten digits, each represented as a 28×28 grayscale image (784 features per sample).</p>
-<div id="e03f974f" class="cell" data-message="false" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<div id="c7b1f1c9" class="cell" data-message="false" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> fetch_openml</span>
 <span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -1174,7 +1189,7 @@ C = \sum_{i \neq j} \Big[ w_{ij} \log \frac{1}{w_{ij}^{(\text{low})}} +
 <span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>    ax.axis(<span class="st">'off'</span>)</span>
 <span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -1190,7 +1205,7 @@ C = \sum_{i \neq j} \Big[ w_{ij} \log \frac{1}{w_{ij}^{(\text{low})}} +
 <li><p>min_dist: how tightly UMAP packs points in the low-dimensional space.</p></li>
 </ul>
 <div id="cell-umap-mnist-2d" class="cell" data-message="false" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> umap.umap_ <span class="im">import</span> UMAP</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> umap.umap_ <span class="im">import</span> UMAP</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> fetch_openml</span>
@@ -1220,7 +1235,7 @@ C = \sum_{i \neq j} \Big[ w_{ij} \log \frac{1}{w_{ij}^{(\text{low})}} +
 <span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"UMAP 1"</span>)</span>
 <span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"UMAP 2"</span>)</span>
 <span id="cb19-30"><a href="#cb19-30" aria-hidden="true" tabindex="-1"></a>plt.colorbar(scatter, label<span class="op">=</span><span class="st">'Digit'</span>)</span>
-<span id="cb19-31"><a href="#cb19-31" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb19-31"><a href="#cb19-31" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div id="umap-mnist-2d" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
@@ -1363,17 +1378,17 @@ C = \sum_{i \neq j} \Big[ w_{ij} \log \frac{1}{w_{ij}^{(\text{low})}} +
 <p>In order to render these classnotes you will need to have a Python virtual environment with packages from <a href="https://github.com/statds/ids-f25/blob/main/requirements.txt">requirements.txt</a> and the package <code>gamlss</code> needs to be installed into your R global environment.</p>
 <p><code>GAMLSS</code> or Generalized Additive Models for Location, Scale, and Shape. It allows all parameters of the response distribution to depend on explanatory variables and thus each parameter can be modeled as a function of predictors. This model is useful when variability changes with predictors, skewness / kurtosis change with predictors.</p>
 <p>Load Python libraries:</p>
-<div id="ac52c694" class="cell" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<div id="c8dd414f" class="cell" data-execution_count="15">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Load <code>rpy2</code> to call R interface:</p>
-<div id="3d0e10c5" class="cell" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> rpy2 <span class="im">import</span> robjects</span>
+<div id="0a2e056e" class="cell" data-execution_count="16">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> rpy2 <span class="im">import</span> robjects</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> rpy2.robjects <span class="im">import</span> pandas2ri, Formula</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> rpy2.robjects.packages <span class="im">as</span> rpackages</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> rpy2.robjects.conversion <span class="im">import</span> localconverter</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> rpy2.robjects.conversion <span class="im">import</span> localconverter</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Error importing in API mode: ImportError("dlopen(/Users/junyan/work/teaching/ids-f25/ids-f25/.ids-f25/lib/python3.13/site-packages/_rinterface_cffi_api.abi3.so, 0x0002): symbol not found in flat namespace '_R_BaseEnv'")
 Trying to import in ABI mode.</code></pre>
@@ -1383,12 +1398,12 @@ Trying to import in ABI mode.</code></pre>
 </div>
 </div>
 <p>Call <code>gamlss</code> from <code>rpy2</code>, <code>rpy2</code> will look for the R global environment is the default location:</p>
-<div id="58254392" class="cell" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>gamlss <span class="op">=</span> rpackages.importr(<span class="st">'gamlss'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="23710183" class="cell" data-execution_count="17">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>gamlss <span class="op">=</span> rpackages.importr(<span class="st">'gamlss'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Load in <code>penguins</code> from <code>seaborn</code> and prepare Data:</p>
-<div id="12d75906" class="cell" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="op">=</span> sns.load_dataset(<span class="st">"penguins"</span>).dropna()</span>
+<div id="17c6075c" class="cell" data-execution_count="18">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="op">=</span> sns.load_dataset(<span class="st">"penguins"</span>).dropna()</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>penguins <span class="op">=</span> penguins.rename(columns<span class="op">=</span>{</span>
 <span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"body_mass_g"</span>: <span class="st">"mass"</span>,</span>
@@ -1396,22 +1411,22 @@ Trying to import in ABI mode.</code></pre>
 <span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"flipper_length_mm"</span>: <span class="st">"flipper"</span></span>
 <span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>})</span>
 <span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>penguins <span class="op">=</span> penguins[[<span class="st">"mass"</span>, <span class="st">"bill"</span>, <span class="st">"flipper"</span>, <span class="st">"species"</span>, <span class="st">"sex"</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>penguins <span class="op">=</span> penguins[[<span class="st">"mass"</span>, <span class="st">"bill"</span>, <span class="st">"flipper"</span>, <span class="st">"species"</span>, <span class="st">"sex"</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Send data frame from <code>pandas</code> to R and have it be converted to a R data frame using <code>rpy2</code>:</p>
-<div id="b2462be5" class="cell" data-execution_count="19">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> localconverter(robjects.default_converter <span class="op">+</span> pandas2ri.converter):</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    r_df <span class="op">=</span> robjects.conversion.py2rpy(penguins)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="a12dc772" class="cell" data-execution_count="19">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> localconverter(robjects.default_converter <span class="op">+</span> pandas2ri.converter):</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    r_df <span class="op">=</span> robjects.conversion.py2rpy(penguins)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Here we are saying that <code>mass</code> depends on <code>flipper</code>, <code>bill</code>, <code>species</code>, <code>sex</code> and the variability of <code>mass</code> depends on <code>flipper</code>. Run <code>gamlss</code> from the R data frame to extract whatever we need from <code>gamlss</code>, in this case fitted <span class="math inline">\(\sigma\)</span>:</p>
-<div id="866c1ca3" class="cell" data-execution_count="20">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>formula_mu <span class="op">=</span> Formula(<span class="st">"mass ~ flipper + bill + species + sex"</span>)</span>
+<div id="16573c1d" class="cell" data-execution_count="20">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>formula_mu <span class="op">=</span> Formula(<span class="st">"mass ~ flipper + bill + species + sex"</span>)</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>formula_sigma <span class="op">=</span> Formula(<span class="st">"~ flipper"</span>)</span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> gamlss.gamlss(formula_mu, sigma_formula<span class="op">=</span>formula_sigma,</span>
 <span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>                      data<span class="op">=</span>r_df, family<span class="op">=</span><span class="st">"NO"</span>)</span>
 <span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>fitted_sigma <span class="op">=</span> robjects.r(<span class="st">"fitted.values"</span>)(model, <span class="st">"sigma"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>fitted_sigma <span class="op">=</span> robjects.r(<span class="st">"fitted.values"</span>)(model, <span class="st">"sigma"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>GAMLSS-RS iteration 1: Global Deviance = 4718.449 
 GAMLSS-RS iteration 2: Global Deviance = 4718.415 
@@ -1419,13 +1434,13 @@ GAMLSS-RS iteration 3: Global Deviance = 4718.415 </code></pre>
 </div>
 </div>
 <p>Send fitted values or anything extracted from the previous part:</p>
-<div id="64c3a013" class="cell" data-execution_count="21">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> localconverter(robjects.default_converter <span class="op">+</span> pandas2ri.converter):</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>    penguins[<span class="st">"fitted_sigma"</span>] <span class="op">=</span> robjects.conversion.rpy2py(fitted_sigma)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="5ee3240c" class="cell" data-execution_count="21">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> localconverter(robjects.default_converter <span class="op">+</span> pandas2ri.converter):</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>    penguins[<span class="st">"fitted_sigma"</span>] <span class="op">=</span> robjects.conversion.rpy2py(fitted_sigma)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Use extracted values for anything of interest in Python, in this case let’s say for some reason we wanted to use <code>matplotlib</code> and <code>seaborn</code> to plot our fitted <span class="math inline">\(\sigma\)</span>:</p>
-<div id="d252d268" class="cell" data-execution_count="22">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">6</span>))</span>
+<div id="194a2bbc" class="cell" data-execution_count="22">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">6</span>))</span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>sns.scatterplot(x<span class="op">=</span><span class="st">"flipper"</span>, y<span class="op">=</span><span class="st">"fitted_sigma"</span>, hue<span class="op">=</span><span class="st">"species"</span>, data<span class="op">=</span>penguins, </span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>                alpha<span class="op">=</span><span class="fl">0.6</span>)</span>
 <span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>sns.lineplot(x<span class="op">=</span><span class="st">"flipper"</span>, y<span class="op">=</span><span class="st">"fitted_sigma"</span>, hue<span class="op">=</span><span class="st">"species"</span>, data<span class="op">=</span>penguins, lw<span class="op">=</span><span class="dv">2</span>)</span>
@@ -1433,7 +1448,7 @@ GAMLSS-RS iteration 3: Global Deviance = 4718.415 </code></pre>
 <span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Flipper Length (mm)"</span>)</span>
 <span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Predicted Body Mass Variability (grams)"</span>)</span>
 <span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>plt.legend(title<span class="op">=</span><span class="st">"Species"</span>)</span>
-<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -1450,21 +1465,288 @@ GAMLSS-RS iteration 3: Global Deviance = 4718.415 </code></pre>
 <li><p><a href="https://www.datacamp.com/tutorial/using-both-python-r">More packages to call R in Python and vice versa</a></p></li>
 <li><p><a href="https://www.business-science.io/business/2018/10/08/python-and-r.html">More about Python / R strengths and workflow with conda</a></p></li>
 </ul>
+<!-- ## Making Personal Webpage on GitHub Pages -->
+</section>
+</section>
+<section id="making-a-personal-webpage-on-github-pages" class="level2" data-number="13.4">
+<h2 data-number="13.4" class="anchored" data-anchor-id="making-a-personal-webpage-on-github-pages"><span class="header-section-number">13.4</span> Making a Personal Webpage on GitHub Pages</h2>
+<p>This guide will walk you through the process of creating your own personal website using GitHub Pages and Jekyll. We will cover setup to publishing and customizing the look of your site.</p>
+<hr>
+<section id="introduction-2" class="level3" data-number="13.4.1">
+<h3 data-number="13.4.1" class="anchored" data-anchor-id="introduction-2"><span class="header-section-number">13.4.1</span> Introduction</h3>
+<p>My name is Jaden Mayer-Costa. I am a senior pursuing a Statistical Data Analysis degree with minors in both Economics and Music.</p>
+<p>By the end of this guide, you should have the knowledge to create your own live site.</p>
+<hr>
+</section>
+<section id="why-use-github-pages" class="level3" data-number="13.4.2">
+<h3 data-number="13.4.2" class="anchored" data-anchor-id="why-use-github-pages"><span class="header-section-number">13.4.2</span> Why Use GitHub Pages?</h3>
+<p>GitHub Pages lets you host a website directly from your GitHub repository for free.<br>
+It’s ideal for portfolios, academic profiles, or blogs.</p>
+<p><strong>Key benefits:</strong></p>
+<ul>
+<li>Free hosting with your own custom URL (<code>username.github.io</code>)</li>
+<li>Seamless integration with GitHub</li>
+<li>Built-in support for Jekyll, a static site generator</li>
+<li>No server or databases required</li>
+</ul>
+<hr>
+<p>What is Jekyll?</p>
+<p><a href="https://jekyllrb.com/">Jekyll</a> is a static site generator that can turn Markdown files into a lightweight website.</p>
+<ul>
+<li>Uses Markdown, templates, HTML, and CSS</li>
+<li>Generates static pages that load quickly</li>
+<li>Works easily with GitHub Pages</li>
+<li>Supports blogs, portfolios, and documentation sites</li>
+</ul>
+<p><strong>Why use it?</strong></p>
+<ul>
+<li>You write simple Markdown → Jekyll reads and builds HTML → then push to GitHub Pages to host the site.</li>
+</ul>
+<hr>
+</section>
+<section id="setting-up-jekyll-locally" class="level3" data-number="13.4.3">
+<h3 data-number="13.4.3" class="anchored" data-anchor-id="setting-up-jekyll-locally"><span class="header-section-number">13.4.3</span> Setting Up Jekyll locally</h3>
+<p>First must install Ruby</p>
+<p>Ruby is what Jekyll is written in and is necessary to download. You do not have to code in Ruby to use Jekyll, but it is what is running everything behind the scenes.</p>
+<ol type="1">
+<li><p>Visit <a href="https://rubyinstaller.org/downloads/">RubyInstaller.org</a></p></li>
+<li><p>Download the latest <strong>Ruby + Devkit</strong> version.</p></li>
+<li><p>Run the installer and choose:</p>
+<ul>
+<li><strong>MSYS2 and MINGW development toolchain</strong></li>
+</ul></li>
+<li><p>After installation, open a new Command Prompt and check to ensure download was successful:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="sourceCode powershell code-with-copy"><code class="sourceCode powershell"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>ruby <span class="op">-</span>v</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr></li>
+</ol>
+<p>Next, install Jekyll and Bundler from ruby</p>
+<p>In terminal run</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="sourceCode powershell code-with-copy"><code class="sourceCode powershell"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>gem install jekyll bundler</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>What is a gem?:</strong> A gem is a Ruby package that basically represents a bunch of code or functionality that can be reused. Jekyll is an example of a gem.</p>
+<p>Verify installation</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="sourceCode powershell code-with-copy"><code class="sourceCode powershell"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>jekyll <span class="op">-</span>v</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+<p>Finally, create a new Jekyll site</p>
+<p>In terminal run</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb34"><pre class="sourceCode powershell code-with-copy"><code class="sourceCode powershell"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>jekyll new personal-site</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Jekyll will add all the necessary files for your site to run properly.</p>
+<hr>
+<p>Run locally before pushing</p>
+<p>Navigate to the personal-site file and preview your site locally by executing the code below.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35"><pre class="sourceCode powershell code-with-copy"><code class="sourceCode powershell"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>jekyll new personal-site</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> personal-site</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>bundle exec jekyll serve</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>bundle exec is a command that runs a tool, in this case Jekyll, using the gems listed in the Gemfile.</p>
+<p>After running and provided there are no errors, you Can then visit <a href="http://localhost:4000">http://localhost:4000</a> to see your website.</p>
+<p><strong>What is bundler?</strong> bundler is a tool used to manage Ruby gems. It helps ensure your project uses the right versions of each gem that is listed in your Gemfile</p>
+<p><strong>What is a Gemfile?</strong> A Gemfile is simply a plain text file that lists all the Ruby gems your project needs in order to run. It is similar to what would be a “requirements.txt” file in Python. Essential to have for reproducibility.</p>
+<p><strong>Note:</strong> It is good practice to run your website locally before pushing to GitHub Pages to make sure your website will run before you make changes. Failure to check could result in a broken website.</p>
+</section>
+<section id="pushing-to-github-pages" class="level3" data-number="13.4.4">
+<h3 data-number="13.4.4" class="anchored" data-anchor-id="pushing-to-github-pages"><span class="header-section-number">13.4.4</span> Pushing to GitHub Pages</h3>
+<p>Create a GitHub repository to host files for website</p>
+<ul>
+<li>Go to <a href="https://github.com/">GitHub</a></li>
+<li>Create a repository called: YOUR-USERNAME.github.io</li>
+</ul>
+<hr>
+<p>Next, push your locally created site to GitHub</p>
+<p>In terminal from the project folder run each of the following:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36"><pre class="sourceCode powershell code-with-copy"><code class="sourceCode powershell"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>git init</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>git add <span class="op">.</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>git commit <span class="op">-</span>m <span class="st">"GitHub Pages site made with Jekyll"</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>git branch <span class="op">-</span>M test</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>git remote add origin https<span class="op">://</span>github<span class="op">.</span><span class="fu">com</span><span class="op">/</span>username<span class="op">/</span>username<span class="op">.</span><span class="fu">github</span><span class="op">.</span><span class="fu">io</span><span class="op">.</span><span class="fu">git</span></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>git push <span class="op">-</span>u origin main</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Enable GitHub Pages on your repository</p>
+<ul>
+<li>Go to repository on GitHUb</li>
+<li>Go to Settings then click on pages</li>
+<li>Under “Source” click the test branch and / (root) folder</li>
+<li>Click Save - now website will be live at https://YOUR-USERNAME/github.io</li>
+</ul>
+</section>
+<section id="customizing-your-page" class="level3" data-number="13.4.5">
+<h3 data-number="13.4.5" class="anchored" data-anchor-id="customizing-your-page"><span class="header-section-number">13.4.5</span> Customizing Your Page</h3>
+<p>Now that your site is live, you can design and add personal touches. Jekyll gives control of layout, theme, colors, and structure while using simple files.</p>
+<p><strong>Standard layout</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="at">personal-website/</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="at">    _posts</span><span class="co">   # Blog posts</span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="at">    _site</span><span class="co">   # Auto generated output</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="at">    .jekyll-cache</span><span class="co">   #Build cache</span></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a><span class="at">    _config.yml</span><span class="co">     # Main config file (controls theme, title, etc.)</span></span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a><span class="at">    .gitignore</span><span class="co">      # Files git should ignore</span></span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a><span class="at">    404.html</span><span class="co">    # Custom error page</span></span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a><span class="at">    about.markdown</span><span class="co">      # About page</span></span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a><span class="at">    Gemfile</span><span class="co">     # Lists Ruby dependencies</span></span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a><span class="at">    Gemfile.lock</span><span class="co">    # Auto-generated dependency lock file</span></span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a><span class="at">    index.markdown</span><span class="co">      # Homepage</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+<p>Some different page types:</p>
+<p><strong>About Page:</strong></p>
+<ul>
+<li>You can open about.markdown and edit this file to include a descriptive statement about yourself.</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb38"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="an">layout:</span><span class="co"> page</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> About</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="an">permalink:</span><span class="co"> /about/</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>Hello, my name is Jaden Mayer-Costa and I ...</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Homepage:</strong></p>
+<ul>
+<li>index.markdown is the landing page for your website. In other words this is the first thing that will be seen when visiting your site.</li>
+<li>Blog posts will appear here as well.</li>
+</ul>
+<p><strong>Blog Post:</strong></p>
+<ul>
+<li>To add a new post navigate to your posts folder, add a markdown file, making sure to name it in YYYY-MM-DD-title.markdown format. Then in the yaml follow this template.</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb39"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">layout</span><span class="kw">:</span><span class="at"> post</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at">  </span><span class="st">"title"</span></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span><span class="kw">:</span><span class="at">   YYYY-MM-DD HH-MM-SS</span></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="fu">categories</span><span class="kw">:</span><span class="at"> jekyll update</span></span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li>If you do not specify the date, Jekyll will not render the post.</li>
+</ul>
+<hr>
+<p><strong>Adding photos:</strong></p>
+<ul>
+<li>Create an assets folder in your project root.</li>
+<li>Create a img folder in your assets folder and simply drop whatever pictures you want into your website there.</li>
+<li>To render a photo ensure it is in a jpg or png format.</li>
+<li>Here is the syntax to embed a picture:</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb40"><pre class="sourceCode powershell code-with-copy"><code class="sourceCode powershell"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="op">![</span>file_name<span class="op">]({{</span> <span class="st">'/assets/img/file_name'</span> <span class="op">|</span> relative_url <span class="op">}})</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This tells Jekyll where to find your picture.</p>
+<hr>
+</section>
+<section id="themes" class="level3" data-number="13.4.6">
+<h3 data-number="13.4.6" class="anchored" data-anchor-id="themes"><span class="header-section-number">13.4.6</span> Themes</h3>
+<p>Jekyll has many different themes that allow you quickly restyle your site. By default Jekyll will use the minima theme, but if you go into the _config file, you can switch out to a different one, such as Cayman or Midnight. A more exhaustive list can be found on <a href="https://github.com/topics/jekyll-theme">GitHub Pages</a></p>
+<p>Minima is a good theme for beginners because it has everything we need to make a website without the need to create our own layouts, which can be time intensive. That’s why for the purposes of this tutorial, we will stick with minima.</p>
+<p><strong>Note:</strong> It is vital to pick a theme you like before building your website. Different themes have different layouts and dependencies, meaning you cannot easily change themes once a website is published.</p>
+</section>
+<section id="understanding-layouts-in-minima" class="level3" data-number="13.4.7">
+<h3 data-number="13.4.7" class="anchored" data-anchor-id="understanding-layouts-in-minima"><span class="header-section-number">13.4.7</span> Understanding Layouts in minima</h3>
+<p>Layouts are HTML templates that define how your pages and posts look. Having one is important to serve as a reusable frame or structure. Minima comes with four different layout options built in:</p>
+<ul>
+<li>default (Base HTML frame for all pages)</li>
+<li>home (lists posts on the homepage)</li>
+<li>page (Used for static pages like for an About or Project section)</li>
+<li>post (Individual blog posts)</li>
+</ul>
+<p><strong>Note:</strong> It is possible to override a layout by creating a custom _layouts folder where you can further customize your pages as desired. This is beyond the scope of this tutorial as it involves writing html code.</p>
+<hr>
+<p><strong>Adding New Tabs:</strong></p>
+<p>Say that we wanted to add a new tab to showcase the projects we have been working on in this class.</p>
+<ul>
+<li><p>We can create a projects.markdown file in our root folder.</p></li>
+<li><p>In the yaml add:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb41"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">layout</span><span class="kw">:</span><span class="at"> page</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> Projects</span></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="fu">permalink</span><span class="kw">:</span><span class="at"> /projects/</span></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Add markdown content underneath.</p></li>
+</ul>
+</section>
+<section id="customize-_config.yml" class="level3" data-number="13.4.8">
+<h3 data-number="13.4.8" class="anchored" data-anchor-id="customize-_config.yml"><span class="header-section-number">13.4.8</span> Customize _config.yml</h3>
+<p>The _config file is where site settings are hosted. Things like title, URL, theme, and necessary plugins. Minima will automatically put a generic yaml to be filled out by the user. An example of a _config.yml setup is as follows:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb42"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Preliminary information</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Personal Webpage on GitHub"</span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="fu">author</span><span class="kw">:</span><span class="at"> </span><span class="st">"Jaden Mayer-Costa"</span></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="fu">email</span><span class="kw">:</span><span class="at"> </span><span class="st">"your@email.com"</span></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a><span class="fu">description</span><span class="kw">:</span><span class="at"> </span><span class="st">"Data Analyst | Economist | Musician"</span></span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a><span class="fu">baseurl</span><span class="kw">:</span><span class="at"> </span><span class="st">""</span><span class="co"> # leave empty for main site</span></span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a><span class="fu">url</span><span class="kw">:</span><span class="at"> </span><span class="st">"https://jaden-m-c.github.io"</span></span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Theme and plugins (pulling minima theme)</span></span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a><span class="fu">theme</span><span class="kw">:</span><span class="at"> minima</span></span>
+<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plugins</span><span class="kw">:</span></span>
+<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> jekyll-feed</span></span>
+<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> jekyll-seo-tag</span></span>
+<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Navigation links in the header</span></span>
+<span id="cb42-16"><a href="#cb42-16" aria-hidden="true" tabindex="-1"></a><span class="fu">header_pages</span><span class="kw">:</span></span>
+<span id="cb42-17"><a href="#cb42-17" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> about.markdown</span></span>
+<span id="cb42-18"><a href="#cb42-18" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> projects.markdown</span></span>
+<span id="cb42-19"><a href="#cb42-19" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> blog.markdown</span></span>
+<span id="cb42-20"><a href="#cb42-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-21"><a href="#cb42-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Social media links</span></span>
+<span id="cb42-22"><a href="#cb42-22" aria-hidden="true" tabindex="-1"></a><span class="fu">minima</span><span class="kw">:</span></span>
+<span id="cb42-23"><a href="#cb42-23" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">social_links</span><span class="kw">:</span></span>
+<span id="cb42-24"><a href="#cb42-24" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">github</span><span class="kw">:</span><span class="at"> jaden-m-c</span></span>
+<span id="cb42-25"><a href="#cb42-25" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">linkedin</span><span class="kw">:</span><span class="at"> your-linkedin</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="changing-colors-and-fonts" class="level3" data-number="13.4.9">
+<h3 data-number="13.4.9" class="anchored" data-anchor-id="changing-colors-and-fonts"><span class="header-section-number">13.4.9</span> Changing colors and fonts</h3>
+<p>It is possible to make edits to a themes font and color without changing the entire theme through the use of a Cascading Style Sheet or CSS file.</p>
+<ul>
+<li>Create a file inside your assets folder called main.scss</li>
+<li>Import minima base styles into file:</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb43"><pre class="sourceCode scss code-with-copy"><code class="sourceCode scss"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="im">@import</span> <span class="st">"minima"</span><span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li>Now can override original styles. Below example makes changes to the font weight, style, color, even footer background:</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb44"><pre class="sourceCode scss code-with-copy"><code class="sourceCode scss"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Custom site styling</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>body {</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">background-color</span>: <span class="cn">#fafafa</span><span class="op">;</span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">color</span>: <span class="cn">#222</span><span class="op">;</span></span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">font-family</span>: <span class="st">"Inter"</span><span class="op">,</span> <span class="st">"Helvetica Neue"</span><span class="op">,</span> <span class="dv">sans-serif</span><span class="op">;</span></span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>a {</span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a>  <span class="kw">color</span>: <span class="cn">#0057b7</span><span class="op">;</span></span>
+<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-12"><a href="#cb44-12" aria-hidden="true" tabindex="-1"></a><span class="fu">.site-title</span> {</span>
+<span id="cb44-13"><a href="#cb44-13" aria-hidden="true" tabindex="-1"></a>  <span class="kw">font-weight</span>: <span class="dv">700</span><span class="op">;</span></span>
+<span id="cb44-14"><a href="#cb44-14" aria-hidden="true" tabindex="-1"></a>  <span class="kw">font-size</span>: <span class="dv">2</span><span class="dt">rem</span><span class="op">;</span></span>
+<span id="cb44-15"><a href="#cb44-15" aria-hidden="true" tabindex="-1"></a>  <span class="kw">text-transform</span>: <span class="dv">uppercase</span><span class="op">;</span></span>
+<span id="cb44-16"><a href="#cb44-16" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb44-17"><a href="#cb44-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-18"><a href="#cb44-18" aria-hidden="true" tabindex="-1"></a>footer {</span>
+<span id="cb44-19"><a href="#cb44-19" aria-hidden="true" tabindex="-1"></a>  <span class="kw">background</span>: <span class="cn">#111</span><span class="op">;</span></span>
+<span id="cb44-20"><a href="#cb44-20" aria-hidden="true" tabindex="-1"></a>  <span class="kw">color</span>: <span class="cn">white</span><span class="op">;</span></span>
+<span id="cb44-21"><a href="#cb44-21" aria-hidden="true" tabindex="-1"></a>  <span class="kw">padding</span>: <span class="dv">1</span><span class="dt">em</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb44-22"><a href="#cb44-22" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="conclusion-2" class="level3" data-number="13.4.10">
+<h3 data-number="13.4.10" class="anchored" data-anchor-id="conclusion-2"><span class="header-section-number">13.4.10</span> Conclusion</h3>
+<p>You should know have the knowledge to set up a personal site on GitHub Pages using Jekyll. And any time you need to make an update, you can follow the workflow of makings edits and rendering locally before pushing to Pages. In this way, your page can evolve alongside your career. This overview is the basic setup to get a page, but there are truly so many ways to customize and edit your page to better reflect your personality and style.</p>
+</section>
+<section id="further-reading" class="level3" data-number="13.4.11">
+<h3 data-number="13.4.11" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">13.4.11</span> Further Reading</h3>
+<ul>
+<li><a href="https://jekyllrb.com/docs/github-pages/">Using Jekyll in GitHub Pages</a></li>
+<li><a href="https://jekyllrb.com/docs/themes/">Using themes from Jekyll</a></li>
+<li><a href="https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages">GitHub Pages breakdown</a></li>
+<li><a href="https://github.com/topics/jekyll-theme">Resource to find themes for webpage</a></li>
+</ul>
 <!-- ## Web Scraping -->
 </section>
 </section>
-<section id="web-scraping" class="level2" data-number="13.4">
-<h2 data-number="13.4" class="anchored" data-anchor-id="web-scraping"><span class="header-section-number">13.4</span> Web Scraping</h2>
+<section id="web-scraping" class="level2" data-number="13.5">
+<h2 data-number="13.5" class="anchored" data-anchor-id="web-scraping"><span class="header-section-number">13.5</span> Web Scraping</h2>
 <p>This section was prepared by Sahil Patel, an undergraduate junior majoring in Computer Science, Statistical Data Science, and Economics.</p>
-<section id="an-introduction-to-web-scraping" class="level3" data-number="13.4.1">
-<h3 data-number="13.4.1" class="anchored" data-anchor-id="an-introduction-to-web-scraping"><span class="header-section-number">13.4.1</span> An Introduction to Web Scraping</h3>
-<section id="what-is-web-scraping" class="level4" data-number="13.4.1.1">
-<h4 data-number="13.4.1.1" class="anchored" data-anchor-id="what-is-web-scraping"><span class="header-section-number">13.4.1.1</span> What is Web Scraping</h4>
+<section id="an-introduction-to-web-scraping" class="level3" data-number="13.5.1">
+<h3 data-number="13.5.1" class="anchored" data-anchor-id="an-introduction-to-web-scraping"><span class="header-section-number">13.5.1</span> An Introduction to Web Scraping</h3>
+<section id="what-is-web-scraping" class="level4" data-number="13.5.1.1">
+<h4 data-number="13.5.1.1" class="anchored" data-anchor-id="what-is-web-scraping"><span class="header-section-number">13.5.1.1</span> What is Web Scraping</h4>
 <p>Web scraping is a way to automatically gather information from websites. Instead of spending hours copying and pasting data, you can use scripts to collect large amounts of structured information quickly and consistently. Once you have the data, it can be analyzed, stored, or used for research and decision making.</p>
 <p>Web scraping is particularly useful because most web data is created for humans to read, not for machines to process. By scraping, we can turn that information into a format that computers can work with, allowing us to explore trends, track changes, or gain insights that would be really hard to collect manually.</p>
 </section>
-<section id="use-cases-of-web-scraping" class="level4" data-number="13.4.1.2">
-<h4 data-number="13.4.1.2" class="anchored" data-anchor-id="use-cases-of-web-scraping"><span class="header-section-number">13.4.1.2</span> Use Cases of Web Scraping</h4>
+<section id="use-cases-of-web-scraping" class="level4" data-number="13.5.1.2">
+<h4 data-number="13.5.1.2" class="anchored" data-anchor-id="use-cases-of-web-scraping"><span class="header-section-number">13.5.1.2</span> Use Cases of Web Scraping</h4>
 <p>Here are some of the use cases of web scarping:</p>
 <ul>
 <li>Market Analysis
@@ -1485,8 +1767,8 @@ GAMLSS-RS iteration 3: Global Deviance = 4718.415 </code></pre>
 </ul></li>
 </ul>
 </section>
-<section id="static-versus-dynamic-web-pages" class="level4" data-number="13.4.1.3">
-<h4 data-number="13.4.1.3" class="anchored" data-anchor-id="static-versus-dynamic-web-pages"><span class="header-section-number">13.4.1.3</span> Static versus Dynamic Web Pages</h4>
+<section id="static-versus-dynamic-web-pages" class="level4" data-number="13.5.1.3">
+<h4 data-number="13.5.1.3" class="anchored" data-anchor-id="static-versus-dynamic-web-pages"><span class="header-section-number">13.5.1.3</span> Static versus Dynamic Web Pages</h4>
 <p>Before scraping, it is important to understand the kind of web pages you are working with:</p>
 <ul>
 <li>Static Web Pages
@@ -1499,8 +1781,8 @@ GAMLSS-RS iteration 3: Global Deviance = 4718.415 </code></pre>
 </ul></li>
 </ul>
 </section>
-<section id="legal-and-ethical-considerations" class="level4" data-number="13.4.1.4">
-<h4 data-number="13.4.1.4" class="anchored" data-anchor-id="legal-and-ethical-considerations"><span class="header-section-number">13.4.1.4</span> Legal and Ethical Considerations</h4>
+<section id="legal-and-ethical-considerations" class="level4" data-number="13.5.1.4">
+<h4 data-number="13.5.1.4" class="anchored" data-anchor-id="legal-and-ethical-considerations"><span class="header-section-number">13.5.1.4</span> Legal and Ethical Considerations</h4>
 <p>Even though web scraping can be extremely powerful, it comes with important responsibilities and best practices that should not be ignored.</p>
 <ul>
 <li><p>Respect robots.txt: Before scraping a site, check its robots.txt file to understand which pages or sections the website owner allows you to access, and make sure to follow these guidelines.</p></li>
@@ -1511,13 +1793,13 @@ GAMLSS-RS iteration 3: Global Deviance = 4718.415 </code></pre>
 </ul>
 </section>
 </section>
-<section id="basics-of-web-requests" class="level3" data-number="13.4.2">
-<h3 data-number="13.4.2" class="anchored" data-anchor-id="basics-of-web-requests"><span class="header-section-number">13.4.2</span> Basics of Web Requests</h3>
+<section id="basics-of-web-requests" class="level3" data-number="13.5.2">
+<h3 data-number="13.5.2" class="anchored" data-anchor-id="basics-of-web-requests"><span class="header-section-number">13.5.2</span> Basics of Web Requests</h3>
 <p>Before you can extract any data from a website, you need to first fetch the content of the page. In Python, this is typically done using the requests library, which allows you to send HTTP requests and receive responses. Understanding how these requests work is key to effective web scraping.</p>
 <p>If you haven’t done so already, you will need install requests to your terminal.</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install requests</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<section id="html-basics" class="level4" data-number="13.4.2.1">
-<h4 data-number="13.4.2.1" class="anchored" data-anchor-id="html-basics"><span class="header-section-number">13.4.2.1</span> HTML Basics</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb45"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install requests</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="html-basics" class="level4" data-number="13.5.2.1">
+<h4 data-number="13.5.2.1" class="anchored" data-anchor-id="html-basics"><span class="header-section-number">13.5.2.1</span> HTML Basics</h4>
 <p>To scrape web pages effectively, it is important to understand the basic structure of HTML, which is the language used to create web pages. Web pages are made up of elements enclosed in tags. Some common tags include:</p>
 <ul>
 <li><p><code>&lt;body&gt;</code>: this tag identifies the main body of the website, which contains the content that is visible to users.</p></li>
@@ -1526,8 +1808,8 @@ GAMLSS-RS iteration 3: Global Deviance = 4718.415 </code></pre>
 <li><p><code>&lt;tr&gt;</code>: This tag identifies a table row, which contains individual cells (<code>&lt;td&gt;</code>) with data.</p></li>
 </ul>
 </section>
-<section id="response-status-codes" class="level4" data-number="13.4.2.2">
-<h4 data-number="13.4.2.2" class="anchored" data-anchor-id="response-status-codes"><span class="header-section-number">13.4.2.2</span> Response Status Codes</h4>
+<section id="response-status-codes" class="level4" data-number="13.5.2.2">
+<h4 data-number="13.5.2.2" class="anchored" data-anchor-id="response-status-codes"><span class="header-section-number">13.5.2.2</span> Response Status Codes</h4>
 <p>Every HTTP request returns a status code that indicates whether it was successful.</p>
 <ul>
 <li><code>200</code> means the request was successful, and the server returned the requested content.</li>
@@ -1537,30 +1819,30 @@ GAMLSS-RS iteration 3: Global Deviance = 4718.415 </code></pre>
 </ul>
 <p>Checking these codes allows you to handle errors gracefully and avoid scraping pages that are unavailable or blocked.</p>
 </section>
-<section id="http-methods" class="level4" data-number="13.4.2.3">
-<h4 data-number="13.4.2.3" class="anchored" data-anchor-id="http-methods"><span class="header-section-number">13.4.2.3</span> HTTP Methods</h4>
+<section id="http-methods" class="level4" data-number="13.5.2.3">
+<h4 data-number="13.5.2.3" class="anchored" data-anchor-id="http-methods"><span class="header-section-number">13.5.2.3</span> HTTP Methods</h4>
 <p>The two most common HTTP methods used in web scraping are GET and POST.</p>
 <ul>
 <li><code>GET</code> requests are used to retrieve data from a web server. This is the method you will use most often because you are usually trying to download the content of a page.</li>
 <li><code>POST</code> requests are used to send data to a server, often when submitting forms or interacting with a website. Some websites require POST requests to access certain content or search results.</li>
 </ul>
 </section>
-<section id="using-headers-and-user-agent-strings" class="level4" data-number="13.4.2.4">
-<h4 data-number="13.4.2.4" class="anchored" data-anchor-id="using-headers-and-user-agent-strings"><span class="header-section-number">13.4.2.4</span> Using Headers and User-Agent Strings</h4>
+<section id="using-headers-and-user-agent-strings" class="level4" data-number="13.5.2.4">
+<h4 data-number="13.5.2.4" class="anchored" data-anchor-id="using-headers-and-user-agent-strings"><span class="header-section-number">13.5.2.4</span> Using Headers and User-Agent Strings</h4>
 <p>Web servers sometimes treat automated requests differently from requests made by real browsers. By adding headers, you can make your requests look more like they are coming from a normal user.</p>
 <p>A common header to include is the User-Agent, which identifies the browser and device making the request. Here is an example of what a header can look like:</p>
-<div id="358a2065" class="cell" data-execution_count="23">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">'https://uconn.edu'</span></span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>headers <span class="op">=</span> {</span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">'User-Agent'</span>: <span class="st">'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 '</span></span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>                  <span class="st">'(KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36'</span></span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(url, headers<span class="op">=</span>headers)</span>
-<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(response.status_code)  <span class="co"># prints the HTTP status code</span></span>
-<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(response.text[:<span class="dv">500</span>])   <span class="co"># prints the first 500 characters of the HTML</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="9fbff821" class="cell" data-execution_count="23">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">'https://uconn.edu'</span></span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>headers <span class="op">=</span> {</span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">'User-Agent'</span>: <span class="st">'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 '</span></span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>                  <span class="st">'(KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36'</span></span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(url, headers<span class="op">=</span>headers)</span>
+<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(response.status_code)  <span class="co"># prints the HTTP status code</span></span>
+<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(response.text[:<span class="dv">500</span>])   <span class="co"># prints the first 500 characters of the HTML</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>200
 &lt;!DOCTYPE html&gt;
@@ -1580,33 +1862,33 @@ GAMLSS-RS iteration 3: Global Deviance = 4718.415 </code></pre>
 </div>
 </section>
 </section>
-<section id="an-introduction-to-beautifulsoup" class="level3" data-number="13.4.3">
-<h3 data-number="13.4.3" class="anchored" data-anchor-id="an-introduction-to-beautifulsoup"><span class="header-section-number">13.4.3</span> An Introduction to BeautifulSoup</h3>
+<section id="an-introduction-to-beautifulsoup" class="level3" data-number="13.5.3">
+<h3 data-number="13.5.3" class="anchored" data-anchor-id="an-introduction-to-beautifulsoup"><span class="header-section-number">13.5.3</span> An Introduction to BeautifulSoup</h3>
 <p>BeautifulSoup is one of the most popular Python libraries for web scraping. It helps you collect and organize information from web pages written in HTML or XML. When you look at a web page’s source code, it often looks like a confusing block of text. BeautifulSoup turns that chaos into a clean, organized structure that you can easily search and navigate. It is a reliable tool for collecting data from static websites such as news articles, course lists, or research archives.</p>
-<section id="installing-and-importing-beautifulsoup" class="level4" data-number="13.4.3.1">
-<h4 data-number="13.4.3.1" class="anchored" data-anchor-id="installing-and-importing-beautifulsoup"><span class="header-section-number">13.4.3.1</span> Installing and Importing BeautifulSoup</h4>
+<section id="installing-and-importing-beautifulsoup" class="level4" data-number="13.5.3.1">
+<h4 data-number="13.5.3.1" class="anchored" data-anchor-id="installing-and-importing-beautifulsoup"><span class="header-section-number">13.5.3.1</span> Installing and Importing BeautifulSoup</h4>
 <p>To use BeautifulSoup, you first need to install it.</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install beautifulsoup4</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb48"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install beautifulsoup4</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Once installed, import it into your Python script:</p>
-<div id="91d4af81" class="cell" data-execution_count="24">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> bs4 <span class="im">import</span> BeautifulSoup</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="3a2c87e1" class="cell" data-execution_count="24">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> bs4 <span class="im">import</span> BeautifulSoup</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>BeautifulSoup works well alongside the requests library, creating a simple and efficient way to download and process web pages.</p>
 </section>
-<section id="loading-html-into-beautifulsoup" class="level4" data-number="13.4.3.2">
-<h4 data-number="13.4.3.2" class="anchored" data-anchor-id="loading-html-into-beautifulsoup"><span class="header-section-number">13.4.3.2</span> Loading HTML into BeautifulSoup</h4>
+<section id="loading-html-into-beautifulsoup" class="level4" data-number="13.5.3.2">
+<h4 data-number="13.5.3.2" class="anchored" data-anchor-id="loading-html-into-beautifulsoup"><span class="header-section-number">13.5.3.2</span> Loading HTML into BeautifulSoup</h4>
 <p>Once you have downloaded the HTML content of a web page, the next step is to load it into BeautifulSoup.</p>
-<div id="43d5f0fc" class="cell" data-execution_count="25">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://decisiondrivers.com/nyc/zip-code/"</span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>headers <span class="op">=</span> {</span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"User-Agent"</span>: <span class="st">"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "</span></span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"(KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36"</span></span>
-<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(url, headers<span class="op">=</span>headers)</span>
-<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Status code:"</span>, response.status_code)</span>
-<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>soup <span class="op">=</span> BeautifulSoup(response.text, <span class="st">"html.parser"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="bde9d920" class="cell" data-execution_count="25">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://decisiondrivers.com/nyc/zip-code/"</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>headers <span class="op">=</span> {</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"User-Agent"</span>: <span class="st">"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "</span></span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"(KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36"</span></span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(url, headers<span class="op">=</span>headers)</span>
+<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Status code:"</span>, response.status_code)</span>
+<span id="cb50-9"><a href="#cb50-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-10"><a href="#cb50-10" aria-hidden="true" tabindex="-1"></a>soup <span class="op">=</span> BeautifulSoup(response.text, <span class="st">"html.parser"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Status code: 200</code></pre>
 </div>
@@ -1614,8 +1896,8 @@ GAMLSS-RS iteration 3: Global Deviance = 4718.415 </code></pre>
 <p>The <code>requests.get()</code> function fetches the page, and <code>BeautifulSoup()</code> parses it into a structure that can be easily searched. The <code>"html.parser"</code> argument tells BeautifulSoup how to interpret the HTML. The resulting <code>soup</code> object becomes your workspace for exploring and extracting information. You can now search for tags like <code>&lt;table&gt;</code>, <code>&lt;tr&gt;</code>, or <code>&lt;td&gt;</code> to extract the data you need.</p>
 <p>Since the status code prints 200, that means the request worked successfully and the page’s content is ready to scrape.</p>
 </section>
-<section id="navigating-and-searching-the-parse-tree" class="level4" data-number="13.4.3.3">
-<h4 data-number="13.4.3.3" class="anchored" data-anchor-id="navigating-and-searching-the-parse-tree"><span class="header-section-number">13.4.3.3</span> Navigating and Searching the Parse Tree</h4>
+<section id="navigating-and-searching-the-parse-tree" class="level4" data-number="13.5.3.3">
+<h4 data-number="13.5.3.3" class="anchored" data-anchor-id="navigating-and-searching-the-parse-tree"><span class="header-section-number">13.5.3.3</span> Navigating and Searching the Parse Tree</h4>
 <p>BeautifulSoup organizes the HTML into a tree like structure that you can move through. Each tag, paragraph, or link becomes something you can directly access.</p>
 <p>The most common ways to search are <code>find()</code>, <code>find_all()</code>, and <code>select()</code>.</p>
 <ul>
@@ -1623,51 +1905,51 @@ GAMLSS-RS iteration 3: Global Deviance = 4718.415 </code></pre>
 <li><code>find_all()</code> – finds all instances of a tag</li>
 <li><code>select()</code> – finds elements using CSS selectors</li>
 </ul>
-<div id="f6560092" class="cell" data-execution_count="26">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Find the first heading on the page</span></span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>heading <span class="op">=</span> soup.find(<span class="st">'h1'</span>)</span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Find all links on the page</span></span>
-<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>links <span class="op">=</span> soup.find_all(<span class="st">'a'</span>)</span>
-<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Use a CSS selector to find specific items</span></span>
-<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>nav_links <span class="op">=</span> soup.select(<span class="st">'nav a'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="e439ef33" class="cell" data-execution_count="26">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Find the first heading on the page</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>heading <span class="op">=</span> soup.find(<span class="st">'h1'</span>)</span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Find all links on the page</span></span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>links <span class="op">=</span> soup.find_all(<span class="st">'a'</span>)</span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Use a CSS selector to find specific items</span></span>
+<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a>nav_links <span class="op">=</span> soup.select(<span class="st">'nav a'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="extracting-data" class="level4" data-number="13.4.3.4">
-<h4 data-number="13.4.3.4" class="anchored" data-anchor-id="extracting-data"><span class="header-section-number">13.4.3.4</span> Extracting Data</h4>
+<section id="extracting-data" class="level4" data-number="13.5.3.4">
+<h4 data-number="13.5.3.4" class="anchored" data-anchor-id="extracting-data"><span class="header-section-number">13.5.3.4</span> Extracting Data</h4>
 <p>Before writing any scraping code, it’s helpful to understand where the data actually sits within the webpage. You can right-click anywhere on the site and choose Inspect to open your browser’s developer tools. This reveals the HTML structure of the page, where information is organized using tags such as <code>&lt;table&gt;</code>, <code>&lt;tr&gt;</code>, and <code>&lt;td&gt;</code>. These tags define how the data is arranged, helping you identify exactly which elements you’ll need to target with BeautifulSoup.</p>
 <p>For example, on the [Decision Drivers NYC ZIP Codes] (https://decisiondrivers.com/nyc/zip-code/) page, the ZIP code information is not stored inside a table but listed under each borough heading. Every borough name appears as a heading tag, such as <code>&lt;h2&gt;</code>, followed by a list of ZIP codes written in plain text or inside <code>&lt;ul&gt;</code> and <code>&lt;li&gt;</code> tags. Instead of looping through table rows, you can search for each heading, record the borough name, and then capture the ZIP codes that appear beneath it. This structure works well with <code>BeautifulSoup</code> because it allows you to identify the borough from the heading and pair it with its corresponding ZIP codes by reading the text that follows.</p>
-<div id="aac945a7" class="cell" data-execution_count="27">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>boroughs <span class="op">=</span> []</span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>zips <span class="op">=</span> []</span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Split the entire text into lines, then look for boroughs and ZIPs</span></span>
-<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>lines <span class="op">=</span> soup.get_text(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span>, strip<span class="op">=</span><span class="va">True</span>).splitlines()</span>
-<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>current_borough <span class="op">=</span> <span class="va">None</span></span>
-<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> line <span class="kw">in</span> lines:</span>
-<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>    text <span class="op">=</span> line.strip()</span>
-<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># If the line is a borough name, update the current borough</span></span>
-<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> text.upper() <span class="kw">in</span> [<span class="st">"MANHATTAN"</span>, <span class="st">"BROOKLYN"</span>, <span class="st">"QUEENS"</span>, <span class="st">"BRONX"</span>, </span>
-<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"STATEN ISLAND"</span>]:</span>
-<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a>        current_borough <span class="op">=</span> text.title()</span>
-<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">continue</span></span>
-<span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-18"><a href="#cb39-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># If the line is a 5-digit number, it’s a ZIP code</span></span>
-<span id="cb39-19"><a href="#cb39-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> current_borough <span class="kw">and</span> text.isdigit() <span class="kw">and</span> <span class="bu">len</span>(text) <span class="op">==</span> <span class="dv">5</span>:</span>
-<span id="cb39-20"><a href="#cb39-20" aria-hidden="true" tabindex="-1"></a>        boroughs.append(current_borough)</span>
-<span id="cb39-21"><a href="#cb39-21" aria-hidden="true" tabindex="-1"></a>        zips.append(text)</span>
-<span id="cb39-22"><a href="#cb39-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-23"><a href="#cb39-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a clean DataFrame</span></span>
-<span id="cb39-24"><a href="#cb39-24" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame({<span class="st">"Borough"</span>: boroughs, <span class="st">"ZIP"</span>: zips})</span>
-<span id="cb39-25"><a href="#cb39-25" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.drop_duplicates().sort_values([<span class="st">"Borough"</span>, <span class="st">"ZIP"</span>]).reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb39-26"><a href="#cb39-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-27"><a href="#cb39-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the first few rows</span></span>
-<span id="cb39-28"><a href="#cb39-28" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.head(<span class="dv">10</span>))</span>
-<span id="cb39-29"><a href="#cb39-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Total ZIP codes found:"</span>, <span class="bu">len</span>(df))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="7459e023" class="cell" data-execution_count="27">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>boroughs <span class="op">=</span> []</span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>zips <span class="op">=</span> []</span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Split the entire text into lines, then look for boroughs and ZIPs</span></span>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a>lines <span class="op">=</span> soup.get_text(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span>, strip<span class="op">=</span><span class="va">True</span>).splitlines()</span>
+<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a>current_borough <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> line <span class="kw">in</span> lines:</span>
+<span id="cb53-11"><a href="#cb53-11" aria-hidden="true" tabindex="-1"></a>    text <span class="op">=</span> line.strip()</span>
+<span id="cb53-12"><a href="#cb53-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># If the line is a borough name, update the current borough</span></span>
+<span id="cb53-13"><a href="#cb53-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> text.upper() <span class="kw">in</span> [<span class="st">"MANHATTAN"</span>, <span class="st">"BROOKLYN"</span>, <span class="st">"QUEENS"</span>, <span class="st">"BRONX"</span>, </span>
+<span id="cb53-14"><a href="#cb53-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"STATEN ISLAND"</span>]:</span>
+<span id="cb53-15"><a href="#cb53-15" aria-hidden="true" tabindex="-1"></a>        current_borough <span class="op">=</span> text.title()</span>
+<span id="cb53-16"><a href="#cb53-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">continue</span></span>
+<span id="cb53-17"><a href="#cb53-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-18"><a href="#cb53-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># If the line is a 5-digit number, it’s a ZIP code</span></span>
+<span id="cb53-19"><a href="#cb53-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> current_borough <span class="kw">and</span> text.isdigit() <span class="kw">and</span> <span class="bu">len</span>(text) <span class="op">==</span> <span class="dv">5</span>:</span>
+<span id="cb53-20"><a href="#cb53-20" aria-hidden="true" tabindex="-1"></a>        boroughs.append(current_borough)</span>
+<span id="cb53-21"><a href="#cb53-21" aria-hidden="true" tabindex="-1"></a>        zips.append(text)</span>
+<span id="cb53-22"><a href="#cb53-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-23"><a href="#cb53-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a clean DataFrame</span></span>
+<span id="cb53-24"><a href="#cb53-24" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame({<span class="st">"Borough"</span>: boroughs, <span class="st">"ZIP"</span>: zips})</span>
+<span id="cb53-25"><a href="#cb53-25" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.drop_duplicates().sort_values([<span class="st">"Borough"</span>, <span class="st">"ZIP"</span>]).reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb53-26"><a href="#cb53-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-27"><a href="#cb53-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the first few rows</span></span>
+<span id="cb53-28"><a href="#cb53-28" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.head(<span class="dv">10</span>))</span>
+<span id="cb53-29"><a href="#cb53-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Total ZIP codes found:"</span>, <span class="bu">len</span>(df))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  Borough    ZIP
 0   Bronx  10451
@@ -1685,52 +1967,52 @@ Total ZIP codes found: 179</code></pre>
 </div>
 </div>
 </section>
-<section id="extended-example" class="level4" data-number="13.4.3.5">
-<h4 data-number="13.4.3.5" class="anchored" data-anchor-id="extended-example"><span class="header-section-number">13.4.3.5</span> Extended Example</h4>
+<section id="extended-example" class="level4" data-number="13.5.3.5">
+<h4 data-number="13.5.3.5" class="anchored" data-anchor-id="extended-example"><span class="header-section-number">13.5.3.5</span> Extended Example</h4>
 <p>This is an example that will be useful for our midterm assignment. Here, we scrape the addresses of all the precincts in NYC.</p>
-<div id="aac238c4" class="cell" data-execution_count="28">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://www.nyc.gov/site/nypd/bureaus/patrol/precincts-landing.page"</span></span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>headers <span class="op">=</span> {</span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"User-Agent"</span>: <span class="st">"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "</span></span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"(KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36"</span></span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(url, headers<span class="op">=</span>headers)</span>
-<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Status code:"</span>, response.status_code)</span>
-<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>soup <span class="op">=</span> BeautifulSoup(response.text, <span class="st">"html.parser"</span>)</span>
-<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1: Locate the table containing the precinct information</span></span>
-<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a>table <span class="op">=</span> soup.find(<span class="st">"table"</span>, class_<span class="op">=</span><span class="st">"rt"</span>)</span>
-<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2: If the table is found, extract all precinct rows</span></span>
-<span id="cb41-16"><a href="#cb41-16" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> table:</span>
-<span id="cb41-17"><a href="#cb41-17" aria-hidden="true" tabindex="-1"></a>    rows <span class="op">=</span> table.find_all(<span class="st">"tr"</span>)</span>
-<span id="cb41-18"><a href="#cb41-18" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
-<span id="cb41-19"><a href="#cb41-19" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"No table found on this page."</span>)</span>
-<span id="cb41-20"><a href="#cb41-20" aria-hidden="true" tabindex="-1"></a>    rows <span class="op">=</span> []</span>
-<span id="cb41-21"><a href="#cb41-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-22"><a href="#cb41-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 3: Prepare a list to store precinct data as dictionaries</span></span>
-<span id="cb41-23"><a href="#cb41-23" aria-hidden="true" tabindex="-1"></a>precinct_data <span class="op">=</span> []</span>
-<span id="cb41-24"><a href="#cb41-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-25"><a href="#cb41-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 4: Loop through each row and collect precinct name and address</span></span>
-<span id="cb41-26"><a href="#cb41-26" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> row <span class="kw">in</span> rows:</span>
-<span id="cb41-27"><a href="#cb41-27" aria-hidden="true" tabindex="-1"></a>    precinct_cell <span class="op">=</span> row.find(<span class="st">"td"</span>, attrs<span class="op">=</span>{<span class="st">"data-label"</span>: <span class="st">"Precinct"</span>})</span>
-<span id="cb41-28"><a href="#cb41-28" aria-hidden="true" tabindex="-1"></a>    address_cell <span class="op">=</span> row.find(<span class="st">"td"</span>, attrs<span class="op">=</span>{<span class="st">"data-label"</span>: <span class="st">"Address"</span>})</span>
-<span id="cb41-29"><a href="#cb41-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-30"><a href="#cb41-30" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> precinct_cell <span class="kw">and</span> address_cell:</span>
-<span id="cb41-31"><a href="#cb41-31" aria-hidden="true" tabindex="-1"></a>        precinct_name <span class="op">=</span> precinct_cell.text.strip()</span>
-<span id="cb41-32"><a href="#cb41-32" aria-hidden="true" tabindex="-1"></a>        address <span class="op">=</span> address_cell.text.strip()</span>
-<span id="cb41-33"><a href="#cb41-33" aria-hidden="true" tabindex="-1"></a>        precinct_data.append({</span>
-<span id="cb41-34"><a href="#cb41-34" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Precinct"</span>: precinct_name,</span>
-<span id="cb41-35"><a href="#cb41-35" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Address"</span>: address</span>
-<span id="cb41-36"><a href="#cb41-36" aria-hidden="true" tabindex="-1"></a>        })</span>
-<span id="cb41-37"><a href="#cb41-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-38"><a href="#cb41-38" aria-hidden="true" tabindex="-1"></a>precincts_df <span class="op">=</span> pd.DataFrame(precinct_data)</span>
-<span id="cb41-39"><a href="#cb41-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-40"><a href="#cb41-40" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 6: Display a quick summary</span></span>
-<span id="cb41-41"><a href="#cb41-41" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Extracted </span><span class="sc">{</span><span class="bu">len</span>(precincts_df)<span class="sc">}</span><span class="ss"> precincts successfully."</span>)</span>
-<span id="cb41-42"><a href="#cb41-42" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(precincts_df.head())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="b866600a" class="cell" data-execution_count="28">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://www.nyc.gov/site/nypd/bureaus/patrol/precincts-landing.page"</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>headers <span class="op">=</span> {</span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"User-Agent"</span>: <span class="st">"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "</span></span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"(KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36"</span></span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(url, headers<span class="op">=</span>headers)</span>
+<span id="cb55-8"><a href="#cb55-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Status code:"</span>, response.status_code)</span>
+<span id="cb55-9"><a href="#cb55-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-10"><a href="#cb55-10" aria-hidden="true" tabindex="-1"></a>soup <span class="op">=</span> BeautifulSoup(response.text, <span class="st">"html.parser"</span>)</span>
+<span id="cb55-11"><a href="#cb55-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-12"><a href="#cb55-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1: Locate the table containing the precinct information</span></span>
+<span id="cb55-13"><a href="#cb55-13" aria-hidden="true" tabindex="-1"></a>table <span class="op">=</span> soup.find(<span class="st">"table"</span>, class_<span class="op">=</span><span class="st">"rt"</span>)</span>
+<span id="cb55-14"><a href="#cb55-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-15"><a href="#cb55-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2: If the table is found, extract all precinct rows</span></span>
+<span id="cb55-16"><a href="#cb55-16" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> table:</span>
+<span id="cb55-17"><a href="#cb55-17" aria-hidden="true" tabindex="-1"></a>    rows <span class="op">=</span> table.find_all(<span class="st">"tr"</span>)</span>
+<span id="cb55-18"><a href="#cb55-18" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb55-19"><a href="#cb55-19" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"No table found on this page."</span>)</span>
+<span id="cb55-20"><a href="#cb55-20" aria-hidden="true" tabindex="-1"></a>    rows <span class="op">=</span> []</span>
+<span id="cb55-21"><a href="#cb55-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-22"><a href="#cb55-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 3: Prepare a list to store precinct data as dictionaries</span></span>
+<span id="cb55-23"><a href="#cb55-23" aria-hidden="true" tabindex="-1"></a>precinct_data <span class="op">=</span> []</span>
+<span id="cb55-24"><a href="#cb55-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-25"><a href="#cb55-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 4: Loop through each row and collect precinct name and address</span></span>
+<span id="cb55-26"><a href="#cb55-26" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> row <span class="kw">in</span> rows:</span>
+<span id="cb55-27"><a href="#cb55-27" aria-hidden="true" tabindex="-1"></a>    precinct_cell <span class="op">=</span> row.find(<span class="st">"td"</span>, attrs<span class="op">=</span>{<span class="st">"data-label"</span>: <span class="st">"Precinct"</span>})</span>
+<span id="cb55-28"><a href="#cb55-28" aria-hidden="true" tabindex="-1"></a>    address_cell <span class="op">=</span> row.find(<span class="st">"td"</span>, attrs<span class="op">=</span>{<span class="st">"data-label"</span>: <span class="st">"Address"</span>})</span>
+<span id="cb55-29"><a href="#cb55-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-30"><a href="#cb55-30" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> precinct_cell <span class="kw">and</span> address_cell:</span>
+<span id="cb55-31"><a href="#cb55-31" aria-hidden="true" tabindex="-1"></a>        precinct_name <span class="op">=</span> precinct_cell.text.strip()</span>
+<span id="cb55-32"><a href="#cb55-32" aria-hidden="true" tabindex="-1"></a>        address <span class="op">=</span> address_cell.text.strip()</span>
+<span id="cb55-33"><a href="#cb55-33" aria-hidden="true" tabindex="-1"></a>        precinct_data.append({</span>
+<span id="cb55-34"><a href="#cb55-34" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Precinct"</span>: precinct_name,</span>
+<span id="cb55-35"><a href="#cb55-35" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Address"</span>: address</span>
+<span id="cb55-36"><a href="#cb55-36" aria-hidden="true" tabindex="-1"></a>        })</span>
+<span id="cb55-37"><a href="#cb55-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-38"><a href="#cb55-38" aria-hidden="true" tabindex="-1"></a>precincts_df <span class="op">=</span> pd.DataFrame(precinct_data)</span>
+<span id="cb55-39"><a href="#cb55-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-40"><a href="#cb55-40" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 6: Display a quick summary</span></span>
+<span id="cb55-41"><a href="#cb55-41" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Extracted </span><span class="sc">{</span><span class="bu">len</span>(precincts_df)<span class="sc">}</span><span class="ss"> precincts successfully."</span>)</span>
+<span id="cb55-42"><a href="#cb55-42" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(precincts_df.head())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Status code: 200
 Extracted 78 precincts successfully.
@@ -1744,162 +2026,162 @@ Extracted 78 precincts successfully.
 </div>
 </section>
 </section>
-<section id="an-introduction-to-selenium" class="level3" data-number="13.4.4">
-<h3 data-number="13.4.4" class="anchored" data-anchor-id="an-introduction-to-selenium"><span class="header-section-number">13.4.4</span> An Introduction to Selenium</h3>
+<section id="an-introduction-to-selenium" class="level3" data-number="13.5.4">
+<h3 data-number="13.5.4" class="anchored" data-anchor-id="an-introduction-to-selenium"><span class="header-section-number">13.5.4</span> An Introduction to Selenium</h3>
 <p>While BeautifulSoup works best for static websites, not all web pages are created equal. Many modern sites use JavaScript to load content after the initial HTML has already been sent to the browser. This means that if you use <code>requests</code> and <code>BeautifulSoup</code>, you might get an empty page or partial data. This is where you use Selenium.</p>
 <p>Selenium is a powerful browser automation tool that lets you control an actual web browser, like Chrome or Firefox, through Python. It can click buttons, fill out forms, scroll through pages, and load JavaScript rendered content before scraping it. You can then pass the fully loaded page to BeautifulSoup for parsing.</p>
-<section id="installing-and-setting-up-selenium" class="level4" data-number="13.4.4.1">
-<h4 data-number="13.4.4.1" class="anchored" data-anchor-id="installing-and-setting-up-selenium"><span class="header-section-number">13.4.4.1</span> Installing and Setting Up Selenium</h4>
+<section id="installing-and-setting-up-selenium" class="level4" data-number="13.5.4.1">
+<h4 data-number="13.5.4.1" class="anchored" data-anchor-id="installing-and-setting-up-selenium"><span class="header-section-number">13.5.4.1</span> Installing and Setting Up Selenium</h4>
 <p>To use Selenium, you first need to install it.</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install selenium</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb57"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install selenium</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Selenium also requires a WebDriver, which acts as a bridge between Python and your browser. If you are using Google Chrome, download ChromeDriver and make sure it is installed correctly. You can verify this by typing the following command in your terminal:</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="ex">chromedriver</span> <span class="at">--version</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb58"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="ex">chromedriver</span> <span class="at">--version</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>If you are on macOS and see the error “chromedriver cannot be opened because the developer cannot be verified,” you can fix it by running this command:</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="ex">xattr</span> <span class="at">-d</span> com.apple.quarantine <span class="va">$(</span><span class="fu">which</span> chromedriver<span class="va">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb59"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="ex">xattr</span> <span class="at">-d</span> com.apple.quarantine <span class="va">$(</span><span class="fu">which</span> chromedriver<span class="va">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>After this, your WebDriver should work normally.</p>
 <p>Now we can work on the code itself. This is how we set up Selenium:</p>
-<div id="67da0ef6" class="cell" data-execution_count="29">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> selenium <span class="im">import</span> webdriver</span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> selenium.webdriver.chrome.service <span class="im">import</span> Service</span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> selenium.webdriver.chrome.options <span class="im">import</span> Options</span>
-<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="982737f6" class="cell" data-execution_count="29">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> selenium <span class="im">import</span> webdriver</span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> selenium.webdriver.chrome.service <span class="im">import</span> Service</span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> selenium.webdriver.chrome.options <span class="im">import</span> Options</span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Before launching Chrome, it’s common to set a few options that control how it behaves. For scraping, “headless” mode is useful because it runs Chrome without opening a window. It is faster and less distracting.</p>
-<div id="62d4d5a0" class="cell" data-execution_count="30">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create Chrome options to control browser behavior</span></span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>options <span class="op">=</span> Options()</span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Run Chrome invisibly (no window)</span></span>
-<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>options.add_argument(<span class="st">"--headless"</span>)</span>
-<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Disable GPU acceleration for smoother headless operation</span></span>
-<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>options.add_argument(<span class="st">"--disable-gpu"</span>)</span>
-<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Helps avoid permission issues in some environments</span></span>
-<span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a>options.add_argument(<span class="st">"--no-sandbox"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="909e6ae9" class="cell" data-execution_count="30">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb61"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create Chrome options to control browser behavior</span></span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>options <span class="op">=</span> Options()</span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Run Chrome invisibly (no window)</span></span>
+<span id="cb61-5"><a href="#cb61-5" aria-hidden="true" tabindex="-1"></a>options.add_argument(<span class="st">"--headless"</span>)</span>
+<span id="cb61-6"><a href="#cb61-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-7"><a href="#cb61-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Disable GPU acceleration for smoother headless operation</span></span>
+<span id="cb61-8"><a href="#cb61-8" aria-hidden="true" tabindex="-1"></a>options.add_argument(<span class="st">"--disable-gpu"</span>)</span>
+<span id="cb61-9"><a href="#cb61-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-10"><a href="#cb61-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Helps avoid permission issues in some environments</span></span>
+<span id="cb61-11"><a href="#cb61-11" aria-hidden="true" tabindex="-1"></a>options.add_argument(<span class="st">"--no-sandbox"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Instead of typing out the full path manually, this function looks through your system’s PATH to find where chromedriver is installed.</p>
-<div id="42fadd80" class="cell" data-execution_count="31">
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> find_chromedriver():</span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Loop through all directories listed in the system PATH</span></span>
-<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> path <span class="kw">in</span> os.environ[<span class="st">"PATH"</span>].split(os.pathsep):</span>
-<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Build the potential path to chromedriver</span></span>
-<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>        driver_path <span class="op">=</span> os.path.join(path, <span class="st">"chromedriver"</span>)</span>
-<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Check if it exists and is executable</span></span>
-<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> os.path.isfile(driver_path) <span class="kw">and</span> os.access(driver_path, os.X_OK):</span>
-<span id="cb48-11"><a href="#cb48-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-12"><a href="#cb48-12" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> driver_path  <span class="co"># Return the path if found</span></span>
-<span id="cb48-13"><a href="#cb48-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-14"><a href="#cb48-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">None</span>  <span class="co"># Return None if not found</span></span>
-<span id="cb48-15"><a href="#cb48-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-16"><a href="#cb48-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the function to locate chromedriver</span></span>
-<span id="cb48-17"><a href="#cb48-17" aria-hidden="true" tabindex="-1"></a>chromedriver_path <span class="op">=</span> find_chromedriver()</span>
-<span id="cb48-18"><a href="#cb48-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-19"><a href="#cb48-19" aria-hidden="true" tabindex="-1"></a><span class="co"># If found, print its path</span></span>
-<span id="cb48-20"><a href="#cb48-20" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> chromedriver_path:</span>
-<span id="cb48-21"><a href="#cb48-21" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Found ChromeDriver at:"</span>, chromedriver_path)</span>
-<span id="cb48-22"><a href="#cb48-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-23"><a href="#cb48-23" aria-hidden="true" tabindex="-1"></a><span class="co"># If not found, raise an error with instructions</span></span>
-<span id="cb48-24"><a href="#cb48-24" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
-<span id="cb48-25"><a href="#cb48-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">raise</span> <span class="pp">FileNotFoundError</span>(<span class="st">"ChromeDriver not found."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="fdd2059a" class="cell" data-execution_count="31">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb62"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> find_chromedriver():</span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Loop through all directories listed in the system PATH</span></span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> path <span class="kw">in</span> os.environ[<span class="st">"PATH"</span>].split(os.pathsep):</span>
+<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-6"><a href="#cb62-6" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Build the potential path to chromedriver</span></span>
+<span id="cb62-7"><a href="#cb62-7" aria-hidden="true" tabindex="-1"></a>        driver_path <span class="op">=</span> os.path.join(path, <span class="st">"chromedriver"</span>)</span>
+<span id="cb62-8"><a href="#cb62-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-9"><a href="#cb62-9" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Check if it exists and is executable</span></span>
+<span id="cb62-10"><a href="#cb62-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> os.path.isfile(driver_path) <span class="kw">and</span> os.access(driver_path, os.X_OK):</span>
+<span id="cb62-11"><a href="#cb62-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-12"><a href="#cb62-12" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> driver_path  <span class="co"># Return the path if found</span></span>
+<span id="cb62-13"><a href="#cb62-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-14"><a href="#cb62-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">None</span>  <span class="co"># Return None if not found</span></span>
+<span id="cb62-15"><a href="#cb62-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-16"><a href="#cb62-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the function to locate chromedriver</span></span>
+<span id="cb62-17"><a href="#cb62-17" aria-hidden="true" tabindex="-1"></a>chromedriver_path <span class="op">=</span> find_chromedriver()</span>
+<span id="cb62-18"><a href="#cb62-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-19"><a href="#cb62-19" aria-hidden="true" tabindex="-1"></a><span class="co"># If found, print its path</span></span>
+<span id="cb62-20"><a href="#cb62-20" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> chromedriver_path:</span>
+<span id="cb62-21"><a href="#cb62-21" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Found ChromeDriver at:"</span>, chromedriver_path)</span>
+<span id="cb62-22"><a href="#cb62-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-23"><a href="#cb62-23" aria-hidden="true" tabindex="-1"></a><span class="co"># If not found, raise an error with instructions</span></span>
+<span id="cb62-24"><a href="#cb62-24" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb62-25"><a href="#cb62-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">raise</span> <span class="pp">FileNotFoundError</span>(<span class="st">"ChromeDriver not found."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Found ChromeDriver at: /usr/local/bin/chromedriver</code></pre>
 </div>
 </div>
 <p>Once you have the driver path and your browser settings, you can start Chrome.</p>
-<div id="c4e55ab4" class="cell" data-execution_count="32">
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import the Service class and connect the driver</span></span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>service <span class="op">=</span> Service(chromedriver_path)</span>
-<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Start the Chrome WebDriver with the defined options</span></span>
-<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>driver <span class="op">=</span> webdriver.Chrome(service<span class="op">=</span>service, options<span class="op">=</span>options)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="c783df4f" class="cell" data-execution_count="32">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb64"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import the Service class and connect the driver</span></span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>service <span class="op">=</span> Service(chromedriver_path)</span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Start the Chrome WebDriver with the defined options</span></span>
+<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a>driver <span class="op">=</span> webdriver.Chrome(service<span class="op">=</span>service, options<span class="op">=</span>options)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>At this point, Selenium is ready. You can visit a webpage by calling:</p>
-<div id="c4d27ea6" class="cell" data-execution_count="33">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>driver.get(<span class="st">"https://example.com"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="e268c2d8" class="cell" data-execution_count="33">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb65"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>driver.get(<span class="st">"https://example.com"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="using-selenium-to-load-dynamic-pages" class="level4" data-number="13.4.4.2">
-<h4 data-number="13.4.4.2" class="anchored" data-anchor-id="using-selenium-to-load-dynamic-pages"><span class="header-section-number">13.4.4.2</span> Using Selenium to Load Dynamic Pages</h4>
+<section id="using-selenium-to-load-dynamic-pages" class="level4" data-number="13.5.4.2">
+<h4 data-number="13.5.4.2" class="anchored" data-anchor-id="using-selenium-to-load-dynamic-pages"><span class="header-section-number">13.5.4.2</span> Using Selenium to Load Dynamic Pages</h4>
 <p>Here is a simple example that shows how Selenium can open a website, wait for it to load, and then pass the content to BeautifulSoup.</p>
-<div id="96983264" class="cell" data-execution_count="34">
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> selenium <span class="im">import</span> webdriver</span>
-<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> selenium.webdriver.chrome.options <span class="im">import</span> Options</span>
-<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> selenium.webdriver.common.by <span class="im">import</span> By</span>
-<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> selenium.webdriver.support.ui <span class="im">import</span> WebDriverWait</span>
-<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> selenium.webdriver.support <span class="im">import</span> expected_conditions <span class="im">as</span> EC</span>
-<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> scrape_schedule(url, league):  <span class="co"># league = "NFL" or "MLB"</span></span>
-<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a>    league <span class="op">=</span> league.upper()</span>
-<span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Identify the correct team link pattern based on the league</span></span>
-<span id="cb52-11"><a href="#cb52-11" aria-hidden="true" tabindex="-1"></a>    team_href <span class="op">=</span> <span class="st">"/nfl/team/_/name"</span> <span class="cf">if</span> league <span class="op">==</span> <span class="st">"NFL"</span> <span class="cf">else</span> <span class="st">"/mlb/team/_/name"</span></span>
-<span id="cb52-12"><a href="#cb52-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-13"><a href="#cb52-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Configure and launch Chrome</span></span>
-<span id="cb52-14"><a href="#cb52-14" aria-hidden="true" tabindex="-1"></a>    options <span class="op">=</span> Options()</span>
-<span id="cb52-15"><a href="#cb52-15" aria-hidden="true" tabindex="-1"></a>    options.add_argument(<span class="st">"--headless=new"</span>)</span>
-<span id="cb52-16"><a href="#cb52-16" aria-hidden="true" tabindex="-1"></a>    options.add_argument(<span class="st">"--window-size=1920,1080"</span>)</span>
-<span id="cb52-17"><a href="#cb52-17" aria-hidden="true" tabindex="-1"></a>    driver <span class="op">=</span> webdriver.Chrome(options<span class="op">=</span>options)</span>
-<span id="cb52-18"><a href="#cb52-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-19"><a href="#cb52-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Load the ESPN schedule page</span></span>
-<span id="cb52-20"><a href="#cb52-20" aria-hidden="true" tabindex="-1"></a>    driver.get(url)</span>
-<span id="cb52-21"><a href="#cb52-21" aria-hidden="true" tabindex="-1"></a>    wait <span class="op">=</span> WebDriverWait(driver, <span class="dv">25</span>)</span>
-<span id="cb52-22"><a href="#cb52-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-23"><a href="#cb52-23" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Wait until key elements are visible (date headers and team links)</span></span>
-<span id="cb52-24"><a href="#cb52-24" aria-hidden="true" tabindex="-1"></a>    wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, </span>
-<span id="cb52-25"><a href="#cb52-25" aria-hidden="true" tabindex="-1"></a>    <span class="st">"div.Table__Title"</span>)))</span>
-<span id="cb52-26"><a href="#cb52-26" aria-hidden="true" tabindex="-1"></a>    wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, </span>
-<span id="cb52-27"><a href="#cb52-27" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"a.AnchorLink[href*='</span><span class="sc">{</span>team_href<span class="sc">}</span><span class="ss">']"</span>)))</span>
-<span id="cb52-28"><a href="#cb52-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-29"><a href="#cb52-29" aria-hidden="true" tabindex="-1"></a>    rows_out <span class="op">=</span> []</span>
-<span id="cb52-30"><a href="#cb52-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-31"><a href="#cb52-31" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Extract data by date section</span></span>
-<span id="cb52-32"><a href="#cb52-32" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Each schedule day starts with a &lt;div class="Table__Title"&gt; element</span></span>
-<span id="cb52-33"><a href="#cb52-33" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> title <span class="kw">in</span> driver.find_elements(By.CSS_SELECTOR, <span class="st">"div.Table__Title"</span>):</span>
-<span id="cb52-34"><a href="#cb52-34" aria-hidden="true" tabindex="-1"></a>        date_text <span class="op">=</span> title.text.strip()</span>
-<span id="cb52-35"><a href="#cb52-35" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="kw">not</span> date_text:</span>
-<span id="cb52-36"><a href="#cb52-36" aria-hidden="true" tabindex="-1"></a>            <span class="cf">continue</span>  <span class="co"># Skip if the date header is empty</span></span>
-<span id="cb52-37"><a href="#cb52-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-38"><a href="#cb52-38" aria-hidden="true" tabindex="-1"></a>        <span class="co"># The table directly after the title contains the matchups</span></span>
-<span id="cb52-39"><a href="#cb52-39" aria-hidden="true" tabindex="-1"></a>        <span class="cf">try</span>:</span>
-<span id="cb52-40"><a href="#cb52-40" aria-hidden="true" tabindex="-1"></a>            table <span class="op">=</span> title.find_element(By.XPATH, <span class="st">"following::table[1]"</span>)</span>
-<span id="cb52-41"><a href="#cb52-41" aria-hidden="true" tabindex="-1"></a>        <span class="cf">except</span>:</span>
-<span id="cb52-42"><a href="#cb52-42" aria-hidden="true" tabindex="-1"></a>            <span class="cf">continue</span>  <span class="co"># Skip if structure differs</span></span>
-<span id="cb52-43"><a href="#cb52-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-44"><a href="#cb52-44" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Extract teams for each game</span></span>
-<span id="cb52-45"><a href="#cb52-45" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> row <span class="kw">in</span> table.find_elements(By.XPATH, </span>
-<span id="cb52-46"><a href="#cb52-46" aria-hidden="true" tabindex="-1"></a>        <span class="st">".//tr[contains(@class,'Table__TR')]"</span>):</span>
-<span id="cb52-47"><a href="#cb52-47" aria-hidden="true" tabindex="-1"></a>            teams <span class="op">=</span> [</span>
-<span id="cb52-48"><a href="#cb52-48" aria-hidden="true" tabindex="-1"></a>                a.text.strip()</span>
-<span id="cb52-49"><a href="#cb52-49" aria-hidden="true" tabindex="-1"></a>                <span class="cf">for</span> a <span class="kw">in</span> row.find_elements(By.CSS_SELECTOR, </span>
-<span id="cb52-50"><a href="#cb52-50" aria-hidden="true" tabindex="-1"></a>                <span class="ss">f"td a.AnchorLink[href*='</span><span class="sc">{</span>team_href<span class="sc">}</span><span class="ss">']"</span>)</span>
-<span id="cb52-51"><a href="#cb52-51" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> a.text.strip()</span>
-<span id="cb52-52"><a href="#cb52-52" aria-hidden="true" tabindex="-1"></a>            ]</span>
-<span id="cb52-53"><a href="#cb52-53" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="bu">len</span>(teams) <span class="op">&gt;=</span> <span class="dv">2</span>:</span>
-<span id="cb52-54"><a href="#cb52-54" aria-hidden="true" tabindex="-1"></a>                <span class="co"># Format as "Away @ Home"</span></span>
-<span id="cb52-55"><a href="#cb52-55" aria-hidden="true" tabindex="-1"></a>                rows_out.append({<span class="st">"Date"</span>: date_text, <span class="st">"Matchup"</span>: <span class="ss">f"</span><span class="sc">{</span>teams[<span class="dv">0</span>]<span class="sc">}</span><span class="ss"> @ </span><span class="sc">{</span></span>
-<span id="cb52-56"><a href="#cb52-56" aria-hidden="true" tabindex="-1"></a>                    teams[<span class="dv">1</span>]<span class="sc">}</span><span class="ss">"</span>})</span>
-<span id="cb52-57"><a href="#cb52-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-58"><a href="#cb52-58" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- Step 5: Clean up and close browser ---</span></span>
-<span id="cb52-59"><a href="#cb52-59" aria-hidden="true" tabindex="-1"></a>    driver.quit()</span>
-<span id="cb52-60"><a href="#cb52-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-61"><a href="#cb52-61" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Build a clean DataFrame</span></span>
-<span id="cb52-62"><a href="#cb52-62" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> pd.DataFrame(rows_out, columns<span class="op">=</span>[<span class="st">"Date"</span>, <span class="st">"Matchup"</span>])</span>
-<span id="cb52-63"><a href="#cb52-63" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">"League"</span>] <span class="op">=</span> league</span>
-<span id="cb52-64"><a href="#cb52-64" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> df</span>
-<span id="cb52-65"><a href="#cb52-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-66"><a href="#cb52-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-67"><a href="#cb52-67" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Step 6: Run for both leagues ---</span></span>
-<span id="cb52-68"><a href="#cb52-68" aria-hidden="true" tabindex="-1"></a>nfl_df <span class="op">=</span> scrape_schedule(<span class="st">"https://www.espn.com/nfl/schedule"</span>, <span class="st">"NFL"</span>)</span>
-<span id="cb52-69"><a href="#cb52-69" aria-hidden="true" tabindex="-1"></a>mlb_df <span class="op">=</span> scrape_schedule(<span class="st">"https://www.espn.com/mlb/schedule"</span>, <span class="st">"MLB"</span>)</span>
-<span id="cb52-70"><a href="#cb52-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-71"><a href="#cb52-71" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"===== NFL ====="</span>)</span>
-<span id="cb52-72"><a href="#cb52-72" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(nfl_df)</span>
-<span id="cb52-73"><a href="#cb52-73" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">===== MLB ====="</span>)</span>
-<span id="cb52-74"><a href="#cb52-74" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(mlb_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="81270dae" class="cell" data-execution_count="34">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb66"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> selenium <span class="im">import</span> webdriver</span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> selenium.webdriver.chrome.options <span class="im">import</span> Options</span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> selenium.webdriver.common.by <span class="im">import</span> By</span>
+<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> selenium.webdriver.support.ui <span class="im">import</span> WebDriverWait</span>
+<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> selenium.webdriver.support <span class="im">import</span> expected_conditions <span class="im">as</span> EC</span>
+<span id="cb66-6"><a href="#cb66-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb66-7"><a href="#cb66-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-8"><a href="#cb66-8" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> scrape_schedule(url, league):  <span class="co"># league = "NFL" or "MLB"</span></span>
+<span id="cb66-9"><a href="#cb66-9" aria-hidden="true" tabindex="-1"></a>    league <span class="op">=</span> league.upper()</span>
+<span id="cb66-10"><a href="#cb66-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Identify the correct team link pattern based on the league</span></span>
+<span id="cb66-11"><a href="#cb66-11" aria-hidden="true" tabindex="-1"></a>    team_href <span class="op">=</span> <span class="st">"/nfl/team/_/name"</span> <span class="cf">if</span> league <span class="op">==</span> <span class="st">"NFL"</span> <span class="cf">else</span> <span class="st">"/mlb/team/_/name"</span></span>
+<span id="cb66-12"><a href="#cb66-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-13"><a href="#cb66-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Configure and launch Chrome</span></span>
+<span id="cb66-14"><a href="#cb66-14" aria-hidden="true" tabindex="-1"></a>    options <span class="op">=</span> Options()</span>
+<span id="cb66-15"><a href="#cb66-15" aria-hidden="true" tabindex="-1"></a>    options.add_argument(<span class="st">"--headless=new"</span>)</span>
+<span id="cb66-16"><a href="#cb66-16" aria-hidden="true" tabindex="-1"></a>    options.add_argument(<span class="st">"--window-size=1920,1080"</span>)</span>
+<span id="cb66-17"><a href="#cb66-17" aria-hidden="true" tabindex="-1"></a>    driver <span class="op">=</span> webdriver.Chrome(options<span class="op">=</span>options)</span>
+<span id="cb66-18"><a href="#cb66-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-19"><a href="#cb66-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Load the ESPN schedule page</span></span>
+<span id="cb66-20"><a href="#cb66-20" aria-hidden="true" tabindex="-1"></a>    driver.get(url)</span>
+<span id="cb66-21"><a href="#cb66-21" aria-hidden="true" tabindex="-1"></a>    wait <span class="op">=</span> WebDriverWait(driver, <span class="dv">25</span>)</span>
+<span id="cb66-22"><a href="#cb66-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-23"><a href="#cb66-23" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Wait until key elements are visible (date headers and team links)</span></span>
+<span id="cb66-24"><a href="#cb66-24" aria-hidden="true" tabindex="-1"></a>    wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, </span>
+<span id="cb66-25"><a href="#cb66-25" aria-hidden="true" tabindex="-1"></a>    <span class="st">"div.Table__Title"</span>)))</span>
+<span id="cb66-26"><a href="#cb66-26" aria-hidden="true" tabindex="-1"></a>    wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, </span>
+<span id="cb66-27"><a href="#cb66-27" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"a.AnchorLink[href*='</span><span class="sc">{</span>team_href<span class="sc">}</span><span class="ss">']"</span>)))</span>
+<span id="cb66-28"><a href="#cb66-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-29"><a href="#cb66-29" aria-hidden="true" tabindex="-1"></a>    rows_out <span class="op">=</span> []</span>
+<span id="cb66-30"><a href="#cb66-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-31"><a href="#cb66-31" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Extract data by date section</span></span>
+<span id="cb66-32"><a href="#cb66-32" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Each schedule day starts with a &lt;div class="Table__Title"&gt; element</span></span>
+<span id="cb66-33"><a href="#cb66-33" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> title <span class="kw">in</span> driver.find_elements(By.CSS_SELECTOR, <span class="st">"div.Table__Title"</span>):</span>
+<span id="cb66-34"><a href="#cb66-34" aria-hidden="true" tabindex="-1"></a>        date_text <span class="op">=</span> title.text.strip()</span>
+<span id="cb66-35"><a href="#cb66-35" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="kw">not</span> date_text:</span>
+<span id="cb66-36"><a href="#cb66-36" aria-hidden="true" tabindex="-1"></a>            <span class="cf">continue</span>  <span class="co"># Skip if the date header is empty</span></span>
+<span id="cb66-37"><a href="#cb66-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-38"><a href="#cb66-38" aria-hidden="true" tabindex="-1"></a>        <span class="co"># The table directly after the title contains the matchups</span></span>
+<span id="cb66-39"><a href="#cb66-39" aria-hidden="true" tabindex="-1"></a>        <span class="cf">try</span>:</span>
+<span id="cb66-40"><a href="#cb66-40" aria-hidden="true" tabindex="-1"></a>            table <span class="op">=</span> title.find_element(By.XPATH, <span class="st">"following::table[1]"</span>)</span>
+<span id="cb66-41"><a href="#cb66-41" aria-hidden="true" tabindex="-1"></a>        <span class="cf">except</span>:</span>
+<span id="cb66-42"><a href="#cb66-42" aria-hidden="true" tabindex="-1"></a>            <span class="cf">continue</span>  <span class="co"># Skip if structure differs</span></span>
+<span id="cb66-43"><a href="#cb66-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-44"><a href="#cb66-44" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Extract teams for each game</span></span>
+<span id="cb66-45"><a href="#cb66-45" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> row <span class="kw">in</span> table.find_elements(By.XPATH, </span>
+<span id="cb66-46"><a href="#cb66-46" aria-hidden="true" tabindex="-1"></a>        <span class="st">".//tr[contains(@class,'Table__TR')]"</span>):</span>
+<span id="cb66-47"><a href="#cb66-47" aria-hidden="true" tabindex="-1"></a>            teams <span class="op">=</span> [</span>
+<span id="cb66-48"><a href="#cb66-48" aria-hidden="true" tabindex="-1"></a>                a.text.strip()</span>
+<span id="cb66-49"><a href="#cb66-49" aria-hidden="true" tabindex="-1"></a>                <span class="cf">for</span> a <span class="kw">in</span> row.find_elements(By.CSS_SELECTOR, </span>
+<span id="cb66-50"><a href="#cb66-50" aria-hidden="true" tabindex="-1"></a>                <span class="ss">f"td a.AnchorLink[href*='</span><span class="sc">{</span>team_href<span class="sc">}</span><span class="ss">']"</span>)</span>
+<span id="cb66-51"><a href="#cb66-51" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> a.text.strip()</span>
+<span id="cb66-52"><a href="#cb66-52" aria-hidden="true" tabindex="-1"></a>            ]</span>
+<span id="cb66-53"><a href="#cb66-53" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="bu">len</span>(teams) <span class="op">&gt;=</span> <span class="dv">2</span>:</span>
+<span id="cb66-54"><a href="#cb66-54" aria-hidden="true" tabindex="-1"></a>                <span class="co"># Format as "Away @ Home"</span></span>
+<span id="cb66-55"><a href="#cb66-55" aria-hidden="true" tabindex="-1"></a>                rows_out.append({<span class="st">"Date"</span>: date_text, <span class="st">"Matchup"</span>: <span class="ss">f"</span><span class="sc">{</span>teams[<span class="dv">0</span>]<span class="sc">}</span><span class="ss"> @ </span><span class="sc">{</span></span>
+<span id="cb66-56"><a href="#cb66-56" aria-hidden="true" tabindex="-1"></a>                    teams[<span class="dv">1</span>]<span class="sc">}</span><span class="ss">"</span>})</span>
+<span id="cb66-57"><a href="#cb66-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-58"><a href="#cb66-58" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- Step 5: Clean up and close browser ---</span></span>
+<span id="cb66-59"><a href="#cb66-59" aria-hidden="true" tabindex="-1"></a>    driver.quit()</span>
+<span id="cb66-60"><a href="#cb66-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-61"><a href="#cb66-61" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Build a clean DataFrame</span></span>
+<span id="cb66-62"><a href="#cb66-62" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> pd.DataFrame(rows_out, columns<span class="op">=</span>[<span class="st">"Date"</span>, <span class="st">"Matchup"</span>])</span>
+<span id="cb66-63"><a href="#cb66-63" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">"League"</span>] <span class="op">=</span> league</span>
+<span id="cb66-64"><a href="#cb66-64" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> df</span>
+<span id="cb66-65"><a href="#cb66-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-66"><a href="#cb66-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-67"><a href="#cb66-67" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Step 6: Run for both leagues ---</span></span>
+<span id="cb66-68"><a href="#cb66-68" aria-hidden="true" tabindex="-1"></a>nfl_df <span class="op">=</span> scrape_schedule(<span class="st">"https://www.espn.com/nfl/schedule"</span>, <span class="st">"NFL"</span>)</span>
+<span id="cb66-69"><a href="#cb66-69" aria-hidden="true" tabindex="-1"></a>mlb_df <span class="op">=</span> scrape_schedule(<span class="st">"https://www.espn.com/mlb/schedule"</span>, <span class="st">"MLB"</span>)</span>
+<span id="cb66-70"><a href="#cb66-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-71"><a href="#cb66-71" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"===== NFL ====="</span>)</span>
+<span id="cb66-72"><a href="#cb66-72" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(nfl_df)</span>
+<span id="cb66-73"><a href="#cb66-73" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">===== MLB ====="</span>)</span>
+<span id="cb66-74"><a href="#cb66-74" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(mlb_df)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>===== NFL =====
                           Date                      Matchup League
@@ -2046,8 +2328,8 @@ Extracted 78 precincts successfully.
 </ul>
 </section>
 </section>
-<section id="further-reading" class="level3" data-number="13.4.5">
-<h3 data-number="13.4.5" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">13.4.5</span> Further Reading</h3>
+<section id="further-reading-1" class="level3" data-number="13.5.5">
+<h3 data-number="13.5.5" class="anchored" data-anchor-id="further-reading-1"><span class="header-section-number">13.5.5</span> Further Reading</h3>
 <ol type="1">
 <li><a href="https://realpython.com/tutorials/web-scraping/">Python Web Scraping Tutorials</a></li>
 <li><a href="https://www.scrapingbee.com/blog/web-scraping-101-with-python/">Python Web Scraping: Full Tutorial With Examples</a></li>
@@ -2117,13 +2399,14 @@ McInnes, L., Healy, J., Saul, N., &amp; Großberger, L. (2018). <span>UMAP</span
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.33">
+<meta name="generator" content="quarto-1.8.26">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -69,14 +69,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="./08-regression.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-485d01fc63b59abcd3ee1bf1e8e2748d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-27c261d06b905028a18691de25d09dde.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -122,7 +123,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -324,7 +325,7 @@ window.Quarto = {
 <p>A widely used dataset for illustrating binary classification is the Breast Cancer Wisconsin (Diagnostic) dataset. It contains information on 569 patients, each described by 30 numerical features computed from digitized images of fine needle aspirates of breast masses. These features summarize characteristics of the cell nuclei, such as radius, texture, perimeter, smoothness, and concavity, with versions capturing mean, variation, and extreme values. The outcome variable records whether the tumor is malignant or benign. Because the features are all numeric and the outcome is binary, this dataset provides an ideal setting for introducing classification methods and performance evaluation.</p>
 <p>Before building classification models, it is useful to perform exploratory data analysis (EDA) to understand the structure of the data. We first load the dataset from scikit-learn.</p>
 <div id="7a918bc1" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_breast_cancer</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_breast_cancer</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Load dataset</span></span>
@@ -334,12 +335,12 @@ window.Quarto = {
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Map diagnosis: 0 = malignant, 1 = benign</span></span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"diagnosis"</span>] <span class="op">=</span> df[<span class="st">"diagnosis"</span>].<span class="bu">map</span>({<span class="dv">0</span>: <span class="st">"malignant"</span>, <span class="dv">1</span>: <span class="st">"benign"</span>})</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>df.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="1">
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -368,7 +369,7 @@ window.Quarto = {
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
+<th data-quarto-table-cell-role="th">0</th>
 <td>17.99</td>
 <td>10.38</td>
 <td>122.80</td>
@@ -392,7 +393,7 @@ window.Quarto = {
 <td>malignant</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
+<th data-quarto-table-cell-role="th">1</th>
 <td>20.57</td>
 <td>17.77</td>
 <td>132.90</td>
@@ -416,7 +417,7 @@ window.Quarto = {
 <td>malignant</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
+<th data-quarto-table-cell-role="th">2</th>
 <td>19.69</td>
 <td>21.25</td>
 <td>130.00</td>
@@ -440,7 +441,7 @@ window.Quarto = {
 <td>malignant</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
+<th data-quarto-table-cell-role="th">3</th>
 <td>11.42</td>
 <td>20.38</td>
 <td>77.58</td>
@@ -464,7 +465,7 @@ window.Quarto = {
 <td>malignant</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
+<th data-quarto-table-cell-role="th">4</th>
 <td>20.29</td>
 <td>14.34</td>
 <td>135.10</td>
@@ -496,7 +497,7 @@ window.Quarto = {
 </div>
 <p>We check the class distribution to see whether the dataset is balanced.</p>
 <div id="ea9da386" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"diagnosis"</span>].value_counts()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"diagnosis"</span>].value_counts()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="2">
 <pre><code>diagnosis
 benign       357
@@ -506,12 +507,12 @@ Name: count, dtype: int64</code></pre>
 </div>
 <p>We can also examine summary statistics of the numeric features.</p>
 <div id="2db43cea" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df.describe().T.head(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df.describe().T.head(<span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -527,7 +528,7 @@ Name: count, dtype: int64</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">mean radius</td>
+<th data-quarto-table-cell-role="th">mean radius</th>
 <td>569.0</td>
 <td>14.127292</td>
 <td>3.524049</td>
@@ -538,7 +539,7 @@ Name: count, dtype: int64</code></pre>
 <td>28.11000</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">mean texture</td>
+<th data-quarto-table-cell-role="th">mean texture</th>
 <td>569.0</td>
 <td>19.289649</td>
 <td>4.301036</td>
@@ -549,7 +550,7 @@ Name: count, dtype: int64</code></pre>
 <td>39.28000</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">mean perimeter</td>
+<th data-quarto-table-cell-role="th">mean perimeter</th>
 <td>569.0</td>
 <td>91.969033</td>
 <td>24.298981</td>
@@ -560,7 +561,7 @@ Name: count, dtype: int64</code></pre>
 <td>188.50000</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">mean area</td>
+<th data-quarto-table-cell-role="th">mean area</th>
 <td>569.0</td>
 <td>654.889104</td>
 <td>351.914129</td>
@@ -571,7 +572,7 @@ Name: count, dtype: int64</code></pre>
 <td>2501.00000</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">mean smoothness</td>
+<th data-quarto-table-cell-role="th">mean smoothness</th>
 <td>569.0</td>
 <td>0.096360</td>
 <td>0.014064</td>
@@ -582,7 +583,7 @@ Name: count, dtype: int64</code></pre>
 <td>0.16340</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">mean compactness</td>
+<th data-quarto-table-cell-role="th">mean compactness</th>
 <td>569.0</td>
 <td>0.104341</td>
 <td>0.052813</td>
@@ -593,7 +594,7 @@ Name: count, dtype: int64</code></pre>
 <td>0.34540</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">mean concavity</td>
+<th data-quarto-table-cell-role="th">mean concavity</th>
 <td>569.0</td>
 <td>0.088799</td>
 <td>0.079720</td>
@@ -604,7 +605,7 @@ Name: count, dtype: int64</code></pre>
 <td>0.42680</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">mean concave points</td>
+<th data-quarto-table-cell-role="th">mean concave points</th>
 <td>569.0</td>
 <td>0.048919</td>
 <td>0.038803</td>
@@ -615,7 +616,7 @@ Name: count, dtype: int64</code></pre>
 <td>0.20120</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">mean symmetry</td>
+<th data-quarto-table-cell-role="th">mean symmetry</th>
 <td>569.0</td>
 <td>0.181162</td>
 <td>0.027414</td>
@@ -626,7 +627,7 @@ Name: count, dtype: int64</code></pre>
 <td>0.30400</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">mean fractal dimension</td>
+<th data-quarto-table-cell-role="th">mean fractal dimension</th>
 <td>569.0</td>
 <td>0.062798</td>
 <td>0.007060</td>
@@ -644,7 +645,7 @@ Name: count, dtype: int64</code></pre>
 </div>
 <p>Visualization helps reveal differences between classes. For example, we can compare the distributions of a few key features by diagnosis.</p>
 <div id="787642fb" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> plotnine <span class="im">import</span> ggplot, aes, geom_histogram, facet_wrap, labs</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> plotnine <span class="im">import</span> ggplot, aes, geom_histogram, facet_wrap, labs</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>features <span class="op">=</span> [<span class="st">"mean radius"</span>, <span class="st">"mean texture"</span>, <span class="st">"mean area"</span>]</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -654,7 +655,7 @@ Name: count, dtype: int64</code></pre>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> geom_histogram(bins<span class="op">=</span><span class="dv">20</span>, alpha<span class="op">=</span><span class="fl">0.5</span>, position<span class="op">=</span><span class="st">"identity"</span>)</span>
 <span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> labs(title<span class="op">=</span>feature)</span>
 <span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    p</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>These plots suggest that malignant and benign tumors differ in several features, such as mean radius and mean area. Such separation indicates that classification methods can be effective in distinguishing between the two groups.</p>
 </section>
@@ -776,7 +777,7 @@ Name: count, dtype: int64</code></pre>
 <p>This encoding follows scikit-learn’s convention for the Wisconsin Diagnostic Breast Cancer dataset. The dataset includes 569 samples with 30 numeric features derived from digitized images of fine needle aspirate biopsies.</p>
 <p>When fitting a logistic regression model, the predicted probabilities (<code>y_pred_prob</code>) represent the estimated probability that a tumor is <strong>benign (1)</strong>. Consequently, high predicted probabilities correspond to benign cases, and low probabilities indicate malignant ones. The ROC and AUC computations use these probabilities as scores for the positive class (benign).</p>
 <div id="38f5a704" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> confusion_matrix, classification_report</span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -792,7 +793,7 @@ Name: count, dtype: int64</code></pre>
 <span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> model.predict(X_test)</span>
 <span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>conf_matrix <span class="op">=</span> confusion_matrix(y_test, y_pred)</span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>conf_matrix</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>conf_matrix</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
 <pre><code>array([[ 52,  11],
        [  5, 103]])</code></pre>
@@ -800,8 +801,8 @@ Name: count, dtype: int64</code></pre>
 </div>
 <p>We can compute accuracy, precision, recall, and F1-score to evaluate performance.</p>
 <div id="bdcbdf05" class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(classification_report(y_test, y_pred,</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>                                target_names<span class="op">=</span>[<span class="st">"malignant"</span>,<span class="st">"benign"</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(classification_report(y_test, y_pred,</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>                                target_names<span class="op">=</span>[<span class="st">"malignant"</span>,<span class="st">"benign"</span>]))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>              precision    recall  f1-score   support
 
@@ -821,7 +822,7 @@ weighted avg       0.91      0.91      0.91       171
 </ul>
 <p>The model seems quite accurate overall, but performs better at identifying benign tumors than malignant ones. The relatively lower recall for malignant cases means that some malignant tumors were misclassified as benign. In medical applications, such false negatives are especially serious and motivate the use of evaluation metrics beyond accuracy alone.</p>
 <div id="3bbb9cf9" class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> roc_curve, roc_auc_score</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> roc_curve, roc_auc_score</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> plotnine <span class="im">import</span> ggplot, aes, geom_line, geom_abline, labs, theme_minimal</span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -851,7 +852,7 @@ weighted avg       0.91      0.91      0.91       171
 <span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>        y<span class="op">=</span><span class="st">'True Positive Rate (Sensitivity)'</span></span>
 <span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>    ) <span class="op">+</span></span>
 <span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a>    theme_minimal()</span>
-<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
 <div>
 <figure class="figure">
@@ -870,7 +871,7 @@ weighted avg       0.91      0.91      0.91       171
 </ul>
 <p>We continue with the breast cancer dataset.</p>
 <div id="c810f746" class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_breast_cancer</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_breast_cancer</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> StratifiedKFold, cross_val_score</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegressionCV</span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
@@ -880,14 +881,14 @@ weighted avg       0.91      0.91      0.91       171
 <span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> plotnine <span class="im">import</span> ggplot, aes, geom_line, labs, scale_x_log10, theme_minimal</span>
 <span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the data</span></span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>X, y <span class="op">=</span> load_breast_cancer(return_X_y<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>X, y <span class="op">=</span> load_breast_cancer(return_X_y<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ul>
 <li>Step 2: Automatic Selection of Candidate C Values</li>
 </ul>
 <p>Rather than manually picking a grid, <code>LogisticRegressionCV</code> determines a data- dependent range of <span class="math inline">\(C\)</span> values by examining the scale of the coefficients. It constructs a grid of regularization strengths internally based on the variance of the features and outcome, ensuring coverage from under-regularized to over- regularized regimes.</p>
 <div id="acee6059" class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use LogisticRegressionCV to determine reasonable C values</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use LogisticRegressionCV to determine reasonable C values</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>auto_lasso <span class="op">=</span> LogisticRegressionCV(</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    Cs<span class="op">=</span><span class="dv">20</span>,</span>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    penalty<span class="op">=</span><span class="st">"l1"</span>,</span>
@@ -907,14 +908,14 @@ weighted avg       0.91      0.91      0.91       171
 <span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a><span class="co">## set tested Cs</span></span>
 <span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>C_values <span class="op">=</span> np.logspace(<span class="op">-</span><span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">20</span>)</span>
-<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a><span class="co">## C_values = auto_lasso.Cs_        </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a><span class="co">## C_values = auto_lasso.Cs_        </span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ul>
 <li>Step 3: Cross-Validation for F1 and AUC</li>
 </ul>
 <p>While <code>LogisticRegressionCV</code> provides built-in AUC-based selection, we can also evaluate each <span class="math inline">\(C\)</span> value using different metrics such as F1-score.</p>
 <div id="16ae1c51" class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> cross_val_score</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> cross_val_score</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>cv <span class="op">=</span> StratifiedKFold(n_splits<span class="op">=</span><span class="dv">5</span>, shuffle<span class="op">=</span><span class="va">True</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -932,17 +933,17 @@ weighted avg       0.91      0.91      0.91       171
 <span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>    f1_scores.append(cross_val_score(pipe, X, y, cv<span class="op">=</span>cv, scoring<span class="op">=</span><span class="st">"f1"</span>).mean())</span>
 <span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>    auc_scores.append(cross_val_score(pipe, X, y, cv<span class="op">=</span>cv, scoring<span class="op">=</span><span class="st">"roc_auc"</span>).mean())</span>
 <span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>cv_results <span class="op">=</span> pd.DataFrame({<span class="st">"C"</span>: C_values, <span class="st">"F1"</span>: f1_scores, <span class="st">"AUC"</span>: auc_scores})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>cv_results <span class="op">=</span> pd.DataFrame({<span class="st">"C"</span>: C_values, <span class="st">"F1"</span>: f1_scores, <span class="st">"AUC"</span>: auc_scores})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ul>
 <li>Step 4: Identify the Optimal Regularization Strength</li>
 </ul>
 <div id="38a41b0f" class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>best_f1 <span class="op">=</span> cv_results.loc[cv_results[<span class="st">"F1"</span>].idxmax()]</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>best_f1 <span class="op">=</span> cv_results.loc[cv_results[<span class="st">"F1"</span>].idxmax()]</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>best_auc <span class="op">=</span> cv_results.loc[cv_results[<span class="st">"AUC"</span>].idxmax()]</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Best by F1:"</span>, best_f1)</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Best by AUC:"</span>, best_auc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Best by AUC:"</span>, best_auc)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Best by F1: C      1.623777
 F1     0.979323
@@ -958,7 +959,7 @@ Name: 12, dtype: float64</code></pre>
 <li>Step 5: Visualization</li>
 </ul>
 <div id="f041d120" class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>(</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>(</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    ggplot(cv_results.melt(id_vars<span class="op">=</span><span class="st">"C"</span>, var_name<span class="op">=</span><span class="st">"Metric"</span>, value_name<span class="op">=</span><span class="st">"Score"</span>),</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>           aes(x<span class="op">=</span><span class="st">"C"</span>, y<span class="op">=</span><span class="st">"Score"</span>, color<span class="op">=</span><span class="st">"Metric"</span>))</span>
 <span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> geom_line()</span>
@@ -969,7 +970,7 @@ Name: 12, dtype: float64</code></pre>
 <span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>        y<span class="op">=</span><span class="st">"Mean 5-Fold Score"</span></span>
 <span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>    )</span>
 <span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> theme_minimal()</span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="12">
 <div>
 <figure class="figure">
@@ -1035,13 +1036,14 @@ Name: 12, dtype: float64</code></pre>
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
