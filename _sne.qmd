@@ -205,7 +205,7 @@ plt.tight_layout()
 ```
 
 
-As shown in Figure @ref(fig:tsne-mnist), digits with similar
+As shown in @fig-tsne-mnist, digits with similar
 handwriting styles tend to cluster together, forming visually distinct
 regions in the embedding space. Overlaps occur where digits share
 structural features, such as 3 and 5 or 4 and 9, reflecting the

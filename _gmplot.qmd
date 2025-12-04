@@ -23,10 +23,10 @@ google API key. They can do so at this
 [link](https://console.cloud.google.com/apis/library).
 In order to run this code and see the full results, the Maps Javascript API, 
 Geocoding API, and Directions API must be enabled. The API key should be 
-saved in a file 'gmapi.txt'.
+saved in a file `gmKey.txt'.
 
 ```{python}
-api_key = open('gmapi.txt').read().strip()
+api_key = open('gmKey.txt').read().strip()
 ```
 
 ### Creating a Map
