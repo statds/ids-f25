@@ -1,9 +1,14 @@
 ## Variable importance metrics
-This section was prepared by Roger Blake, a junior majoring in statistical data science with a minor in economics. 
+This section was prepared by Roger Blake, a junior majoring in statistical 
+data science with a minor in economics. 
 
 ### What is variable importance & why is it important?
 
-Variable importance is a way to measure how useful a variable is in predicting the target. This can be useful for both creating and analyzing models. Real world data often contains many potential predictors, and it can be difficult to know which variables should be considered important; variable importance metrics can help solve this problem.
+Variable importance is a way to measure how useful a variable is in predicting 
+the target. This can be useful for both creating and analyzing models. 
+Real world data often contains many potential predictors, and it can be 
+difficult to know which variables should be considered important; variable 
+importance metrics can help solve this problem.
 
 Questions to consider when analyzing variable importance:
 
@@ -11,29 +16,39 @@ Questions to consider when analyzing variable importance:
 + How do we measure "importance"?
 + How can this help us create the most accurate model possible?
 
-There are many ways to measure which variables are important. In this presentation, I'll go over 2 methods that I hope will be helpful for everyone:
+There are many ways to measure which variables are important. In this 
+presentation, I'll go over 2 methods that I hope will be helpful for everyone:
 
 + Random forest feature importance (MDI)
 + SHAP values
 
 ### Random forest feature importance
 
-Please refer to the previous presentation on random forests for a more in-depth explanation of the algorithm. For this presentation, I will simply be talking about how to use the random forest algorithm for help with variable importance. 
+Please refer to the previous presentation on random forests for a more 
+in-depth explanation of the algorithm. For this presentation, I will simply 
+be talking about how to use the random forest algorithm for help with variable 
+importance. 
 
-Using a method called Mean Decrease in Impurity (MDI), we can quantify how important each variable is in a random forest model.
+Using a method called Mean Decrease in Impurity (MDI), we can quantify how 
+important each variable is in a random forest model.
 
 Steps:
 
 + Fit a random forest regressor
 + Compute MDI for each variable
-    - Each time a variable is used to split a node, calculate the reduction in impurity caused by that split
-    - Sum the impurity decreases for each variable across all nodes in that tree
+    - Each time a variable is used to split a node, calculate the reduction 
+    in impurity caused by that split
+    - Sum the impurity decreases for each variable across all nodes in that 
+    tree
     - Average the importance for each variable for all the trees 
 
 
-General idea: if a variable is consistently causing significant drops in impurity, it is an important variable to include in your model. 
+General idea: if a variable is consistently causing significant drops in 
+impurity, it is an important variable to include in your model. 
 
-Let's see this in action with some code. Scikit-learn has a `RandomForestRegressor.feature_importances_` attribute that can calculate the MDI values for each variable for us, making it relatively easy to code.
+Let's see this in action with some code. Scikit-learn has a 
+`RandomForestRegressor.feature_importances_` attribute that can calculate 
+the MDI values for each variable for us, making it relatively easy to code.
 
 ```{python}
 from sklearn.ensemble import RandomForestRegressor
@@ -60,7 +75,8 @@ print(importances.head(10))
 
 **Pros:**
 
-- All the benefits of random forests are included in ranking variables by MDI score
+- All the benefits of random forests are included in ranking variables by MDI 
+score
     - Captures nonlinear relationships well
     - Captures interactions between variables well
 - Can easily handle large number of potential variables
@@ -69,18 +85,30 @@ print(importances.head(10))
 **Cons:**
 
 - Favors variables with many categories
-    - Each additional category is another chance to split and reduce impurity. This can cause inflated MDI values even when the variable has little predictive power.
+    - Each additional category is another chance to split and reduce impurity. 
+    This can cause inflated MDI values even when the variable has little 
+    predictive power.
 - Biased towards variables that have a caregory with a high frequency
-    - A split that separates the dominant category often leads to a large drop in impurity
+    - A split that separates the dominant category often leads to a large drop 
+    in impurity
 - Biased in presence of correlated features
-    - Importance of related variables can be split -- `GrLivArea` and `1stFlrSF`, for example.
+    - Importance of related variables can be split -- `GrLivArea` and 
+    `1stFlrSF`, for example.
 - No exact threshold or cutoff point
 
 ### SHAP values
 
-SHAP values are an application of game theory that has found a role in data science. Each feature is assigned an importance value representing its contribution to the model's output. Predictors with higher SHAP values contribute more to the model's predictions. In general, SHAP values can be used to "look inside" the black box models and provide some explanation as to how the model is making decisions and which features it is putting more weight on.
+SHAP values are an application of game theory that has found a role in data 
+science. Each feature is assigned an importance value representing its 
+contribution to the model's output. Predictors with higher SHAP values 
+contribute more to the model's predictions. In general, SHAP values can be 
+used to "look inside" the black box models and provide some explanation as to 
+how the model is making decisions and which features it is putting more weight 
+on.
 
-For our purposes, we will use SHAP values for variable importance. I decided to use a random forest so we can compare the results to the results from the MDI method.
+For our purposes, we will use SHAP values for variable importance. I decided 
+to use a random forest so we can compare the results to the results from the 
+MDI method.
 
 Steps:
 
@@ -129,7 +157,8 @@ print(shap_importance.head(10))
 - No exact threshold
 - Splits importance between correlated variables
     - handles this better than MDI, however
-- Although it can be used for any model, non-tree based models have slow computational times
+- Although it can be used for any model, non-tree based models have slow 
+computational times
 
 
 
@@ -137,12 +166,21 @@ print(shap_importance.head(10))
 
 ### Use your domain knowledge!
 
-Using your own, or an expert's, domain knowledge can also be crucial in analyzing variable importance. It is extremely difficult to gather the exact variables necessary to create the ideal model using just statistics and computer science, and using any domain knowledge available can help this process tremedously. For example, variables like latitude and longitude almost certainly tell us nothing about housing price in a specific city. If our methods are claiming these variables are important, we might need to look at our process again. 
+Using your own, or an expert's, domain knowledge can also be crucial in 
+analyzing variable importance. It is extremely difficult to gather the exact 
+variables necessary to create the ideal model using just statistics and 
+computer science, and using any domain knowledge available can help this 
+process tremedously. For example, variables like latitude and longitude 
+almost certainly tell us nothing about housing price in a specific city. 
+If our methods are claiming these variables are important, we might need 
+to look at our process again. 
 
 ### Further Readings
 
-- [Letter to the editor: on the stability and ranking of predictors from random forest variable importance measures]( 
+- [Letter to the editor: on the stability and ranking of predictors from 
+random forest variable importance measures]( 
     https://pubmed.ncbi.nlm.nih.gov/21498552/)
 
-- [Interpretable Machine Learning: a guide for making black box models interpretable](
+- [Interpretable Machine Learning: a guide for making black box models 
+interpretable](
     https://christophm.github.io/interpretable-ml-book)
