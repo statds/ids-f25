@@ -16,11 +16,10 @@ to insert clear, effective visualisation into your data-science
 project workflow.
 
 
-<!-- This section is to be included as a tutorial for ggplot with plotnine. -->
 {{< include _plotnine.qmd >}}
 
-<!-- This section is to be included as a tutorial for geopands data. -->
 {{< include _geopandas.qmd >}}
 
+{{< include _gmplot.qmd >}}
 
-<!-- Interesting topics: gmplot, folium -->
+{{< include _animations.qmd >}}

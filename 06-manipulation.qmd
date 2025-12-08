@@ -39,7 +39,7 @@ By the end of this chapter, you will learn to:
 
 
 <!-- This section is to be included as a tutorial on pandas. -->
-<!-- {{< include _pandas.qmd >}} -->
+{{< include _pandas.qmd >}}
 
 
 ## Example: NYC Crash Data
@@ -587,10 +587,7 @@ dff = pd.read_feather(feather_file)
 dff.shape
 ```
 
-<!-- This section is to be included as a tutorial for using pandas. -->
-<!-- {{< include _pandas.qmd >}} -->
 
-
-<!-- <\!-- This section is to be included as a tutorial for using SQL. -\-> -->
+<!-- This section is to be included as a tutorial for using SQL. -->
 {{< include _sql.qmd >}}
 

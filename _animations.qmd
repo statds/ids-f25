@@ -1,0 +1,576 @@
+## Animations
+
+This section was created by Justin Tran, an Undergraduate Junior 
+majoring in Applied Data Analysis with minors in Public Policy and 
+Urban and Community Studies.
+
+For this section, we will demonstrate Matplotlib's `FuncAnimation` 
+tool, a powerful way to turn static plots into grand visualizations.
+
+
+### What is Data Animation?
+
+Data Animation is the process of showing change over time through a 
+continously updating plot.
+
+It is commonly used to visualize progress, simulations, or changing 
+datasets, including:
+
+- Simulations like rolling dice.
+- A scatterplot which updates with new data.
+- A line chart that grows over time, like exponential graphs.
+
+
+### Static vs Animated Plots
+
+#### Static Plots
+- Pros
+  - Quick to interpret as all the data is shown at once.
+  - Low computational cost as it's fast to render.
+  - Reproducible as it's the same image each time.
+- Cons
+  - Hard to illustrate motion or trends.
+  - Overcrowding data can make it hard to understand.
+  - Less engaging over animated plots.
+ 
+#### Animated Plots
+- Pros
+  - Shows progressions over time, ideal for simulations.
+  - Can show patterns and change in dynamics.
+  - More engaging and interactive.
+- Cons
+  - Harder to render as it uses more code and storage.
+  - Can be hard to see if motion is too fast.
+  - Can distract audiences if overused.
+
+### Matplotlib
+
+Created in 2008 by John D. Hunter, Matplotlib is one of Python's most 
+used library for plotting and visualization. You are able to create line, 
+scatter, bar, and histogram plots. You can customize colors, labels, and 
+configure layouts. For this section, we can use Matplotlib's advanced 
+modules like animations to make more dynamic visualizations.
+
+The specific tool we are focused on is 
+`matplotlib.animation.FuncAnimation`, it is used to update our plot 
+frame-by-frame.
+
+
+#### Installation of Matplotlib and FuncAnimation
+
+To use `FuncAnimation`, you first will need to install `Matplotlib`. 
+Inside your terminal, use the corresponding manager you currently use.
+
+```{python}
+#| eval: false
+pip install matplotlib                     # Users with pip
+conda install -c conda-forge matplotlib    # Users with conda
+pixi add matplotlib                        # Users with pixi
+uv add matplotlib                          # Users with uv
+```
+
+To ensure that you installed matplotlib correctly, run this code to 
+check it's version. If you get a version number, then it is installed.
+
+```{python}
+#| eval: false
+import matplotlib
+print(matplotlib.__version__)
+```
+
+Once you've installed matplotlib, now it's time to import it. To import, 
+run these codes.
+
+```{python}
+#| eval: false
+import matplotlib.pyplot as plt
+```
+
+### Creating Static Plots
+
+Normally, you may want to create a simple plot where you are rolling a 
+dice and see the probability of you rolling a six. So, we will create 
+a line plot.
+
+```{python}
+#| eval: false
+import random
+import matplotlib.pyplot as plt
+
+random.seed(3255)
+
+# The Function
+def prob_six(trials):
+    results = []
+    prop_six = []
+    for i in range(trials):
+        # roll a 6-sided die
+        roll = random.randint(1, 6)      
+        # Adds a value only if it rolls a 6
+        results.append(roll == 6)          
+        prop_six.append(sum(results) / len(results))
+    return prop_six
+
+# Matplotlib's pyplot
+plt.figure(figsize=(6, 3))
+plt.hlines(1/6, 0, 500, linestyles='dashed', color='gray')  
+plt.plot(prob_six(500), color='tab:green')
+plt.ylim(0, 1)
+plt.title("Rolling a Die — Probability of Getting a 6")
+plt.ylabel("Proportion of 6s")
+plt.xlabel("Number of Rolls")
+plt.show()
+```
+
+You can also use different types of charts, like bar charts. This 
+example will show how many times each number gets rolled when we 
+roll a dice hundreds of times.
+
+```{python}
+#| eval: false
+import random
+import matplotlib.pyplot as plt
+
+random.seed(3255)
+
+# The Function
+trials = 1000
+rolls = [random.randint(1, 6) for _ in range(trials)]
+
+counts = [rolls.count(i) for i in range(1, 7)]
+
+# Matplotlib's pyplot
+plt.figure(figsize=(6, 4))
+plt.bar(range(1, 7), counts, color='gold', edgecolor='black')
+plt.title("Rolling a Die — Frequency of Each Face")
+plt.xlabel("Die Face")
+plt.ylabel("Frequency")
+plt.xticks(range(1, 7))
+plt.show()
+```
+
+### FuncAnimation
+
+Now, to use FuncAnimation, we need to understand how to call it and 
+all the required arguments within.
+
+```{python}
+#| eval: false
+from matplotlib.animation import FuncAnimation
+
+anim = FuncAnimation(
+    fig,
+    update,
+    frames,
+    interval,
+    repeat
+)
+```
+
+- `fig` = The Matplotlib figure that will be animated
+- `update` = The update function that's called once per frame
+- `frames` = The total number of frames
+    - Will be `range(n)`, where n is the total number of frames
+- `interval` = The delay between frames in milliseconds
+    - interval=`50` means 20 frames per second
+- `repeat` = Whether you would like to loop the animation
+    - Either `False` or `True`
+
+Now, to do the animation on the probability of rolling a 6, this is 
+the code to run.
+
+```{python}
+#| eval: false
+from matplotlib.animation import FuncAnimation
+
+prop_six = prob_six(500)
+frames = range(len(prop_six))
+
+# This starts to create the figure
+fig, ax = plt.subplots(figsize=(8, 4))
+
+# This is the update function
+def update(frame):
+    ax.clear()
+    ax.set_title("Rolling a Die — Probability of Getting a 6")
+    ax.set_ylabel("Proportion of 6s")
+    ax.set_xlabel("Number of Rolls")
+    ax.hlines(1/6, 0, frame+1, linestyles='dashed', color='gray')
+    ax.set_ylim(0, 1)
+
+    # This shows the percentage at each frame
+    ax.text(
+        frame+1,
+        prop_six[frame] * 1.05,
+        f'{prop_six[frame]:.3f}',
+        weight='bold',
+        color='tab:green'
+    )
+    ax.plot(range(1, frame+1), prop_six[:frame], color='tab:green')
+
+# Now we create the animation
+anim = FuncAnimation(fig, update, frames=frames, repeat=False, interval=50)
+
+# This saves as a gif
+anim.save("dice_prob.gif", writer="pillow", fps=20)
+
+plt.close(fig)
+```
+
+[![Animated Dice Roll, Probabiliity of rolling a 6](images/dice_prob.gif)]
+
+```{python}
+#| eval: false
+from matplotlib.animation import FuncAnimation
+
+num_faces = 6
+trials = 1000
+
+rolls = []
+
+# Creating the figure
+fig, ax = plt.subplots(figsize=(6, 4))
+
+# The update function
+def update(frame):
+    ax.clear()
+    rolls.append(random.randint(1, num_faces))
+    counts = [rolls.count(i) for i in range(1, num_faces + 1)]
+    
+    # Bar chart
+    ax.bar(range(1, num_faces + 1), counts, color="gold", edgecolor="black")
+    ax.set_title("Rolling a Die — Frequency of Each Face")
+    ax.set_xlabel("Die Face")
+    ax.set_ylabel("Frequency")
+    ax.set_xticks(range(1, num_faces + 1))
+    ax.set_ylim(0, 300)
+    
+    # Adds counts above each bar
+    for i, count in enumerate(counts, start=1):
+        ax.text(i, count + 5, str(count), ha='center', weight='bold', color='navy')
+
+# Creating the animation
+anim = FuncAnimation(fig, update, frames=range(trials), repeat=False, interval=20)
+
+anim.save("dice_bar.gif", writer="pillow", fps=30)
+
+plt.close(fig)
+```
+
+[![Animated Dice Roll, Frequency of each Number](images/dice_bar.gif)]
+
+### Animating Crash Locations in NYC
+
+Using the crash data from this semester, something you may want to see 
+is the location of every crash on a map. This is something FuncAnimation 
+does extremely well.
+
+For this example, we will be installing `contextily.`
+
+#### Downloading contextily
+
+```{python}
+#| eval: false
+pip install contextily                     # Users with pip
+conda install -c conda-forge contextily    # Users with conda
+pixi add contextily                        # Users with pixi
+uv add contextily                          # Users with uv
+```
+
+#### Setting up data and creating a GeoDataFrame
+
+```{python}
+#| eval: false
+import pandas as pd
+import geopandas as gpd
+import matplotlib.pyplot as plt
+from matplotlib.animation import FuncAnimation
+import contextily as cx
+
+
+df = pd.read_feather("ids-f25/data/nyc_crashes_cleaned.feather")
+df["crash_datetime"] = pd.to_datetime(df["crash_datetime"], errors="coerce")
+df = df.dropna(subset=["latitude", "longitude", "borough"])
+
+# Creating hourly bins and sorting it chronologically
+df["hour_bin"] = df["crash_datetime"].dt.floor("h")
+df = df.sort_values("hour_bin")
+
+# We convert it to a GeoDataFrame so we can plot on a map
+gdf = gpd.GeoDataFrame(
+    df,
+    geometry=gpd.points_from_xy(df.longitude, df.latitude),
+    crs="EPSG:4326"
+).to_crs(epsg=3857)
+
+# For style, we can color code each borough for more contrast
+borough_colors = {
+    "MANHATTAN": "red",
+    "BROOKLYN": "gold",
+    "QUEENS": "limegreen",
+    "BRONX": "royalblue",
+    "STATEN ISLAND": "purple"
+}
+gdf["color"] = gdf["borough"].str.upper().map(borough_colors).fillna("gray")
+```
+
+#### Starting FuncAnimation section
+
+```{python}
+#| eval: false
+# Creating the bounds
+xmin, ymin, xmax, ymax = gdf.total_bounds
+pad_x = (xmax - xmin) * 0.05
+pad_y = (ymax - ymin) * 0.05
+xmin, xmax = xmin - pad_x, xmax + pad_x
+ymin, ymax = ymin - pad_y, ymax + pad_y
+
+# This creates the figure again
+fig, ax = plt.subplots(figsize=(8, 8))
+ax.set_title("NYC Motor Vehicle Collisions — Aug 31 to Sep 6, 2025", fontsize=14)
+ax.set_axis_off()
+
+cx.add_basemap(ax, crs=gdf.crs, source=cx.providers.CartoDB.Positron, zoom=11)
+
+# Now we build each frame, which we use by per hour
+hours = sorted(gdf["hour_bin"].unique())
+
+def update(frame):
+    ax.clear()
+    ax.set_axis_off()
+    ax.set_xlim(xmin, xmax)
+    ax.set_ylim(ymin, ymax)
+    cx.add_basemap(ax, crs=gdf.crs, source=cx.providers.CartoDB.Positron, zoom=11)
+
+    # Making it cumulative so all points are visible
+    current_time = hours[frame]
+    subset = gdf[gdf["hour_bin"] <= current_time]
+
+    # Plot crash points
+    ax.scatter(
+        subset.geometry.x,
+        subset.geometry.y,
+        s=8,
+        c=subset["color"],
+        alpha=0.6,
+        edgecolor="none"
+    )
+
+    # Dynamic title per hour
+    ax.set_title(f"NYC Motor Vehicle Collisions\nUp to {current_time:%b %d %Y %H:%M}",
+                 fontsize=12)
+
+# Creating the Animation
+anim = FuncAnimation(fig, update, frames=len(hours), repeat=False, interval=100)
+
+anim.save("nyc_crashes_map.gif", writer="pillow", fps=10)
+plt.close(fig)
+```
+
+[![NYC Crash Animation](images/nyc_crashes_map.gif)]
+
+### Crash Causes Pie Chart
+
+Another example that we can use is seeing the proportion of causes 
+of crashes in NYC.
+
+#### Setting up the necessary variables for the Pie Chart
+
+```{python}
+#| eval: false
+import pandas as pd
+import matplotlib.pyplot as plt
+from matplotlib.animation import FuncAnimation
+
+
+df = pd.read_feather("../ids-f25/data/nyc_crashes_cleaned.feather")
+df["crash_datetime"] = pd.to_datetime(df["crash_datetime"], errors="coerce")
+
+# Creating the daily bins
+df["date"] = df["crash_datetime"].dt.date
+
+# Wanting the top causes
+top_causes = (
+    df["contributing_factor_vehicle_1"]
+    .value_counts()
+    .head(6)
+    .index
+)
+
+df = df[df["contributing_factor_vehicle_1"].isin(top_causes)]
+
+# Aggregate daily counts
+daily_counts = (
+    df.groupby(["date", "contributing_factor_vehicle_1"])
+    .size()
+    .reset_index(name="count")
+)
+
+dates = sorted(daily_counts["date"].unique())
+
+# For asesthetic, use different colors
+cause_colors = {
+    cause: color for cause, color in zip(
+        top_causes,
+        ["#d62728", "#ff7f0e", "#2ca02c", "#1f77b4", "#9467bd", "#8c564b"]
+    )
+}
+```
+
+#### Using FuncAnimation to create the Pie Chart
+
+```{python}
+#| eval: false
+# Setting up the figure
+fig, ax = plt.subplots(figsize=(11, 10))
+ax.set_aspect("equal")
+
+# This is trying to fix the white space so labels aren't cut off
+plt.tight_layout(pad=5)
+plt.subplots_adjust(left=0.05, right=0.92, top=0.9, bottom=0.1)
+
+
+# Setting the first frame 
+def pie_chart(ax, date):
+    current_data = daily_counts[daily_counts["date"] == date]
+    current_data = current_data.set_index("contributing_factor_vehicle_1").reindex(top_causes).fillna(0)
+    sizes = current_data["count"]
+    labels = current_data.index
+    colors = [cause_colors.get(label, "gray") for label in labels]
+
+    ax.pie(
+        sizes,
+        labels=labels,
+        colors=colors,
+        startangle=90,
+        autopct="%1.1f%%",
+        labeldistance=1.2, 
+        pctdistance=0.8
+    )
+    ax.set_title(f"NYC Crash Causes — {date}", fontsize=16, pad=20)
+
+# Draw initial frame
+pie_chart(ax, dates[0])
+
+
+# Creating the update function
+def update(frame):
+    ax.clear()
+    ax.set_aspect("equal")
+    pie_chart(ax, dates[frame]) # Calls back first frame layout
+    plt.subplots_adjust(left=0.05, right=0.92, top=0.9, bottom=0.1)
+
+
+anim = FuncAnimation(fig, update, frames=len(dates), interval=1000, repeat=False)
+anim.save("nyc_crash_causes_pie.gif", writer="pillow", fps=1)
+
+plt.close(fig)
+```
+
+[![NYC Crash Cause](images/nyc_crash_causes_pie.gif)]
+
+### Saving Animations
+With FuncAnimation, you need to save the animation, unlike just 
+outputting it normally. To do this, there are different formats 
+you can use to save. Below are some of the common ways to save.
+
+#### Gifs
+To save the animations as a GIF, we need to use `pillow` to write 
+it. First, we need to install it.
+
+```{python}
+#| eval: false
+pip install pillow                         # Users with pip
+conda install -c conda-forge pillow        # Users with conda
+pixi add pillow                            # Users with pixi
+uv add pillow                              # Users with uv
+```
+
+Then, run the command:
+
+```{python}
+#| eval: false
+anim.save('name.gif', writer='Pillow', fps=10) # fps can change to 
+whatever you like.
+```
+
+#### MP4s
+
+Just like a GIF, we are doing the same format, however, we change 
+the writer we are using. Instead, we will use `ffmpeg`.
+
+```{python}
+#| eval: false
+pip install ffmpeg                         # Users with pip
+conda install -c conda-forge ffmpeg        # Users with conda
+pixi add ffmpeg                            # Users with pixi
+uv add ffmpeg                              # Users with uv
+```
+
+```{python}
+#| eval: false
+anim.save('name.mp4', writer='ffmpeg', fps=10)
+```
+
+#### Other Formats
+
+There are multitudes of formats in which you save your animation. 
+Depending on what format you want, you may have to use a different 
+writer, otherwise many share the ffmpeg writer.
+
+```{python}
+#| eval: false
+anim.save('animation.gif', writer='pillow', fps=10)
+anim.save('animation.mp4', writer='ffmpeg', fps=10)
+anim.save('animation.mov', writer='ffmpeg', fps=10)
+anim.save('animation.avi', writer='ffmpeg', fps=10)
+anim.save('animation.mkv', writer='ffmpeg', fps=10)
+anim.save('animation.webm', writer='ffmpeg', fps=10)
+anim.save('frame_%03d.png', writer='imagemagick', fps=10)
+```
+
+### Interval vs. FPS
+
+You may be confused on the difference when we use both `interval` 
+when calling FuncAnimation, and `fps` when saving the animation. 
+Both control the speed, just in different ways.
+
+- Interval
+  - This is the time it delays between frames in miliseconds.
+  - This is primarily used when you are rendering it inside your code editor.
+- FPS
+  - This is the number of frames shown per second.
+  - This is primarily used when you are downloading your animation.
+
+So, when you ultimately want to save your animation, fps is the one 
+you want to focus on as it will override the delay from interval. You 
+do not have to call interval in your function, so you can omit it if 
+you like.
+
+### Conclusion
+
+Data animation helps transform static figures into dynamic pieces. By 
+using tools like Matplotlib's `FuncAnimation`, we can reveal the change 
+in data over time.
+
+Whether it's a simulation or real maps of crashes in NYC, animation 
+helps highlights patterns and behaviors that normally isn't seen in 
+static charts.
+
+Ultimately, it makes complex information easier to interpet and more 
+engaging to share.
+
+### References
+
+To learn more about Matplotlib, FuncAnimation, or other articles, please 
+feel free to read them here.
+
+[Matplotlib](https://matplotlib.org/stable/index.html)
+
+[Matplotlib Quick Start Guide](https://matplotlib.org/stable/users/explain/quick_start.html)
+
+[Matplotlib FuncAnimation](https://matplotlib.org/stable/api/_as_gen/matplotlib.animation.FuncAnimation.html)
+
+[TowardsDataScience Tutorials](https://towardsdatascience.com/animations-with-matplotlib-d96375c5442c)
+
+
