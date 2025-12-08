@@ -1,8 +1,8 @@
-## Variable importance metrics
+## Variable Importance Metrics
 This section was prepared by Roger Blake, a junior majoring in statistical 
 data science with a minor in economics. 
 
-### What is variable importance & why is it important?
+### What Is Variable Importance & Why Is It Important?
 
 Variable importance is a way to measure how useful a variable is in predicting 
 the target. This can be useful for both creating and analyzing models. 
@@ -22,7 +22,7 @@ presentation, I'll go over 2 methods that I hope will be helpful for everyone:
 + Random forest feature importance (MDI)
 + SHAP values
 
-### Random forest feature importance
+### Random Forest Feature Importance
 
 Please refer to the previous presentation on random forests for a more 
 in-depth explanation of the algorithm. For this presentation, I will simply 
@@ -96,7 +96,7 @@ score
     `1stFlrSF`, for example.
 - No exact threshold or cutoff point
 
-### SHAP values
+### SHAP Values
 
 SHAP values are an application of game theory that has found a role in data 
 science. Each feature is assigned an importance value representing its 
@@ -164,7 +164,7 @@ computational times
 
 
 
-### Use your domain knowledge!
+### Use Your Domain Knowledge!
 
 Using your own, or an expert's, domain knowledge can also be crucial in 
 analyzing variable importance. It is extremely difficult to gather the exact 
