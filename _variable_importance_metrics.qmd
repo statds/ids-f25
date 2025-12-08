@@ -7,14 +7,14 @@ Variable importance is a way to measure how useful a variable is in predicting t
 
 Questions to consider when analyzing variable importance:
 
-1) What features are the most "important"?
-2) How do we measure "importance"?
-3) How can this help us create the most accurate model possible?
++ What features are the most "important"?
++ How do we measure "importance"?
++ How can this help us create the most accurate model possible?
 
 There are many ways to measure which variables are important. In this presentation, I'll go over 2 methods that I hope will be helpful for everyone:
 
-1) Random forest feature importance (MDI)
-2) SHAP values
++ Random forest feature importance (MDI)
++ SHAP values
 
 ### Random forest feature importance
 
@@ -24,8 +24,8 @@ Using a method called Mean Decrease in Impurity (MDI), we can quantify how impor
 
 Steps:
 
-1) Fit a random forest regressor
-2) Compute MDI for each variable
++ Fit a random forest regressor
++ Compute MDI for each variable
     - Each time a variable is used to split a node, calculate the reduction in impurity caused by that split
     - Sum the impurity decreases for each variable across all nodes in that tree
     - Average the importance for each variable for all the trees 
@@ -84,9 +84,9 @@ For our purposes, we will use SHAP values for variable importance. I decided to 
 
 Steps:
 
-1) Compute the SHAP value for each variable at every data point
-2) Take the average of the absolute value of the SHAP value for each variable
-3) Variables with a higher average SHAP value are more important to the model.
++ Compute the SHAP value for each variable at every data point
++ Take the average of the absolute value of the SHAP value for each variable
++ Variables with a higher average SHAP value are more important to the model.
 
 ```{python}
 import openml
