@@ -1,5 +1,108 @@
 # Supervised Learning
 
+## Introduction
+
+Machine Learning (ML) is a branch of artificial intelligence that
+enables systems to learn from data and improve their performance over
+time without being explicitly programmed. At its core, machine
+learning algorithms aim to identify patterns in data and use those
+patterns to make decisions or predictions.
+
+
+Machine learning can be categorized into three main types: 
+supervised learning, unsupervised learning, and reinforcement
+learning. Each type differs in the data it uses and the learning tasks
+it performs, addressing addresses different tasks and
+problems. Supervised learning aims to predict outcomes based on
+labeled data, unsupervised learning focuses on discovering hidden
+patterns within the data, and reinforcement learning centers around
+learning optimal actions through interaction with an environment.
+
+
+Let's define some notations to introduce them:
+
+- $X$: A set of feature vectors representing the input data. Each
+  element $X_i$ corresponds to a set of features or attributes that
+  describe an instance of data.
+  
+- $Y$: A set of labels or rewards associated with outcomes. In
+  supervised learning, $Y$ is used to evaluate the correctness of the
+  model’s predictions. In reinforcement learning, $Y$ represents the
+  rewards that guide the learning process.
+  
+- $A$: A set of possible actions in a given context. In reinforcement
+  learning, actions $A$ represent choices that can be made in response
+  to a given situation, with the goal of maximizing a reward.
+
+### Supervised Learning
+Supervised learning is the most widely used type of machine
+learning. In supervised learning, we have both feature vectors $X$ and
+their corresponding labels $Y$. The objective is to train a model that
+can predict $Y$ based on $X$. This model is trained on labeled
+examples, where the correct outcome is known, and it adjusts its
+internal parameters to minimize the error in its predictions, which
+occurs as part of the cross-validation process.
+
+
+Key tasks in supervised learning include:
+
+- Classification: Assigning data points to predefined categories or classes.
+- Regression: Predicting a continuous value based on input data.
+
+In supervised learning, the data consists of both feature vectors $X$
+and labels $Y$, namely, $(X, Y)$.
+
+
+### Unsupervised Learning
+Unsupervised learning involves learning patterns from data without any
+associated labels or outcomes. The objective is to explore and
+identify hidden structures in the feature vectors $X$. Since there are
+no ground-truth labels $Y$ to guide the learning process, the
+algorithm must discover patterns on its own. This is particularly useful
+when subject matter experts are unsure of common properties within a
+data set.
+
+
+
+Common tasks in unsupervised learning include:
+
+- Clustering: Grouping similar data points together based on certain
+  features.
+  
+- Dimension Reduction: Simplifying the input data by reducing the
+  number of features while preserving essential patterns.
+
+
+In unsupervised learning, the data consists solely of feature vectors
+$X$.
+
+
+
+### Reinforcement Learning
+Reinforcement learning involves learning how to make a sequence of
+decisions to maximize a cumulative reward. Unlike supervised learning,
+where the model learns from a static dataset of labeled examples,
+reinforcement learning involves an agent that interacts with an
+environment by taking actions $A$, receiving feedback in the form of
+rewards $Y$, and learning over time which actions lead to the highest
+cumulative reward.
+
+The process in reinforcement learning involves:
+
+- States: The context or environment the agent is in, represented by
+  feature vectors $X$.
+
+- Actions: The set of possible choices the agent can make in response
+  to the current state, denoted as $A$.
+  
+- Rewards: Feedback the agent receives after taking an action, which
+  guides the learning process.
+  
+
+In reinforcement learning, the data consists of feature vectors $X$,
+actions $A$, and rewards $Y$, namely, $(X, A, Y)$.
+
+
 ## Decision Trees
 
 Decision trees are widely used supervised learning models that predict 
@@ -263,9 +366,6 @@ captures nonlinear effects and interactions, though its predictions are
 piecewise constant, producing visible step patterns.
 
 
-<!-- {{< include _random_forest.qmd >}} -->
-
-
 ## Gradient-Boosted Models
 
 Gradient boosting is a powerful ensemble technique in machine learning
@@ -515,461 +615,16 @@ but introduces a number of enhancements:
 XGBoost is therefore more suitable for large-scale problems and provides 
 better generalization performance in many practical tasks.
 
-## Support Vector Machine
 
-This section was prepared by Emma Wishneski, a senior pursuing a dual
-degree in Applied Data Analysis and Political Science, with a minor 
-in Geographic Information Sciences.  
+<!-- This section is for random forest. -->
+{{< include _random_forest.qmd >}}
 
-This section will explain support vector machine, a powerful supervised
-machine learning algorithm used for both classification and regression tasks.
+<!-- This section is for SMOTE. -->
+{{< include _smote.qmd >}}
 
-### Introduction
+<!-- This section is for naive Bayes. -->
+{{< include _naive_bayes.qmd >}}
 
-**Support Vector Machine (SVM)** is a helpful supervised machine learning
-technique used to assist mainly with classification. It essentially works
-by finding the optimal hyperplane that will separate data into different
-classes the best.  
+<!-- This section is for nueral network. -->
+{{< include _nnet.qmd >}}
 
-The goal for this is to maximize the margin between the data points of the
-different classes, in order to make classifications best suited to the data. 
-
-Note:Supervised learning uses labeled data to predict outcomes, while 
-unsupervised learning uses unlabeled data. 
-
-### Historical Background
-- Initially began with Vladimir Vapnik’s “Generalized Portrait Method” (1960s)
-which laid the groundwork for what is now SVMs. 
-
-- In the 1990s, key advancements were made, including the “kernel trick” and
-the “soft margin" which expanded to algorithm to work with nonlinear data, 
-and made it less affected by extreme data points. 
-
-- In the early 2000’s, an *unsupervised* version called “Support Vector 
-Clustering”  was developed
-
-- Currently, deep learning has surpassed SVMs in some applications, 
-but they remain a powerful and widely used tool still. 
-
-### Key Concepts of SVM
-
-**Hyperplane:** The decision boundary that separates different classes
-in the feature space.  
-    
-**Margin:** The distance between the hyperplane and the nearest data point
-from either class. A larger margin indicates better separation.  
-  
-**Support Vectors:** Data points that lie closest to the hyperplane and
-influence its position. 
-
-The central purpose of a SVM is to find the *best* boundary to separate
-the data into classes. 
-
-```{python}
-import numpy as np
-import matplotlib.pyplot as plt
-from sklearn import svm
-
-# Creating a simple dataset
-X = np.array([[1, 2], [2, 3], [3, 3], [6, 6], [6, 7], [7, 8]])
-y = [0, 0, 0, 1, 1, 1]
-
-# Fitting the SVM model
-clf = svm.SVC(kernel='linear', C=1)
-clf.fit(X, y)
-
-# Plotting the decision boundary
-w = clf.coef_[0]
-a = -w[0] / w[1]
-xx = np.linspace(0, 10)
-yy = a * xx - (clf.intercept_[0]) / w[1]
-
-plt.plot(xx, yy, 'k-')
-plt.scatter(X[:, 0], X[:, 1], c=y)
-plt.title('Linear SVM Example')
-plt.show()
-```
-
-
-Clear example using linear data
-```{python}
-import numpy as np
-import matplotlib.pyplot as plt
-from sklearn.svm import SVC
-from sklearn.pipeline import make_pipeline
-from sklearn.preprocessing import StandardScaler
-
-# ---------- Data ----------
-X = np.array([[1, 2], [2, 3], [3, 3], [6, 6], [6, 7], [7, 8]])
-y = np.array([0, 0, 0, 1, 1, 1])
-
-# ---------- Helper: nice SVM plot ----------
-def plot_svm_2d(clf, X, y, title="SVM decision boundary", padding=1.0, steps=400,
-                plot_support=True, ax=None):
-    """
-    Shades decision regions and draws hyperplane (0) with margins (-1, +1).
-    Works for linear or nonlinear kernels (uses decision_function).
-    """
-    if ax is None:
-        fig, ax = plt.subplots(figsize=(6, 5))
-
-    # Limits with padding
-    x_min, x_max = X[:, 0].min() - padding, X[:, 0].max() + padding
-    y_min, y_max = X[:, 1].min() - padding, X[:, 1].max() + padding
-
-    # Meshgrid for background shading
-    xx, yy = np.meshgrid(
-        np.linspace(x_min, x_max, steps),
-        np.linspace(y_min, y_max, steps)
-    )
-
-    # Decision function on grid
-    # (SVC has decision_function for both linear and RBF kernels)
-    Z = clf.decision_function(np.c_[xx.ravel(), yy.ravel()]).reshape(xx.shape)
-
-    # 1) Shade regions by predicted class
-    preds = clf.predict(np.c_[xx.ravel(), yy.ravel()]).reshape(xx.shape)
-    ax.contourf(xx, yy, preds, alpha=0.20)
-
-    # 2) Draw margins (-1 and +1) and the decision boundary (0)
-    cs = ax.contour(xx, yy, Z, levels=[-1, 0, 1], linestyles=['--', '-', '--'], linewidths=2, colors='k')
-
-    # 3) Scatter original points
-    sc = ax.scatter(X[:, 0], X[:, 1], c=y, s=60, edgecolor='k', label='Data Points')
-
-    # 4) Highlight support vectors if available
-    if plot_support and hasattr(clf, "support_vectors_"):
-        ax.scatter(clf.support_vectors_[:, 0], clf.support_vectors_[:, 1],
-                   s=120, facecolors='none', edgecolors='k', linewidths=1.5, label='support vectors')
-
-    ax.set_xlim(x_min, x_max)
-    ax.set_ylim(y_min, y_max)
-    ax.set_xlabel("x1")
-    ax.set_ylabel("x2")
-    ax.set_title(title)
-    ax.legend(loc="best")
-    return ax
-
-
-# ---------- Example A: Linear SVM with margins ----------
-linear_clf = make_pipeline(
-    StandardScaler(),
-    SVC(kernel='linear', C=1.0)  # Can increase C for a “tighter” margin; decrease for wider margin
-)
-linear_clf.fit(X, y)
-
-plt.figure()
-plot_svm_2d(linear_clf, X, y, title="Linear SVM (C=1.0)")
-plt.show()
-```
-
-Shaded regions show the boundary.  
-
-```{python}
-#with circles
-rbf_clf = make_pipeline(
-    StandardScaler(),
-    SVC(kernel='rbf', C=10.0, gamma=0.5) 
-)
-rbf_clf.fit(X, y)
-
-plt.figure()
-plot_svm_2d(rbf_clf, X, y, title="SVM With Circles to show support vectors")
-
-plt.show()
-```
-
-
-### Parameter Tuning
-Parameter tuning for SVM involves finding the optimal combination of
-hyperparameters like C, kernel, and gamma to improve model performance.
-Parameter tuning often uses techniques like grid search, random search,
-or Bayesian optimization. You can test different values for these parameters
-by creating a parameter grid and using a search algorithm with 
-cross-validation to evaluate performance and select the best combination.  
-
-Parameter tuning helps achieve the right balance between bias and variance 
-in the model.
-
-### Implementation and Workflow
-
-For a more complex example, we will be using the cleaned NYC crash data 
-feather, (courtesy of Wilson Tang), in order to show an example of an SVM.
-
-```{python}
-# --- Imports ---
-import pandas as pd
-import numpy as np
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import OneHotEncoder, StandardScaler
-from sklearn.compose import ColumnTransformer
-from sklearn.pipeline import Pipeline
-from sklearn.svm import SVC
-from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
-import matplotlib.pyplot as plt
-import seaborn as sns
-```
-
-
-```{python} 
-df = pd.read_feather("data/nyc_crashes_cleaned.feather")
-df.head()
-```
-
-```{python} 
-# defining a new column, injury
-## equals 1 if anyone was injured or killed, and 0 otherwise
-df["injury"] = np.where(
-    (df["number_of_persons_injured"].fillna(0) + df["number_of_persons_killed"].fillna(0)) > 0, 1, 0
-)
-print(df["injury"].value_counts())
-
-# extracting time features
-df["crash_hour"] = df["crash_datetime"].dt.hour
-df["crash_dayofweek"] = df["crash_datetime"].dt.dayofweek  # 0 = Monday, 6 = Sunday
-```
-
-```{python} 
-# Selecting features for modeling
-features = [
-    "borough",
-    "zip_code",
-    "vehicle_type_code_1",
-    "contributing_factor_vehicle_1",
-    "crash_hour",
-    "crash_dayofweek"
-]
-
-X = df[features]
-y = df["injury"]
-```
-
---- 
-
-```{python}
-# scatter for lat and long
-sns.scatterplot(
-    data=df.sample(1000, random_state=42),
-    x="longitude", y="latitude",
-    hue=((df["number_of_persons_injured"] + df["number_of_persons_killed"]) > 0).astype(int),
-    palette={0:"lightgray", 1:"red"}, alpha=0.6
-)
-plt.title("Spatial Distribution of Injury vs Non-Injury Crashes")
-plt.show()
-
-```
-
-### Handling Non-Linear Data (Kernel Trick)
-- When data aren’t linearly separable, we can use kernels to let SVMs operate 
-in a higher-dimensional space where a linear boundary can exist.  
-      - *The Kernel Trick* is essentially a function that allows us to shortcut
-      point transformation  
-      - They calculate the similarity between two points in the higher 
-      dimensional space, without explicitly transforming the data into that 
-      space
-      - Radial Basis Function (RBF) Kernel is most commonly used. 
-      - K(x,y)=e − (γ∣∣x−y∣∣ 2)  where γ is a parameter that controls the 
-      influence of each training example.
-
-
-
-
-```{python}
-# --- SVM decision plot over latitude/longitude (DataFrame-safe) ---
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import StandardScaler
-from sklearn.svm import SVC
-
-# 1) Use only rows with coords + injury defined
-df_svm = df.dropna(subset=["longitude", "latitude", "injury"]).copy()
-
-# Keep as DataFrame so column-name selectors in any pipeline step won't break
-X = df_svm[["longitude", "latitude"]]   # <-- no .to_numpy()
-y = df_svm["injury"].astype(int)
-
-# 2) Fit SVM with scaling
-svm_clf = Pipeline(steps=[
-    ("scaler", StandardScaler()),
-    ("svc", SVC(kernel="rbf", C=10.0, gamma=0.5))
-])
-svm_clf.fit(X, y)
-
-# 3) Build a grid over the map extent (also as a DataFrame with same col names)
-GRID_STEPS = 350
-pad_lon = 0.01 * (X["longitude"].max() - X["longitude"].min())
-pad_lat = 0.01 * (X["latitude"].max() - X["latitude"].min())
-x_min, x_max = X["longitude"].min() - pad_lon, X["longitude"].max() + pad_lon
-y_min, y_max = X["latitude"].min() - pad_lat, X["latitude"].max() + pad_lat
-
-xx, yy = np.meshgrid(
-    np.linspace(x_min, x_max, GRID_STEPS),
-    np.linspace(y_min, y_max, GRID_STEPS)
-)
-grid = np.c_[xx.ravel(), yy.ravel()]
-grid_df = pd.DataFrame(grid, columns=["longitude", "latitude"])  # <-- keep names
-
-# decision_function gives signed distance to the margin
-Z = svm_clf.decision_function(grid_df).reshape(xx.shape)
-
-# 4) Plot decision regions + boundary + points
-plt.figure(figsize=(8,7))
-
-plt.contourf(xx, yy, Z, levels=20, alpha=0.35)
-margins = plt.contour(xx, yy, Z, levels=[-1, 0, 1],
-                      linestyles=["--", "-", "--"], linewidths=[1, 2, 1], colors="k")
-plt.clabel(margins, fmt={-1: "-1", 0: "0", 1: "+1"}, inline=True, fontsize=8)
-
-overlay = df_svm.sample(min(3000, len(df_svm)), random_state=42)
-plt.scatter(overlay["longitude"], overlay["latitude"],
-            c=overlay["injury"], s=10, alpha=0.5, cmap="coolwarm", label="Crashes")
-
-# Circle support vectors in original coord scale
-scaler = svm_clf.named_steps["scaler"]
-svc = svm_clf.named_steps["svc"]
-sv_scaled = svc.support_vectors_
-# Inverse-transform needs a 2D array; wrap in DataFrame with same columns for safety
-sv = scaler.inverse_transform(sv_scaled)
-plt.scatter(sv[:, 0], sv[:, 1], s=80, facecolors="none", edgecolors="black",
-            linewidths=1.2, label="Support Vectors")
-
-plt.title("SVM Decision Regions — Injury vs No Injury (features: lon, lat)")
-plt.xlabel("Longitude")
-plt.ylabel("Latitude")
-plt.legend(loc="upper right")
-plt.tight_layout()
-plt.show()
-
-```
-
-
-```{python} 
-# train/testing
-categorical_features = ["borough", "zip_code", "vehicle_type_code_1", "contributing_factor_vehicle_1"]
-numeric_features = ["crash_hour", "crash_dayofweek"]
-
-preprocessor = ColumnTransformer(
-    transformers=[
-        ("cat", OneHotEncoder(handle_unknown="ignore", sparse_output=False), categorical_features),
-        ("num", StandardScaler(), numeric_features)
-    ]
-)
-
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.3, random_state=42, stratify=y
-)
-```
-
-
-This plot uses Support Vector Machines to classify crash locations as either 
-injury crashes or non-injury crashes, using only longitude and latitude as 
-features. Each point is a crash, and the background colors represent the SVM’s 
-predicted decision regions
-
-Because I used a nonlinear RBF kernel, the SVM is able to draw flexible, curved 
-decision boundaries. These boundaries adapt to how crash patterns cluster 
-geographically instead of forcing a straight line. The shaded background shows 
-how the model believes the city is divided into zones where injuries are more 
-or less likely
-
-The contour lines represent the margins of the SVM classifier. The solid line 
-is the main decision boundary separating the two classes. The dashed lines show
-the +1 and −1 margins on either side. These margins are where the support 
-vectors lie.
-
-The points shown with black outlines are the support vectors — these are the 
-crashes that sit closest to the decision boundary. They are the most important 
-observations in the dataset, because they determine where the SVM draws its 
-separating surface. If we removed or changed them, the boundary would shift.
-
-You can see that the regions are shaped around the natural clustering of
-crashes in places like Manhattan, Brooklyn, and parts of Queens. The model 
-finds pockets where injury crashes are more concentrated, even though there’s 
-no simple linear separation between injury and non-injury crashes. In practice,
-these results show that spatial coordinates alone do not strongly separate 
-injury vs non-injury crashes.
-
-This example highlights why SVMs with nonlinear kernels are powerful: when the 
-true pattern is complex and doesn’t separate cleanly with a straight line, 
-SVM learns a curved boundary that fits the underlying structure. This is 
-exactly the type of problem where linear models fail but SVM shines. This 
-flexibility helps capture complex geographic patterns that a linear model 
-would miss.
-
-### Explanation
-- SVMs work by finding the hyperplane that best separates classes in the 
-feature space.
-During training, the model identifies support vectors—the data points closest 
-to the decision boundary that define the position and orientation of this 
-hyperplane.  
-- The model’s objective is to maximize the margin between these support vectors,
-which helps improve generalization to unseen data. Maximizing the margin reduces
-model variance and helps avoid overfitting because the classifier must separate 
-the classes with the widest possible buffer. 
-- Once trained, the SVM uses this optimized boundary to classify new 
-observations based on which side of the hyperplane they fall on, effectively 
-scoring them relative to a threshold.
-- When applied to NYC crash data, SVM struggled to find a highly distinct 
-boundary because injuries occur at all hours of the day. This illustrates an 
-important takeaway: SVM is most effective when the features produce naturally 
-separable clusters.
-
-### Real World Applications
-- Financial Forecasting
-    - Uses classification to predict stock price & movement
-  
-- Spam Detection
-    - Classifies documents into different categories 
-  
-- Bioinformatics
-    - Classification of genes
-    - Medical Diagnoses
-
-- Quality Control
-    - Can be used in manufacturing to classify products as standard (or 
-    substandard) based on quality control metrics  
-
-
-### Limitations
-- Poor scalability
-    - Training time grows roughly quadratically with the number of samples, 
-    making them less efficient for very big data.
-  
-- Sensitivity to outliers
-    - Outliers can heavily influence the position of the hyperplane since SVMs 
-    try to maximize the margin (even one extreme point can shrink or shift the 
-    margin significantly).
-  
-- Poor handling of imbalanced datasets. 
-    - When one class is much larger than the other, the SVM tends to favor the 
-    majority class.
-
-
-### Conclusion
-
-Support Vector Machines remain a powerful and versatile method for both 
-classification and regression tasks. Their strength lies especially in finding 
-optimal decision boundaries that generalize data well, particularly for 
-moderate-sized and structured datasets. Through kernel functions, SVMs can model
- complex non-linear relationships without extensive feature engineering, while 
- parameter tuning balances bias and variance to prevent overfitting.  
-
-While modern deep learning methods often outperform them on large unstructured 
-data, SVMs still excel when interpretability and computational efficiency are 
-key.
-
-### Further Readings
-
-- **ML Journey,** "Support Vector Machine Examples"  
-    ( https://mljourney.com/support-vector-machine-examples/ )
-
-- **IMB,** "What are Support Vector Machines"  
-    ( https://www.ibm.com/think/topics/support-vector-machine )
-- **National Library of Medicine,** "Evolution of Support Vector Machine and 
-Regression Modeling in Chemoinformatics and Drug Discovery"  
-    ( https://pmc.ncbi.nlm.nih.gov/articles/PMC9325859/ )
-- **Medium,** "The Forgotten Soviet Origins of the Support Vector Machine: How 
-a 1960s Soviet Algorithm Became a Pillar of Modern Machine Learning"  
-    ( https://valeman.medium.com/the-forgotten-soviet-origins-of-the-support-vector-machine-how-a-1960s-soviet-algorithm-became-a-54d3a8b728b7 )
