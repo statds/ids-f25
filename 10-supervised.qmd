@@ -353,11 +353,18 @@ y_pred = dt.predict(X)
 
 df_pred = pd.DataFrame({"Observed": y, "Predicted": y_pred})
 
-(gg.ggplot(df_pred, gg.aes(x="Observed", y="Predicted")) +
- gg.geom_point(alpha=0.5) +
- gg.geom_abline(slope=1, intercept=0, linetype="dashed") +
- gg.labs(title="Decision Tree Regression on Ames Housing",
-         x="Observed Log Price", y="Predicted Log Price"))
+p = (
+    gg.ggplot(df_pred, gg.aes(x="Observed", y="Predicted")) +
+    gg.geom_point(alpha=0.5) +
+    gg.geom_abline(slope=1, intercept=0, linetype="dashed") +
+    gg.labs(
+        title="Decision Tree Regression on Ames Housing",
+        x="Observed Log Price",
+        y="Predicted Log Price"
+    )
+)
+
+print(p)
 ```
 
 The plot shows predicted versus observed log prices. A well-fitted 
@@ -538,11 +545,18 @@ y_pred_gb = gb.predict(X)
 
 df_pred_gb = pd.DataFrame({"Observed": y, "Predicted": y_pred_gb})
 
-(gg.ggplot(df_pred_gb, gg.aes(x="Observed", y="Predicted")) +
- gg.geom_point(alpha=0.5) +
- gg.geom_abline(slope=1, intercept=0, linetype="dashed") +
- gg.labs(title="Gradient-Boosted Regression on Ames Housing",
-         x="Observed Log Price", y="Predicted Log Price"))
+p = (
+    gg.ggplot(df_pred_gb, gg.aes(x="Observed", y="Predicted"))
+    + gg.geom_point(alpha=0.5)
+    + gg.geom_abline(slope=1, intercept=0, linetype="dashed")
+    + gg.labs(
+        title="Gradient-Boosted Regression on Ames Housing",
+        x="Observed Log Price",
+        y="Predicted Log Price",
+    )
+)
+
+print(p)
 ```
 
 The boosted model produces predictions that are generally closer to the
@@ -618,6 +632,9 @@ better generalization performance in many practical tasks.
 
 <!-- This section is for random forest. -->
 {{< include _random_forest.qmd >}}
+
+<!-- This section is for variable importance. -->
+{{< include _variable_importance.qmd >}}
 
 <!-- This section is for SMOTE. -->
 {{< include _smote.qmd >}}

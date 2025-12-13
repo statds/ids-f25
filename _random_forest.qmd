@@ -209,11 +209,15 @@ y_pred = dt.predict(X)
 
 df_pred = pd.DataFrame({"Observed": y, "Predicted": y_pred})
 
-(gg.ggplot(df_pred, gg.aes(x="Observed", y="Predicted")) +
- gg.geom_point(alpha=0.5) +
- gg.geom_abline(slope=1, intercept=0, linetype="dashed") +
- gg.labs(title="Random Forest Regression on Ames Housing",
-         x="Observed Log Price", y="Predicted Log Price"))
+p = (
+    gg.ggplot(df_pred, gg.aes(x="Observed", y="Predicted")) +
+    gg.geom_point(alpha=0.5) +
+    gg.geom_abline(slope=1, intercept=0, linetype="dashed") +
+    gg.labs(title="Random Forest Regression on Ames Housing",
+            x="Observed Log Price", y="Predicted Log Price")
+    )
+
+print(p)
 ```
 
 
